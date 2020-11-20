@@ -1,0 +1,259 @@
+{
+  "nodeName": "#document",
+  "mode": "no-quirks",
+  "childNodes": [
+    {
+      "nodeName": "#documentType",
+      "name": "html",
+      "publicId": "",
+      "systemId": "",
+      "parentNode": "[Circular ~]",
+      "sourceCodeLocation": {
+        "startLine": 1,
+        "startCol": 1,
+        "startOffset": 0,
+        "endLine": 1,
+        "endCol": 16,
+        "endOffset": 15
+      }
+    },
+    {
+      "nodeName": "html",
+      "tagName": "html",
+      "attrs": [],
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
+      "childNodes": [
+        {
+          "nodeName": "head",
+          "tagName": "head",
+          "attrs": [],
+          "namespaceURI": "http://www.w3.org/1999/xhtml",
+          "childNodes": [],
+          "parentNode": "[Circular ~.childNodes.1]",
+          "sourceCodeLocation": null
+        },
+        {
+          "nodeName": "body",
+          "tagName": "body",
+          "attrs": [],
+          "namespaceURI": "http://www.w3.org/1999/xhtml",
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "value": "\n    ",
+              "parentNode": "[Circular ~.childNodes.1.childNodes.1]",
+              "sourceCodeLocation": {
+                "startLine": 3,
+                "startCol": 9,
+                "startOffset": 31,
+                "endLine": 4,
+                "endCol": 5,
+                "endOffset": 36
+              }
+            },
+            {
+              "nodeName": "h1",
+              "tagName": "h1",
+              "attrs": [],
+              "namespaceURI": "http://www.w3.org/1999/xhtml",
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "value": "My First Heading",
+                  "parentNode": "[Circular ~.childNodes.1.childNodes.1.childNodes.1]",
+                  "sourceCodeLocation": {
+                    "startLine": 4,
+                    "startCol": 9,
+                    "startOffset": 40,
+                    "endLine": 4,
+                    "endCol": 25,
+                    "endOffset": 56
+                  }
+                }
+              ],
+              "parentNode": "[Circular ~.childNodes.1.childNodes.1]",
+              "sourceCodeLocation": {
+                "startLine": 4,
+                "startCol": 5,
+                "startOffset": 36,
+                "endLine": 4,
+                "endCol": 30,
+                "endOffset": 61,
+                "startTag": {
+                  "startLine": 4,
+                  "startCol": 5,
+                  "startOffset": 36,
+                  "endLine": 4,
+                  "endCol": 9,
+                  "endOffset": 40
+                },
+                "endTag": {
+                  "startLine": 4,
+                  "startCol": 25,
+                  "startOffset": 56,
+                  "endLine": 4,
+                  "endCol": 30,
+                  "endOffset": 61
+                }
+              }
+            },
+            {
+              "nodeName": "#text",
+              "value": "\n  ",
+              "parentNode": "[Circular ~.childNodes.1.childNodes.1]",
+              "sourceCodeLocation": {
+                "startLine": 4,
+                "startCol": 30,
+                "startOffset": 61,
+                "endLine": 5,
+                "endCol": 3,
+                "endOffset": 64
+              }
+            },
+            {
+              "nodeName": "p",
+              "tagName": "p",
+              "attrs": [],
+              "namespaceURI": "http://www.w3.org/1999/xhtml",
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "value": "My first paragraph.",
+                  "parentNode": "[Circular ~.childNodes.1.childNodes.1.childNodes.3]",
+                  "sourceCodeLocation": {
+                    "startLine": 5,
+                    "startCol": 6,
+                    "startOffset": 67,
+                    "endLine": 5,
+                    "endCol": 25,
+                    "endOffset": 86
+                  }
+                },
+                {
+                  "nodeName": "u",
+                  "tagName": "u",
+                  "attrs": [],
+                  "namespaceURI": "http://www.w3.org/1999/xhtml",
+                  "childNodes": [],
+                  "parentNode": "[Circular ~.childNodes.1.childNodes.1.childNodes.3]",
+                  "sourceCodeLocation": {
+                    "startLine": 5,
+                    "startCol": 25,
+                    "startOffset": 86,
+                    "endLine": 5,
+                    "endCol": 32,
+                    "endOffset": 93,
+                    "startTag": {
+                      "startLine": 5,
+                      "startCol": 25,
+                      "startOffset": 86,
+                      "endLine": 5,
+                      "endCol": 28,
+                      "endOffset": 89
+                    },
+                    "endTag": {
+                      "startLine": 5,
+                      "startCol": 28,
+                      "startOffset": 89,
+                      "endLine": 5,
+                      "endCol": 32,
+                      "endOffset": 93
+                    }
+                  }
+                }
+              ],
+              "parentNode": "[Circular ~.childNodes.1.childNodes.1]",
+              "sourceCodeLocation": {
+                "startLine": 5,
+                "startCol": 3,
+                "startOffset": 64,
+                "endLine": 5,
+                "endCol": 36,
+                "endOffset": 97,
+                "startTag": {
+                  "startLine": 5,
+                  "startCol": 3,
+                  "startOffset": 64,
+                  "endLine": 5,
+                  "endCol": 6,
+                  "endOffset": 67
+                },
+                "endTag": {
+                  "startLine": 5,
+                  "startCol": 32,
+                  "startOffset": 93,
+                  "endLine": 5,
+                  "endCol": 36,
+                  "endOffset": 97
+                }
+              }
+            },
+            {
+              "nodeName": "#text",
+              "value": "\n\n\n",
+              "parentNode": "[Circular ~.childNodes.1.childNodes.1]",
+              "sourceCodeLocation": {
+                "startLine": 5,
+                "startCol": 36,
+                "startOffset": 97,
+                "endLine": 8,
+                "endCol": 1,
+                "endOffset": 114
+              }
+            }
+          ],
+          "parentNode": "[Circular ~.childNodes.1]",
+          "sourceCodeLocation": {
+            "startLine": 3,
+            "startCol": 3,
+            "startOffset": 25,
+            "endLine": 8,
+            "endCol": 1,
+            "endOffset": 114,
+            "startTag": {
+              "startLine": 3,
+              "startCol": 3,
+              "startOffset": 25,
+              "endLine": 3,
+              "endCol": 9,
+              "endOffset": 31
+            },
+            "endTag": {
+              "startLine": 6,
+              "startCol": 1,
+              "startOffset": 98,
+              "endLine": 6,
+              "endCol": 8,
+              "endOffset": 105
+            }
+          }
+        }
+      ],
+      "parentNode": "[Circular ~]",
+      "sourceCodeLocation": {
+        "startLine": 2,
+        "startCol": 1,
+        "startOffset": 16,
+        "endLine": 8,
+        "endCol": 1,
+        "endOffset": 114,
+        "startTag": {
+          "startLine": 2,
+          "startCol": 1,
+          "startOffset": 16,
+          "endLine": 2,
+          "endCol": 7,
+          "endOffset": 22
+        },
+        "endTag": {
+          "startLine": 7,
+          "startCol": 1,
+          "startOffset": 106,
+          "endLine": 7,
+          "endCol": 8,
+          "endOffset": 113
+        }
+      }
+    }
+  ]
+}

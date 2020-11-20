@@ -1,1 +1,1 @@
-# html5-eslint
+# html-eslint

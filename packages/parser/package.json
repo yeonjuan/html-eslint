@@ -1,0 +1,32 @@
+{
+  "name": "@html-eslint/parser",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "yeonjuan",
+  "homepage": "https://github.com/yeonjuan/html5-eslint#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeonjuan/html5-eslint.git"
+  },
+  "scripts": {
+    "test": "jest --coverage --verbose"
+  },
+  "bugs": {
+    "url": "https://github.com/yeonjuan/html5-eslint/issues"
+  },
+  "dependencies": {
+    "parse5": "^6.0.1"
+  }
+}

@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parser base 1`] = `
+Object {
+  "body": Array [],
+  "childNodes": Array [
+    Object {
+      "childNodes": Array [
+        Object {
+          "endCol": 0,
+          "endLine": 0,
+          "endOffset": 0,
+          "extra": Object {
+            "attrs": Array [],
+            "namespaceURI": "http://www.w3.org/1999/xhtml",
+            "tagName": "head",
+          },
+          "startCol": 0,
+          "startLine": 0,
+          "startOffset": 0,
+          "type": "head",
+        },
+        Object {
+          "endCol": 0,
+          "endLine": 0,
+          "endOffset": 0,
+          "extra": Object {
+            "attrs": Array [],
+            "namespaceURI": "http://www.w3.org/1999/xhtml",
+            "tagName": "body",
+          },
+          "startCol": 0,
+          "startLine": 0,
+          "startOffset": 0,
+          "type": "body",
+        },
+      ],
+      "end": 0,
+      "extra": Object {
+        "attrs": Array [],
+        "namespaceURI": "http://www.w3.org/1999/xhtml",
+        "tagName": "html",
+      },
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 0,
+          "line": 0,
+        },
+      },
+      "range": Array [
+        0,
+        0,
+      ],
+      "start": 0,
+      "type": "html",
+    },
+  ],
+  "comments": Array [],
+  "end": undefined,
+  "extra": Object {
+    "mode": "quirks",
+  },
+  "loc": Object {
+    "end": Object {
+      "column": undefined,
+      "line": undefined,
+    },
+    "start": Object {
+      "column": undefined,
+      "line": undefined,
+    },
+  },
+  "range": Array [
+    undefined,
+    undefined,
+  ],
+  "start": undefined,
+  "tokens": Array [],
+  "type": "Program",
+}
+`;

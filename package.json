@@ -1,0 +1,21 @@
+{
+  "name": "html-eslint",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "lerna run test",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write ."
+  },
+  "author": "yeonjuan",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-plugin-jest": "^24.1.3",
+    "jest": "^26.6.3",
+    "lerna": "^3.22.1",
+    "prettier": "^2.2.0",
+    "typescript": "^4.1.2"
+  }
+}

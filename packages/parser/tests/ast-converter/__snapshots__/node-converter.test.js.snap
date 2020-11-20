@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NodeConverter toNode() Should convert parse5 node to es format 1`] = `
+Object {
+  "body": Array [],
+  "comments": Array [],
+  "end": undefined,
+  "extra": Object {
+    "mode": "quirks",
+  },
+  "loc": Object {
+    "end": Object {
+      "column": undefined,
+      "line": undefined,
+    },
+    "start": Object {
+      "column": undefined,
+      "line": undefined,
+    },
+  },
+  "range": Array [
+    undefined,
+    undefined,
+  ],
+  "start": undefined,
+  "tokens": Array [],
+  "type": "Program",
+}
+`;
+
+exports[`NodeConverter toNode() Should convert parse5 node to es format 2`] = `
+Object {
+  "end": 26,
+  "extra": Object {
+    "value": "
+  
+",
+  },
+  "loc": Object {
+    "end": Object {
+      "column": 1,
+      "line": 4,
+    },
+    "start": Object {
+      "column": 9,
+      "line": 2,
+    },
+  },
+  "range": Array [
+    15,
+    26,
+  ],
+  "start": 15,
+  "type": "text",
+}
+`;
