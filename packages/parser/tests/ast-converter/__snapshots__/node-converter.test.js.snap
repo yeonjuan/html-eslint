@@ -5,9 +5,6 @@ Object {
   "body": Array [],
   "comments": Array [],
   "end": undefined,
-  "extra": Object {
-    "mode": "quirks",
-  },
   "loc": Object {
     "end": Object {
       "column": undefined,
@@ -18,6 +15,7 @@ Object {
       "line": undefined,
     },
   },
+  "mode": "quirks",
   "range": Array [
     undefined,
     undefined,
@@ -31,11 +29,6 @@ Object {
 exports[`NodeConverter toNode() Should convert parse5 node to es format 2`] = `
 Object {
   "end": 26,
-  "extra": Object {
-    "value": "
-  
-",
-  },
   "loc": Object {
     "end": Object {
       "column": 1,
@@ -51,6 +44,9 @@ Object {
     26,
   ],
   "start": 15,
-  "type": "text",
+  "type": "#text",
+  "value": "
+  
+",
 }
 `;
