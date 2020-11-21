@@ -6,11 +6,6 @@ Object {
   "childNodes": Array [
     Object {
       "end": 15,
-      "extra": Object {
-        "name": "html",
-        "publicId": "",
-        "systemId": "",
-      },
       "loc": Object {
         "end": Object {
           "column": 16,
@@ -21,37 +16,46 @@ Object {
           "line": 1,
         },
       },
+      "name": "html",
+      "publicId": "",
       "range": Array [
         0,
         15,
       ],
       "start": 0,
-      "type": "documentType",
+      "systemId": "",
+      "type": "#documentType",
     },
     Object {
+      "attrs": Array [],
       "childNodes": Array [
         Object {
-          "endCol": 0,
-          "endLine": 0,
-          "endOffset": 0,
-          "extra": Object {
-            "attrs": Array [],
-            "namespaceURI": "http://www.w3.org/1999/xhtml",
-            "tagName": "head",
+          "attrs": Array [],
+          "end": 0,
+          "loc": Object {
+            "end": Object {
+              "column": 0,
+              "line": 0,
+            },
+            "start": Object {
+              "column": 0,
+              "line": 0,
+            },
           },
-          "startCol": 0,
-          "startLine": 0,
-          "startOffset": 0,
+          "namespaceURI": "http://www.w3.org/1999/xhtml",
+          "range": Array [
+            0,
+            0,
+          ],
+          "start": 0,
+          "tagName": "head",
           "type": "head",
         },
         Object {
+          "attrs": Array [],
           "childNodes": Array [
             Object {
               "end": 36,
-              "extra": Object {
-                "value": "
-    ",
-              },
               "loc": Object {
                 "end": Object {
                   "column": 5,
@@ -67,15 +71,15 @@ Object {
                 36,
               ],
               "start": 31,
-              "type": "text",
+              "type": "#text",
+              "value": "
+    ",
             },
             Object {
+              "attrs": Array [],
               "childNodes": Array [
                 Object {
                   "end": 56,
-                  "extra": Object {
-                    "value": "My First Heading",
-                  },
                   "loc": Object {
                     "end": Object {
                       "column": 25,
@@ -91,15 +95,11 @@ Object {
                     56,
                   ],
                   "start": 40,
-                  "type": "text",
+                  "type": "#text",
+                  "value": "My First Heading",
                 },
               ],
               "end": 61,
-              "extra": Object {
-                "attrs": Array [],
-                "namespaceURI": "http://www.w3.org/1999/xhtml",
-                "tagName": "h1",
-              },
               "loc": Object {
                 "end": Object {
                   "column": 30,
@@ -110,19 +110,17 @@ Object {
                   "line": 4,
                 },
               },
+              "namespaceURI": "http://www.w3.org/1999/xhtml",
               "range": Array [
                 36,
                 61,
               ],
               "start": 36,
+              "tagName": "h1",
               "type": "h1",
             },
             Object {
               "end": 64,
-              "extra": Object {
-                "value": "
-  ",
-              },
               "loc": Object {
                 "end": Object {
                   "column": 3,
@@ -138,15 +136,15 @@ Object {
                 64,
               ],
               "start": 61,
-              "type": "text",
+              "type": "#text",
+              "value": "
+  ",
             },
             Object {
+              "attrs": Array [],
               "childNodes": Array [
                 Object {
                   "end": 86,
-                  "extra": Object {
-                    "value": "My first paragraph.",
-                  },
                   "loc": Object {
                     "end": Object {
                       "column": 25,
@@ -162,15 +160,12 @@ Object {
                     86,
                   ],
                   "start": 67,
-                  "type": "text",
+                  "type": "#text",
+                  "value": "My first paragraph.",
                 },
                 Object {
+                  "attrs": Array [],
                   "end": 93,
-                  "extra": Object {
-                    "attrs": Array [],
-                    "namespaceURI": "http://www.w3.org/1999/xhtml",
-                    "tagName": "u",
-                  },
                   "loc": Object {
                     "end": Object {
                       "column": 32,
@@ -181,20 +176,17 @@ Object {
                       "line": 5,
                     },
                   },
+                  "namespaceURI": "http://www.w3.org/1999/xhtml",
                   "range": Array [
                     86,
                     93,
                   ],
                   "start": 86,
+                  "tagName": "u",
                   "type": "u",
                 },
               ],
               "end": 97,
-              "extra": Object {
-                "attrs": Array [],
-                "namespaceURI": "http://www.w3.org/1999/xhtml",
-                "tagName": "p",
-              },
               "loc": Object {
                 "end": Object {
                   "column": 36,
@@ -205,21 +197,17 @@ Object {
                   "line": 5,
                 },
               },
+              "namespaceURI": "http://www.w3.org/1999/xhtml",
               "range": Array [
                 64,
                 97,
               ],
               "start": 64,
+              "tagName": "p",
               "type": "p",
             },
             Object {
               "end": 114,
-              "extra": Object {
-                "value": "
-
-
-",
-              },
               "loc": Object {
                 "end": Object {
                   "column": 1,
@@ -235,15 +223,14 @@ Object {
                 114,
               ],
               "start": 97,
-              "type": "text",
+              "type": "#text",
+              "value": "
+
+
+",
             },
           ],
           "end": 114,
-          "extra": Object {
-            "attrs": Array [],
-            "namespaceURI": "http://www.w3.org/1999/xhtml",
-            "tagName": "body",
-          },
           "loc": Object {
             "end": Object {
               "column": 1,
@@ -254,20 +241,17 @@ Object {
               "line": 3,
             },
           },
+          "namespaceURI": "http://www.w3.org/1999/xhtml",
           "range": Array [
             25,
             114,
           ],
           "start": 25,
+          "tagName": "body",
           "type": "body",
         },
       ],
       "end": 114,
-      "extra": Object {
-        "attrs": Array [],
-        "namespaceURI": "http://www.w3.org/1999/xhtml",
-        "tagName": "html",
-      },
       "loc": Object {
         "end": Object {
           "column": 1,
@@ -278,19 +262,18 @@ Object {
           "line": 2,
         },
       },
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         16,
         114,
       ],
       "start": 16,
+      "tagName": "html",
       "type": "html",
     },
   ],
   "comments": Array [],
   "end": 114,
-  "extra": Object {
-    "mode": "no-quirks",
-  },
   "loc": Object {
     "end": Object {
       "column": 1,
@@ -301,6 +284,7 @@ Object {
       "line": 1,
     },
   },
+  "mode": "no-quirks",
   "range": Array [
     0,
     114,

@@ -11,8 +11,8 @@ const NodeConverter = {
     const type = utils.toType(nodeName);
     return {
       type,
+      ...extra,
       ...utils.toESLocation(sourceCodeLocation, childNodes),
-      extra,
       ...(type === "Program"
         ? {
             body: [],

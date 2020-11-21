@@ -1,12 +1,19 @@
 function getLocFromChildNodes(childNodes) {
   if (!Array.isArray(childNodes) || childNodes.length <= 0) {
     return {
-      startOffset: 0,
-      startLine: 0,
-      startCol: 0,
-      endOffset: 0,
-      endLine: 0,
-      endCol: 0,
+      range: [0, 0],
+      start: 0,
+      end: 0,
+      loc: {
+        start: {
+          line: 0,
+          column: 0,
+        },
+        end: {
+          line: 0,
+          column: 0,
+        },
+      },
     };
   }
 
@@ -37,8 +44,7 @@ function getLocFromChildNodes(childNodes) {
 
 module.exports = {
   toType(nodeName) {
-    const type = nodeName.replace("#", "");
-    return type === "document" ? "Program" : type;
+    return nodeName === "#document" ? "Program" : nodeName;
   },
   toESLocation(sourceCodeLocation, childNodes = []) {
     if (sourceCodeLocation) {

@@ -5,7 +5,7 @@ const utils = require("../../lib/ast-converter/utils");
 describe("utils", () => {
   describe("toType()", () => {
     test("Should normaliz nodeType", () => {
-      expect(utils.toType("#text")).toBe("text");
+      expect(utils.toType("#text")).toBe("#text");
     });
 
     test("Should convert `#document` to `Program`", () => {
