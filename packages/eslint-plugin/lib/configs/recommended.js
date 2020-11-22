@@ -3,5 +3,6 @@ module.exports = {
     "require-lang": "error",
     "require-img-alt": "error",
     "require-doctype": "error",
+    "require-title": "error",
   },
 };
