@@ -32,14 +32,11 @@ module.exports = {
 
 ## Rules
 
-### SEO
+- 🔧 - Meaning the rule can fix problems aotomatically
+- ⭐ - Meaning the rule is recommended.
 
-| rule                                                               | description                        | recommended |
-| ------------------------------------------------------------------ | ---------------------------------- | ----------- |
-| [require-lang](/packages/eslint-plugin/docs/rules/require-lang.md) | enforce to use `lang` in `<html>`. | O           |
-
-### Accessibility
-
-| rule                                                                     | description                      | recommended |
-| ------------------------------------------------------------------------ | -------------------------------- | ----------- |
-| [require-img-alt](/packages/eslint-plugin/docs/rules/require-img-alt.md) | enforce to use `alt` in `<img>`. | O           |
+| rule                                                                     | description                        |       |
+| :----------------------------------------------------------------------- | :--------------------------------- | :---- |
+| [require-doctype](/packages/eslint-plugin/docs/rules/require-doctype.md) | Enforce to use `<!DOCTYPE HTML>`.  | ⭐ 🔧 |
+| [require-lang](/packages/eslint-plugin/docs/rules/require-lang.md)       | Enforce to use `lang` in `<html>`. | ⭐    |
+| [require-img-alt](/packages/eslint-plugin/docs/rules/require-img-alt.md) | Enforce to use `alt` in `<img>`.   | ⭐    |

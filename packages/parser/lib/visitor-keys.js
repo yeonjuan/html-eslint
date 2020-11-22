@@ -4,7 +4,6 @@ const visitorKeys = {
   html: ["childNodes"],
   head: ["childNodes"],
   body: ["childNodes"],
-  documentType: ["childNodes"],
 };
 
 module.exports = {

@@ -30,7 +30,7 @@ module.exports = {
 
   create(context) {
     return {
-      img(node) {
+      Img(node) {
         if (!hasAltAttrAndValue(node)) {
           context.report({
             node: node.startTag,

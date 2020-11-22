@@ -48,7 +48,7 @@ Object {
   ],
   "start": 15,
   "startTag": null,
-  "type": "#text",
+  "type": "text",
   "value": "
   
 ",

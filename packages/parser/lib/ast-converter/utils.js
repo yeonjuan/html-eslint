@@ -44,7 +44,9 @@ function getLocFromChildNodes(childNodes) {
 
 module.exports = {
   toType(nodeName) {
-    return nodeName === "#document" ? "Program" : nodeName;
+    let type = nodeName[0].toUpperCase() + nodeName.slice(1);
+    type = type.replace("#", "");
+    return type === "document" ? "Program" : type;
   },
   toESLocation(sourceCodeLocation, childNodes = []) {
     if (sourceCodeLocation) {

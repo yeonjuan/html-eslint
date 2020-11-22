@@ -20,4 +20,12 @@ describe("parser", () => {
 </html>`;
     expect(parser.parse(code)).toMatchSnapshot();
   });
+
+  it("DOCTYPE", () => {
+    const code = `
+<!DOCTYPE HTML>
+<html>
+</html>`;
+    expect(parser.parse(code)).toMatchSnapshot();
+  });
 });

@@ -1,5 +1,167 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parser DOCTYPE 1`] = `
+Object {
+  "body": Array [],
+  "childNodes": Array [
+    Object {
+      "end": 16,
+      "endTag": null,
+      "loc": Object {
+        "end": Object {
+          "column": 16,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 2,
+        },
+      },
+      "name": "html",
+      "publicId": "",
+      "range": Array [
+        1,
+        16,
+      ],
+      "start": 1,
+      "startTag": null,
+      "systemId": "",
+      "type": "documentType",
+    },
+    Object {
+      "attrs": Array [],
+      "childNodes": Array [
+        Object {
+          "attrs": Array [],
+          "end": 0,
+          "endTag": null,
+          "loc": Object {
+            "end": Object {
+              "column": 0,
+              "line": 0,
+            },
+            "start": Object {
+              "column": 0,
+              "line": 0,
+            },
+          },
+          "namespaceURI": "http://www.w3.org/1999/xhtml",
+          "range": Array [
+            0,
+            0,
+          ],
+          "start": 0,
+          "startTag": null,
+          "tagName": "head",
+          "type": "Head",
+        },
+        Object {
+          "attrs": Array [],
+          "end": 0,
+          "endTag": null,
+          "loc": Object {
+            "end": Object {
+              "column": 0,
+              "line": 0,
+            },
+            "start": Object {
+              "column": 0,
+              "line": 0,
+            },
+          },
+          "namespaceURI": "http://www.w3.org/1999/xhtml",
+          "range": Array [
+            0,
+            0,
+          ],
+          "start": 0,
+          "startTag": null,
+          "tagName": "body",
+          "type": "Body",
+        },
+      ],
+      "end": 31,
+      "endTag": Object {
+        "end": 31,
+        "loc": Object {
+          "end": Object {
+            "column": 8,
+            "line": 4,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 4,
+          },
+        },
+        "range": Array [
+          24,
+          31,
+        ],
+        "start": 24,
+      },
+      "loc": Object {
+        "end": Object {
+          "column": 8,
+          "line": 4,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 3,
+        },
+      },
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
+      "range": Array [
+        17,
+        31,
+      ],
+      "start": 17,
+      "startTag": Object {
+        "end": 23,
+        "loc": Object {
+          "end": Object {
+            "column": 7,
+            "line": 3,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 3,
+          },
+        },
+        "range": Array [
+          17,
+          23,
+        ],
+        "start": 17,
+      },
+      "tagName": "html",
+      "type": "Html",
+    },
+  ],
+  "comments": Array [],
+  "end": 31,
+  "endTag": null,
+  "loc": Object {
+    "end": Object {
+      "column": 8,
+      "line": 4,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 2,
+    },
+  },
+  "mode": "no-quirks",
+  "range": Array [
+    1,
+    31,
+  ],
+  "start": 1,
+  "startTag": null,
+  "tokens": Array [],
+  "type": "Program",
+}
+`;
+
 exports[`parser base 1`] = `
 Object {
   "body": Array [],
@@ -29,7 +191,7 @@ Object {
           "start": 0,
           "startTag": null,
           "tagName": "head",
-          "type": "head",
+          "type": "Head",
         },
         Object {
           "attrs": Array [],
@@ -53,7 +215,7 @@ Object {
           "start": 0,
           "startTag": null,
           "tagName": "body",
-          "type": "body",
+          "type": "Body",
         },
       ],
       "end": 15,
@@ -110,7 +272,7 @@ Object {
         "start": 1,
       },
       "tagName": "html",
-      "type": "html",
+      "type": "Html",
     },
   ],
   "comments": Array [],

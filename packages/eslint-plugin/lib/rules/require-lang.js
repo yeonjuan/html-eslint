@@ -2,7 +2,7 @@
  * @typedef {import("../types").RuleCategory} RuleCategory
  */
 
- /**
+/**
  * @type {RuleCategory}
  */
 const CATEGORY = require("../constants/rule-category");
@@ -33,7 +33,7 @@ module.exports = {
 
   create(context) {
     return {
-      html(node) {
+      Html(node) {
         const attrs = node.attrs || [];
         const langAttr = attrs.find(isLangAttribute);
         if (!langAttr) {

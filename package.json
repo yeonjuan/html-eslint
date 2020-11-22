@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "lerna run test",
+    "test": "lerna run test --stream",
     "lint": "eslint . --ext .js",
     "format": "prettier --write ."
   },
