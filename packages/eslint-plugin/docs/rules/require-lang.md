@@ -30,4 +30,3 @@ Examples of **correct** code for this rule:
 ## Further reading
 
 [MDN - lang](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/lang)
-This information helps search engines return language specific results, and it is also used by screen readers that switch language profiles to provide the correct accent and pronunciation.

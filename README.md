@@ -35,12 +35,12 @@ module.exports = {
 ### SEO
 
 | rule | description | recommended |
-| --- | --- | --- | --- |
-| [require-lang](/packages/eslint-plugin/docs/rules/require-lang.md) |  | O |
+| --- | --- | --- |
+| [require-lang](/packages/eslint-plugin/docs/rules/require-lang.md) | enforce to use `lang` in `<html>`. | O |
 
 ### Accessibility
 
 | rule | description | recommended |
 | --- | --- | --- |
-| [require-img-alt](/packages/eslint-plugin/docs/rules/require-img-alt.md) |  | O |
+| [require-img-alt](/packages/eslint-plugin/docs/rules/require-img-alt.md) | enforce to use `alt` in `<img>`. | O |
 
