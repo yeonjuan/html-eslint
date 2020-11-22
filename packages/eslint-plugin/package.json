@@ -1,10 +1,10 @@
 {
   "name": "@html-eslint/eslint-plugin",
   "version": "0.0.4",
-  "description": "> TODO: description",
+  "description": "ESLint plugin for html",
   "author": "yeonjuan",
-  "homepage": "https://github.com/yeonjuan/html5-eslint#readme",
-  "license": "ISC",
+  "homepage": "https://github.com/yeonjuan/html-eslint#readme",
+  "license": "MIT",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib",
@@ -18,13 +18,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yeonjuan/html5-eslint.git"
+    "url": "git+https://github.com/yeonjuan/html-eslint.git"
   },
   "scripts": {
     "test": "jest --coverage"
   },
   "bugs": {
-    "url": "https://github.com/yeonjuan/html5-eslint/issues"
+    "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "devDependencies": {
     "@html-eslint/parser": "^0.0.4"

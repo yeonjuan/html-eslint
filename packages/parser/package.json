@@ -1,9 +1,9 @@
 {
   "name": "@html-eslint/parser",
   "version": "0.0.4",
-  "description": "> TODO: description",
+  "description": "Parser for @html-eslint/eslint-plugin",
   "author": "yeonjuan",
-  "homepage": "https://github.com/yeonjuan/html5-eslint#readme",
+  "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "lib/index.js",
   "directories": {
@@ -18,13 +18,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yeonjuan/html5-eslint.git"
+    "url": "git+https://github.com/yeonjuan/html-eslint.git"
   },
   "scripts": {
     "test": "jest --coverage --verbose --updateSnapshot"
   },
   "bugs": {
-    "url": "https://github.com/yeonjuan/html5-eslint/issues"
+    "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "dependencies": {
     "parse5": "^6.0.1"
