@@ -20,7 +20,7 @@ module.exports = {
     docs: {
       description: "require `lang` attribute at `<html>` tag",
       category: CATEGORY.SEO,
-      recommended: false,
+      recommended: true,
     },
 
     fixable: null,

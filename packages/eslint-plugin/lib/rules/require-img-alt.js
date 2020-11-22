@@ -18,7 +18,7 @@ module.exports = {
     docs: {
       description: "require `alt` attribute at `<img>` tag",
       category: CATEGORY.ACCESSIBILITY,
-      recommended: false,
+      recommended: true,
     },
 
     fixable: null,

@@ -5,5 +5,5 @@ const requireDoctype = require("./require-doctype");
 module.exports = {
   "require-lang": requireLang,
   "require-img-alt": requireImgAlt,
-  "require-doctype": requireDoctype
+  "require-doctype": requireDoctype,
 };
