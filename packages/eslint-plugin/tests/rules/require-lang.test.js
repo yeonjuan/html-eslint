@@ -22,7 +22,9 @@ ruleTester.run("require-lang", rule, {
       filename: "test.html",
       errors: [
         {
-          messageId: "missingLang"
+          messageId: "missingLang",
+          line: 2,
+          endLine: 4,
         }
       ]
     },

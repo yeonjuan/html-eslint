@@ -15,7 +15,9 @@ describe("parser", () => {
   });
 
   it("base", () => {
-    const code = "<html></html>";
+    const code = `
+<html>
+</html>`;
     expect(parser.parse(code)).toMatchSnapshot();
   });
 });

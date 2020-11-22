@@ -14,7 +14,9 @@ class Parser {
    * @param {string} code
    */
   parse(code) {
-    const htmlAST = parse5.parse(code);
+    const htmlAST = parse5.parse(code, {
+      sourceCodeLocationInfo: true,
+    });
     return this.astCoverter.convert(htmlAST);
   }
 }

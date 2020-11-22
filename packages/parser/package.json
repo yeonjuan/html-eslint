@@ -21,7 +21,7 @@
     "url": "git+https://github.com/yeonjuan/html5-eslint.git"
   },
   "scripts": {
-    "test": "jest --coverage --verbose"
+    "test": "jest --coverage --verbose --updateSnapshot"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html5-eslint/issues"
