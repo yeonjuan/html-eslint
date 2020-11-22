@@ -13,6 +13,12 @@ const NodeConverter = {
       type,
       ...extra,
       ...utils.toESLocation(sourceCodeLocation, childNodes),
+      startTag: (sourceCodeLocation && sourceCodeLocation.startTag) ? {
+        ...utils.toESLocation(sourceCodeLocation.startTag),
+      } : null,
+      endTag: (sourceCodeLocation && sourceCodeLocation.endTag) ? {
+        ...utils.toESLocation(sourceCodeLocation.endTag),
+      }: null,
       ...(type === "Program"
         ? {
             body: [],

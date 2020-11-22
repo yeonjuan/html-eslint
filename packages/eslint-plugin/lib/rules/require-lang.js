@@ -30,12 +30,12 @@ module.exports = {
         const langAttr = attrs.find(isLangAttribute);
         if (!langAttr) {
           context.report({
-            node,
+            node: node.startTag,
             messageId: MESSAGE_IDS.MISSING_LANG
           });
         } else if (!IOS_639_1.includes(langAttr.value)) {
           context.report({
-            node,
+            node: node.startTag,
             messageId: MESSAGE_IDS.INVALID_LANG
           }); 
         }

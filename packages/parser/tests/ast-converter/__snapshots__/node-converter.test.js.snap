@@ -5,6 +5,7 @@ Object {
   "body": Array [],
   "comments": Array [],
   "end": undefined,
+  "endTag": null,
   "loc": Object {
     "end": Object {
       "column": undefined,
@@ -21,6 +22,7 @@ Object {
     undefined,
   ],
   "start": undefined,
+  "startTag": null,
   "tokens": Array [],
   "type": "Program",
 }
@@ -29,6 +31,7 @@ Object {
 exports[`NodeConverter toNode() Should convert parse5 node to es format 2`] = `
 Object {
   "end": 26,
+  "endTag": null,
   "loc": Object {
     "end": Object {
       "column": 1,
@@ -44,6 +47,7 @@ Object {
     26,
   ],
   "start": 15,
+  "startTag": null,
   "type": "#text",
   "value": "
   

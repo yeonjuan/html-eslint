@@ -10,6 +10,7 @@ Object {
         Object {
           "attrs": Array [],
           "end": 0,
+          "endTag": null,
           "loc": Object {
             "end": Object {
               "column": 0,
@@ -26,12 +27,14 @@ Object {
             0,
           ],
           "start": 0,
+          "startTag": null,
           "tagName": "head",
           "type": "head",
         },
         Object {
           "attrs": Array [],
           "end": 0,
+          "endTag": null,
           "loc": Object {
             "end": Object {
               "column": 0,
@@ -48,11 +51,30 @@ Object {
             0,
           ],
           "start": 0,
+          "startTag": null,
           "tagName": "body",
           "type": "body",
         },
       ],
       "end": 15,
+      "endTag": Object {
+        "end": 15,
+        "loc": Object {
+          "end": Object {
+            "column": 8,
+            "line": 3,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 3,
+          },
+        },
+        "range": Array [
+          8,
+          15,
+        ],
+        "start": 8,
+      },
       "loc": Object {
         "end": Object {
           "column": 8,
@@ -69,12 +91,31 @@ Object {
         15,
       ],
       "start": 1,
+      "startTag": Object {
+        "end": 7,
+        "loc": Object {
+          "end": Object {
+            "column": 7,
+            "line": 2,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 2,
+          },
+        },
+        "range": Array [
+          1,
+          7,
+        ],
+        "start": 1,
+      },
       "tagName": "html",
       "type": "html",
     },
   ],
   "comments": Array [],
   "end": 15,
+  "endTag": null,
   "loc": Object {
     "end": Object {
       "column": 8,
@@ -91,6 +132,7 @@ Object {
     15,
   ],
   "start": 1,
+  "startTag": null,
   "tokens": Array [],
   "type": "Program",
 }

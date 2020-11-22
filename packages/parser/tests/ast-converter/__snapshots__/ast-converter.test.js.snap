@@ -6,6 +6,7 @@ Object {
   "childNodes": Array [
     Object {
       "end": 15,
+      "endTag": null,
       "loc": Object {
         "end": Object {
           "column": 16,
@@ -23,6 +24,7 @@ Object {
         15,
       ],
       "start": 0,
+      "startTag": null,
       "systemId": "",
       "type": "#documentType",
     },
@@ -32,6 +34,7 @@ Object {
         Object {
           "attrs": Array [],
           "end": 0,
+          "endTag": null,
           "loc": Object {
             "end": Object {
               "column": 0,
@@ -48,6 +51,7 @@ Object {
             0,
           ],
           "start": 0,
+          "startTag": null,
           "tagName": "head",
           "type": "head",
         },
@@ -56,6 +60,7 @@ Object {
           "childNodes": Array [
             Object {
               "end": 36,
+              "endTag": null,
               "loc": Object {
                 "end": Object {
                   "column": 5,
@@ -71,6 +76,7 @@ Object {
                 36,
               ],
               "start": 31,
+              "startTag": null,
               "type": "#text",
               "value": "
     ",
@@ -80,6 +86,7 @@ Object {
               "childNodes": Array [
                 Object {
                   "end": 56,
+                  "endTag": null,
                   "loc": Object {
                     "end": Object {
                       "column": 25,
@@ -95,11 +102,30 @@ Object {
                     56,
                   ],
                   "start": 40,
+                  "startTag": null,
                   "type": "#text",
                   "value": "My First Heading",
                 },
               ],
               "end": 61,
+              "endTag": Object {
+                "end": 61,
+                "loc": Object {
+                  "end": Object {
+                    "column": 30,
+                    "line": 4,
+                  },
+                  "start": Object {
+                    "column": 25,
+                    "line": 4,
+                  },
+                },
+                "range": Array [
+                  56,
+                  61,
+                ],
+                "start": 56,
+              },
               "loc": Object {
                 "end": Object {
                   "column": 30,
@@ -116,11 +142,30 @@ Object {
                 61,
               ],
               "start": 36,
+              "startTag": Object {
+                "end": 40,
+                "loc": Object {
+                  "end": Object {
+                    "column": 9,
+                    "line": 4,
+                  },
+                  "start": Object {
+                    "column": 5,
+                    "line": 4,
+                  },
+                },
+                "range": Array [
+                  36,
+                  40,
+                ],
+                "start": 36,
+              },
               "tagName": "h1",
               "type": "h1",
             },
             Object {
               "end": 64,
+              "endTag": null,
               "loc": Object {
                 "end": Object {
                   "column": 3,
@@ -136,6 +181,7 @@ Object {
                 64,
               ],
               "start": 61,
+              "startTag": null,
               "type": "#text",
               "value": "
   ",
@@ -145,6 +191,7 @@ Object {
               "childNodes": Array [
                 Object {
                   "end": 86,
+                  "endTag": null,
                   "loc": Object {
                     "end": Object {
                       "column": 25,
@@ -160,12 +207,31 @@ Object {
                     86,
                   ],
                   "start": 67,
+                  "startTag": null,
                   "type": "#text",
                   "value": "My first paragraph.",
                 },
                 Object {
                   "attrs": Array [],
                   "end": 93,
+                  "endTag": Object {
+                    "end": 93,
+                    "loc": Object {
+                      "end": Object {
+                        "column": 32,
+                        "line": 5,
+                      },
+                      "start": Object {
+                        "column": 28,
+                        "line": 5,
+                      },
+                    },
+                    "range": Array [
+                      89,
+                      93,
+                    ],
+                    "start": 89,
+                  },
                   "loc": Object {
                     "end": Object {
                       "column": 32,
@@ -182,11 +248,47 @@ Object {
                     93,
                   ],
                   "start": 86,
+                  "startTag": Object {
+                    "end": 89,
+                    "loc": Object {
+                      "end": Object {
+                        "column": 28,
+                        "line": 5,
+                      },
+                      "start": Object {
+                        "column": 25,
+                        "line": 5,
+                      },
+                    },
+                    "range": Array [
+                      86,
+                      89,
+                    ],
+                    "start": 86,
+                  },
                   "tagName": "u",
                   "type": "u",
                 },
               ],
               "end": 97,
+              "endTag": Object {
+                "end": 97,
+                "loc": Object {
+                  "end": Object {
+                    "column": 36,
+                    "line": 5,
+                  },
+                  "start": Object {
+                    "column": 32,
+                    "line": 5,
+                  },
+                },
+                "range": Array [
+                  93,
+                  97,
+                ],
+                "start": 93,
+              },
               "loc": Object {
                 "end": Object {
                   "column": 36,
@@ -203,11 +305,30 @@ Object {
                 97,
               ],
               "start": 64,
+              "startTag": Object {
+                "end": 67,
+                "loc": Object {
+                  "end": Object {
+                    "column": 6,
+                    "line": 5,
+                  },
+                  "start": Object {
+                    "column": 3,
+                    "line": 5,
+                  },
+                },
+                "range": Array [
+                  64,
+                  67,
+                ],
+                "start": 64,
+              },
               "tagName": "p",
               "type": "p",
             },
             Object {
               "end": 114,
+              "endTag": null,
               "loc": Object {
                 "end": Object {
                   "column": 1,
@@ -223,6 +344,7 @@ Object {
                 114,
               ],
               "start": 97,
+              "startTag": null,
               "type": "#text",
               "value": "
 
@@ -231,6 +353,24 @@ Object {
             },
           ],
           "end": 114,
+          "endTag": Object {
+            "end": 105,
+            "loc": Object {
+              "end": Object {
+                "column": 8,
+                "line": 6,
+              },
+              "start": Object {
+                "column": 1,
+                "line": 6,
+              },
+            },
+            "range": Array [
+              98,
+              105,
+            ],
+            "start": 98,
+          },
           "loc": Object {
             "end": Object {
               "column": 1,
@@ -247,11 +387,47 @@ Object {
             114,
           ],
           "start": 25,
+          "startTag": Object {
+            "end": 31,
+            "loc": Object {
+              "end": Object {
+                "column": 9,
+                "line": 3,
+              },
+              "start": Object {
+                "column": 3,
+                "line": 3,
+              },
+            },
+            "range": Array [
+              25,
+              31,
+            ],
+            "start": 25,
+          },
           "tagName": "body",
           "type": "body",
         },
       ],
       "end": 114,
+      "endTag": Object {
+        "end": 113,
+        "loc": Object {
+          "end": Object {
+            "column": 8,
+            "line": 7,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 7,
+          },
+        },
+        "range": Array [
+          106,
+          113,
+        ],
+        "start": 106,
+      },
       "loc": Object {
         "end": Object {
           "column": 1,
@@ -268,12 +444,31 @@ Object {
         114,
       ],
       "start": 16,
+      "startTag": Object {
+        "end": 22,
+        "loc": Object {
+          "end": Object {
+            "column": 7,
+            "line": 2,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 2,
+          },
+        },
+        "range": Array [
+          16,
+          22,
+        ],
+        "start": 16,
+      },
       "tagName": "html",
       "type": "html",
     },
   ],
   "comments": Array [],
   "end": 114,
+  "endTag": null,
   "loc": Object {
     "end": Object {
       "column": 1,
@@ -290,6 +485,7 @@ Object {
     114,
   ],
   "start": 0,
+  "startTag": null,
   "tokens": Array [],
   "type": "Program",
 }

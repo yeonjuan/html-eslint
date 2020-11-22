@@ -24,7 +24,9 @@ ruleTester.run("require-lang", rule, {
         {
           messageId: "missingLang",
           line: 2,
-          endLine: 4,
+          column: 2,
+          endColumn: 8,
+          endLine: 2,
         }
       ]
     },
