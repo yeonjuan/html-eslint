@@ -13,6 +13,10 @@ HTML 의 `lang` 속성은 웹 컨텐츠에서 사용하는 언어를 표시합�
 <html>
   ...
 </html>
+
+<html lang="unkown">
+  ...
+</html>
 ```
 
 **올바른** 코드 예시:

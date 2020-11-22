@@ -13,6 +13,10 @@ Examples of **incorrect** code for this rule:
 <html>
   ...
 </html>
+
+<html lang="unkown">
+  ...
+</html>
 ```
 
 Examples of **correct** code for this rule:
