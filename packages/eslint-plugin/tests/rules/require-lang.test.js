@@ -22,7 +22,7 @@ ruleTester.run("require-lang", rule, {
       filename: "test.html",
       errors: [
         {
-          messageId: "missingLangAttr"
+          messageId: "missingLang"
         }
       ]
     },
@@ -34,7 +34,7 @@ ruleTester.run("require-lang", rule, {
       filename: "test.html",
       errors: [
         {
-          messageId: "missingLangValue"
+          messageId: "invalidLang"
         }
       ]
     },
@@ -46,7 +46,19 @@ ruleTester.run("require-lang", rule, {
       filename: "test.html",
       errors: [
         {
-          messageId: "missingLangValue"
+          messageId: "invalidLang"
+        }
+      ]
+    },
+    {
+      code: `
+<html lang="unkown">
+</html>
+`,
+      filename: "test.html",
+      errors: [
+        {
+          messageId: "invalidLang"
         }
       ]
     }
