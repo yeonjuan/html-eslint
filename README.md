@@ -5,8 +5,6 @@
 - [Installation](#Installation)
 - [Configuration](#Configuration)
 - [Rules](#Rules)
-  - [SEO](#SEO)
-  - [Accessibility](#Accessibility)
 
 ## Installation
 
@@ -41,3 +39,4 @@ module.exports = {
 | [require-lang](/packages/eslint-plugin/docs/rules/require-lang.md)       | Enforce to use `lang` in `<html>`.            | ⭐    |
 | [require-img-alt](/packages/eslint-plugin/docs/rules/require-img-alt.md) | Enforce to use `alt` in `<img>`.              | ⭐    |
 | [require-title](/packages/eslint-plugin/docs/rules/require-title.md)     | Enforce to use `<title><title/>` in `<head>`. | ⭐    |
+| [no-duplicate-id](/packages/eslint-plugin/docs/rules/no-duplicate-id.md) | Disallow the duplicated `id`                  | ⭐    |
