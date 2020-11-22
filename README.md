@@ -2,9 +2,9 @@
 
 ## Table of Contents
 
-* [Installation](#Installation)
-* [Configuration](#Configuration)
-* [Rules](#Rules)
+- [Installation](#Installation)
+- [Configuration](#Configuration)
+- [Rules](#Rules)
   - [SEO](#SEO)
   - [Accessibility](#Accessibility)
 
@@ -24,23 +24,22 @@ module.exports = {
     {
       files: ["*.html"],
       parser: "@html-eslint/parser",
-      extends: ["@html-eslint/recommended"]
-    }
-  ]
-}
+      extends: ["@html-eslint/recommended"],
+    },
+  ],
+};
 ```
 
 ## Rules
 
 ### SEO
 
-| rule | description | recommended |
-| --- | --- | --- |
-| [require-lang](/packages/eslint-plugin/docs/rules/require-lang.md) | enforce to use `lang` in `<html>`. | O |
+| rule                                                               | description                        | recommended |
+| ------------------------------------------------------------------ | ---------------------------------- | ----------- |
+| [require-lang](/packages/eslint-plugin/docs/rules/require-lang.md) | enforce to use `lang` in `<html>`. | O           |
 
 ### Accessibility
 
-| rule | description | recommended |
-| --- | --- | --- |
-| [require-img-alt](/packages/eslint-plugin/docs/rules/require-img-alt.md) | enforce to use `alt` in `<img>`. | O |
-
+| rule                                                                     | description                      | recommended |
+| ------------------------------------------------------------------------ | -------------------------------- | ----------- |
+| [require-img-alt](/packages/eslint-plugin/docs/rules/require-img-alt.md) | enforce to use `alt` in `<img>`. | O           |

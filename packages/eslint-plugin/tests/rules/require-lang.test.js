@@ -27,8 +27,8 @@ ruleTester.run("require-lang", rule, {
           column: 2,
           endColumn: 8,
           endLine: 2,
-        }
-      ]
+        },
+      ],
     },
     {
       code: `
@@ -38,9 +38,9 @@ ruleTester.run("require-lang", rule, {
       filename: "test.html",
       errors: [
         {
-          messageId: "invalidLang"
-        }
-      ]
+          messageId: "invalidLang",
+        },
+      ],
     },
     {
       code: `
@@ -50,9 +50,9 @@ ruleTester.run("require-lang", rule, {
       filename: "test.html",
       errors: [
         {
-          messageId: "invalidLang"
-        }
-      ]
+          messageId: "invalidLang",
+        },
+      ],
     },
     {
       code: `
@@ -62,9 +62,9 @@ ruleTester.run("require-lang", rule, {
       filename: "test.html",
       errors: [
         {
-          messageId: "invalidLang"
-        }
-      ]
-    }
+          messageId: "invalidLang",
+        },
+      ],
+    },
   ],
 });

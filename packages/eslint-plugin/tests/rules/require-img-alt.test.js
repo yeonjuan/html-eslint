@@ -31,8 +31,8 @@ ruleTester.run("require-img-alt", rule, {
       errors: [
         {
           messageId: "missingAlt",
-        }
-      ]
+        },
+      ],
     },
     {
       code: `
@@ -50,8 +50,8 @@ ruleTester.run("require-img-alt", rule, {
           column: 6,
           endColumn: 29,
           endLine: 4,
-        }
-      ]
+        },
+      ],
     },
     {
       code: `
@@ -69,8 +69,8 @@ ruleTester.run("require-img-alt", rule, {
           column: 6,
           endColumn: 36,
           endLine: 4,
-        }
-      ]
+        },
+      ],
     },
     {
       code: `
@@ -86,8 +86,8 @@ ruleTester.run("require-img-alt", rule, {
       errors: [
         {
           messageId: "missingAlt",
-        }
-      ]
+        },
+      ],
     },
   ],
 });

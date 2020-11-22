@@ -11,15 +11,16 @@ This rule enforces the `alt` attribute at `img` tag.
 Examples of **incorrect** code for this rule:
 
 ```html
-<img src="image.png">
+<img src="image.png" />
 
-<img src="image.png" alt=""> <!-- empty value -->
+<img src="image.png" alt="" />
+<!-- empty value -->
 ```
 
 Examples of **correct** code for this rule:
 
 ```html
-<img src="image.png" alt="some descroption">
+<img src="image.png" alt="some descroption" />
 ```
 
 ## Further reading
