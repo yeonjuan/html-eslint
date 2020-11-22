@@ -1,8 +1,8 @@
 module.exports = {
   rules: {
-    "require-lang": "error",
-    "require-img-alt": "error",
-    "require-doctype": "error",
-    "require-title": "error",
+    "@html-eslint/require-lang": "error",
+    "@html-eslint/equire-img-alt": "error",
+    "@html-eslint/require-doctype": "error",
+    "@html-eslint/require-title": "error",
   },
 };

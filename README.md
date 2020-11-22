@@ -1,5 +1,7 @@
 # html-eslint
 
+Monorepo for ESLint plugin which supports linting HTML(HyperText Markup Language) with [ESLint](https://github.com/eslint/eslint).
+
 ## Table of Contents
 
 - [Installation](#Installation)
@@ -14,6 +16,8 @@ $ npm install --save-dev eslint @html-eslint/parser @html-eslint/eslint-plugin
 
 ## Configuration
 
+Populate it with the following on your `.eslintrc.js`. If it does not exist create a `.eslintrc.js` config file in the root of your project.
+
 ```js
 module.exports = {
   //...
@@ -22,7 +26,7 @@ module.exports = {
     {
       files: ["*.html"],
       parser: "@html-eslint/parser",
-      extends: ["@html-eslint/recommended"],
+      extends: ["plugin:@html-eslint/recommended"],
     },
   ],
 };
@@ -33,11 +37,11 @@ module.exports = {
 - 🔧 - Meaning the rule can fix problems aotomatically
 - ⭐ - Meaning the rule is recommended.
 
-| rule                                                                       | description                                   |       |
-| :------------------------------------------------------------------------- | :-------------------------------------------- | :---- |
-| [require-doctype](/packages/eslint-plugin/docs/rules/require-doctype.md)   | Enforce to use `<!DOCTYPE HTML>`.             | ⭐ 🔧 |
-| [require-lang](/packages/eslint-plugin/docs/rules/require-lang.md)         | Enforce to use `lang` in `<html>`.            | ⭐    |
-| [require-img-alt](/packages/eslint-plugin/docs/rules/require-img-alt.md)   | Enforce to use `alt` in `<img>`.              | ⭐    |
-| [require-title](/packages/eslint-plugin/docs/rules/require-title.md)       | Enforce to use `<title><title/>` in `<head>`. | ⭐    |
-| [no-duplicate-id](/packages/eslint-plugin/docs/rules/no-duplicate-id.md)   | Disallow the duplicated `id`                  | ⭐    |
-| [no-inline-styles](/packages/eslint-plugin/docs/rules/no-inline-styles.md) | Disallow using inline styles                  |       |
+| rule                                                                                    | description                                   |       |
+| :-------------------------------------------------------------------------------------- | :-------------------------------------------- | :---- |
+| [@html-eslint/require-doctype](/packages/eslint-plugin/docs/rules/require-doctype.md)   | Enforce to use `<!DOCTYPE HTML>`.             | ⭐ 🔧 |
+| [@html-eslint/require-lang](/packages/eslint-plugin/docs/rules/require-lang.md)         | Enforce to use `lang` in `<html>`.            | ⭐    |
+| [@html-eslint/require-img-alt](/packages/eslint-plugin/docs/rules/require-img-alt.md)   | Enforce to use `alt` in `<img>`.              | ⭐    |
+| [@html-eslint/require-title](/packages/eslint-plugin/docs/rules/require-title.md)       | Enforce to use `<title><title/>` in `<head>`. | ⭐    |
+| [@html-eslint/no-duplicate-id](/packages/eslint-plugin/docs/rules/no-duplicate-id.md)   | Disallow the duplicated `id`                  | ⭐    |
+| [@html-eslint/no-inline-styles](/packages/eslint-plugin/docs/rules/no-inline-styles.md) | Disallow using inline styles                  |       |
