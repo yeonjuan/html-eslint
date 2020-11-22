@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/eslint-plugin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "> TODO: description",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html5-eslint#readme",
@@ -27,6 +27,6 @@
     "url": "https://github.com/yeonjuan/html5-eslint/issues"
   },
   "devDependencies": {
-    "@html-eslint/parser": "^0.0.3"
+    "@html-eslint/parser": "^0.0.4"
   }
 }
