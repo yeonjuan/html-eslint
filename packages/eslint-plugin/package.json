@@ -1,11 +1,11 @@
 {
   "name": "@html-eslint/eslint-plugin",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "> TODO: description",
-  "author": "yeonjuan <yeonjuan93@naver.com>",
+  "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html5-eslint#readme",
   "license": "ISC",
-  "main": "lib/eslint-plugin.js",
+  "main": "lib/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -27,6 +27,6 @@
     "url": "https://github.com/yeonjuan/html5-eslint/issues"
   },
   "devDependencies": {
-    "@html-eslint/parser": "^0.0.0"
+    "@html-eslint/parser": "^0.0.1"
   }
 }

@@ -1,6 +1,6 @@
 {
-  "name": "html-eslint",
-  "version": "1.0.0",
+  "name": "@html-eslint/html-eslint",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
