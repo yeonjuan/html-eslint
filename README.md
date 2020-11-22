@@ -2,6 +2,8 @@
 
 Monorepo for ESLint plugin which supports linting HTML(HyperText Markup Language) with [ESLint](https://github.com/eslint/eslint).
 
+⚠️ This project is experimental until the releasing v1.0.0.
+
 ## Table of Contents
 
 - [Installation](#Installation)
