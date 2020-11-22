@@ -1,5 +1,14 @@
+/**
+ * @typedef {import("../types").RuleCategory} RuleCategory
+ */
+
+/**
+ * @type {RuleCategory}
+ */
+const CATEGORY = require("../constants/rule-category");
+
 const MESSAGE_IDS = {
-  MISSING_ALT: 'missingAlt',
+  MISSING_ALT: "missingAlt",
 };
 
 module.exports = {
@@ -8,7 +17,7 @@ module.exports = {
 
     docs: {
       description: "require `alt` attribute at `<img>` tag",
-      category: "accessibility",
+      category: CATEGORY.ACCESSIBILITY,
       recommended: false,
     },
 
@@ -21,20 +30,20 @@ module.exports = {
 
   create(context) {
     return {
-      img (node) {
+      img(node) {
         if (!hasAltAttrAndValue(node)) {
           context.report({
             node: node.startTag,
-            messageId: MESSAGE_IDS.MISSING_ALT
+            messageId: MESSAGE_IDS.MISSING_ALT,
           });
         }
-      }
+      },
     };
   },
 };
 
-function hasAltAttrAndValue (node) {
-  return (node.attrs || []).some(attr => {
-    return (attr.name === "alt" && attr.value.trim().length > 0);
+function hasAltAttrAndValue(node) {
+  return (node.attrs || []).some((attr) => {
+    return attr.name === "alt" && attr.value.trim().length > 0;
   });
 }

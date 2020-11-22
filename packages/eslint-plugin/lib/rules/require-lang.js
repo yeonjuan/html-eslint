@@ -1,8 +1,16 @@
-const IOS_639_1 = require('../constants/iso_639_1');
+/**
+ * @typedef {import("../types").RuleCategory} RuleCategory
+ */
+
+ /**
+ * @type {RuleCategory}
+ */
+const CATEGORY = require("../constants/rule-category");
+const IOS_639_1 = require("../constants/iso_639_1");
 
 const MESSAGE_IDS = {
-  MISSING_LANG: 'missingLang',
-  INVALID_LANG: 'invalidLang'
+  MISSING_LANG: "missingLang",
+  INVALID_LANG: "invalidLang",
 };
 
 module.exports = {
@@ -11,39 +19,39 @@ module.exports = {
 
     docs: {
       description: "require `lang` attribute at `<html>` tag",
-      category: "seo",
+      category: CATEGORY.SEO,
       recommended: false,
     },
 
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.MISSING_LANG]: "Missing `lang` attribute at `<html>` tag",
-      [MESSAGE_IDS.INVALID_LANG]: "Invalid value of `lang` attribute"
+      [MESSAGE_IDS.MISSING_LANG]: "missing `lang` attribute at `<html>` tag",
+      [MESSAGE_IDS.INVALID_LANG]: "invalid value of `lang` attribute",
     },
   },
 
   create(context) {
     return {
-      html (node) {
+      html(node) {
         const attrs = node.attrs || [];
         const langAttr = attrs.find(isLangAttribute);
         if (!langAttr) {
           context.report({
             node: node.startTag,
-            messageId: MESSAGE_IDS.MISSING_LANG
+            messageId: MESSAGE_IDS.MISSING_LANG,
           });
         } else if (!IOS_639_1.includes(langAttr.value)) {
           context.report({
             node: node.startTag,
-            messageId: MESSAGE_IDS.INVALID_LANG
-          }); 
+            messageId: MESSAGE_IDS.INVALID_LANG,
+          });
         }
-      }
+      },
     };
   },
 };
 
-function isLangAttribute (attr) {
+function isLangAttribute(attr) {
   return attr.name === "lang";
 }
