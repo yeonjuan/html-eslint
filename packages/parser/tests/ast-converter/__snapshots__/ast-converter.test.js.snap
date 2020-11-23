@@ -2,9 +2,11 @@
 
 exports[`emitter The listener should not be called if the event name is different 1`] = `
 Object {
+  "attrs": Array [],
   "body": Array [],
   "childNodes": Array [
     Object {
+      "attrs": Array [],
       "end": 15,
       "endTag": null,
       "loc": Object {
@@ -59,6 +61,7 @@ Object {
           "attrs": Array [],
           "childNodes": Array [
             Object {
+              "attrs": Array [],
               "end": 36,
               "endTag": null,
               "loc": Object {
@@ -85,6 +88,7 @@ Object {
               "attrs": Array [],
               "childNodes": Array [
                 Object {
+                  "attrs": Array [],
                   "end": 56,
                   "endTag": null,
                   "loc": Object {
@@ -164,6 +168,7 @@ Object {
               "type": "H1",
             },
             Object {
+              "attrs": Array [],
               "end": 64,
               "endTag": null,
               "loc": Object {
@@ -190,6 +195,7 @@ Object {
               "attrs": Array [],
               "childNodes": Array [
                 Object {
+                  "attrs": Array [],
                   "end": 86,
                   "endTag": null,
                   "loc": Object {
@@ -327,6 +333,7 @@ Object {
               "type": "P",
             },
             Object {
+              "attrs": Array [],
               "end": 114,
               "endTag": null,
               "loc": Object {

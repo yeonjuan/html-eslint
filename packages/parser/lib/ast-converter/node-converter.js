@@ -5,6 +5,7 @@ const NodeConverter = {
     childNodes,
     parentNode, // eslint-disable-line no-unused-vars
     nodeName,
+    attrs,
     sourceCodeLocation,
     ...extra
   }) {
@@ -13,18 +14,29 @@ const NodeConverter = {
       type,
       ...extra,
       ...utils.toESLocation(sourceCodeLocation, childNodes),
+      // start tag
       startTag:
         sourceCodeLocation && sourceCodeLocation.startTag
           ? {
               ...utils.toESLocation(sourceCodeLocation.startTag),
             }
           : null,
+      // end tag
       endTag:
         sourceCodeLocation && sourceCodeLocation.endTag
           ? {
               ...utils.toESLocation(sourceCodeLocation.endTag),
             }
           : null,
+      // attributes
+      attrs: attrs
+        ? attrs.map((attr) => ({
+            ...attr,
+            ...(sourceCodeLocation && sourceCodeLocation.attrs
+              ? utils.getAttrLocation(sourceCodeLocation, attr.name)
+              : null),
+          }))
+        : [],
       ...(type === "Program"
         ? {
             body: [],

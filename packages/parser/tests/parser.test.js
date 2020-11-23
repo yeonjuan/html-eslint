@@ -28,4 +28,12 @@ describe("parser", () => {
 </html>`;
     expect(parser.parse(code)).toMatchSnapshot();
   });
+
+  it("attr", () => {
+    const code = `
+<div attr="foo">
+</div>
+`;
+    expect(parser.parse(code)).toMatchSnapshot();
+  });
 });

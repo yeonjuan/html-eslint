@@ -47,3 +47,4 @@ module.exports = {
 | [@html-eslint/require-title](/packages/eslint-plugin/docs/rules/require-title.md)       | Enforce to use `<title><title/>` in `<head>`. | ⭐    |
 | [@html-eslint/no-duplicate-id](/packages/eslint-plugin/docs/rules/no-duplicate-id.md)   | Disallow the duplicated `id`                  | ⭐    |
 | [@html-eslint/no-inline-styles](/packages/eslint-plugin/docs/rules/no-inline-styles.md) | Disallow using inline styles                  |       |
+| [@html-eslint/no-multiple-h1](/packages/eslint-plugin/docs/rules/no-multiple-h1.md)     | Disallow using multiple `<h1></h1>`           | ⭐    |

@@ -81,4 +81,42 @@ describe("utils", () => {
       });
     });
   });
+
+  describe("getLocation()", () => {
+    test("proper", () => {
+      const sourceCodeLocation = {
+        startLine: 10,
+        startCol: 18,
+        startOffset: 78,
+        endLine: 10,
+        endCol: 50,
+        endOffset: 110,
+        attrs: {
+          style: {
+            startLine: 10,
+            startCol: 18,
+            startOffset: 78,
+            endLine: 10,
+            endCol: 50,
+            endOffset: 110,
+          },
+        },
+      };
+      expect(utils.getAttrLocation(sourceCodeLocation, "style")).toEqual({
+        range: [78, 110],
+        start: 78,
+        end: 110,
+        loc: {
+          start: {
+            line: 10,
+            column: 18,
+          },
+          end: {
+            line: 10,
+            column: 50,
+          },
+        },
+      });
+    });
+  });
 });

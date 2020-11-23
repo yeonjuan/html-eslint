@@ -68,4 +68,10 @@ module.exports = {
     }
     return getLocFromChildNodes(childNodes);
   },
+  getAttrLocation(sourceCodeLocation, attrName) {
+    if (sourceCodeLocation && sourceCodeLocation.attrs) {
+      return this.toESLocation(sourceCodeLocation.attrs[attrName]);
+    }
+    return null;
+  },
 };

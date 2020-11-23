@@ -4,6 +4,7 @@ const requireDoctype = require("./require-doctype");
 const requireTitle = require("./require-title");
 const noDuplicateId = require("./no-duplicate-id");
 const noInlineStyles = require("./no-inline-styles");
+const noMultipleH1 = require("./no-multiple-h1");
 
 module.exports = {
   "require-lang": requireLang,
@@ -12,4 +13,5 @@ module.exports = {
   "require-title": requireTitle,
   "no-duplicate-id": noDuplicateId,
   "no-inline-styles": noInlineStyles,
+  "no-multiple-h1": noMultipleH1,
 };
