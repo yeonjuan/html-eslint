@@ -22,7 +22,7 @@ module.exports = {
       recommended: true,
     },
 
-    fixable: true,
+    fixable: null,
     schema: [],
     messages: {
       [MESSAGE_IDS.DUPLICATE_ID]: "Unexpected duplicate id",

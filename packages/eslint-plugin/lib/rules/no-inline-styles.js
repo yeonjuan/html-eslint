@@ -22,7 +22,7 @@ module.exports = {
       recommended: false,
     },
 
-    fixable: true,
+    fixable: null,
     schema: [],
     messages: {
       [MESSAGE_IDS.INLINE_STYLE]: "Unexpected usage of inline style",

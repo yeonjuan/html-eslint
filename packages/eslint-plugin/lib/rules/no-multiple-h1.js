@@ -21,7 +21,7 @@ module.exports = {
       recommended: true,
     },
 
-    fixable: true,
+    fixable: null,
     schema: [],
     messages: {
       [MESSAGE_IDS.MULTIPLE_H1]: "unexpected multiple `<h1></h1>`.",

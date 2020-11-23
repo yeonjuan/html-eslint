@@ -5,6 +5,7 @@ const requireTitle = require("./require-title");
 const noDuplicateId = require("./no-duplicate-id");
 const noInlineStyles = require("./no-inline-styles");
 const noMultipleH1 = require("./no-multiple-h1");
+const noExtraSpacingAttrs = require("./no-extra-spacing-attrs");
 
 module.exports = {
   "require-lang": requireLang,
@@ -14,4 +15,5 @@ module.exports = {
   "no-duplicate-id": noDuplicateId,
   "no-inline-styles": noInlineStyles,
   "no-multiple-h1": noMultipleH1,
+  "no-extra-spacing-attrs": noExtraSpacingAttrs,
 };
