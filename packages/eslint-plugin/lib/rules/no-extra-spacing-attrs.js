@@ -19,7 +19,7 @@ module.exports = {
 
     docs: {
       description: "Disallow an extra spacing around attributes",
-      category: CATEGORY.BEST_PRACTICE,
+      category: CATEGORY.STYLE,
       recommended: true,
     },
 

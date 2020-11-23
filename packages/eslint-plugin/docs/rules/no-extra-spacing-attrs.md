@@ -1,4 +1,4 @@
-# Disallow extra spaces arround attributes.
+# Disallow extra spaces around attributes.
 
 ## Rule Details
 
