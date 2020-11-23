@@ -6,6 +6,7 @@
  * @type {RuleCategory}
  */
 const CATEGORY = require("../constants/rule-category");
+const utils = require("./utils");
 
 const MESSAGE_IDS = {
   INLINE_STYLE: "unexpectedInlineStyle",
@@ -31,11 +32,7 @@ module.exports = {
   create(context) {
     return {
       "*"(node) {
-        if (
-          (node.attrs || []).some((attr) => {
-            return attr.name === "style";
-          })
-        ) {
+        if (utils.hasAttr(node, "style")) {
           context.report({
             node: node.startTag,
             messageId: MESSAGE_IDS.INLINE_STYLE,

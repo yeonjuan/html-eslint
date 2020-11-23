@@ -7,6 +7,7 @@
  */
 const CATEGORY = require("../constants/rule-category");
 const IOS_639_1 = require("../constants/iso_639_1");
+const utils = require("./utils");
 
 const MESSAGE_IDS = {
   MISSING_LANG: "missingLang",
@@ -34,8 +35,7 @@ module.exports = {
   create(context) {
     return {
       Html(node) {
-        const attrs = node.attrs || [];
-        const langAttr = attrs.find(isLangAttribute);
+        const langAttr = utils.findAttr(node, "lang");
         if (!langAttr) {
           context.report({
             node: node.startTag,
@@ -51,7 +51,3 @@ module.exports = {
     };
   },
 };
-
-function isLangAttribute(attr) {
-  return attr.name === "lang";
-}

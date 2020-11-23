@@ -6,6 +6,7 @@
  * @type {RuleCategory}
  */
 const CATEGORY = require("../constants/rule-category");
+const utils = require("./utils");
 
 const MESSAGE_IDS = {
   DUPLICATE_ID: "duplicateId",
@@ -32,7 +33,7 @@ module.exports = {
     const IdNodesMap = new Map();
     return {
       "*"(node) {
-        const idAttr = (node.attrs || []).find((attr) => attr.name === "id");
+        const idAttr = utils.findAttr(node, "id");
         if (idAttr) {
           if (!IdNodesMap.has(idAttr.value)) {
             IdNodesMap.set(idAttr.value, []);
