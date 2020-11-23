@@ -16,7 +16,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "require `alt` attribute at `<img>` tag",
+      description: "Require `alt` attribute at `<img>` tag",
       category: CATEGORY.ACCESSIBILITY,
       recommended: true,
     },
@@ -24,7 +24,7 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.MISSING_ALT]: "missing `alt` attribute at `<img>` tag",
+      [MESSAGE_IDS.MISSING_ALT]: "Missing `alt` attribute at `<img>` tag",
     },
   },
 

@@ -16,7 +16,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "require `<!DOCTYPE HTML>` in html,",
+      description: "Require `<!DOCTYPE HTML>` in html,",
       category: CATEGORY.BEST_PRACTICE,
       recommended: true,
     },
@@ -24,7 +24,7 @@ module.exports = {
     fixable: true,
     schema: [],
     messages: {
-      [MESSAGE_IDS.MISSING_DOCTYPE]: "missing `<!DOCTYPE HTML>`",
+      [MESSAGE_IDS.MISSING_DOCTYPE]: "Missing `<!DOCTYPE HTML>`",
     },
   },
 

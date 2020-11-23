@@ -16,7 +16,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "disallow multiple `<h1></h1>`.",
+      description: "Disallow multiple `<h1></h1>`.",
       category: CATEGORY.SEO,
       recommended: true,
     },

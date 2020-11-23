@@ -16,7 +16,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "require `<!DOCTYPE HTML>` in html,",
+      description: "Disallow to use duplicate id",
       category: CATEGORY.BEST_PRACTICE,
       recommended: true,
     },
@@ -24,7 +24,7 @@ module.exports = {
     fixable: true,
     schema: [],
     messages: {
-      [MESSAGE_IDS.DUPLICATE_ID]: "missing `<!DOCTYPE HTML>`",
+      [MESSAGE_IDS.DUPLICATE_ID]: "Unexpected duplicate id",
     },
   },
 

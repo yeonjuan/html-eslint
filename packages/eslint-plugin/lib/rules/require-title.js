@@ -17,7 +17,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "require `<title><title/>` in the `<head><head/>`",
+      description: "Require `<title><title/>` in the `<head><head/>`",
       category: CATEGORY.SEO,
       recommended: true,
     },
@@ -26,8 +26,8 @@ module.exports = {
     schema: [],
     messages: {
       [MESSAGE_IDS.MISSING_TITLE]:
-        "missing `<title><title/>` in the `<head><head/>`",
-      [MESSAGE_IDS.EMPTY_TITLE]: "empty text in `<title><title/>`",
+        "Missing `<title><title/>` in the `<head><head/>`",
+      [MESSAGE_IDS.EMPTY_TITLE]: "Unexpected empty text in `<title><title/>`",
     },
   },
 

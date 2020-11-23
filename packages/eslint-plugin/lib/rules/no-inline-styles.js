@@ -16,7 +16,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "disallow using inline style",
+      description: "Disallow using inline style",
       category: CATEGORY.BEST_PRACTICE,
       recommended: false,
     },

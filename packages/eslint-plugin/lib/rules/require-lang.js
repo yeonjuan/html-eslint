@@ -18,7 +18,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "require `lang` attribute at `<html>` tag",
+      description: "Require `lang` attribute at `<html>` tag",
       category: CATEGORY.SEO,
       recommended: true,
     },
@@ -26,8 +26,8 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.MISSING_LANG]: "missing `lang` attribute at `<html>` tag",
-      [MESSAGE_IDS.INVALID_LANG]: "invalid value of `lang` attribute",
+      [MESSAGE_IDS.MISSING_LANG]: "Missing `lang` attribute at `<html>` tag",
+      [MESSAGE_IDS.INVALID_LANG]: "Invalid value of `lang` attribute",
     },
   },
 
