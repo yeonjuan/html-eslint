@@ -52,14 +52,9 @@ describe("configs", () => {
       .filter(([, rule]) => {
         return rule.meta.docs.recommended;
       })
-      .map(([name]) => name);
-
-    expect(recommendedRules).toEqual(
-      expect.arrayContaining(
-        Object.keys(RECOMMENDED_CONFIG.rules).map((rule) =>
-          rule.replace("@html-eslint/", "")
-        )
-      )
+      .map(([name]) => `@html-eslint/${name}`);
+    expect(Object.keys(RECOMMENDED_CONFIG.rules)).toEqual(
+      expect.arrayContaining(recommendedRules)
     );
   });
 });

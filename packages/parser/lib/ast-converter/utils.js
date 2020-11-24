@@ -74,4 +74,7 @@ module.exports = {
     }
     return null;
   },
+  isEmptyHTMLNode(node) {
+    return !node || (node.nodeName !== "#document" && !node.sourceCodeLocation);
+  }
 };

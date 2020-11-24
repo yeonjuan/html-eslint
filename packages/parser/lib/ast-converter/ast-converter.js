@@ -24,20 +24,30 @@ class ASTConverter {
 
   exit() {
     const converted = this.convertedStack.pop();
+    if (!converted) {
+      return;
+    }
     if (this.convertedStack.isEmpty()) {
       this.ast = converted;
       return;
     }
 
+    while(this.convertedStack.top() === null) {
+      this.convertedStack.pop();
+    }
+
     const parent = this.convertedStack.top();
+
     !Array.isArray(parent.childNodes) && (parent.childNodes = []);
     parent.childNodes.push(converted);
   }
 
   enter(node) {
     const esNode = NodeConverter.toNode(node);
-    esNode.childNodes = [];
-    this.convertedStack.push(NodeConverter.toNode(node));
+    if (esNode) {
+      esNode.childNodes = [];
+    }
+    this.convertedStack.push(esNode);
   }
 }
 

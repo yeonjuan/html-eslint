@@ -1,124 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parser DOCTYPE 1`] = `
+exports[`parser attr 1`] = `
 Object {
   "attrs": Array [],
   "body": Array [],
   "childNodes": Array [
     Object {
-      "attrs": Array [],
-      "end": 16,
-      "endTag": null,
-      "loc": Object {
-        "end": Object {
-          "column": 16,
-          "line": 2,
+      "attrs": Array [
+        Object {
+          "end": 16,
+          "loc": Object {
+            "end": Object {
+              "column": 16,
+              "line": 2,
+            },
+            "start": Object {
+              "column": 6,
+              "line": 2,
+            },
+          },
+          "name": "attr",
+          "range": Array [
+            6,
+            16,
+          ],
+          "start": 6,
+          "value": "foo",
         },
-        "start": Object {
-          "column": 1,
-          "line": 2,
-        },
-      },
-      "name": "html",
-      "publicId": "",
-      "range": Array [
-        1,
-        16,
       ],
-      "start": 1,
-      "startTag": null,
-      "systemId": "",
-      "type": "documentType",
-    },
-    Object {
-      "attrs": Array [],
       "childNodes": Array [
         Object {
           "attrs": Array [],
-          "end": 0,
+          "childNodes": Array [],
+          "end": 18,
           "endTag": null,
           "loc": Object {
             "end": Object {
-              "column": 0,
-              "line": 0,
+              "column": 1,
+              "line": 3,
             },
             "start": Object {
-              "column": 0,
-              "line": 0,
+              "column": 17,
+              "line": 2,
             },
           },
-          "namespaceURI": "http://www.w3.org/1999/xhtml",
           "range": Array [
-            0,
-            0,
+            17,
+            18,
           ],
-          "start": 0,
+          "start": 17,
           "startTag": null,
-          "tagName": "head",
-          "type": "Head",
-        },
-        Object {
-          "attrs": Array [],
-          "end": 0,
-          "endTag": null,
-          "loc": Object {
-            "end": Object {
-              "column": 0,
-              "line": 0,
-            },
-            "start": Object {
-              "column": 0,
-              "line": 0,
-            },
-          },
-          "namespaceURI": "http://www.w3.org/1999/xhtml",
-          "range": Array [
-            0,
-            0,
-          ],
-          "start": 0,
-          "startTag": null,
-          "tagName": "body",
-          "type": "Body",
+          "type": "text",
+          "value": "
+",
         },
       ],
-      "end": 31,
+      "end": 24,
       "endTag": Object {
-        "end": 31,
-        "loc": Object {
-          "end": Object {
-            "column": 8,
-            "line": 4,
-          },
-          "start": Object {
-            "column": 1,
-            "line": 4,
-          },
-        },
-        "range": Array [
-          24,
-          31,
-        ],
-        "start": 24,
-      },
-      "loc": Object {
-        "end": Object {
-          "column": 8,
-          "line": 4,
-        },
-        "start": Object {
-          "column": 1,
-          "line": 3,
-        },
-      },
-      "namespaceURI": "http://www.w3.org/1999/xhtml",
-      "range": Array [
-        17,
-        31,
-      ],
-      "start": 17,
-      "startTag": Object {
-        "end": 23,
+        "end": 24,
         "loc": Object {
           "end": Object {
             "column": 7,
@@ -130,249 +69,72 @@ Object {
           },
         },
         "range": Array [
-          17,
-          23,
+          18,
+          24,
         ],
-        "start": 17,
+        "start": 18,
       },
-      "tagName": "html",
-      "type": "Html",
-    },
-  ],
-  "comments": Array [],
-  "end": 31,
-  "endTag": null,
-  "loc": Object {
-    "end": Object {
-      "column": 8,
-      "line": 4,
-    },
-    "start": Object {
-      "column": 1,
-      "line": 2,
-    },
-  },
-  "mode": "no-quirks",
-  "range": Array [
-    1,
-    31,
-  ],
-  "start": 1,
-  "startTag": null,
-  "tokens": Array [],
-  "type": "Program",
-}
-`;
-
-exports[`parser attr 1`] = `
-Object {
-  "attrs": Array [],
-  "body": Array [],
-  "childNodes": Array [
-    Object {
-      "attrs": Array [],
-      "childNodes": Array [
-        Object {
-          "attrs": Array [],
-          "end": 0,
-          "endTag": null,
-          "loc": Object {
-            "end": Object {
-              "column": 0,
-              "line": 0,
-            },
-            "start": Object {
-              "column": 0,
-              "line": 0,
-            },
-          },
-          "namespaceURI": "http://www.w3.org/1999/xhtml",
-          "range": Array [
-            0,
-            0,
-          ],
-          "start": 0,
-          "startTag": null,
-          "tagName": "head",
-          "type": "Head",
-        },
-        Object {
-          "attrs": Array [],
-          "childNodes": Array [
-            Object {
-              "attrs": Array [
-                Object {
-                  "end": 16,
-                  "loc": Object {
-                    "end": Object {
-                      "column": 16,
-                      "line": 2,
-                    },
-                    "start": Object {
-                      "column": 6,
-                      "line": 2,
-                    },
-                  },
-                  "name": "attr",
-                  "range": Array [
-                    6,
-                    16,
-                  ],
-                  "start": 6,
-                  "value": "foo",
-                },
-              ],
-              "childNodes": Array [
-                Object {
-                  "attrs": Array [],
-                  "end": 18,
-                  "endTag": null,
-                  "loc": Object {
-                    "end": Object {
-                      "column": 1,
-                      "line": 3,
-                    },
-                    "start": Object {
-                      "column": 17,
-                      "line": 2,
-                    },
-                  },
-                  "range": Array [
-                    17,
-                    18,
-                  ],
-                  "start": 17,
-                  "startTag": null,
-                  "type": "text",
-                  "value": "
-",
-                },
-              ],
-              "end": 24,
-              "endTag": Object {
-                "end": 24,
-                "loc": Object {
-                  "end": Object {
-                    "column": 7,
-                    "line": 3,
-                  },
-                  "start": Object {
-                    "column": 1,
-                    "line": 3,
-                  },
-                },
-                "range": Array [
-                  18,
-                  24,
-                ],
-                "start": 18,
-              },
-              "loc": Object {
-                "end": Object {
-                  "column": 7,
-                  "line": 3,
-                },
-                "start": Object {
-                  "column": 1,
-                  "line": 2,
-                },
-              },
-              "namespaceURI": "http://www.w3.org/1999/xhtml",
-              "range": Array [
-                1,
-                24,
-              ],
-              "start": 1,
-              "startTag": Object {
-                "end": 17,
-                "loc": Object {
-                  "end": Object {
-                    "column": 17,
-                    "line": 2,
-                  },
-                  "start": Object {
-                    "column": 1,
-                    "line": 2,
-                  },
-                },
-                "range": Array [
-                  1,
-                  17,
-                ],
-                "start": 1,
-              },
-              "tagName": "div",
-              "type": "Div",
-            },
-            Object {
-              "attrs": Array [],
-              "end": 25,
-              "endTag": null,
-              "loc": Object {
-                "end": Object {
-                  "column": 1,
-                  "line": 4,
-                },
-                "start": Object {
-                  "column": 7,
-                  "line": 3,
-                },
-              },
-              "range": Array [
-                24,
-                25,
-              ],
-              "start": 24,
-              "startTag": null,
-              "type": "text",
-              "value": "
-",
-            },
-          ],
-          "end": 25,
-          "endTag": null,
-          "loc": Object {
-            "end": Object {
-              "column": 1,
-              "line": 4,
-            },
-            "start": Object {
-              "column": 1,
-              "line": 2,
-            },
-          },
-          "namespaceURI": "http://www.w3.org/1999/xhtml",
-          "range": Array [
-            1,
-            25,
-          ],
-          "start": 1,
-          "startTag": null,
-          "tagName": "body",
-          "type": "Body",
-        },
-      ],
-      "end": undefined,
-      "endTag": null,
       "loc": Object {
         "end": Object {
-          "column": undefined,
-          "line": undefined,
+          "column": 7,
+          "line": 3,
         },
         "start": Object {
-          "column": undefined,
-          "line": undefined,
+          "column": 1,
+          "line": 2,
         },
       },
       "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
-        undefined,
-        undefined,
+        1,
+        24,
       ],
-      "start": undefined,
+      "start": 1,
+      "startTag": Object {
+        "end": 17,
+        "loc": Object {
+          "end": Object {
+            "column": 17,
+            "line": 2,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 2,
+          },
+        },
+        "range": Array [
+          1,
+          17,
+        ],
+        "start": 1,
+      },
+      "tagName": "div",
+      "type": "Div",
+    },
+    Object {
+      "attrs": Array [],
+      "childNodes": Array [],
+      "end": 25,
+      "endTag": null,
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 4,
+        },
+        "start": Object {
+          "column": 7,
+          "line": 3,
+        },
+      },
+      "range": Array [
+        24,
+        25,
+      ],
+      "start": 24,
       "startTag": null,
-      "tagName": "html",
-      "type": "Html",
+      "type": "text",
+      "value": "
+",
     },
   ],
   "comments": Array [],
@@ -394,145 +156,6 @@ Object {
     undefined,
   ],
   "start": undefined,
-  "startTag": null,
-  "tokens": Array [],
-  "type": "Program",
-}
-`;
-
-exports[`parser base 1`] = `
-Object {
-  "attrs": Array [],
-  "body": Array [],
-  "childNodes": Array [
-    Object {
-      "attrs": Array [],
-      "childNodes": Array [
-        Object {
-          "attrs": Array [],
-          "end": 0,
-          "endTag": null,
-          "loc": Object {
-            "end": Object {
-              "column": 0,
-              "line": 0,
-            },
-            "start": Object {
-              "column": 0,
-              "line": 0,
-            },
-          },
-          "namespaceURI": "http://www.w3.org/1999/xhtml",
-          "range": Array [
-            0,
-            0,
-          ],
-          "start": 0,
-          "startTag": null,
-          "tagName": "head",
-          "type": "Head",
-        },
-        Object {
-          "attrs": Array [],
-          "end": 0,
-          "endTag": null,
-          "loc": Object {
-            "end": Object {
-              "column": 0,
-              "line": 0,
-            },
-            "start": Object {
-              "column": 0,
-              "line": 0,
-            },
-          },
-          "namespaceURI": "http://www.w3.org/1999/xhtml",
-          "range": Array [
-            0,
-            0,
-          ],
-          "start": 0,
-          "startTag": null,
-          "tagName": "body",
-          "type": "Body",
-        },
-      ],
-      "end": 15,
-      "endTag": Object {
-        "end": 15,
-        "loc": Object {
-          "end": Object {
-            "column": 8,
-            "line": 3,
-          },
-          "start": Object {
-            "column": 1,
-            "line": 3,
-          },
-        },
-        "range": Array [
-          8,
-          15,
-        ],
-        "start": 8,
-      },
-      "loc": Object {
-        "end": Object {
-          "column": 8,
-          "line": 3,
-        },
-        "start": Object {
-          "column": 1,
-          "line": 2,
-        },
-      },
-      "namespaceURI": "http://www.w3.org/1999/xhtml",
-      "range": Array [
-        1,
-        15,
-      ],
-      "start": 1,
-      "startTag": Object {
-        "end": 7,
-        "loc": Object {
-          "end": Object {
-            "column": 7,
-            "line": 2,
-          },
-          "start": Object {
-            "column": 1,
-            "line": 2,
-          },
-        },
-        "range": Array [
-          1,
-          7,
-        ],
-        "start": 1,
-      },
-      "tagName": "html",
-      "type": "Html",
-    },
-  ],
-  "comments": Array [],
-  "end": 15,
-  "endTag": null,
-  "loc": Object {
-    "end": Object {
-      "column": 8,
-      "line": 3,
-    },
-    "start": Object {
-      "column": 1,
-      "line": 2,
-    },
-  },
-  "mode": "quirks",
-  "range": Array [
-    1,
-    15,
-  ],
-  "start": 1,
   "startTag": null,
   "tokens": Array [],
   "type": "Program",

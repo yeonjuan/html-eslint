@@ -7,6 +7,7 @@ Object {
   "childNodes": Array [
     Object {
       "attrs": Array [],
+      "childNodes": Array [],
       "end": 15,
       "endTag": null,
       "loc": Object {
@@ -35,33 +36,10 @@ Object {
       "childNodes": Array [
         Object {
           "attrs": Array [],
-          "end": 0,
-          "endTag": null,
-          "loc": Object {
-            "end": Object {
-              "column": 0,
-              "line": 0,
-            },
-            "start": Object {
-              "column": 0,
-              "line": 0,
-            },
-          },
-          "namespaceURI": "http://www.w3.org/1999/xhtml",
-          "range": Array [
-            0,
-            0,
-          ],
-          "start": 0,
-          "startTag": null,
-          "tagName": "head",
-          "type": "Head",
-        },
-        Object {
-          "attrs": Array [],
           "childNodes": Array [
             Object {
               "attrs": Array [],
+              "childNodes": Array [],
               "end": 36,
               "endTag": null,
               "loc": Object {
@@ -89,6 +67,7 @@ Object {
               "childNodes": Array [
                 Object {
                   "attrs": Array [],
+                  "childNodes": Array [],
                   "end": 56,
                   "endTag": null,
                   "loc": Object {
@@ -169,6 +148,7 @@ Object {
             },
             Object {
               "attrs": Array [],
+              "childNodes": Array [],
               "end": 64,
               "endTag": null,
               "loc": Object {
@@ -196,6 +176,7 @@ Object {
               "childNodes": Array [
                 Object {
                   "attrs": Array [],
+                  "childNodes": Array [],
                   "end": 86,
                   "endTag": null,
                   "loc": Object {
@@ -219,6 +200,7 @@ Object {
                 },
                 Object {
                   "attrs": Array [],
+                  "childNodes": Array [],
                   "end": 93,
                   "endTag": Object {
                     "end": 93,
@@ -334,6 +316,7 @@ Object {
             },
             Object {
               "attrs": Array [],
+              "childNodes": Array [],
               "end": 114,
               "endTag": null,
               "loc": Object {

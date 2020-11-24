@@ -1,14 +1,17 @@
 const utils = require("./utils");
 
 const NodeConverter = {
-  toNode({
-    childNodes,
-    parentNode, // eslint-disable-line no-unused-vars
-    nodeName,
-    attrs,
-    sourceCodeLocation,
-    ...extra
-  }) {
+  toNode(node) {
+    if (utils.isEmptyHTMLNode(node)) {
+      return null;
+    }
+    const {childNodes,
+      parentNode, // eslint-disable-line no-unused-vars
+      nodeName,
+      attrs,
+      sourceCodeLocation,
+      ...extra
+    } = node;
     const type = utils.toType(nodeName);
     return {
       type,

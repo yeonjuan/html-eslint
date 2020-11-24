@@ -6,5 +6,7 @@ module.exports = {
     "@html-eslint/require-title": "error",
     "@html-eslint/no-multiple-h1": "error",
     "@html-eslint/no-extra-spacing-attrs": "error",
+    "@html-eslint/element-newline": "error",
+    "@html-eslint/no-duplicate-id": "error",
   },
 };
