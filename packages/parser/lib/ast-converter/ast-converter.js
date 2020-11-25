@@ -32,7 +32,7 @@ class ASTConverter {
       return;
     }
 
-    while(this.convertedStack.top() === null) {
+    while (this.convertedStack.top() === null) {
       this.convertedStack.pop();
     }
 
