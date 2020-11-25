@@ -1,5 +1,121 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parser DOCTYPE 1`] = `
+Object {
+  "attrs": Array [],
+  "body": Array [],
+  "childNodes": Array [
+    Object {
+      "attrs": Array [],
+      "childNodes": Array [],
+      "end": 18,
+      "endTag": null,
+      "loc": Object {
+        "end": Object {
+          "column": 18,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 3,
+          "line": 2,
+        },
+      },
+      "name": "html",
+      "publicId": "",
+      "range": Array [
+        3,
+        18,
+      ],
+      "start": 3,
+      "startTag": null,
+      "systemId": "",
+      "type": "documentType",
+    },
+    Object {
+      "attrs": Array [],
+      "childNodes": Array [],
+      "end": 37,
+      "endTag": Object {
+        "end": 37,
+        "loc": Object {
+          "end": Object {
+            "column": 10,
+            "line": 4,
+          },
+          "start": Object {
+            "column": 3,
+            "line": 4,
+          },
+        },
+        "range": Array [
+          30,
+          37,
+        ],
+        "start": 30,
+      },
+      "loc": Object {
+        "end": Object {
+          "column": 10,
+          "line": 4,
+        },
+        "start": Object {
+          "column": 3,
+          "line": 3,
+        },
+      },
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
+      "range": Array [
+        21,
+        37,
+      ],
+      "start": 21,
+      "startTag": Object {
+        "end": 27,
+        "loc": Object {
+          "end": Object {
+            "column": 9,
+            "line": 3,
+          },
+          "start": Object {
+            "column": 3,
+            "line": 3,
+          },
+        },
+        "range": Array [
+          21,
+          27,
+        ],
+        "start": 21,
+      },
+      "tagName": "html",
+      "type": "Html",
+    },
+  ],
+  "comments": Array [],
+  "end": 37,
+  "endTag": null,
+  "loc": Object {
+    "end": Object {
+      "column": 10,
+      "line": 4,
+    },
+    "start": Object {
+      "column": 3,
+      "line": 2,
+    },
+  },
+  "mode": "no-quirks",
+  "range": Array [
+    3,
+    37,
+  ],
+  "start": 3,
+  "startTag": null,
+  "tokens": Array [],
+  "type": "Program",
+}
+`;
+
 exports[`parser attr 1`] = `
 Object {
   "attrs": Array [],
@@ -156,6 +272,96 @@ Object {
     undefined,
   ],
   "start": undefined,
+  "startTag": null,
+  "tokens": Array [],
+  "type": "Program",
+}
+`;
+
+exports[`parser base 1`] = `
+Object {
+  "attrs": Array [],
+  "body": Array [],
+  "childNodes": Array [
+    Object {
+      "attrs": Array [],
+      "childNodes": Array [],
+      "end": 19,
+      "endTag": Object {
+        "end": 19,
+        "loc": Object {
+          "end": Object {
+            "column": 10,
+            "line": 3,
+          },
+          "start": Object {
+            "column": 3,
+            "line": 3,
+          },
+        },
+        "range": Array [
+          12,
+          19,
+        ],
+        "start": 12,
+      },
+      "loc": Object {
+        "end": Object {
+          "column": 10,
+          "line": 3,
+        },
+        "start": Object {
+          "column": 3,
+          "line": 2,
+        },
+      },
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
+      "range": Array [
+        3,
+        19,
+      ],
+      "start": 3,
+      "startTag": Object {
+        "end": 9,
+        "loc": Object {
+          "end": Object {
+            "column": 9,
+            "line": 2,
+          },
+          "start": Object {
+            "column": 3,
+            "line": 2,
+          },
+        },
+        "range": Array [
+          3,
+          9,
+        ],
+        "start": 3,
+      },
+      "tagName": "html",
+      "type": "Html",
+    },
+  ],
+  "comments": Array [],
+  "end": 19,
+  "endTag": null,
+  "loc": Object {
+    "end": Object {
+      "column": 10,
+      "line": 3,
+    },
+    "start": Object {
+      "column": 3,
+      "line": 2,
+    },
+  },
+  "mode": "quirks",
+  "range": Array [
+    3,
+    19,
+  ],
+  "start": 3,
   "startTag": null,
   "tokens": Array [],
   "type": "Program",

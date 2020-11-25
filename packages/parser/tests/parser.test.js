@@ -9,25 +9,25 @@ describe("parser", () => {
     parser = createParser();
   });
 
-//   it("parse", () => {
-//     const code = "<html></html>";
-//     expect(() => parser.parse(code)).not.toThrow();
-//   });
+  it("parse", () => {
+    const code = "<html></html>";
+    expect(() => parser.parse(code)).not.toThrow();
+  });
 
-//   it("base", () => {
-//     const code = `
-// <html>
-// </html>`;
-//     expect(parser.parse(code)).toMatchSnapshot();
-//   });
+  it("base", () => {
+    const code = `
+  <html>
+  </html>`;
+    expect(parser.parse(code)).toMatchSnapshot();
+  });
 
-//   it("DOCTYPE", () => {
-//     const code = `
-// <!DOCTYPE HTML>
-// <html>
-// </html>`;
-//     expect(parser.parse(code)).toMatchSnapshot();
-//   });
+  it("DOCTYPE", () => {
+    const code = `
+  <!DOCTYPE HTML>
+  <html>
+  </html>`;
+    expect(parser.parse(code)).toMatchSnapshot();
+  });
 
   it("attr", () => {
     const code = `
