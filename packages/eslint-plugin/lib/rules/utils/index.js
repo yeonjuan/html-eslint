@@ -1,3 +1,7 @@
-const utils = require("./utils");
+const NodeUtils = require("./node-utils");
+const NamingUtils = require("./naming-utils");
 
-module.exports = utils;
+module.exports = {
+  NodeUtils,
+  NamingUtils,
+};
