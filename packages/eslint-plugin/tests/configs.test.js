@@ -40,8 +40,8 @@ describe("rules", () => {
       .filter((file) => !file.includes("kr"))
       .map((file) => file.replace(".md", ""));
 
-    expect(exportedRuleNames).toEqual(
-      expect.arrayContaining(docFilesWithoutExt)
+    expect(docFilesWithoutExt).toEqual(
+      expect.arrayContaining(exportedRuleNames)
     );
   });
 });

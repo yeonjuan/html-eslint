@@ -49,4 +49,5 @@ module.exports = {
 | [@html-eslint/no-inline-styles](/packages/eslint-plugin/docs/rules/no-inline-styles.md)             | Disallow using inline styles                  |       |
 | [@html-eslint/no-multiple-h1](/packages/eslint-plugin/docs/rules/no-multiple-h1.md)                 | Disallow using multiple `<h1></h1>`           | ⭐    |
 | [@html-eslint/no-extra-spacing-attrs](/packages/eslint-plugin/docs/rules/no-extra-spacing-attrs.md) | Disallow an extra spacing around attributes   | ⭐ 🔧 |
-| [@html-eslint/element-newline](/packages/eslint-plugin/docs/rules/element-newline.md) | Enforce newline between elements   | ⭐ 🔧 |
+| [@html-eslint/element-newline](/packages/eslint-plugin/docs/rules/element-newline.md)               | Enforce newline between elements              | ⭐ 🔧 |
+| [@html-eslint/no-skip-heading-levels](/packages/eslint-plugin/docs/rules/no-skip-heading-levels.md) | Enforce newline between elements              |       |

@@ -7,6 +7,7 @@ const noInlineStyles = require("./no-inline-styles");
 const noMultipleH1 = require("./no-multiple-h1");
 const noExtraSpacingAttrs = require("./no-extra-spacing-attrs");
 const elementNewLine = require("./element-newline");
+const noSkipHeadingLevels = require("./no-skip-heading-levels");
 
 module.exports = {
   "require-lang": requireLang,
@@ -18,4 +19,5 @@ module.exports = {
   "no-multiple-h1": noMultipleH1,
   "no-extra-spacing-attrs": noExtraSpacingAttrs,
   "element-newline": elementNewLine,
+  "no-skip-heading-levels": noSkipHeadingLevels,
 };
