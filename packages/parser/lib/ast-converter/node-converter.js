@@ -5,7 +5,8 @@ const NodeConverter = {
     if (utils.isEmptyHTMLNode(node)) {
       return null;
     }
-    const {childNodes,
+    const {
+      childNodes,
       parentNode, // eslint-disable-line no-unused-vars
       nodeName,
       attrs,

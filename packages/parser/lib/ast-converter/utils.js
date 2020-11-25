@@ -76,5 +76,5 @@ module.exports = {
   },
   isEmptyHTMLNode(node) {
     return !node || (node.nodeName !== "#document" && !node.sourceCodeLocation);
-  }
+  },
 };

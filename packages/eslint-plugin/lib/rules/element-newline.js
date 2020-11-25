@@ -33,7 +33,7 @@ module.exports = {
   create(context) {
     function checkSiblings(sibilings) {
       sibilings
-        .filter((node) => (node.type !== "text") && node.range[0])
+        .filter((node) => node.type !== "text" && node.range[0])
         .forEach((current, index, arr) => {
           const after = arr[index + 1];
           if (after) {
@@ -41,12 +41,9 @@ module.exports = {
               context.report({
                 node: current,
                 messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
-                data: { tag: `<${current.tagName}>`},
+                data: { tag: `<${current.tagName}>` },
                 fix(fixer) {
-                  return fixer.insertTextAfter(
-                    current,
-                    "\n"
-                  );
+                  return fixer.insertTextAfter(current, "\n");
                 },
               });
             }
@@ -65,7 +62,7 @@ module.exports = {
           context.report({
             node: node.startTag,
             messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
-            data: { tag: `<${node.tagName}>`},
+            data: { tag: `<${node.tagName}>` },
             fix(fixer) {
               return fixer.insertTextAfter(node.startTag, "\n");
             },
@@ -77,7 +74,7 @@ module.exports = {
           context.report({
             node: node.endTag,
             messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE,
-            data: { tag: `</${node.tagName}>`},
+            data: { tag: `</${node.tagName}>` },
             fix(fixer) {
               return fixer.insertTextBefore(node.endTag, "\n");
             },
