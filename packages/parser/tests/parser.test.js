@@ -36,4 +36,22 @@ describe("parser", () => {
 `;
     expect(parser.parse(code)).toMatchSnapshot();
   });
+
+  it("comment", () => {
+    const code = `
+<div>
+<!-- comment -->
+</div>
+`;
+    expect(parser.parse(code)).toMatchSnapshot();
+  });
+
+  it("comment multiline", () => {
+    const code = `
+<!--
+  comment
+-->
+`;
+    expect(parser.parse(code)).toMatchSnapshot();
+  });
 });

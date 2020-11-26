@@ -8,5 +8,6 @@ module.exports = {
     "@html-eslint/no-extra-spacing-attrs": "error",
     "@html-eslint/element-newline": "error",
     "@html-eslint/no-duplicate-id": "error",
+    "@html-eslint/indent": "error",
   },
 };

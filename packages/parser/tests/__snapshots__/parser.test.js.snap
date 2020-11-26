@@ -150,6 +150,46 @@ Object {
           "childNodes": Array [],
           "end": 18,
           "endTag": null,
+          "lineNodes": Array [
+            Object {
+              "end": 17,
+              "loc": Object {
+                "end": Object {
+                  "column": 1,
+                  "line": 2,
+                },
+                "start": Object {
+                  "column": 1,
+                  "line": 2,
+                },
+              },
+              "range": Array [
+                17,
+                17,
+              ],
+              "start": 17,
+              "textLine": "",
+            },
+            Object {
+              "end": 18,
+              "loc": Object {
+                "end": Object {
+                  "column": 1,
+                  "line": 3,
+                },
+                "start": Object {
+                  "column": 1,
+                  "line": 3,
+                },
+              },
+              "range": Array [
+                18,
+                18,
+              ],
+              "start": 18,
+              "textLine": "",
+            },
+          ],
           "loc": Object {
             "end": Object {
               "column": 1,
@@ -232,6 +272,46 @@ Object {
       "childNodes": Array [],
       "end": 25,
       "endTag": null,
+      "lineNodes": Array [
+        Object {
+          "end": 24,
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 3,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 3,
+            },
+          },
+          "range": Array [
+            24,
+            24,
+          ],
+          "start": 24,
+          "textLine": "",
+        },
+        Object {
+          "end": 25,
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 4,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 4,
+            },
+          },
+          "range": Array [
+            25,
+            25,
+          ],
+          "start": 25,
+          "textLine": "",
+        },
+      ],
       "loc": Object {
         "end": Object {
           "column": 1,
@@ -362,6 +442,521 @@ Object {
     19,
   ],
   "start": 3,
+  "startTag": null,
+  "tokens": Array [],
+  "type": "Program",
+}
+`;
+
+exports[`parser comment 1`] = `
+Object {
+  "attrs": Array [],
+  "body": Array [],
+  "childNodes": Array [
+    Object {
+      "attrs": Array [],
+      "childNodes": Array [
+        Object {
+          "attrs": Array [],
+          "childNodes": Array [],
+          "end": 7,
+          "endTag": null,
+          "lineNodes": Array [
+            Object {
+              "end": 6,
+              "loc": Object {
+                "end": Object {
+                  "column": 1,
+                  "line": 2,
+                },
+                "start": Object {
+                  "column": 1,
+                  "line": 2,
+                },
+              },
+              "range": Array [
+                6,
+                6,
+              ],
+              "start": 6,
+              "textLine": "",
+            },
+            Object {
+              "end": 7,
+              "loc": Object {
+                "end": Object {
+                  "column": 1,
+                  "line": 3,
+                },
+                "start": Object {
+                  "column": 1,
+                  "line": 3,
+                },
+              },
+              "range": Array [
+                7,
+                7,
+              ],
+              "start": 7,
+              "textLine": "",
+            },
+          ],
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 3,
+            },
+            "start": Object {
+              "column": 6,
+              "line": 2,
+            },
+          },
+          "range": Array [
+            6,
+            7,
+          ],
+          "start": 6,
+          "startTag": null,
+          "type": "text",
+          "value": "
+",
+        },
+        Object {
+          "attrs": Array [],
+          "childNodes": Array [],
+          "data": " comment ",
+          "end": 23,
+          "endTag": Object {
+            "end": 11,
+            "loc": Object {
+              "end": Object {
+                "column": 17,
+                "line": 3,
+              },
+              "start": Object {
+                "column": 14,
+                "line": 3,
+              },
+            },
+            "range": Array [
+              20,
+              23,
+            ],
+            "start": 7,
+          },
+          "lineNodes": Array [
+            Object {
+              "end": 22,
+              "loc": Object {
+                "end": Object {
+                  "column": 10,
+                  "line": 3,
+                },
+                "start": Object {
+                  "column": 3,
+                  "line": 3,
+                },
+              },
+              "range": Array [
+                13,
+                21,
+              ],
+              "start": 13,
+              "textLine": " comment ",
+            },
+          ],
+          "loc": Object {
+            "end": Object {
+              "column": 17,
+              "line": 3,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 3,
+            },
+          },
+          "range": Array [
+            7,
+            23,
+          ],
+          "start": 7,
+          "startTag": Object {
+            "end": 11,
+            "loc": Object {
+              "end": Object {
+                "column": 6,
+                "line": 3,
+              },
+              "start": Object {
+                "column": 1,
+                "line": 3,
+              },
+            },
+            "range": Array [
+              7,
+              11,
+            ],
+            "start": 7,
+          },
+          "type": "comment",
+        },
+        Object {
+          "attrs": Array [],
+          "childNodes": Array [],
+          "end": 24,
+          "endTag": null,
+          "lineNodes": Array [
+            Object {
+              "end": 23,
+              "loc": Object {
+                "end": Object {
+                  "column": 1,
+                  "line": 3,
+                },
+                "start": Object {
+                  "column": 1,
+                  "line": 3,
+                },
+              },
+              "range": Array [
+                23,
+                23,
+              ],
+              "start": 23,
+              "textLine": "",
+            },
+            Object {
+              "end": 24,
+              "loc": Object {
+                "end": Object {
+                  "column": 1,
+                  "line": 4,
+                },
+                "start": Object {
+                  "column": 1,
+                  "line": 4,
+                },
+              },
+              "range": Array [
+                24,
+                24,
+              ],
+              "start": 24,
+              "textLine": "",
+            },
+          ],
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 4,
+            },
+            "start": Object {
+              "column": 17,
+              "line": 3,
+            },
+          },
+          "range": Array [
+            23,
+            24,
+          ],
+          "start": 23,
+          "startTag": null,
+          "type": "text",
+          "value": "
+",
+        },
+      ],
+      "end": 30,
+      "endTag": Object {
+        "end": 30,
+        "loc": Object {
+          "end": Object {
+            "column": 7,
+            "line": 4,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 4,
+          },
+        },
+        "range": Array [
+          24,
+          30,
+        ],
+        "start": 24,
+      },
+      "loc": Object {
+        "end": Object {
+          "column": 7,
+          "line": 4,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 2,
+        },
+      },
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
+      "range": Array [
+        1,
+        30,
+      ],
+      "start": 1,
+      "startTag": Object {
+        "end": 6,
+        "loc": Object {
+          "end": Object {
+            "column": 6,
+            "line": 2,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 2,
+          },
+        },
+        "range": Array [
+          1,
+          6,
+        ],
+        "start": 1,
+      },
+      "tagName": "div",
+      "type": "Div",
+    },
+    Object {
+      "attrs": Array [],
+      "childNodes": Array [],
+      "end": 31,
+      "endTag": null,
+      "lineNodes": Array [
+        Object {
+          "end": 30,
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 4,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 4,
+            },
+          },
+          "range": Array [
+            30,
+            30,
+          ],
+          "start": 30,
+          "textLine": "",
+        },
+        Object {
+          "end": 31,
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 5,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 5,
+            },
+          },
+          "range": Array [
+            31,
+            31,
+          ],
+          "start": 31,
+          "textLine": "",
+        },
+      ],
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 5,
+        },
+        "start": Object {
+          "column": 7,
+          "line": 4,
+        },
+      },
+      "range": Array [
+        30,
+        31,
+      ],
+      "start": 30,
+      "startTag": null,
+      "type": "text",
+      "value": "
+",
+    },
+  ],
+  "comments": Array [],
+  "end": undefined,
+  "endTag": null,
+  "loc": Object {
+    "end": Object {
+      "column": undefined,
+      "line": undefined,
+    },
+    "start": Object {
+      "column": undefined,
+      "line": undefined,
+    },
+  },
+  "mode": "quirks",
+  "range": Array [
+    undefined,
+    undefined,
+  ],
+  "start": undefined,
+  "startTag": null,
+  "tokens": Array [],
+  "type": "Program",
+}
+`;
+
+exports[`parser comment multiline 1`] = `
+Object {
+  "attrs": Array [],
+  "body": Array [],
+  "childNodes": Array [
+    Object {
+      "attrs": Array [],
+      "childNodes": Array [],
+      "data": "
+  comment
+",
+      "end": 19,
+      "endTag": Object {
+        "end": 5,
+        "loc": Object {
+          "end": Object {
+            "column": 4,
+            "line": 4,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 4,
+          },
+        },
+        "range": Array [
+          16,
+          19,
+        ],
+        "start": 1,
+      },
+      "lineNodes": Array [
+        Object {
+          "end": 5,
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 2,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 2,
+            },
+          },
+          "range": Array [
+            5,
+            5,
+          ],
+          "start": 5,
+          "textLine": "",
+        },
+        Object {
+          "end": 17,
+          "loc": Object {
+            "end": Object {
+              "column": 10,
+              "line": 3,
+            },
+            "start": Object {
+              "column": 3,
+              "line": 3,
+            },
+          },
+          "range": Array [
+            8,
+            15,
+          ],
+          "start": 8,
+          "textLine": "  comment",
+        },
+        Object {
+          "end": 16,
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 4,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 4,
+            },
+          },
+          "range": Array [
+            16,
+            16,
+          ],
+          "start": 16,
+          "textLine": "",
+        },
+      ],
+      "loc": Object {
+        "end": Object {
+          "column": 4,
+          "line": 4,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 2,
+        },
+      },
+      "range": Array [
+        1,
+        19,
+      ],
+      "start": 1,
+      "startTag": Object {
+        "end": 5,
+        "loc": Object {
+          "end": Object {
+            "column": 6,
+            "line": 2,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 2,
+          },
+        },
+        "range": Array [
+          1,
+          5,
+        ],
+        "start": 1,
+      },
+      "type": "comment",
+    },
+  ],
+  "comments": Array [],
+  "end": undefined,
+  "endTag": null,
+  "loc": Object {
+    "end": Object {
+      "column": undefined,
+      "line": undefined,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 2,
+    },
+  },
+  "mode": "quirks",
+  "range": Array [
+    1,
+    undefined,
+  ],
+  "start": 1,
   "startTag": null,
   "tokens": Array [],
   "type": "Program",

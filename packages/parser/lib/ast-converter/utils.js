@@ -77,4 +77,68 @@ module.exports = {
   isEmptyHTMLNode(node) {
     return !node || (node.nodeName !== "#document" && !node.sourceCodeLocation);
   },
+  getCommentTags(node) {
+    return {
+      startTag: {
+        range: [node.range[0], node.range[0] + 4],
+        start: node.start,
+        end: node.start + 4,
+        loc: {
+          start: {
+            line: node.loc.start.line,
+            column: node.loc.start.column,
+          },
+          end: {
+            line: node.loc.start.line,
+            column: node.loc.start.column + 5,
+          },
+        },
+      },
+      endTag: {
+        range: [node.range[1] - 3, node.range[1]],
+        start: node.start,
+        end: node.start + 4,
+        loc: {
+          start: {
+            line: node.loc.end.line,
+            column: node.loc.end.column - 3,
+          },
+          end: {
+            line: node.loc.end.line,
+            column: node.loc.end.column,
+          },
+        },
+      },
+    };
+  },
+  getLineNodes(node, text) {
+    let [rangeStart] = node.range;
+    let startOffset = node.start;
+    let { line } = node.loc.start;
+    return text.split("\n").map((textLine) => {
+      const indentLength = (textLine.match(/[^\S\n\r]/g) || []).length;
+      rangeStart += indentLength;
+      startOffset += indentLength;
+      const lineNode = {
+        range: [rangeStart, rangeStart + textLine.trimStart().length],
+        start: startOffset,
+        end: rangeStart + textLine.length,
+        loc: {
+          start: {
+            line,
+            column: indentLength + 1,
+          },
+          end: {
+            line,
+            column: textLine.length + 1,
+          },
+        },
+        textLine,
+      };
+      rangeStart += textLine.trimStart().length + 1;
+      startOffset += textLine.trimStart().length + 1;
+      line += 1;
+      return lineNode;
+    });
+  },
 };
