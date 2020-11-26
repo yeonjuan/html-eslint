@@ -50,17 +50,20 @@ function extendsToProgramNode(node) {
 
 function extendsToTextNode(node) {
   return Object.assign(node, {
-    lineNodes: utils.getLineNodes(node, node.value)
+    lineNodes: utils.getLineNodes(node, node.value),
   });
 }
 
 function extendsToCommentNode(node) {
   return Object.assign(node, utils.getCommentTags(node), {
-    lineNodes: utils.getLineNodes({
-      ...node,
-      range: [node.range[0] + 4],
-      start: node.range[0] + 4
-    }, node.data),
+    lineNodes: utils.getLineNodes(
+      {
+        ...node,
+        range: [node.range[0] + 4],
+        start: node.range[0] + 4,
+      },
+      node.data
+    ),
   });
 }
 

@@ -111,15 +111,15 @@ module.exports = {
       },
     };
   },
-  getLineNodes (node, text) {
+  getLineNodes(node, text) {
     let [rangeStart] = node.range;
     let startOffset = node.start;
-    let {line} = node.loc.start;
-    return text.split('\n').map((textLine) => {
+    let { line } = node.loc.start;
+    return text.split("\n").map((textLine) => {
       const indentLength = (textLine.match(/[^\S\n\r]/g) || []).length;
       rangeStart += indentLength;
       startOffset += indentLength;
-      const lineNode =  {
+      const lineNode = {
         range: [rangeStart, rangeStart + textLine.trimStart().length],
         start: startOffset,
         end: rangeStart + textLine.length,
@@ -130,15 +130,15 @@ module.exports = {
           },
           end: {
             line,
-            column: textLine.length + 1
-          }
+            column: textLine.length + 1,
+          },
         },
         textLine,
       };
-      rangeStart += (textLine.trimStart().length + 1);
-      startOffset += (textLine.trimStart().length + 1);
+      rangeStart += textLine.trimStart().length + 1;
+      startOffset += textLine.trimStart().length + 1;
       line += 1;
       return lineNode;
     });
-  }
+  },
 };

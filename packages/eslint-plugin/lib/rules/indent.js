@@ -123,7 +123,7 @@ module.exports = {
        * @param {HTMLNode} node
        */
       "*"(node) {
-          indentLevel.up();
+        indentLevel.up();
 
         (node.childNodes || []).forEach((current) => {
           if (current.startTag) {
@@ -135,21 +135,21 @@ module.exports = {
         });
         if (node.lineNodes && node.lineNodes.length) {
           if (!node.startTag) {
-             indentLevel.down();
+            indentLevel.down();
           }
-          node.lineNodes.forEach(lineNode => {
+          node.lineNodes.forEach((lineNode) => {
             if (lineNode.textLine.trim().length) {
               checkIndent(lineNode, node);
             }
           });
           if (!node.startTag) {
             indentLevel.up();
-         }
+          }
         }
       },
       "*:exit"() {
         indentLevel.down();
-      }
+      },
     };
   },
 };
