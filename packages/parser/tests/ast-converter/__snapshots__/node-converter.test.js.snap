@@ -34,6 +34,65 @@ Object {
   "attrs": Array [],
   "end": 26,
   "endTag": null,
+  "lineNodes": Array [
+    Object {
+      "end": 15,
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 2,
+        },
+      },
+      "range": Array [
+        15,
+        15,
+      ],
+      "start": 15,
+      "textLine": "",
+    },
+    Object {
+      "end": 20,
+      "loc": Object {
+        "end": Object {
+          "column": 3,
+          "line": 3,
+        },
+        "start": Object {
+          "column": 3,
+          "line": 3,
+        },
+      },
+      "range": Array [
+        18,
+        18,
+      ],
+      "start": 18,
+      "textLine": "  ",
+    },
+    Object {
+      "end": 19,
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 4,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 4,
+        },
+      },
+      "range": Array [
+        19,
+        19,
+      ],
+      "start": 19,
+      "textLine": "",
+    },
+  ],
   "loc": Object {
     "end": Object {
       "column": 1,

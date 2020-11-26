@@ -1,3 +1,7 @@
+/**
+ * @typedef {import("../../types").HTMLNode} HTMLNode
+ */
+
 module.exports = {
   /**
    * Find attribute by name in the given node
@@ -18,5 +22,13 @@ module.exports = {
    */
   hasAttr(node, name) {
     return !!node && (node.attrs || []).some((attr) => attr.name === name);
+  },
+  /**
+   * Checks whether a node's all tokens are on the same line or not.
+   * @param {HTMLNode} node A node to check
+   * @returns {boolean} `true` if a node's tokens are on the same line, otherwise `false`.
+   */
+  isNodeTokensOnSameLine(node) {
+    return node.loc.start.line === node.loc.end.line;
   },
 };

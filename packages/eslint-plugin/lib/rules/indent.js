@@ -1,14 +1,27 @@
 /**
  * @typedef {import("../types").RuleCategory} RuleCategory
+ * @typedef {import("../types").HTMLNode} HTMLNode
+ *
+ * @typedef {Object} IndentType
+ * @property {"tab"} TAB
+ * @property {"space"} SPACE
+ *
+ * @typedef {Object} MessageId
+ * @property {"wrongIndent"} WRONG_INDENT
  */
 
-/**
- * @type {RuleCategory}
- */
+/** @type {RuleCategory} */
 const CATEGORY = require("../constants/rule-category");
 
-const MESSAGE_IDS = {
+/** @type {MessageId} */
+const MESSAGE_ID = {
   WRONG_INDENT: "wrongIndent",
+};
+
+/** @type {IndentType} */
+const INDENT_TYPES = {
+  TAB: "tab",
+  SPACE: "space",
 };
 
 module.exports = {
@@ -18,7 +31,7 @@ module.exports = {
     docs: {
       description: "Enforce consistent indentation",
       category: CATEGORY.STYLE,
-      recommended: false,
+      recommended: true,
     },
 
     fixable: true,
@@ -36,7 +49,7 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.WRONG_INDENT]:
+      [MESSAGE_ID.WRONG_INDENT]:
         "Expected indentation of {{expected}} but found {{actual}}.",
     },
   },
@@ -45,51 +58,59 @@ module.exports = {
     const sourceCode = context.getSourceCode();
     const indentLevel = new IndentLevel();
     const { indentType, indentSize } = getIndentTypeAndSize(context.options);
-    const indentUnit = indentType === "space" ? " ".repeat(indentSize) : "\t";
+    const indentUnit =
+      indentType === INDENT_TYPES.SPACE ? " ".repeat(indentSize) : "\t";
 
+    /**
+     * @param {HTMLNode} node
+     */
     function getLineCodeBefore(node) {
       return sourceCode.text
         .slice(node.range[0] - node.loc.start.column, node.range[0])
         .replace("\n", "");
     }
 
-    function checkIndent(node) {
+    /**
+     * @param {HTMLNode} node
+     * @param {HTMLNode} [nodeToReport]
+     */
+    function checkIndent(node, nodeToReport) {
       const codeBefore = getLineCodeBefore(node);
       if (codeBefore.trim().length === 0) {
         const level = indentLevel.get();
-        const expected = indentUnit.repeat(level);
-        if (codeBefore !== expected) {
-          const expectedData = `${
-            indentType === "space" ? level * indentSize : level
+        const expectedIndent = indentUnit.repeat(level);
+        if (codeBefore !== expectedIndent) {
+          const expected = `${
+            indentType === INDENT_TYPES.SPACE ? level * indentSize : level
           } ${indentType}`;
           const actualTabs = (codeBefore.match(/\t/g) || []).length;
           const actualSpaces = (codeBefore.match(/[^\S\t\n\r]/g) || []).length;
 
-          let actualData = "";
+          let actual = "";
 
           if (!actualTabs && !actualSpaces) {
-            actualData = "no indent";
+            actual = "no indent";
           }
           if (actualTabs) {
-            actualData += `${indentSize} tab`;
+            actual += `${indentSize} ${INDENT_TYPES.TAB}`;
           }
           if (actualSpaces) {
-            actualData += `${
-              actualData.length ? ", " : ""
-            } ${indentSize} space`;
+            actual += `${actual.length ? ", " : ""} ${indentSize} ${
+              INDENT_TYPES.SPACE
+            }`;
           }
 
           context.report({
-            node,
-            messageId: MESSAGE_IDS.WRONG_INDENT,
+            node: nodeToReport || node,
+            messageId: MESSAGE_ID.WRONG_INDENT,
             data: {
-              expected: expectedData,
-              actual: actualData,
+              expected,
+              actual,
             },
             fix(fixer) {
               return fixer.replaceTextRange(
                 [node.range[0] - (node.loc.start.column - 1), node.range[0]],
-                expected
+                expectedIndent
               );
             },
           });
@@ -98,8 +119,12 @@ module.exports = {
     }
 
     return {
+      /**
+       * @param {HTMLNode} node
+       */
       "*"(node) {
-        indentLevel.up();
+          indentLevel.up();
+
         (node.childNodes || []).forEach((current) => {
           if (current.startTag) {
             checkIndent(current.startTag);
@@ -108,17 +133,33 @@ module.exports = {
             checkIndent(current.endTag);
           }
         });
+        if (node.lineNodes && node.lineNodes.length) {
+          if (!node.startTag) {
+             indentLevel.down();
+          }
+          node.lineNodes.forEach(lineNode => {
+            if (lineNode.textLine.trim().length) {
+              checkIndent(lineNode, node);
+            }
+          });
+          if (!node.startTag) {
+            indentLevel.up();
+         }
+        }
       },
+      "*:exit"() {
+        indentLevel.down();
+      }
     };
   },
 };
 
 function getIndentTypeAndSize(options) {
-  let indentType = "space";
+  let indentType = INDENT_TYPES.SPACE;
   let indentSize = 4;
   if (options.length) {
-    if (options[0] === "tab") {
-      indentType = "tab";
+    if (options[0] === INDENT_TYPES.TAB) {
+      indentType = INDENT_TYPES.TAB;
     } else {
       indentSize = options[0];
     }
