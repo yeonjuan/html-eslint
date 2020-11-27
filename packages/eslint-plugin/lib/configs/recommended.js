@@ -9,5 +9,6 @@ module.exports = {
     "@html-eslint/element-newline": "error",
     "@html-eslint/no-duplicate-id": "error",
     "@html-eslint/indent": "error",
+    "@html-eslint/require-li-container": "error",
   },
 };
