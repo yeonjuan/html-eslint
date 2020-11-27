@@ -9,6 +9,7 @@ const noExtraSpacingAttrs = require("./no-extra-spacing-attrs");
 const elementNewLine = require("./element-newline");
 const noSkipHeadingLevels = require("./no-skip-heading-levels");
 const indent = require("./indent");
+const requireLiContainer = require("./require-li-container");
 
 module.exports = {
   "require-lang": requireLang,
@@ -21,5 +22,6 @@ module.exports = {
   "no-extra-spacing-attrs": noExtraSpacingAttrs,
   "element-newline": elementNewLine,
   "no-skip-heading-levels": noSkipHeadingLevels,
+  "require-li-container": requireLiContainer,
   indent: indent,
 };
