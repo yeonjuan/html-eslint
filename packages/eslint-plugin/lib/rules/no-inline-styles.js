@@ -1,11 +1,4 @@
-/**
- * @typedef {import("../types").RuleCategory} RuleCategory
- */
-
-/**
- * @type {RuleCategory}
- */
-const CATEGORY = require("../constants/rule-category");
+const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
 const MESSAGE_IDS = {
@@ -18,7 +11,7 @@ module.exports = {
 
     docs: {
       description: "Disallow using inline style",
-      category: CATEGORY.BEST_PRACTICE,
+      category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
     },
 

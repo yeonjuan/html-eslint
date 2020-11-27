@@ -1,11 +1,4 @@
-/**
- * @typedef {import("../types").RuleCategory} RuleCategory
- */
-
-/**
- * @type {RuleCategory}
- */
-const CATEGORY = require("../constants/rule-category");
+const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",
@@ -17,7 +10,7 @@ module.exports = {
 
     docs: {
       description: "Require `alt` attribute at `<img>` tag",
-      category: CATEGORY.ACCESSIBILITY,
+      category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: true,
     },
 

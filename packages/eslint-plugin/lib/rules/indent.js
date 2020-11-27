@@ -1,5 +1,4 @@
 /**
- * @typedef {import("../types").RuleCategory} RuleCategory
  * @typedef {import("../types").HTMLNode} HTMLNode
  *
  * @typedef {Object} IndentType
@@ -10,8 +9,7 @@
  * @property {"wrongIndent"} WRONG_INDENT
  */
 
-/** @type {RuleCategory} */
-const CATEGORY = require("../constants/rule-category");
+const { RULE_CATEGORY } = require("../constants");
 
 /** @type {MessageId} */
 const MESSAGE_ID = {
@@ -30,7 +28,7 @@ module.exports = {
 
     docs: {
       description: "Enforce consistent indentation",
-      category: CATEGORY.STYLE,
+      category: RULE_CATEGORY.STYLE,
       recommended: true,
     },
 

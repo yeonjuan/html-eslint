@@ -20,7 +20,17 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
+    },
+    {
+      code: `
+<html>
+  <body>
+    <div id = "foo"></div>
+    <div id = "bar"></div>
+  </body>
+</html>
+`,
+      options: [2],
     },
     {
       code: `
@@ -37,7 +47,6 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
     },
     {
       code: `
@@ -48,7 +57,6 @@ ruleTester.run("indent", rule, {
     </head>
 </html>
 `,
-      filename: "test.html",
     },
     {
       code: `
@@ -58,7 +66,6 @@ ruleTester.run("indent", rule, {
     bar
 </div>
 `,
-      filename: "test.html",
     },
     {
       code: `
@@ -69,7 +76,6 @@ ruleTester.run("indent", rule, {
 \t</body>
 </html>
 `,
-      filename: "test.html",
       options: ["tab"],
     },
     {
@@ -82,7 +88,6 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
     },
     {
       code: `
@@ -94,7 +99,6 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
     },
   ],
   invalid: [
@@ -111,7 +115,6 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
       errors: [
         {
           message: "Expected indentation of 4 space but found 2 space.",
@@ -138,7 +141,6 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
       errors: [
         {
           message: "Expected indentation of 8 space but found 7 space.",
@@ -165,7 +167,6 @@ ruleTester.run("indent", rule, {
 \t</body>
 </html>
 `,
-      filename: "test.html",
       options: ["tab"],
       errors: [
         {
@@ -189,7 +190,6 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
       errors: [
         {
           message: "Expected indentation of 4 space but found no indent.",
@@ -212,7 +212,6 @@ ruleTester.run("indent", rule, {
 \t</body>
 </html>
 `,
-      filename: "test.html",
       options: ["tab"],
       errors: [
         {
@@ -240,7 +239,6 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
       errors: wrongIndentErrors(4),
     },
     {
@@ -262,7 +260,6 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
       errors: wrongIndentErrors(5),
     },
     {
@@ -282,7 +279,6 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
       errors: wrongIndentErrors(4),
     },
     {
@@ -304,7 +300,6 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
       errors: wrongIndentErrors(5),
     },
     {
@@ -328,7 +323,6 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      filename: "test.html",
       errors: wrongIndentErrors(6),
     },
     {
@@ -354,7 +348,6 @@ comment
     </body>
 </html>
 `,
-      filename: "test.html",
       errors: wrongIndentErrors(7),
     },
     {
@@ -372,7 +365,6 @@ comment
     -->
 </div>
 `,
-      filename: "test.html",
       errors: wrongIndentErrors(3),
     },
     {
@@ -394,7 +386,6 @@ indent
     </p>
 </div>
 `,
-      filename: "test.html",
       errors: wrongIndentErrors(3),
     },
     {
@@ -432,7 +423,6 @@ test
     </div>
 </div>
 `,
-      filename: "test.html",
       errors: wrongIndentErrors(13),
     },
   ],

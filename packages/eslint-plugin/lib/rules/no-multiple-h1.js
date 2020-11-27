@@ -1,11 +1,4 @@
-/**
- * @typedef {import("../types").RuleCategory} RuleCategory
- */
-
-/**
- * @type {RuleCategory}
- */
-const CATEGORY = require("../constants/rule-category");
+const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   MULTIPLE_H1: "unexpectedMultiH1",
@@ -17,7 +10,7 @@ module.exports = {
 
     docs: {
       description: "Disallow multiple `<h1></h1>`.",
-      category: CATEGORY.SEO,
+      category: RULE_CATEGORY.SEO,
       recommended: true,
     },
 

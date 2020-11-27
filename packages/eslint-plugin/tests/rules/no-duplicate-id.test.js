@@ -14,7 +14,6 @@ ruleTester.run("no-duplicate-id", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
     },
   ],
   invalid: [
@@ -27,7 +26,6 @@ ruleTester.run("no-duplicate-id", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
       errors: [
         {
           messageId: "duplicateId",
@@ -46,7 +44,7 @@ ruleTester.run("no-duplicate-id", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "duplicateId",

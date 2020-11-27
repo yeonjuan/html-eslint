@@ -1,3 +1,4 @@
+/** @type {string[]} */
 module.exports = [
   "aa", // Afar
   "ab", // Abkhaz

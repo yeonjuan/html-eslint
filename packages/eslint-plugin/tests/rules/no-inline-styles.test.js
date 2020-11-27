@@ -13,7 +13,6 @@ ruleTester.run("no-inline-styles", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
     },
   ],
   invalid: [
@@ -25,7 +24,7 @@ ruleTester.run("no-inline-styles", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "unexpectedInlineStyle",

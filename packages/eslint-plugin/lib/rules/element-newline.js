@@ -1,11 +1,4 @@
-/**
- * @typedef {import("../types").RuleCategory} RuleCategory
- */
-
-/**
- * @type {RuleCategory}
- */
-const CATEGORY = require("../constants/rule-category");
+const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   EXPECT_NEW_LINE_AFTER: "expectAfter",
@@ -18,7 +11,7 @@ module.exports = {
 
     docs: {
       description: "Enforce newline between elements",
-      category: CATEGORY.STYLE,
+      category: RULE_CATEGORY.STYLE,
       recommended: true,
     },
 

@@ -1,15 +1,8 @@
-/**
- * @typedef {import("../types").RuleCategory} RuleCategory
- */
-
-/**
- * @type {RuleCategory}
- */
-const CATEGORY = require("../constants/rule-category");
+const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
-  MISSING_TITLE: "missingTitle",
-  EMPTY_TITLE: "emptyTitle",
+  MISSING_TITLE: "missing",
+  EMPTY_TITLE: "empty",
 };
 
 module.exports = {
@@ -18,7 +11,7 @@ module.exports = {
 
     docs: {
       description: "Require `<title><title/>` in the `<head><head/>`",
-      category: CATEGORY.SEO,
+      category: RULE_CATEGORY.SEO,
       recommended: true,
     },
 

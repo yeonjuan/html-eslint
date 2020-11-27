@@ -10,7 +10,6 @@ ruleTester.run("require-lang", rule, {
 <html lang="ko">
 </html>
 `,
-      filename: "test.html",
     },
   ],
   invalid: [
@@ -19,7 +18,7 @@ ruleTester.run("require-lang", rule, {
 <html>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "missingLang",
@@ -35,7 +34,7 @@ ruleTester.run("require-lang", rule, {
 <html lang="">
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "invalidLang",
@@ -47,7 +46,7 @@ ruleTester.run("require-lang", rule, {
 <html lang="  ">
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "invalidLang",
@@ -59,7 +58,7 @@ ruleTester.run("require-lang", rule, {
 <html lang="unkown">
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "invalidLang",
