@@ -92,10 +92,10 @@ module.exports = {
             actual = "no indent";
           }
           if (actualTabs) {
-            actual += `${indentSize} ${INDENT_TYPES.TAB}`;
+            actual += `${actualTabs} ${INDENT_TYPES.TAB}`;
           }
           if (actualSpaces) {
-            actual += `${actual.length ? ", " : ""} ${indentSize} ${
+            actual += `${actual.length ? ", " : ""}${actualSpaces} ${
               INDENT_TYPES.SPACE
             }`;
           }
