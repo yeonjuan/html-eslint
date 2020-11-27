@@ -1,11 +1,4 @@
-/**
- * @typedef {import("../types").RuleCategory} RuleCategory
- */
-
-/**
- * @type {RuleCategory}
- */
-const CATEGORY = require("../constants/rule-category");
+const {RULE_CATEGORY} = require("../constants");
 
 const MESSAGE_IDS = {
   MISSING_DOCTYPE: "missingDoctype",
@@ -17,7 +10,7 @@ module.exports = {
 
     docs: {
       description: "Require `<!DOCTYPE HTML>` in html,",
-      category: CATEGORY.BEST_PRACTICE,
+      category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
     },
 

@@ -1,11 +1,4 @@
-/**
- * @typedef {import("../types").RuleCategory} RuleCategory
- */
-
-/**
- * @type {RuleCategory}
- */
-const CATEGORY = require("../constants/rule-category");
+const {RULE_CATEGORY} = require("../constants");
 
 const MESSAGE_IDS = {
   EXTRA_BETWEEN: "unexpectBetween",
@@ -19,7 +12,7 @@ module.exports = {
 
     docs: {
       description: "Disallow an extra spacing around attributes",
-      category: CATEGORY.STYLE,
+      category: RULE_CATEGORY.STYLE,
       recommended: true,
     },
 

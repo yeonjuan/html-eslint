@@ -1,12 +1,4 @@
-/**
- * @typedef {import("../types").RuleCategory} RuleCategory
- */
-
-/**
- * @type {RuleCategory}
- */
-const CATEGORY = require("../constants/rule-category");
-const IOS_639_1 = require("../constants/iso_639_1");
+const { RULE_CATEGORY, ISO_639_1} = require("../constants");
 const { NodeUtils } = require("./utils");
 
 const MESSAGE_IDS = {
@@ -20,7 +12,7 @@ module.exports = {
 
     docs: {
       description: "Require `lang` attribute at `<html>` tag",
-      category: CATEGORY.SEO,
+      category: RULE_CATEGORY.SEO,
       recommended: true,
     },
 
@@ -41,7 +33,7 @@ module.exports = {
             node: node.startTag,
             messageId: MESSAGE_IDS.MISSING_LANG,
           });
-        } else if (!IOS_639_1.includes(langAttr.value)) {
+        } else if (!ISO_639_1.includes(langAttr.value)) {
           context.report({
             node: node.startTag,
             messageId: MESSAGE_IDS.INVALID_LANG,
