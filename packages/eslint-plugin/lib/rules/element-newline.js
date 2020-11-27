@@ -1,4 +1,4 @@
-const { RULE_CATEGORY } = require("../constants");
+const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
 
 const MESSAGE_IDS = {
   EXPECT_NEW_LINE_AFTER: "expectAfter",
@@ -26,7 +26,7 @@ module.exports = {
   create(context) {
     function checkSiblings(sibilings) {
       sibilings
-        .filter((node) => node.type !== "text" && node.range[0])
+        .filter((node) => node.type !== NODE_TYPES.TEXT && node.range[0])
         .forEach((current, index, arr) => {
           const after = arr[index + 1];
           if (after) {
@@ -46,7 +46,7 @@ module.exports = {
 
     function checkChild(node) {
       const children = (node.childNodes || []).filter(
-        (n) => !!n.range[0] && n.type !== "text"
+        (n) => !!n.range[0] && n.type !== NODE_TYPES.TEXT
       );
       const first = children[0];
       const last = children[children.length - 1];
@@ -77,7 +77,7 @@ module.exports = {
     }
     return {
       "*"(node) {
-        if (node.type !== "text") {
+        if (node.type !== NODE_TYPES.TEXT) {
           checkSiblings(node.childNodes || []);
           checkChild(node);
         }

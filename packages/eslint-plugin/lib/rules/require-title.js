@@ -1,4 +1,4 @@
-const { RULE_CATEGORY } = require("../constants");
+const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
 
 const MESSAGE_IDS = {
   MISSING_TITLE: "missing",
@@ -28,7 +28,7 @@ module.exports = {
     return {
       Head(node) {
         const titleTag = (node.childNodes || []).find(
-          (node) => node.type === "Title"
+          (node) => node.type === NODE_TYPES.TITLE
         );
 
         if (!titleTag) {
@@ -38,7 +38,8 @@ module.exports = {
           });
         } else if (
           !(titleTag.childNodes || []).some(
-            (node) => node.type === "text" && node.value.trim().length > 0
+            (node) =>
+              node.type === NODE_TYPES.TEXT && node.value.trim().length > 0
           )
         ) {
           context.report({

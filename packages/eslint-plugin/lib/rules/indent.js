@@ -9,7 +9,7 @@
  * @property {"wrongIndent"} WRONG_INDENT
  */
 
-const { RULE_CATEGORY } = require("../constants");
+const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
 
 /** @type {MessageId} */
 const MESSAGE_ID = {
@@ -131,7 +131,7 @@ module.exports = {
             checkIndent(current.endTag);
           }
         });
-        if (node.parent && node.parent.type === "Pre") {
+        if (node.parent && node.parent.type === NODE_TYPES.PRE) {
           return;
         }
 
