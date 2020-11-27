@@ -116,7 +116,9 @@ module.exports = {
     let startOffset = node.start;
     let { line } = node.loc.start;
     return text.split("\n").map((textLine) => {
-      const indentLength = (textLine.match(/[^\S\n\r]/g) || []).length;
+      const lengthWithoutIndent = textLine.trimStart().length;
+      const indentLength = textLine.length - lengthWithoutIndent;
+  
       rangeStart += indentLength;
       startOffset += indentLength;
       const lineNode = {
@@ -135,8 +137,8 @@ module.exports = {
         },
         textLine,
       };
-      rangeStart += textLine.trimStart().length + 1;
-      startOffset += textLine.trimStart().length + 1;
+      rangeStart += lengthWithoutIndent + 1;
+      startOffset += lengthWithoutIndent + 1;
       line += 1;
       return lineNode;
     });

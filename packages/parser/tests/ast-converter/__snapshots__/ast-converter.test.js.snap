@@ -112,22 +112,22 @@ Object {
                   "endTag": null,
                   "lineNodes": Array [
                     Object {
-                      "end": 58,
+                      "end": 56,
                       "loc": Object {
                         "end": Object {
                           "column": 17,
                           "line": 4,
                         },
                         "start": Object {
-                          "column": 3,
+                          "column": 1,
                           "line": 4,
                         },
                       },
                       "range": Array [
-                        42,
-                        58,
+                        40,
+                        56,
                       ],
-                      "start": 42,
+                      "start": 40,
                       "textLine": "My First Heading",
                     },
                   ],
@@ -282,22 +282,22 @@ Object {
                   "endTag": null,
                   "lineNodes": Array [
                     Object {
-                      "end": 88,
+                      "end": 86,
                       "loc": Object {
                         "end": Object {
                           "column": 20,
                           "line": 5,
                         },
                         "start": Object {
-                          "column": 3,
+                          "column": 1,
                           "line": 5,
                         },
                       },
                       "range": Array [
-                        69,
-                        88,
+                        67,
+                        86,
                       ],
-                      "start": 69,
+                      "start": 67,
                       "textLine": "My first paragraph.",
                     },
                   ],

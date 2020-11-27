@@ -72,6 +72,30 @@ ruleTester.run("indent", rule, {
       filename: "test.html",
       options: ["tab"],
     },
+    {
+      code: `
+<html>
+    <body>
+        <div>
+            should not fixed
+        </div>
+    </body>
+</html>
+`,
+      filename: "test.html",
+    },
+    {
+      code: `
+<html>
+    <body>
+        <pre>
+ should not fixed
+        </pre>
+    </body>
+</html>
+`,
+      filename: "test.html",
+    },
   ],
   invalid: [
     {
@@ -379,8 +403,8 @@ indent
       code: `
 <div>
 <p>
-indent
-indent
+indent indent
+indent indent
 indent
 </p>
 <a>
@@ -396,8 +420,8 @@ test
       output: `
 <div>
     <p>
-        indent
-        indent
+        indent indent
+        indent indent
         indent
     </p>
     <a>

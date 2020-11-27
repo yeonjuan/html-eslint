@@ -133,6 +133,10 @@ module.exports = {
             checkIndent(current.endTag);
           }
         });
+        if (node.parent && node.parent.type === "Pre") {
+          return;
+        }
+
         if (node.lineNodes && node.lineNodes.length) {
           if (!node.startTag) {
             indentLevel.down();
