@@ -166,9 +166,7 @@ ruleTester.run("indent", rule, {
 </html>
 `,
       filename: "test.html",
-      options: [
-        'tab'
-      ],
+      options: ["tab"],
       errors: [
         {
           message: "Expected indentation of 2 tab but found 2 tab, 1 space.",

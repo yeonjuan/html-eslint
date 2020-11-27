@@ -19,27 +19,30 @@ function toBaseNode(node) {
   return baseNode;
 }
 
-function addTags (node, sourceCodeLocation) {
+function addTags(node, sourceCodeLocation) {
   return Object.assign(node, {
-    startTag: sourceCodeLocation && sourceCodeLocation.startTag
-      ? utils.toESLocation(sourceCodeLocation.startTag)
-      : null,
-    endTag: sourceCodeLocation && sourceCodeLocation.endTag
-      ? utils.toESLocation(sourceCodeLocation.endTag)
-      : null,
+    startTag:
+      sourceCodeLocation && sourceCodeLocation.startTag
+        ? utils.toESLocation(sourceCodeLocation.startTag)
+        : null,
+    endTag:
+      sourceCodeLocation && sourceCodeLocation.endTag
+        ? utils.toESLocation(sourceCodeLocation.endTag)
+        : null,
   });
 }
 
-function addAttrs (node, sourceCodeLocation) {
+function addAttrs(node, sourceCodeLocation) {
   return Object.assign(node, {
-    attrs: node.attrs ? node.attrs.map((attr) => ({
-      ...attr,
-      ...(sourceCodeLocation && sourceCodeLocation.attrs
-        ? utils.getAttrLocation(sourceCodeLocation, attr.name)
-        : null),
-    }))
-  : [],
-  })
+    attrs: node.attrs
+      ? node.attrs.map((attr) => ({
+          ...attr,
+          ...(sourceCodeLocation && sourceCodeLocation.attrs
+            ? utils.getAttrLocation(sourceCodeLocation, attr.name)
+            : null),
+        }))
+      : [],
+  });
 }
 
 function extendsToProgramNode(node) {

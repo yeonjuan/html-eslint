@@ -118,7 +118,7 @@ module.exports = {
     return text.split("\n").map((textLine) => {
       const lengthWithoutIndent = textLine.trimStart().length;
       const indentLength = textLine.length - lengthWithoutIndent;
-  
+
       rangeStart += indentLength;
       startOffset += indentLength;
       const lineNode = {
