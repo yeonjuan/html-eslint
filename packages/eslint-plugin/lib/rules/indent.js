@@ -9,7 +9,7 @@
  * @property {"wrongIndent"} WRONG_INDENT
  */
 
-const {RULE_CATEGORY} = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 
 /** @type {MessageId} */
 const MESSAGE_ID = {

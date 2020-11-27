@@ -1,4 +1,4 @@
-const {RULE_CATEGORY} = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",

@@ -1,4 +1,4 @@
-const {RULE_CATEGORY} = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
 const MESSAGE_IDS = {

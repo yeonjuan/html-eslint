@@ -1,4 +1,4 @@
-const {RULE_CATEGORY} = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   EXPECT_NEW_LINE_AFTER: "expectAfter",
