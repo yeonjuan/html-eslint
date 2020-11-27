@@ -5,6 +5,12 @@ export type RuleCategory = {
   STYLE: "Style";
 };
 
+export type NodeTypes = {
+  TEXT: "text";
+  TITLE: "Title";
+  PRE: "Pre";
+};
+
 type Loc = {
   end: {
     line: number;
