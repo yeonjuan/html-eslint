@@ -12,7 +12,6 @@ ruleTester.run("element-newline", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
     },
   ],
   invalid: [
@@ -24,7 +23,7 @@ ruleTester.run("element-newline", rule, {
 <!DOCTYPE html>
 <html></html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "expectAfter",
@@ -40,7 +39,7 @@ ruleTester.run("element-newline", rule, {
 <!-- comment -->
 <html></html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "expectAfter",
@@ -60,7 +59,7 @@ ruleTester.run("element-newline", rule, {
 <div></div>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "expectAfter",
@@ -84,7 +83,7 @@ ruleTester.run("element-newline", rule, {
 </head>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "expectAfter",
@@ -109,7 +108,7 @@ ruleTester.run("element-newline", rule, {
 <body>test</body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "expectAfter",
@@ -128,7 +127,7 @@ ruleTester.run("element-newline", rule, {
 <body></body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "expectAfter",
@@ -150,7 +149,7 @@ ruleTester.run("element-newline", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "expectAfter",
@@ -182,7 +181,7 @@ ruleTester.run("element-newline", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "expectAfter",
@@ -219,7 +218,7 @@ ruleTester.run("element-newline", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "expectAfter",

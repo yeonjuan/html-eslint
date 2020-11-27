@@ -13,7 +13,6 @@ ruleTester.run("no-multiple-h1", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
     },
   ],
   invalid: [
@@ -26,7 +25,7 @@ ruleTester.run("no-multiple-h1", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "unexpectedMultiH1",

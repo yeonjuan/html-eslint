@@ -9,7 +9,6 @@ ruleTester.run("require-img-alt", rule, {
       code: `
 <img src="./image.png" alt="image description"/>
 `,
-      filename: "test.html",
     },
     {
       code: `
@@ -19,7 +18,6 @@ ruleTester.run("require-img-alt", rule, {
   </body>
 </html>
 `,
-      filename: "test.html",
     },
   ],
   invalid: [
@@ -27,7 +25,7 @@ ruleTester.run("require-img-alt", rule, {
       code: `
 <img src="./image.png"/>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "missingAlt",
@@ -42,7 +40,7 @@ ruleTester.run("require-img-alt", rule, {
   </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "missingAlt",
@@ -61,7 +59,7 @@ ruleTester.run("require-img-alt", rule, {
   </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "missingAlt",
@@ -82,7 +80,7 @@ ruleTester.run("require-img-alt", rule, {
   </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "missingAlt",

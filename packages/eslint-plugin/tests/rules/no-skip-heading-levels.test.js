@@ -10,12 +10,20 @@ ruleTester.run("no-skip-heading-levels", rule, {
 <html>
 <body>
 <h1>one heading</h1>
+</body>
+</html>
+`,
+    },
+    {
+      code: `
+<html>
+<body>
+<h1>one heading</h1>
 <h2>one heading</h2>
 <h3>one heading</h3>
 </body>
 </html>
 `,
-      filename: "test.html",
     },
     {
       code: `
@@ -27,7 +35,6 @@ ruleTester.run("no-skip-heading-levels", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
     },
     {
       code: `
@@ -39,7 +46,6 @@ ruleTester.run("no-skip-heading-levels", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
     },
   ],
   invalid: [
@@ -52,7 +58,7 @@ ruleTester.run("no-skip-heading-levels", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           message: "Unexpected skipping heading level. <h2> is expected",

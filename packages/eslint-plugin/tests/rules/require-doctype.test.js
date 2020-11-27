@@ -11,7 +11,6 @@ ruleTester.run("require-doctype", rule, {
 <html>
 </html>
 `,
-      filename: "test.html",
     },
   ],
   invalid: [
@@ -25,7 +24,7 @@ ruleTester.run("require-doctype", rule, {
 <html>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "missingDoctype",

@@ -13,7 +13,6 @@ ruleTester.run("require-title", rule, {
 </head>
 </html>
 `,
-      filename: "test.html",
     },
   ],
   invalid: [
@@ -24,10 +23,10 @@ ruleTester.run("require-title", rule, {
 </head>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
-          messageId: "missingTitle",
+          messageId: "missing",
         },
       ],
     },
@@ -39,10 +38,10 @@ ruleTester.run("require-title", rule, {
 </head>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
-          messageId: "emptyTitle",
+          messageId: "empty",
         },
       ],
     },
@@ -55,10 +54,10 @@ ruleTester.run("require-title", rule, {
 </head>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
-          messageId: "emptyTitle",
+          messageId: "empty",
         },
       ],
     },

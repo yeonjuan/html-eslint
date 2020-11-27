@@ -13,7 +13,6 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
     },
     {
       code: `
@@ -24,7 +23,18 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
+    },
+    {
+      code: `
+<html>
+<body>
+<div
+    foo="foo"
+     bar="bar"
+     ></div>
+</body>
+</html>
+`,
     },
   ],
   invalid: [
@@ -43,7 +53,7 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "unexpectBetween",
@@ -65,7 +75,7 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 </body>
 </html>
 `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "unexpectBetween",
@@ -90,7 +100,7 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 </body>
 </html>
     `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "unexpectAfter",
@@ -115,7 +125,7 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 </body>
 </html>
         `,
-      filename: "test.html",
+
       errors: [
         {
           messageId: "unexpectBefore",
