@@ -5,39 +5,44 @@ function toBaseNode(node) {
     childNodes,
     parentNode, // eslint-disable-line no-unused-vars
     nodeName,
-    attrs,
     sourceCodeLocation,
     ...extra
   } = node;
   const type = utils.toType(nodeName);
-  return {
+  const baseNode = {
     type,
     ...extra,
     ...utils.toESLocation(sourceCodeLocation, childNodes),
-    // start tag
+  };
+  addTags(baseNode, sourceCodeLocation);
+  addAttrs(baseNode, sourceCodeLocation);
+  return baseNode;
+}
+
+function addTags(node, sourceCodeLocation) {
+  return Object.assign(node, {
     startTag:
       sourceCodeLocation && sourceCodeLocation.startTag
-        ? {
-            ...utils.toESLocation(sourceCodeLocation.startTag),
-          }
+        ? utils.toESLocation(sourceCodeLocation.startTag)
         : null,
-    // end tag
     endTag:
       sourceCodeLocation && sourceCodeLocation.endTag
-        ? {
-            ...utils.toESLocation(sourceCodeLocation.endTag),
-          }
+        ? utils.toESLocation(sourceCodeLocation.endTag)
         : null,
-    // attributes
-    attrs: attrs
-      ? attrs.map((attr) => ({
+  });
+}
+
+function addAttrs(node, sourceCodeLocation) {
+  return Object.assign(node, {
+    attrs: node.attrs
+      ? node.attrs.map((attr) => ({
           ...attr,
           ...(sourceCodeLocation && sourceCodeLocation.attrs
             ? utils.getAttrLocation(sourceCodeLocation, attr.name)
             : null),
         }))
       : [],
-  };
+  });
 }
 
 function extendsToProgramNode(node) {

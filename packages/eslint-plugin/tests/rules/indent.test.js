@@ -25,6 +25,44 @@ ruleTester.run("indent", rule, {
     {
       code: `
 <html>
+    <body>
+        <div>
+            <div> foo </div>
+            bar
+        </div>
+        <div>
+            baz
+            qux
+        </div>
+    </body>
+</html>
+`,
+      filename: "test.html",
+    },
+    {
+      code: `
+<html>
+    <head>
+        <meta>
+        <!-- foo -->
+    </head>
+</html>
+`,
+      filename: "test.html",
+    },
+    {
+      code: `
+
+<div>
+    <div> foo </div>
+    bar
+</div>
+`,
+      filename: "test.html",
+    },
+    {
+      code: `
+<html>
 \t<body>
 \t\t<div id = "foo"></div>
 \t\t<div id = "bar"></div>
@@ -34,8 +72,110 @@ ruleTester.run("indent", rule, {
       filename: "test.html",
       options: ["tab"],
     },
+    {
+      code: `
+<html>
+    <body>
+        <div>
+            should not fixed
+        </div>
+    </body>
+</html>
+`,
+      filename: "test.html",
+    },
+    {
+      code: `
+<html>
+    <body>
+        <pre>
+ should not fixed
+        </pre>
+    </body>
+</html>
+`,
+      filename: "test.html",
+    },
   ],
   invalid: [
+    {
+      code: `
+<html>
+  <body>
+ </body>
+</html>
+`,
+      output: `
+<html>
+    <body>
+    </body>
+</html>
+`,
+      filename: "test.html",
+      errors: [
+        {
+          message: "Expected indentation of 4 space but found 2 space.",
+        },
+        {
+          message: "Expected indentation of 4 space but found 1 space.",
+        },
+      ],
+    },
+    {
+      code: `
+<html>
+    <body>
+       <div>
+      </div>
+    </body>
+</html>
+`,
+      output: `
+<html>
+    <body>
+        <div>
+        </div>
+    </body>
+</html>
+`,
+      filename: "test.html",
+      errors: [
+        {
+          message: "Expected indentation of 8 space but found 7 space.",
+        },
+        {
+          message: "Expected indentation of 8 space but found 6 space.",
+        },
+      ],
+    },
+    {
+      code: `
+<html>
+\t<body>
+\t\t <div>
+\t\t  </div>
+\t</body>
+</html>
+`,
+      output: `
+<html>
+\t<body>
+\t\t<div>
+\t\t</div>
+\t</body>
+</html>
+`,
+      filename: "test.html",
+      options: ["tab"],
+      errors: [
+        {
+          message: "Expected indentation of 2 tab but found 2 tab, 1 space.",
+        },
+        {
+          message: "Expected indentation of 2 tab but found 2 tab, 2 space.",
+        },
+      ],
+    },
     {
       code: `
 <html>
@@ -261,8 +401,8 @@ indent
       code: `
 <div>
 <p>
-indent
-indent
+indent indent
+indent indent
 indent
 </p>
 <a>
@@ -278,8 +418,8 @@ test
       output: `
 <div>
     <p>
-        indent
-        indent
+        indent indent
+        indent indent
         indent
     </p>
     <a>
