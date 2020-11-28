@@ -4,6 +4,7 @@
 
 /** @type {NodeTypes} */
 module.exports = {
+  PROGRAM: "Program",
   TEXT: "text",
   TITLE: "Title",
   PRE: "Pre",

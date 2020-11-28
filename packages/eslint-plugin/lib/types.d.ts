@@ -6,6 +6,7 @@ export type RuleCategory = {
 };
 
 export type NodeTypes = {
+  PROGRAM: "Program";
   TEXT: "text";
   TITLE: "Title";
   PRE: "Pre";

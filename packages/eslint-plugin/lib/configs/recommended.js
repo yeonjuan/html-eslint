@@ -11,5 +11,6 @@ module.exports = {
     "@html-eslint/indent": "error",
     "@html-eslint/require-li-container": "error",
     "@html-eslint/quotes": "error",
+    "@html-eslint/no-obsolete-tags": "error",
   },
 };
