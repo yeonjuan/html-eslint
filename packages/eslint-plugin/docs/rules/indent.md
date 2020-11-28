@@ -4,6 +4,14 @@
 
 This rule enforces consistent indentation styles. The default indent is `4spaces`.
 
+## Options
+
+This rule has two options
+
+- `number(0, 1, ..)` (default 4): requires the use of indentation with specified number of spaces.
+
+- `"tab"`: requires the use of indentation with tab (`\t`).
+
 Examples of **incorrect** code for this rule:
 
 <!-- prettier-ignore-start -->

@@ -2,7 +2,7 @@
 
 ## Rule Details
 
-This rule disallows the usage of extra spaces around attributes.
+This rule disallows the use of extra spaces around attributes.
 
 Examples of **incorrect** code for this rule:
 

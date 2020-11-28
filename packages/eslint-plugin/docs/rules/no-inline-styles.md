@@ -2,7 +2,7 @@
 
 ## Rule Details
 
-This rule disallow the usage of inline styles
+This rule disallow the use of inline styles.
 
 Examples of **incorrect** code for this rule:
 

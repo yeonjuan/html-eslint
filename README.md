@@ -1,24 +1,38 @@
-# html-eslint
+<h1 align="center"> HTML ESLint </h1>
 
-Monorepo for ESLint plugin which supports linting HTML(HyperText Markup Language) with [ESLint](https://github.com/eslint/eslint).
+<p align="center">
+  Monorepo for ESLint plugin which supports linting HTML(HyperText Markup Language) with ESLint.
+</p>
 
-⚠️ This project is experimental until the releasing v1.0.0.
+<p align="center">
+  <img src="https://travis-ci.org/yeonjuan/html-eslint.svg?branch=main" alt="CI Badge" />
+</p>
 
 ## Table of Contents
 
-- [Installation](#Installation)
-- [Configuration](#Configuration)
-- [Rules](#Rules)
+1. [Getting Started](#Getting-Started)
+   - [Installation](#Installation)
+   - [Configuration](#Configuration)
+1. [Recommended Configs](#Recommended-Configs)
+1. [Rules](#Rules)
+1. [License](#License)
 
-## Installation
+## Getting Started
+
+### Installation
 
 ```
 $ npm install --save-dev eslint @html-eslint/parser @html-eslint/eslint-plugin
 ```
 
-## Configuration
+- Requires Node.js `>=8.10.0`.
+- Requires ESLLint `>=6`.
+
+### Configuration
 
 Populate it with the following on your `.eslintrc.js`. If it does not exist create a `.eslintrc.js` config file in the root of your project.
+
+We can apply these [plugin rules](#Rules) to only HTML files(`*.html`) by using `overrides` in `.eslintrc.js`. (see [ESLint Configuration](https://eslint.org/docs/user-guide/configuring#configuration-based-on-glob-patterns))
 
 ```js
 module.exports = {
@@ -34,9 +48,13 @@ module.exports = {
 };
 ```
 
+## Recommended Configs
+
+This plugin provides `plugin:@html-eslint/recommended`. The recommended configuration contains the rules marked ⭐ in [Rules](#Rules).
+
 ## Rules
 
-- 🔧 - Meaning the rule can fix problems aotomatically
+- 🔧 - Meaning the rule can fix problems aotomatically by running eslint `--fix` options.
 - ⭐ - Meaning the rule is recommended.
 
 ### Best Practices
@@ -71,3 +89,7 @@ module.exports = {
 | [@html-eslint/element-newline](/packages/eslint-plugin/docs/rules/element-newline.md)               | Enforce newline between elements.                                     | ⭐ 🔧 |
 | [@html-eslint/no-extra-spacing-attrs](/packages/eslint-plugin/docs/rules/no-extra-spacing-attrs.md) | Disallow extra spacing around attributes.                             | ⭐ 🔧 |
 | [@html-eslint/quotes](/packages/eslint-plugin/docs/rules/quotes.md)                                 | Enforce consistent quoting attributes with double(`"`) or single(`'`) | ⭐ 🔧 |
+
+## License
+
+Distributed under the MIT License. See [LICENSE](./LICENSE) for more information.
