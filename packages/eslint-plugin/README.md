@@ -1,11 +1,10 @@
 # `@html-eslint/eslint-plugin`
 
-> TODO: description
+An ESLint plugin which provides lint rules for HTML.
 
-## Usage
-
-```
-const eslintPlugin = require('@html-eslint/eslint-plugin');
-
-// TODO: DEMONSTRATE API
-```
+- [Getting Started](https://github.com/yeonjuan/html-eslint#Getting-Started)
+  - [Installation](https://github.com/yeonjuan/html-eslint#Installation)
+  - [Configuration](https://github.com/yeonjuan/html-eslint#Configuration)
+- [Recommended Configs](https://github.com/yeonjuan/html-eslint#Recommended-Configs)
+- [Rules](https://github.com/yeonjuan/html-eslint#Rules)
+- [License](https://github.com/yeonjuan/html-eslint#License)

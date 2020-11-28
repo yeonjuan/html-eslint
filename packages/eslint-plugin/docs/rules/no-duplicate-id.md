@@ -2,7 +2,7 @@
 
 ## Rule Details
 
-This rule disallow the duplicate `id` attributes.
+This rule disallow the use of duplicate `id` attributes.
 
 Examples of **incorrect** code for this rule:
 

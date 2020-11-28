@@ -2,7 +2,7 @@
 
 ## Rule Details
 
-This rule enforce newline between elements
+This rule enforces newline between elements.
 
 Examples of **incorrect** code for this rule:
 
