@@ -12,6 +12,7 @@ const indent = require("./indent");
 const requireLiContainer = require("./require-li-container");
 const quotes = require("./quotes");
 const idNamingConvention = require("./id-naming-convention");
+const noObsoluteTags = require("./no-obsolete-tags");
 
 module.exports = {
   "require-lang": requireLang,
@@ -28,4 +29,5 @@ module.exports = {
   indent: indent,
   quotes: quotes,
   "id-naming-convention": idNamingConvention,
+  "no-obsolete-tags": noObsoluteTags,
 };
