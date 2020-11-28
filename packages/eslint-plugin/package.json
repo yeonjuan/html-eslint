@@ -26,6 +26,18 @@
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "html",
+    "formatter",
+    "lint",
+    "accessibility"
+  ],
   "devDependencies": {
     "@html-eslint/parser": "^0.4.1"
   }

@@ -23,6 +23,9 @@
   "scripts": {
     "test": "jest --coverage --updateSnapshot"
   },
+  "engines": {
+    "node": ">=8.10.0"
+  },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
