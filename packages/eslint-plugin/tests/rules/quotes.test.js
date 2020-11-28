@@ -45,7 +45,7 @@ foo">
       output: `<div id="foo">`,
       errors: [
         {
-          messageId: "unexpected",
+          message: "Expected double(\") quotes but found single(').",
         },
       ],
     },
@@ -56,7 +56,7 @@ foo'>`,
 foo">`,
       errors: [
         {
-          messageId: "unexpected",
+          message: "Expected double(\") quotes but found single(').",
         },
       ],
     },
@@ -78,7 +78,7 @@ foo">`,
       options: ["single"],
       errors: [
         {
-          messageId: "unexpected",
+          message: "Expected single(') quotes but found double(\").",
         },
       ],
     },
@@ -98,7 +98,7 @@ foo>`,
 "foo">`,
       errors: [
         {
-          messageId: "missing",
+          message: 'Expected double(") quotes but no quotes found.',
         },
       ],
     },

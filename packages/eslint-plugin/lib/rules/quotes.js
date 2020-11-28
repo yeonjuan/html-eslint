@@ -17,7 +17,8 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "  ",
+      description:
+        "Enforce consistent quoting attributes with double(\") or single(')",
       category: RULE_CATEGORY.STYLE,
       recommended: true,
     },
@@ -28,8 +29,10 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "Missing `<!DOCTYPE HTML>`",
-      [MESSAGE_IDS.MISSING]: "missing",
+      [MESSAGE_IDS.UNEXPECTED]:
+        "Expected {{expected}} quotes but found {{actual}}.",
+      [MESSAGE_IDS.MISSING]:
+        "Expected {{expected}} quotes but no quotes found.",
     },
   },
 
@@ -69,6 +72,13 @@ module.exports = {
           context.report({
             node: attr,
             messageId: MESSAGE_IDS.UNEXPECTED,
+            data: {
+              expected: `${SELECTED_STYLE}(${expectedQuote})`,
+              actual:
+                SELECTED_STYLE === QUOTES_STYLES.SINGLE
+                  ? `${QUOTES_STYLES.DOUBLE}(")`
+                  : `${QUOTES_STYLES.SINGLE}(')`,
+            },
             fix(fixer) {
               const range = getValueRange(attr);
               return fixer.replaceTextRange(
@@ -82,6 +92,9 @@ module.exports = {
         context.report({
           node: attr,
           messageId: MESSAGE_IDS.MISSING,
+          data: {
+            expected: `${SELECTED_STYLE}(${expectedQuote})`,
+          },
           fix(fixer) {
             const [valueStart, valueEnd] = getValueRange(attr);
             return fixer.replaceTextRange(
