@@ -10,5 +10,6 @@ module.exports = {
     "@html-eslint/no-duplicate-id": "error",
     "@html-eslint/indent": "error",
     "@html-eslint/require-li-container": "error",
+    "@html-eslint/quotes": "error",
   },
 };

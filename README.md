@@ -65,8 +65,9 @@ module.exports = {
 
 ### Styles
 
-| rule                                                                                                | description                               |       |
-| :-------------------------------------------------------------------------------------------------- | :---------------------------------------- | :---- |
-| [@html-eslint/indent](/packages/eslint-plugin/docs/rules/indent.md)                                 | Enforce consistent indentation.           | ⭐ 🔧 |
-| [@html-eslint/element-newline](/packages/eslint-plugin/docs/rules/element-newline.md)               | Enforce newline between elements.         | ⭐ 🔧 |
-| [@html-eslint/no-extra-spacing-attrs](/packages/eslint-plugin/docs/rules/no-extra-spacing-attrs.md) | Disallow extra spacing around attributes. | ⭐ 🔧 |
+| rule                                                                                                | description                                                           |       |
+| :-------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------- | :---- |
+| [@html-eslint/indent](/packages/eslint-plugin/docs/rules/indent.md)                                 | Enforce consistent indentation.                                       | ⭐ 🔧 |
+| [@html-eslint/element-newline](/packages/eslint-plugin/docs/rules/element-newline.md)               | Enforce newline between elements.                                     | ⭐ 🔧 |
+| [@html-eslint/no-extra-spacing-attrs](/packages/eslint-plugin/docs/rules/no-extra-spacing-attrs.md) | Disallow extra spacing around attributes.                             | ⭐ 🔧 |
+| [@html-eslint/quotes](/packages/eslint-plugin/docs/rules/quotes.md)                                 | Enforce consistent quoting attributes with double(`"`) or single(`'`) | ⭐ 🔧 |

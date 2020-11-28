@@ -10,6 +10,7 @@ const elementNewLine = require("./element-newline");
 const noSkipHeadingLevels = require("./no-skip-heading-levels");
 const indent = require("./indent");
 const requireLiContainer = require("./require-li-container");
+const quotes = require("./quotes");
 
 module.exports = {
   "require-lang": requireLang,
@@ -24,4 +25,5 @@ module.exports = {
   "no-skip-heading-levels": noSkipHeadingLevels,
   "require-li-container": requireLiContainer,
   indent: indent,
+  quotes: quotes,
 };
