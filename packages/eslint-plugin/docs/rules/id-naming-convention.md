@@ -8,9 +8,9 @@ Currently it supports 4 naming cases. `camelCsse`, `snake_case`, `PascalCase`, `
 ## Options
 
 - `"snake_case"` (default): Enforce snake_case format.
-- `"camelCase"`: Enforce camelCase format
-- `"PascalCase"`: Enforce PascalCase format
-- `"kebab-case"`: Enforce kebab-case format
+- `"camelCase"`: Enforce camelCase format.
+- `"PascalCase"`: Enforce PascalCase format.
+- `"kebab-case"`: Enforce kebab-case format.
 
 ### "snake_case" (default)
 
@@ -48,7 +48,7 @@ Examples of **incorrect** code for this rule with the `"PascalCase"` option:
 <div id="foo_bar"></div>
 ```
 
-Examples of **correct** code for this rule with the `"camelCase"` option:
+Examples of **correct** code for this rule with the `"PascalCase"` option:
 
 ```html
 <div id="FooBar"></div>
@@ -56,13 +56,13 @@ Examples of **correct** code for this rule with the `"camelCase"` option:
 
 ### "kebab-case"
 
-Examples of **incorrect** code for this rule with the `"PascalCase"` option:
+Examples of **incorrect** code for this rule with the `"kebab-case"` option:
 
 ```html
 <div id="foo_bar"></div>
 ```
 
-Examples of **correct** code for this rule with the `"camelCase"` option:
+Examples of **correct** code for this rule with the `"kebab-case"` option:
 
 ```html
 <div id="foo-bar"></div>
