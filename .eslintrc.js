@@ -1,12 +1,17 @@
 module.exports = {
   extends: ["eslint:recommended"],
-  plugins: ["jest"],
+  plugins: ["jest", "node"],
   parserOptions: {
     ecmaVersion: 9,
   },
   env: {
     node: true,
     es6: true,
+  },
+  rules: {
+    "node/no-unsupported-features/es-builtins": "error",
+    "node/no-unsupported-features/es-syntax": "error",
+    "node/no-unsupported-features/node-builtins": "error",
   },
   overrides: [
     {
