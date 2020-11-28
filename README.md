@@ -89,6 +89,7 @@ This plugin provides `plugin:@html-eslint/recommended`. The recommended configur
 | [@html-eslint/element-newline](/packages/eslint-plugin/docs/rules/element-newline.md)               | Enforce newline between elements.                                     | ⭐ 🔧 |
 | [@html-eslint/no-extra-spacing-attrs](/packages/eslint-plugin/docs/rules/no-extra-spacing-attrs.md) | Disallow extra spacing around attributes.                             | ⭐ 🔧 |
 | [@html-eslint/quotes](/packages/eslint-plugin/docs/rules/quotes.md)                                 | Enforce consistent quoting attributes with double(`"`) or single(`'`) | ⭐ 🔧 |
+| [@html-eslint/id-naming-convention](/packages/eslint-plugin/docs/rules/id-naming-convention.md)   | Enforce consistent naming convention for id attributes                |       |
 
 ## License
 
