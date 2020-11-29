@@ -38,6 +38,13 @@ foo">
       code: `<div id='foo'>`,
       options: ["single"],
     },
+    {
+      code: `<img src="?size=50&amp;default=retro">`,
+    },
+    {
+      code: `<img src='?size=50&amp;default=retro'>`,
+      options: ["single"],
+    },
   ],
   invalid: [
     {
@@ -108,6 +115,26 @@ foo>`,
       errors: [
         {
           messageId: "missing",
+        },
+      ],
+    },
+    {
+      code: `<img src='?size=50&amp;default=retro'>`,
+      output: `<img src="?size=50&amp;default=retro">`,
+      options: ["double"],
+      errors: [
+        {
+          messageId: "unexpected",
+        },
+      ],
+    },
+    {
+      code: `<img src = '?size=50&amp;default=retro'>`,
+      output: `<img src = "?size=50&amp;default=retro">`,
+      options: ["double"],
+      errors: [
+        {
+          messageId: "unexpected",
         },
       ],
     },

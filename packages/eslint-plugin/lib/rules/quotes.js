@@ -50,7 +50,9 @@ module.exports = {
     }
 
     function getValueRange(attr) {
-      return [attr.range[1] - (attr.value.length + 2), attr.range[1]];
+      const attrCode = getCodeIn(attr.range);
+      const [matched = ""] = attrCode.match(/\S*?\s*=\s*/) || [];
+      return [attr.range[0] + matched.length, attr.range[1]];
     }
 
     function getQuotes(attr) {
@@ -81,9 +83,12 @@ module.exports = {
             },
             fix(fixer) {
               const range = getValueRange(attr);
+              const originCode = getCodeIn(range);
+              const onlyValue = originCode.slice(1, originCode.length - 1);
+
               return fixer.replaceTextRange(
                 range,
-                `${expectedQuote}${attr.value}${expectedQuote}`
+                `${expectedQuote}${onlyValue}${expectedQuote}`
               );
             },
           });
@@ -96,10 +101,11 @@ module.exports = {
             expected: `${SELECTED_STYLE}(${expectedQuote})`,
           },
           fix(fixer) {
-            const [valueStart, valueEnd] = getValueRange(attr);
+            const range = getValueRange(attr);
+            const originCode = getCodeIn(range);
             return fixer.replaceTextRange(
-              [valueStart + 2, valueEnd],
-              `${expectedQuote}${attr.value}${expectedQuote}`
+              range,
+              `${expectedQuote}${originCode}${expectedQuote}`
             );
           },
         });
