@@ -91,6 +91,7 @@ This plugin provides `plugin:@html-eslint/recommended`. The recommended configur
 | [@html-eslint/no-extra-spacing-attrs](/packages/eslint-plugin/docs/rules/no-extra-spacing-attrs.md) | Disallow extra spacing around attributes.                             | ⭐ 🔧 |
 | [@html-eslint/quotes](/packages/eslint-plugin/docs/rules/quotes.md)                                 | Enforce consistent quoting attributes with double(`"`) or single(`'`) | ⭐ 🔧 |
 | [@html-eslint/id-naming-convention](/packages/eslint-plugin/docs/rules/id-naming-convention.md)     | Enforce consistent naming convention for id attributes                |       |
+| [@html-eslint/require-closing-tags](/packages/eslint-plugin/docs/rules/require-closing-tags.md)     | Encorce consistent use of closing tag                                 | ⭐ 🔧 |
 
 ## License
 
