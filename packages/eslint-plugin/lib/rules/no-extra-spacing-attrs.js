@@ -59,8 +59,8 @@ module.exports = {
       if (spacesBetween > 1) {
         context.report({
           loc: {
-            start: startTag.loc.end.column,
-            end: lastAttr.loc.end.column,
+            start: lastAttr.loc.end,
+            end: startTag.loc.end,
           },
           messageId: MESSAGE_IDS.EXTRA_AFTER,
           fix(fixer) {
