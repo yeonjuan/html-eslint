@@ -10,7 +10,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Disallow to use obsolte elements in HTML5",
+      description: "Disallow to use obsolete elements in HTML5",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
     },
@@ -18,7 +18,7 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "unexpected use an oblsolute tag <{{tag}}>",
+      [MESSAGE_IDS.UNEXPECTED]: "Unexpected use of obsolete tag <{{tag}}>",
     },
   },
 
@@ -32,6 +32,9 @@ module.exports = {
         ) {
           context.report({
             node,
+            data: {
+              tag: node.tagName,
+            },
             messageId: MESSAGE_IDS.UNEXPECTED,
           });
         }

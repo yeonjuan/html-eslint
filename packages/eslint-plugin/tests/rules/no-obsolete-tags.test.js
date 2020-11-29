@@ -21,7 +21,7 @@ ruleTester.run("no-obsolete-tags", rule, {
       code: `<${tag}></${tag}>`,
       errors: [
         {
-          messageId: "unexpected",
+          message: `Unexpected use of obsolete tag <${tag}>`,
         },
       ],
     })),
