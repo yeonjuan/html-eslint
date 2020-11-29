@@ -115,12 +115,17 @@ module.exports = {
         }
       }
     }
-
+    let isInPre = false;
     return {
       /**
        * @param {HTMLNode} node
        */
       "*"(node) {
+        if (node.type === NODE_TYPES.PRE || isInPre) {
+          isInPre = true;
+          return;
+        }
+
         indentLevel.up();
 
         (node.childNodes || []).forEach((current) => {
@@ -131,9 +136,6 @@ module.exports = {
             checkIndent(current.endTag);
           }
         });
-        if (node.parent && node.parent.type === NODE_TYPES.PRE) {
-          return;
-        }
 
         if (node.lineNodes && node.lineNodes.length) {
           if (!node.startTag) {
@@ -148,6 +150,9 @@ module.exports = {
             indentLevel.up();
           }
         }
+      },
+      "Pre:exit"() {
+        isInPre = false;
       },
       "*:exit"() {
         indentLevel.down();

@@ -100,6 +100,20 @@ ruleTester.run("indent", rule, {
 </html>
 `,
     },
+    {
+      code: `
+<html>
+    <body>
+        <pre>
+        <div>
+        should not fixed
+        </div>
+ 
+        </pre>
+    </body>
+</html>
+`,
+    },
   ],
   invalid: [
     {
