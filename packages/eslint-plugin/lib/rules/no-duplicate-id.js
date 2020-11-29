@@ -23,24 +23,24 @@ module.exports = {
   },
 
   create(context) {
-    const IdNodesMap = new Map();
+    const IdAttrsMap = new Map();
     return {
       "*"(node) {
         const idAttr = NodeUtils.findAttr(node, "id");
         if (idAttr) {
-          if (!IdNodesMap.has(idAttr.value)) {
-            IdNodesMap.set(idAttr.value, []);
+          if (!IdAttrsMap.has(idAttr.value)) {
+            IdAttrsMap.set(idAttr.value, []);
           }
-          const nodes = IdNodesMap.get(idAttr.value);
-          nodes.push(node);
+          const nodes = IdAttrsMap.get(idAttr.value);
+          nodes.push(idAttr);
         }
       },
       "Program:exit"() {
-        IdNodesMap.forEach((nodes) => {
-          if (Array.isArray(nodes) && nodes.length > 1) {
-            nodes.forEach((node) => {
+        IdAttrsMap.forEach((attrs) => {
+          if (Array.isArray(attrs) && attrs.length > 1) {
+            attrs.forEach((attr) => {
               context.report({
-                node: node.startTag,
+                node: attr,
                 messageId: MESSAGE_IDS.DUPLICATE_ID,
               });
             });
