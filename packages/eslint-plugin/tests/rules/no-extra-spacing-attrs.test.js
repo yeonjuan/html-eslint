@@ -103,10 +103,10 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 
       errors: [
         {
-          messageId: "unexpectAfter",
+          messageId: "unexpectBetween",
         },
         {
-          messageId: "unexpectBetween",
+          messageId: "unexpectAfter",
         },
       ],
     },
@@ -131,10 +131,10 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
           messageId: "unexpectBefore",
         },
         {
-          messageId: "unexpectAfter",
+          messageId: "unexpectBetween",
         },
         {
-          messageId: "unexpectBetween",
+          messageId: "unexpectAfter",
         },
       ],
     },
