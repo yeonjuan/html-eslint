@@ -54,7 +54,7 @@ module.exports = {
         const idAttr = NodeUtils.findAttr(node, "id");
         if (idAttr && idAttr.value && !checkNaminig(idAttr.value)) {
           context.report({
-            node,
+            node: idAttr,
             data: {
               actual: idAttr.value,
               convention,
