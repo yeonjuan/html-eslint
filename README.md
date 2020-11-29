@@ -63,7 +63,7 @@ This plugin provides `plugin:@html-eslint/recommended`. The recommended configur
 | :---------------------------------------------------------------------------------------------- | :-------------------------------------------------- | :---- |
 | [@html-eslint/require-doctype](/packages/eslint-plugin/docs/rules/require-doctype.md)           | Enforce to use `<!DOCTYPE HTML>`.                   | ⭐ 🔧 |
 | [@html-eslint/no-duplicate-id](/packages/eslint-plugin/docs/rules/no-duplicate-id.md)           | Disallow the duplicated `id`.                       | ⭐    |
-| [@html-eslint/no-inline-styles](/packages/eslint-plugin/docs/rules/no-inline-styles.md)         | Disallow using inline styles.                       | ⭐    |
+| [@html-eslint/no-inline-styles](/packages/eslint-plugin/docs/rules/no-inline-styles.md)         | Disallow using inline styles.                       |       |
 | [@html-eslint/require-li-container](/packages/eslint-plugin/docs/rules/require-li-container.md) | Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`. | ⭐    |
 | [@html-eslint/no-obsolete-tags](/packages/eslint-plugin/docs/rules/no-obsolete-tags.md)         | Disallow using obsolete tags in HTML5.              | ⭐    |
 
