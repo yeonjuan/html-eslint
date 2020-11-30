@@ -1,6 +1,8 @@
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
 const { OBSOLETE_TAGS } = require("../constants");
 
+const OBSOLETE_TAGS_SET = new Set(OBSOLETE_TAGS);
+
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
@@ -28,7 +30,7 @@ module.exports = {
         if (
           node.type !== NODE_TYPES.PROGRAM &&
           node.tagName &&
-          OBSOLETE_TAGS.includes(node.tagName)
+          OBSOLETE_TAGS_SET.has(node.tagName)
         ) {
           context.report({
             node,
