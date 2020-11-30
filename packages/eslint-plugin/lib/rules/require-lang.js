@@ -1,6 +1,8 @@
 const { RULE_CATEGORY, ISO_639_1 } = require("../constants");
 const { NodeUtils } = require("./utils");
 
+const ISO_639_1_SET = new Set(ISO_639_1);
+
 const MESSAGE_IDS = {
   MISSING_LANG: "missingLang",
   INVALID_LANG: "invalidLang",
@@ -33,7 +35,7 @@ module.exports = {
             node: node.startTag,
             messageId: MESSAGE_IDS.MISSING_LANG,
           });
-        } else if (!ISO_639_1.includes(langAttr.value)) {
+        } else if (!ISO_639_1_SET.has(langAttr.value)) {
           context.report({
             node: node.startTag,
             messageId: MESSAGE_IDS.INVALID_LANG,

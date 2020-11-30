@@ -1,5 +1,7 @@
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
 
+const VOID_ELEMENTS_SET = new Set(VOID_ELEMENTS);
+
 const MESSAGE_IDS = {
   MISSNG: "missing",
   MISSING_SELF: "missingSelf",
@@ -98,7 +100,7 @@ module.exports = {
     return {
       "*"(node) {
         if (node.startTag) {
-          if (VOID_ELEMENTS.includes(node.tagName)) {
+          if (VOID_ELEMENTS_SET.has(node.tagName)) {
             checkSelfClosing(node);
           } else {
             checkClosingTag(node);
