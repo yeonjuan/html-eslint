@@ -11,4 +11,5 @@ module.exports = {
   MENU: "Menu",
   OL: "Ol",
   UL: "Ul",
+  SCRIPT: "Script",
 };
