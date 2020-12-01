@@ -115,14 +115,18 @@ module.exports = {
         }
       }
     }
-    let isInPre = false;
+    let ignoreChildren = false;
     return {
       /**
        * @param {HTMLNode} node
        */
       "*"(node) {
-        if (node.type === NODE_TYPES.PRE || isInPre) {
-          isInPre = true;
+        if (
+          node.type === NODE_TYPES.PRE ||
+          node.type === NODE_TYPES.SCRIPT ||
+          ignoreChildren
+        ) {
+          ignoreChildren = true;
           return;
         }
 
@@ -152,7 +156,10 @@ module.exports = {
         }
       },
       "Pre:exit"() {
-        isInPre = false;
+        ignoreChildren = false;
+      },
+      "Script:exit"() {
+        ignoreChildren = false;
       },
       "*:exit"() {
         indentLevel.down();

@@ -13,6 +13,7 @@ export type NodeTypes = {
   MENU: "Menu";
   OL: "Ol";
   UL: "Ul";
+  SCRIPT: "Script";
 };
 
 type Loc = {
