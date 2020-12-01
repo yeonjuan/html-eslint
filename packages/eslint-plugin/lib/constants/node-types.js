@@ -12,4 +12,5 @@ module.exports = {
   OL: "Ol",
   UL: "Ul",
   SCRIPT: "Script",
+  META: "Meta",
 };

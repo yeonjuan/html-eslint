@@ -69,11 +69,12 @@ This plugin provides `plugin:@html-eslint/recommended`. The recommended configur
 
 ### SEO
 
-| rule                                                                                | description                                   |     |
-| :---------------------------------------------------------------------------------- | :-------------------------------------------- | :-- |
-| [@html-eslint/require-lang](/packages/eslint-plugin/docs/rules/require-lang.md)     | Enforce to use `lang` in `<html>`.            | ⭐  |
-| [@html-eslint/require-title](/packages/eslint-plugin/docs/rules/require-title.md)   | Enforce to use `<title><title/>` in `<head>`. | ⭐  |
-| [@html-eslint/no-multiple-h1](/packages/eslint-plugin/docs/rules/no-multiple-h1.md) | Disallow using multiple `<h1></h1>`.          |     |
+| rule                                                                                                    | description                                             |     |
+| :------------------------------------------------------------------------------------------------------ | :------------------------------------------------------ | :-- |
+| [@html-eslint/require-lang](/packages/eslint-plugin/docs/rules/require-lang.md)                         | Enforce to use `lang` in `<html>`.                      | ⭐  |
+| [@html-eslint/require-title](/packages/eslint-plugin/docs/rules/require-title.md)                       | Enforce to use `<title><title/>` in `<head>`.           | ⭐  |
+| [@html-eslint/no-multiple-h1](/packages/eslint-plugin/docs/rules/no-multiple-h1.md)                     | Disallow using multiple `<h1></h1>`.                    |     |
+| [@html-eslint/require-meta-description](/packages/eslint-plugin/docs/rules/require-meta-description.md) | Enforce to use `<meta name="description" >` in `<head>` |     |
 
 ### Accessibility
 
