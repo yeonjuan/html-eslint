@@ -14,6 +14,7 @@ export type NodeTypes = {
   OL: "Ol";
   UL: "Ul";
   SCRIPT: "Script";
+  META: "Meta";
 };
 
 type Loc = {

@@ -14,6 +14,7 @@ const quotes = require("./quotes");
 const idNamingConvention = require("./id-naming-convention");
 const noObsoluteTags = require("./no-obsolete-tags");
 const requireClosingTags = require("./require-closing-tags");
+const requireMetaDescription = require("./require-meta-description");
 
 module.exports = {
   "require-lang": requireLang,
@@ -32,4 +33,5 @@ module.exports = {
   "id-naming-convention": idNamingConvention,
   "no-obsolete-tags": noObsoluteTags,
   "require-closing-tags": requireClosingTags,
+  "require-meta-description": requireMetaDescription,
 };
