@@ -15,6 +15,7 @@ const idNamingConvention = require("./id-naming-convention");
 const noObsoluteTags = require("./no-obsolete-tags");
 const requireClosingTags = require("./require-closing-tags");
 const requireMetaDescription = require("./require-meta-description");
+const requireFrameTitle = require("./require-frame-title");
 
 module.exports = {
   "require-lang": requireLang,
@@ -34,4 +35,5 @@ module.exports = {
   "no-obsolete-tags": noObsoluteTags,
   "require-closing-tags": requireClosingTags,
   "require-meta-description": requireMetaDescription,
+  "require-frame-title": requireFrameTitle,
 };
