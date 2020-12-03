@@ -16,6 +16,7 @@ const noObsoluteTags = require("./no-obsolete-tags");
 const requireClosingTags = require("./require-closing-tags");
 const requireMetaDescription = require("./require-meta-description");
 const requireFrameTitle = require("./require-frame-title");
+const noNonScalableViewport = require("./no-non-scalable-viewport");
 
 module.exports = {
   "require-lang": requireLang,
@@ -36,4 +37,5 @@ module.exports = {
   "require-closing-tags": requireClosingTags,
   "require-meta-description": requireMetaDescription,
   "require-frame-title": requireFrameTitle,
+  "no-non-scalable-viewport": noNonScalableViewport,
 };
