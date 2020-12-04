@@ -84,6 +84,7 @@ This plugin provides `plugin:@html-eslint/recommended`. The recommended configur
 | [@html-eslint/no-skip-heading-levels](/packages/eslint-plugin/docs/rules/no-skip-heading-levels.md)     | Disallow skipping heading levels.                              |     |
 | [@html-eslint/require-frame-title](/packages/eslint-plugin/docs/rules/require-frame-title.md)           | Enforce to use `title` attribute in `<frame>` and `<iframe>`   |     |
 | [@html-eslint/no-non-scalable-viewport](/packages/eslint-plugin/docs/rules/no-non-scalable-viewport.md) | Disallow use of `user-scalable=no` in `<meta name="viewport">` |     |
+| [@html-eslint/no-positive-tabindex](/packages/eslint-plugin/docs/rules/no-positive-tabindex.md)         | Disallow use of postiive `tabindex`                            |     |
 
 ### Styles
 
