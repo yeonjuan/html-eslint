@@ -10,7 +10,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Enforce newline between elements",
+      description: "Enforce newline between elements.",
       category: RULE_CATEGORY.STYLE,
       recommended: true,
     },

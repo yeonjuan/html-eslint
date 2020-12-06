@@ -4,7 +4,7 @@ const exportedRules = require("../lib/rules");
 
 const RULES_DIR = path.resolve(__dirname, "../lib/rules");
 const RULE_TESTS_DIR = path.resolve(__dirname, "./rules");
-const RULE_DOCS_DIR = path.resolve(__dirname, "../docs/rules");
+const RULE_DOCS_DIR = path.resolve(__dirname, "../../../docs/rules");
 const RECOMMENDED_CONFIG = require("../lib/configs/recommended");
 
 describe("rules", () => {
