@@ -13,6 +13,18 @@ ruleTester.run("element-newline", rule, {
 </html>
 `,
     },
+    {
+      code: `
+      <!DOCTYPE html>
+      <html lang="en">
+          <body>
+              <ul>
+                  <li>Item Here
+                  <li>Second Item Here</li>
+              </ul>
+          </body>
+      </html>`,
+    },
   ],
   invalid: [
     {
@@ -243,6 +255,32 @@ ruleTester.run("element-newline", rule, {
         },
         {
           messageId: "expectBefore",
+        },
+      ],
+    },
+    {
+      code: `
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <ul>
+            <li>Item Here <li>Second Item Here</li>
+        </ul>
+    </body>
+</html>`,
+      output: `
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <ul>
+            <li>Item Here 
+<li>Second Item Here</li>
+        </ul>
+    </body>
+</html>`,
+      errors: [
+        {
+          messageId: "expectAfter",
         },
       ],
     },
