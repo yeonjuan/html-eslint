@@ -1,3 +1,8 @@
+---
+id: doc1
+title: document number 2
+---
+
 # Require newline between elements
 
 ## Rule Details
