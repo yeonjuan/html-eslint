@@ -1,3 +1,7 @@
+/**
+ * @typedef {import("../types").HTMLNode} HTMLNode
+ */
+
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -86,12 +90,18 @@ module.exports = {
   },
 };
 
+/**
+ * Checks whether two nodes are on the same line or not.
+ * @param {HTMLNode} nodeBefore A node before
+ * @param {HTMLNode} nodeAfter  A node after
+ * @returns {boolean} `true` if two nodes are on the same line, otherwise `false`.
+ */
 function isOnTheSameLine(nodeBefore, nodeAfter) {
-  return (
-    nodeBefore &&
-    nodeAfter &&
-    nodeBefore.loc &&
-    nodeAfter.loc &&
-    nodeBefore.loc.end.line === nodeAfter.loc.start.line
-  );
+  if (nodeBefore && nodeAfter) {
+    if (nodeBefore.endTag) {
+      return nodeBefore.endTag.loc.end.line === nodeAfter.loc.start.line;
+    }
+    return nodeBefore.loc.start.line === nodeAfter.loc.start.line;
+  }
+  return false;
 }
