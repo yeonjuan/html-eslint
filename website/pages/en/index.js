@@ -5,16 +5,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const React = require('react');
+const React = require("react");
 
-const CompLibrary = require('../../core/CompLibrary.js');
+const CompLibrary = require("../../core/CompLibrary.js");
 
 class HomeSplash extends React.Component {
   render() {
-    const {siteConfig, language = ''} = this.props;
-    const {baseUrl, docsUrl} = siteConfig;
-    const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
-    const langPart = `${language ? `${language}/` : ''}`;
+    const { siteConfig, language = "" } = this.props;
+    const { baseUrl, docsUrl } = siteConfig;
+    const docsPart = `${docsUrl ? `${docsUrl}/` : ""}`;
+    const langPart = `${language ? `${language}/` : ""}`;
     const docUrl = (doc) => `${baseUrl}${docsPart}${langPart}${doc}`;
 
     const SplashContainer = (props) => (
@@ -61,8 +61,10 @@ class HomeSplash extends React.Component {
           <ProjectTitle tagline={siteConfig.tagline} title={siteConfig.title} />
           <PromoSection>
             <Button href="#try">Play Ground</Button>
-            <Button href={docUrl('getting-started.html')}>DOCS</Button>
-            <Button href="https://github.com/yeonjuan/html-eslint">Github</Button>
+            <Button href={docUrl("getting-started.html")}>DOCS</Button>
+            <Button href="https://github.com/yeonjuan/html-eslint">
+              Github
+            </Button>
           </PromoSection>
         </div>
       </SplashContainer>
@@ -72,8 +74,8 @@ class HomeSplash extends React.Component {
 
 class Index extends React.Component {
   render() {
-    const {config: siteConfig, language = ''} = this.props;
-    const {baseUrl} = siteConfig;
+    const { config: siteConfig, language = "" } = this.props;
+    const { baseUrl } = siteConfig;
 
     const Showcase = () => {
       if ((siteConfig.users || []).length === 0) {
@@ -89,7 +91,7 @@ class Index extends React.Component {
         ));
 
       const pageUrl = (page) =>
-        baseUrl + (language ? `${language}/` : '') + page;
+        baseUrl + (language ? `${language}/` : "") + page;
 
       return (
         <div className="productShowcaseSection paddingBottom">
@@ -97,7 +99,7 @@ class Index extends React.Component {
           <p>This project is used by all these people</p>
           <div className="logos">{showcase}</div>
           <div className="more-users">
-            <a className="button" href={pageUrl('users.html')}>
+            <a className="button" href={pageUrl("users.html")}>
               More {siteConfig.title} Users
             </a>
           </div>

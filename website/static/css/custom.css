@@ -21,3 +21,7 @@
 
 @media only screen and (min-width: 1500px) {
 }
+
+.playground_container h1 {
+  margin-top: 0;
+}

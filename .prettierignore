@@ -2,5 +2,5 @@
 **/fixtures
 **/__snapshots__
 lerna.json
-website/**
-docs
+website/build
+website/static

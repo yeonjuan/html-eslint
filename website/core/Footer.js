@@ -5,13 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const React = require('react');
+const React = require("react");
 
 class Footer extends React.Component {
   docUrl(doc) {
     const baseUrl = this.props.config.baseUrl;
     const docsUrl = this.props.config.docsUrl;
-    const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
+    const docsPart = `${docsUrl ? `${docsUrl}/` : ""}`;
     return `${baseUrl}${docsPart}${doc}`;
   }
 
@@ -21,10 +21,8 @@ class Footer extends React.Component {
         <section className="sitemap">
           <div>
             <h5>Docs</h5>
-            <a href={this.docUrl('getting-started')}>
-              Getting Started
-            </a>
-            <a href={this.docUrl('all-rules')}>All Rules</a>
+            <a href={this.docUrl("getting-started")}>Getting Started</a>
+            <a href={this.docUrl("all-rules")}>All Rules</a>
           </div>
           <div>
             <h5>More</h5>
@@ -36,14 +34,16 @@ class Footer extends React.Component {
               data-count-href="/facebook/docusaurus/stargazers"
               data-show-count="true"
               data-count-aria-label="# stargazers on GitHub"
-              aria-label="Star this project on GitHub">
+              aria-label="Star this project on GitHub"
+            >
               Star
             </a>
             {this.props.config.twitterUsername && (
               <div className="social">
                 <a
                   href={`https://twitter.com/${this.props.config.twitterUsername}`}
-                  className="twitter-follow-button">
+                  className="twitter-follow-button"
+                >
                   Follow @{this.props.config.twitterUsername}
                 </a>
               </div>
