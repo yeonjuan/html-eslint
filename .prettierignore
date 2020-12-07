@@ -4,3 +4,4 @@
 lerna.json
 website/build
 website/static
+website/sidebars.json
