@@ -15,19 +15,43 @@ ruleTester.run("require-doctype", rule, {
   ],
   invalid: [
     {
-      code: `
-<html>
+      code: `<html>
 </html>
 `,
-      output: `
-<!DOCTYPE html>
+      output: `<!DOCTYPE html>
 <html>
 </html>
 `,
 
       errors: [
         {
-          messageId: "missingDoctype",
+          messageId: "missing",
+        },
+      ],
+    },
+    {
+      code: `<body>
+</body>
+`,
+      output: `<!DOCTYPE html>
+<body>
+</body>
+`,
+
+      errors: [
+        {
+          messageId: "missing",
+        },
+      ],
+    },
+    {
+      code: ``,
+      output: `<!DOCTYPE html>
+`,
+
+      errors: [
+        {
+          messageId: "missing",
         },
       ],
     },

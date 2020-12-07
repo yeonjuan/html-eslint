@@ -13,6 +13,8 @@
 1. [Getting Started](#Getting-Started)
    - [Installation](#Installation)
    - [Configuration](#Configuration)
+   - [Editor Configuration](#Editor-Configuration)
+     - [VSCode](#VSCode)
 1. [Recommended Configs](#Recommended-Configs)
 1. [Rules](#Rules)
 1. [License](#License)
@@ -46,6 +48,24 @@ module.exports = {
     },
   ],
 };
+```
+
+## Editor Configuration
+
+### VSCode
+
+To get [vscode-eslint](https://github.com/microsoft/vscode-eslint) support, we need to add the following in vscode settings.
+
+- `.vscode/settings.json`:
+
+```json5
+{
+  "eslint.enable": true,
+  "eslint.validate": [
+    "javascript", // ...
+    "html", // Add "html" to enable linting `.html` files.
+  ],
+}
 ```
 
 ## Recommended Configs
