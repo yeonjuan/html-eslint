@@ -1,7 +1,7 @@
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
-  MISSING_DOCTYPE: "missingDoctype",
+  MISSING: "missing",
 };
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
     fixable: true,
     schema: [],
     messages: {
-      [MESSAGE_IDS.MISSING_DOCTYPE]: "Missing `<!DOCTYPE HTML>`",
+      [MESSAGE_IDS.MISSING]: "Missing `<!DOCTYPE HTML>`",
     },
   },
 
@@ -31,9 +31,9 @@ module.exports = {
         if (!hasDocType) {
           context.report({
             node,
-            messageId: MESSAGE_IDS.MISSING_DOCTYPE,
+            messageId: MESSAGE_IDS.MISSING,
             fix(fixer) {
-              return fixer.insertTextBefore(node, "<!DOCTYPE html>\n");
+              return fixer.insertTextBeforeRange([0, 0], "<!DOCTYPE html>\n");
             },
           });
         }
