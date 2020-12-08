@@ -4,6 +4,7 @@ exports[`NodeConverter toNode() Should convert parse5 node to es format 1`] = `
 Object {
   "attrs": Array [],
   "body": Array [],
+  "childNodes": Array [],
   "comments": Array [],
   "end": undefined,
   "endTag": null,
@@ -32,6 +33,7 @@ Object {
 exports[`NodeConverter toNode() Should convert parse5 node to es format 2`] = `
 Object {
   "attrs": Array [],
+  "childNodes": Array [],
   "end": 26,
   "endTag": null,
   "lineNodes": Array [

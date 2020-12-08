@@ -15,6 +15,7 @@ class ASTConverter {
     this.emitter.on("enter", this.enter.bind(this));
     this.emitter.on("exit", this.exit.bind(this));
     this.traverser = createTraverser(this.emitter, ["childNodes"]);
+    this.parentStack = createStack();
   }
 
   convert(ast) {
@@ -27,25 +28,25 @@ class ASTConverter {
     if (!converted) {
       return;
     }
+
     if (this.convertedStack.isEmpty()) {
       this.ast = converted;
       return;
     }
 
-    while (this.convertedStack.top() === null) {
-      this.convertedStack.pop();
+    let parent = this.parentStack.top();
+    if (parent === converted) {
+      parent = this.parentStack.pop();
     }
+    parent = this.parentStack.top();
 
-    const parent = this.convertedStack.top();
-
-    !Array.isArray(parent.childNodes) && (parent.childNodes = []);
     parent.childNodes.push(converted);
   }
 
   enter(node) {
     const esNode = NodeConverter.toNode(node);
     if (esNode) {
-      esNode.childNodes = [];
+      this.parentStack.push(esNode);
     }
     this.convertedStack.push(esNode);
   }
