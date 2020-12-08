@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import CodeMirror from "codemirror";
+import debounce from "./debounce";
 import "codemirror/lib/codemirror.css";
 import "codemirror/mode/htmlmixed/htmlmixed.js";
 
@@ -33,11 +34,14 @@ const Editor = (props) => {
         matchBrackets: true,
       });
       setEditor(codeMirror);
-      codeMirror.on("change", () => {
-        const value = codeMirror.getValue();
-        setText(value);
-        props.onChange(value);
-      });
+      codeMirror.on(
+        "change",
+        debounce(() => {
+          const value = codeMirror.getValue();
+          setText(value);
+          props.onChange(value);
+        }, 250)
+      );
     }
   }, []);
 

@@ -3,6 +3,8 @@ import Editor from "./editor";
 import useRuleOptions from "./useRuleOptions";
 import createLinter from "./createLinter";
 import LintMessages from "./lintMessages";
+import { DEFAULT_CODE, DEFAULT_RULES } from "./constants";
+import queryParamsState from "./queryParamsState";
 import "./playground.css";
 
 const linter = createLinter();
@@ -30,16 +32,22 @@ const TabTitles = (props) => {
 
 const PlayGround = () => {
   const [messages, setMessages] = useState([]);
-  const [ruleOptions, RuleOptions] = useRuleOptions();
+  const [ruleOptions, RuleOptions] = useRuleOptions(
+    queryParamsState.get().rules || DEFAULT_RULES
+  );
   const [output, setOutput] = useState("");
   const [tab, setTab] = useState("Errors");
 
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(queryParamsState.get().code || DEFAULT_CODE);
 
   useEffect(() => {
     const { messages, output } = linter.lint(code, ruleOptions);
     setMessages(messages);
     setOutput(output);
+    queryParamsState.set({
+      code,
+      rules: ruleOptions,
+    });
   }, [ruleOptions, code]);
 
   return (
@@ -48,7 +56,7 @@ const PlayGround = () => {
         <div className="ply_pane">
           <h2>Editor</h2>
           <div className="code_container">
-            <Editor onChange={setCode} messages={messages} />
+            <Editor onChange={setCode} messages={messages} initial={code} />
           </div>
         </div>
         <div className="ply_pane">
