@@ -13,6 +13,7 @@ function toBaseNode(node) {
     type,
     ...extra,
     ...utils.toESLocation(sourceCodeLocation, childNodes),
+    childNodes: [],
   };
   addTags(baseNode, sourceCodeLocation);
   addAttrs(baseNode, sourceCodeLocation);
