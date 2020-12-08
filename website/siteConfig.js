@@ -23,12 +23,12 @@ const siteConfig = {
     },
     { label: "PlayGround", page: "playground" },
   ],
-  headerIcon: "img/favicon.ico",
-  footerIcon: "img/favicon.ico",
+  headerIcon: "img/symbol.svg",
+  footerIcon: "img/symbol.svg",
   favicon: "img/favicon.ico",
   colors: {
-    primaryColor: "#692d6d",
-    secondaryColor: "#491f4c",
+    primaryColor: "#202020",
+    secondaryColor: "#404040",
   },
   copyright: `Built with Docusaurus`,
   highlight: {
@@ -37,8 +37,8 @@ const siteConfig = {
   scripts: ["https://buttons.github.io/buttons.js"],
   onPageNav: "separate",
   cleanUrl: true,
-  ogImage: "img/undraw_online.svg",
-  twitterImage: "img/undraw_tweetstorm.svg",
+  ogImage: "img/textlogo.svg",
+  twitterImage: "img/textlogo.svg",
   repoUrl: "https://github.com/yeonjuan/html-eslint",
 };
 

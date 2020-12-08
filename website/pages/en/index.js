@@ -56,11 +56,10 @@ class HomeSplash extends React.Component {
 
     return (
       <SplashContainer>
-        <Logo img_src={`${baseUrl}img/undraw_monitor.svg`} />
         <div className="inner">
           <ProjectTitle tagline={siteConfig.tagline} title={siteConfig.title} />
           <PromoSection>
-            <Button href="#try">Play Ground</Button>
+            <Button href="/html-eslint/playground">PlayGround</Button>
             <Button href={docUrl("getting-started.html")}>DOCS</Button>
             <Button href="https://github.com/yeonjuan/html-eslint">
               Github

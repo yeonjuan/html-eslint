@@ -18,5 +18,5 @@ class PlayGround extends React.Component {
   }
 }
 
-PlayGround.title = "Play Ground";
+PlayGround.title = "PlayGround";
 module.exports = PlayGround;

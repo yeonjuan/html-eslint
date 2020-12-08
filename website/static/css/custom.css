@@ -25,3 +25,20 @@
 .playground_container h1 {
   margin-top: 0;
 }
+
+.navPusher > :first-child {
+    flex-grow: 1;
+}
+
+.homeContainer .homeWrapper {
+    min-height: 400px;
+}
+.navPusher > :first-child {
+  flex-grow: 1;
+}
+.navPusher {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: calc(100vh);
+}
