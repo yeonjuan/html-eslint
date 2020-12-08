@@ -1,11 +1,9 @@
 import ESLinter from "../node_modules/eslint/lib/linter/linter";
-import SourceCode from "../node_modules/eslint";
 import parser from "@html-eslint/parser";
 import plugin from "@html-eslint/plugin";
+import { SCOPE } from "./constants";
 
-const SCOPE = "@html-eslint";
 const PARSER_NAME = `${SCOPE}/parser`;
-const FILENAME = "index.html";
 
 const createLinter = () => {
   const linter = new ESLinter.Linter();
@@ -25,7 +23,11 @@ const createLinter = () => {
   linter.defineRules(allRules);
   return {
     lint(code, rules) {
-      const { messages, output } = linter.verifyAndFix(code, {
+      const messages = linter.verify(code, {
+        parser: PARSER_NAME,
+        rules,
+      });
+      const { output } = linter.verifyAndFix(code, {
         parser: PARSER_NAME,
         rules,
       });

@@ -79,3 +79,12 @@
   border-bottom-color: transparent;
   border-radius: 4px 4px 0 0;
 }
+
+.lint-message {
+  border-color: #fbd4dc;
+  background-color: #fde6e8;
+  color: #bf111f;
+  padding: 8px 4px 8px 12px;
+  margin: 4px;
+  border-radius: 4px;
+}

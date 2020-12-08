@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Plugin from "@html-eslint/plugin";
-
-const SCOPE = "@html-eslint";
+import { SCOPE } from "./constants";
 
 const CATEGORY = {
   BEST_PRACTICE: "Best Practice",

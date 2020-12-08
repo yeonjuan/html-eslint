@@ -1,15 +1,38 @@
 import React, { useEffect, useState } from "react";
-import Editor from "./Editor";
+import Editor from "./editor";
 import useRuleOptions from "./useRuleOptions";
 import createLinter from "./createLinter";
+import LintMessages from "./lintMessages";
 import "./playground.css";
 
 const linter = createLinter();
+
+const TabTitles = (props) => {
+  const titles = props.titles;
+  const selected = props.selected;
+  return (
+    <ul className="tabs_titles">
+      {titles.map((title) => (
+        <li
+          key={title}
+          role="tab"
+          className={`tab_title ${
+            title === selected ? "tab_title--active" : ""
+          }`}
+          onClick={() => props.onClick(title)}
+        >
+          {title}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 const PlayGround = () => {
   const [messages, setMessages] = useState([]);
   const [ruleOptions, RuleOptions] = useRuleOptions();
   const [output, setOutput] = useState("");
-  const [tab, setTab] = useState("fixed");
+  const [tab, setTab] = useState("Errors");
 
   const [code, setCode] = useState("");
 
@@ -30,27 +53,15 @@ const PlayGround = () => {
         </div>
         <div className="ply_pane">
           <div>
-            <ul className="tabs_titles">
-              <li
-                className={`tab_title ${
-                  tab === "fixed" ? "tab_title--active" : ""
-                }`}
-                onClick={() => setTab("fixed")}
-              >
-                Fixed
-              </li>
-              <li
-                className={`tab_title ${
-                  tab === "errors" ? "tab_title--active" : ""
-                }`}
-                onClick={() => setTab("errors")}
-              >
-                Errors
-              </li>
-            </ul>
+            <TabTitles
+              titles={["Errors", "Fixed"]}
+              selected={tab}
+              onClick={setTab}
+            ></TabTitles>
           </div>
-          <div className="code_container">
-            <pre>{output}</pre>
+          <div className="code_container" role="tabpanel">
+            {tab === "Errors" && <LintMessages messages={messages} />}
+            {tab === "Fixed" && <pre>{output}</pre>}
           </div>
         </div>
       </div>
