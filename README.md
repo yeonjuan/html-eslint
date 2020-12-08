@@ -10,9 +10,9 @@
   <br/>
   <a href="https://yeonjuan.github.io/html-eslint/playground">View Demo</a>
   ·
-  <a herf="https://yeonjuan.github.io/html-eslint/docs/getting-started">Getting Started</a>
+  <a href="https://yeonjuan.github.io/html-eslint/docs/getting-started">Getting Started</a>
   ·
-  <a herf="https://yeonjuan.github.io/html-eslint/docs/all-rules">All Rules</a>
+  <a href="https://yeonjuan.github.io/html-eslint/docs/all-rules">All Rules</a>
   </p>
   
 </p>
