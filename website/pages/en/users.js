@@ -5,15 +5,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const React = require('react');
+const React = require("react");
 
-const CompLibrary = require('../../core/CompLibrary.js');
+const CompLibrary = require("../../core/CompLibrary.js");
 
 const Container = CompLibrary.Container;
 
 class Users extends React.Component {
   render() {
-    const {config: siteConfig} = this.props;
+    const { config: siteConfig } = this.props;
     if ((siteConfig.users || []).length === 0) {
       return null;
     }
@@ -26,7 +26,7 @@ class Users extends React.Component {
 
     return (
       <div className="mainContainer">
-        <Container padding={['bottom', 'top']}>
+        <Container padding={["bottom", "top"]}>
           <div className="showcaseSection">
             <div className="prose">
               <h1>Who is Using This?</h1>
@@ -38,7 +38,8 @@ class Users extends React.Component {
                 <p>Are you using this project?</p>
                 <a
                   href={`${siteConfig.repoUrl}/edit/master/website/siteConfig.js`}
-                  className="button">
+                  className="button"
+                >
                   Add your company
                 </a>
               </React.Fragment>

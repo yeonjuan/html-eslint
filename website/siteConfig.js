@@ -8,37 +8,38 @@
 // See https://docusaurus.io/docs/site-config for all the possible
 // site configuration options.
 const siteConfig = {
-  title: 'HTML ESLint',
-  tagline: 'ESLint plugin for HTML',
-  url: 'https://yeonjuan.github.io',
-  baseUrl: '/html-eslint/',
-  projectName: 'html-eslint',
-  organizationName: 'yeonjuan',
+  title: "HTML ESLint",
+  tagline: "ESLint plugin for HTML",
+  url: "https://yeonjuan.github.io",
+  baseUrl: "/html-eslint/",
+  projectName: "html-eslint",
+  organizationName: "yeonjuan",
   headerLinks: [
-    {label: 'Docs', doc: 'getting-started'},
+    { label: "Docs", doc: "getting-started" },
     {
-      href: 'https://github.com/yeonjuan/html-eslint',
-      label: 'GitHub',
+      href: "https://github.com/yeonjuan/html-eslint",
+      label: "GitHub",
       external: true,
-    }
+    },
+    { label: "PlayGround", page: "playground" },
   ],
-  headerIcon: 'img/favicon.ico',
-  footerIcon: 'img/favicon.ico',
-  favicon: 'img/favicon.ico',
+  headerIcon: "img/symbol.svg",
+  footerIcon: "img/symbol.svg",
+  favicon: "img/favicon.ico",
   colors: {
-    primaryColor: '#692d6d',
-    secondaryColor: '#491f4c',
+    primaryColor: "#202020",
+    secondaryColor: "#404040",
   },
   copyright: `Built with Docusaurus`,
   highlight: {
-    theme: 'default',
+    theme: "default",
   },
-  scripts: ['https://buttons.github.io/buttons.js'],
-  onPageNav: 'separate',
+  scripts: ["https://buttons.github.io/buttons.js"],
+  onPageNav: "separate",
   cleanUrl: true,
-  ogImage: 'img/undraw_online.svg',
-  twitterImage: 'img/undraw_tweetstorm.svg',
-  repoUrl: 'https://github.com/yeonjuan/html-eslint',
+  ogImage: "img/textlogo.svg",
+  twitterImage: "img/textlogo.svg",
+  repoUrl: "https://github.com/yeonjuan/html-eslint",
 };
 
 module.exports = siteConfig;
