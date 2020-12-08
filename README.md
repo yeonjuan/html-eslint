@@ -1,7 +1,20 @@
 <h1 align="center"> HTML ESLint </h1>
 
 <p align="center">
+ <a href="https://yeonjuan.github.io/html-eslint/">
+    <img src="website/static/img/textlogo.svg" alt="Logo" width="90" height="90">
+  </a>
+   <p align="center">
   Monorepo for ESLint plugin which supports linting HTML(HyperText Markup Language) with ESLint.
+  <br/>
+  <br/>
+  <a href="https://yeonjuan.github.io/html-eslint/playground">View Demo</a>
+  ·
+  <a herf="https://yeonjuan.github.io/html-eslint/docs/getting-started">Getting Started</a>
+  ·
+  <a herf="https://yeonjuan.github.io/html-eslint/docs/all-rules">All Rules</a>
+  </p>
+  
 </p>
 
 <p align="center">
