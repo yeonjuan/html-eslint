@@ -450,5 +450,40 @@ test
 `,
       errors: wrongIndentErrors(13),
     },
+    {
+      code: `<!DOCTYPE html>
+<html lang="en">
+</head>
+<body>
+<table>
+<tr>
+  <td>Table 1</td>
+</tr>
+</table>
+<table>
+<tr>
+  <td>Table 2</td>
+</tr>
+</table>
+</body>
+</html>`,
+      output: `<!DOCTYPE html>
+<html lang="en">
+</head>
+    <body>
+        <table>
+            <tr>
+                <td>Table 1</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>Table 2</td>
+            </tr>
+        </table>
+    </body>
+</html>`,
+      errors: wrongIndentErrors(12),
+    },
   ],
 });

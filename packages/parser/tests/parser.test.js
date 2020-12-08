@@ -54,4 +54,27 @@ describe("parser", () => {
 `;
     expect(parser.parse(code)).toMatchSnapshot();
   });
+
+  it("no opening tag", () => {
+    const code = `<!DOCTYPE html>
+    <html lang="en">
+    </head>
+    <body>
+    
+      <table>
+        <tr>
+          <td>Table 1</td>
+        </tr>
+      </table>
+    
+      <table>
+        <tr>
+          <td>Table 2</td>
+        </tr>
+      </table>
+    
+    </body>
+    </html>`;
+    expect(parser.parse(code)).toMatchSnapshot();
+  });
 });
