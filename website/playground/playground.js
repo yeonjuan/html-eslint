@@ -21,7 +21,7 @@ const PlayGround = () => {
 
   return (
     <div className="ply_container">
-      <div className="ply_row">
+      <div className="ply_row ply_row--align_end">
         <div className="ply_pane">
           <h2>Editor</h2>
           <div className="code_container">
@@ -55,7 +55,7 @@ const PlayGround = () => {
         </div>
       </div>
       <h2>All Rules</h2>
-      <div className="ply_row">
+      <div className="ply_row ply_row--align_start">
         <RuleOptions />
       </div>
     </div>

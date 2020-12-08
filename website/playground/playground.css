@@ -15,7 +15,14 @@
   justify-content: space-around;
   flex-direction: column;
   gap: 10px;
+}
+
+.ply_row--align_end {
   align-items: flex-end;
+}
+
+.ply_row--align_start {
+  align-items: flex-start;
 }
 
 .ply_pane {
@@ -44,7 +51,8 @@
   height: 300px;
   box-sizing: content-box;
   background: #f5f5f5;
-  font-size: medium;
+  overflow: scroll;
+  font-size: 14px;
 }
 
 .code_container pre {
