@@ -31,7 +31,7 @@ module.exports = {
         if (!title) {
           context.report({
             node: node.startTag,
-            data: { frame: `<${node.tagName}>`},
+            data: { frame: `<${node.tagName}>` },
             messageId: MESSAGE_IDS.MISSING,
           });
         } else if (title.value.trim().length === 0) {
