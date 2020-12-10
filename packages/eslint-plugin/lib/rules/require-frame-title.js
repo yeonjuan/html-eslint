@@ -19,7 +19,7 @@ module.exports = {
     fixable: false,
     schema: [],
     messages: {
-      [MESSAGE_IDS.MISSING]: "Missing `title` attribute in {{frame}}",
+      [MESSAGE_IDS.MISSING]: "Missing `title` attribute in {{frame}}.",
       [MESSAGE_IDS.UNEXPECTED]: "Unexpected empty `title`.",
     },
   },
@@ -31,6 +31,7 @@ module.exports = {
         if (!title) {
           context.report({
             node: node.startTag,
+            data: { frame: `<${node.tagName}>` },
             messageId: MESSAGE_IDS.MISSING,
           });
         } else if (title.value.trim().length === 0) {

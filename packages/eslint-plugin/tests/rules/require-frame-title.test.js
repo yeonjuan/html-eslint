@@ -22,7 +22,7 @@ ruleTester.run("require-frame-title", rule, {
       code: `<iframe></iframe>`,
       errors: [
         {
-          messageId: "missing",
+          message: "Missing `title` attribute in <iframe>.",
         },
       ],
     },
