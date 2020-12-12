@@ -2,14 +2,11 @@
 
 exports[`parser DOCTYPE 1`] = `
 Object {
-  "attrs": Array [],
   "body": Array [],
   "childNodes": Array [
     Object {
-      "attrs": Array [],
       "childNodes": Array [],
       "end": 18,
-      "endTag": null,
       "loc": Object {
         "end": Object {
           "column": 18,
@@ -20,19 +17,14 @@ Object {
           "line": 2,
         },
       },
-      "name": "html",
-      "publicId": "",
       "range": Array [
         3,
         18,
       ],
       "start": 3,
-      "startTag": null,
-      "systemId": "",
       "type": "documentType",
     },
     Object {
-      "attrs": Array [],
       "childNodes": Array [],
       "end": 37,
       "endTag": Object {
@@ -63,7 +55,6 @@ Object {
           "line": 3,
         },
       },
-      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         21,
         37,
@@ -93,7 +84,6 @@ Object {
   ],
   "comments": Array [],
   "end": 37,
-  "endTag": null,
   "loc": Object {
     "end": Object {
       "column": 10,
@@ -104,13 +94,11 @@ Object {
       "line": 2,
     },
   },
-  "mode": "no-quirks",
   "range": Array [
     3,
     37,
   ],
   "start": 3,
-  "startTag": null,
   "tokens": Array [],
   "type": "Program",
 }
@@ -118,7 +106,6 @@ Object {
 
 exports[`parser attr 1`] = `
 Object {
-  "attrs": Array [],
   "body": Array [],
   "childNodes": Array [
     Object {
@@ -146,10 +133,7 @@ Object {
       ],
       "childNodes": Array [
         Object {
-          "attrs": Array [],
-          "childNodes": Array [],
           "end": 18,
-          "endTag": null,
           "lineNodes": Array [
             Object {
               "end": 17,
@@ -205,7 +189,6 @@ Object {
             18,
           ],
           "start": 17,
-          "startTag": null,
           "type": "text",
           "value": "
 ",
@@ -240,7 +223,6 @@ Object {
           "line": 2,
         },
       },
-      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         1,
         24,
@@ -268,10 +250,7 @@ Object {
       "type": "Div",
     },
     Object {
-      "attrs": Array [],
-      "childNodes": Array [],
       "end": 25,
-      "endTag": null,
       "lineNodes": Array [
         Object {
           "end": 24,
@@ -327,32 +306,28 @@ Object {
         25,
       ],
       "start": 24,
-      "startTag": null,
       "type": "text",
       "value": "
 ",
     },
   ],
   "comments": Array [],
-  "end": undefined,
-  "endTag": null,
+  "end": 25,
   "loc": Object {
     "end": Object {
-      "column": undefined,
-      "line": undefined,
+      "column": 1,
+      "line": 4,
     },
     "start": Object {
-      "column": undefined,
-      "line": undefined,
+      "column": 0,
+      "line": 0,
     },
   },
-  "mode": "quirks",
   "range": Array [
-    undefined,
-    undefined,
+    0,
+    25,
   ],
-  "start": undefined,
-  "startTag": null,
+  "start": 0,
   "tokens": Array [],
   "type": "Program",
 }
@@ -360,11 +335,9 @@ Object {
 
 exports[`parser base 1`] = `
 Object {
-  "attrs": Array [],
   "body": Array [],
   "childNodes": Array [
     Object {
-      "attrs": Array [],
       "childNodes": Array [],
       "end": 19,
       "endTag": Object {
@@ -395,7 +368,6 @@ Object {
           "line": 2,
         },
       },
-      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         3,
         19,
@@ -425,7 +397,6 @@ Object {
   ],
   "comments": Array [],
   "end": 19,
-  "endTag": null,
   "loc": Object {
     "end": Object {
       "column": 10,
@@ -436,13 +407,11 @@ Object {
       "line": 2,
     },
   },
-  "mode": "quirks",
   "range": Array [
     3,
     19,
   ],
   "start": 3,
-  "startTag": null,
   "tokens": Array [],
   "type": "Program",
 }
@@ -450,17 +419,12 @@ Object {
 
 exports[`parser comment 1`] = `
 Object {
-  "attrs": Array [],
   "body": Array [],
   "childNodes": Array [
     Object {
-      "attrs": Array [],
       "childNodes": Array [
         Object {
-          "attrs": Array [],
-          "childNodes": Array [],
           "end": 7,
-          "endTag": null,
           "lineNodes": Array [
             Object {
               "end": 6,
@@ -516,18 +480,15 @@ Object {
             7,
           ],
           "start": 6,
-          "startTag": null,
           "type": "text",
           "value": "
 ",
         },
         Object {
-          "attrs": Array [],
-          "childNodes": Array [],
           "data": " comment ",
           "end": 23,
           "endTag": Object {
-            "end": 11,
+            "end": 24,
             "loc": Object {
               "end": Object {
                 "column": 17,
@@ -540,13 +501,13 @@ Object {
             },
             "range": Array [
               20,
-              23,
+              24,
             ],
-            "start": 7,
+            "start": 20,
           },
           "lineNodes": Array [
             Object {
-              "end": 21,
+              "end": 20,
               "loc": Object {
                 "end": Object {
                   "column": 10,
@@ -601,10 +562,7 @@ Object {
           "type": "comment",
         },
         Object {
-          "attrs": Array [],
-          "childNodes": Array [],
           "end": 24,
-          "endTag": null,
           "lineNodes": Array [
             Object {
               "end": 23,
@@ -660,7 +618,6 @@ Object {
             24,
           ],
           "start": 23,
-          "startTag": null,
           "type": "text",
           "value": "
 ",
@@ -695,7 +652,6 @@ Object {
           "line": 2,
         },
       },
-      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         1,
         30,
@@ -723,10 +679,7 @@ Object {
       "type": "Div",
     },
     Object {
-      "attrs": Array [],
-      "childNodes": Array [],
       "end": 31,
-      "endTag": null,
       "lineNodes": Array [
         Object {
           "end": 30,
@@ -782,32 +735,28 @@ Object {
         31,
       ],
       "start": 30,
-      "startTag": null,
       "type": "text",
       "value": "
 ",
     },
   ],
   "comments": Array [],
-  "end": undefined,
-  "endTag": null,
+  "end": 31,
   "loc": Object {
     "end": Object {
-      "column": undefined,
-      "line": undefined,
+      "column": 1,
+      "line": 5,
     },
     "start": Object {
-      "column": undefined,
-      "line": undefined,
+      "column": 0,
+      "line": 0,
     },
   },
-  "mode": "quirks",
   "range": Array [
-    undefined,
-    undefined,
+    0,
+    31,
   ],
-  "start": undefined,
-  "startTag": null,
+  "start": 0,
   "tokens": Array [],
   "type": "Program",
 }
@@ -815,18 +764,15 @@ Object {
 
 exports[`parser comment multiline 1`] = `
 Object {
-  "attrs": Array [],
   "body": Array [],
   "childNodes": Array [
     Object {
-      "attrs": Array [],
-      "childNodes": Array [],
       "data": "
   comment
 ",
       "end": 19,
       "endTag": Object {
-        "end": 5,
+        "end": 20,
         "loc": Object {
           "end": Object {
             "column": 4,
@@ -839,9 +785,9 @@ Object {
         },
         "range": Array [
           16,
-          19,
+          20,
         ],
-        "start": 1,
+        "start": 16,
       },
       "lineNodes": Array [
         Object {
@@ -864,7 +810,7 @@ Object {
           "textLine": "",
         },
         Object {
-          "end": 17,
+          "end": 15,
           "loc": Object {
             "end": Object {
               "column": 10,
@@ -939,25 +885,22 @@ Object {
     },
   ],
   "comments": Array [],
-  "end": undefined,
-  "endTag": null,
+  "end": 0,
   "loc": Object {
     "end": Object {
-      "column": undefined,
-      "line": undefined,
+      "column": 0,
+      "line": 0,
     },
     "start": Object {
       "column": 1,
       "line": 2,
     },
   },
-  "mode": "quirks",
   "range": Array [
     1,
-    undefined,
+    0,
   ],
   "start": 1,
-  "startTag": null,
   "tokens": Array [],
   "type": "Program",
 }
@@ -965,14 +908,11 @@ Object {
 
 exports[`parser no opening tag 1`] = `
 Object {
-  "attrs": Array [],
   "body": Array [],
   "childNodes": Array [
     Object {
-      "attrs": Array [],
       "childNodes": Array [],
       "end": 15,
-      "endTag": null,
       "loc": Object {
         "end": Object {
           "column": 16,
@@ -983,15 +923,11 @@ Object {
           "line": 1,
         },
       },
-      "name": "html",
-      "publicId": "",
       "range": Array [
         0,
         15,
       ],
       "start": 0,
-      "startTag": null,
-      "systemId": "",
       "type": "documentType",
     },
     Object {
@@ -1019,10 +955,7 @@ Object {
       ],
       "childNodes": Array [
         Object {
-          "attrs": Array [],
-          "childNodes": Array [],
           "end": 53,
-          "endTag": null,
           "lineNodes": Array [
             Object {
               "end": 48,
@@ -1044,7 +977,7 @@ Object {
               "textLine": "",
             },
             Object {
-              "end": 57,
+              "end": 53,
               "loc": Object {
                 "end": Object {
                   "column": 5,
@@ -1078,19 +1011,14 @@ Object {
             53,
           ],
           "start": 48,
-          "startTag": null,
           "type": "text",
           "value": "
     ",
         },
         Object {
-          "attrs": Array [],
           "childNodes": Array [
             Object {
-              "attrs": Array [],
-              "childNodes": Array [],
               "end": 71,
-              "endTag": null,
               "lineNodes": Array [
                 Object {
                   "end": 59,
@@ -1112,7 +1040,7 @@ Object {
                   "textLine": "",
                 },
                 Object {
-                  "end": 68,
+                  "end": 64,
                   "loc": Object {
                     "end": Object {
                       "column": 5,
@@ -1131,7 +1059,7 @@ Object {
                   "textLine": "    ",
                 },
                 Object {
-                  "end": 77,
+                  "end": 71,
                   "loc": Object {
                     "end": Object {
                       "column": 7,
@@ -1165,20 +1093,15 @@ Object {
                 71,
               ],
               "start": 59,
-              "startTag": null,
               "type": "text",
               "value": "
     
       ",
             },
             Object {
-              "attrs": Array [],
               "childNodes": Array [
                 Object {
-                  "attrs": Array [],
-                  "childNodes": Array [],
                   "end": 87,
-                  "endTag": null,
                   "lineNodes": Array [
                     Object {
                       "end": 78,
@@ -1200,7 +1123,7 @@ Object {
                       "textLine": "",
                     },
                     Object {
-                      "end": 95,
+                      "end": 87,
                       "loc": Object {
                         "end": Object {
                           "column": 9,
@@ -1234,19 +1157,14 @@ Object {
                     87,
                   ],
                   "start": 78,
-                  "startTag": null,
                   "type": "text",
                   "value": "
         ",
                 },
                 Object {
-                  "attrs": Array [],
                   "childNodes": Array [
                     Object {
-                      "attrs": Array [],
-                      "childNodes": Array [],
                       "end": 102,
-                      "endTag": null,
                       "lineNodes": Array [
                         Object {
                           "end": 91,
@@ -1268,7 +1186,7 @@ Object {
                           "textLine": "",
                         },
                         Object {
-                          "end": 112,
+                          "end": 102,
                           "loc": Object {
                             "end": Object {
                               "column": 11,
@@ -1302,19 +1220,14 @@ Object {
                         102,
                       ],
                       "start": 91,
-                      "startTag": null,
                       "type": "text",
                       "value": "
           ",
                     },
                     Object {
-                      "attrs": Array [],
                       "childNodes": Array [
                         Object {
-                          "attrs": Array [],
-                          "childNodes": Array [],
                           "end": 113,
-                          "endTag": null,
                           "lineNodes": Array [
                             Object {
                               "end": 113,
@@ -1351,7 +1264,6 @@ Object {
                             113,
                           ],
                           "start": 106,
-                          "startTag": null,
                           "type": "text",
                           "value": "Table 1",
                         },
@@ -1385,7 +1297,6 @@ Object {
                           "line": 8,
                         },
                       },
-                      "namespaceURI": "http://www.w3.org/1999/xhtml",
                       "range": Array [
                         102,
                         118,
@@ -1413,10 +1324,7 @@ Object {
                       "type": "Td",
                     },
                     Object {
-                      "attrs": Array [],
-                      "childNodes": Array [],
                       "end": 127,
-                      "endTag": null,
                       "lineNodes": Array [
                         Object {
                           "end": 118,
@@ -1438,7 +1346,7 @@ Object {
                           "textLine": "",
                         },
                         Object {
-                          "end": 135,
+                          "end": 127,
                           "loc": Object {
                             "end": Object {
                               "column": 9,
@@ -1472,7 +1380,6 @@ Object {
                         127,
                       ],
                       "start": 118,
-                      "startTag": null,
                       "type": "text",
                       "value": "
         ",
@@ -1507,7 +1414,6 @@ Object {
                       "line": 7,
                     },
                   },
-                  "namespaceURI": "http://www.w3.org/1999/xhtml",
                   "range": Array [
                     87,
                     132,
@@ -1535,10 +1441,7 @@ Object {
                   "type": "Tr",
                 },
                 Object {
-                  "attrs": Array [],
-                  "childNodes": Array [],
                   "end": 139,
-                  "endTag": null,
                   "lineNodes": Array [
                     Object {
                       "end": 132,
@@ -1560,7 +1463,7 @@ Object {
                       "textLine": "",
                     },
                     Object {
-                      "end": 145,
+                      "end": 139,
                       "loc": Object {
                         "end": Object {
                           "column": 7,
@@ -1594,7 +1497,6 @@ Object {
                     139,
                   ],
                   "start": 132,
-                  "startTag": null,
                   "type": "text",
                   "value": "
       ",
@@ -1629,7 +1531,6 @@ Object {
                   "line": 6,
                 },
               },
-              "namespaceURI": "http://www.w3.org/1999/xhtml",
               "range": Array [
                 71,
                 147,
@@ -1657,10 +1558,7 @@ Object {
               "type": "Table",
             },
             Object {
-              "attrs": Array [],
-              "childNodes": Array [],
               "end": 159,
-              "endTag": null,
               "lineNodes": Array [
                 Object {
                   "end": 147,
@@ -1682,7 +1580,7 @@ Object {
                   "textLine": "",
                 },
                 Object {
-                  "end": 156,
+                  "end": 152,
                   "loc": Object {
                     "end": Object {
                       "column": 5,
@@ -1701,7 +1599,7 @@ Object {
                   "textLine": "    ",
                 },
                 Object {
-                  "end": 165,
+                  "end": 159,
                   "loc": Object {
                     "end": Object {
                       "column": 7,
@@ -1735,20 +1633,15 @@ Object {
                 159,
               ],
               "start": 147,
-              "startTag": null,
               "type": "text",
               "value": "
     
       ",
             },
             Object {
-              "attrs": Array [],
               "childNodes": Array [
                 Object {
-                  "attrs": Array [],
-                  "childNodes": Array [],
                   "end": 175,
-                  "endTag": null,
                   "lineNodes": Array [
                     Object {
                       "end": 166,
@@ -1770,7 +1663,7 @@ Object {
                       "textLine": "",
                     },
                     Object {
-                      "end": 183,
+                      "end": 175,
                       "loc": Object {
                         "end": Object {
                           "column": 9,
@@ -1804,19 +1697,14 @@ Object {
                     175,
                   ],
                   "start": 166,
-                  "startTag": null,
                   "type": "text",
                   "value": "
         ",
                 },
                 Object {
-                  "attrs": Array [],
                   "childNodes": Array [
                     Object {
-                      "attrs": Array [],
-                      "childNodes": Array [],
                       "end": 190,
-                      "endTag": null,
                       "lineNodes": Array [
                         Object {
                           "end": 179,
@@ -1838,7 +1726,7 @@ Object {
                           "textLine": "",
                         },
                         Object {
-                          "end": 200,
+                          "end": 190,
                           "loc": Object {
                             "end": Object {
                               "column": 11,
@@ -1872,19 +1760,14 @@ Object {
                         190,
                       ],
                       "start": 179,
-                      "startTag": null,
                       "type": "text",
                       "value": "
           ",
                     },
                     Object {
-                      "attrs": Array [],
                       "childNodes": Array [
                         Object {
-                          "attrs": Array [],
-                          "childNodes": Array [],
                           "end": 201,
-                          "endTag": null,
                           "lineNodes": Array [
                             Object {
                               "end": 201,
@@ -1921,7 +1804,6 @@ Object {
                             201,
                           ],
                           "start": 194,
-                          "startTag": null,
                           "type": "text",
                           "value": "Table 2",
                         },
@@ -1955,7 +1837,6 @@ Object {
                           "line": 14,
                         },
                       },
-                      "namespaceURI": "http://www.w3.org/1999/xhtml",
                       "range": Array [
                         190,
                         206,
@@ -1983,10 +1864,7 @@ Object {
                       "type": "Td",
                     },
                     Object {
-                      "attrs": Array [],
-                      "childNodes": Array [],
                       "end": 215,
-                      "endTag": null,
                       "lineNodes": Array [
                         Object {
                           "end": 206,
@@ -2008,7 +1886,7 @@ Object {
                           "textLine": "",
                         },
                         Object {
-                          "end": 223,
+                          "end": 215,
                           "loc": Object {
                             "end": Object {
                               "column": 9,
@@ -2042,7 +1920,6 @@ Object {
                         215,
                       ],
                       "start": 206,
-                      "startTag": null,
                       "type": "text",
                       "value": "
         ",
@@ -2077,7 +1954,6 @@ Object {
                       "line": 13,
                     },
                   },
-                  "namespaceURI": "http://www.w3.org/1999/xhtml",
                   "range": Array [
                     175,
                     220,
@@ -2105,10 +1981,7 @@ Object {
                   "type": "Tr",
                 },
                 Object {
-                  "attrs": Array [],
-                  "childNodes": Array [],
                   "end": 227,
-                  "endTag": null,
                   "lineNodes": Array [
                     Object {
                       "end": 220,
@@ -2130,7 +2003,7 @@ Object {
                       "textLine": "",
                     },
                     Object {
-                      "end": 233,
+                      "end": 227,
                       "loc": Object {
                         "end": Object {
                           "column": 7,
@@ -2164,7 +2037,6 @@ Object {
                     227,
                   ],
                   "start": 220,
-                  "startTag": null,
                   "type": "text",
                   "value": "
       ",
@@ -2199,7 +2071,6 @@ Object {
                   "line": 12,
                 },
               },
-              "namespaceURI": "http://www.w3.org/1999/xhtml",
               "range": Array [
                 159,
                 235,
@@ -2227,10 +2098,7 @@ Object {
               "type": "Table",
             },
             Object {
-              "attrs": Array [],
-              "childNodes": Array [],
               "end": 257,
-              "endTag": null,
               "lineNodes": Array [
                 Object {
                   "end": 235,
@@ -2252,7 +2120,7 @@ Object {
                   "textLine": "",
                 },
                 Object {
-                  "end": 244,
+                  "end": 240,
                   "loc": Object {
                     "end": Object {
                       "column": 5,
@@ -2271,7 +2139,7 @@ Object {
                   "textLine": "    ",
                 },
                 Object {
-                  "end": 249,
+                  "end": 245,
                   "loc": Object {
                     "end": Object {
                       "column": 5,
@@ -2290,7 +2158,7 @@ Object {
                   "textLine": "    ",
                 },
                 Object {
-                  "end": 254,
+                  "end": 250,
                   "loc": Object {
                     "end": Object {
                       "column": 5,
@@ -2324,7 +2192,6 @@ Object {
                 257,
               ],
               "start": 235,
-              "startTag": null,
               "type": "text",
               "value": "
     
@@ -2361,7 +2228,6 @@ Object {
               "line": 4,
             },
           },
-          "namespaceURI": "http://www.w3.org/1999/xhtml",
           "range": Array [
             53,
             264,
@@ -2418,7 +2284,6 @@ Object {
           "line": 2,
         },
       },
-      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         20,
         264,
@@ -2448,7 +2313,6 @@ Object {
   ],
   "comments": Array [],
   "end": 264,
-  "endTag": null,
   "loc": Object {
     "end": Object {
       "column": 12,
@@ -2459,13 +2323,11 @@ Object {
       "line": 1,
     },
   },
-  "mode": "no-quirks",
   "range": Array [
     0,
     264,
   ],
   "start": 0,
-  "startTag": null,
   "tokens": Array [],
   "type": "Program",
 }

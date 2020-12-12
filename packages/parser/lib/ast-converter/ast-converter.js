@@ -2,10 +2,10 @@
  * @typedef {import("../../types").IASTConverter} IASTConverter
  */
 
-const NodeConverter = require("./node-converter");
 const createTraverser = require("../traverser");
 const createEmitter = require("../emitter");
 const createStack = require("../stack");
+const NodeFactory = require("./node-factory");
 
 class ASTConverter {
   constructor() {
@@ -44,7 +44,7 @@ class ASTConverter {
   }
 
   enter(node) {
-    const esNode = NodeConverter.toNode(node);
+    const esNode = NodeFactory.create(node);
     if (esNode) {
       this.parentStack.push(esNode);
     }
