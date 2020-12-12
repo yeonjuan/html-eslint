@@ -31,10 +31,13 @@ module.exports = function createComment(origin) {
   const originLoc = origin.sourceCodeLocation;
   const startTag = createStartTag(originLoc);
   const endTag = createEndTag(originLoc);
-  const lines = createLines({
-    ...originLoc,
-    startOffset: originLoc.startOffset+ 4,
-  }, origin.data);
+  const lines = createLines(
+    {
+      ...originLoc,
+      startOffset: originLoc.startOffset + 4,
+    },
+    origin.data
+  );
   return new NodeBuilder()
     .setType("comment")
     .setStartTag(startTag)

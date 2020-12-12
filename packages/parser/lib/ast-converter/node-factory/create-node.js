@@ -26,9 +26,7 @@ function createAttributes(attrs, attrLocs) {
 
 module.exports = function createNode(origin) {
   const type = convertType(origin.nodeName);
-  const builder = new NodeBuilder()
-    .setType(type)
-    .setChildNodes([]);
+  const builder = new NodeBuilder().setType(type).setChildNodes([]);
 
   if (origin.tagName) {
     builder.setTagName(origin.tagName);
