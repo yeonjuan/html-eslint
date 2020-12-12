@@ -27,6 +27,9 @@ Object {
     Object {
       "childNodes": Array [
         Object {
+          "type": "#null",
+        },
+        Object {
           "childNodes": Array [
             Object {
               "end": 36,

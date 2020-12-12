@@ -125,6 +125,18 @@ ruleTester.run("indent", rule, {
 </html>
 `,
     },
+    {
+      code: `
+<html>
+    <body>
+        <div id = "foo"></div>
+        <div id = "bar"></div>
+    </body>
+    <script>
+    </script>
+</html>
+`,
+    },
   ],
   invalid: [
     {
