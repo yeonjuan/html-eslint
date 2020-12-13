@@ -21,7 +21,7 @@ ruleTester.run("require-lang", rule, {
 
       errors: [
         {
-          messageId: "missingLang",
+          messageId: "missing",
           line: 2,
           column: 2,
           endColumn: 8,
@@ -37,7 +37,7 @@ ruleTester.run("require-lang", rule, {
 
       errors: [
         {
-          messageId: "invalidLang",
+          messageId: "empty",
         },
       ],
     },
@@ -49,19 +49,7 @@ ruleTester.run("require-lang", rule, {
 
       errors: [
         {
-          messageId: "invalidLang",
-        },
-      ],
-    },
-    {
-      code: `
-<html lang="unkown">
-</html>
-`,
-
-      errors: [
-        {
-          messageId: "invalidLang",
+          messageId: "empty",
         },
       ],
     },

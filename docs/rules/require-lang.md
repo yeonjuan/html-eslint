@@ -19,7 +19,7 @@ Examples of **incorrect** code for this rule:
   ...
 </html>
 
-<html lang="unkown">
+<html lang="">
   ...
 </html>
 ```

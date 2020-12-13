@@ -1,11 +1,10 @@
-const { RULE_CATEGORY, ISO_639_1 } = require("../constants");
+// @ts-check
+const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
-const ISO_639_1_SET = new Set(ISO_639_1);
-
 const MESSAGE_IDS = {
-  MISSING_LANG: "missingLang",
-  INVALID_LANG: "invalidLang",
+  MISSNG: "missing",
+  EMPTY: "empty",
 };
 
 module.exports = {
@@ -21,8 +20,8 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.MISSING_LANG]: "Missing `lang` attribute at `<html>` tag",
-      [MESSAGE_IDS.INVALID_LANG]: "Invalid value of `lang` attribute",
+      [MESSAGE_IDS.MISSNG]: "Missing `lang` attribute in `<html>` tag.",
+      [MESSAGE_IDS.EMPTY]: "Unexpected empty `lang` in in `<html>` tag.",
     },
   },
 
@@ -33,12 +32,12 @@ module.exports = {
         if (!langAttr) {
           context.report({
             node: node.startTag,
-            messageId: MESSAGE_IDS.MISSING_LANG,
+            messageId: MESSAGE_IDS.MISSNG,
           });
-        } else if (!ISO_639_1_SET.has(langAttr.value)) {
+        } else if (langAttr.value.trim().length === 0) {
           context.report({
             node: node.startTag,
-            messageId: MESSAGE_IDS.INVALID_LANG,
+            messageId: MESSAGE_IDS.EMPTY,
           });
         }
       },
