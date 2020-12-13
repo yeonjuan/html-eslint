@@ -22,6 +22,13 @@ const INDENT_TYPES = {
   SPACE: "space",
 };
 
+const IGNORING_NODES = [
+  NODE_TYPES.PRE,
+  NODE_TYPES.SCRIPT,
+  NODE_TYPES.STYLE,
+  NODE_TYPES.XMP,
+];
+
 module.exports = {
   meta: {
     type: "code",
@@ -121,11 +128,7 @@ module.exports = {
        * @param {HTMLNode} node
        */
       "*"(node) {
-        if (
-          node.type === NODE_TYPES.PRE ||
-          node.type === NODE_TYPES.SCRIPT ||
-          ignoreChildren
-        ) {
+        if (IGNORING_NODES.includes(node.type) || ignoreChildren) {
           ignoreChildren = true;
           return;
         }
@@ -155,13 +158,14 @@ module.exports = {
           }
         }
       },
-      "Pre:exit"() {
-        ignoreChildren = false;
-      },
-      "Script:exit"() {
-        ignoreChildren = false;
-      },
-      "*:exit"() {
+      "*:exit"(node) {
+        if (ignoreChildren) {
+          return;
+        }
+        if (IGNORING_NODES.includes(node.type)) {
+          ignoreChildren = false;
+          return;
+        }
         indentLevel.down();
       },
     };
