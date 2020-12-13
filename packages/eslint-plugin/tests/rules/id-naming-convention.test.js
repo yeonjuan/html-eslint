@@ -28,7 +28,7 @@ ruleTester.run("id-naming-convention", rule, {
       options: ["PascalCase"],
       errors: [
         {
-          message: "the id 'kebab-case' is not matched with the PascalCase.",
+          message: "The id 'kebab-case' is not matched with the PascalCase.",
         },
       ],
     },
@@ -37,7 +37,7 @@ ruleTester.run("id-naming-convention", rule, {
       options: ["snake_case"],
       errors: [
         {
-          message: "the id 'kebab-case' is not matched with the snake_case.",
+          message: "The id 'kebab-case' is not matched with the snake_case.",
         },
       ],
     },

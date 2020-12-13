@@ -58,5 +58,20 @@ ruleTester.run("require-meta-viewport", rule, {
         },
       ],
     },
+    {
+      code: `
+<html>
+      <head>
+        <title> title </title>
+        <meta foo="description">
+      </head>
+</html>
+`,
+      errors: [
+        {
+          messageId: "missing",
+        },
+      ],
+    },
   ],
 });

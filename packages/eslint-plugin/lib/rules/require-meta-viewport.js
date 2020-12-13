@@ -1,3 +1,9 @@
+// @ts-check
+/**
+ * @typedef {import("../types").HTMLNode} HTMLNode
+ * @typedef {import("../types").AttrNode} AttrNode
+ */
+
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
 const { NodeUtils } = require("./utils");
 
@@ -26,14 +32,21 @@ module.exports = {
   },
 
   create(context) {
+    /**
+     * @param {HTMLNode} node
+     * @returns {boolean}
+     */
     function isMetaViewport(node) {
       if (node.type === NODE_TYPES.META) {
         const nameAttr = NodeUtils.findAttr(node, "name");
-        return nameAttr.value.toLowerCase() === "viewport";
+        return !!nameAttr && nameAttr.value.toLowerCase() === "viewport";
       }
       return false;
     }
     return {
+      /**
+       * @param {HTMLNode} node
+       */
       Head(node) {
         const metaViewport = (node.childNodes || []).find(isMetaViewport);
         if (!metaViewport) {

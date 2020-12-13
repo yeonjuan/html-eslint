@@ -19,24 +19,29 @@ export type NodeTypes = {
   STYLE: "Style";
 };
 
-type Loc = {
-  end: {
-    line: number;
-    column: number;
-  };
-  start: {
-    line: number;
-    column: number;
-  };
-};
-
-export interface HTMLNode {
-  childNodes?: HTMLNode[];
+interface BaseNode {
   range: [number, number];
-  startTag: Loc | null;
-  endTag: Loc | null;
-  start: number;
-  end: number;
-  loc: Loc;
+  loc: {
+    end: {
+      line: number;
+      column: number;
+    };
+    start: {
+      line: number;
+      column: number;
+    };
+  };
+}
+
+export interface HTMLNode extends BaseNode {
+  childNodes?: HTMLNode[];
+  startTag: BaseNode | null;
+  endTag: BaseNode | null;
   type: string;
+  attrs?: AttrNode[];
+}
+
+export interface AttrNode extends BaseNode {
+  name: string;
+  value: string;
 }

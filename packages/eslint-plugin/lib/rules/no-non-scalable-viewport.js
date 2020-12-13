@@ -19,7 +19,7 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "unexpected use of `user-scalable=no`.",
+      [MESSAGE_IDS.UNEXPECTED]: "Unexpected use of `user-scalable=no`.",
     },
   },
 

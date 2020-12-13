@@ -1,5 +1,7 @@
+// @ts-check
 /**
  * @typedef {import("../../types").HTMLNode} HTMLNode
+ * @typedef {import("../../types").AttrNode} AttrNode
  */
 
 module.exports = {
@@ -7,7 +9,7 @@ module.exports = {
    * Find attribute by name in the given node
    * @param {HTMLNode} node node
    * @param {string} name attribute name
-   * @return {HTMLNode | undefined}
+   * @return {AttrNode | void}
    */
   findAttr(node, name) {
     return node
