@@ -22,8 +22,10 @@ module.exports = {
     fixable: true,
     schema: [],
     messages: {
-      [MESSAGE_IDS.EXPECT_NEW_LINE_AFTER]: "Expected newline after {{tag}}",
-      [MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE]: "Expected newline before {{tag}}",
+      [MESSAGE_IDS.EXPECT_NEW_LINE_AFTER]:
+        "There should be a linebreak after {{tag}}.",
+      [MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE]:
+        "There should be a linebreak before {{tag}}.",
     },
   },
 

@@ -31,7 +31,7 @@ ruleTester.run("no-duplicate-id", rule, {
           messageId: "duplicateId",
         },
         {
-          messageId: "duplicateId",
+          message: "The id 'foo' is duplicated.",
         },
       ],
     },

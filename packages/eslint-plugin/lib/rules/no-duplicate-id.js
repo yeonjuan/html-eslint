@@ -18,7 +18,7 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.DUPLICATE_ID]: "Unexpected duplicate id",
+      [MESSAGE_IDS.DUPLICATE_ID]: "The id '{{id}}' is duplicated.",
     },
   },
 
@@ -41,6 +41,7 @@ module.exports = {
             attrs.forEach((attr) => {
               context.report({
                 node: attr,
+                data: { id: attr.value },
                 messageId: MESSAGE_IDS.DUPLICATE_ID,
               });
             });

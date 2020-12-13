@@ -37,7 +37,7 @@ module.exports = {
     ],
     messages: {
       [MESSAGE_IDS.WRONG]:
-        "the id '{{actual}}' is not matched with the {{convention}}.",
+        "The id '{{actual}}' is not matched with the {{convention}}.",
     },
   },
 
