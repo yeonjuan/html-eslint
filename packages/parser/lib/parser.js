@@ -3,9 +3,8 @@
  */
 
 const parse5 = require("parse5");
-// const createASTConverter = require("./ast-converter");
-const createTreeAdjuster = require('./ast-converter/tree-adjuster');
-const createTreeBuilder = require('./ast-converter/tree-builder');
+const createTreeAdjuster = require("./ast-converter/tree-adjuster");
+const createTreeBuilder = require("./ast-converter/tree-builder");
 
 class Parser {
   constructor() {

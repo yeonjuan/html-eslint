@@ -2,11 +2,12 @@ const createProgram = require("./create-program");
 const createComment = require("./create-comment");
 const createText = require("./create-text");
 const createNode = require("./create-node");
-const createNull = require('./create-null');
+const createNull = require("./create-null");
 
-function isShouldBeNullNode (origin) {
-  return !origin ||
-  (origin.nodeName !== "#document" && !origin.sourceCodeLocation);
+function isShouldBeNullNode(origin) {
+  return (
+    !origin || (origin.nodeName !== "#document" && !origin.sourceCodeLocation)
+  );
 }
 
 module.exports = {
