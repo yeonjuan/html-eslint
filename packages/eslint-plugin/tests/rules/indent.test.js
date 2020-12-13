@@ -118,10 +118,82 @@ ruleTester.run("indent", rule, {
       code: `
 <html>
     <body>
+        <xmp>
+    <div>
+    should not fixed
+    </div>
+ 
+        </xmp>
+    </body>
+</html>
+`,
+    },
+    {
+      code: `
+<html>
+    <head>
+        <style>
+        foo
+        </style>
+    </head>
+    <body>
+        <pre>
+        <div>
+      should not fixed
+        </div>
+    
+        </pre>
+    </body>
+</html>
+`,
+    },
+    {
+      code: `
+<html>
+    <head>
+        <style>
+    foo
+        </style>
+    </head>
+    <body>
+        <pre>
+        <div>
+      should not fixed
+        </div>
+    
+        </pre>
+            <div>
+            <pre>
+        <div>
+      should not fixed
+        </div>
+        
+            </pre>
+        </div>
+    </body>
+</html>
+`,
+    },
+    {
+      code: `
+<html>
+    <body>
         <script>
               var a = 1;
         </script>
     </body>
+</html>
+`,
+    },
+    {
+      code: `
+<html>
+    <body>
+        <div id = "foo"></div>
+        <div id = "bar"></div>
+    </body>
+    <script>
+    </script>
 </html>
 `,
     },

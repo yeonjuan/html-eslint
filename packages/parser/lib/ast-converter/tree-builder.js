@@ -7,7 +7,7 @@ const createEmitter = require("../emitter");
 const createStack = require("../stack");
 const NodeFactory = require("./node-factory");
 
-class ASTConverter {
+class TreeBuilder {
   constructor() {
     this.ast = null;
     this.convertedStack = createStack();
@@ -15,46 +15,34 @@ class ASTConverter {
     this.emitter.on("enter", this.enter.bind(this));
     this.emitter.on("exit", this.exit.bind(this));
     this.traverser = createTraverser(this.emitter, ["childNodes"]);
-    this.parentStack = createStack();
   }
 
-  convert(ast) {
+  build(ast) {
     this.traverser.traverse(ast);
     return this.ast;
   }
 
-  exit() {
-    const converted = this.convertedStack.pop();
-    if (!converted) {
-      return;
-    }
-
-    if (this.convertedStack.isEmpty()) {
-      this.ast = converted;
-      return;
-    }
-
-    let parent = this.parentStack.top();
-    if (parent === converted) {
-      parent = this.parentStack.pop();
-    }
-    parent = this.parentStack.top();
-
-    parent.childNodes.push(converted);
+  enter(origin) {
+    const node = NodeFactory.create(origin);
+    this.convertedStack.push(node);
   }
 
-  enter(node) {
-    const esNode = NodeFactory.create(node);
-    if (esNode) {
-      this.parentStack.push(esNode);
+  exit() {
+    const current = this.convertedStack.pop();
+    if (this.convertedStack.isEmpty()) {
+      this.ast = current;
+      return;
     }
-    this.convertedStack.push(esNode);
+
+    const parent = this.convertedStack.top();
+    if (Array.isArray(parent.childNodes)) {
+      parent.childNodes.push(current);
+    } else {
+      parent.childNodes = [current];
+    }
   }
 }
 
-/**
- * @returns {IASTConverter}
- */
-module.exports = function createASTConverter() {
-  return new ASTConverter();
+module.exports = function createTreeBuilder() {
+  return new TreeBuilder();
 };

@@ -2,14 +2,11 @@
 
 exports[`emitter The listener should not be called if the event name is different 1`] = `
 Object {
-  "attrs": Array [],
   "body": Array [],
   "childNodes": Array [
     Object {
-      "attrs": Array [],
       "childNodes": Array [],
       "end": 15,
-      "endTag": null,
       "loc": Object {
         "end": Object {
           "column": 16,
@@ -20,28 +17,22 @@ Object {
           "line": 1,
         },
       },
-      "name": "html",
-      "publicId": "",
       "range": Array [
         0,
         15,
       ],
       "start": 0,
-      "startTag": null,
-      "systemId": "",
       "type": "documentType",
     },
     Object {
-      "attrs": Array [],
       "childNodes": Array [
         Object {
-          "attrs": Array [],
+          "type": "#null",
+        },
+        Object {
           "childNodes": Array [
             Object {
-              "attrs": Array [],
-              "childNodes": Array [],
               "end": 36,
-              "endTag": null,
               "lineNodes": Array [
                 Object {
                   "end": 31,
@@ -63,7 +54,7 @@ Object {
                   "textLine": "",
                 },
                 Object {
-                  "end": 40,
+                  "end": 36,
                   "loc": Object {
                     "end": Object {
                       "column": 5,
@@ -97,19 +88,14 @@ Object {
                 36,
               ],
               "start": 31,
-              "startTag": null,
               "type": "text",
               "value": "
     ",
             },
             Object {
-              "attrs": Array [],
               "childNodes": Array [
                 Object {
-                  "attrs": Array [],
-                  "childNodes": Array [],
                   "end": 56,
-                  "endTag": null,
                   "lineNodes": Array [
                     Object {
                       "end": 56,
@@ -146,7 +132,6 @@ Object {
                     56,
                   ],
                   "start": 40,
-                  "startTag": null,
                   "type": "text",
                   "value": "My First Heading",
                 },
@@ -180,7 +165,6 @@ Object {
                   "line": 4,
                 },
               },
-              "namespaceURI": "http://www.w3.org/1999/xhtml",
               "range": Array [
                 36,
                 61,
@@ -208,10 +192,7 @@ Object {
               "type": "H1",
             },
             Object {
-              "attrs": Array [],
-              "childNodes": Array [],
               "end": 64,
-              "endTag": null,
               "lineNodes": Array [
                 Object {
                   "end": 61,
@@ -233,7 +214,7 @@ Object {
                   "textLine": "",
                 },
                 Object {
-                  "end": 66,
+                  "end": 64,
                   "loc": Object {
                     "end": Object {
                       "column": 3,
@@ -267,19 +248,14 @@ Object {
                 64,
               ],
               "start": 61,
-              "startTag": null,
               "type": "text",
               "value": "
   ",
             },
             Object {
-              "attrs": Array [],
               "childNodes": Array [
                 Object {
-                  "attrs": Array [],
-                  "childNodes": Array [],
                   "end": 86,
-                  "endTag": null,
                   "lineNodes": Array [
                     Object {
                       "end": 86,
@@ -316,12 +292,10 @@ Object {
                     86,
                   ],
                   "start": 67,
-                  "startTag": null,
                   "type": "text",
                   "value": "My first paragraph.",
                 },
                 Object {
-                  "attrs": Array [],
                   "childNodes": Array [],
                   "end": 93,
                   "endTag": Object {
@@ -352,7 +326,6 @@ Object {
                       "line": 5,
                     },
                   },
-                  "namespaceURI": "http://www.w3.org/1999/xhtml",
                   "range": Array [
                     86,
                     93,
@@ -409,7 +382,6 @@ Object {
                   "line": 5,
                 },
               },
-              "namespaceURI": "http://www.w3.org/1999/xhtml",
               "range": Array [
                 64,
                 97,
@@ -437,10 +409,7 @@ Object {
               "type": "P",
             },
             Object {
-              "attrs": Array [],
-              "childNodes": Array [],
               "end": 114,
-              "endTag": null,
               "lineNodes": Array [
                 Object {
                   "end": 97,
@@ -534,7 +503,6 @@ Object {
                 114,
               ],
               "start": 97,
-              "startTag": null,
               "type": "text",
               "value": "
 
@@ -571,7 +539,6 @@ Object {
               "line": 3,
             },
           },
-          "namespaceURI": "http://www.w3.org/1999/xhtml",
           "range": Array [
             25,
             114,
@@ -628,7 +595,6 @@ Object {
           "line": 2,
         },
       },
-      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         16,
         114,
@@ -658,7 +624,6 @@ Object {
   ],
   "comments": Array [],
   "end": 114,
-  "endTag": null,
   "loc": Object {
     "end": Object {
       "column": 1,
@@ -669,13 +634,11 @@ Object {
       "line": 1,
     },
   },
-  "mode": "no-quirks",
   "range": Array [
     0,
     114,
   ],
   "start": 0,
-  "startTag": null,
   "tokens": Array [],
   "type": "Program",
 }

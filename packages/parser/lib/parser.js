@@ -3,11 +3,13 @@
  */
 
 const parse5 = require("parse5");
-const createASTConverter = require("./ast-converter");
+const createTreeAdjuster = require("./ast-converter/tree-adjuster");
+const createTreeBuilder = require("./ast-converter/tree-builder");
 
 class Parser {
   constructor() {
-    this.astCoverter = createASTConverter();
+    this.treeBuilder = createTreeBuilder();
+    this.treeAdjuster = createTreeAdjuster();
   }
 
   /**
@@ -17,7 +19,9 @@ class Parser {
     const htmlAST = parse5.parse(code, {
       sourceCodeLocationInfo: true,
     });
-    return this.astCoverter.convert(htmlAST);
+    const tree = this.treeBuilder.build(htmlAST);
+    this.treeAdjuster.adjust(tree);
+    return tree;
   }
 }
 
