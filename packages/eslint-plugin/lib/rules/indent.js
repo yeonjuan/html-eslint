@@ -78,7 +78,7 @@ module.exports = {
     }
 
     /**
-     * @param {import("../types").BaseNode} node
+     * @param {BaseNode} node
      * @param {HTMLNode} [nodeToReport]
      */
     function checkIndent(node, nodeToReport) {
