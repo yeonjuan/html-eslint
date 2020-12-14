@@ -1,6 +1,8 @@
+// @ts-check
 /**
  * @typedef {import("../types").HTMLNode} HTMLNode
- *
+ * @typedef {import("../types").AttrNode} AttrNode
+ * @typedef {import("../types").BaseNode} BaseNode
  * @typedef {Object} IndentType
  * @property {"tab"} TAB
  * @property {"space"} SPACE
@@ -67,7 +69,7 @@ module.exports = {
       indentType === INDENT_TYPES.SPACE ? " ".repeat(indentSize) : "\t";
 
     /**
-     * @param {HTMLNode} node
+     * @param {BaseNode} node
      */
     function getLineCodeBefore(node) {
       return sourceCode.text
@@ -76,7 +78,7 @@ module.exports = {
     }
 
     /**
-     * @param {HTMLNode} node
+     * @param {import("../types").BaseNode} node
      * @param {HTMLNode} [nodeToReport]
      */
     function checkIndent(node, nodeToReport) {
@@ -122,6 +124,39 @@ module.exports = {
         }
       }
     }
+
+    /**
+     * @param {AttrNode[]} attrs
+     */
+    function checkAttrsIndent(attrs) {
+      attrs.forEach((attr) => checkIndent(attr));
+    }
+
+    /**
+     * @param {BaseNode} startTag
+     */
+    function checkEndOfStartTag(startTag) {
+      const start = startTag.range[1] - 1;
+      const end = startTag.range[1];
+      const line = startTag.loc.end.line;
+      const endCol = startTag.loc.end.column;
+      const startCol = startTag.loc.end.column - 1;
+      checkIndent({
+        range: [start, end],
+        start,
+        end,
+        loc: {
+          start: {
+            line,
+            column: startCol,
+          },
+          end: {
+            line,
+            column: endCol,
+          },
+        },
+      });
+    }
     let ignoreChildren = false;
     return {
       /**
@@ -134,6 +169,10 @@ module.exports = {
         }
 
         indentLevel.up();
+
+        if (Array.isArray(node.attrs)) {
+          checkAttrsIndent(node.attrs);
+        }
 
         (node.childNodes || []).forEach((current) => {
           if (current.startTag) {
@@ -167,6 +206,10 @@ module.exports = {
           return;
         }
         indentLevel.down();
+
+        if (node.startTag) {
+          checkEndOfStartTag(node.startTag);
+        }
       },
     };
   },

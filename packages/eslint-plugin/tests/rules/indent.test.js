@@ -197,6 +197,36 @@ ruleTester.run("indent", rule, {
 </html>
 `,
     },
+    {
+      code: `
+<div
+    id="foo"
+    style="bar">
+</div>
+`,
+    },
+    {
+      code: `
+<div>
+    <pre>
+    
+  <div
+      id="foo"
+ style="bar">
+ </div>
+    </pre>
+</div>
+`,
+    },
+    {
+      code: `
+<div
+    id="foo"
+    style="bar"
+>
+</div>
+`,
+    },
   ],
   invalid: [
     {
@@ -556,6 +586,89 @@ test
     </body>
 </html>`,
       errors: wrongIndentErrors(12),
+    },
+    {
+      code: `
+<div
+id="foo"
+style="bar">
+</div>
+`,
+      output: `
+<div
+    id="foo"
+    style="bar">
+</div>
+`,
+      errors: wrongIndentErrors(2),
+    },
+    {
+      code: `
+<div
+id="foo"
+style="bar" class="baz">
+</div>
+`,
+      output: `
+<div
+    id="foo"
+    style="bar" class="baz">
+</div>
+`,
+      errors: wrongIndentErrors(2),
+    },
+    {
+      code: `
+<div id="foo"
+  style="bar" class="baz">
+</div>
+`,
+      output: `
+<div id="foo"
+    style="bar" class="baz">
+</div>
+`,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+<div
+  id="foo"
+  style="bar"
+   >
+</div>
+`,
+      output: `
+<div
+    id="foo"
+    style="bar"
+>
+</div>
+`,
+      errors: wrongIndentErrors(3),
+    },
+    {
+      code: `
+<div>
+  <div
+      id="foo"
+class="bar"
+        style="baz"
+  >
+    </div>
+</div>
+`,
+      output: `
+<div>
+    <div
+        id="foo"
+        class="bar"
+        style="baz"
+    >
+    </div>
+</div>
+`,
+      errors: wrongIndentErrors(4),
     },
   ],
 });

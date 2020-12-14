@@ -20,6 +20,8 @@ export type NodeTypes = {
 };
 
 interface BaseNode {
+  start: number;
+  end: number;
   range: [number, number];
   loc: {
     end: {
@@ -35,8 +37,8 @@ interface BaseNode {
 
 export interface HTMLNode extends BaseNode {
   childNodes?: HTMLNode[];
-  startTag: BaseNode | null;
-  endTag: BaseNode | null;
+  startTag?: BaseNode;
+  endTag?: BaseNode;
   type: string;
   attrs?: AttrNode[];
 }
