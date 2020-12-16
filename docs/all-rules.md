@@ -25,6 +25,7 @@ title: All Rules
 | [@html-eslint/require-title](rules/require-title) | Require `<title><title/>` in the `<head><head/>` | ⭐ |
 | [@html-eslint/no-multiple-h1](rules/no-multiple-h1) | Disallow multiple `<h1></h1>`. | ⭐ |
 | [@html-eslint/require-meta-description](rules/require-meta-description) | Require use of `<meta name="description">` in `<head>` |  |
+| [@html-eslint/require-meta-charset](rules/require-meta-charset) | Enforce to use `<meta charset="...">` in `<head>` |  |
 
 ### Accessibility
 

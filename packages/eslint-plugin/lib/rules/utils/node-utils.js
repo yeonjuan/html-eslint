@@ -13,7 +13,9 @@ module.exports = {
    */
   findAttr(node, name) {
     return node
-      ? (node.attrs || []).find((attr) => attr.name === name)
+      ? (node.attrs || []).find(
+          (attr) => attr.name.toLowerCase() === name.toLowerCase()
+        )
       : undefined;
   },
   /**
