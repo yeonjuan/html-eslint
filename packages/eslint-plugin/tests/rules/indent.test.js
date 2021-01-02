@@ -682,7 +682,7 @@ class="bar"
     </body>
 </html>
 `,
-output: `
+      output: `
 <html>
     <head>
         <script src='http://somescript.js'></script>
@@ -693,7 +693,7 @@ output: `
     </body>
 </html>
 `,
-errors: wrongIndentErrors(2),
-    }
+      errors: wrongIndentErrors(2),
+    },
   ],
 });

@@ -157,7 +157,7 @@ module.exports = {
         },
       });
     }
-    let nodesToIgnoreChildren = []
+    let nodesToIgnoreChildren = [];
     return {
       /**
        * @param {HTMLNode} node
