@@ -157,14 +157,17 @@ module.exports = {
         },
       });
     }
-    let ignoreChildren = false;
+    let nodesToIgnoreChildren = []
     return {
       /**
        * @param {HTMLNode} node
        */
       "*"(node) {
-        if (IGNORING_NODES.includes(node.type) || ignoreChildren) {
-          ignoreChildren = true;
+        if (IGNORING_NODES.includes(node.type)) {
+          nodesToIgnoreChildren.push(node);
+          return;
+        }
+        if (nodesToIgnoreChildren.length) {
           return;
         }
 
@@ -198,11 +201,11 @@ module.exports = {
         }
       },
       "*:exit"(node) {
-        if (ignoreChildren) {
+        if (IGNORING_NODES.includes(node.type)) {
+          nodesToIgnoreChildren.pop();
           return;
         }
-        if (IGNORING_NODES.includes(node.type)) {
-          ignoreChildren = false;
+        if (nodesToIgnoreChildren.length) {
           return;
         }
         indentLevel.down();

@@ -162,7 +162,7 @@ ruleTester.run("indent", rule, {
         </div>
     
         </pre>
-            <div>
+        <div>
             <pre>
         <div>
       should not fixed
@@ -670,5 +670,30 @@ class="bar"
 `,
       errors: wrongIndentErrors(4),
     },
+    {
+      code: `
+<html>
+    <head>
+        <script src='http://somescript.js'></script>
+    </head>
+    <body>
+<div id='hello'>
+</div>
+    </body>
+</html>
+`,
+output: `
+<html>
+    <head>
+        <script src='http://somescript.js'></script>
+    </head>
+    <body>
+        <div id='hello'>
+        </div>
+    </body>
+</html>
+`,
+errors: wrongIndentErrors(2),
+    }
   ],
 });
