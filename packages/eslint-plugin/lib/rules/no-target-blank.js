@@ -22,9 +22,10 @@ module.exports = {
     },
   },
 
-  create(context) {
+  create() {
     return {
       A(node) {
+        /* eslint-disable */
         const target = NodeUtils.findAttr(node, "target");
         const href = NodeUtils.findAttr(node, 'href');
         const rel = NodeUtils.findAttr(node, 'rel');
