@@ -20,6 +20,7 @@ const noNonScalableViewport = require("./no-non-scalable-viewport");
 const noPositiveTabindex = require("./no-positive-tabindex");
 const requireMetaViewport = require("./require-meta-viewport");
 const requireMetaCharset = require("./require-meta-charset");
+const noTargetBlank = require("./no-target-blank");
 
 module.exports = {
   "require-lang": requireLang,
@@ -44,4 +45,5 @@ module.exports = {
   "no-positive-tabindex": noPositiveTabindex,
   "require-meta-viewport": requireMetaViewport,
   "require-meta-charset": requireMetaCharset,
+  "no-target-blank": noTargetBlank,
 };
