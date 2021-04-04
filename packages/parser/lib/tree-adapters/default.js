@@ -5,7 +5,7 @@ const { DOCUMENT_MODE } = require("../common/html");
 //Node construction
 exports.createDocument = function () {
   return {
-    nodeName: "#document",
+    type: "Program",
     mode: DOCUMENT_MODE.NO_QUIRKS,
     childNodes: [],
   };
@@ -13,14 +13,14 @@ exports.createDocument = function () {
 
 exports.createDocumentFragment = function () {
   return {
-    nodeName: "#document-fragment",
+    type: "#document-fragment",
     childNodes: [],
   };
 };
 
 exports.createElement = function (tagName, namespaceURI, attrs) {
   return {
-    nodeName: tagName,
+    type: tagName,
     tagName: tagName,
     attrs: attrs,
     namespaceURI: namespaceURI,
@@ -31,7 +31,7 @@ exports.createElement = function (tagName, namespaceURI, attrs) {
 
 exports.createCommentNode = function (data) {
   return {
-    nodeName: "#comment",
+    type: "#comment",
     data: data,
     parentNode: null,
   };
@@ -39,7 +39,7 @@ exports.createCommentNode = function (data) {
 
 const createTextNode = function (value) {
   return {
-    nodeName: "#text",
+    type: "#text",
     value: value,
     parentNode: null,
   };
@@ -74,7 +74,7 @@ exports.setDocumentType = function (document, name, publicId, systemId) {
   let doctypeNode = null;
 
   for (let i = 0; i < document.childNodes.length; i++) {
-    if (document.childNodes[i].nodeName === "#documentType") {
+    if (document.childNodes[i].type === "#documentType") {
       doctypeNode = document.childNodes[i];
       break;
     }
@@ -86,7 +86,7 @@ exports.setDocumentType = function (document, name, publicId, systemId) {
     doctypeNode.systemId = systemId;
   } else {
     appendChild(document, {
-      nodeName: "#documentType",
+      type: "#documentType",
       name: name,
       publicId: publicId,
       systemId: systemId,
@@ -115,7 +115,7 @@ exports.insertText = function (parentNode, text) {
   if (parentNode.childNodes.length) {
     const prevNode = parentNode.childNodes[parentNode.childNodes.length - 1];
 
-    if (prevNode.nodeName === "#text") {
+    if (prevNode.type === "#text") {
       prevNode.value += text;
       return;
     }
@@ -128,7 +128,7 @@ exports.insertTextBefore = function (parentNode, text, referenceNode) {
   const prevNode =
     parentNode.childNodes[parentNode.childNodes.indexOf(referenceNode) - 1];
 
-  if (prevNode && prevNode.nodeName === "#text") {
+  if (prevNode && prevNode.type === "#text") {
     prevNode.value += text;
   } else {
     insertBefore(parentNode, createTextNode(text), referenceNode);
@@ -197,15 +197,15 @@ exports.getDocumentTypeNodeSystemId = function (doctypeNode) {
 
 //Node types
 exports.isTextNode = function (node) {
-  return node.nodeName === "#text";
+  return node.type === "#text";
 };
 
 exports.isCommentNode = function (node) {
-  return node.nodeName === "#comment";
+  return node.type === "#comment";
 };
 
 exports.isDocumentTypeNode = function (node) {
-  return node.nodeName === "#documentType";
+  return node.type === "#documentType";
 };
 
 exports.isElementNode = function (node) {
@@ -213,7 +213,7 @@ exports.isElementNode = function (node) {
 };
 
 // Source code location
-exports.setNodeSourceCodeLocation = function (node, location) {
+function setNodeSourceCodeLocation (node, location) {
   node.loc = location;
   if (location) {
     const start = location.startOffset;
@@ -237,12 +237,13 @@ exports.setNodeSourceCodeLocation = function (node, location) {
       }
     }
   }
-};
+}
+exports.setNodeSourceCodeLocation = setNodeSourceCodeLocation;
 
 exports.getNodeSourceCodeLocation = function (node) {
   return node.loc;
 };
 
 exports.updateNodeSourceCodeLocation = function (node, endLocation) {
-  node.loc = Object.assign(node.loc, endLocation);
+  setNodeSourceCodeLocation(node, endLocation);
 };
