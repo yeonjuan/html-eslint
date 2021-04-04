@@ -7,6 +7,6 @@ describe("parser", () => {
     const code = `
     <div foo="foo1" foo="foo2"></div>
     `;
-    expect(parser.parseForESLint(code)).toMatchSnapshot();
+    expect(parser.parseForESLint(code).ast).toMatchSnapshot();
   });
 });

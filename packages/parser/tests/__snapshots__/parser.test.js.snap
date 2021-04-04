@@ -2,135 +2,124 @@
 
 exports[`parser duplicate attributes 1`] = `
 Object {
-  "ast": Object {
-    "childNodes": Array [
-      Object {
-        "attrs": Array [],
-        "childNodes": Array [
-          Object {
-            "attrs": Array [],
-            "childNodes": Array [],
-            "loc": null,
-            "namespaceURI": "http://www.w3.org/1999/xhtml",
-            "nodeName": "head",
-            "parentNode": [Circular],
-            "tagName": "head",
-          },
-          Object {
-            "attrs": Array [],
-            "childNodes": Array [
-              Object {
-                "attrs": Array [
-                  Object {
-                    "location": Array [
-                      Object {
-                        "endCol": 20,
-                        "endLine": 2,
-                        "endOffset": 20,
-                        "startCol": 10,
-                        "startLine": 2,
-                        "startOffset": 10,
-                      },
-                    ],
-                    "name": "foo",
-                    "value": "foo1",
-                  },
-                  Object {
-                    "location": Array [
-                      Object {
-                        "endCol": 31,
-                        "endLine": 2,
-                        "endOffset": 31,
-                        "startCol": 21,
-                        "startLine": 2,
-                        "startOffset": 21,
-                      },
-                    ],
-                    "name": "foo",
-                    "value": "foo2",
-                  },
-                ],
-                "childNodes": Array [],
-                "loc": Object {
-                  "attrs": Object {},
+  "childNodes": Array [
+    Object {
+      "attrs": Array [],
+      "childNodes": Array [
+        Object {
+          "attrs": Array [],
+          "childNodes": Array [],
+          "loc": null,
+          "namespaceURI": "http://www.w3.org/1999/xhtml",
+          "nodeName": "head",
+          "parentNode": [Circular],
+          "tagName": "head",
+        },
+        Object {
+          "attrs": Array [],
+          "childNodes": Array [
+            Object {
+              "attrs": Array [
+                Object {
+                  "location": Array [
+                    Object {
+                      "endCol": 20,
+                      "endLine": 2,
+                      "endOffset": 20,
+                      "startCol": 10,
+                      "startLine": 2,
+                      "startOffset": 10,
+                    },
+                  ],
+                  "name": "foo",
+                  "value": "foo1",
+                },
+                Object {
+                  "location": Array [
+                    Object {
+                      "endCol": 31,
+                      "endLine": 2,
+                      "endOffset": 31,
+                      "startCol": 21,
+                      "startLine": 2,
+                      "startOffset": 21,
+                    },
+                  ],
+                  "name": "foo",
+                  "value": "foo2",
+                },
+              ],
+              "childNodes": Array [],
+              "end": 32,
+              "loc": Object {
+                "end": Object {
+                  "col": 32,
+                  "line": 2,
+                },
+                "endCol": 38,
+                "endLine": 2,
+                "endOffset": 38,
+                "endTag": Object {
                   "endCol": 38,
                   "endLine": 2,
                   "endOffset": 38,
-                  "endTag": Object {
-                    "endCol": 38,
-                    "endLine": 2,
-                    "endOffset": 38,
-                    "startCol": 32,
-                    "startLine": 2,
-                    "startOffset": 32,
-                  },
-                  "startCol": 5,
+                  "startCol": 32,
                   "startLine": 2,
-                  "startOffset": 5,
-                  "startTag": Object {
-                    "attrs": Object {},
-                    "endCol": 32,
-                    "endLine": 2,
-                    "endOffset": 32,
-                    "startCol": 5,
-                    "startLine": 2,
-                    "startOffset": 5,
-                  },
+                  "startOffset": 32,
                 },
-                "namespaceURI": "http://www.w3.org/1999/xhtml",
-                "nodeName": "div",
-                "parentNode": [Circular],
-                "tagName": "div",
+                "start": Object {
+                  "col": 5,
+                  "line": 2,
+                },
               },
-              Object {
-                "loc": Object {
-                  "endCol": 5,
-                  "endLine": 3,
-                  "endOffset": 43,
-                  "startCol": 38,
-                  "startLine": 2,
-                  "startOffset": 38,
+              "namespaceURI": "http://www.w3.org/1999/xhtml",
+              "nodeName": "div",
+              "parentNode": [Circular],
+              "range": Array [
+                5,
+                32,
+              ],
+              "start": 5,
+              "tagName": "div",
+            },
+            Object {
+              "end": 43,
+              "loc": Object {
+                "end": Object {
+                  "col": 5,
+                  "line": 3,
                 },
-                "nodeName": "#text",
-                "parentNode": [Circular],
-                "value": "
+                "start": Object {
+                  "col": 38,
+                  "line": 2,
+                },
+              },
+              "nodeName": "#text",
+              "parentNode": [Circular],
+              "range": Array [
+                38,
+                43,
+              ],
+              "start": 38,
+              "value": "
     ",
-              },
-            ],
-            "loc": null,
-            "namespaceURI": "http://www.w3.org/1999/xhtml",
-            "nodeName": "body",
-            "parentNode": [Circular],
-            "tagName": "body",
-          },
-        ],
-        "loc": null,
-        "namespaceURI": "http://www.w3.org/1999/xhtml",
-        "nodeName": "html",
-        "parentNode": [Circular],
-        "tagName": "html",
-      },
-    ],
-    "mode": "quirks",
-    "nodeName": "#document",
-  },
-  "scopeManager": null,
-  "visitorKeys": Object {
-    "#document": Array [
-      "childNodes",
-    ],
-    "Program": Array [
-      "childNodes",
-    ],
-    "body": Array [
-      "childNodes",
-    ],
-    "head": Array [
-      "childNodes",
-    ],
-    "html": Array [
-      "childNodes",
-    ],
-  },
+            },
+          ],
+          "loc": null,
+          "namespaceURI": "http://www.w3.org/1999/xhtml",
+          "nodeName": "body",
+          "parentNode": [Circular],
+          "tagName": "body",
+        },
+      ],
+      "loc": null,
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
+      "nodeName": "html",
+      "parentNode": [Circular],
+      "tagName": "html",
+    },
+  ],
+  "mode": "quirks",
+  "nodeName": "#document",
 }
 `;

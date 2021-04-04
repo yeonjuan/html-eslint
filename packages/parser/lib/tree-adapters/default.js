@@ -215,6 +215,28 @@ exports.isElementNode = function (node) {
 // Source code location
 exports.setNodeSourceCodeLocation = function (node, location) {
   node.loc = location;
+  if (location) {
+    const start = location.startOffset;
+    const end = location.endOffset;
+    const startLine = location.startLine;
+    const startCol = location.startCol;
+    const endLine = location.endLine;
+    const endCol = location.endCol;
+
+    node.range = [start, end];
+    node.start = start;
+    node.end = end;
+    node.loc = {
+      start: {
+        line: startLine,
+        col: startCol,
+      },
+      end: {
+        line: endLine,
+        col: endCol,
+      }
+    }
+  }
 };
 
 exports.getNodeSourceCodeLocation = function (node) {
