@@ -1,13 +1,17 @@
 "use strict";
 
+const {setNodeLocAndRange} = require("../common/location");
 const { DOCUMENT_MODE } = require("../common/html");
 
 //Node construction
 exports.createDocument = function () {
   return {
-    type: "Program",
+    type: "#document",
     mode: DOCUMENT_MODE.NO_QUIRKS,
     childNodes: [],
+    tokens: [],
+    body: [],
+    comments: [],
   };
 };
 
@@ -213,37 +217,14 @@ exports.isElementNode = function (node) {
 };
 
 // Source code location
-function setNodeSourceCodeLocation (node, location) {
-  node.loc = location;
-  if (location) {
-    const start = location.startOffset;
-    const end = location.endOffset;
-    const startLine = location.startLine;
-    const startCol = location.startCol;
-    const endLine = location.endLine;
-    const endCol = location.endCol;
-
-    node.range = [start, end];
-    node.start = start;
-    node.end = end;
-    node.loc = {
-      start: {
-        line: startLine,
-        col: startCol,
-      },
-      end: {
-        line: endLine,
-        col: endCol,
-      }
-    }
-  }
+exports.setNodeSourceCodeLocation = function (node, location) {
+  setNodeLocAndRange(node, location);
 }
-exports.setNodeSourceCodeLocation = setNodeSourceCodeLocation;
 
 exports.getNodeSourceCodeLocation = function (node) {
   return node.loc;
 };
 
-exports.updateNodeSourceCodeLocation = function (node, endLocation) {
-  setNodeSourceCodeLocation(node, endLocation);
+exports.updateNodeSourceCodeLocation = function () {
+  // no-op
 };

@@ -2,113 +2,131 @@
 
 exports[`parser duplicate attributes 1`] = `
 Object {
+  "body": Array [],
   "childNodes": Array [
     Object {
-      "attrs": Array [],
-      "childNodes": Array [
+      "attrs": Array [
         Object {
-          "attrs": Array [],
-          "childNodes": Array [],
-          "loc": null,
-          "namespaceURI": "http://www.w3.org/1999/xhtml",
-          "parentNode": [Circular],
-          "tagName": "head",
-          "type": "head",
+          "end": 15,
+          "loc": Object {
+            "end": Object {
+              "column": 16,
+              "line": 1,
+            },
+            "start": Object {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "name": "foo",
+          "range": Array [
+            5,
+            15,
+          ],
+          "start": 5,
+          "value": "foo1",
         },
         Object {
-          "attrs": Array [],
-          "childNodes": Array [
-            Object {
-              "attrs": Array [
-                Object {
-                  "location": Array [
-                    Object {
-                      "endCol": 20,
-                      "endLine": 2,
-                      "endOffset": 20,
-                      "startCol": 10,
-                      "startLine": 2,
-                      "startOffset": 10,
-                    },
-                  ],
-                  "name": "foo",
-                  "value": "foo1",
-                },
-                Object {
-                  "location": Array [
-                    Object {
-                      "endCol": 31,
-                      "endLine": 2,
-                      "endOffset": 31,
-                      "startCol": 21,
-                      "startLine": 2,
-                      "startOffset": 21,
-                    },
-                  ],
-                  "name": "foo",
-                  "value": "foo2",
-                },
-              ],
-              "childNodes": Array [],
-              "end": 38,
-              "loc": Object {
-                "end": Object {
-                  "col": 38,
-                  "line": 2,
-                },
-                "start": Object {
-                  "col": undefined,
-                  "line": undefined,
-                },
-              },
-              "namespaceURI": "http://www.w3.org/1999/xhtml",
-              "parentNode": [Circular],
-              "range": Array [
-                undefined,
-                38,
-              ],
-              "start": undefined,
-              "tagName": "div",
-              "type": "div",
+          "end": 26,
+          "loc": Object {
+            "end": Object {
+              "column": 27,
+              "line": 1,
             },
-            Object {
-              "end": 43,
-              "loc": Object {
-                "end": Object {
-                  "col": 5,
-                  "line": 3,
-                },
-                "start": Object {
-                  "col": 38,
-                  "line": 2,
-                },
-              },
-              "parentNode": [Circular],
-              "range": Array [
-                38,
-                43,
-              ],
-              "start": 38,
-              "type": "#text",
-              "value": "
-    ",
+            "start": Object {
+              "column": 17,
+              "line": 1,
             },
+          },
+          "name": "foo",
+          "range": Array [
+            16,
+            26,
           ],
-          "loc": null,
-          "namespaceURI": "http://www.w3.org/1999/xhtml",
-          "parentNode": [Circular],
-          "tagName": "body",
-          "type": "body",
+          "start": 16,
+          "value": "foo2",
         },
       ],
-      "loc": null,
+      "childNodes": Array [
+        Object {
+          "end": 30,
+          "loc": Object {
+            "end": Object {
+              "column": 31,
+              "line": 1,
+            },
+            "start": Object {
+              "column": 28,
+              "line": 1,
+            },
+          },
+          "range": Array [
+            27,
+            30,
+          ],
+          "start": 27,
+          "type": "Text",
+          "value": "   ",
+        },
+      ],
+      "end": 27,
+      "loc": Object {
+        "end": Object {
+          "column": 28,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
       "namespaceURI": "http://www.w3.org/1999/xhtml",
-      "parentNode": [Circular],
-      "tagName": "html",
-      "type": "html",
+      "range": Array [
+        0,
+        27,
+      ],
+      "start": 0,
+      "startTag": Object {
+        "end": 27,
+        "loc": Object {
+          "end": Object {
+            "column": 28,
+            "line": 1,
+          },
+          "start": Object {
+            "column": 1,
+            "line": 1,
+          },
+        },
+        "range": Array [
+          0,
+          27,
+        ],
+        "start": 0,
+      },
+      "tagName": "div",
+      "type": "Div",
     },
   ],
+  "comments": Array [],
+  "end": 27,
+  "loc": Object {
+    "end": Object {
+      "column": 28,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 0,
+      "line": 0,
+    },
+  },
   "mode": "quirks",
+  "range": Array [
+    0,
+    27,
+  ],
+  "start": 0,
+  "tokens": Array [],
   "type": "Program",
 }
 `;

@@ -3,6 +3,7 @@
 const Mixin = require("../../utils/mixin");
 const Tokenizer = require("../../tokenizer");
 const PositionTrackingPreprocessorMixin = require("../position-tracking/preprocessor-mixin");
+const {setNodeLocAndRange} = require("../../common/location");
 
 class LocationInfoTokenizerMixin extends Mixin {
   constructor(tokenizer) {
@@ -32,15 +33,8 @@ class LocationInfoTokenizerMixin extends Mixin {
     this.currentAttrLocation.endLine = this.posTracker.line;
     this.currentAttrLocation.endCol = this.posTracker.col;
     this.currentAttrLocation.endOffset = this.posTracker.offset;
-
-    const currentToken = this.tokenizer.currentToken;
     const currentAttr = this.tokenizer.currentAttr;
-
-    if (!currentToken.location.attrs) {
-      currentToken.location.attrs = Object.create(null);
-    }
-
-    currentAttr.location = [this.currentAttrLocation];
+    setNodeLocAndRange(currentAttr, this.currentAttrLocation);
   }
 
   _getOverriddenMethods(mxn, orig) {
