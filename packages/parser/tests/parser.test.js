@@ -1,80 +1,12 @@
 "use strict";
 
-const createParser = require("../lib/parser");
+const parser = require("../lib");
 
 describe("parser", () => {
-  let parser = null;
-
-  beforeEach(() => {
-    parser = createParser();
-  });
-
-  it("parse", () => {
-    const code = "<html></html>";
-    expect(() => parser.parse(code)).not.toThrow();
-  });
-
-  it("base", () => {
+  it("duplicate attributes", () => {
     const code = `
-  <html>
-  </html>`;
-    expect(parser.parse(code)).toMatchSnapshot();
-  });
-
-  it("DOCTYPE", () => {
-    const code = `
-  <!DOCTYPE HTML>
-  <html>
-  </html>`;
-    expect(parser.parse(code)).toMatchSnapshot();
-  });
-
-  it("attr", () => {
-    const code = `
-<div attr="foo">
-</div>
-`;
-    expect(parser.parse(code)).toMatchSnapshot();
-  });
-
-  it("comment", () => {
-    const code = `
-<div>
-<!-- comment -->
-</div>
-`;
-    expect(parser.parse(code)).toMatchSnapshot();
-  });
-
-  it("comment multiline", () => {
-    const code = `
-<!--
-  comment
--->
-`;
-    expect(parser.parse(code)).toMatchSnapshot();
-  });
-
-  it("no opening tag", () => {
-    const code = `<!DOCTYPE html>
-    <html lang="en">
-    </head>
-    <body>
-    
-      <table>
-        <tr>
-          <td>Table 1</td>
-        </tr>
-      </table>
-    
-      <table>
-        <tr>
-          <td>Table 2</td>
-        </tr>
-      </table>
-    
-    </body>
-    </html>`;
-    expect(parser.parse(code)).toMatchSnapshot();
+    <div foo="foo1" foo="foo2"></div>
+    `;
+    expect(parser.parseForESLint(code)).toMatchSnapshot();
   });
 });
