@@ -1,6 +1,6 @@
 "use strict";
 
-const {setNodeLocAndRange} = require("../common/location");
+const { setNodeLocAndRange } = require("../common/location");
 const { DOCUMENT_MODE } = require("../common/html");
 
 //Node construction
@@ -219,12 +219,20 @@ exports.isElementNode = function (node) {
 // Source code location
 exports.setNodeSourceCodeLocation = function (node, location) {
   setNodeLocAndRange(node, location);
-}
+};
 
 exports.getNodeSourceCodeLocation = function (node) {
   return node.loc;
 };
 
-exports.updateNodeSourceCodeLocation = function () {
+exports.updateNodeSourceCodeLocation = function (node, endLocation) {
+  const endLocNode = {};
+  setNodeLocAndRange(endLocNode, endLocation);
+  node.end = endLocNode.end;
+  node.range[1] = endLocNode.range[1];
+  node.loc.end = endLocNode.loc.end;
+  if (endLocNode.endTag) {
+    node.endTag = endLocNode.endTag;
+  }
   // no-op
 };

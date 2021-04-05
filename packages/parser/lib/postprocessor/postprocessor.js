@@ -3,49 +3,95 @@ const {
   canBeIncluded,
   hasChildNodes,
   getLocFromChildNodes,
-} = require('./utils');
+  createLines,
+  createCommentStartTag,
+  createCommentEndTag,
+} = require("./utils");
 
 module.exports = class PostProcessor {
-  constructor () {
+  constructor() {
     this.outRangeNodes = [];
+    this.skipCommonProcess = false;
   }
 
-  process (node) {
+  process(node) {
     if (node.type === "#document") {
       this.processOnDocument(node);
     }
+    if (node.type === "#text") {
+      this.processOnText(node);
+    }
+    if (node.type === "#comment") {
+      this.processOnComment(node);
+    }
+
+    if (node.type === "#documentType") {
+      this.processOnDocumentType(node);
+    }
+
     if (Array.isArray(node.childNodes)) {
-      node.childNodes.forEach(child => {
+      node.childNodes.forEach((child) => {
         this.process(child);
       });
     }
-    this.processOnNode(node);
+    if (!this.skipCommonProcess) {
+      this.processOnNode(node);
+    }
+    this.skipCommonProcess = false;
+
+    this.skipCommonProcess = false;
     delete node.parentNode;
     return node;
   }
 
-  processOnDocument (node) {
-    const locNode = getLocFromChildNodes(node);
-    node.type = 'Program';
+  processOnDocument(node) {
+    const locNode = getLocFromChildNodes(node.childNodes);
+    node.type = "Program";
     node.loc = locNode.loc;
     node.range = locNode.range;
     node.start = locNode.start;
     node.end = locNode.end;
   }
 
-  processOnText (node) {
-    if (node.type === "#text") {
-      node.type = "text";
-    }
-    node.textLine
+  processOnText(node) {
+    this.skipCommonProcess = true;
+    node.type = "text";
+    node.lineNodes = createLines(node, node.value);
   }
 
-  processOnNode (node) {
-    if (node.type === "#text") {
-      node.type = "text";
-    }
+  processOnComment(node) {
+    this.skipCommonProcess = true;
+    node.type = "comment";
+    node.startTag = createCommentStartTag(node);
+    node.endTag = createCommentEndTag(node);
+    node.lineNodes = createLines(
+      {
+        range: [node.start + 4, node.end],
+        start: node.start + 4,
+        end: node.end,
+        loc: {
+          start: {
+            line: node.loc.start.line,
+            column: node.loc.start.column + 4,
+          },
+          end: node.loc.end,
+        },
+      },
+      node.data
+    );
+  }
 
-    node.type = node.type[0].toUpperCase() + node.type.slice(1);
+  processOnDocumentType(node) {
+    node.type = "documentType";
+    this.skipCommonProcess = true;
+  }
+
+  processOnNode(node) {
+    if (node.type[0] === "#") {
+      node.type = node.type.slice(1);
+    } else if (node.type[0] !== node.type[0].toUpperCase()) {
+      node.type = node.type[0].toUpperCase() + node.type.slice(1);
+    }
     this.includeOutRangeChildNodes(node);
     if (hasChildNodes(node)) {
       this.omitFakeChildNodes(node);
@@ -55,18 +101,26 @@ module.exports = class PostProcessor {
     }
   }
 
-  includeOutRangeChildNodes (node) {
+  includeOutRangeChildNodes(node) {
     if (this.outRangeNodes.length && canIncludeChild(node)) {
-      const includedNodes = this.outRangeNodes.filter(child => canBeIncluded(node, child))
+      const includedNodes = this.outRangeNodes.filter((child) =>
+        canBeIncluded(node, child)
+      );
       node.childNodes.push(...includedNodes);
-      this.outRangeNodes = this.outRangeNodes.filter(child => includedNodes.includes(child));
+      this.outRangeNodes = this.outRangeNodes.filter(
+        (child) => !includedNodes.includes(child)
+      );
     }
   }
 
-  excludeOutRangeChildNodes (node) {
+  excludeOutRangeChildNodes(node) {
     let index;
     while (
-      (index = node.childNodes.findIndex(child => !canBeIncluded(node, child))) !== -1
+      (index = node.childNodes.findIndex(
+        (child) =>
+          child.range[1] < node.startTag.range[0] ||
+          child.range[0] > node.endTag.range[1]
+      )) !== -1
     ) {
       const child = node.childNodes[index];
       node.childNodes.splice(index, 1);
@@ -74,13 +128,11 @@ module.exports = class PostProcessor {
     }
   }
 
-  omitFakeChildNodes (node) {
+  omitFakeChildNodes(node) {
     let index;
-    while (
-      (index = node.childNodes.findIndex(child => !child.loc)) !== -1
-    ) {
+    while ((index = node.childNodes.findIndex((child) => !child.loc)) !== -1) {
       const child = node.childNodes[index];
       node.childNodes.splice(index, 1, ...(child.childNodes || []));
     }
   }
-}
+};

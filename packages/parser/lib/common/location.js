@@ -1,4 +1,4 @@
-function setNodeLocAndRange (node, sourceCodeLocation) {
+function setNodeLocAndRange(node, sourceCodeLocation) {
   if (!sourceCodeLocation) {
     node.loc = null;
     return;
@@ -26,7 +26,7 @@ function setNodeLocAndRange (node, sourceCodeLocation) {
     end: {
       line: endLine,
       column: endCol,
-    }
+    },
   };
   if (startTag) {
     node.startTag = {};

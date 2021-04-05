@@ -455,7 +455,7 @@ class Tokenizer {
     // if (
     //   Tokenizer.getTokenAttr(this.currentToken, this.currentAttr.name) === null
     // ) {
-      this.currentToken.attrs.push(this.currentAttr);
+    this.currentToken.attrs.push(this.currentAttr);
     // } else {
     //   this._err(ERR.duplicateAttribute);
     // }

@@ -3,7 +3,7 @@
 const Mixin = require("../../utils/mixin");
 const Tokenizer = require("../../tokenizer");
 const PositionTrackingPreprocessorMixin = require("../position-tracking/preprocessor-mixin");
-const {setNodeLocAndRange} = require("../../common/location");
+const { setNodeLocAndRange } = require("../../common/location");
 
 class LocationInfoTokenizerMixin extends Mixin {
   constructor(tokenizer) {
