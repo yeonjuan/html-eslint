@@ -5,7 +5,6 @@ Object {
   "body": Array [],
   "childNodes": Array [
     Object {
-      "childNodes": Array [],
       "end": 18,
       "loc": Object {
         "end": Object {
@@ -17,14 +16,18 @@ Object {
           "line": 2,
         },
       },
+      "name": "html",
+      "publicId": "",
       "range": Array [
         3,
         18,
       ],
       "start": 3,
+      "systemId": "",
       "type": "documentType",
     },
     Object {
+      "attrs": Array [],
       "childNodes": Array [],
       "end": 37,
       "endTag": Object {
@@ -55,6 +58,7 @@ Object {
           "line": 3,
         },
       },
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         21,
         37,
@@ -94,6 +98,7 @@ Object {
       "line": 2,
     },
   },
+  "mode": "no-quirks",
   "range": Array [
     3,
     37,
@@ -223,6 +228,7 @@ Object {
           "line": 2,
         },
       },
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         1,
         24,
@@ -323,6 +329,7 @@ Object {
       "line": 0,
     },
   },
+  "mode": "quirks",
   "range": Array [
     0,
     25,
@@ -338,6 +345,7 @@ Object {
   "body": Array [],
   "childNodes": Array [
     Object {
+      "attrs": Array [],
       "childNodes": Array [],
       "end": 19,
       "endTag": Object {
@@ -368,6 +376,7 @@ Object {
           "line": 2,
         },
       },
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         3,
         19,
@@ -407,6 +416,7 @@ Object {
       "line": 2,
     },
   },
+  "mode": "quirks",
   "range": Array [
     3,
     19,
@@ -422,6 +432,7 @@ Object {
   "body": Array [],
   "childNodes": Array [
     Object {
+      "attrs": Array [],
       "childNodes": Array [
         Object {
           "end": 7,
@@ -652,6 +663,7 @@ Object {
           "line": 2,
         },
       },
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         1,
         30,
@@ -752,6 +764,7 @@ Object {
       "line": 0,
     },
   },
+  "mode": "quirks",
   "range": Array [
     0,
     31,
@@ -896,6 +909,7 @@ Object {
       "line": 2,
     },
   },
+  "mode": "quirks",
   "range": Array [
     1,
     0,
@@ -911,7 +925,6 @@ Object {
   "body": Array [],
   "childNodes": Array [
     Object {
-      "childNodes": Array [],
       "end": 15,
       "loc": Object {
         "end": Object {
@@ -923,11 +936,14 @@ Object {
           "line": 1,
         },
       },
+      "name": "html",
+      "publicId": "",
       "range": Array [
         0,
         15,
       ],
       "start": 0,
+      "systemId": "",
       "type": "documentType",
     },
     Object {
@@ -1016,6 +1032,7 @@ Object {
     ",
         },
         Object {
+          "attrs": Array [],
           "childNodes": Array [
             Object {
               "end": 71,
@@ -1099,6 +1116,7 @@ Object {
       ",
             },
             Object {
+              "attrs": Array [],
               "childNodes": Array [
                 Object {
                   "end": 87,
@@ -1162,6 +1180,7 @@ Object {
         ",
                 },
                 Object {
+                  "attrs": Array [],
                   "childNodes": Array [
                     Object {
                       "end": 102,
@@ -1225,6 +1244,7 @@ Object {
           ",
                     },
                     Object {
+                      "attrs": Array [],
                       "childNodes": Array [
                         Object {
                           "end": 113,
@@ -1297,6 +1317,7 @@ Object {
                           "line": 8,
                         },
                       },
+                      "namespaceURI": "http://www.w3.org/1999/xhtml",
                       "range": Array [
                         102,
                         118,
@@ -1414,6 +1435,7 @@ Object {
                       "line": 7,
                     },
                   },
+                  "namespaceURI": "http://www.w3.org/1999/xhtml",
                   "range": Array [
                     87,
                     132,
@@ -1531,6 +1553,7 @@ Object {
                   "line": 6,
                 },
               },
+              "namespaceURI": "http://www.w3.org/1999/xhtml",
               "range": Array [
                 71,
                 147,
@@ -1639,6 +1662,7 @@ Object {
       ",
             },
             Object {
+              "attrs": Array [],
               "childNodes": Array [
                 Object {
                   "end": 175,
@@ -1702,6 +1726,7 @@ Object {
         ",
                 },
                 Object {
+                  "attrs": Array [],
                   "childNodes": Array [
                     Object {
                       "end": 190,
@@ -1765,6 +1790,7 @@ Object {
           ",
                     },
                     Object {
+                      "attrs": Array [],
                       "childNodes": Array [
                         Object {
                           "end": 201,
@@ -1837,6 +1863,7 @@ Object {
                           "line": 14,
                         },
                       },
+                      "namespaceURI": "http://www.w3.org/1999/xhtml",
                       "range": Array [
                         190,
                         206,
@@ -1954,6 +1981,7 @@ Object {
                       "line": 13,
                     },
                   },
+                  "namespaceURI": "http://www.w3.org/1999/xhtml",
                   "range": Array [
                     175,
                     220,
@@ -2071,6 +2099,7 @@ Object {
                   "line": 12,
                 },
               },
+              "namespaceURI": "http://www.w3.org/1999/xhtml",
               "range": Array [
                 159,
                 235,
@@ -2228,6 +2257,7 @@ Object {
               "line": 4,
             },
           },
+          "namespaceURI": "http://www.w3.org/1999/xhtml",
           "range": Array [
             53,
             264,
@@ -2284,6 +2314,7 @@ Object {
           "line": 2,
         },
       },
+      "namespaceURI": "http://www.w3.org/1999/xhtml",
       "range": Array [
         20,
         264,
@@ -2323,6 +2354,7 @@ Object {
       "line": 1,
     },
   },
+  "mode": "no-quirks",
   "range": Array [
     0,
     264,

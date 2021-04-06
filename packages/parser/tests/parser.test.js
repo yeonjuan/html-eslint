@@ -1,13 +1,13 @@
 "use strict";
 
-const createParser = require("../lib/parser");
+const parserForEslint = require("../lib");
 
 describe("parser", () => {
-  let parser = null;
-
-  beforeEach(() => {
-    parser = createParser();
-  });
+  const parser = {
+    parse(code) {
+      return parserForEslint.parseForESLint(code).ast;
+    },
+  };
 
   it("parse", () => {
     const code = "<html></html>";
