@@ -3,12 +3,11 @@
 const parserForEslint = require("../lib");
 
 describe("parser", () => {
-
   const parser = {
-    parse (code) {
+    parse(code) {
       return parserForEslint.parseForESLint(code).ast;
-    }
-  }
+    },
+  };
 
   it("parse", () => {
     const code = "<html></html>";
