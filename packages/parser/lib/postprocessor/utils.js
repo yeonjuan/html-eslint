@@ -96,7 +96,7 @@ function createCommentStartTag(locNode) {
         column: locNode.loc.start.column + 5,
       },
     },
-    range: [locNode.start, locNode.end + 4],
+    range: [locNode.start, locNode.start + 4],
   };
 }
 
