@@ -28,8 +28,5 @@
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
-  },
-  "dependencies": {
-    "parse5": "^6.0.1"
   }
 }
