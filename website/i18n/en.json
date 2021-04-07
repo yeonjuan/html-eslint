@@ -44,6 +44,9 @@
       "rules/no-skip-heading-levels": {
         "title": "@html-eslint/no-skip-heading-levels"
       },
+      "rules/no-target-blank": {
+        "title": "@html-eslint/no-target-blank"
+      },
       "rules/quotes": {
         "title": "@html-eslint/quotes"
       },
@@ -64,6 +67,9 @@
       },
       "rules/require-li-container": {
         "title": "@html-eslint/require-li-container"
+      },
+      "rules/require-meta-charset": {
+        "title": "@html-eslint/require-meta-charset"
       },
       "rules/require-meta-description": {
         "title": "@html-eslint/require-meta-description"

@@ -16,6 +16,8 @@ title: All Rules
 | [@html-eslint/require-li-container](rules/require-li-container) | Enforce `<li>` to be in  `<ul>`, `<ol>` or `<menu>`. | ⭐ |
 | [@html-eslint/no-obsolete-tags](rules/no-obsolete-tags) | Disallow to use obsolete elements in HTML5 | ⭐ |
 | [@html-eslint/require-closing-tags](rules/require-closing-tags) | Reqiure closing tags. | ⭐🔧 |
+| [@html-eslint/require-meta-charset](rules/require-meta-charset) | Enforce to use `<meta name="chartset">` in `<head>` |  |
+| [@html-eslint/no-target-blank](rules/no-target-blank) | Disallow usage of unsafe `target='_blank'` |  |
 
 ### SEO
 
@@ -25,7 +27,6 @@ title: All Rules
 | [@html-eslint/require-title](rules/require-title) | Require `<title><title/>` in the `<head><head/>` | ⭐ |
 | [@html-eslint/no-multiple-h1](rules/no-multiple-h1) | Disallow multiple `<h1></h1>`. | ⭐ |
 | [@html-eslint/require-meta-description](rules/require-meta-description) | Require use of `<meta name="description">` in `<head>` |  |
-| [@html-eslint/require-meta-charset](rules/require-meta-charset) | Enforce to use `<meta charset="...">` in `<head>` |  |
 
 ### Accessibility
 
