@@ -17,7 +17,8 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.DUPLICATE_ATTRS]: "The attribute '{{attrName}}' is duplicated.",
+      [MESSAGE_IDS.DUPLICATE_ATTRS]:
+        "The attribute '{{attrName}}' is duplicated.",
     },
   },
 
@@ -26,7 +27,7 @@ module.exports = {
       "*"(node) {
         if (Array.isArray(node.attrs)) {
           const attrsSet = new Set();
-          node.attrs.forEach(attr => {
+          node.attrs.forEach((attr) => {
             if (attrsSet.has(attr.name)) {
               context.report({
                 node: node.startTag,
