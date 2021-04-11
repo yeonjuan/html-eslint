@@ -24,6 +24,7 @@ function genSideBarsJson() {
   const BASE = {
     docs: {
       "Getting Started": ["getting-started"],
+      "Disabling with inline comments": ["disable-rules-with-inline-comments"],
       Rules: ["all-rules"],
     },
   };
