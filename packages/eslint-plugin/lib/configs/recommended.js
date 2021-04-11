@@ -13,5 +13,6 @@ module.exports = {
     "@html-eslint/quotes": "error",
     "@html-eslint/no-obsolete-tags": "error",
     "@html-eslint/require-closing-tags": "error",
+    "@html-eslint/no-duplicate-attrs": "error",
   },
 };

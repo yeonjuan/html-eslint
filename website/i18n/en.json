@@ -20,6 +20,9 @@
       "rules/indent": {
         "title": "@html-eslint/indent"
       },
+      "rules/no-duplicate-attrs": {
+        "title": "@html-eslint/no-duplicate-attrs"
+      },
       "rules/no-duplicate-id": {
         "title": "@html-eslint/no-duplicate-id"
       },

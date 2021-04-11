@@ -21,6 +21,7 @@ const noPositiveTabindex = require("./no-positive-tabindex");
 const requireMetaViewport = require("./require-meta-viewport");
 const requireMetaCharset = require("./require-meta-charset");
 const noTargetBlank = require("./no-target-blank");
+const noDuplicateAttrs = require("./no-duplicate-attrs");
 
 module.exports = {
   "require-lang": requireLang,
@@ -46,4 +47,5 @@ module.exports = {
   "require-meta-viewport": requireMetaViewport,
   "require-meta-charset": requireMetaCharset,
   "no-target-blank": noTargetBlank,
+  "no-duplicate-attrs": noDuplicateAttrs,
 };
