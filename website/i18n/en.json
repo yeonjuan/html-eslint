@@ -8,6 +8,9 @@
       "all-rules": {
         "title": "All Rules"
       },
+      "disable-rules-with-inline-comments": {
+        "title": "Disable rules with inline comments"
+      },
       "getting-started": {
         "title": "Getting Started"
       },
@@ -91,6 +94,7 @@
     },
     "categories": {
       "Getting Started": "Getting Started",
+      "Disabling with inline comments": "Disabling with inline comments",
       "Rules": "Rules"
     }
   },

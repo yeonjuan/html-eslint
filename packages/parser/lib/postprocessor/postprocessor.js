@@ -12,6 +12,7 @@ module.exports = class PostProcessor {
   constructor() {
     this.outRangeNodes = [];
     this.skipCommonProcess = false;
+    this.programNode = null;
   }
 
   process(node) {
@@ -51,6 +52,7 @@ module.exports = class PostProcessor {
     node.range = locNode.range;
     node.start = locNode.start;
     node.end = locNode.end;
+    this.programNode = node;
   }
 
   processOnText(node) {
@@ -64,6 +66,8 @@ module.exports = class PostProcessor {
     node.type = "comment";
     node.startTag = createCommentStartTag(node);
     node.endTag = createCommentEndTag(node);
+    node.value = node.data;
+    delete node.data;
     node.lineNodes = createLines(
       {
         range: [node.start + 4, node.end],
@@ -77,8 +81,9 @@ module.exports = class PostProcessor {
           end: node.loc.end,
         },
       },
-      node.data
+      node.value
     );
+    this.programNode.comments.push(node);
   }
 
   processOnDocumentType(node) {
