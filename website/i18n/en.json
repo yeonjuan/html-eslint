@@ -56,6 +56,9 @@
       "rules/quotes": {
         "title": "@html-eslint/quotes"
       },
+      "rules/require-button-type": {
+        "title": "@html-eslint/require-button-type"
+      },
       "rules/require-closing-tags": {
         "title": "@html-eslint/require-closing-tags"
       },
