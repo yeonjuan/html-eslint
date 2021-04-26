@@ -22,6 +22,7 @@ const requireMetaViewport = require("./require-meta-viewport");
 const requireMetaCharset = require("./require-meta-charset");
 const noTargetBlank = require("./no-target-blank");
 const noDuplicateAttrs = require("./no-duplicate-attrs");
+const noAbstractRoles = require("./no-abstract-roles");
 
 module.exports = {
   "require-lang": requireLang,
@@ -48,4 +49,5 @@ module.exports = {
   "require-meta-charset": requireMetaCharset,
   "no-target-blank": noTargetBlank,
   "no-duplicate-attrs": noDuplicateAttrs,
+  "no-abstract-roles": noAbstractRoles,
 };
