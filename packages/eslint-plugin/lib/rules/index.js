@@ -24,6 +24,7 @@ const noTargetBlank = require("./no-target-blank");
 const noDuplicateAttrs = require("./no-duplicate-attrs");
 const noAbstractRoles = require("./no-abstract-roles");
 const requireButtonType = require("./require-button-type");
+const noAriaHiddenBody = require("./no-aria-hidden-body");
 
 module.exports = {
   "require-lang": requireLang,
@@ -52,4 +53,5 @@ module.exports = {
   "no-duplicate-attrs": noDuplicateAttrs,
   "no-abstract-roles": noAbstractRoles,
   "require-button-type": requireButtonType,
+  "no-aria-hidden-body": noAriaHiddenBody,
 };

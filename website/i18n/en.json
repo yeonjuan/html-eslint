@@ -26,6 +26,9 @@
       "rules/no-abstract-roles": {
         "title": "@html-eslint/no-abstract-roles"
       },
+      "rules/no-aria-hidden-body": {
+        "title": "@html-eslint/no-aria-hidden-body"
+      },
       "rules/no-duplicate-attrs": {
         "title": "@html-eslint/no-duplicate-attrs"
       },
