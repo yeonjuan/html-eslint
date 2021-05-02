@@ -40,6 +40,7 @@ title: All Rules
 | [@html-eslint/no-non-scalable-viewport](rules/no-non-scalable-viewport) | Disallow use of `user-scalable=no` in `<meta name="viewport">`. |  |
 | [@html-eslint/no-positive-tabindex](rules/no-positive-tabindex) | Disallow use of positive `tabindex`. |  |
 | [@html-eslint/require-meta-viewport](rules/require-meta-viewport) | Enforce to use `<meta name="viewport">` in `<head>` |  |
+| [@html-eslint/no-abstract-roles](rules/no-abstract-roles) | Disallow to use of abstract roles |  |
 
 ### Styles
 

@@ -23,6 +23,9 @@
       "rules/indent": {
         "title": "@html-eslint/indent"
       },
+      "rules/no-abstract-roles": {
+        "title": "@html-eslint/no-abstract-roles"
+      },
       "rules/no-duplicate-attrs": {
         "title": "@html-eslint/no-duplicate-attrs"
       },
