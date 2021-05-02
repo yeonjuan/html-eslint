@@ -12,6 +12,7 @@ This rule enforces use of a valid type attribute for button elements. (`"button"
 Examples of **incorrect** code for this rule:
 
 <!-- prettier-ignore-start -->
+
 ```html
 <button></button>
 <button type="invalid"></button>

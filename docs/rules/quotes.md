@@ -21,18 +21,22 @@ This rule has two options
 Examples of **incorrect** code for this rule with the default `"double"` option:
 
 <!-- prettier-ignore-start -->
+
 ```html
 <div id='foo'> </div>
 <div id=foo> </div>
 ```
+
 <!-- prettier-ignore-end -->
 
 Examples of **correct** code for this rule with the default `"double"` option:
 
 <!-- prettier-ignore-start -->
+
 ```html
 <div id="foo"> </div>
 ```
+
 <!-- prettier-ignore-end -->
 
 #### "single"

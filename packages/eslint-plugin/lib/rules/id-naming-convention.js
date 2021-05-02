@@ -47,12 +47,12 @@ module.exports = {
         ? context.options[0]
         : CONEVNTIONS.SNAKE_CASE;
 
-    const checkNaminig = CONVENTION_CHECKERS[convention];
+    const checkNaming = CONVENTION_CHECKERS[convention];
 
     return {
       "*"(node) {
         const idAttr = NodeUtils.findAttr(node, "id");
-        if (idAttr && idAttr.value && !checkNaminig(idAttr.value)) {
+        if (idAttr && idAttr.value && !checkNaming(idAttr.value)) {
           context.report({
             node: idAttr,
             data: {

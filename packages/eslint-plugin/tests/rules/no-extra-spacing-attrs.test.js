@@ -56,7 +56,7 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 
       errors: [
         {
-          messageId: "unexpectBetween",
+          messageId: "unexpectedBetween",
         },
       ],
     },
@@ -78,10 +78,10 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 
       errors: [
         {
-          messageId: "unexpectBetween",
+          messageId: "unexpectedBetween",
         },
         {
-          messageId: "unexpectBetween",
+          messageId: "unexpectedBetween",
         },
       ],
     },
@@ -103,10 +103,10 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 
       errors: [
         {
-          messageId: "unexpectBetween",
+          messageId: "unexpectedBetween",
         },
         {
-          messageId: "unexpectAfter",
+          messageId: "unexpectedAfter",
         },
       ],
     },
@@ -128,13 +128,13 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 
       errors: [
         {
-          messageId: "unexpectBefore",
+          messageId: "unexpectedBefore",
         },
         {
-          messageId: "unexpectBetween",
+          messageId: "unexpectedBetween",
         },
         {
-          messageId: "unexpectAfter",
+          messageId: "unexpectedAfter",
         },
       ],
     },

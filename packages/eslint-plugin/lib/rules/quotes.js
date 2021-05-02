@@ -57,9 +57,9 @@ module.exports = {
 
     function getQuotes(attr) {
       const [valueStart, valueEnd] = getValueRange(attr);
-      const openinig = getCodeIn([valueStart, valueStart + 1]);
+      const opening = getCodeIn([valueStart, valueStart + 1]);
       const closing = getCodeIn([valueEnd - 1, valueEnd]);
-      return [openinig, closing];
+      return [opening, closing];
     }
 
     function hasEqualSign(attr) {

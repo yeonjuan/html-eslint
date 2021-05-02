@@ -21,7 +21,7 @@ module.exports = {
     messages: {
       [MESSAGE_IDS.MISSING]: 'Missing `<meta name="description">`.',
       [MESSAGE_IDS.EMPTY]:
-        'Unexpected emtpy `conetnt` in `<meta name="description">`',
+        'Unexpected empty `content` in `<meta name="description">`',
     },
   },
 
@@ -31,18 +31,18 @@ module.exports = {
         const metaTags = (node.childNodes || []).filter(
           (child) => child.type === NODE_TYPES.META
         );
-        const descripMetaTags = metaTags.filter((meta) => {
+        const descriptionMetaTags = metaTags.filter((meta) => {
           const nameAttr = NodeUtils.findAttr(meta, "name");
           return !!nameAttr && nameAttr.value.toLowerCase() === "description";
         });
 
-        if (descripMetaTags.length === 0) {
+        if (descriptionMetaTags.length === 0) {
           context.report({
             node,
             messageId: MESSAGE_IDS.MISSING,
           });
         } else {
-          descripMetaTags.forEach((meta) => {
+          descriptionMetaTags.forEach((meta) => {
             const content = NodeUtils.findAttr(meta, "content");
             if (!content || !content.value.trim().length) {
               context.report({

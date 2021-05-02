@@ -1,9 +1,9 @@
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
-  EXTRA_BETWEEN: "unexpectBetween",
-  EXTRA_AFTER: "unexpectAfter",
-  EXTRA_BEFORE: "unexpectBefore",
+  EXTRA_BETWEEN: "unexpectedBetween",
+  EXTRA_AFTER: "unexpectedAfter",
+  EXTRA_BEFORE: "unexpectedBefore",
 };
 
 module.exports = {

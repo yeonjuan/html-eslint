@@ -15,7 +15,7 @@ title: All Rules
 | [@html-eslint/no-inline-styles](rules/no-inline-styles) | Disallow using inline style |  |
 | [@html-eslint/require-li-container](rules/require-li-container) | Enforce `<li>` to be in  `<ul>`, `<ol>` or `<menu>`. | ⭐ |
 | [@html-eslint/no-obsolete-tags](rules/no-obsolete-tags) | Disallow to use obsolete elements in HTML5 | ⭐ |
-| [@html-eslint/require-closing-tags](rules/require-closing-tags) | Reqiure closing tags. | ⭐🔧 |
+| [@html-eslint/require-closing-tags](rules/require-closing-tags) | Require closing tags. | ⭐🔧 |
 | [@html-eslint/require-meta-charset](rules/require-meta-charset) | Enforce to use `<meta name="chartset">` in `<head>` |  |
 | [@html-eslint/no-target-blank](rules/no-target-blank) | Disallow usage of unsafe `target='_blank'` |  |
 | [@html-eslint/no-duplicate-attrs](rules/no-duplicate-attrs) | Disallow to use duplicate attributes | ⭐ |

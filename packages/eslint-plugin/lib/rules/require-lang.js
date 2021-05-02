@@ -3,7 +3,7 @@ const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
 const MESSAGE_IDS = {
-  MISSNG: "missing",
+  MISSING: "missing",
   EMPTY: "empty",
 };
 
@@ -20,7 +20,7 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.MISSNG]: "Missing `lang` attribute in `<html>` tag.",
+      [MESSAGE_IDS.MISSING]: "Missing `lang` attribute in `<html>` tag.",
       [MESSAGE_IDS.EMPTY]: "Unexpected empty `lang` in in `<html>` tag.",
     },
   },
@@ -32,7 +32,7 @@ module.exports = {
         if (!langAttr) {
           context.report({
             node: node.startTag,
-            messageId: MESSAGE_IDS.MISSNG,
+            messageId: MESSAGE_IDS.MISSING,
           });
         } else if (langAttr.value.trim().length === 0) {
           context.report({

@@ -3,7 +3,7 @@ const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
 const VOID_ELEMENTS_SET = new Set(VOID_ELEMENTS);
 
 const MESSAGE_IDS = {
-  MISSNG: "missing",
+  MISSING: "missing",
   MISSING_SELF: "missingSelf",
   UNEXPECTED: "unexpected",
 };
@@ -13,7 +13,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Reqiure closing tags.",
+      description: "Require closing tags.",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
     },
@@ -31,7 +31,7 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.MISSNG]: "Missing closing tag for {{tag}}.",
+      [MESSAGE_IDS.MISSING]: "Missing closing tag for {{tag}}.",
       [MESSAGE_IDS.MISSING_SELF]: "Missing self closing tag for {{tag}}",
       [MESSAGE_IDS.UNEXPECTED]: "Unexpected self closing tag for {{tag}}.",
     },
@@ -55,7 +55,7 @@ module.exports = {
           data: {
             tag: node.tagName,
           },
-          messageId: MESSAGE_IDS.MISSNG,
+          messageId: MESSAGE_IDS.MISSING,
         });
       }
     }

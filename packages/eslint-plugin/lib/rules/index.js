@@ -12,7 +12,7 @@ const indent = require("./indent");
 const requireLiContainer = require("./require-li-container");
 const quotes = require("./quotes");
 const idNamingConvention = require("./id-naming-convention");
-const noObsoluteTags = require("./no-obsolete-tags");
+const noObsoleteTags = require("./no-obsolete-tags");
 const requireClosingTags = require("./require-closing-tags");
 const requireMetaDescription = require("./require-meta-description");
 const requireFrameTitle = require("./require-frame-title");
@@ -40,7 +40,7 @@ module.exports = {
   indent: indent,
   quotes: quotes,
   "id-naming-convention": idNamingConvention,
-  "no-obsolete-tags": noObsoluteTags,
+  "no-obsolete-tags": noObsoleteTags,
   "require-closing-tags": requireClosingTags,
   "require-meta-description": requireMetaDescription,
   "require-frame-title": requireFrameTitle,
