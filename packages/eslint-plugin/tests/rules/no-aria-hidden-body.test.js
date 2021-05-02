@@ -22,7 +22,7 @@ ruleTester.run("no-aria-hidden-body", rule, {
         {
           message: "Unexpected aria-hidden on body tag.",
         },
-      ]
+      ],
     },
     {
       code: `<body aria-hidden="true"> </body>`,
@@ -30,7 +30,7 @@ ruleTester.run("no-aria-hidden-body", rule, {
         {
           message: "Unexpected aria-hidden on body tag.",
         },
-      ]
+      ],
     },
   ],
 });
