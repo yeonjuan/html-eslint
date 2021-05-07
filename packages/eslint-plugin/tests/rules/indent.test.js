@@ -695,5 +695,26 @@ class="bar"
 `,
       errors: wrongIndentErrors(2),
     },
+    {
+      code: `
+<html>
+    <body>
+        <template>
+        <details></details>
+        </template>
+    </body>
+</html>
+`,
+      output: `
+<html>
+    <body>
+        <template>
+            <details></details>
+        </template>
+    </body>
+</html>
+`,
+      errors: wrongIndentErrors(1),
+    },
   ],
 });

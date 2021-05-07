@@ -16,20 +16,15 @@ module.exports = class PostProcessor {
   }
 
   process(node) {
-    if (node.type === "#document") {
-      this.processOnDocument(node);
-    }
-    if (node.type === "#text") {
-      this.processOnText(node);
-    }
-    if (node.type === "#comment") {
-      this.processOnComment(node);
+    if (typeof this[node.type] === "function") {
+      this[node.type](node);
     }
 
-    if (node.type === "#documentType") {
-      this.processOnDocumentType(node);
-    }
+    this.processOnCommonNode(node);
+    return node;
+  }
 
+  processOnCommonNode(node) {
     if (Array.isArray(node.childNodes)) {
       node.childNodes.forEach((child) => {
         this.process(child);
@@ -42,10 +37,9 @@ module.exports = class PostProcessor {
 
     this.skipCommonProcess = false;
     delete node.parentNode;
-    return node;
   }
 
-  processOnDocument(node) {
+  ["#document"](node) {
     const locNode = getLocFromChildNodes(node.childNodes);
     node.type = "Program";
     node.loc = locNode.loc;
@@ -55,13 +49,13 @@ module.exports = class PostProcessor {
     this.programNode = node;
   }
 
-  processOnText(node) {
+  ["#text"](node) {
     this.skipCommonProcess = true;
     node.type = "text";
     node.lineNodes = createLines(node, node.value);
   }
 
-  processOnComment(node) {
+  ["#comment"](node) {
     this.skipCommonProcess = true;
     node.type = "comment";
     node.startTag = createCommentStartTag(node);
@@ -86,9 +80,17 @@ module.exports = class PostProcessor {
     this.programNode.comments.push(node);
   }
 
-  processOnDocumentType(node) {
+  ["#documentType"](node) {
     node.type = "documentType";
     this.skipCommonProcess = true;
+  }
+
+  ["template"](node) {
+    if (!Array.isArray(node.childNodes)) {
+      node.childNodes = [];
+    }
+    node.childNodes.push(...node.content.childNodes);
+    delete node.content;
   }
 
   processOnNode(node) {
