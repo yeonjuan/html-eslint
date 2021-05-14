@@ -47,3 +47,42 @@ export interface AttrNode extends BaseNode {
   name: string;
   value: string;
 }
+
+export interface Context {
+  getSourceCode(): SourceCode;
+  report(descriptor: ReportDescriptor): void;
+}
+
+interface ReportDescriptorOptionsBase {
+  data?: { [key: string]: string };
+
+  fix?:
+    | null
+    | ((fixer: RuleFixer) => null | Fix | IterableIterator<Fix> | Fix[]);
+}
+
+type SuggestionDescriptorMessage = { desc: string } | { messageId: string };
+type SuggestionReportDescriptor = SuggestionDescriptorMessage &
+  ReportDescriptorOptionsBase;
+
+interface ReportDescriptorOptions extends ReportDescriptorOptionsBase {
+  suggest?: SuggestionReportDescriptor[] | null;
+}
+
+type ReportDescriptor = ReportDescriptorMessage &
+  ReportDescriptorLocation &
+  ReportDescriptorOptions;
+type ReportDescriptorMessage = { message: string } | { messageId: string };
+type ReportDescriptorLocation =
+  | { node: ESTree.Node }
+  | { loc: AST.SourceLocation | { line: number; column: number } };
+
+export interface SourceCode {
+  lines: string[];
+  getIndexFromLoc(location: Position): number;
+}
+
+export interface Position {
+  line: number;
+  column: number;
+}

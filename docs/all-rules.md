@@ -52,3 +52,4 @@ title: All Rules
 | [@html-eslint/indent](rules/indent) | Enforce consistent indentation | ⭐🔧 |
 | [@html-eslint/quotes](rules/quotes) | Enforce consistent quoting attributes with double(") or single(') | ⭐🔧 |
 | [@html-eslint/id-naming-convention](rules/id-naming-convention) | Enforce consistent naming id attributes |  |
+| [@html-eslint/no-multiple-empty-lines](rules/no-multiple-empty-lines) | Disallow multiple empty lines | 🔧 |
