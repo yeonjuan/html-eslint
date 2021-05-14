@@ -41,6 +41,9 @@
       "rules/no-inline-styles": {
         "title": "@html-eslint/no-inline-styles"
       },
+      "rules/no-multiple-empty-lines": {
+        "title": "@html-eslint/no-multiple-empty-lines"
+      },
       "rules/no-multiple-h1": {
         "title": "@html-eslint/no-multiple-h1"
       },
