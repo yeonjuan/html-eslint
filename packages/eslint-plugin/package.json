@@ -21,7 +21,8 @@
     "url": "git+https://github.com/yeonjuan/html-eslint.git"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "check": "tsc"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"

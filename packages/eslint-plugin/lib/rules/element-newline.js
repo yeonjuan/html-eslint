@@ -1,5 +1,6 @@
 /**
  * @typedef {import("../types").ElementNode} ElementNode
+ * @typedef {import("../types").AnyNode} AnyNode
  * @typedef {import("../types").Context} Context
  */
 
@@ -31,7 +32,7 @@ module.exports = {
   },
 
   /**
-   * @param {Context} context 
+   * @param {Context} context
    */
   create(context) {
     function checkSiblings(siblings) {
@@ -55,8 +56,8 @@ module.exports = {
     }
 
     /**
-     * 
-     * @param {ElementNode['childNodes'][number]} node 
+     *
+     * @param {ElementNode['childNodes'][number]} node
      */
     function checkChild(node) {
       const children = (node.childNodes || []).filter(
@@ -65,25 +66,31 @@ module.exports = {
       const first = children[0];
       const last = children[children.length - 1];
       if (first) {
-        if (isOnTheSameLine(node.startTag, first)) {
+        if (node.startTag && isOnTheSameLine(node.startTag, first)) {
           context.report({
             node: node.startTag,
             messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
             data: { tag: `<${node.tagName}>` },
             fix(fixer) {
-              return fixer.insertTextAfter(node.startTag, "\n");
+              if (node.startTag) {
+                return fixer.insertTextAfter(node.startTag, "\n");
+              }
+              return null;
             },
           });
         }
       }
       if (last) {
-        if (isOnTheSameLine(node.endTag, last)) {
+        if (node.endTag && isOnTheSameLine(node.endTag, last)) {
           context.report({
             node: node.endTag,
             messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE,
             data: { tag: `</${node.tagName}>` },
             fix(fixer) {
-              return fixer.insertTextBefore(node.endTag, "\n");
+              if (node.endTag) {
+                return fixer.insertTextBefore(node.endTag, "\n");
+              }
+              return null;
             },
           });
         }
@@ -91,7 +98,7 @@ module.exports = {
     }
     return {
       /**
-       * @param {ElementNode} node 
+       * @param {ElementNode} node
        */
       "*"(node) {
         if (node.type !== NODE_TYPES.TEXT) {
@@ -105,8 +112,8 @@ module.exports = {
 
 /**
  * Checks whether two nodes are on the same line or not.
- * @param {HTMLNode} nodeBefore A node before
- * @param {HTMLNode} nodeAfter  A node after
+ * @param {AnyNode} nodeBefore A node before
+ * @param {AnyNode} nodeAfter  A node after
  * @returns {boolean} `true` if two nodes are on the same line, otherwise `false`.
  */
 function isOnTheSameLine(nodeBefore, nodeAfter) {

@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "noImplicitAny": false,
+    "noImplicitAny": false
   },
   "exclude": ["coverage", "tests"]
 }

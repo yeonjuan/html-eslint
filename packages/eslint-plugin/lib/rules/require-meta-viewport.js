@@ -1,7 +1,6 @@
-// @ts-check
 /**
- * @typedef {import("../types").HTMLNode} HTMLNode
- * @typedef {import("../types").AttrNode} AttrNode
+ * @typedef {import("../types").ElementNode} ElementNode
+ * @typedef {import("../types").Rule} Rule
  */
 
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
@@ -12,6 +11,9 @@ const MESSAGE_IDS = {
   EMPTY: "empty",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -33,7 +35,7 @@ module.exports = {
 
   create(context) {
     /**
-     * @param {HTMLNode} node
+     * @param {ElementNode} node
      * @returns {boolean}
      */
     function isMetaViewport(node) {
@@ -44,9 +46,6 @@ module.exports = {
       return false;
     }
     return {
-      /**
-       * @param {HTMLNode} node
-       */
       Head(node) {
         const metaViewport = (node.childNodes || []).find(isMetaViewport);
         if (!metaViewport) {
@@ -57,7 +56,12 @@ module.exports = {
           return;
         }
         const contentAttr = NodeUtils.findAttr(metaViewport, "content");
-        if (!contentAttr || !contentAttr.value.length) {
+        if (!contentAttr) {
+          context.report({
+            node: metaViewport,
+            messageId: MESSAGE_IDS.EMPTY,
+          });
+        } else if (!contentAttr.value.length) {
           context.report({
             node: contentAttr,
             messageId: MESSAGE_IDS.EMPTY,

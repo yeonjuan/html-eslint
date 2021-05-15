@@ -2,6 +2,9 @@
 /**
  * @typedef {import("../../types").ElementNode} ElementNode
  * @typedef {import("../../types").AttrNode} AttrNode
+ * @typedef {import("../../types").AnyNode} AnyNode
+ * @typedef {import("../../types").TextNode} TextNode
+ * @typedef {import("../indent").BaseNode} BaseNode
  */
 
 module.exports = {
@@ -35,4 +38,13 @@ module.exports = {
   isNodeTokensOnSameLine(node) {
     return node.loc.start.line === node.loc.end.line;
   },
+
+  /**
+   * Checks whether a node is a TextNode or not.
+   * @param {Object} node A node to check
+   * @returns {node is TextNode} `true` if a node is `TextNode`, otherwise `false`.
+   */
+  isTextNode (node) {
+    return !!(node && node.type === 'text' && typeof node.value === 'string');
+  }
 };

@@ -1,3 +1,8 @@
+/**
+ * @typedef {import("../types").ElementNode} ElementNode
+ * @typedef {import("../types").Context} Context
+ */
+
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -24,8 +29,14 @@ module.exports = {
     },
   },
 
+  /**
+   * @param {Context} context 
+   */
   create(context) {
     return {
+      /**
+       * @param {ElementNode} node 
+       */
       Li(node) {
         if (!node.parent || !VALID_CONTAINERS.includes(node.parent.type)) {
           context.report({
