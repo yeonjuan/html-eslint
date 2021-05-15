@@ -1,12 +1,16 @@
 /**
- * @typedef {import("../types").Context} Context
+ * @typedef {import("../types").Rule} Rule
  */
+
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -36,9 +40,6 @@ module.exports = {
     },
   },
 
-  /**
-   * @param {Context} context
-   */
   create(context) {
     const sourceCode = context.getSourceCode();
     const lines = sourceCode.lines;

@@ -1,3 +1,7 @@
+/**
+ * @typedef {import("../types").Rule} Rule
+ */
+
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
 const { OBSOLETE_TAGS } = require("../constants");
 
@@ -7,6 +11,9 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",

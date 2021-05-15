@@ -1,3 +1,7 @@
+/**
+ * @typedef {import("../types").Rule} Rule
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
@@ -5,6 +9,9 @@ const MESSAGE_IDS = {
   INLINE_STYLE: "unexpectedInlineStyle",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",

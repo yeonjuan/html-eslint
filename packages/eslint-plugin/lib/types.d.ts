@@ -3,7 +3,7 @@ import ESLint from "eslint";
 
 type Fix = ESLint.Rule.Fix;
 type Token = ESLint.AST.Token;
-type Range = ESLint.AST.Range;
+export type Range = ESLint.AST.Range;
 
 interface RuleListener {
   [key: string]: (node: ElementNode) => void;

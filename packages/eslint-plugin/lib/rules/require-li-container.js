@@ -1,6 +1,5 @@
 /**
- * @typedef {import("../types").ElementNode} ElementNode
- * @typedef {import("../types").Context} Context
+ * @typedef {import("../types").Rule} Rule
  */
 
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
@@ -11,6 +10,9 @@ const MESSAGE_IDS = {
 
 const VALID_CONTAINERS = [NODE_TYPES.UL, NODE_TYPES.OL, NODE_TYPES.MENU];
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -29,16 +31,15 @@ module.exports = {
     },
   },
 
-  /**
-   * @param {Context} context 
-   */
   create(context) {
     return {
-      /**
-       * @param {ElementNode} node 
-       */
       Li(node) {
-        if (!node.parent || !VALID_CONTAINERS.includes(node.parent.type)) {
+        if (!node.parent) {
+          context.report({
+            node,
+            messageId: MESSAGE_IDS.INVALID,
+          });
+        } else if (!VALID_CONTAINERS.includes(node.parent.type || '')) {
           context.report({
             node,
             messageId: MESSAGE_IDS.INVALID,

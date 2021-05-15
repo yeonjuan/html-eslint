@@ -1,3 +1,9 @@
+/**
+ * @typedef {import("../types").Rule} Rule
+ * @typedef {import("../types").Range} Range
+ * @typedef {import("../types").AttrNode} AttrNode
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -12,6 +18,9 @@ const QUOTES_STYLES = {
 
 const QUOTES_CODES = [`"`, `'`];
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -45,16 +54,28 @@ module.exports = {
 
     const sourceCode = context.getSourceCode();
 
+    /**
+     * @param {Range} range
+     * @returns {string}
+     */
     function getCodeIn(range) {
       return sourceCode.text.slice(range[0], range[1]);
     }
 
+    /**
+     * @param {AttrNode} attr
+     * @returns {Range}
+     */
     function getValueRange(attr) {
       const attrCode = getCodeIn(attr.range);
       const [matched = ""] = attrCode.match(/\S*?\s*=\s*/) || [];
       return [attr.range[0] + matched.length, attr.range[1]];
     }
 
+    /**
+     * @param {AttrNode} attr
+     * @returns {[string, string]}
+     */
     function getQuotes(attr) {
       const [valueStart, valueEnd] = getValueRange(attr);
       const opening = getCodeIn([valueStart, valueStart + 1]);
@@ -62,11 +83,18 @@ module.exports = {
       return [opening, closing];
     }
 
+    /**
+     * @param {AttrNode} attr
+     * @returns {boolean}
+     */
     function hasEqualSign(attr) {
       const keyEnd = attr.range[0] + attr.name.length;
       return getCodeIn([keyEnd, attr.range[1]]).trimStart().startsWith("=");
     }
 
+    /**
+     * @param {AttrNode} attr
+     */
     function checkQuotes(attr) {
       const [opening, closing] = getQuotes(attr);
       if (QUOTES_CODES.includes(opening)) {

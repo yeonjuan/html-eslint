@@ -1,5 +1,5 @@
 // https://html.spec.whatwg.org/#non-conforming-features
-/** @type {string[] */
+/** @type {string[]} */
 module.exports = [
   "applet",
   "acronym",

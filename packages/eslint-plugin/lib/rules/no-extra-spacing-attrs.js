@@ -1,3 +1,10 @@
+/**
+ * @typedef {import("../types").Rule} Rule
+ * @typedef {import("../types").AttrNode} AttrNode
+ * @typedef {import("../types").TagNode} TagNode
+ * @typedef {import("../types").ElementNode} ElementNode
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -6,6 +13,9 @@ const MESSAGE_IDS = {
   EXTRA_BEFORE: "unexpectedBefore",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -25,6 +35,9 @@ module.exports = {
     },
   },
   create(context) {
+    /**
+     * @param {AttrNode[]} attrs 
+     */
     function checkExtraSpacesBetweenAttrs(attrs) {
       attrs.forEach((current, index, attrs) => {
         if (index >= attrs.length - 1) {
@@ -50,9 +63,13 @@ module.exports = {
         }
       });
     }
+    /**
+     * @param {TagNode} startTag 
+     * @param {AttrNode} lastAttr 
+     */
     function checkExtraSpaceAfter(startTag, lastAttr) {
       if (startTag.loc.end.line !== lastAttr.loc.end.line) {
-        // skip the attribute on the diffrent line with the start tag
+        // skip the attribute on the different line with the start tag
         return;
       }
       const spacesBetween = startTag.loc.end.column - lastAttr.loc.end.column;
@@ -72,9 +89,14 @@ module.exports = {
         });
       }
     }
+
+    /**
+     * @param {ElementNode} node
+     * @param {AttrNode} firstAttr 
+     */
     function checkExtraSpaceBefore(node, firstAttr) {
       if (node.loc.start.line !== firstAttr.loc.start.line) {
-        // skip the attribute on the diffrent line with the start tag
+        // skip the attribute on the different line with the start tag
         return;
       }
       const nodeLength = node.tagName.length;
