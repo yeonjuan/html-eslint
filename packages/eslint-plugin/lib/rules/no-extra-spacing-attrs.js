@@ -36,7 +36,7 @@ module.exports = {
   },
   create(context) {
     /**
-     * @param {AttrNode[]} attrs 
+     * @param {AttrNode[]} attrs
      */
     function checkExtraSpacesBetweenAttrs(attrs) {
       attrs.forEach((current, index, attrs) => {
@@ -64,8 +64,8 @@ module.exports = {
       });
     }
     /**
-     * @param {TagNode} startTag 
-     * @param {AttrNode} lastAttr 
+     * @param {TagNode} startTag
+     * @param {AttrNode} lastAttr
      */
     function checkExtraSpaceAfter(startTag, lastAttr) {
       if (startTag.loc.end.line !== lastAttr.loc.end.line) {
@@ -92,7 +92,7 @@ module.exports = {
 
     /**
      * @param {ElementNode} node
-     * @param {AttrNode} firstAttr 
+     * @param {AttrNode} firstAttr
      */
     function checkExtraSpaceBefore(node, firstAttr) {
       if (node.loc.start.line !== firstAttr.loc.start.line) {

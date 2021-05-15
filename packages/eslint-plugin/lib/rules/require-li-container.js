@@ -39,7 +39,7 @@ module.exports = {
             node,
             messageId: MESSAGE_IDS.INVALID,
           });
-        } else if (!VALID_CONTAINERS.includes(node.parent.type || '')) {
+        } else if (!VALID_CONTAINERS.includes(node.parent.type || "")) {
           context.report({
             node,
             messageId: MESSAGE_IDS.INVALID,

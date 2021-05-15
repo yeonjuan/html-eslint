@@ -45,8 +45,7 @@ module.exports = {
           });
         } else if (
           !(titleTag.childNodes || []).some(
-            (node) =>
-              NodeUtils.isTextNode(node) && node.value.trim().length > 0
+            (node) => NodeUtils.isTextNode(node) && node.value.trim().length > 0
           )
         ) {
           context.report({

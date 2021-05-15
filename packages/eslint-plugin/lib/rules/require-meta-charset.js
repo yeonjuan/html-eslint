@@ -30,12 +30,12 @@ module.exports = {
   },
 
   /**
-   * @param {Context} context 
+   * @param {Context} context
    */
   create(context) {
     return {
       /**
-       * @param {ElementNode} node 
+       * @param {ElementNode} node
        */
       Head(node) {
         const metaCharset = (node.childNodes || []).find((child) => {

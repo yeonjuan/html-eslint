@@ -44,7 +44,7 @@ module.exports = {
    * @param {Object} node A node to check
    * @returns {node is TextNode} `true` if a node is `TextNode`, otherwise `false`.
    */
-  isTextNode (node) {
-    return !!(node && node.type === 'text' && typeof node.value === 'string');
-  }
+  isTextNode(node) {
+    return !!(node && node.type === "text" && typeof node.value === "string");
+  },
 };
