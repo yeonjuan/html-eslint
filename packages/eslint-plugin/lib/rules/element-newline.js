@@ -1,5 +1,6 @@
 /**
- * @typedef {import("../types").HTMLNode} HTMLNode
+ * @typedef {import("../types").ElementNode} ElementNode
+ * @typedef {import("../types").Context} Context
  */
 
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
@@ -29,9 +30,12 @@ module.exports = {
     },
   },
 
+  /**
+   * @param {Context} context 
+   */
   create(context) {
-    function checkSiblings(sibilings) {
-      sibilings
+    function checkSiblings(siblings) {
+      siblings
         .filter((node) => node.type !== NODE_TYPES.TEXT && node.range[0])
         .forEach((current, index, arr) => {
           const after = arr[index + 1];
@@ -50,6 +54,10 @@ module.exports = {
         });
     }
 
+    /**
+     * 
+     * @param {ElementNode['childNodes'][number]} node 
+     */
     function checkChild(node) {
       const children = (node.childNodes || []).filter(
         (n) => !!n.range[0] && n.type !== NODE_TYPES.TEXT
@@ -82,6 +90,9 @@ module.exports = {
       }
     }
     return {
+      /**
+       * @param {ElementNode} node 
+       */
       "*"(node) {
         if (node.type !== NODE_TYPES.TEXT) {
           checkSiblings(node.childNodes || []);
