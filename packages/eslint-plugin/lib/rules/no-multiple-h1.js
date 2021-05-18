@@ -1,9 +1,16 @@
+/**
+ * @typedef {import("../types").Rule} Rule
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   MULTIPLE_H1: "unexpectedMultiH1",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",

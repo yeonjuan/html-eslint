@@ -1,3 +1,7 @@
+/**
+ * @typedef {import("../types").Rule} Rule
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
@@ -20,6 +24,9 @@ const ABSTRACT_ROLE_SET = new Set([
   "window",
 ]);
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",

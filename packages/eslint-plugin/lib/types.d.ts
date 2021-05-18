@@ -1,56 +1,35 @@
-export type RuleCategory = {
-  BEST_PRACTICE: "Best Practice";
-  SEO: "SEO";
-  ACCESSIBILITY: "Accessibility";
-  STYLE: "Style";
-};
+import ESTree from "estree";
+import ESLint from "eslint";
 
-export type NodeTypes = {
-  PROGRAM: "Program";
-  TEXT: "text";
-  TITLE: "Title";
-  PRE: "Pre";
-  MENU: "Menu";
-  OL: "Ol";
-  UL: "Ul";
-  SCRIPT: "Script";
-  XMP: "Xmp";
-  META: "Meta";
-  STYLE: "Style";
-};
+type Fix = ESLint.Rule.Fix;
+type Token = ESLint.AST.Token;
+export type Range = ESLint.AST.Range;
 
-interface BaseNode {
-  start: number;
-  end: number;
-  range: [number, number];
-  loc: {
-    end: {
-      line: number;
-      column: number;
-    };
-    start: {
-      line: number;
-      column: number;
-    };
-  };
+interface RuleListener {
+  [key: string]: (node: ElementNode) => void;
 }
 
-export interface HTMLNode extends BaseNode {
-  childNodes?: HTMLNode[];
-  startTag?: BaseNode;
-  endTag?: BaseNode;
-  type: string;
-  attrs?: AttrNode[];
+export interface Rule {
+  create(context: Context): RuleListener;
+  meta?: ESLint.Rule.RuleMetaData;
 }
 
-export interface AttrNode extends BaseNode {
-  name: string;
-  value: string;
-}
+interface RuleFixer {
+  insertTextAfter(nodeOrToken: AnyNode | Token, text: string): Fix;
 
-export interface Context {
-  getSourceCode(): SourceCode;
-  report(descriptor: ReportDescriptor): void;
+  insertTextAfterRange(range: Range, text: string): Fix;
+
+  insertTextBefore(nodeOrToken: AnyNode | Token, text: string): Fix;
+
+  insertTextBeforeRange(range: Range, text: string): Fix;
+
+  remove(nodeOrToken: AnyNode | Token): Fix;
+
+  removeRange(range: Range): Fix;
+
+  replaceText(nodeOrToken: AnyNode | Token, text: string): Fix;
+
+  replaceTextRange(range: Range, text: string): Fix;
 }
 
 interface ReportDescriptorOptionsBase {
@@ -73,16 +52,69 @@ type ReportDescriptor = ReportDescriptorMessage &
   ReportDescriptorLocation &
   ReportDescriptorOptions;
 type ReportDescriptorMessage = { message: string } | { messageId: string };
-type ReportDescriptorLocation =
-  | { node: ESTree.Node }
-  | { loc: AST.SourceLocation | { line: number; column: number } };
+type ReportDescriptorLocation = {
+  node?: BaseNode;
+  loc?: ESLint.AST.SourceLocation;
+  line?: number;
+  column?: number;
+};
 
-export interface SourceCode {
-  lines: string[];
-  getIndexFromLoc(location: Position): number;
+export interface Context extends Omit<ESLint.Rule.RuleContext, "report"> {
+  report(descriptor: ReportDescriptor): void;
 }
 
-export interface Position {
-  line: number;
-  column: number;
+export interface BaseNode {
+  parent?: null | AnyNode;
+  range: [number, number];
+  start: number;
+  end: number;
+  loc: {
+    start: ESTree.Position;
+    end: ESTree.Position;
+  };
+  type?: string;
 }
+
+export interface TagNode extends BaseNode {
+  type: undefined;
+}
+
+export interface TextLineNode extends BaseNode {
+  textLine: string;
+}
+
+export interface TextNode extends BaseNode {
+  type: "text";
+  value: string;
+  lineNodes: TextLineNode[];
+}
+
+export interface ElementNode extends BaseNode {
+  type: string;
+  tagName: string;
+  attrs: AttrNode[];
+  childNodes: ElementNode[];
+  startTag?: TagNode;
+  endTag?: TagNode;
+}
+
+export interface AttrNode extends BaseNode {
+  name: string;
+  value: string;
+}
+
+export interface CommentNode extends BaseNode {
+  type: "comment";
+  value: string;
+  startTag?: TagNode;
+  endTag?: TagNode;
+  lineNodes: TextLineNode[];
+}
+
+export type AnyNode =
+  | AttrNode
+  | ElementNode
+  | TextNode
+  | TextLineNode
+  | TagNode
+  | CommentNode;

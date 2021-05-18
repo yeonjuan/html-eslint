@@ -1,4 +1,4 @@
-/** @type {string[] */
+/** @type {string[]} */
 module.exports = [
   "area",
   "base",

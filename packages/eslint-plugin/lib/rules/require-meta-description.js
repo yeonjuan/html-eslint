@@ -1,3 +1,8 @@
+/**
+ * @typedef {import("../types").ElementNode} ElementNode
+ * @typedef {import("../types").Context} Context
+ */
+
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
 const { NodeUtils } = require("./utils");
 
@@ -25,8 +30,14 @@ module.exports = {
     },
   },
 
+  /**
+   * @param {Context} context
+   */
   create(context) {
     return {
+      /**
+       * @param {ElementNode} node
+       */
       Head(node) {
         const metaTags = (node.childNodes || []).filter(
           (child) => child.type === NODE_TYPES.META

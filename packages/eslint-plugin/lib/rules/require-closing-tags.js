@@ -1,3 +1,7 @@
+/**
+ * @typedef {import("../types").Rule} Rule
+ */
+
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
 
 const VOID_ELEMENTS_SET = new Set(VOID_ELEMENTS);
@@ -8,6 +12,9 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",

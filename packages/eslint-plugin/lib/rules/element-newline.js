@@ -1,5 +1,7 @@
 /**
- * @typedef {import("../types").HTMLNode} HTMLNode
+ * @typedef {import("../types").ElementNode} ElementNode
+ * @typedef {import("../types").AnyNode} AnyNode
+ * @typedef {import("../types").Context} Context
  */
 
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
@@ -29,9 +31,12 @@ module.exports = {
     },
   },
 
+  /**
+   * @param {Context} context
+   */
   create(context) {
-    function checkSiblings(sibilings) {
-      sibilings
+    function checkSiblings(siblings) {
+      siblings
         .filter((node) => node.type !== NODE_TYPES.TEXT && node.range[0])
         .forEach((current, index, arr) => {
           const after = arr[index + 1];
@@ -50,6 +55,10 @@ module.exports = {
         });
     }
 
+    /**
+     *
+     * @param {ElementNode['childNodes'][number]} node
+     */
     function checkChild(node) {
       const children = (node.childNodes || []).filter(
         (n) => !!n.range[0] && n.type !== NODE_TYPES.TEXT
@@ -57,31 +66,40 @@ module.exports = {
       const first = children[0];
       const last = children[children.length - 1];
       if (first) {
-        if (isOnTheSameLine(node.startTag, first)) {
+        if (node.startTag && isOnTheSameLine(node.startTag, first)) {
           context.report({
             node: node.startTag,
             messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
             data: { tag: `<${node.tagName}>` },
             fix(fixer) {
-              return fixer.insertTextAfter(node.startTag, "\n");
+              if (node.startTag) {
+                return fixer.insertTextAfter(node.startTag, "\n");
+              }
+              return null;
             },
           });
         }
       }
       if (last) {
-        if (isOnTheSameLine(node.endTag, last)) {
+        if (node.endTag && isOnTheSameLine(node.endTag, last)) {
           context.report({
             node: node.endTag,
             messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE,
             data: { tag: `</${node.tagName}>` },
             fix(fixer) {
-              return fixer.insertTextBefore(node.endTag, "\n");
+              if (node.endTag) {
+                return fixer.insertTextBefore(node.endTag, "\n");
+              }
+              return null;
             },
           });
         }
       }
     }
     return {
+      /**
+       * @param {ElementNode} node
+       */
       "*"(node) {
         if (node.type !== NODE_TYPES.TEXT) {
           checkSiblings(node.childNodes || []);
@@ -94,13 +112,15 @@ module.exports = {
 
 /**
  * Checks whether two nodes are on the same line or not.
- * @param {HTMLNode} nodeBefore A node before
- * @param {HTMLNode} nodeAfter  A node after
+ * @param {AnyNode} nodeBefore A node before
+ * @param {AnyNode} nodeAfter  A node after
  * @returns {boolean} `true` if two nodes are on the same line, otherwise `false`.
  */
 function isOnTheSameLine(nodeBefore, nodeAfter) {
   if (nodeBefore && nodeAfter) {
+    // @ts-ignore
     if (nodeBefore.endTag) {
+      // @ts-ignore
       return nodeBefore.endTag.loc.end.line === nodeAfter.loc.start.line;
     }
     return nodeBefore.loc.start.line === nodeAfter.loc.start.line;

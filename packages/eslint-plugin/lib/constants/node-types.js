@@ -1,8 +1,3 @@
-/**
- * @typedef {import("../types").NodeTypes} NodeTypes
- */
-
-/** @type {NodeTypes} */
 module.exports = {
   PROGRAM: "Program",
   TEXT: "text",

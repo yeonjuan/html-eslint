@@ -1,3 +1,8 @@
+/**
+ * @typedef {import("../types").ElementNode} ElementNode
+ * @typedef {import("../types").Context} Context
+ */
+
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
 const { NodeUtils } = require("./utils");
 
@@ -24,8 +29,14 @@ module.exports = {
     },
   },
 
+  /**
+   * @param {Context} context
+   */
   create(context) {
     return {
+      /**
+       * @param {ElementNode} node
+       */
       Head(node) {
         const metaCharset = (node.childNodes || []).find((child) => {
           return (
@@ -41,7 +52,7 @@ module.exports = {
           return;
         }
         const charsetAttr = NodeUtils.findAttr(metaCharset, "charset");
-        if (!charsetAttr || !charsetAttr.value.length) {
+        if (charsetAttr && !charsetAttr.value.length) {
           context.report({
             node: charsetAttr,
             messageId: MESSAGE_IDS.EMPTY,

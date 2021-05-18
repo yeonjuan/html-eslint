@@ -7,9 +7,10 @@
     "test": "lerna run test --stream",
     "lint": "eslint . --ext .js",
     "format": "prettier --write .",
+    "check:ts": "lerna run check:ts",
     "check:format": "prettier --list-different .",
     "bootstrap": "lerna bootstrap",
-    "test:all": "npm run check:format && npm run lint && npm run test"
+    "test:all": "npm run check:ts && npm run check:format && npm run lint && npm run test"
   },
   "author": "yeonjuan",
   "license": "MIT",
@@ -22,7 +23,7 @@
     "jest": "^26.6.3",
     "lerna": "^4.0.0",
     "prettier": "^2.2.0",
-    "typescript": "^4.1.2"
+    "typescript": "^4.2.4"
   },
   "engines": {
     "node": ">=8.10.0"

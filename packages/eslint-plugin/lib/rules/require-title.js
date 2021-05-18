@@ -1,10 +1,18 @@
+/**
+ * @typedef {import("../types").Rule} Rule
+ */
+
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
+const { NodeUtils } = require("./utils");
 
 const MESSAGE_IDS = {
   MISSING_TITLE: "missing",
   EMPTY_TITLE: "empty",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -23,7 +31,6 @@ module.exports = {
       [MESSAGE_IDS.EMPTY_TITLE]: "Unexpected empty text in `<title><title/>`",
     },
   },
-
   create(context) {
     return {
       Head(node) {
@@ -38,8 +45,7 @@ module.exports = {
           });
         } else if (
           !(titleTag.childNodes || []).some(
-            (node) =>
-              node.type === NODE_TYPES.TEXT && node.value.trim().length > 0
+            (node) => NodeUtils.isTextNode(node) && node.value.trim().length > 0
           )
         ) {
           context.report({
