@@ -1,10 +1,11 @@
-// @ts-check
 /**
  * @typedef {import("../../types").ElementNode} ElementNode
  * @typedef {import("../../types").AttrNode} AttrNode
  * @typedef {import("../../types").AnyNode} AnyNode
  * @typedef {import("../../types").TextNode} TextNode
- * @typedef {import("../indent").BaseNode} BaseNode
+ * @typedef {import("../../types").BaseNode} BaseNode
+ * @typedef {import("../../types").TextLineNode} TextLineNode
+ * @typedef {import("../../types").CommentNode} CommentNode
  */
 
 module.exports = {
@@ -46,5 +47,14 @@ module.exports = {
    */
   isTextNode(node) {
     return !!(node && node.type === "text" && typeof node.value === "string");
+  },
+
+  /**
+   * Checks whether a node is a CommentNode or not.
+   * @param {Object} node A node to check
+   * @returns {node is CommentNode} `true` if a node is `CommentNode`, otherwise `false`.
+   */
+  isCommentNode(node) {
+    return !!(node && node.type === "comment");
   },
 };

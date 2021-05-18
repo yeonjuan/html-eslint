@@ -118,7 +118,9 @@ module.exports = {
  */
 function isOnTheSameLine(nodeBefore, nodeAfter) {
   if (nodeBefore && nodeAfter) {
+    // @ts-ignore
     if (nodeBefore.endTag) {
+      // @ts-ignore
       return nodeBefore.endTag.loc.end.line === nodeAfter.loc.start.line;
     }
     return nodeBefore.loc.start.line === nodeAfter.loc.start.line;

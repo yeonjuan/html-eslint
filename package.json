@@ -7,9 +7,10 @@
     "test": "lerna run test --stream",
     "lint": "eslint . --ext .js",
     "format": "prettier --write .",
+    "check:ts": "lerna run check:ts",
     "check:format": "prettier --list-different .",
     "bootstrap": "lerna bootstrap",
-    "test:all": "npm run check:format && npm run lint && npm run test"
+    "test:all": "npm run check:ts && npm run check:format && npm run lint && npm run test"
   },
   "author": "yeonjuan",
   "license": "MIT",

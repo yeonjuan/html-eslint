@@ -22,7 +22,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "check": "tsc"
+    "check:ts": "tsc"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"

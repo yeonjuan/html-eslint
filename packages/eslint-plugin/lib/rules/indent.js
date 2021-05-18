@@ -1,7 +1,9 @@
-// @ts-check
 /**
- * @typedef {import("../types").HTMLNode} HTMLNode
+ * @typedef {import("../types").Rule} Rule
+ * @typedef {import("../types").ElementNode} ElementNode
  * @typedef {import("../types").AttrNode} AttrNode
+ * @typedef {import("../types").TagNode} TagNode
+ * @typedef {import("../types").AnyNode} AnyNode
  * @typedef {import("../types").BaseNode} BaseNode
  * @typedef {Object} IndentType
  * @property {"tab"} TAB
@@ -12,6 +14,7 @@
  */
 
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
+const { NodeUtils } = require("./utils");
 
 /** @type {MessageId} */
 const MESSAGE_ID = {
@@ -31,6 +34,9 @@ const IGNORING_NODES = [
   NODE_TYPES.XMP,
 ];
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -60,7 +66,6 @@ module.exports = {
         "Expected indentation of {{expected}} but found {{actual}}.",
     },
   },
-
   create(context) {
     const sourceCode = context.getSourceCode();
     const indentLevel = new IndentLevel();
@@ -79,7 +84,7 @@ module.exports = {
 
     /**
      * @param {BaseNode} node
-     * @param {HTMLNode} [nodeToReport]
+     * @param {BaseNode} [nodeToReport]
      */
     function checkIndent(node, nodeToReport) {
       const codeBefore = getLineCodeBefore(node);
@@ -133,7 +138,7 @@ module.exports = {
     }
 
     /**
-     * @param {BaseNode} startTag
+     * @param {AnyNode} startTag
      */
     function checkEndOfStartTag(startTag) {
       const start = startTag.range[1] - 1;
@@ -160,7 +165,7 @@ module.exports = {
     let nodesToIgnoreChildren = [];
     return {
       /**
-       * @param {HTMLNode} node
+       * @param {ElementNode} node
        */
       "*"(node) {
         if (IGNORING_NODES.includes(node.type)) {
@@ -186,7 +191,11 @@ module.exports = {
           }
         });
 
-        if (node.lineNodes && node.lineNodes.length) {
+        if (
+          (NodeUtils.isTextNode(node) || NodeUtils.isCommentNode(node)) &&
+          node.lineNodes &&
+          node.lineNodes.length
+        ) {
           if (!node.startTag) {
             indentLevel.down();
           }
@@ -219,6 +228,9 @@ module.exports = {
 };
 
 function getIndentTypeAndSize(options) {
+  /**
+   * @type {IndentType['SPACE'] | IndentType['TAB']}
+   */
   let indentType = INDENT_TYPES.SPACE;
   let indentSize = 4;
   if (options.length) {

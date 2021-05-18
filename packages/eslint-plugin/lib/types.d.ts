@@ -53,7 +53,7 @@ type ReportDescriptor = ReportDescriptorMessage &
   ReportDescriptorOptions;
 type ReportDescriptorMessage = { message: string } | { messageId: string };
 type ReportDescriptorLocation = {
-  node?: AnyNode;
+  node?: BaseNode;
   loc?: ESLint.AST.SourceLocation;
   line?: number;
   column?: number;
@@ -103,9 +103,18 @@ export interface AttrNode extends BaseNode {
   value: string;
 }
 
+export interface CommentNode extends BaseNode {
+  type: "comment";
+  value: string;
+  startTag?: TagNode;
+  endTag?: TagNode;
+  lineNodes: TextLineNode[];
+}
+
 export type AnyNode =
   | AttrNode
   | ElementNode
   | TextNode
   | TextLineNode
-  | TagNode;
+  | TagNode
+  | CommentNode;
