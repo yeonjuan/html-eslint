@@ -26,6 +26,9 @@
       "rules/no-abstract-roles": {
         "title": "@html-eslint/no-abstract-roles"
       },
+      "rules/no-accesskey-attrs": {
+        "title": "@html-eslint/no-accesskey-attrs"
+      },
       "rules/no-aria-hidden-body": {
         "title": "@html-eslint/no-aria-hidden-body"
       },
