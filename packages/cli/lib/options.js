@@ -1,8 +1,17 @@
 const optionator = require("optionator");
 
 module.exports = optionator({
-  prepend: "html-eslint url",
+  prepend: "Usage: html-eslint <url> [options[",
   options: [
+    {
+      heading: "Basic configuration",
+    },
+    {
+      option: "config",
+      alias: "c",
+      type: "path::String",
+      description: "Specify configuration files.",
+    },
     {
       heading: "Miscellaneous",
     },
