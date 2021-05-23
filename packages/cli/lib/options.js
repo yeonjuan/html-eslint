@@ -1,22 +1,22 @@
-const optionator = require('optionator');
+const optionator = require("optionator");
 
 module.exports = optionator({
   prepend: "html-eslint url",
   options: [
     {
-      heading: "Miscellaneous"
+      heading: "Miscellaneous",
     },
     {
       option: "version",
       alias: "v",
       type: "Boolean",
-      description: "Print the version number"
+      description: "Print the version number",
     },
     {
       option: "help",
       alias: "h",
       type: "Boolean",
-      description: "Show help"
-  },
-  ]
+      description: "Show help",
+    },
+  ],
 });

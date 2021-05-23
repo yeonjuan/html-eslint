@@ -1,5 +1,5 @@
-const options = require('./options');
-const packageJSON = require('../package.json');
+const options = require("./options");
+const packageJSON = require("../package.json");
 
 (function cli(argv) {
   const parsed = options.parseArgv(argv);
@@ -12,5 +12,4 @@ const packageJSON = require('../package.json');
     console.log(options.generateHelp());
     return;
   }
-
 })(process.argv);
