@@ -42,3 +42,7 @@
   flex-grow: 1;
   min-height: calc(100vh);
 }
+
+.nav-footer .sitemap div {
+  padding-left: 16px;
+}
