@@ -34,10 +34,11 @@ function requireRCConfig(path = ".htmleslintrc.js") {
   const [url] = parsed._;
   const config = requireRCConfig(parsed.config);
   request(url).then((res) => {
-    const results = lint(res.data, config);
+    const results = lint(res.data, config, parsed.checkStyle);
     print(url, results);
     if (results.some((result) => result.fatal || result.severity === 2)) {
       process.exit(1);
     }
+    process.exit(0);
   });
 })(process.argv);
