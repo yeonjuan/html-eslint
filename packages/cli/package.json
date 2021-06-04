@@ -1,0 +1,37 @@
+{
+  "name": "@html-eslint/cli",
+  "version": "0.10.1",
+  "description": "HTML-ESLint CLI",
+  "author": "yeonjuan <yeonjuan93@naver.com>",
+  "homepage": "https://github.com/yeonjuan/html-eslint#readme",
+  "license": "ISC",
+  "main": "lib/cli.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "bin": {
+    "html-eslint": "./lib/cli"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeonjuan/html-eslint.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yeonjuan/html-eslint/issues"
+  },
+  "dependencies": {
+    "@html-eslint/eslint-plugin": "^0.10.1",
+    "@html-eslint/parser": "^0.10.1",
+    "axios": "^0.21.1",
+    "chalk": "^4.1.1",
+    "eslint": "^7.27.0",
+    "optionator": "^0.9.1"
+  }
+}

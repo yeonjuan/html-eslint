@@ -8,6 +8,9 @@
       "all-rules": {
         "title": "All Rules"
       },
+      "cli": {
+        "title": "CLI (Run on URLs)"
+      },
       "disable-rules-with-inline-comments": {
         "title": "Disable rules with inline comments"
       },
