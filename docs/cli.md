@@ -45,3 +45,11 @@ $ html-eslint https://www.example.com
   # or
   $ html-eslint https://www.example.com -c path/of/configuration
   ```
+
+- `--check-style`
+
+  Enable `Style` rules in configuration. By default, All rules with the category `Style` are ignored.
+
+  ```
+  $ html-eslint https://www.example.com --check-style
+  ```

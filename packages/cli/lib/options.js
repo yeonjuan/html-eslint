@@ -16,7 +16,7 @@ module.exports = optionator({
       option: "check-style",
       type: "Boolean",
       default: "false",
-      description: "Enable `style` rules in configuration.",
+      description: "Enable `Style` rules in configuration.",
     },
     {
       heading: "Miscellaneous",
