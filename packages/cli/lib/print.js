@@ -13,7 +13,7 @@ module.exports = function print(url, results) {
   log(chalk.underline.white(url));
   results.forEach((result) => {
     const { line, column, message, severity } = result;
-    console.log(
+    log(
       `  ${chalk.dim(`${line}:${column}`)}  ${printSeverity(
         severity
       )}  ${message}`
