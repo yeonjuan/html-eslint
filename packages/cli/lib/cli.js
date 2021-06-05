@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const options = require("./options");
 const packageJSON = require("../package.json");
 const log = require("./log");

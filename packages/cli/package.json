@@ -11,7 +11,7 @@
     "test": "__tests__"
   },
   "bin": {
-    "html-eslint": "./lib/cli"
+    "html-eslint": "./lib/cli.js"
   },
   "files": [
     "lib"
