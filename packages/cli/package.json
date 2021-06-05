@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/cli",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "HTML-ESLint CLI",
   "author": "yeonjuan <yeonjuan93@naver.com>",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
