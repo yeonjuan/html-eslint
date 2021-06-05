@@ -113,6 +113,7 @@
     "categories": {
       "Getting Started": "Getting Started",
       "Disabling with inline comments": "Disabling with inline comments",
+      "CLI (Check HTML file on URL)": "CLI (Check HTML file on URL)",
       "Rules": "Rules"
     }
   },
