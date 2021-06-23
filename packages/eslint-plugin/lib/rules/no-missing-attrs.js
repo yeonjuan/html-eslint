@@ -43,13 +43,15 @@ module.exports = {
 
   create(context) {
     const { exceptString } = context.options[0] || ["translate", "notranslate"];
+    const regex = /\{\{.*[a-zA-Z]*\}\}/i; // {{ handlebars }}
     return {
       "*"(node) {
         if (
           NodeUtils.isTextNode(node) &&
           node.value.trim() &&
           // @ts-ignore
-          Array.isArray(node.parent.attrs)
+          Array.isArray(node.parent.attrs) &&
+          !regex.test(node.value)
         ) {
           // @ts-ignore
           const exceptStringIsPresent = (node.parent.attrs || []).find(

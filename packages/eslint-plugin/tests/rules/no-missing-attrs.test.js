@@ -14,6 +14,10 @@ ruleTester.run("id-missing-attrs", rule, {
       options: [{ exceptString: ["translate", "notranslate"] }],
     },
     {
+      code: `<span>{{variable}}</span>`,
+      options: [{ exceptString: ["translate", "notranslate"] }],
+    },
+    {
       code: `<span class="popup" popup>inside value</span>`,
       options: [{ exceptString: ["popup"] }],
     },
