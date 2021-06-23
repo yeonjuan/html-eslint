@@ -43,7 +43,7 @@ module.exports = {
 
   create(context) {
     const { exceptString } = context.options[0] || ["translate", "notranslate"];
-    const regex = /\{\{.*[a-zA-Z]*\}\}/i; // {{ handlebars }}
+    const regex = /\{\{.*\}\}/i; // {{ handlebars }}
     return {
       "*"(node) {
         if (
