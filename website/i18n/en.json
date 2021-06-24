@@ -38,6 +38,9 @@
       "rules/no-duplicate-attrs": {
         "title": "@html-eslint/no-duplicate-attrs"
       },
+      "rules/no-missing-attrs": {
+        "title": "@html-eslint/no-missing-attrs"
+      },
       "rules/no-duplicate-id": {
         "title": "@html-eslint/no-duplicate-id"
       },

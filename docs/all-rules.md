@@ -19,6 +19,7 @@ title: All Rules
 | [@html-eslint/require-meta-charset](rules/require-meta-charset) | Enforce to use `<meta name="chartset">` in `<head>` |  |
 | [@html-eslint/no-target-blank](rules/no-target-blank) | Disallow usage of unsafe `target='_blank'` |  |
 | [@html-eslint/no-duplicate-attrs](rules/no-duplicate-attrs) | Disallow to use duplicate attributes | ⭐ |
+| [@html-eslint/no-missing-attrs](rules/no-missing-attrs) | Check for missing attributes |  |
 | [@html-eslint/require-button-type](rules/require-button-type) | Require use of button element with a valid type attribute. |  |
 
 ### SEO
