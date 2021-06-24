@@ -11,7 +11,6 @@ ruleTester.run("id-missing-attrs", rule, {
     },
     {
       code: `<span notranslate>inside value</span>`,
-      options: [{ exceptString: ["translate", "notranslate"] }],
     },
     {
       code: `<span>{{variable}}</span>`,
@@ -20,6 +19,14 @@ ruleTester.run("id-missing-attrs", rule, {
     {
       code: `<span class="popup" popup>inside value</span>`,
       options: [{ exceptString: ["popup"] }],
+    },
+    {
+      code: `<td data-cy="table">
+        (
+      </td>`,
+      options: [
+        { exceptString: ["translate", "notranslate"], specialCharacters: true },
+      ],
     },
     {
       code: `<div class="order">

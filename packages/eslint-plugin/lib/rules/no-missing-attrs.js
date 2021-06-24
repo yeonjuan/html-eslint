@@ -33,6 +33,9 @@ module.exports = {
               type: "string",
             },
           },
+          specialCharacters: {
+            type: "boolean",
+          },
         },
       },
     ],
@@ -42,10 +45,23 @@ module.exports = {
   },
 
   create(context) {
-    const { exceptString } = context.options[0] || ["translate", "notranslate"];
+    const { exceptString } = context.options[0] || {
+      exceptString: ["translate", "notranslate"],
+    };
+    const { specialCharacters } = context.options[0] || {
+      specialCharacters: false,
+    };
     const regex = /\{\{.*\}\}/i; // {{ handlebars }}
+    const specialCharactersRegex = /[\W]/i;
     return {
       "*"(node) {
+        if (
+          NodeUtils.isTextNode(node) &&
+          specialCharactersRegex.test(node.value.replace(/\s/g, "")) &&
+          specialCharacters
+        ) {
+          return;
+        }
         if (
           NodeUtils.isTextNode(node) &&
           node.value.trim() &&
