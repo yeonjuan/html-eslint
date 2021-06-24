@@ -64,7 +64,7 @@ module.exports = {
         if (
           NodeUtils.isTextNode(node) &&
           specialCharacters &&
-          specialCharactersRegex.test(node.value)
+          specialCharactersRegex.test(node.value.trim())
         ) {
           return;
         }

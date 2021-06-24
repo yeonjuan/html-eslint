@@ -29,6 +29,16 @@ ruleTester.run("id-missing-attrs", rule, {
       ],
     },
     {
+      code: `<h4>
+            <span class="fa fas fa-user"></span>
+            <span translate>Name</span>
+            :
+      </h4>`,
+      options: [
+        { exceptString: ["translate", "notranslate"], specialCharacters: true },
+      ],
+    },
+    {
       code: `<div class="order">
         <span translate="true">inside value</span>
       </div>`,
