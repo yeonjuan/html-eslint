@@ -37,6 +37,17 @@ ruleTester.run("id-missing-attrs", rule, {
   ],
   invalid: [
     {
+      code: `<h2 class="contract-header">Contract-Header (submitted)</h2>`,
+      options: [
+        { exceptString: ["translate", "notranslate"], specialCharacters: true },
+      ],
+      errors: [
+        {
+          message: "Some attributes translate, notranslate are missing.",
+        },
+      ],
+    },
+    {
       code: `<h1 id="header">inside value</h1>`,
       options: [{ exceptString: ["translate", "notranslate"] }],
       errors: [

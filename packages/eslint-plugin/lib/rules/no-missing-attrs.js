@@ -45,20 +45,26 @@ module.exports = {
   },
 
   create(context) {
-    const { exceptString } = context.options[0] || {
-      exceptString: ["translate", "notranslate"],
-    };
-    const { specialCharacters } = context.options[0] || {
-      specialCharacters: false,
-    };
+    const { exceptString } =
+      context.options && context.options.length
+        ? context.options[0]
+        : {
+            exceptString: ["translate", "notranslate"],
+          };
+    const { specialCharacters } =
+      context.options && context.options.length
+        ? context.options[0]
+        : {
+            specialCharacters: false,
+          };
     const regex = /\{\{.*\}\}/i; // {{ handlebars }}
-    const specialCharactersRegex = /[\W]/i;
+    const specialCharactersRegex = /^[^a-z]$/i;
     return {
       "*"(node) {
         if (
           NodeUtils.isTextNode(node) &&
-          specialCharactersRegex.test(node.value.replace(/\s/g, "")) &&
-          specialCharacters
+          specialCharacters &&
+          specialCharactersRegex.test(node.value)
         ) {
           return;
         }
