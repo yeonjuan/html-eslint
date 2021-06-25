@@ -55,6 +55,6 @@ module.exports = {
    * @returns {node is CommentNode} `true` if a node is `CommentNode`, otherwise `false`.
    */
   isCommentNode(node) {
-    return !!(node && node.type === "comment");
+    return !!(node && node.type === "Block");
   },
 };

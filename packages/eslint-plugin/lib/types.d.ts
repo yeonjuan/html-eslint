@@ -104,7 +104,7 @@ export interface AttrNode extends BaseNode {
 }
 
 export interface CommentNode extends BaseNode {
-  type: "comment";
+  type: "Block";
   value: string;
   startTag?: TagNode;
   endTag?: TagNode;
