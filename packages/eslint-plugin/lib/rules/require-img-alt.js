@@ -50,6 +50,6 @@ module.exports = {
  */
 function hasAltAttrAndValue(node) {
   return (node.attrs || []).some((attr) => {
-    return attr.name === "alt" && attr.value.trim().length > 0;
+    return attr.name === "alt" && typeof attr.value === "string";
   });
 }
