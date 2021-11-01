@@ -6,3 +6,4 @@ website/build
 website/static
 website/sidebars.json
 docs
+packages/parser
