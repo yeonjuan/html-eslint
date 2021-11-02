@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://travis-ci.org/yeonjuan/html-eslint.svg?branch=main" alt="CI Badge" />
+  <img src="https://github.com/yeonjuan/html-eslint/actions/workflows/main.yml/badge.svg?branch=main" alt="CI Badge" />
 </p>
 
 ## Table of Contents
