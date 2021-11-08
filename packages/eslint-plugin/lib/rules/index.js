@@ -22,6 +22,7 @@ const requireMetaViewport = require("./require-meta-viewport");
 const requireMetaCharset = require("./require-meta-charset");
 const noTargetBlank = require("./no-target-blank");
 const noDuplicateAttrs = require("./no-duplicate-attrs");
+const noMissingAttrs = require("./no-missing-attrs");
 const noAbstractRoles = require("./no-abstract-roles");
 const requireButtonType = require("./require-button-type");
 const noAriaHiddenBody = require("./no-aria-hidden-body");
@@ -53,6 +54,7 @@ module.exports = {
   "require-meta-charset": requireMetaCharset,
   "no-target-blank": noTargetBlank,
   "no-duplicate-attrs": noDuplicateAttrs,
+  "no-missing-attrs": noMissingAttrs,
   "no-abstract-roles": noAbstractRoles,
   "require-button-type": requireButtonType,
   "no-aria-hidden-body": noAriaHiddenBody,
