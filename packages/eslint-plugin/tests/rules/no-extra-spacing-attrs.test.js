@@ -7,53 +7,83 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
   valid: [
     {
       code: `
-<html>
-<body>
-<div foo="foo" bar="bar"></div>
-</body>
-</html>
-`,
+    <html>
+    <body>
+    <div foo="foo" bar="bar"></div>
+    </body>
+    </html>
+    `,
     },
     {
       code: `
-<html>
-<body>
-<div foo="foo"
-     bar="bar"></div>
-</body>
-</html>
-`,
+    <html>
+    <body>
+    <div foo="foo" bar="bar"></div>
+    </body>
+    </html>
+    `,
     },
     {
       code: `
-<html>
+  <html>
+<head>
+</head>
 <body>
-<div
-    foo="foo"
-     bar="bar"
-     ></div>
+  <img src=""/>
 </body>
-</html>
-`,
+</html>`,
+    },
+    {
+      code: `
+  <html>
+<head>
+</head>
+<body>
+  <svg>
+      <circle cx="1"/>
+  </svg>
+</body>
+</html>`,
+    },
+    {
+      code: `
+    <html>
+    <body>
+    <div foo="foo"
+         bar="bar"></div>
+    </body>
+    </html>
+    `,
+    },
+    {
+      code: `
+    <html>
+    <body>
+    <div
+        foo="foo"
+         bar="bar"
+         ></div>
+    </body>
+    </html>
+    `,
     },
   ],
   invalid: [
     {
       code: `
-<html>
-<body>
-<div foo="foo"  bar="bar"></div>
-</body>
-</html>
-`,
+    <html>
+    <body>
+    <div foo="foo"  bar="bar"></div>
+    </body>
+    </html>
+    `,
       output: `
-<html>
-<body>
-<div foo="foo" bar="bar"></div>
-</body>
-</html>
-`,
-
+    <html>
+    <body>
+    <div foo="foo" bar="bar"></div>
+    </body>
+    </html>
+    `,
       errors: [
         {
           messageId: "unexpectedBetween",
@@ -62,20 +92,19 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
     },
     {
       code: `
-<html>
-<body>
-<div foo="foo"  bar="bar"  baz="baz"></div>
-</body>
-</html>
-`,
+    <html>
+    <body>
+    <div foo="foo"  bar="bar"  baz="baz"></div>
+    </body>
+    </html>
+    `,
       output: `
-<html>
-<body>
-<div foo="foo" bar="bar" baz="baz"></div>
-</body>
-</html>
-`,
-
+    <html>
+    <body>
+    <div foo="foo" bar="bar" baz="baz"></div>
+    </body>
+    </html>
+    `,
       errors: [
         {
           messageId: "unexpectedBetween",
@@ -87,20 +116,19 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
     },
     {
       code: `
-<html>
-<body>
-<div foo="foo"  bar="bar" baz="baz"  ></div>
-</body>
-</html>
-    `,
+    <html>
+    <body>
+    <div foo="foo"  bar="bar" baz="baz"  ></div>
+    </body>
+    </html>
+        `,
       output: `
-<html>
-<body>
-<div foo="foo" bar="bar" baz="baz"></div>
-</body>
-</html>
-    `,
-
+    <html>
+    <body>
+    <div foo="foo" bar="bar" baz="baz"></div>
+    </body>
+    </html>
+        `,
       errors: [
         {
           messageId: "unexpectedBetween",
@@ -112,20 +140,19 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
     },
     {
       code: `
-<html>
-<body>
-<div       foo="foo"  bar="bar" baz="baz"  ></div>
-</body>
-</html>
-        `,
+    <html>
+    <body>
+    <div       foo="foo"  bar="bar" baz="baz"  ></div>
+    </body>
+    </html>
+            `,
       output: `
-<html>
-<body>
-<div foo="foo" bar="bar" baz="baz"></div>
-</body>
-</html>
-        `,
-
+    <html>
+    <body>
+    <div foo="foo" bar="bar" baz="baz"></div>
+    </body>
+    </html>
+            `,
       errors: [
         {
           messageId: "unexpectedBefore",
@@ -133,6 +160,56 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
         {
           messageId: "unexpectedBetween",
         },
+        {
+          messageId: "unexpectedAfter",
+        },
+      ],
+    },
+    {
+      code: `
+<html>
+<head>
+</head>
+<body>
+<img src="" />
+</body>
+</html>`,
+      output: `
+<html>
+<head>
+</head>
+<body>
+<img src=""/>
+</body>
+</html>`,
+      errors: [
+        {
+          messageId: "unexpectedAfter",
+        },
+      ],
+    },
+    {
+      code: `
+<html>
+<head>
+</head>
+<body>
+<svg>
+<circle cx="1" />
+</svg>
+</body>
+</html>`,
+      output: `
+<html>
+<head>
+</head>
+<body>
+<svg>
+<circle cx="1"/>
+</svg>
+</body>
+</html>`,
+      errors: [
         {
           messageId: "unexpectedAfter",
         },

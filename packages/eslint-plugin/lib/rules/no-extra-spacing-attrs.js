@@ -66,13 +66,18 @@ module.exports = {
     /**
      * @param {TagNode} startTag
      * @param {AttrNode} lastAttr
+     * @param {boolean} isSelfClosed
      */
-    function checkExtraSpaceAfter(startTag, lastAttr) {
+    function checkExtraSpaceAfter(startTag, lastAttr, isSelfClosed) {
       if (startTag.loc.end.line !== lastAttr.loc.end.line) {
         // skip the attribute on the different line with the start tag
         return;
       }
-      const spacesBetween = startTag.loc.end.column - lastAttr.loc.end.column;
+      let spacesBetween = startTag.loc.end.column - lastAttr.loc.end.column;
+      if (isSelfClosed) {
+        spacesBetween--;
+      }
+
       if (spacesBetween > 1) {
         context.report({
           loc: {
@@ -83,7 +88,7 @@ module.exports = {
           fix(fixer) {
             return fixer.removeRange([
               lastAttr.range[1],
-              startTag.range[1] - 1,
+              lastAttr.range[1] + spacesBetween - 1,
             ]);
           },
         });
@@ -125,9 +130,11 @@ module.exports = {
           checkExtraSpaceBefore(node, node.attrs[0]);
         }
         if (node.startTag && node.attrs && node.attrs.length > 0) {
+          const isSelfClosed = !node.endTag;
           checkExtraSpaceAfter(
             node.startTag,
-            node.attrs[node.attrs.length - 1]
+            node.attrs[node.attrs.length - 1],
+            isSelfClosed
           );
         }
         checkExtraSpacesBetweenAttrs(node.attrs || []);
