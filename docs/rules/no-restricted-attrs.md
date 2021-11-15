@@ -14,13 +14,12 @@ This rule allows you to specify attributes that you don't want to use in your ap
 ```
 "rules": {
   "@html-eslint/no-restricted-attrs": ["error", {
-    tags: ["a", "div"],
-    name: "data-x",
+    tagPatterns: [".*"],
+    attrPatterns: ["data-*", "alt"]
     message: "\'data-x\' is restricted."
   }]
 }
 ```
-
 
 Examples of **incorrect** code for this rule:
 
