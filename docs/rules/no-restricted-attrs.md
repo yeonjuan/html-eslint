@@ -7,6 +7,20 @@ title: "@html-eslint/no-restricted-attrs"
 
 ### Rule Details
 
+This rule allows you to specify attributes that you don't want to use in your application.
+
+### Options
+
+```
+"rules": {
+  "@html-eslint/no-restricted-attrs": ["error", {
+    tags: ["a", "div"],
+    name: "data-x",
+    message: "\'data-x\' is restricted."
+  }]
+}
+```
+
 
 Examples of **incorrect** code for this rule:
 
