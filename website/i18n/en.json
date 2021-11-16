@@ -62,6 +62,9 @@
       "rules/no-positive-tabindex": {
         "title": "@html-eslint/no-positive-tabindex"
       },
+      "rules/no-restricted-attrs": {
+        "title": "@html-eslint/no-restricted-attrs"
+      },
       "rules/no-skip-heading-levels": {
         "title": "@html-eslint/no-skip-heading-levels"
       },

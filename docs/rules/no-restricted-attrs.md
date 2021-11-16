@@ -11,22 +11,41 @@ This rule allows you to specify attributes that you don't want to use in your ap
 
 ### Options
 
+This rule takes an array of option objects, where the `tagPatterns` and `attrPatterns` are specified.
+
+- `tagPatterns`: an array of strings representing regular expression pattern, disallows tag name that match any of the patterns.
+- `attrPatterns`: an array of strings representing regular expression pattern, disallows attribute name that match any of the patterns.
+- `message` (optional): a string for custom message.
+
+
 ```
 "rules": {
-  "@html-eslint/no-restricted-attrs": ["error", {
-    tagPatterns: [".*"],
-    attrPatterns: ["data-*", "alt"]
+  "@html-eslint/no-restricted-attrs": [
+    "error",
+  {
+    tagPatterns: ["^div$", "^img$"],
+    attrPatterns: ["data-.*"]
     message: "\'data-x\' is restricted."
+  },
+  {
+    tagPatterns: ["^img$"],
+    attrPatterns: ["^alt$"]
+    message: "\'alt\' is restricted."
   }]
 }
 ```
 
-Examples of **incorrect** code for this rule:
+Examples of **incorrect** code for this rule with the option below:
 
-```html
+```json
+{
+  "tagPatterns": ["^img$", "^div$"],
+  "attrPatterns": ["^data-.*"],
+  "message": "Do not use data-* attr"
+}
 ```
 
-Examples of **correct** code for this rule:
-
 ```html
+<div data-name="foo"></div>
+<img data-name="foo"></div>
 ```
