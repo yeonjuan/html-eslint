@@ -27,6 +27,7 @@ const requireButtonType = require("./require-button-type");
 const noAriaHiddenBody = require("./no-aria-hidden-body");
 const noMultipleEmptyLines = require("./no-multiple-empty-lines");
 const noAccesskeyAttrs = require("./no-accesskey-attrs");
+const noRestrictedAttrs = require("./no-restricted-attrs");
 
 module.exports = {
   "require-lang": requireLang,
@@ -58,4 +59,5 @@ module.exports = {
   "no-aria-hidden-body": noAriaHiddenBody,
   "no-multiple-empty-lines": noMultipleEmptyLines,
   "no-accesskey-attrs": noAccesskeyAttrs,
+  "no-restricted-attrs": noRestrictedAttrs,
 };
