@@ -3,67 +3,91 @@ id: require-closing-tags
 title: "@html-eslint/require-closing-tags"
 ---
 
-## Require consistent use of closing tag.
+## Require use of closing tag.
 
 ### Rule Details
 
-This rule enforces use of closing tag.
+This rule checks whether the tag has closing tag or not.
+
+👎 Examples of **incorrect** code for this rule:
+
+<!-- prettier-ignore-start -->
+
+```html
+<div>
+```
+
+<!-- prettier-ignore-end -->
+
+
+👍 Examples of **correct** code for this rule:
+
+<!-- prettier-ignore-start -->
+
+```html
+<div></div>
+```
+
+<!-- prettier-ignore-end -->
+
 
 ### Options
 
+This rule has an  object option for [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements).
+
+- `"selfClosing": "never"`: (default) disallow using self closing tag on [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements).
+
+- `"selfClosing": "always"`: enforce using self closing tag on [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements).
+
+
 #### selfClosing : "never"
 
-```json
-{
-  "@html-eslint/require-closing-tags": [
-    "error",
-    {
-      "selfClosing": "never"
-    }
-  ]
-}
-```
-
-Examples of **incorrect** code for this rule:
+👎 Examples of **incorrect** code for the `{ "selfClosing": "never"}` option:
 
 <!-- prettier-ignore-start -->
+
 ```html
-<div> foo
 <img />
+<base />
 ```
+
 <!-- prettier-ignore-end -->
 
-Examples of **correct** code for this rule:
+👍 Examples of **correct** code for the `{ "selfClosing": "never"}` option:
+
+<!-- prettier-ignore-start -->
 
 ```html
-<div>no closing tag</div>
-<img />
+<img>
+<base>
 ```
+
+<!-- prettier-ignore-end -->
 
 #### selfClosing : "always"
 
-```json
-{
-  "@html-eslint/require-closing-tags": [
-    "error",
-    {
-      "selfClosing": "always"
-    }
-  ]
-}
-```
+👎 Examples of **incorrect** code for the `{ "selfClosing": "always" }` option:
 
-Examples of **incorrect** code for this rule:
+<!-- prettier-ignore-start -->
 
 ```html
-<div>foo <img /></div>
+<img>
+<base>
 ```
 
-Examples of **correct** code for this rule:
+<!-- prettier-ignore-end -->
+
+👍 Examples of **correct** code for the `{ "selfClosing": "always" }` option:
+
+<!-- prettier-ignore-start -->
 
 ```html
-<div>foo</div>
 <img />
+<base />
 ```
+
+<!-- prettier-ignore-end -->
 
 ### Further reading
+
+- [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements)
