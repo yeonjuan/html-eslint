@@ -131,10 +131,15 @@ module.exports = {
     }
 
     /**
+     * @param {AnyNode} startTag
      * @param {AttrNode[]} attrs
      */
-    function checkAttrsIndent(attrs) {
-      attrs.forEach((attr) => checkIndent(attr));
+    function checkAttrsIndent(startTag, attrs) {
+      attrs.forEach((attr) => {
+        if (attr.loc.start.line !== startTag.loc.start.line) {
+          checkIndent(attr);
+        }
+      });
     }
 
     /**
@@ -146,6 +151,7 @@ module.exports = {
       const line = startTag.loc.end.line;
       const endCol = startTag.loc.end.column;
       const startCol = startTag.loc.end.column - 1;
+
       checkIndent({
         range: [start, end],
         start,
@@ -178,8 +184,8 @@ module.exports = {
 
         indentLevel.up();
 
-        if (Array.isArray(node.attrs)) {
-          checkAttrsIndent(node.attrs);
+        if (node.startTag && Array.isArray(node.attrs)) {
+          checkAttrsIndent(node.startTag, node.attrs);
         }
 
         (node.childNodes || []).forEach((current) => {

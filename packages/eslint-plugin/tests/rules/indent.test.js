@@ -227,6 +227,17 @@ ruleTester.run("indent", rule, {
 </div>
 `,
     },
+    {
+      code: `<div class="foo">
+</div>
+`,
+    },
+    {
+      code: `<div class="foo"
+    id="bar">
+</div>
+`,
+    },
   ],
   invalid: [
     {
@@ -715,6 +726,45 @@ class="bar"
 </html>
 `,
       errors: wrongIndentErrors(1),
+    },
+    {
+      code: `<div class="foo"
+id="bar"
+ style="style"
+>
+</div>
+`,
+      output: `<div class="foo"
+    id="bar"
+    style="style"
+>
+</div>
+`,
+      errors: wrongIndentErrors(2),
+    },
+    {
+      code: `<div class="foo"
+id="bar"
+ style="style">
+</div>
+`,
+      output: `<div class="foo"
+    id="bar"
+    style="style">
+</div>
+`,
+      errors: wrongIndentErrors(2),
+    },
+    {
+      code: `<div class="foo"
+id="bar"
+ style="style"></div>
+`,
+      output: `<div class="foo"
+    id="bar"
+    style="style"></div>
+`,
+      errors: wrongIndentErrors(2),
     },
   ],
 });
