@@ -25,7 +25,7 @@ const siteConfig = {
   ],
   headerIcon: "img/symbol.svg",
   footerIcon: "img/symbol.svg",
-  favicon: "img/favicon.ico",
+  favicon: "img/favicon.png",
   colors: {
     primaryColor: "#202020",
     secondaryColor: "#404040",

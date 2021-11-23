@@ -19,6 +19,9 @@
 
 <p align="center">
   <img src="https://github.com/yeonjuan/html-eslint/actions/workflows/main.yml/badge.svg?branch=main" alt="CI Badge" />
+  <img src="https://img.shields.io/npm/v/@html-eslint/eslint-plugin?color=success" alt="Version" />
+  <img src="https://img.shields.io/npm/dw/@html-eslint/eslint-plugin" alt="Downloads" />
+  <img src="https://img.shields.io/npm/l/@html-eslint/eslint-plugin?color=success" alt="License" />
 </p>
 
 ## Table of Contents
