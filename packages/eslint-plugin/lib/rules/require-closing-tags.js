@@ -57,6 +57,16 @@ module.exports = {
 
     function checkClosingTag(node) {
       if (node.startTag && !node.endTag) {
+        if (
+          node.namespaceURI === "http://www.w3.org/2000/svg" ||
+          node.namespaceURI === "http://www.w3.org/1998/Math/MathML"
+        ) {
+          const code = getCodeIn(node.startTag.range);
+          const hasSelfClose = code.endsWith("/>");
+          if (hasSelfClose) {
+            return;
+          }
+        }
         context.report({
           node: node.startTag,
           data: {
@@ -67,7 +77,7 @@ module.exports = {
       }
     }
 
-    function checkSelfClosing(node) {
+    function checkVoidElement(node) {
       const startTag = node.startTag;
       const code = getCodeIn(startTag.range);
       const hasSelfClose = code.endsWith("/>");
@@ -108,7 +118,7 @@ module.exports = {
       "*"(node) {
         if (node.startTag) {
           if (VOID_ELEMENTS_SET.has(node.tagName)) {
-            checkSelfClosing(node);
+            checkVoidElement(node);
           } else {
             checkClosingTag(node);
           }

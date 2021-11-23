@@ -96,6 +96,7 @@ export interface ElementNode extends BaseNode {
   childNodes: ElementNode[];
   startTag?: TagNode;
   endTag?: TagNode;
+  namespaceURI?: string;
 }
 
 export interface AttrNode extends BaseNode {

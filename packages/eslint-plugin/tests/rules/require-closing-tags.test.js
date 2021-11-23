@@ -11,10 +11,51 @@ ruleTester.run("require-closing-tags", rule, {
     {
       code: `<img>`,
     },
+    {
+      code: `<img/>`,
+      options: [
+        {
+          selfClosing: "always",
+        },
+      ],
+    },
+    {
+      code: `
+      <!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+      <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+		  <circle />
+</svg>
+    </body>
+</html>
+`,
+    },
   ],
   invalid: [
     {
       code: `<div>`,
+      errors: [
+        {
+          messageId: "missing",
+        },
+      ],
+    },
+    {
+      code: `
+      <!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+      <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+		  <circle>
+</svg>
+    </body>
+</html>
+`,
       errors: [
         {
           messageId: "missing",
