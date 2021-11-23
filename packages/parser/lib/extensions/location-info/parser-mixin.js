@@ -44,7 +44,7 @@ class LocationInfoParserMixin extends Mixin {
         // tag and for cases like <td> <p> </td> - 'p' closes without a closing tag.
         const isClosingEndTag =
           closingToken.type === Tokenizer.END_TAG_TOKEN &&
-          tn === closingToken.tagName;
+          tn.toLowerCase() === closingToken.tagName.toLowerCase();
         const endLoc = {};
         if (isClosingEndTag) {
           endLoc.endTag = Object.assign({}, ctLoc);
