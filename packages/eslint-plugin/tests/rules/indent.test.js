@@ -10,10 +10,10 @@ function wrongIndentErrors(length) {
 }
 
 function changeLineEndings(tests) {
-  tests.valid.forEach(test => {
+  tests.valid.forEach((test) => {
     test.code = test.code.replace(/\n/g, "\r\n");
   });
-  tests.invalid.forEach(test => {
+  tests.invalid.forEach((test) => {
     test.code = test.code.replace(/\n/g, "\r\n");
     test.output = test.output.replace(/\n/g, "\r\n");
   });
