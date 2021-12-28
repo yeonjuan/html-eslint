@@ -51,7 +51,7 @@ function getLocFromChildNodes(childNodes) {
   };
 }
 
-function createLines(locNode, text) {
+function createLines(locNode, text, hasCRLF) {
   let start = locNode.start;
   let line = locNode.loc.start.line;
 
@@ -80,7 +80,9 @@ function createLines(locNode, text) {
 
     line += 1;
     start += lengthWithoutIndent + 1;
-
+    if (hasCRLF) {
+      start += 1;
+    }
     return node;
   });
 }

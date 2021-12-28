@@ -9,7 +9,8 @@ const {
 } = require("./utils");
 
 module.exports = class PostProcessor {
-  constructor() {
+  constructor(code) {
+    this.hasCRLF = code.indexOf("\r") !== -1;
     this.outRangeNodes = [];
     this.skipCommonProcess = false;
     this.programNode = null;
@@ -52,7 +53,7 @@ module.exports = class PostProcessor {
   ["#text"](node) {
     this.skipCommonProcess = true;
     node.type = "text";
-    node.lineNodes = createLines(node, node.value);
+    node.lineNodes = createLines(node, node.value, this.hasCRLF);
   }
 
   ["#comment"](node) {
@@ -75,7 +76,8 @@ module.exports = class PostProcessor {
           end: node.loc.end,
         },
       },
-      node.value
+      node.value,
+      this.hasCRLF
     );
     this.programNode.comments.push(node);
   }

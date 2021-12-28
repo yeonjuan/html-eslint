@@ -4,7 +4,7 @@ const PostProcessor = require("./postprocessor/postprocessor");
 
 exports.parseForESLint = function parseForESLint(code) {
   const parser = new Parser({ sourceCodeLocationInfo: true });
-  const postProcessor = new PostProcessor();
+  const postProcessor = new PostProcessor(code);
   const ast = parser.parse(code);
   const after = postProcessor.process(ast);
   return {
