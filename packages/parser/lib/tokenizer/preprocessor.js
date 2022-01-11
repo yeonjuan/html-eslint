@@ -108,15 +108,8 @@ class Preprocessor {
 
     let cp = this.html.charCodeAt(this.pos);
 
-    //NOTE: any U+000A LINE FEED (LF) characters that immediately follow a U+000D CARRIAGE RETURN (CR) character
-    //must be ignored.
-    if (this.skipNextNewLine && cp === $.LINE_FEED) {
-      this.skipNextNewLine = false;
-      this._addGap();
-      return this.advance();
-    }
-
-    //NOTE: all U+000D CARRIAGE RETURN (CR) characters must be converted to U+000A LINE FEED (LF) characters
+    //NOTE: all U+000D CARRIAGE RETURN (CR) characters must be converted to U+000A LINE FEED (LF) characters.
+    // Following LINE FEED (LF) is not ignored to keep index intact.
     if (cp === $.CARRIAGE_RETURN) {
       this.skipNextNewLine = true;
       return $.LINE_FEED;

@@ -9,10 +9,22 @@ function wrongIndentErrors(length) {
   }));
 }
 
-ruleTester.run("indent", rule, {
-  valid: [
-    {
-      code: `
+function changeLineEndings(tests) {
+  tests.valid.forEach((test) => {
+    test.code = test.code.replace(/\n/g, "\r\n");
+  });
+  tests.invalid.forEach((test) => {
+    test.code = test.code.replace(/\n/g, "\r\n");
+    test.output = test.output.replace(/\n/g, "\r\n");
+  });
+  return tests;
+}
+
+function createTests() {
+  return {
+    valid: [
+      {
+        code: `
 <html>
     <body>
         <div id = "foo"></div>
@@ -20,9 +32,9 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <html>
   <body>
     <div id = "foo"></div>
@@ -30,10 +42,10 @@ ruleTester.run("indent", rule, {
   </body>
 </html>
 `,
-      options: [2],
-    },
-    {
-      code: `
+        options: [2],
+      },
+      {
+        code: `
 <html>
     <body>
         <div>
@@ -47,9 +59,9 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <html>
     <head>
         <meta>
@@ -57,18 +69,18 @@ ruleTester.run("indent", rule, {
     </head>
 </html>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 
 <div>
     <div> foo </div>
     bar
 </div>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <html>
 \t<body>
 \t\t<div id = "foo"></div>
@@ -76,10 +88,10 @@ ruleTester.run("indent", rule, {
 \t</body>
 </html>
 `,
-      options: ["tab"],
-    },
-    {
-      code: `
+        options: ["tab"],
+      },
+      {
+        code: `
 <html>
     <body>
         <div>
@@ -88,9 +100,9 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <html>
     <body>
         <pre>
@@ -99,9 +111,9 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <html>
     <body>
         <pre>
@@ -113,9 +125,9 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <html>
     <body>
         <xmp>
@@ -127,9 +139,9 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <html>
     <head>
         <style>
@@ -146,9 +158,9 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <html>
     <head>
         <style>
@@ -173,9 +185,9 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <html>
     <body>
         <script>
@@ -184,9 +196,9 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <html>
     <body>
         <div id = "foo"></div>
@@ -196,17 +208,17 @@ ruleTester.run("indent", rule, {
     </script>
 </html>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <div
     id="foo"
     style="bar">
 </div>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <div>
     <pre>
     
@@ -217,53 +229,53 @@ ruleTester.run("indent", rule, {
     </pre>
 </div>
 `,
-    },
-    {
-      code: `
+      },
+      {
+        code: `
 <div
     id="foo"
     style="bar"
 >
 </div>
 `,
-    },
-    {
-      code: `<div class="foo">
+      },
+      {
+        code: `<div class="foo">
 </div>
 `,
-    },
-    {
-      code: `<div class="foo"
+      },
+      {
+        code: `<div class="foo"
     id="bar">
 </div>
 `,
-    },
-  ],
-  invalid: [
-    {
-      code: `
+      },
+    ],
+    invalid: [
+      {
+        code: `
 <html>
   <body>
  </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
     <body>
     </body>
 </html>
 `,
-      errors: [
-        {
-          message: "Expected indentation of 4 space but found 2 space.",
-        },
-        {
-          message: "Expected indentation of 4 space but found 1 space.",
-        },
-      ],
-    },
-    {
-      code: `
+        errors: [
+          {
+            message: "Expected indentation of 4 space but found 2 space.",
+          },
+          {
+            message: "Expected indentation of 4 space but found 1 space.",
+          },
+        ],
+      },
+      {
+        code: `
 <html>
     <body>
        <div>
@@ -271,7 +283,7 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
     <body>
         <div>
@@ -279,17 +291,17 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      errors: [
-        {
-          message: "Expected indentation of 8 space but found 7 space.",
-        },
-        {
-          message: "Expected indentation of 8 space but found 6 space.",
-        },
-      ],
-    },
-    {
-      code: `
+        errors: [
+          {
+            message: "Expected indentation of 8 space but found 7 space.",
+          },
+          {
+            message: "Expected indentation of 8 space but found 6 space.",
+          },
+        ],
+      },
+      {
+        code: `
 <html>
 \t<body>
 \t\t <div>
@@ -297,7 +309,7 @@ ruleTester.run("indent", rule, {
 \t</body>
 </html>
 `,
-      output: `
+        output: `
 <html>
 \t<body>
 \t\t<div>
@@ -305,63 +317,63 @@ ruleTester.run("indent", rule, {
 \t</body>
 </html>
 `,
-      options: ["tab"],
-      errors: [
-        {
-          message: "Expected indentation of 2 tab but found 2 tab, 1 space.",
-        },
-        {
-          message: "Expected indentation of 2 tab but found 2 tab, 2 space.",
-        },
-      ],
-    },
-    {
-      code: `
+        options: ["tab"],
+        errors: [
+          {
+            message: "Expected indentation of 2 tab but found 2 tab, 1 space.",
+          },
+          {
+            message: "Expected indentation of 2 tab but found 2 tab, 2 space.",
+          },
+        ],
+      },
+      {
+        code: `
 <html>
 <body>
 </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
     <body>
     </body>
 </html>
 `,
-      errors: [
-        {
-          message: "Expected indentation of 4 space but found no indent.",
-        },
-        {
-          message: "Expected indentation of 4 space but found no indent.",
-        },
-      ],
-    },
-    {
-      code: `
+        errors: [
+          {
+            message: "Expected indentation of 4 space but found no indent.",
+          },
+          {
+            message: "Expected indentation of 4 space but found no indent.",
+          },
+        ],
+      },
+      {
+        code: `
 <html>
 <body>
 </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
 \t<body>
 \t</body>
 </html>
 `,
-      options: ["tab"],
-      errors: [
-        {
-          message: "Expected indentation of 1 tab but found no indent.",
-        },
-        {
-          message: "Expected indentation of 1 tab but found no indent.",
-        },
-      ],
-    },
-    {
-      code: `
+        options: ["tab"],
+        errors: [
+          {
+            message: "Expected indentation of 1 tab but found no indent.",
+          },
+          {
+            message: "Expected indentation of 1 tab but found no indent.",
+          },
+        ],
+      },
+      {
+        code: `
 <html>
 <body>
 <div> </div>
@@ -369,7 +381,7 @@ ruleTester.run("indent", rule, {
 </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
     <body>
         <div> </div>
@@ -377,10 +389,10 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      errors: wrongIndentErrors(4),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(4),
+      },
+      {
+        code: `
 <html>
 <body>
 <div>
@@ -389,7 +401,7 @@ ruleTester.run("indent", rule, {
 </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
     <body>
         <div>
@@ -398,10 +410,10 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      errors: wrongIndentErrors(5),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(5),
+      },
+      {
+        code: `
 <html>
 <body>
 \t <div> </div>
@@ -409,7 +421,7 @@ ruleTester.run("indent", rule, {
 </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
     <body>
         <div> </div>
@@ -417,10 +429,10 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      errors: wrongIndentErrors(4),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(4),
+      },
+      {
+        code: `
 <html>
 <body>
 <!-- comment -->
@@ -429,7 +441,7 @@ ruleTester.run("indent", rule, {
 </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
     <body>
         <!-- comment -->
@@ -438,10 +450,10 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      errors: wrongIndentErrors(5),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(5),
+      },
+      {
+        code: `
 <html>
 <body>
 <!-- comment
@@ -451,7 +463,7 @@ ruleTester.run("indent", rule, {
 </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
     <body>
         <!-- comment
@@ -461,10 +473,10 @@ ruleTester.run("indent", rule, {
     </body>
 </html>
 `,
-      errors: wrongIndentErrors(6),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(6),
+      },
+      {
+        code: `
 <html>
 <body>
 <!--
@@ -475,7 +487,7 @@ comment
 </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
     <body>
         <!--
@@ -486,27 +498,27 @@ comment
     </body>
 </html>
 `,
-      errors: wrongIndentErrors(7),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(7),
+      },
+      {
+        code: `
 <div>
 <!--
 comment
 -->
 </div>
 `,
-      output: `
+        output: `
 <div>
     <!--
         comment
     -->
 </div>
 `,
-      errors: wrongIndentErrors(3),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(3),
+      },
+      {
+        code: `
 <div>
     <p>
 indent
@@ -515,7 +527,7 @@ indent
     </p>
 </div>
 `,
-      output: `
+        output: `
 <div>
     <p>
         indent
@@ -524,10 +536,10 @@ indent
     </p>
 </div>
 `,
-      errors: wrongIndentErrors(3),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(3),
+      },
+      {
+        code: `
 <div>
 <p>
 indent indent
@@ -544,7 +556,7 @@ test
 </div>
 </div>
 `,
-      output: `
+        output: `
 <div>
     <p>
         indent indent
@@ -561,10 +573,10 @@ test
     </div>
 </div>
 `,
-      errors: wrongIndentErrors(13),
-    },
-    {
-      code: `<!DOCTYPE html>
+        errors: wrongIndentErrors(13),
+      },
+      {
+        code: `<!DOCTYPE html>
 <html lang="en">
 </head>
 <body>
@@ -580,7 +592,7 @@ test
 </table>
 </body>
 </html>`,
-      output: `<!DOCTYPE html>
+        output: `<!DOCTYPE html>
 <html lang="en">
 </head>
     <body>
@@ -596,70 +608,70 @@ test
         </table>
     </body>
 </html>`,
-      errors: wrongIndentErrors(12),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(12),
+      },
+      {
+        code: `
 <div
 id="foo"
 style="bar">
 </div>
 `,
-      output: `
+        output: `
 <div
     id="foo"
     style="bar">
 </div>
 `,
-      errors: wrongIndentErrors(2),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(2),
+      },
+      {
+        code: `
 <div
 id="foo"
 style="bar" class="baz">
 </div>
 `,
-      output: `
+        output: `
 <div
     id="foo"
     style="bar" class="baz">
 </div>
 `,
-      errors: wrongIndentErrors(2),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(2),
+      },
+      {
+        code: `
 <div id="foo"
   style="bar" class="baz">
 </div>
 `,
-      output: `
+        output: `
 <div id="foo"
     style="bar" class="baz">
 </div>
 `,
-      errors: wrongIndentErrors(1),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(1),
+      },
+      {
+        code: `
 <div
   id="foo"
   style="bar"
    >
 </div>
 `,
-      output: `
+        output: `
 <div
     id="foo"
     style="bar"
 >
 </div>
 `,
-      errors: wrongIndentErrors(3),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(3),
+      },
+      {
+        code: `
 <div>
   <div
       id="foo"
@@ -669,7 +681,7 @@ class="bar"
     </div>
 </div>
 `,
-      output: `
+        output: `
 <div>
     <div
         id="foo"
@@ -679,10 +691,10 @@ class="bar"
     </div>
 </div>
 `,
-      errors: wrongIndentErrors(4),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(4),
+      },
+      {
+        code: `
 <html>
     <head>
         <script src='http://somescript.js'></script>
@@ -693,7 +705,7 @@ class="bar"
     </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
     <head>
         <script src='http://somescript.js'></script>
@@ -704,10 +716,10 @@ class="bar"
     </body>
 </html>
 `,
-      errors: wrongIndentErrors(2),
-    },
-    {
-      code: `
+        errors: wrongIndentErrors(2),
+      },
+      {
+        code: `
 <html>
     <body>
         <template>
@@ -716,7 +728,7 @@ class="bar"
     </body>
 </html>
 `,
-      output: `
+        output: `
 <html>
     <body>
         <template>
@@ -725,46 +737,51 @@ class="bar"
     </body>
 </html>
 `,
-      errors: wrongIndentErrors(1),
-    },
-    {
-      code: `<div class="foo"
+        errors: wrongIndentErrors(1),
+      },
+      {
+        code: `<div class="foo"
 id="bar"
  style="style"
 >
 </div>
 `,
-      output: `<div class="foo"
+        output: `<div class="foo"
     id="bar"
     style="style"
 >
 </div>
 `,
-      errors: wrongIndentErrors(2),
-    },
-    {
-      code: `<div class="foo"
+        errors: wrongIndentErrors(2),
+      },
+      {
+        code: `<div class="foo"
 id="bar"
  style="style">
 </div>
 `,
-      output: `<div class="foo"
+        output: `<div class="foo"
     id="bar"
     style="style">
 </div>
 `,
-      errors: wrongIndentErrors(2),
-    },
-    {
-      code: `<div class="foo"
+        errors: wrongIndentErrors(2),
+      },
+      {
+        code: `<div class="foo"
 id="bar"
  style="style"></div>
 `,
-      output: `<div class="foo"
+        output: `<div class="foo"
     id="bar"
     style="style"></div>
 `,
-      errors: wrongIndentErrors(2),
-    },
-  ],
-});
+        errors: wrongIndentErrors(2),
+      },
+    ],
+  };
+}
+
+ruleTester.run("indent LF", rule, createTests());
+
+ruleTester.run("indent CRLF", rule, changeLineEndings(createTests()));
