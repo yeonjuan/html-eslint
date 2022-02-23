@@ -3,7 +3,7 @@ id: no-multiple-empty-lines
 title: "@html-eslint/no-multiple-empty-lines"
 ---
 
-## Disallow use of `user-scalable=no` in `<meta name="viewport">`.
+## Disallow use of multiple empty lines.
 
 ### Rule Details
 

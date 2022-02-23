@@ -8,7 +8,7 @@ title: "@html-eslint/id-naming-convention"
 ### Rule Details
 
 This rule enforces naming conventions for id attributes.
-Currently it supports 4 naming cases. `camelCsse`, `snake_case`, `PascalCase`, `kebab-case` (default `snake_case`).
+Currently it supports 4 naming cases. `camelCase`, `snake_case`, `PascalCase`, `kebab-case` (default `snake_case`).
 
 #### Options
 
