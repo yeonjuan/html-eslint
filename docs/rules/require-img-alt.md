@@ -25,7 +25,7 @@ Examples of **incorrect** code for this rule:
 Examples of **correct** code for this rule:
 
 ```html
-<img src="image.png" alt="some descroption" />
+<img src="image.png" alt="some description" />
 ```
 
 ### Further reading
