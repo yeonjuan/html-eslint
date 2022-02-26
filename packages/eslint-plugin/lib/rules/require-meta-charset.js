@@ -16,7 +16,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: 'Enforce to use `<meta name="chartset">` in `<head>`',
+      description: 'Enforce to use `<meta charset="...">` in `<head>`',
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
     },
@@ -24,7 +24,7 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.MISSING]: 'Missing `<meta name="description">`.',
+      [MESSAGE_IDS.MISSING]: 'Missing `<meta charset="...">`.',
       [MESSAGE_IDS.EMPTY]: "Unexpected empty charset.",
     },
   },
