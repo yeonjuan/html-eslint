@@ -13,9 +13,7 @@ Examples of **incorrect** code for this rule:
 
 ```html
 <html>
-  <head>
-    <title>newline</title>
-  </head>
+  <head><title>newline</title></head>
 </html>
 ```
 
