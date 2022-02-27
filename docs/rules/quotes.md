@@ -7,7 +7,7 @@ title: "@html-eslint/quotes"
 
 ### Rule Details
 
-This rule enforces the consistent use of double(`"`) or single(`'`) qoutes for element attributes.
+This rule enforces the consistent use of double(`"`) or single(`'`) quotes for element attributes.
 
 ### Options
 

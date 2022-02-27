@@ -3,12 +3,6 @@ id: no-duplicate-attrs
 title: "@html-eslint/no-duplicate-attrs"
 ---
 
-
----
-id: no-duplicate-attrs
-title: "@html-eslint/no-duplicate-attrs"
----
-
 ## Disallow duplicate attributes.
 
 ### Rule Details
