@@ -21,11 +21,11 @@ function setNodeLocAndRange(node, sourceCodeLocation) {
   node.loc = {
     start: {
       line: startLine,
-      column: startCol,
+      column: startCol -1,
     },
     end: {
       line: endLine,
-      column: endCol,
+      column: endCol - 1,
     },
   };
   if (startTag) {

@@ -778,6 +778,58 @@ id="bar"
 `,
         errors: wrongIndentErrors(2),
       },
+      {
+        code: `
+<div><div>
+  </div>
+</div>`,
+        output: `
+<div><div>
+    </div>
+</div>`,
+        errors: wrongIndentErrors(1),
+      },
+      {
+        code: `<div><a>
+  </a>
+</div>`,
+        output: `<div><a>
+    </a>
+</div>`,
+        errors: wrongIndentErrors(1),
+      },
+      // https://github.com/yeonjuan/html-eslint/issues/93
+      {
+        code: `
+<div><a>
+  </a>
+</div>`,
+        output: `
+<div><a>
+    </a>
+</div>`,
+        errors: wrongIndentErrors(1),
+      },
+      {
+        code: `
+<div><a>
+  </a></div>`,
+        output: `
+<div><a>
+    </a></div>`,
+        errors: wrongIndentErrors(1),
+      },
+      {
+        code: `
+<div>
+<a>
+</a></div>`,
+        output: `
+<div>
+    <a>
+    </a></div>`,
+        errors: wrongIndentErrors(2),
+      },
     ],
   };
 }

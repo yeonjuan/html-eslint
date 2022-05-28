@@ -54,8 +54,8 @@ ruleTester.run("require-img-alt", rule, {
         {
           messageId: "missingAlt",
           line: 4,
-          column: 6,
-          endColumn: 29,
+          column: 5,
+          endColumn: 28,
           endLine: 4,
         },
       ],

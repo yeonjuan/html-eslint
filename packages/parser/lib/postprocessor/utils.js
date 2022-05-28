@@ -54,32 +54,28 @@ function getLocFromChildNodes(childNodes) {
 function createLines(locNode, text) {
   let start = locNode.start;
   let line = locNode.loc.start.line;
+  const startCol = locNode.loc.start.column;
 
-  return text.split("\n").map((textLine) => {
-    const lengthWithoutIndent = textLine.trimStart().length;
-    const indentLength = textLine.length - lengthWithoutIndent;
-
-    start += indentLength;
-
+  return text.split("\n").map((textLine, index) => {
+    const columnStart = index === 0 ? startCol : 0;
     const node = {
       textLine,
       start,
-      end: start + lengthWithoutIndent,
-      range: [start, start + lengthWithoutIndent],
+      end: start + textLine.length,
+      range: [start, start + textLine.length],
       loc: {
         start: {
           line,
-          column: indentLength + 1,
+          column: columnStart,
         },
         end: {
           line,
-          column: textLine.length + 1,
+          column: columnStart + textLine.length,
         },
       },
     };
-
+    start += (textLine.length + 1);
     line += 1;
-    start += lengthWithoutIndent + 1;
 
     return node;
   });
