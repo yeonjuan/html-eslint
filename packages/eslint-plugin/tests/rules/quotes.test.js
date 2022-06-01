@@ -14,6 +14,14 @@ ruleTester.run("quotes", rule, {
     {
       code: `<div id = " foo">`,
     },
+    // https://github.com/yeonjuan/html-eslint/issues/95
+    {
+      code: `<div id='"foo"'></div>`,
+    },
+    {
+      code: `<div id="'foo'"></div>`,
+      options: ["single"],
+    },
     {
       code: `
 <div id="
