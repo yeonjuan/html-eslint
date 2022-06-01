@@ -22,7 +22,7 @@ ruleTester.run("require-button-type", rule, {
         {
           messageId: "missing",
           line: 1,
-          column: 2,
+          column: 1,
         },
       ],
     },
@@ -32,7 +32,7 @@ ruleTester.run("require-button-type", rule, {
         {
           message: '"invalid" is an invalid value for button type attribute.',
           line: 1,
-          column: 10,
+          column: 9,
         },
       ],
     },

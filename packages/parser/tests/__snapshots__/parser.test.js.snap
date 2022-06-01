@@ -8,11 +8,11 @@ Object {
       "end": 18,
       "loc": Object {
         "end": Object {
-          "column": 18,
+          "column": 17,
           "line": 2,
         },
         "start": Object {
-          "column": 3,
+          "column": 2,
           "line": 2,
         },
       },
@@ -34,11 +34,11 @@ Object {
         "end": 37,
         "loc": Object {
           "end": Object {
-            "column": 10,
+            "column": 9,
             "line": 4,
           },
           "start": Object {
-            "column": 3,
+            "column": 2,
             "line": 4,
           },
         },
@@ -50,11 +50,11 @@ Object {
       },
       "loc": Object {
         "end": Object {
-          "column": 10,
+          "column": 9,
           "line": 4,
         },
         "start": Object {
-          "column": 3,
+          "column": 2,
           "line": 3,
         },
       },
@@ -68,11 +68,11 @@ Object {
         "end": 27,
         "loc": Object {
           "end": Object {
-            "column": 9,
+            "column": 8,
             "line": 3,
           },
           "start": Object {
-            "column": 3,
+            "column": 2,
             "line": 3,
           },
         },
@@ -90,11 +90,11 @@ Object {
   "end": 37,
   "loc": Object {
     "end": Object {
-      "column": 10,
+      "column": 9,
       "line": 4,
     },
     "start": Object {
-      "column": 3,
+      "column": 2,
       "line": 2,
     },
   },
@@ -119,11 +119,11 @@ Object {
           "end": 16,
           "loc": Object {
             "end": Object {
-              "column": 16,
+              "column": 15,
               "line": 2,
             },
             "start": Object {
-              "column": 6,
+              "column": 5,
               "line": 2,
             },
           },
@@ -144,11 +144,11 @@ Object {
               "end": 17,
               "loc": Object {
                 "end": Object {
-                  "column": 1,
+                  "column": 16,
                   "line": 2,
                 },
                 "start": Object {
-                  "column": 1,
+                  "column": 16,
                   "line": 2,
                 },
               },
@@ -163,11 +163,11 @@ Object {
               "end": 18,
               "loc": Object {
                 "end": Object {
-                  "column": 1,
+                  "column": 0,
                   "line": 3,
                 },
                 "start": Object {
-                  "column": 1,
+                  "column": 0,
                   "line": 3,
                 },
               },
@@ -181,11 +181,11 @@ Object {
           ],
           "loc": Object {
             "end": Object {
-              "column": 1,
+              "column": 0,
               "line": 3,
             },
             "start": Object {
-              "column": 17,
+              "column": 16,
               "line": 2,
             },
           },
@@ -204,11 +204,11 @@ Object {
         "end": 24,
         "loc": Object {
           "end": Object {
-            "column": 7,
+            "column": 6,
             "line": 3,
           },
           "start": Object {
-            "column": 1,
+            "column": 0,
             "line": 3,
           },
         },
@@ -220,11 +220,11 @@ Object {
       },
       "loc": Object {
         "end": Object {
-          "column": 7,
+          "column": 6,
           "line": 3,
         },
         "start": Object {
-          "column": 1,
+          "column": 0,
           "line": 2,
         },
       },
@@ -238,11 +238,11 @@ Object {
         "end": 17,
         "loc": Object {
           "end": Object {
-            "column": 17,
+            "column": 16,
             "line": 2,
           },
           "start": Object {
-            "column": 1,
+            "column": 0,
             "line": 2,
           },
         },
@@ -262,11 +262,11 @@ Object {
           "end": 24,
           "loc": Object {
             "end": Object {
-              "column": 1,
+              "column": 6,
               "line": 3,
             },
             "start": Object {
-              "column": 1,
+              "column": 6,
               "line": 3,
             },
           },
@@ -281,11 +281,11 @@ Object {
           "end": 25,
           "loc": Object {
             "end": Object {
-              "column": 1,
+              "column": 0,
               "line": 4,
             },
             "start": Object {
-              "column": 1,
+              "column": 0,
               "line": 4,
             },
           },
@@ -299,11 +299,11 @@ Object {
       ],
       "loc": Object {
         "end": Object {
-          "column": 1,
+          "column": 0,
           "line": 4,
         },
         "start": Object {
-          "column": 7,
+          "column": 6,
           "line": 3,
         },
       },
@@ -321,7 +321,7 @@ Object {
   "end": 25,
   "loc": Object {
     "end": Object {
-      "column": 1,
+      "column": 0,
       "line": 4,
     },
     "start": Object {
@@ -335,93 +335,6 @@ Object {
     25,
   ],
   "start": 0,
-  "tokens": Array [],
-  "type": "Program",
-}
-`;
-
-exports[`parser base 1`] = `
-Object {
-  "body": Array [],
-  "childNodes": Array [
-    Object {
-      "attrs": Array [],
-      "childNodes": Array [],
-      "end": 19,
-      "endTag": Object {
-        "end": 19,
-        "loc": Object {
-          "end": Object {
-            "column": 10,
-            "line": 3,
-          },
-          "start": Object {
-            "column": 3,
-            "line": 3,
-          },
-        },
-        "range": Array [
-          12,
-          19,
-        ],
-        "start": 12,
-      },
-      "loc": Object {
-        "end": Object {
-          "column": 10,
-          "line": 3,
-        },
-        "start": Object {
-          "column": 3,
-          "line": 2,
-        },
-      },
-      "namespaceURI": "http://www.w3.org/1999/xhtml",
-      "range": Array [
-        3,
-        19,
-      ],
-      "start": 3,
-      "startTag": Object {
-        "end": 9,
-        "loc": Object {
-          "end": Object {
-            "column": 9,
-            "line": 2,
-          },
-          "start": Object {
-            "column": 3,
-            "line": 2,
-          },
-        },
-        "range": Array [
-          3,
-          9,
-        ],
-        "start": 3,
-      },
-      "tagName": "html",
-      "type": "Html",
-    },
-  ],
-  "comments": Array [],
-  "end": 19,
-  "loc": Object {
-    "end": Object {
-      "column": 10,
-      "line": 3,
-    },
-    "start": Object {
-      "column": 3,
-      "line": 2,
-    },
-  },
-  "mode": "quirks",
-  "range": Array [
-    3,
-    19,
-  ],
-  "start": 3,
   "tokens": Array [],
   "type": "Program",
 }
@@ -441,11 +354,11 @@ Object {
               "end": 6,
               "loc": Object {
                 "end": Object {
-                  "column": 1,
+                  "column": 5,
                   "line": 2,
                 },
                 "start": Object {
-                  "column": 1,
+                  "column": 5,
                   "line": 2,
                 },
               },
@@ -460,11 +373,11 @@ Object {
               "end": 7,
               "loc": Object {
                 "end": Object {
-                  "column": 1,
+                  "column": 0,
                   "line": 3,
                 },
                 "start": Object {
-                  "column": 1,
+                  "column": 0,
                   "line": 3,
                 },
               },
@@ -478,11 +391,11 @@ Object {
           ],
           "loc": Object {
             "end": Object {
-              "column": 1,
+              "column": 0,
               "line": 3,
             },
             "start": Object {
-              "column": 6,
+              "column": 5,
               "line": 2,
             },
           },
@@ -501,11 +414,11 @@ Object {
             "end": 24,
             "loc": Object {
               "end": Object {
-                "column": 17,
+                "column": 16,
                 "line": 3,
               },
               "start": Object {
-                "column": 14,
+                "column": 13,
                 "line": 3,
               },
             },
@@ -520,29 +433,29 @@ Object {
               "end": 20,
               "loc": Object {
                 "end": Object {
-                  "column": 10,
+                  "column": 13,
                   "line": 3,
                 },
                 "start": Object {
-                  "column": 2,
+                  "column": 4,
                   "line": 3,
                 },
               },
               "range": Array [
-                12,
+                11,
                 20,
               ],
-              "start": 12,
+              "start": 11,
               "textLine": " comment ",
             },
           ],
           "loc": Object {
             "end": Object {
-              "column": 17,
+              "column": 16,
               "line": 3,
             },
             "start": Object {
-              "column": 1,
+              "column": 0,
               "line": 3,
             },
           },
@@ -555,11 +468,11 @@ Object {
             "end": 11,
             "loc": Object {
               "end": Object {
-                "column": 6,
+                "column": 5,
                 "line": 3,
               },
               "start": Object {
-                "column": 1,
+                "column": 0,
                 "line": 3,
               },
             },
@@ -579,11 +492,11 @@ Object {
               "end": 23,
               "loc": Object {
                 "end": Object {
-                  "column": 1,
+                  "column": 16,
                   "line": 3,
                 },
                 "start": Object {
-                  "column": 1,
+                  "column": 16,
                   "line": 3,
                 },
               },
@@ -598,11 +511,11 @@ Object {
               "end": 24,
               "loc": Object {
                 "end": Object {
-                  "column": 1,
+                  "column": 0,
                   "line": 4,
                 },
                 "start": Object {
-                  "column": 1,
+                  "column": 0,
                   "line": 4,
                 },
               },
@@ -616,11 +529,11 @@ Object {
           ],
           "loc": Object {
             "end": Object {
-              "column": 1,
+              "column": 0,
               "line": 4,
             },
             "start": Object {
-              "column": 17,
+              "column": 16,
               "line": 3,
             },
           },
@@ -639,11 +552,11 @@ Object {
         "end": 30,
         "loc": Object {
           "end": Object {
-            "column": 7,
+            "column": 6,
             "line": 4,
           },
           "start": Object {
-            "column": 1,
+            "column": 0,
             "line": 4,
           },
         },
@@ -655,11 +568,11 @@ Object {
       },
       "loc": Object {
         "end": Object {
-          "column": 7,
+          "column": 6,
           "line": 4,
         },
         "start": Object {
-          "column": 1,
+          "column": 0,
           "line": 2,
         },
       },
@@ -673,11 +586,11 @@ Object {
         "end": 6,
         "loc": Object {
           "end": Object {
-            "column": 6,
+            "column": 5,
             "line": 2,
           },
           "start": Object {
-            "column": 1,
+            "column": 0,
             "line": 2,
           },
         },
@@ -697,11 +610,11 @@ Object {
           "end": 30,
           "loc": Object {
             "end": Object {
-              "column": 1,
+              "column": 6,
               "line": 4,
             },
             "start": Object {
-              "column": 1,
+              "column": 6,
               "line": 4,
             },
           },
@@ -716,11 +629,11 @@ Object {
           "end": 31,
           "loc": Object {
             "end": Object {
-              "column": 1,
+              "column": 0,
               "line": 5,
             },
             "start": Object {
-              "column": 1,
+              "column": 0,
               "line": 5,
             },
           },
@@ -734,11 +647,11 @@ Object {
       ],
       "loc": Object {
         "end": Object {
-          "column": 1,
+          "column": 0,
           "line": 5,
         },
         "start": Object {
-          "column": 7,
+          "column": 6,
           "line": 4,
         },
       },
@@ -759,11 +672,11 @@ Object {
         "end": 24,
         "loc": Object {
           "end": Object {
-            "column": 17,
+            "column": 16,
             "line": 3,
           },
           "start": Object {
-            "column": 14,
+            "column": 13,
             "line": 3,
           },
         },
@@ -778,29 +691,29 @@ Object {
           "end": 20,
           "loc": Object {
             "end": Object {
-              "column": 10,
+              "column": 13,
               "line": 3,
             },
             "start": Object {
-              "column": 2,
+              "column": 4,
               "line": 3,
             },
           },
           "range": Array [
-            12,
+            11,
             20,
           ],
-          "start": 12,
+          "start": 11,
           "textLine": " comment ",
         },
       ],
       "loc": Object {
         "end": Object {
-          "column": 17,
+          "column": 16,
           "line": 3,
         },
         "start": Object {
-          "column": 1,
+          "column": 0,
           "line": 3,
         },
       },
@@ -813,11 +726,11 @@ Object {
         "end": 11,
         "loc": Object {
           "end": Object {
-            "column": 6,
+            "column": 5,
             "line": 3,
           },
           "start": Object {
-            "column": 1,
+            "column": 0,
             "line": 3,
           },
         },
@@ -834,7 +747,7 @@ Object {
   "end": 31,
   "loc": Object {
     "end": Object {
-      "column": 1,
+      "column": 0,
       "line": 5,
     },
     "start": Object {
@@ -863,11 +776,11 @@ Object {
         "end": 20,
         "loc": Object {
           "end": Object {
-            "column": 4,
+            "column": 3,
             "line": 4,
           },
           "start": Object {
-            "column": 1,
+            "column": 0,
             "line": 4,
           },
         },
@@ -882,11 +795,11 @@ Object {
           "end": 5,
           "loc": Object {
             "end": Object {
-              "column": 1,
+              "column": 4,
               "line": 2,
             },
             "start": Object {
-              "column": 1,
+              "column": 4,
               "line": 2,
             },
           },
@@ -901,30 +814,30 @@ Object {
           "end": 15,
           "loc": Object {
             "end": Object {
-              "column": 10,
+              "column": 9,
               "line": 3,
             },
             "start": Object {
-              "column": 3,
+              "column": 0,
               "line": 3,
             },
           },
           "range": Array [
-            8,
+            6,
             15,
           ],
-          "start": 8,
+          "start": 6,
           "textLine": "  comment",
         },
         Object {
           "end": 16,
           "loc": Object {
             "end": Object {
-              "column": 1,
+              "column": 0,
               "line": 4,
             },
             "start": Object {
-              "column": 1,
+              "column": 0,
               "line": 4,
             },
           },
@@ -938,11 +851,11 @@ Object {
       ],
       "loc": Object {
         "end": Object {
-          "column": 4,
+          "column": 3,
           "line": 4,
         },
         "start": Object {
-          "column": 1,
+          "column": 0,
           "line": 2,
         },
       },
@@ -955,11 +868,11 @@ Object {
         "end": 5,
         "loc": Object {
           "end": Object {
-            "column": 6,
+            "column": 5,
             "line": 2,
           },
           "start": Object {
-            "column": 1,
+            "column": 0,
             "line": 2,
           },
         },
@@ -982,11 +895,11 @@ Object {
         "end": 20,
         "loc": Object {
           "end": Object {
-            "column": 4,
+            "column": 3,
             "line": 4,
           },
           "start": Object {
-            "column": 1,
+            "column": 0,
             "line": 4,
           },
         },
@@ -1001,11 +914,11 @@ Object {
           "end": 5,
           "loc": Object {
             "end": Object {
-              "column": 1,
+              "column": 4,
               "line": 2,
             },
             "start": Object {
-              "column": 1,
+              "column": 4,
               "line": 2,
             },
           },
@@ -1020,30 +933,30 @@ Object {
           "end": 15,
           "loc": Object {
             "end": Object {
-              "column": 10,
+              "column": 9,
               "line": 3,
             },
             "start": Object {
-              "column": 3,
+              "column": 0,
               "line": 3,
             },
           },
           "range": Array [
-            8,
+            6,
             15,
           ],
-          "start": 8,
+          "start": 6,
           "textLine": "  comment",
         },
         Object {
           "end": 16,
           "loc": Object {
             "end": Object {
-              "column": 1,
+              "column": 0,
               "line": 4,
             },
             "start": Object {
-              "column": 1,
+              "column": 0,
               "line": 4,
             },
           },
@@ -1057,11 +970,11 @@ Object {
       ],
       "loc": Object {
         "end": Object {
-          "column": 4,
+          "column": 3,
           "line": 4,
         },
         "start": Object {
-          "column": 1,
+          "column": 0,
           "line": 2,
         },
       },
@@ -1074,11 +987,11 @@ Object {
         "end": 5,
         "loc": Object {
           "end": Object {
-            "column": 6,
+            "column": 5,
             "line": 2,
           },
           "start": Object {
-            "column": 1,
+            "column": 0,
             "line": 2,
           },
         },
@@ -1101,7 +1014,7 @@ Object {
       "line": 0,
     },
     "start": Object {
-      "column": 1,
+      "column": 0,
       "line": 2,
     },
   },
@@ -1124,11 +1037,11 @@ Object {
       "end": 15,
       "loc": Object {
         "end": Object {
-          "column": 16,
+          "column": 15,
           "line": 1,
         },
         "start": Object {
-          "column": 1,
+          "column": 0,
           "line": 1,
         },
       },
@@ -1148,11 +1061,11 @@ Object {
           "end": 35,
           "loc": Object {
             "end": Object {
-              "column": 20,
+              "column": 19,
               "line": 2,
             },
             "start": Object {
-              "column": 11,
+              "column": 10,
               "line": 2,
             },
           },
@@ -1173,11 +1086,11 @@ Object {
               "end": 48,
               "loc": Object {
                 "end": Object {
-                  "column": 1,
+                  "column": 11,
                   "line": 3,
                 },
                 "start": Object {
-                  "column": 1,
+                  "column": 11,
                   "line": 3,
                 },
               },
@@ -1192,29 +1105,29 @@ Object {
               "end": 53,
               "loc": Object {
                 "end": Object {
-                  "column": 5,
+                  "column": 4,
                   "line": 4,
                 },
                 "start": Object {
-                  "column": 5,
+                  "column": 0,
                   "line": 4,
                 },
               },
               "range": Array [
-                53,
+                49,
                 53,
               ],
-              "start": 53,
+              "start": 49,
               "textLine": "    ",
             },
           ],
           "loc": Object {
             "end": Object {
-              "column": 5,
+              "column": 4,
               "line": 4,
             },
             "start": Object {
-              "column": 12,
+              "column": 11,
               "line": 3,
             },
           },
@@ -1237,11 +1150,11 @@ Object {
                   "end": 59,
                   "loc": Object {
                     "end": Object {
-                      "column": 1,
+                      "column": 10,
                       "line": 4,
                     },
                     "start": Object {
-                      "column": 1,
+                      "column": 10,
                       "line": 4,
                     },
                   },
@@ -1256,48 +1169,48 @@ Object {
                   "end": 64,
                   "loc": Object {
                     "end": Object {
-                      "column": 5,
+                      "column": 4,
                       "line": 5,
                     },
                     "start": Object {
-                      "column": 5,
+                      "column": 0,
                       "line": 5,
                     },
                   },
                   "range": Array [
-                    64,
+                    60,
                     64,
                   ],
-                  "start": 64,
+                  "start": 60,
                   "textLine": "    ",
                 },
                 Object {
                   "end": 71,
                   "loc": Object {
                     "end": Object {
-                      "column": 7,
+                      "column": 6,
                       "line": 6,
                     },
                     "start": Object {
-                      "column": 7,
+                      "column": 0,
                       "line": 6,
                     },
                   },
                   "range": Array [
-                    71,
+                    65,
                     71,
                   ],
-                  "start": 71,
+                  "start": 65,
                   "textLine": "      ",
                 },
               ],
               "loc": Object {
                 "end": Object {
-                  "column": 7,
+                  "column": 6,
                   "line": 6,
                 },
                 "start": Object {
-                  "column": 11,
+                  "column": 10,
                   "line": 4,
                 },
               },
@@ -1321,11 +1234,11 @@ Object {
                       "end": 78,
                       "loc": Object {
                         "end": Object {
-                          "column": 1,
+                          "column": 13,
                           "line": 6,
                         },
                         "start": Object {
-                          "column": 1,
+                          "column": 13,
                           "line": 6,
                         },
                       },
@@ -1340,29 +1253,29 @@ Object {
                       "end": 87,
                       "loc": Object {
                         "end": Object {
-                          "column": 9,
+                          "column": 8,
                           "line": 7,
                         },
                         "start": Object {
-                          "column": 9,
+                          "column": 0,
                           "line": 7,
                         },
                       },
                       "range": Array [
-                        87,
+                        79,
                         87,
                       ],
-                      "start": 87,
+                      "start": 79,
                       "textLine": "        ",
                     },
                   ],
                   "loc": Object {
                     "end": Object {
-                      "column": 9,
+                      "column": 8,
                       "line": 7,
                     },
                     "start": Object {
-                      "column": 14,
+                      "column": 13,
                       "line": 6,
                     },
                   },
@@ -1385,11 +1298,11 @@ Object {
                           "end": 91,
                           "loc": Object {
                             "end": Object {
-                              "column": 1,
+                              "column": 12,
                               "line": 7,
                             },
                             "start": Object {
-                              "column": 1,
+                              "column": 12,
                               "line": 7,
                             },
                           },
@@ -1404,29 +1317,29 @@ Object {
                           "end": 102,
                           "loc": Object {
                             "end": Object {
-                              "column": 11,
+                              "column": 10,
                               "line": 8,
                             },
                             "start": Object {
-                              "column": 11,
+                              "column": 0,
                               "line": 8,
                             },
                           },
                           "range": Array [
-                            102,
+                            92,
                             102,
                           ],
-                          "start": 102,
+                          "start": 92,
                           "textLine": "          ",
                         },
                       ],
                       "loc": Object {
                         "end": Object {
-                          "column": 11,
+                          "column": 10,
                           "line": 8,
                         },
                         "start": Object {
-                          "column": 13,
+                          "column": 12,
                           "line": 7,
                         },
                       },
@@ -1449,11 +1362,11 @@ Object {
                               "end": 113,
                               "loc": Object {
                                 "end": Object {
-                                  "column": 8,
+                                  "column": 21,
                                   "line": 8,
                                 },
                                 "start": Object {
-                                  "column": 1,
+                                  "column": 14,
                                   "line": 8,
                                 },
                               },
@@ -1467,11 +1380,11 @@ Object {
                           ],
                           "loc": Object {
                             "end": Object {
-                              "column": 22,
+                              "column": 21,
                               "line": 8,
                             },
                             "start": Object {
-                              "column": 15,
+                              "column": 14,
                               "line": 8,
                             },
                           },
@@ -1489,11 +1402,11 @@ Object {
                         "end": 118,
                         "loc": Object {
                           "end": Object {
-                            "column": 27,
+                            "column": 26,
                             "line": 8,
                           },
                           "start": Object {
-                            "column": 22,
+                            "column": 21,
                             "line": 8,
                           },
                         },
@@ -1505,11 +1418,11 @@ Object {
                       },
                       "loc": Object {
                         "end": Object {
-                          "column": 27,
+                          "column": 26,
                           "line": 8,
                         },
                         "start": Object {
-                          "column": 11,
+                          "column": 10,
                           "line": 8,
                         },
                       },
@@ -1523,11 +1436,11 @@ Object {
                         "end": 106,
                         "loc": Object {
                           "end": Object {
-                            "column": 15,
+                            "column": 14,
                             "line": 8,
                           },
                           "start": Object {
-                            "column": 11,
+                            "column": 10,
                             "line": 8,
                           },
                         },
@@ -1547,11 +1460,11 @@ Object {
                           "end": 118,
                           "loc": Object {
                             "end": Object {
-                              "column": 1,
+                              "column": 26,
                               "line": 8,
                             },
                             "start": Object {
-                              "column": 1,
+                              "column": 26,
                               "line": 8,
                             },
                           },
@@ -1566,29 +1479,29 @@ Object {
                           "end": 127,
                           "loc": Object {
                             "end": Object {
-                              "column": 9,
+                              "column": 8,
                               "line": 9,
                             },
                             "start": Object {
-                              "column": 9,
+                              "column": 0,
                               "line": 9,
                             },
                           },
                           "range": Array [
-                            127,
+                            119,
                             127,
                           ],
-                          "start": 127,
+                          "start": 119,
                           "textLine": "        ",
                         },
                       ],
                       "loc": Object {
                         "end": Object {
-                          "column": 9,
+                          "column": 8,
                           "line": 9,
                         },
                         "start": Object {
-                          "column": 27,
+                          "column": 26,
                           "line": 8,
                         },
                       },
@@ -1607,11 +1520,11 @@ Object {
                     "end": 132,
                     "loc": Object {
                       "end": Object {
-                        "column": 14,
+                        "column": 13,
                         "line": 9,
                       },
                       "start": Object {
-                        "column": 9,
+                        "column": 8,
                         "line": 9,
                       },
                     },
@@ -1623,11 +1536,11 @@ Object {
                   },
                   "loc": Object {
                     "end": Object {
-                      "column": 14,
+                      "column": 13,
                       "line": 9,
                     },
                     "start": Object {
-                      "column": 9,
+                      "column": 8,
                       "line": 7,
                     },
                   },
@@ -1641,11 +1554,11 @@ Object {
                     "end": 91,
                     "loc": Object {
                       "end": Object {
-                        "column": 13,
+                        "column": 12,
                         "line": 7,
                       },
                       "start": Object {
-                        "column": 9,
+                        "column": 8,
                         "line": 7,
                       },
                     },
@@ -1665,11 +1578,11 @@ Object {
                       "end": 132,
                       "loc": Object {
                         "end": Object {
-                          "column": 1,
+                          "column": 13,
                           "line": 9,
                         },
                         "start": Object {
-                          "column": 1,
+                          "column": 13,
                           "line": 9,
                         },
                       },
@@ -1684,29 +1597,29 @@ Object {
                       "end": 139,
                       "loc": Object {
                         "end": Object {
-                          "column": 7,
+                          "column": 6,
                           "line": 10,
                         },
                         "start": Object {
-                          "column": 7,
+                          "column": 0,
                           "line": 10,
                         },
                       },
                       "range": Array [
-                        139,
+                        133,
                         139,
                       ],
-                      "start": 139,
+                      "start": 133,
                       "textLine": "      ",
                     },
                   ],
                   "loc": Object {
                     "end": Object {
-                      "column": 7,
+                      "column": 6,
                       "line": 10,
                     },
                     "start": Object {
-                      "column": 14,
+                      "column": 13,
                       "line": 9,
                     },
                   },
@@ -1725,11 +1638,11 @@ Object {
                 "end": 147,
                 "loc": Object {
                   "end": Object {
-                    "column": 15,
+                    "column": 14,
                     "line": 10,
                   },
                   "start": Object {
-                    "column": 7,
+                    "column": 6,
                     "line": 10,
                   },
                 },
@@ -1741,11 +1654,11 @@ Object {
               },
               "loc": Object {
                 "end": Object {
-                  "column": 15,
+                  "column": 14,
                   "line": 10,
                 },
                 "start": Object {
-                  "column": 7,
+                  "column": 6,
                   "line": 6,
                 },
               },
@@ -1759,11 +1672,11 @@ Object {
                 "end": 78,
                 "loc": Object {
                   "end": Object {
-                    "column": 14,
+                    "column": 13,
                     "line": 6,
                   },
                   "start": Object {
-                    "column": 7,
+                    "column": 6,
                     "line": 6,
                   },
                 },
@@ -1783,11 +1696,11 @@ Object {
                   "end": 147,
                   "loc": Object {
                     "end": Object {
-                      "column": 1,
+                      "column": 14,
                       "line": 10,
                     },
                     "start": Object {
-                      "column": 1,
+                      "column": 14,
                       "line": 10,
                     },
                   },
@@ -1802,48 +1715,48 @@ Object {
                   "end": 152,
                   "loc": Object {
                     "end": Object {
-                      "column": 5,
+                      "column": 4,
                       "line": 11,
                     },
                     "start": Object {
-                      "column": 5,
+                      "column": 0,
                       "line": 11,
                     },
                   },
                   "range": Array [
-                    152,
+                    148,
                     152,
                   ],
-                  "start": 152,
+                  "start": 148,
                   "textLine": "    ",
                 },
                 Object {
                   "end": 159,
                   "loc": Object {
                     "end": Object {
-                      "column": 7,
+                      "column": 6,
                       "line": 12,
                     },
                     "start": Object {
-                      "column": 7,
+                      "column": 0,
                       "line": 12,
                     },
                   },
                   "range": Array [
-                    159,
+                    153,
                     159,
                   ],
-                  "start": 159,
+                  "start": 153,
                   "textLine": "      ",
                 },
               ],
               "loc": Object {
                 "end": Object {
-                  "column": 7,
+                  "column": 6,
                   "line": 12,
                 },
                 "start": Object {
-                  "column": 15,
+                  "column": 14,
                   "line": 10,
                 },
               },
@@ -1867,11 +1780,11 @@ Object {
                       "end": 166,
                       "loc": Object {
                         "end": Object {
-                          "column": 1,
+                          "column": 13,
                           "line": 12,
                         },
                         "start": Object {
-                          "column": 1,
+                          "column": 13,
                           "line": 12,
                         },
                       },
@@ -1886,29 +1799,29 @@ Object {
                       "end": 175,
                       "loc": Object {
                         "end": Object {
-                          "column": 9,
+                          "column": 8,
                           "line": 13,
                         },
                         "start": Object {
-                          "column": 9,
+                          "column": 0,
                           "line": 13,
                         },
                       },
                       "range": Array [
-                        175,
+                        167,
                         175,
                       ],
-                      "start": 175,
+                      "start": 167,
                       "textLine": "        ",
                     },
                   ],
                   "loc": Object {
                     "end": Object {
-                      "column": 9,
+                      "column": 8,
                       "line": 13,
                     },
                     "start": Object {
-                      "column": 14,
+                      "column": 13,
                       "line": 12,
                     },
                   },
@@ -1931,11 +1844,11 @@ Object {
                           "end": 179,
                           "loc": Object {
                             "end": Object {
-                              "column": 1,
+                              "column": 12,
                               "line": 13,
                             },
                             "start": Object {
-                              "column": 1,
+                              "column": 12,
                               "line": 13,
                             },
                           },
@@ -1950,29 +1863,29 @@ Object {
                           "end": 190,
                           "loc": Object {
                             "end": Object {
-                              "column": 11,
+                              "column": 10,
                               "line": 14,
                             },
                             "start": Object {
-                              "column": 11,
+                              "column": 0,
                               "line": 14,
                             },
                           },
                           "range": Array [
-                            190,
+                            180,
                             190,
                           ],
-                          "start": 190,
+                          "start": 180,
                           "textLine": "          ",
                         },
                       ],
                       "loc": Object {
                         "end": Object {
-                          "column": 11,
+                          "column": 10,
                           "line": 14,
                         },
                         "start": Object {
-                          "column": 13,
+                          "column": 12,
                           "line": 13,
                         },
                       },
@@ -1995,11 +1908,11 @@ Object {
                               "end": 201,
                               "loc": Object {
                                 "end": Object {
-                                  "column": 8,
+                                  "column": 21,
                                   "line": 14,
                                 },
                                 "start": Object {
-                                  "column": 1,
+                                  "column": 14,
                                   "line": 14,
                                 },
                               },
@@ -2013,11 +1926,11 @@ Object {
                           ],
                           "loc": Object {
                             "end": Object {
-                              "column": 22,
+                              "column": 21,
                               "line": 14,
                             },
                             "start": Object {
-                              "column": 15,
+                              "column": 14,
                               "line": 14,
                             },
                           },
@@ -2035,11 +1948,11 @@ Object {
                         "end": 206,
                         "loc": Object {
                           "end": Object {
-                            "column": 27,
+                            "column": 26,
                             "line": 14,
                           },
                           "start": Object {
-                            "column": 22,
+                            "column": 21,
                             "line": 14,
                           },
                         },
@@ -2051,11 +1964,11 @@ Object {
                       },
                       "loc": Object {
                         "end": Object {
-                          "column": 27,
+                          "column": 26,
                           "line": 14,
                         },
                         "start": Object {
-                          "column": 11,
+                          "column": 10,
                           "line": 14,
                         },
                       },
@@ -2069,11 +1982,11 @@ Object {
                         "end": 194,
                         "loc": Object {
                           "end": Object {
-                            "column": 15,
+                            "column": 14,
                             "line": 14,
                           },
                           "start": Object {
-                            "column": 11,
+                            "column": 10,
                             "line": 14,
                           },
                         },
@@ -2093,11 +2006,11 @@ Object {
                           "end": 206,
                           "loc": Object {
                             "end": Object {
-                              "column": 1,
+                              "column": 26,
                               "line": 14,
                             },
                             "start": Object {
-                              "column": 1,
+                              "column": 26,
                               "line": 14,
                             },
                           },
@@ -2112,29 +2025,29 @@ Object {
                           "end": 215,
                           "loc": Object {
                             "end": Object {
-                              "column": 9,
+                              "column": 8,
                               "line": 15,
                             },
                             "start": Object {
-                              "column": 9,
+                              "column": 0,
                               "line": 15,
                             },
                           },
                           "range": Array [
-                            215,
+                            207,
                             215,
                           ],
-                          "start": 215,
+                          "start": 207,
                           "textLine": "        ",
                         },
                       ],
                       "loc": Object {
                         "end": Object {
-                          "column": 9,
+                          "column": 8,
                           "line": 15,
                         },
                         "start": Object {
-                          "column": 27,
+                          "column": 26,
                           "line": 14,
                         },
                       },
@@ -2153,11 +2066,11 @@ Object {
                     "end": 220,
                     "loc": Object {
                       "end": Object {
-                        "column": 14,
+                        "column": 13,
                         "line": 15,
                       },
                       "start": Object {
-                        "column": 9,
+                        "column": 8,
                         "line": 15,
                       },
                     },
@@ -2169,11 +2082,11 @@ Object {
                   },
                   "loc": Object {
                     "end": Object {
-                      "column": 14,
+                      "column": 13,
                       "line": 15,
                     },
                     "start": Object {
-                      "column": 9,
+                      "column": 8,
                       "line": 13,
                     },
                   },
@@ -2187,11 +2100,11 @@ Object {
                     "end": 179,
                     "loc": Object {
                       "end": Object {
-                        "column": 13,
+                        "column": 12,
                         "line": 13,
                       },
                       "start": Object {
-                        "column": 9,
+                        "column": 8,
                         "line": 13,
                       },
                     },
@@ -2211,11 +2124,11 @@ Object {
                       "end": 220,
                       "loc": Object {
                         "end": Object {
-                          "column": 1,
+                          "column": 13,
                           "line": 15,
                         },
                         "start": Object {
-                          "column": 1,
+                          "column": 13,
                           "line": 15,
                         },
                       },
@@ -2230,29 +2143,29 @@ Object {
                       "end": 227,
                       "loc": Object {
                         "end": Object {
-                          "column": 7,
+                          "column": 6,
                           "line": 16,
                         },
                         "start": Object {
-                          "column": 7,
+                          "column": 0,
                           "line": 16,
                         },
                       },
                       "range": Array [
-                        227,
+                        221,
                         227,
                       ],
-                      "start": 227,
+                      "start": 221,
                       "textLine": "      ",
                     },
                   ],
                   "loc": Object {
                     "end": Object {
-                      "column": 7,
+                      "column": 6,
                       "line": 16,
                     },
                     "start": Object {
-                      "column": 14,
+                      "column": 13,
                       "line": 15,
                     },
                   },
@@ -2271,11 +2184,11 @@ Object {
                 "end": 235,
                 "loc": Object {
                   "end": Object {
-                    "column": 15,
+                    "column": 14,
                     "line": 16,
                   },
                   "start": Object {
-                    "column": 7,
+                    "column": 6,
                     "line": 16,
                   },
                 },
@@ -2287,11 +2200,11 @@ Object {
               },
               "loc": Object {
                 "end": Object {
-                  "column": 15,
+                  "column": 14,
                   "line": 16,
                 },
                 "start": Object {
-                  "column": 7,
+                  "column": 6,
                   "line": 12,
                 },
               },
@@ -2305,11 +2218,11 @@ Object {
                 "end": 166,
                 "loc": Object {
                   "end": Object {
-                    "column": 14,
+                    "column": 13,
                     "line": 12,
                   },
                   "start": Object {
-                    "column": 7,
+                    "column": 6,
                     "line": 12,
                   },
                 },
@@ -2329,11 +2242,11 @@ Object {
                   "end": 235,
                   "loc": Object {
                     "end": Object {
-                      "column": 1,
+                      "column": 14,
                       "line": 16,
                     },
                     "start": Object {
-                      "column": 1,
+                      "column": 14,
                       "line": 16,
                     },
                   },
@@ -2348,67 +2261,67 @@ Object {
                   "end": 240,
                   "loc": Object {
                     "end": Object {
-                      "column": 5,
+                      "column": 4,
                       "line": 17,
                     },
                     "start": Object {
-                      "column": 5,
+                      "column": 0,
                       "line": 17,
                     },
                   },
                   "range": Array [
-                    240,
+                    236,
                     240,
                   ],
-                  "start": 240,
+                  "start": 236,
                   "textLine": "    ",
                 },
                 Object {
                   "end": 245,
                   "loc": Object {
                     "end": Object {
-                      "column": 5,
+                      "column": 4,
                       "line": 18,
                     },
                     "start": Object {
-                      "column": 5,
+                      "column": 0,
                       "line": 18,
                     },
                   },
                   "range": Array [
-                    245,
+                    241,
                     245,
                   ],
-                  "start": 245,
+                  "start": 241,
                   "textLine": "    ",
                 },
                 Object {
                   "end": 250,
                   "loc": Object {
                     "end": Object {
-                      "column": 5,
+                      "column": 4,
                       "line": 19,
                     },
                     "start": Object {
-                      "column": 5,
+                      "column": 0,
                       "line": 19,
                     },
                   },
                   "range": Array [
-                    250,
+                    246,
                     250,
                   ],
-                  "start": 250,
+                  "start": 246,
                   "textLine": "    ",
                 },
               ],
               "loc": Object {
                 "end": Object {
-                  "column": 5,
+                  "column": 4,
                   "line": 19,
                 },
                 "start": Object {
-                  "column": 15,
+                  "column": 14,
                   "line": 16,
                 },
               },
@@ -2429,11 +2342,11 @@ Object {
             "end": 252,
             "loc": Object {
               "end": Object {
-                "column": 12,
+                "column": 11,
                 "line": 18,
               },
               "start": Object {
-                "column": 5,
+                "column": 4,
                 "line": 18,
               },
             },
@@ -2445,11 +2358,11 @@ Object {
           },
           "loc": Object {
             "end": Object {
-              "column": 12,
+              "column": 11,
               "line": 19,
             },
             "start": Object {
-              "column": 5,
+              "column": 4,
               "line": 4,
             },
           },
@@ -2463,11 +2376,11 @@ Object {
             "end": 59,
             "loc": Object {
               "end": Object {
-                "column": 11,
+                "column": 10,
                 "line": 4,
               },
               "start": Object {
-                "column": 5,
+                "column": 4,
                 "line": 4,
               },
             },
@@ -2486,11 +2399,11 @@ Object {
         "end": 264,
         "loc": Object {
           "end": Object {
-            "column": 12,
+            "column": 11,
             "line": 19,
           },
           "start": Object {
-            "column": 5,
+            "column": 4,
             "line": 19,
           },
         },
@@ -2502,11 +2415,11 @@ Object {
       },
       "loc": Object {
         "end": Object {
-          "column": 12,
+          "column": 11,
           "line": 19,
         },
         "start": Object {
-          "column": 5,
+          "column": 4,
           "line": 2,
         },
       },
@@ -2520,11 +2433,11 @@ Object {
         "end": 36,
         "loc": Object {
           "end": Object {
-            "column": 21,
+            "column": 20,
             "line": 2,
           },
           "start": Object {
-            "column": 5,
+            "column": 4,
             "line": 2,
           },
         },
@@ -2542,11 +2455,11 @@ Object {
   "end": 264,
   "loc": Object {
     "end": Object {
-      "column": 12,
+      "column": 11,
       "line": 19,
     },
     "start": Object {
-      "column": 1,
+      "column": 0,
       "line": 1,
     },
   },

@@ -12,7 +12,6 @@
  * @typedef {Object} MessageId
  * @property {"wrongIndent"} WRONG_INDENT
  */
-
 const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
 const { NodeUtils } = require("./utils");
 
@@ -68,18 +67,33 @@ module.exports = {
   },
   create(context) {
     const sourceCode = context.getSourceCode();
+
     const indentLevel = new IndentLevel();
     const { indentType, indentSize } = getIndentTypeAndSize(context.options);
     const indentUnit =
       indentType === INDENT_TYPES.SPACE ? " ".repeat(indentSize) : "\t";
 
     /**
+     * @param {string} str
+     */
+    function countIndentSize(str) {
+      return str.length - str.replace(/^[\s\t]+/, "").length;
+    }
+
+    /**
      * @param {BaseNode} node
      */
     function getLineCodeBefore(node) {
-      return sourceCode.text
-        .slice(node.range[0] - node.loc.start.column, node.range[0])
-        .replace("\n", "");
+      const lines = sourceCode.getLines();
+      const line = lines[node.loc.start.line - 1];
+      let end = node.loc.start.column;
+      // @ts-ignore
+      if (typeof node.textLine === "string") {
+        // @ts-ignore
+        end += countIndentSize(node.textLine);
+      }
+
+      return line.slice(0, end);
     }
 
     /**
@@ -120,10 +134,9 @@ module.exports = {
               actual,
             },
             fix(fixer) {
-              return fixer.replaceTextRange(
-                [node.range[0] - (node.loc.start.column - 1), node.range[0]],
-                expectedIndent
-              );
+              const start = node.range[0] - node.loc.start.column;
+              const end = node.range[0];
+              return fixer.replaceTextRange([start, end], expectedIndent);
             },
           });
         }
