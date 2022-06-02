@@ -96,6 +96,10 @@ module.exports = {
      * @param {AttrNode} attr
      */
     function checkQuotes(attr) {
+      if (attr.value.includes(expectedQuote)) {
+        return;
+      }
+
       const [opening, closing] = getQuotes(attr);
       if (QUOTES_CODES.includes(opening)) {
         if (opening === closing && opening !== expectedQuote) {
