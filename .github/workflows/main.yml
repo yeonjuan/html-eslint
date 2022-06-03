@@ -1,5 +1,11 @@
 name: CI
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**"
 jobs:
   build:
     name: Test
@@ -10,6 +16,20 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 12.x
-      - run: npm ci
-      - run: npm run bootstrap
-      - run: npm run test:all
+
+      - name: setup
+        run: npm ci
+
+      - name: bootstrap
+        run: npm run bootstrap
+
+      - name: test
+        run: npm run test:all
+
+      - name: Code coverage report
+        uses: codecov/codecov-action@v2
+        with:
+          yml: ./codecov.yml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittest
+          name: codecov
