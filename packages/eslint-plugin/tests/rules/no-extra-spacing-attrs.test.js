@@ -24,6 +24,9 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
     `,
     },
     {
+      code: '<div foo="foo"\r\nbar="bar"></div>',
+    },
+    {
       code: `
   <html>
 <head>
