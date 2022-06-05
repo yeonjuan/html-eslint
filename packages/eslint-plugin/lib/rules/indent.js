@@ -135,7 +135,11 @@ module.exports = {
             },
             fix(fixer) {
               const start = node.range[0] - node.loc.start.column;
-              const end = node.range[0];
+              let end = node.range[0];
+              // @ts-ignore
+              if (node.textLine) {
+                end += codeBefore.length;
+              }
               return fixer.replaceTextRange([start, end], expectedIndent);
             },
           });
@@ -156,7 +160,7 @@ module.exports = {
     }
 
     /**
-     * @param {AnyNode} startTag
+     * @param {BaseNode} startTag
      */
     function checkEndOfStartTag(startTag) {
       const start = startTag.range[1] - 1;
@@ -220,7 +224,7 @@ module.exports = {
           }
           node.lineNodes.forEach((lineNode) => {
             if (lineNode.textLine.trim().length) {
-              checkIndent(lineNode, node);
+              checkIndent(lineNode);
             }
           });
           if (!node.startTag) {

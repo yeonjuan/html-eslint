@@ -166,7 +166,8 @@ function isWhitespace(cp) {
     cp === $.SPACE ||
     cp === $.LINE_FEED ||
     cp === $.TABULATION ||
-    cp === $.FORM_FEED
+    cp === $.FORM_FEED || 
+    cp === $.CARRIAGE_RETURN
   );
 }
 

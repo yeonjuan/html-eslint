@@ -830,6 +830,17 @@ id="bar"
     </a></div>`,
         errors: wrongIndentErrors(2),
       },
+      {
+        code: `<div>
+    <div>
+  inner div </div>
+</div>`,
+        output: `<div>
+    <div>
+        inner div </div>
+</div>`,
+        errors: wrongIndentErrors(1),
+      },
     ],
   };
 }

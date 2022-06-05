@@ -14,6 +14,9 @@ ruleTester.run("element-newline", rule, {
 `,
     },
     {
+      code: "<html>\r\n<body>\r\n</body>\r\n</html>",
+    },
+    {
       code: `
       <!DOCTYPE html>
       <html lang="en">

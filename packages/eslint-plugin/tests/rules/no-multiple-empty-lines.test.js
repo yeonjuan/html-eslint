@@ -19,6 +19,10 @@ ruleTester.run("no-multiple-empty-lines", rule, {
       options: [{ max: 1 }],
     },
     {
+      code: `<html>\r\n<body>\r\n<div></div>\r\n</body></html>`,
+      options: [{ max: 1 }],
+    },
+    {
       code: `<html></html>`,
       options: [{ max: 1 }],
     },
@@ -30,6 +34,15 @@ ruleTester.run("no-multiple-empty-lines", rule, {
     {
       code: `<div id="foo"></div>\n\n\n\n<div id="bar"></div>`,
       output: `<div id="foo"></div>\n\n\n<div id="bar"></div>`,
+      errors: [
+        {
+          message: "More than 2 blank lines not allowed.",
+        },
+      ],
+    },
+    {
+      code: `<div id="foo"></div>\r\n\r\n\r\n\r\n<div id="bar"></div>`,
+      output: `<div id="foo"></div>\r\n\r\n\r\n<div id="bar"></div>`,
       errors: [
         {
           message: "More than 2 blank lines not allowed.",
