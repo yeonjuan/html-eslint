@@ -57,7 +57,7 @@ module.exports = class PostProcessor {
 
   ["#comment"](node) {
     this.skipCommonProcess = true;
-    node.type = "comment";
+    node.type = "Block";
     node.startTag = createCommentStartTag(node);
     node.endTag = createCommentEndTag(node);
     node.value = node.data;
