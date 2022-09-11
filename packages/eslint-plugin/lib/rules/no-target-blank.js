@@ -39,16 +39,19 @@ module.exports = {
       return /^(?:\w+:|\/\/)/.test(link);
     }
     return {
-      A(node) {
+      Tag(node) {
+        if (node.name !== "a") {
+          return;
+        }
         /* eslint-disable */
         const target = NodeUtils.findAttr(node, "target");
-        if (target && target.value === "_blank") {
+        if (target && target.value && target.value.value === "_blank") {
           const href = NodeUtils.findAttr(node, "href");
-          if (href && isExternalLink(href.value)) {
+          if (href && href.value && isExternalLink(href.value.value)) {
             const rel = NodeUtils.findAttr(node, "rel");
-            if (!rel || !rel.value.includes("noreferrer")) {
+            if (!rel || !rel.value || !rel.value.value.includes("noreferrer")) {
               context.report({
-                node,
+                node: target,
                 messageId: MESSAGE_IDS.MISSING,
               });
             }

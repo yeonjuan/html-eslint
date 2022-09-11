@@ -847,4 +847,4 @@ id="bar"
 
 ruleTester.run("indent LF", rule, createTests());
 
-ruleTester.run("indent CRLF", rule, changeLineEndings(createTests()));
+// ruleTester.run("indent CRLF", rule, changeLineEndings(createTests()));

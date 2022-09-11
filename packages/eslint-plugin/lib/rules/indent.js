@@ -26,12 +26,7 @@ const INDENT_TYPES = {
   SPACE: "space",
 };
 
-const IGNORING_NODES = [
-  NODE_TYPES.PRE,
-  NODE_TYPES.SCRIPT,
-  NODE_TYPES.STYLE,
-  NODE_TYPES.XMP,
-];
+const IGNORING_NODES = ["pre", "xmp"];
 
 /**
  * @type {Rule}
@@ -67,219 +62,26 @@ module.exports = {
   },
   create(context) {
     const sourceCode = context.getSourceCode();
-
-    const indentLevel = new IndentLevel();
-    const { indentType, indentSize } = getIndentTypeAndSize(context.options);
-    const indentUnit =
-      indentType === INDENT_TYPES.SPACE ? " ".repeat(indentSize) : "\t";
-
-    /**
-     * @param {string} str
-     */
-    function countIndentSize(str) {
-      return str.length - str.replace(/^[\s\t]+/, "").length;
-    }
-
-    /**
-     * @param {BaseNode} node
-     */
-    function getLineCodeBefore(node) {
-      const lines = sourceCode.getLines();
-      const line = lines[node.loc.start.line - 1];
-      let end = node.loc.start.column;
-      // @ts-ignore
-      if (typeof node.textLine === "string") {
-        // @ts-ignore
-        end += countIndentSize(node.textLine);
-      }
-
-      return line.slice(0, end);
-    }
-
-    /**
-     * @param {BaseNode} node
-     * @param {BaseNode} [nodeToReport]
-     */
-    function checkIndent(node, nodeToReport) {
-      const codeBefore = getLineCodeBefore(node);
-      if (codeBefore.trim().length === 0) {
-        const level = indentLevel.get();
-        const expectedIndent = indentUnit.repeat(level);
-        if (codeBefore !== expectedIndent) {
-          const expected = `${
-            indentType === INDENT_TYPES.SPACE ? level * indentSize : level
-          } ${indentType}`;
-          const actualTabs = (codeBefore.match(/\t/g) || []).length;
-          const actualSpaces = (codeBefore.match(/[^\S\t\n\r]/g) || []).length;
-
-          let actual = "";
-
-          if (!actualTabs && !actualSpaces) {
-            actual = "no indent";
-          }
-          if (actualTabs) {
-            actual += `${actualTabs} ${INDENT_TYPES.TAB}`;
-          }
-          if (actualSpaces) {
-            actual += `${actual.length ? ", " : ""}${actualSpaces} ${
-              INDENT_TYPES.SPACE
-            }`;
-          }
-
-          context.report({
-            node: nodeToReport || node,
-            messageId: MESSAGE_ID.WRONG_INDENT,
-            data: {
-              expected,
-              actual,
-            },
-            fix(fixer) {
-              const start = node.range[0] - node.loc.start.column;
-              let end = node.range[0];
-              // @ts-ignore
-              if (node.textLine) {
-                end += codeBefore.length;
-              }
-              return fixer.replaceTextRange([start, end], expectedIndent);
-            },
-          });
-        }
-      }
-    }
-
-    /**
-     * @param {AnyNode} startTag
-     * @param {AttrNode[]} attrs
-     */
-    function checkAttrsIndent(startTag, attrs) {
-      attrs.forEach((attr) => {
-        if (attr.loc.start.line !== startTag.loc.start.line) {
-          checkIndent(attr);
-        }
-      });
-    }
-
-    /**
-     * @param {BaseNode} startTag
-     */
-    function checkEndOfStartTag(startTag) {
-      const start = startTag.range[1] - 1;
-      const end = startTag.range[1];
-      const line = startTag.loc.end.line;
-      const endCol = startTag.loc.end.column;
-      const startCol = startTag.loc.end.column - 1;
-
-      checkIndent({
-        range: [start, end],
-        start,
-        end,
-        loc: {
-          start: {
-            line,
-            column: startCol,
-          },
-          end: {
-            line,
-            column: endCol,
-          },
-        },
-      });
-    }
-    let nodesToIgnoreChildren = [];
-    return {
+    const { indentType, indentSize } = (function () {
+      const options = context.options;
       /**
-       * @param {ElementNode} node
+       * @type {IndentType['SPACE'] | IndentType['TAB']}
        */
-      "*"(node) {
-        if (IGNORING_NODES.includes(node.type)) {
-          nodesToIgnoreChildren.push(node);
-          return;
+      let indentType = INDENT_TYPES.SPACE;
+      let indentSize = 4;
+      if (options.length) {
+        if (options[0] === INDENT_TYPES.TAB) {
+          indentType = INDENT_TYPES.TAB;
+        } else {
+          indentSize = options[0];
         }
-        if (nodesToIgnoreChildren.length) {
-          return;
-        }
+      }
+      return { indentType, indentSize };
+    })();
 
-        indentLevel.up();
-
-        if (node.startTag && Array.isArray(node.attrs)) {
-          checkAttrsIndent(node.startTag, node.attrs);
-        }
-
-        (node.childNodes || []).forEach((current) => {
-          if (current.startTag) {
-            checkIndent(current.startTag);
-          }
-          if (current.endTag) {
-            checkIndent(current.endTag);
-          }
-        });
-
-        if (
-          (NodeUtils.isTextNode(node) || NodeUtils.isCommentNode(node)) &&
-          node.lineNodes &&
-          node.lineNodes.length
-        ) {
-          if (!node.startTag) {
-            indentLevel.down();
-          }
-          node.lineNodes.forEach((lineNode) => {
-            if (lineNode.textLine.trim().length) {
-              checkIndent(lineNode);
-            }
-          });
-          if (!node.startTag) {
-            indentLevel.up();
-          }
-        }
-      },
-      "*:exit"(node) {
-        if (IGNORING_NODES.includes(node.type)) {
-          nodesToIgnoreChildren.pop();
-          return;
-        }
-        if (nodesToIgnoreChildren.length) {
-          return;
-        }
-        indentLevel.down();
-
-        if (node.startTag) {
-          checkEndOfStartTag(node.startTag);
-        }
-      },
+    return {
+      Tag(node) {},
+      "*:exit"(node) {},
     };
   },
 };
-
-function getIndentTypeAndSize(options) {
-  /**
-   * @type {IndentType['SPACE'] | IndentType['TAB']}
-   */
-  let indentType = INDENT_TYPES.SPACE;
-  let indentSize = 4;
-  if (options.length) {
-    if (options[0] === INDENT_TYPES.TAB) {
-      indentType = INDENT_TYPES.TAB;
-    } else {
-      indentSize = options[0];
-    }
-  }
-  return { indentType, indentSize };
-}
-
-class IndentLevel {
-  constructor() {
-    this.level = -1;
-  }
-
-  up() {
-    this.level++;
-  }
-
-  down() {
-    this.level--;
-  }
-
-  get() {
-    return this.level;
-  }
-}

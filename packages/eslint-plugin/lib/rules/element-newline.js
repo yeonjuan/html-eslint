@@ -1,10 +1,4 @@
-/**
- * @typedef {import("../types").ElementNode} ElementNode
- * @typedef {import("../types").AnyNode} AnyNode
- * @typedef {import("../types").Context} Context
- */
-
-const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   EXPECT_NEW_LINE_AFTER: "expectAfter",
@@ -31,13 +25,10 @@ module.exports = {
     },
   },
 
-  /**
-   * @param {Context} context
-   */
   create(context) {
     function checkSiblings(siblings) {
       siblings
-        .filter((node) => node.type !== NODE_TYPES.TEXT && node.range[0])
+        .filter((node) => node.type !== "Text")
         .forEach((current, index, arr) => {
           const after = arr[index + 1];
           if (after) {
@@ -45,7 +36,7 @@ module.exports = {
               context.report({
                 node: current,
                 messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
-                data: { tag: `<${current.tagName}>` },
+                data: { tag: `<${current.name}>` },
                 fix(fixer) {
                   return fixer.insertTextAfter(current, "\n");
                 },
@@ -55,75 +46,49 @@ module.exports = {
         });
     }
 
-    /**
-     *
-     * @param {ElementNode['childNodes'][number]} node
-     */
-    function checkChild(node) {
-      const children = (node.childNodes || []).filter(
-        (n) => !!n.range[0] && n.type !== NODE_TYPES.TEXT
-      );
-      const first = children[0];
-      const last = children[children.length - 1];
+    function checkChild(node, children) {
+      const targetChildren = children.filter((n) => n.type !== "Text");
+      const first = targetChildren[0];
+      const last = targetChildren[targetChildren.length - 1];
       if (first) {
-        if (node.startTag && isOnTheSameLine(node.startTag, first)) {
+        if (isOnTheSameLine(node.openEnd, first)) {
           context.report({
-            node: node.startTag,
+            node: node.openEnd,
             messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
-            data: { tag: `<${node.tagName}>` },
+            data: { tag: `<${node.name}>` },
             fix(fixer) {
-              if (node.startTag) {
-                return fixer.insertTextAfter(node.startTag, "\n");
-              }
-              return null;
+              return fixer.insertTextAfter(node.openEnd, "\n");
             },
           });
         }
       }
+
       if (last) {
-        if (node.endTag && isOnTheSameLine(node.endTag, last)) {
+        if (node.close && isOnTheSameLine(node.close, last)) {
           context.report({
-            node: node.endTag,
+            node: node.close,
             messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE,
-            data: { tag: `</${node.tagName}>` },
+            data: { tag: `</${node.name}>` },
             fix(fixer) {
-              if (node.endTag) {
-                return fixer.insertTextBefore(node.endTag, "\n");
-              }
-              return null;
+              return fixer.insertTextBefore(node.close, "\n");
             },
           });
         }
       }
     }
     return {
-      /**
-       * @param {ElementNode} node
-       */
-      "*"(node) {
-        if (node.type !== NODE_TYPES.TEXT) {
-          checkSiblings(node.childNodes || []);
-          checkChild(node);
-        }
+      [["Tag", "StyleTag", "ScriptTag", "Program"].join(",")](node) {
+        const children = node.type === "Program" ? node.body : node.children;
+        checkSiblings(children);
+        checkChild(node, children);
       },
     };
   },
 };
 
-/**
- * Checks whether two nodes are on the same line or not.
- * @param {AnyNode} nodeBefore A node before
- * @param {AnyNode} nodeAfter  A node after
- * @returns {boolean} `true` if two nodes are on the same line, otherwise `false`.
- */
 function isOnTheSameLine(nodeBefore, nodeAfter) {
   if (nodeBefore && nodeAfter) {
-    // @ts-ignore
-    if (nodeBefore.endTag) {
-      // @ts-ignore
-      return nodeBefore.endTag.loc.end.line === nodeAfter.loc.start.line;
-    }
-    return nodeBefore.loc.start.line === nodeAfter.loc.start.line;
+    return nodeBefore.loc.end.line === nodeAfter.loc.start.line;
   }
   return false;
 }

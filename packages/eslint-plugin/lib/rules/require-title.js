@@ -1,8 +1,8 @@
 /**
  * @typedef {import("../types").Rule} Rule
  * @typedef {import("es-html-parser").TagNode} TagNode
+ * @typedef {import("es-html-parser").TextNode} TextNode
  */
-
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -10,10 +10,27 @@ const MESSAGE_IDS = {
   EMPTY_TITLE: "empty",
 };
 
-function isTitleTag(node) {
+/**
+ * Checks whether the node is a title TagNode.
+ * @param {TagNode['children'][number]} node A node to check
+ * @returns {node is TagNode} Returns true if the given node is a title TagNode, otherwise false
+ */
+function isTitleTagNode(node) {
   return node.type === "Tag" && node.name === "title";
 }
 
+/**
+ * Checks whether the node is a TextNode that has value.
+ * @param {TagNode['children'][number]} node A node to check
+ * @returns {node is TextNode} Returns true if the given node is a TextNode with non-empty value, otherwise false
+ */
+function isNonEmptyTextNode(node) {
+  return node.type === "Text" && node.value.trim().length > 0;
+}
+
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -38,7 +55,7 @@ module.exports = {
         if (node.name !== "head") {
           return;
         }
-        const titleTag = node.children.find(isTitleTag);
+        const titleTag = node.children.find(isTitleTagNode);
 
         if (!titleTag) {
           context.report({
@@ -48,11 +65,9 @@ module.exports = {
           return;
         }
 
-        const hasTitleContent = titleTag.children.some(
-          (child) => child.type === "Text" && child.value.trim().length > 0
-        );
+        const titleContentText = titleTag.children.find(isNonEmptyTextNode);
 
-        if (!hasTitleContent) {
+        if (!titleContentText) {
           context.report({
             node: titleTag,
             messageId: MESSAGE_IDS.EMPTY_TITLE,

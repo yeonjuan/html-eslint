@@ -1,9 +1,16 @@
 /**
  * @typedef {import("es-html-parser").TagNode} TagNode
  * @typedef {import("es-html-parser").AnyNode} AnyNode
+ * @typedef {import("es-html-parser").TextNode} TextNode
+ * @typedef {import("es-html-parser").AttributeNode} AttributeNode
  */
 
 module.exports = {
+  /*
+   * @param {TagNode} node
+   * @param {string} name
+   * @returns {AttributeNode | undefined}
+   */
   findAttr(node, name) {
     return node.attributes.find(
       (attr) => attr.key && attr.key.value.toLowerCase() === name.toLowerCase()

@@ -1,3 +1,8 @@
+/**
+ * @typedef {import("../types").Rule} Rule
+ * @typedef {import("es-html-parser").TagNode} TagNode
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
@@ -6,6 +11,17 @@ const MESSAGE_IDS = {
   EMPTY: "empty",
 };
 
+/**
+ * @param {TagNode['children'][number]} node
+ * @returns {boolean}
+ */
+function isMetaTagNode(node) {
+  return node.type === "Tag" && node.name === "meta";
+}
+
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -30,7 +46,8 @@ module.exports = {
         if (node.name !== "head") {
           return;
         }
-        const metaTags = node.children.filter((child) => child.name === "meta");
+        const metaTags = node.children.filter(isMetaTagNode);
+
         const descriptionMetaTags = metaTags.filter((meta) => {
           const nameAttr = NodeUtils.findAttr(meta, "name");
           return (
