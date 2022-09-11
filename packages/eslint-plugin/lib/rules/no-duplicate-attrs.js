@@ -31,20 +31,20 @@ module.exports = {
 
   create(context) {
     return {
-      "*"(node) {
-        if (Array.isArray(node.attrs)) {
+      [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
+        if (Array.isArray(node.attributes)) {
           const attrsSet = new Set();
-          node.attrs.forEach((attr) => {
-            if (attrsSet.has(attr.name)) {
+          node.attributes.forEach((attr) => {
+            if (attr.key && attrsSet.has(attr.key.value)) {
               context.report({
-                node: node.startTag,
+                node: attr,
                 data: {
-                  attrName: attr.name,
+                  attrName: attr.key.value,
                 },
                 messageId: MESSAGE_IDS.DUPLICATE_ATTRS,
               });
             } else {
-              attrsSet.add(attr.name);
+              attrsSet.add(attr.key.value);
             }
           });
         }

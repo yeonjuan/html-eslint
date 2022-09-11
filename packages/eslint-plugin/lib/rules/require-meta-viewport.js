@@ -1,9 +1,9 @@
 /**
- * @typedef {import("../types").ElementNode} ElementNode
+ * @typedef {import("es-html-parser").TagNode} TagNode
  * @typedef {import("../types").Rule} Rule
  */
 
-const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
 const MESSAGE_IDS = {
@@ -11,9 +11,6 @@ const MESSAGE_IDS = {
   EMPTY: "empty",
 };
 
-/**
- * @type {Rule}
- */
 module.exports = {
   meta: {
     type: "code",
@@ -34,20 +31,24 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @param {ElementNode} node
-     * @returns {boolean}
-     */
     function isMetaViewport(node) {
-      if (node.type === NODE_TYPES.META) {
+      if (node.name === "meta") {
         const nameAttr = NodeUtils.findAttr(node, "name");
-        return !!nameAttr && nameAttr.value.toLowerCase() === "viewport";
+        return (
+          nameAttr &&
+          nameAttr.value &&
+          nameAttr.value.value.toLowerCase() === "viewport"
+        );
       }
       return false;
     }
     return {
-      Head(node) {
-        const metaViewport = (node.childNodes || []).find(isMetaViewport);
+      Tag(node) {
+        if (node.name !== "head") {
+          return;
+        }
+
+        const metaViewport = node.children.find(isMetaViewport);
         if (!metaViewport) {
           context.report({
             node,
@@ -56,12 +57,12 @@ module.exports = {
           return;
         }
         const contentAttr = NodeUtils.findAttr(metaViewport, "content");
-        if (!contentAttr) {
+        if (!contentAttr.value) {
           context.report({
             node: metaViewport,
             messageId: MESSAGE_IDS.EMPTY,
           });
-        } else if (!contentAttr.value.length) {
+        } else if (!contentAttr.value.value.length) {
           context.report({
             node: contentAttr,
             messageId: MESSAGE_IDS.EMPTY,

@@ -1,39 +1,31 @@
 /**
- * @typedef {import("../../types").ElementNode} ElementNode
- * @typedef {import("../../types").AttrNode} AttrNode
- * @typedef {import("../../types").AnyNode} AnyNode
- * @typedef {import("../../types").TextNode} TextNode
- * @typedef {import("../../types").BaseNode} BaseNode
- * @typedef {import("../../types").TextLineNode} TextLineNode
- * @typedef {import("../../types").CommentNode} CommentNode
+ * @typedef {import("es-html-parser").TagNode} TagNode
+ * @typedef {import("es-html-parser").AnyNode} AnyNode
  */
 
 module.exports = {
-  /**
-   * Find attribute by name in the given node
-   * @param {ElementNode} node node
-   * @param {string} name attribute name
-   * @return {AttrNode | void}
-   */
   findAttr(node, name) {
-    return node
-      ? (node.attrs || []).find(
-          (attr) => attr.name.toLowerCase() === name.toLowerCase()
-        )
-      : undefined;
+    return node.attributes.find(
+      (attr) => attr.key && attr.key.value.toLowerCase() === name.toLowerCase()
+    );
   },
   /**
    * Checks a node has attribute with the given name or not.
-   * @param {ElementNode} node node
+   * @param {TagNode} node node
    * @param {string} name attribute name
    * @return {boolean} `true` if the node has a attribute, otherwise `false`.
    */
   hasAttr(node, name) {
-    return !!node && (node.attrs || []).some((attr) => attr.name === name);
+    return (
+      !!node &&
+      (node.attributes || []).some(
+        (attr) => attr.key && attr.key.value === name
+      )
+    );
   },
   /**
    * Checks whether a node's all tokens are on the same line or not.
-   * @param {ElementNode} node A node to check
+   * @param {AnyNode} node A node to check
    * @returns {boolean} `true` if a node's tokens are on the same line, otherwise `false`.
    */
   isNodeTokensOnSameLine(node) {

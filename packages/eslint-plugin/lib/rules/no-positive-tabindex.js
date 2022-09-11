@@ -31,9 +31,13 @@ module.exports = {
 
   create(context) {
     return {
-      "*"(node) {
+      [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
         const tabIndexAttr = NodeUtils.findAttr(node, "tabindex");
-        if (tabIndexAttr && parseInt(tabIndexAttr.value, 10) > 0) {
+        if (
+          tabIndexAttr &&
+          tabIndexAttr.value &&
+          parseInt(tabIndexAttr.value.value, 10) > 0
+        ) {
           context.report({
             node: tabIndexAttr,
             messageId: MESSAGE_IDS.UNEXPECTED,

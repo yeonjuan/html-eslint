@@ -32,13 +32,21 @@ module.exports = {
 
   create(context) {
     return {
-      Body(node) {
+      Tag(node) {
+        if (node.name !== "body") {
+          return;
+        }
         const ariaHiddenAttr = NodeUtils.findAttr(node, "aria-hidden");
-        if (ariaHiddenAttr && ariaHiddenAttr.value !== "false") {
-          context.report({
-            node: ariaHiddenAttr,
-            messageId: MESSAGE_IDS.UNEXPECTED,
-          });
+        if (ariaHiddenAttr) {
+          if (
+            (ariaHiddenAttr.value && ariaHiddenAttr.value.value !== "false") ||
+            !ariaHiddenAttr.value
+          ) {
+            context.report({
+              node: ariaHiddenAttr,
+              messageId: MESSAGE_IDS.UNEXPECTED,
+            });
+          }
         }
       },
     };

@@ -1,18 +1,19 @@
 /**
  * @typedef {import("../types").Rule} Rule
+ * @typedef {import("es-html-parser").TagNode} TagNode
  */
 
-const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   MISSING_TITLE: "missing",
   EMPTY_TITLE: "empty",
 };
 
-/**
- * @type {Rule}
- */
+function isTitleTag(node) {
+  return node.type === "Tag" && node.name === "title";
+}
+
 module.exports = {
   meta: {
     type: "code",
@@ -33,21 +34,25 @@ module.exports = {
   },
   create(context) {
     return {
-      Head(node) {
-        const titleTag = (node.childNodes || []).find(
-          (node) => node.type === NODE_TYPES.TITLE
-        );
+      Tag(node) {
+        if (node.name !== "head") {
+          return;
+        }
+        const titleTag = node.children.find(isTitleTag);
 
         if (!titleTag) {
           context.report({
             node,
             messageId: MESSAGE_IDS.MISSING_TITLE,
           });
-        } else if (
-          !(titleTag.childNodes || []).some(
-            (node) => NodeUtils.isTextNode(node) && node.value.trim().length > 0
-          )
-        ) {
+          return;
+        }
+
+        const hasTitleContent = titleTag.children.some(
+          (child) => child.type === "Text" && child.value.trim().length > 0
+        );
+
+        if (!hasTitleContent) {
           context.report({
             node: titleTag,
             messageId: MESSAGE_IDS.EMPTY_TITLE,

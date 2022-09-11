@@ -1,17 +1,9 @@
-/**
- * @typedef {import("../types").Rule} Rule
- * @typedef {import("../types").ElementNode} ElementNode
- */
-
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",
 };
 
-/**
- * @type {Rule}
- */
 module.exports = {
   meta: {
     type: "code",
@@ -31,10 +23,19 @@ module.exports = {
 
   create(context) {
     return {
-      Img(node) {
+      Tag(node) {
+        if (node.name !== "img") {
+          return;
+        }
         if (!hasAltAttrAndValue(node)) {
           context.report({
-            node: node.startTag,
+            node: {
+              loc: {
+                start: node.openStart.loc.start,
+                end: node.openEnd.loc.end,
+              },
+              range: [node.openStart.range[0], node.openEnd.range[1]],
+            },
             messageId: MESSAGE_IDS.MISSING_ALT,
           });
         }
@@ -43,13 +44,10 @@ module.exports = {
   },
 };
 
-/**
- * Checks whether a node has `alt` attribute value or not.
- * @param {ElementNode} node a node to check.
- * @returns {boolean} `true` if a node has `alt` attribute value.
- */
 function hasAltAttrAndValue(node) {
-  return (node.attrs || []).some((attr) => {
-    return attr.name === "alt" && typeof attr.value === "string";
+  return node.attributes.some((attr) => {
+    if (attr.key && attr.value) {
+      return attr.key.value === "alt" && typeof attr.value.value === "string";
+    }
   });
 }

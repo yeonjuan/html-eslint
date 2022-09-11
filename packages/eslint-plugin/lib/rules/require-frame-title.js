@@ -1,7 +1,3 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
@@ -10,9 +6,6 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @type {Rule}
- */
 module.exports = {
   meta: {
     type: "code",
@@ -33,15 +26,18 @@ module.exports = {
 
   create(context) {
     return {
-      "Frame, Iframe"(node) {
+      Tag(node) {
+        if (node.name !== "frame" && node.name !== "iframe") {
+          return;
+        }
         const title = NodeUtils.findAttr(node, "title");
         if (!title) {
           context.report({
-            node: node.startTag,
-            data: { frame: `<${node.tagName}>` },
+            node: node.openStart,
+            data: { frame: `<${node.name}>` },
             messageId: MESSAGE_IDS.MISSING,
           });
-        } else if (title.value.trim().length === 0) {
+        } else if (!title.value || title.value.value.trim().length === 0) {
           context.report({
             node: title,
             messageId: MESSAGE_IDS.UNEXPECTED,

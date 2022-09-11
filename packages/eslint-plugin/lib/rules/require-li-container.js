@@ -1,18 +1,11 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
-const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   INVALID: "invalid",
 };
 
-const VALID_CONTAINERS = [NODE_TYPES.UL, NODE_TYPES.OL, NODE_TYPES.MENU];
+const VALID_CONTAINERS = ["ul", "ol", "menu"];
 
-/**
- * @type {Rule}
- */
 module.exports = {
   meta: {
     type: "code",
@@ -33,13 +26,16 @@ module.exports = {
 
   create(context) {
     return {
-      Li(node) {
+      Tag(node) {
+        if (node.name !== "li") {
+          return;
+        }
         if (!node.parent) {
           context.report({
             node,
             messageId: MESSAGE_IDS.INVALID,
           });
-        } else if (!VALID_CONTAINERS.includes(node.parent.type || "")) {
+        } else if (!VALID_CONTAINERS.includes(node.parent.name || "")) {
           context.report({
             node,
             messageId: MESSAGE_IDS.INVALID,

@@ -1,12 +1,95 @@
 import ESTree from "estree";
 import ESLint from "eslint";
+import {
+  AnyNode,
+  AttributeKeyNode,
+  DocumentNode,
+  TagNode,
+  TextNode,
+  OpenTagStartNode,
+  OpenTagEndNode,
+  CloseTagNode,
+  AttributeNode,
+  AttributeValueNode,
+  AttributeValueWrapperEndNode,
+  AttributeValueWrapperStartNode,
+  ScriptTagNode,
+  OpenScriptTagStartNode,
+  CloseScriptTagNode,
+  OpenScriptTagEndNode,
+  ScriptTagContentNode,
+  StyleTagNode,
+  OpenStyleTagStartNode,
+  OpenStyleTagEndNode,
+  StyleTagContentNode,
+  CloseStyleTagNode,
+  CommentNode,
+  CommentStartNode,
+  CommentEndNode,
+  CommentContentNode,
+  DoctypeNode,
+  DoctypeStartNode,
+  DoctypeEndNode,
+  DoctypeAttributeNode,
+  DoctypeAttributeValueNode,
+  DoctypeAttributeWrapperStart,
+  DoctypeAttributeWrapperEnd,
+} from "es-html-parser";
+
+export { AnyNode };
 
 type Fix = ESLint.Rule.Fix;
 type Token = ESLint.AST.Token;
+
 export type Range = ESLint.AST.Range;
 
+export interface BaseNode {
+  parent?: null | AnyNode;
+  range: [number, number];
+  loc: {
+    start: ESTree.Position;
+    end: ESTree.Position;
+  };
+  type?: string;
+}
+
+interface ProgramNode extends Omit<DocumentNode, "type"> {
+  type: "Program";
+}
+
 interface RuleListener {
-  [key: string]: (node: ElementNode) => void;
+  Program?: (node: ProgramNode) => void;
+  AttributeKey?: (node: AttributeKeyNode) => void;
+  Text?: (node: TextNode) => void;
+  Tag?: (node: TagNode) => void;
+  OpenTagStart?: (node: OpenTagStartNode) => void;
+  OpenTagEnd?: (node: OpenTagEndNode) => void;
+  CloseTag?: (node: CloseTagNode) => void;
+  Attribute?: (node: AttributeNode) => void;
+  AttributeValue?: (node: AttributeValueNode) => void;
+  AttributeValueWrapperEnd?: (node: AttributeValueWrapperEndNode) => void;
+  AttributeValueWrapperStart?: (node: AttributeValueWrapperStartNode) => void;
+  ScriptTag?: (node: ScriptTagNode) => void;
+  OpenScriptTagStart?: (node: OpenScriptTagStartNode) => void;
+  CloseScriptTag?: (node: CloseScriptTagNode) => void;
+  OpenScriptTagEnd?: (node: OpenScriptTagEndNode) => void;
+  ScriptTagContent?: (node: ScriptTagContentNode) => void;
+  StyleTag?: (node: StyleTagNode) => void;
+  OpenStyleTagStart?: (node: OpenStyleTagStartNode) => void;
+  OpenStyleTagEnd?: (node: OpenStyleTagEndNode) => void;
+  StyleTagContent?: (node: StyleTagContentNode) => void;
+  CloseStyleTag?: (node: CloseStyleTagNode) => void;
+  Comment?: (node: CommentNode) => void;
+  CommentStart?: (node: CommentStartNode) => void;
+  CommentEnd?: (node: CommentEndNode) => void;
+  CommentContent?: (node: CommentContentNode) => void;
+  Doctype?: (node: DoctypeNode) => void;
+  DoctypeStart?: (node: DoctypeStartNode) => void;
+  DoctypeEnd?: (node: DoctypeEndNode) => void;
+  DoctypeAttribute?: (node: DoctypeAttributeNode) => void;
+  DoctypeAttributeValue?: (node: DoctypeAttributeValueNode) => void;
+  DoctypeAttributeWrapperStart?: (node: DoctypeAttributeWrapperStart) => void;
+  DoctypeAttributeWrapperEnd?: (node: DoctypeAttributeWrapperEnd) => void;
 }
 
 export interface Rule {
@@ -62,60 +145,3 @@ type ReportDescriptorLocation = {
 export interface Context extends Omit<ESLint.Rule.RuleContext, "report"> {
   report(descriptor: ReportDescriptor): void;
 }
-
-export interface BaseNode {
-  parent?: null | AnyNode;
-  range: [number, number];
-  start: number;
-  end: number;
-  loc: {
-    start: ESTree.Position;
-    end: ESTree.Position;
-  };
-  type?: string;
-}
-
-export interface TagNode extends BaseNode {
-  type: undefined;
-}
-
-export interface TextLineNode extends BaseNode {
-  textLine: string;
-}
-
-export interface TextNode extends BaseNode {
-  type: "text";
-  value: string;
-  lineNodes: TextLineNode[];
-}
-
-export interface ElementNode extends BaseNode {
-  type: string;
-  tagName: string;
-  attrs: AttrNode[];
-  childNodes: ElementNode[];
-  startTag?: TagNode;
-  endTag?: TagNode;
-  namespaceURI?: string;
-}
-
-export interface AttrNode extends BaseNode {
-  name: string;
-  value: string;
-}
-
-export interface CommentNode extends BaseNode {
-  type: "comment";
-  value: string;
-  startTag?: TagNode;
-  endTag?: TagNode;
-  lineNodes: TextLineNode[];
-}
-
-export type AnyNode =
-  | AttrNode
-  | ElementNode
-  | TextNode
-  | TextLineNode
-  | TagNode
-  | CommentNode;

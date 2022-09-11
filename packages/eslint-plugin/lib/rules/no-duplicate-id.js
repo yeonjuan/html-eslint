@@ -33,13 +33,16 @@ module.exports = {
     const IdAttrsMap = new Map();
     return {
       "*"(node) {
+        if (!node.attributes || node.attributes.length <= 0) {
+          return;
+        }
         const idAttr = NodeUtils.findAttr(node, "id");
-        if (idAttr) {
-          if (!IdAttrsMap.has(idAttr.value)) {
-            IdAttrsMap.set(idAttr.value, []);
+        if (idAttr && idAttr.value) {
+          if (!IdAttrsMap.has(idAttr.value.value)) {
+            IdAttrsMap.set(idAttr.value.value, []);
           }
-          const nodes = IdAttrsMap.get(idAttr.value);
-          nodes.push(idAttr);
+          const nodes = IdAttrsMap.get(idAttr.value.value);
+          nodes.push(idAttr.value);
         }
       },
       "Program:exit"() {

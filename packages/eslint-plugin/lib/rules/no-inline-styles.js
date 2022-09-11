@@ -1,7 +1,3 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
@@ -9,9 +5,6 @@ const MESSAGE_IDS = {
   INLINE_STYLE: "unexpectedInlineStyle",
 };
 
-/**
- * @type {Rule}
- */
 module.exports = {
   meta: {
     type: "code",
@@ -31,10 +24,11 @@ module.exports = {
 
   create(context) {
     return {
-      "*"(node) {
-        if (NodeUtils.hasAttr(node, "style")) {
+      Tag(node) {
+        const styleAttr = NodeUtils.findAttr(node, "style");
+        if (styleAttr) {
           context.report({
-            node: node.startTag,
+            node: styleAttr,
             messageId: MESSAGE_IDS.INLINE_STYLE,
           });
         }
