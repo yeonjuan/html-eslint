@@ -3,6 +3,8 @@
  * @typedef {import("es-html-parser").AnyNode} AnyNode
  * @typedef {import("es-html-parser").TextNode} TextNode
  * @typedef {import("es-html-parser").AttributeNode} AttributeNode
+ * @typedef {import("../../types").LineNode} LineNode
+ * @typedef {import("../../types").CommentContentNode} CommentContentNode
  */
 
 module.exports = {
@@ -55,5 +57,42 @@ module.exports = {
    */
   isCommentNode(node) {
     return !!(node && node.type === "comment");
+  },
+
+  /**
+   *
+   * @param {TextNode | CommentContentNode} node
+   * @returns {LineNode[]}
+   */
+  splitToLineNodes(node) {
+    let start = node.range[0];
+    let line = node.loc.start.line;
+    const startCol = node.loc.start.column;
+
+    return node.value.split("\n").map((value, index) => {
+      const columnStart = index === 0 ? startCol : 0;
+      /**
+       * @type {LineNode}
+       */
+      const lineNode = {
+        type: "Line",
+        value,
+        range: [start, start + value.length],
+        loc: {
+          start: {
+            line,
+            column: columnStart,
+          },
+          end: {
+            line,
+            column: columnStart + value.length,
+          },
+        },
+      };
+
+      start += value.length + 1;
+      line += 1;
+      return lineNode;
+    });
   },
 };

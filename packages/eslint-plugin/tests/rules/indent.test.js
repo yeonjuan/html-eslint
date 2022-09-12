@@ -223,8 +223,8 @@ function createTests() {
     <pre>
     
   <div
-      id="foo"
- style="bar">
+        id="foo"
+        style="bar">
  </div>
     </pre>
 </div>
@@ -847,4 +847,4 @@ id="bar"
 
 ruleTester.run("indent LF", rule, createTests());
 
-// ruleTester.run("indent CRLF", rule, changeLineEndings(createTests()));
+ruleTester.run("indent CRLF", rule, changeLineEndings(createTests()));

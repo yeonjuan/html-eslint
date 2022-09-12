@@ -1,6 +1,5 @@
 /**
  * @typedef {import("../types").Rule} Rule
- * @typedef {import("../types").AnyNode} AnyNode
  * @typedef {{tagPatterns: string[], attrPatterns: string[], message?: string}[]} Options
  */
 
