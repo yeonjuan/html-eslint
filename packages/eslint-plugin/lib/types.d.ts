@@ -148,12 +148,12 @@ export interface DoctypeAttributeValueNode
 }
 
 export interface DoctypeAttributeWrapperStart
-  extends ESHtml.DoctypeAttributeWrapperStart {
+  extends ESHtml.DoctypeAttributeWrapperStartNode {
   parent: DoctypeNode;
 }
 
 export interface DoctypeAttributeWrapperEnd
-  extends ESHtml.DoctypeAttributeWrapperEnd {
+  extends ESHtml.DoctypeAttributeWrapperEndNode {
   parent: DoctypeNode;
 }
 
