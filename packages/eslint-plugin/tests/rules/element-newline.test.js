@@ -261,31 +261,5 @@ ruleTester.run("element-newline", rule, {
         },
       ],
     },
-    {
-      code: `
-<!DOCTYPE html>
-<html lang="en">
-    <body>
-        <ul>
-            <li>Item Here <li>Second Item Here</li>
-        </ul>
-    </body>
-</html>`,
-      output: `
-<!DOCTYPE html>
-<html lang="en">
-    <body>
-        <ul>
-            <li>Item Here 
-<li>Second Item Here</li>
-        </ul>
-    </body>
-</html>`,
-      errors: [
-        {
-          messageId: "expectAfter",
-        },
-      ],
-    },
   ],
 });

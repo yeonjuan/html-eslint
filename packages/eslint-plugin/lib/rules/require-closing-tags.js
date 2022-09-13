@@ -41,32 +41,20 @@ module.exports = {
       [MESSAGE_IDS.MISSING]: "Missing closing tag for {{tag}}.",
       [MESSAGE_IDS.MISSING_SELF]: "Missing self closing tag for {{tag}}",
       [MESSAGE_IDS.UNEXPECTED]: "Unexpected self closing tag for {{tag}}.",
+      [MESSAGE_IDS.HUCKS]: "HUCKS.",
     },
   },
 
   create(context) {
+    let svgStacks = [];
+
     const shouldSelfClose =
       context.options && context.options.length
         ? context.options[0].selfClosing === "always"
         : false;
 
-    const sourceCode = context.getSourceCode();
-    function getCodeIn(range) {
-      return sourceCode.text.slice(range[0], range[1]);
-    }
-
     function checkClosingTag(node) {
       if (!node.close) {
-        // if (
-        //   node.namespaceURI === "http://www.w3.org/2000/svg" ||
-        //   node.namespaceURI === "http://www.w3.org/1998/Math/MathML"
-        // ) {
-        //   const code = getCodeIn(node.startTag.range);
-        //   const hasSelfClose = code.endsWith("/>");
-        //   if (hasSelfClose) {
-        //     return;
-        //   }
-        // }
         context.report({
           node: node,
           data: {
@@ -95,7 +83,7 @@ module.exports = {
         context.report({
           node: node.openEnd,
           data: {
-            tag: node.tagName,
+            tag: node.name,
           },
           messageId: MESSAGE_IDS.UNEXPECTED,
           fix(fixer) {
@@ -107,21 +95,20 @@ module.exports = {
 
     return {
       Tag(node) {
-        if (node.openEnd.value === "/>") {
+        if (node.name === "svg") {
+          svgStacks.push(node);
+        }
+        if (node.selfClosing || VOID_ELEMENTS_SET.has(node.name)) {
           checkVoidElement(node);
-        } else {
+        } else if (node.openEnd.value !== "/>") {
           checkClosingTag(node);
         }
       },
-      // "*"(node) {
-      //   if (node.startTag) {
-      //     if (VOID_ELEMENTS_SET.has(node.name)) {
-      //       checkVoidElement(node);
-      //     } else {
-      //       checkClosingTag(node);
-      //     }
-      //   }
-      // },
+      "Tag:exit"(node) {
+        if (node.name === "svg") {
+          svgStacks.push(node);
+        }
+      },
     };
   },
 };

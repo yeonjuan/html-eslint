@@ -21,17 +21,26 @@ ruleTester.run("require-closing-tags", rule, {
     },
     {
       code: `
-      <!DOCTYPE html>
-<html>
-    <head>
-    </head>
+    <body>
+      <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+		  <circle> </circle>
+</svg>
+    </body>
+`,
+    },
+    {
+      code: `
     <body>
       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
 		  <circle />
 </svg>
     </body>
-</html>
 `,
+      options: [
+        {
+          selfClosing: "always",
+        },
+      ],
     },
     // https://github.com/yeonjuan/html-eslint/issues/73
     {
@@ -55,25 +64,6 @@ ruleTester.run("require-closing-tags", rule, {
   invalid: [
     {
       code: `<div>`,
-      errors: [
-        {
-          messageId: "missing",
-        },
-      ],
-    },
-    {
-      code: `
-      <!DOCTYPE html>
-<html>
-    <head>
-    </head>
-    <body>
-      <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
-		  <circle>
-</svg>
-    </body>
-</html>
-`,
       errors: [
         {
           messageId: "missing",
@@ -105,27 +95,6 @@ ruleTester.run("require-closing-tags", rule, {
       errors: [
         {
           messageId: "unexpected",
-        },
-      ],
-    },
-    {
-      code: `
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<linearGradient id="myGradient" gradientTransform="rotate(90)">
-</defs>
-</svg>
-</body>
-</html>
-`,
-      errors: [
-        {
-          messageId: "missing",
         },
       ],
     },

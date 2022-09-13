@@ -3,10 +3,10 @@ id: all-rules
 title: All Rules
 ---
 
-- 🔧 - Meaning the rule can fix problems automatically by running eslint `--fix` options.
+- 🔧 - Meaning the rule can fix problems aotomatically by running eslint `--fix` options.
 - ⭐ - Meaning the rule is recommended.
 
-### Best Practice
+### Best Pracice
 
 | rule | description |  |
 | :--- | :---| :--- |

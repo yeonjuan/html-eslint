@@ -65,13 +65,15 @@ module.exports = {
           return;
         }
 
-        const titleContentText = titleTag.children.find(isNonEmptyTextNode);
+        if (isTitleTagNode(titleTag)) {
+          const titleContentText = titleTag.children.find(isNonEmptyTextNode);
 
-        if (!titleContentText) {
-          context.report({
-            node: titleTag,
-            messageId: MESSAGE_IDS.EMPTY_TITLE,
-          });
+          if (!titleContentText) {
+            context.report({
+              node: titleTag,
+              messageId: MESSAGE_IDS.EMPTY_TITLE,
+            });
+          }
         }
       },
     };

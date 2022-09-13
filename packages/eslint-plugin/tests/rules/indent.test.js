@@ -62,16 +62,6 @@ function createTests() {
       },
       {
         code: `
-<html>
-    <head>
-        <meta>
-        <!-- foo -->
-    </head>
-</html>
-`,
-      },
-      {
-        code: `
 
 <div>
     <div> foo </div>

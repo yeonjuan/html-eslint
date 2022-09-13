@@ -30,6 +30,6 @@
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "dependencies": {
-    "es-html-parser": "^0.0.5"
+    "es-html-parser": "^0.0.6"
   }
 }
