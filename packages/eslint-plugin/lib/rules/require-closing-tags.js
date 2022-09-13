@@ -56,21 +56,21 @@ module.exports = {
     }
 
     function checkClosingTag(node) {
-      if (node.startTag && !node.endTag) {
-        if (
-          node.namespaceURI === "http://www.w3.org/2000/svg" ||
-          node.namespaceURI === "http://www.w3.org/1998/Math/MathML"
-        ) {
-          const code = getCodeIn(node.startTag.range);
-          const hasSelfClose = code.endsWith("/>");
-          if (hasSelfClose) {
-            return;
-          }
-        }
+      if (!node.close) {
+        // if (
+        //   node.namespaceURI === "http://www.w3.org/2000/svg" ||
+        //   node.namespaceURI === "http://www.w3.org/1998/Math/MathML"
+        // ) {
+        //   const code = getCodeIn(node.startTag.range);
+        //   const hasSelfClose = code.endsWith("/>");
+        //   if (hasSelfClose) {
+        //     return;
+        //   }
+        // }
         context.report({
-          node: node.startTag,
+          node: node,
           data: {
-            tag: node.tagName,
+            tag: node.name,
           },
           messageId: MESSAGE_IDS.MISSING,
         });
@@ -78,52 +78,50 @@ module.exports = {
     }
 
     function checkVoidElement(node) {
-      const startTag = node.startTag;
-      const code = getCodeIn(startTag.range);
-      const hasSelfClose = code.endsWith("/>");
-
+      const hasSelfClose = node.openEnd.value === "/>";
       if (shouldSelfClose && !hasSelfClose) {
         context.report({
-          node: startTag,
+          node: node.openEnd,
           data: {
-            tag: node.tagName,
+            tag: node.name,
           },
           messageId: MESSAGE_IDS.MISSING_SELF,
           fix(fixer) {
-            return fixer.replaceTextRange(
-              [startTag.range[1] - 1, startTag.range[1]],
-              " />"
-            );
+            return fixer.replaceText(node.openEnd, " />");
           },
         });
       }
       if (!shouldSelfClose && hasSelfClose) {
         context.report({
-          node: startTag,
+          node: node.openEnd,
           data: {
             tag: node.tagName,
           },
           messageId: MESSAGE_IDS.UNEXPECTED,
           fix(fixer) {
-            return fixer.replaceTextRange(
-              [startTag.range[1] - 2, startTag.range[1]],
-              ">"
-            );
+            return fixer.replaceText(node.openEnd, ">");
           },
         });
       }
     }
 
     return {
-      "*"(node) {
-        if (node.startTag) {
-          if (VOID_ELEMENTS_SET.has(node.tagName)) {
-            checkVoidElement(node);
-          } else {
-            checkClosingTag(node);
-          }
+      Tag(node) {
+        if (node.openEnd.value === "/>") {
+          checkVoidElement(node);
+        } else {
+          checkClosingTag(node);
         }
       },
+      // "*"(node) {
+      //   if (node.startTag) {
+      //     if (VOID_ELEMENTS_SET.has(node.name)) {
+      //       checkVoidElement(node);
+      //     } else {
+      //       checkClosingTag(node);
+      //     }
+      //   }
+      // },
     };
   },
 };

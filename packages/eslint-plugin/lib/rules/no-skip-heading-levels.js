@@ -46,7 +46,6 @@ module.exports = {
         if (headings.length <= 1) {
           return;
         }
-        console.log(headings);
         headings.sort((a, b) => a.node.range[0] - b.node.range[0]);
         headings.forEach((current, index) => {
           const next = headings[index + 1];
