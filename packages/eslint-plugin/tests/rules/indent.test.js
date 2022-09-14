@@ -240,6 +240,16 @@ function createTests() {
 </div>
 `,
       },
+      // https://github.com/yeonjuan/html-eslint/issues/102
+      {
+        code: `
+<table>
+    <ng-container>
+        <th>world</th>
+        <td>hello</td>
+    </ng-container>
+</table>`,
+      },
     ],
     invalid: [
       {
@@ -829,6 +839,24 @@ id="bar"
     <div>
         inner div </div>
 </div>`,
+        errors: wrongIndentErrors(1),
+      },
+      // https://github.com/yeonjuan/html-eslint/issues/102
+      {
+        code: `
+<table>
+<ng-container>
+        <th>world</th>
+        <td>hello</td>
+    </ng-container>
+</table>`,
+        output: `
+<table>
+    <ng-container>
+        <th>world</th>
+        <td>hello</td>
+    </ng-container>
+</table>`,
         errors: wrongIndentErrors(1),
       },
     ],
