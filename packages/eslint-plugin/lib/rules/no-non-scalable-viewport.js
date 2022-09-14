@@ -32,14 +32,19 @@ module.exports = {
 
   create(context) {
     return {
-      Meta(node) {
+      Tag(node) {
+        if (node.name !== "meta") {
+          return;
+        }
         const nameAttr = NodeUtils.findAttr(node, "name");
         const contentAttr = NodeUtils.findAttr(node, "content");
         if (
           nameAttr &&
+          nameAttr.value &&
           contentAttr &&
-          nameAttr.value.toLowerCase() === "viewport" &&
-          contentAttr.value.match(/user-scalable\s*=\s*no/i)
+          contentAttr.value &&
+          nameAttr.value.value.toLowerCase() === "viewport" &&
+          contentAttr.value.value.match(/user-scalable\s*=\s*no/i)
         ) {
           context.report({
             node: contentAttr,

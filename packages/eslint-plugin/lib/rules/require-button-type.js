@@ -36,19 +36,22 @@ module.exports = {
 
   create(context) {
     return {
-      Button(node) {
+      Tag(node) {
+        if (node.name !== "button") {
+          return;
+        }
         const typeAttr = NodeUtils.findAttr(node, "type");
-        if (!typeAttr) {
+        if (!typeAttr || !typeAttr.value) {
           context.report({
-            node: node.startTag || node,
+            node: node.openStart,
             messageId: MESSAGE_IDS.MISSING,
           });
-        } else if (!VALID_BUTTON_TYPES_SET.has(typeAttr.value)) {
+        } else if (!VALID_BUTTON_TYPES_SET.has(typeAttr.value.value)) {
           context.report({
             node: typeAttr,
             messageId: MESSAGE_IDS.INVALID,
             data: {
-              type: typeAttr.value,
+              type: typeAttr.value.value,
             },
           });
         }

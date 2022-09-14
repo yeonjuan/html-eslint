@@ -1,15 +1,32 @@
 /**
- * @typedef {import("../types").ElementNode} ElementNode
  * @typedef {import("../types").Rule} Rule
+ * @typedef {import("es-html-parser").TagNode} TagNode
  */
 
-const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
   EMPTY: "empty",
 };
+
+/**
+ * Checks whether a given node is a meta tag with viewport attribute or not.
+ * @param {TagNode['children'][number]} node A node to check
+ * @returns {node is TagNode} Return true if the given node is a meta tag with viewport attribute, otherwise false.
+ */
+function isMetaViewport(node) {
+  if (node.type === "Tag" && node.name === "meta") {
+    const nameAttribute = NodeUtils.findAttr(node, "name");
+    return (
+      nameAttribute &&
+      nameAttribute.value &&
+      nameAttribute.value.value.toLowerCase() === "viewport"
+    );
+  }
+  return false;
+}
 
 /**
  * @type {Rule}
@@ -34,20 +51,14 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @param {ElementNode} node
-     * @returns {boolean}
-     */
-    function isMetaViewport(node) {
-      if (node.type === NODE_TYPES.META) {
-        const nameAttr = NodeUtils.findAttr(node, "name");
-        return !!nameAttr && nameAttr.value.toLowerCase() === "viewport";
-      }
-      return false;
-    }
     return {
-      Head(node) {
-        const metaViewport = (node.childNodes || []).find(isMetaViewport);
+      Tag(node) {
+        if (node.name !== "head") {
+          return;
+        }
+
+        const metaViewport = node.children.find(isMetaViewport);
+
         if (!metaViewport) {
           context.report({
             node,
@@ -55,15 +66,17 @@ module.exports = {
           });
           return;
         }
-        const contentAttr = NodeUtils.findAttr(metaViewport, "content");
-        if (!contentAttr) {
+
+        const contentAttribute = NodeUtils.findAttr(metaViewport, "content");
+        const isValueEmpty =
+          !contentAttribute.value || !contentAttribute.value.value.length;
+
+        if (isValueEmpty) {
+          const reportTarget = !contentAttribute.value
+            ? metaViewport
+            : contentAttribute;
           context.report({
-            node: metaViewport,
-            messageId: MESSAGE_IDS.EMPTY,
-          });
-        } else if (!contentAttr.value.length) {
-          context.report({
-            node: contentAttr,
+            node: reportTarget,
             messageId: MESSAGE_IDS.EMPTY,
           });
         }

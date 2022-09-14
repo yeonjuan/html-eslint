@@ -1,6 +1,5 @@
 /**
  * @typedef {import("../types").Rule} Rule
- * @typedef {import("../types").AnyNode} AnyNode
  * @typedef {{tagPatterns: string[], attrPatterns: string[], message?: string}[]} Options
  */
 
@@ -62,27 +61,22 @@ module.exports = {
     const checkers = options.map((option) => new PatternChecker(option));
 
     return {
-      "*"(node) {
-        const tagName = node.tagName;
-        const startTag = node.startTag;
-        if (!tagName || !startTag) return;
-        if (!node.attrs.length) return;
-
-        node.attrs.forEach((attr) => {
-          if (!attr.name) return;
-
+      [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
+        const tagName = node.name;
+        node.attributes.forEach((attr) => {
+          if (!attr.key || !attr.key.value) {
+            return;
+          }
           const matched = checkers.find((checker) =>
-            checker.test(node.tagName, attr.name)
+            checker.test(tagName, attr.key.value)
           );
 
-          if (!matched) return;
-
-          /**
-           * @type {{node: AnyNode, message: string, messageId?: string}}
-           */
+          if (!matched) {
+            return;
+          }
 
           const result = {
-            node: startTag,
+            node: attr,
             message: "",
           };
 
@@ -96,7 +90,7 @@ module.exports = {
 
           context.report({
             ...result,
-            data: { attr: attr.name },
+            data: { attr: attr.key.value },
           });
         });
       },

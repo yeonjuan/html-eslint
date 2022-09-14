@@ -1,8 +1,4 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
-const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 const { OBSOLETE_TAGS } = require("../constants");
 
 const OBSOLETE_TAGS_SET = new Set(OBSOLETE_TAGS);
@@ -11,9 +7,6 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @type {Rule}
- */
 module.exports = {
   meta: {
     type: "code",
@@ -33,16 +26,12 @@ module.exports = {
 
   create(context) {
     return {
-      "*"(node) {
-        if (
-          node.type !== NODE_TYPES.PROGRAM &&
-          node.tagName &&
-          OBSOLETE_TAGS_SET.has(node.tagName)
-        ) {
+      Tag(node) {
+        if (OBSOLETE_TAGS_SET.has(node.name)) {
           context.report({
             node,
             data: {
-              tag: node.tagName,
+              tag: node.name,
             },
             messageId: MESSAGE_IDS.UNEXPECTED,
           });

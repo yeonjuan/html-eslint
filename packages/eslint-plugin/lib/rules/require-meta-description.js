@@ -1,9 +1,9 @@
 /**
- * @typedef {import("../types").ElementNode} ElementNode
- * @typedef {import("../types").Context} Context
+ * @typedef {import("../types").Rule} Rule
+ * @typedef {import("es-html-parser").TagNode} TagNode
  */
 
-const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
 const MESSAGE_IDS = {
@@ -11,6 +11,17 @@ const MESSAGE_IDS = {
   EMPTY: "empty",
 };
 
+/**
+ * @param {TagNode['children'][number]} node
+ * @returns {boolean}
+ */
+function isMetaTagNode(node) {
+  return node.type === "Tag" && node.name === "meta";
+}
+
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -29,22 +40,21 @@ module.exports = {
         'Unexpected empty `content` in `<meta name="description">`',
     },
   },
-
-  /**
-   * @param {Context} context
-   */
   create(context) {
     return {
-      /**
-       * @param {ElementNode} node
-       */
-      Head(node) {
-        const metaTags = (node.childNodes || []).filter(
-          (child) => child.type === NODE_TYPES.META
-        );
+      Tag(node) {
+        if (node.name !== "head") {
+          return;
+        }
+        const metaTags = node.children.filter(isMetaTagNode);
+
         const descriptionMetaTags = metaTags.filter((meta) => {
           const nameAttr = NodeUtils.findAttr(meta, "name");
-          return !!nameAttr && nameAttr.value.toLowerCase() === "description";
+          return (
+            !!nameAttr &&
+            nameAttr.value &&
+            nameAttr.value.value.toLowerCase() === "description"
+          );
         });
 
         if (descriptionMetaTags.length === 0) {
@@ -55,7 +65,11 @@ module.exports = {
         } else {
           descriptionMetaTags.forEach((meta) => {
             const content = NodeUtils.findAttr(meta, "content");
-            if (!content || !content.value.trim().length) {
+            if (
+              !content ||
+              !content.value ||
+              !content.value.value.trim().length
+            ) {
               context.report({
                 node: content || meta,
                 messageId: MESSAGE_IDS.EMPTY,

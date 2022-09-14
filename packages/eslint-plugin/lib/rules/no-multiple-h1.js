@@ -32,8 +32,10 @@ module.exports = {
     const h1s = [];
 
     return {
-      H1(node) {
-        h1s.push(node);
+      Tag(node) {
+        if (node.name === "h1") {
+          h1s.push(node);
+        }
       },
       "Program:exit"() {
         if (h1s.length > 1) {

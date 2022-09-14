@@ -33,10 +33,13 @@ module.exports = {
     const headings = [];
 
     return {
-      "H1, H2, H3, H5, H6"(node) {
+      Tag(node) {
+        if (!["h1", "h2", "h3", "h5", "h6"].includes(node.name)) {
+          return;
+        }
         headings.push({
           node,
-          level: parseInt(node.type.replace("H", ""), 10),
+          level: parseInt(node.name.replace("h", ""), 10),
         });
       },
       "Program:exit"() {

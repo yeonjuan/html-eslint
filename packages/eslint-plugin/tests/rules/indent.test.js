@@ -62,16 +62,6 @@ function createTests() {
       },
       {
         code: `
-<html>
-    <head>
-        <meta>
-        <!-- foo -->
-    </head>
-</html>
-`,
-      },
-      {
-        code: `
 
 <div>
     <div> foo </div>
@@ -223,8 +213,8 @@ function createTests() {
     <pre>
     
   <div
-      id="foo"
- style="bar">
+        id="foo"
+        style="bar">
  </div>
     </pre>
 </div>

@@ -1,9 +1,3 @@
-/**
- * @typedef {import("../types").Rule} Rule
- * @typedef {import("../types").Range} Range
- * @typedef {import("../types").AttrNode} AttrNode
- */
-
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -18,9 +12,6 @@ const QUOTES_STYLES = {
 
 const QUOTES_CODES = [`"`, `'`];
 
-/**
- * @type {Rule}
- */
 module.exports = {
   meta: {
     type: "code",
@@ -62,70 +53,39 @@ module.exports = {
       return sourceCode.text.slice(range[0], range[1]);
     }
 
-    /**
-     * @param {AttrNode} attr
-     * @returns {Range}
-     */
-    function getValueRange(attr) {
-      const attrCode = getCodeIn(attr.range);
-      const [matched = ""] = attrCode.match(/\S*?\s*=\s*/) || [];
-      return [attr.range[0] + matched.length, attr.range[1]];
-    }
-
-    /**
-     * @param {AttrNode} attr
-     * @returns {[string, string]}
-     */
     function getQuotes(attr) {
-      const [valueStart, valueEnd] = getValueRange(attr);
-      const opening = getCodeIn([valueStart, valueStart + 1]);
-      const closing = getCodeIn([valueEnd - 1, valueEnd]);
-      return [opening, closing];
+      return [attr.startWrapper.value, attr.endWrapper.value];
     }
 
-    /**
-     * @param {AttrNode} attr
-     * @returns {boolean}
-     */
-    function hasEqualSign(attr) {
-      const keyEnd = attr.range[0] + attr.name.length;
-      return getCodeIn([keyEnd, attr.range[1]]).trimStart().startsWith("=");
-    }
-
-    /**
-     * @param {AttrNode} attr
-     */
     function checkQuotes(attr) {
-      if (attr.value.includes(expectedQuote)) {
+      if (!attr.value || attr.value.value.includes(expectedQuote)) {
         return;
       }
 
-      const [opening, closing] = getQuotes(attr);
-      if (QUOTES_CODES.includes(opening)) {
-        if (opening === closing && opening !== expectedQuote) {
-          context.report({
-            node: attr,
-            messageId: MESSAGE_IDS.UNEXPECTED,
-            data: {
-              expected: `${SELECTED_STYLE}(${expectedQuote})`,
-              actual:
-                SELECTED_STYLE === QUOTES_STYLES.SINGLE
-                  ? `${QUOTES_STYLES.DOUBLE}(")`
-                  : `${QUOTES_STYLES.SINGLE}(')`,
-            },
-            fix(fixer) {
-              const range = getValueRange(attr);
-              const originCode = getCodeIn(range);
-              const onlyValue = originCode.slice(1, originCode.length - 1);
-
-              return fixer.replaceTextRange(
-                range,
-                `${expectedQuote}${onlyValue}${expectedQuote}`
-              );
-            },
-          });
+      if (attr.startWrapper && attr.endWrapper) {
+        const [opening, closing] = getQuotes(attr);
+        if (QUOTES_CODES.includes(opening)) {
+          if (opening === closing && opening !== expectedQuote) {
+            context.report({
+              node: attr,
+              messageId: MESSAGE_IDS.UNEXPECTED,
+              data: {
+                expected: `${SELECTED_STYLE}(${expectedQuote})`,
+                actual:
+                  SELECTED_STYLE === QUOTES_STYLES.SINGLE
+                    ? `${QUOTES_STYLES.DOUBLE}(")`
+                    : `${QUOTES_STYLES.SINGLE}(')`,
+              },
+              fix(fixer) {
+                return fixer.replaceTextRange(
+                  [attr.startWrapper.range[0], attr.endWrapper.range[1]],
+                  `${expectedQuote}${attr.value.value}${expectedQuote}`
+                );
+              },
+            });
+          }
         }
-      } else if (hasEqualSign(attr)) {
+      } else {
         context.report({
           node: attr,
           messageId: MESSAGE_IDS.MISSING,
@@ -133,10 +93,9 @@ module.exports = {
             expected: `${SELECTED_STYLE}(${expectedQuote})`,
           },
           fix(fixer) {
-            const range = getValueRange(attr);
-            const originCode = getCodeIn(range);
+            const originCode = getCodeIn(attr.value.range);
             return fixer.replaceTextRange(
-              range,
+              attr.value.range,
               `${expectedQuote}${originCode}${expectedQuote}`
             );
           },
@@ -145,8 +104,8 @@ module.exports = {
     }
 
     return {
-      "*"(node) {
-        (node.attrs || []).forEach(checkQuotes);
+      [["Tag", "ScriptTag", "StyleTag"].join(",")](node) {
+        node.attributes.forEach(checkQuotes);
       },
     };
   },

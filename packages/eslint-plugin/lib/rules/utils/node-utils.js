@@ -1,39 +1,40 @@
 /**
- * @typedef {import("../../types").ElementNode} ElementNode
- * @typedef {import("../../types").AttrNode} AttrNode
- * @typedef {import("../../types").AnyNode} AnyNode
- * @typedef {import("../../types").TextNode} TextNode
- * @typedef {import("../../types").BaseNode} BaseNode
- * @typedef {import("../../types").TextLineNode} TextLineNode
- * @typedef {import("../../types").CommentNode} CommentNode
+ * @typedef {import("es-html-parser").TagNode} TagNode
+ * @typedef {import("es-html-parser").AnyNode} AnyNode
+ * @typedef {import("es-html-parser").TextNode} TextNode
+ * @typedef {import("es-html-parser").AttributeNode} AttributeNode
+ * @typedef {import("../../types").LineNode} LineNode
+ * @typedef {import("../../types").CommentContentNode} CommentContentNode
  */
 
 module.exports = {
-  /**
-   * Find attribute by name in the given node
-   * @param {ElementNode} node node
-   * @param {string} name attribute name
-   * @return {AttrNode | void}
+  /*
+   * @param {TagNode} node
+   * @param {string} name
+   * @returns {AttributeNode | undefined}
    */
   findAttr(node, name) {
-    return node
-      ? (node.attrs || []).find(
-          (attr) => attr.name.toLowerCase() === name.toLowerCase()
-        )
-      : undefined;
+    return node.attributes.find(
+      (attr) => attr.key && attr.key.value.toLowerCase() === name.toLowerCase()
+    );
   },
   /**
    * Checks a node has attribute with the given name or not.
-   * @param {ElementNode} node node
+   * @param {TagNode} node node
    * @param {string} name attribute name
    * @return {boolean} `true` if the node has a attribute, otherwise `false`.
    */
   hasAttr(node, name) {
-    return !!node && (node.attrs || []).some((attr) => attr.name === name);
+    return (
+      !!node &&
+      (node.attributes || []).some(
+        (attr) => attr.key && attr.key.value === name
+      )
+    );
   },
   /**
    * Checks whether a node's all tokens are on the same line or not.
-   * @param {ElementNode} node A node to check
+   * @param {AnyNode} node A node to check
    * @returns {boolean} `true` if a node's tokens are on the same line, otherwise `false`.
    */
   isNodeTokensOnSameLine(node) {
@@ -56,5 +57,42 @@ module.exports = {
    */
   isCommentNode(node) {
     return !!(node && node.type === "comment");
+  },
+
+  /**
+   *
+   * @param {TextNode | CommentContentNode} node
+   * @returns {LineNode[]}
+   */
+  splitToLineNodes(node) {
+    let start = node.range[0];
+    let line = node.loc.start.line;
+    const startCol = node.loc.start.column;
+
+    return node.value.split("\n").map((value, index) => {
+      const columnStart = index === 0 ? startCol : 0;
+      /**
+       * @type {LineNode}
+       */
+      const lineNode = {
+        type: "Line",
+        value,
+        range: [start, start + value.length],
+        loc: {
+          start: {
+            line,
+            column: columnStart,
+          },
+          end: {
+            line,
+            column: columnStart + value.length,
+          },
+        },
+      };
+
+      start += value.length + 1;
+      line += 1;
+      return lineNode;
+    });
   },
 };

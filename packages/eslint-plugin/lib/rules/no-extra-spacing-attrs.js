@@ -1,10 +1,3 @@
-/**
- * @typedef {import("../types").Rule} Rule
- * @typedef {import("../types").AttrNode} AttrNode
- * @typedef {import("../types").TagNode} TagNode
- * @typedef {import("../types").ElementNode} ElementNode
- */
-
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -13,9 +6,6 @@ const MESSAGE_IDS = {
   EXTRA_BEFORE: "unexpectedBefore",
 };
 
-/**
- * @type {Rule}
- */
 module.exports = {
   meta: {
     type: "code",
@@ -35,9 +25,6 @@ module.exports = {
     },
   },
   create(context) {
-    /**
-     * @param {AttrNode[]} attrs
-     */
     function checkExtraSpacesBetweenAttrs(attrs) {
       attrs.forEach((current, index, attrs) => {
         if (index >= attrs.length - 1) {
@@ -63,17 +50,13 @@ module.exports = {
         }
       });
     }
-    /**
-     * @param {TagNode} startTag
-     * @param {AttrNode} lastAttr
-     * @param {boolean} isSelfClosed
-     */
-    function checkExtraSpaceAfter(startTag, lastAttr, isSelfClosed) {
-      if (startTag.loc.end.line !== lastAttr.loc.end.line) {
+
+    function checkExtraSpaceAfter(openEnd, lastAttr, isSelfClosed) {
+      if (openEnd.loc.end.line !== lastAttr.loc.end.line) {
         // skip the attribute on the different line with the start tag
         return;
       }
-      let spacesBetween = startTag.loc.end.column - lastAttr.loc.end.column;
+      let spacesBetween = openEnd.loc.end.column - lastAttr.loc.end.column;
       if (isSelfClosed) {
         spacesBetween--;
       }
@@ -82,7 +65,7 @@ module.exports = {
         context.report({
           loc: {
             start: lastAttr.loc.end,
-            end: startTag.loc.end,
+            end: openEnd.loc.end,
           },
           messageId: MESSAGE_IDS.EXTRA_AFTER,
           fix(fixer) {
@@ -95,19 +78,14 @@ module.exports = {
       }
     }
 
-    /**
-     * @param {ElementNode} node
-     * @param {AttrNode} firstAttr
-     */
     function checkExtraSpaceBefore(node, firstAttr) {
       if (node.loc.start.line !== firstAttr.loc.start.line) {
         // skip the attribute on the different line with the start tag
         return;
       }
-      const nodeLength = node.tagName.length;
-      const spacesBetween =
-        firstAttr.loc.start.column - (node.loc.start.column + nodeLength);
-      if (spacesBetween > 2) {
+
+      const spacesBetween = firstAttr.loc.start.column - node.loc.end.column;
+      if (spacesBetween >= 2) {
         context.report({
           loc: {
             start: node.loc.start,
@@ -116,7 +94,7 @@ module.exports = {
           messageId: MESSAGE_IDS.EXTRA_BEFORE,
           fix(fixer) {
             return fixer.removeRange([
-              node.range[0] + nodeLength + 2,
+              firstAttr.range[0] - spacesBetween + 1,
               firstAttr.range[0],
             ]);
           },
@@ -125,19 +103,22 @@ module.exports = {
     }
 
     return {
-      "*"(node) {
-        if (node.attrs && node.attrs.length > 0) {
-          checkExtraSpaceBefore(node, node.attrs[0]);
+      [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
+        if (!node.attributes || node.attributes.length <= 0) {
+          return;
         }
-        if (node.startTag && node.attrs && node.attrs.length > 0) {
-          const isSelfClosed = !node.endTag;
+
+        checkExtraSpaceBefore(node.openStart, node.attributes[0]);
+
+        if (node.openEnd && node.attributes && node.attributes.length > 0) {
+          const selfClosing = node.openEnd.value === "/>";
           checkExtraSpaceAfter(
-            node.startTag,
-            node.attrs[node.attrs.length - 1],
-            isSelfClosed
+            node.openEnd,
+            node.attributes[node.attributes.length - 1],
+            selfClosing
           );
         }
-        checkExtraSpacesBetweenAttrs(node.attrs || []);
+        checkExtraSpacesBetweenAttrs(node.attributes);
       },
     };
   },

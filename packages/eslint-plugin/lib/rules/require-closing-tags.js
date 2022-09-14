@@ -41,36 +41,24 @@ module.exports = {
       [MESSAGE_IDS.MISSING]: "Missing closing tag for {{tag}}.",
       [MESSAGE_IDS.MISSING_SELF]: "Missing self closing tag for {{tag}}",
       [MESSAGE_IDS.UNEXPECTED]: "Unexpected self closing tag for {{tag}}.",
+      [MESSAGE_IDS.HUCKS]: "HUCKS.",
     },
   },
 
   create(context) {
+    let svgStacks = [];
+
     const shouldSelfClose =
       context.options && context.options.length
         ? context.options[0].selfClosing === "always"
         : false;
 
-    const sourceCode = context.getSourceCode();
-    function getCodeIn(range) {
-      return sourceCode.text.slice(range[0], range[1]);
-    }
-
     function checkClosingTag(node) {
-      if (node.startTag && !node.endTag) {
-        if (
-          node.namespaceURI === "http://www.w3.org/2000/svg" ||
-          node.namespaceURI === "http://www.w3.org/1998/Math/MathML"
-        ) {
-          const code = getCodeIn(node.startTag.range);
-          const hasSelfClose = code.endsWith("/>");
-          if (hasSelfClose) {
-            return;
-          }
-        }
+      if (!node.close) {
         context.report({
-          node: node.startTag,
+          node: node,
           data: {
-            tag: node.tagName,
+            tag: node.name,
           },
           messageId: MESSAGE_IDS.MISSING,
         });
@@ -78,50 +66,47 @@ module.exports = {
     }
 
     function checkVoidElement(node) {
-      const startTag = node.startTag;
-      const code = getCodeIn(startTag.range);
-      const hasSelfClose = code.endsWith("/>");
-
+      const hasSelfClose = node.openEnd.value === "/>";
       if (shouldSelfClose && !hasSelfClose) {
         context.report({
-          node: startTag,
+          node: node.openEnd,
           data: {
-            tag: node.tagName,
+            tag: node.name,
           },
           messageId: MESSAGE_IDS.MISSING_SELF,
           fix(fixer) {
-            return fixer.replaceTextRange(
-              [startTag.range[1] - 1, startTag.range[1]],
-              " />"
-            );
+            return fixer.replaceText(node.openEnd, " />");
           },
         });
       }
       if (!shouldSelfClose && hasSelfClose) {
         context.report({
-          node: startTag,
+          node: node.openEnd,
           data: {
-            tag: node.tagName,
+            tag: node.name,
           },
           messageId: MESSAGE_IDS.UNEXPECTED,
           fix(fixer) {
-            return fixer.replaceTextRange(
-              [startTag.range[1] - 2, startTag.range[1]],
-              ">"
-            );
+            return fixer.replaceText(node.openEnd, ">");
           },
         });
       }
     }
 
     return {
-      "*"(node) {
-        if (node.startTag) {
-          if (VOID_ELEMENTS_SET.has(node.tagName)) {
-            checkVoidElement(node);
-          } else {
-            checkClosingTag(node);
-          }
+      Tag(node) {
+        if (node.name === "svg") {
+          svgStacks.push(node);
+        }
+        if (node.selfClosing || VOID_ELEMENTS_SET.has(node.name)) {
+          checkVoidElement(node);
+        } else if (node.openEnd.value !== "/>") {
+          checkClosingTag(node);
+        }
+      },
+      "Tag:exit"(node) {
+        if (node.name === "svg") {
+          svgStacks.push(node);
         }
       },
     };

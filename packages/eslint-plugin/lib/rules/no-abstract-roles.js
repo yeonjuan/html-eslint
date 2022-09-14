@@ -46,10 +46,10 @@ module.exports = {
 
   create(context) {
     return {
-      "*"(node) {
+      [["Tag", "ScriptTag", "StyleTag"].join(",")](node) {
         const roleAttr = NodeUtils.findAttr(node, "role");
         if (roleAttr) {
-          if (ABSTRACT_ROLE_SET.has(roleAttr.value)) {
+          if (roleAttr.value && ABSTRACT_ROLE_SET.has(roleAttr.value.value)) {
             context.report({
               messageId: MESSAGE_IDS.UNEXPECTED,
               node: roleAttr,

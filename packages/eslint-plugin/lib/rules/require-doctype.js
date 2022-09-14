@@ -31,7 +31,7 @@ module.exports = {
   create(context) {
     let hasDocType = false;
     return {
-      documentType() {
+      Doctype() {
         hasDocType = true;
       },
       "Program:exit"(node) {

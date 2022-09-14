@@ -58,12 +58,15 @@ module.exports = {
 
     return {
       "*"(node) {
+        if (!node.attributes || node.attributes.length <= 0) {
+          return;
+        }
         const idAttr = NodeUtils.findAttr(node, "id");
-        if (idAttr && idAttr.value && !checkNaming(idAttr.value)) {
+        if (idAttr && idAttr.value && !checkNaming(idAttr.value.value)) {
           context.report({
             node: idAttr,
             data: {
-              actual: idAttr.value,
+              actual: idAttr.value.value,
               convention,
             },
             messageId: MESSAGE_IDS.WRONG,

@@ -10,9 +10,6 @@ const MESSAGE_IDS = {
   EMPTY: "empty",
 };
 
-/**
- * @type {Rule}
- */
 module.exports = {
   meta: {
     type: "code",
@@ -33,16 +30,25 @@ module.exports = {
 
   create(context) {
     return {
-      Html(node) {
+      Tag(node) {
+        if (node.name !== "html") {
+          return;
+        }
         const langAttr = NodeUtils.findAttr(node, "lang");
         if (!langAttr) {
           context.report({
-            node: node.startTag,
+            node: {
+              loc: {
+                start: node.openStart.loc.start,
+                end: node.openEnd.loc.end,
+              },
+              range: [node.openStart.range[0], node.openEnd.range[1]],
+            },
             messageId: MESSAGE_IDS.MISSING,
           });
-        } else if (langAttr.value.trim().length === 0) {
+        } else if (langAttr.value && langAttr.value.value.trim().length === 0) {
           context.report({
-            node: node.startTag,
+            node: node.openStart,
             messageId: MESSAGE_IDS.EMPTY,
           });
         }

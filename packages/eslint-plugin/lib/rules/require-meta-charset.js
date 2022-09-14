@@ -1,9 +1,8 @@
 /**
- * @typedef {import("../types").ElementNode} ElementNode
- * @typedef {import("../types").Context} Context
+ * @typedef {import("../types").Rule} Rule
  */
 
-const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
 const MESSAGE_IDS = {
@@ -11,6 +10,9 @@ const MESSAGE_IDS = {
   EMPTY: "empty",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -29,21 +31,21 @@ module.exports = {
     },
   },
 
-  /**
-   * @param {Context} context
-   */
   create(context) {
     return {
-      /**
-       * @param {ElementNode} node
-       */
-      Head(node) {
-        const metaCharset = (node.childNodes || []).find((child) => {
+      Tag(node) {
+        if (node.name !== "head") {
+          return;
+        }
+
+        const metaCharset = node.children.find((child) => {
           return (
-            child.type === NODE_TYPES.META &&
+            child.type === "Tag" &&
+            child.name === "meta" &&
             !!NodeUtils.findAttr(child, "charset")
           );
         });
+
         if (!metaCharset) {
           context.report({
             node,
@@ -52,11 +54,13 @@ module.exports = {
           return;
         }
         const charsetAttr = NodeUtils.findAttr(metaCharset, "charset");
-        if (charsetAttr && !charsetAttr.value.length) {
-          context.report({
-            node: charsetAttr,
-            messageId: MESSAGE_IDS.EMPTY,
-          });
+        if (charsetAttr) {
+          if (!charsetAttr.value || !charsetAttr.value.value.length) {
+            context.report({
+              node: charsetAttr,
+              messageId: MESSAGE_IDS.EMPTY,
+            });
+          }
         }
       },
     };

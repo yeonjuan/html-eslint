@@ -5,7 +5,8 @@
       {
         "targets": {
           "chrome": 79
-        }
+        },
+        "include": ["@babel/plugin-proposal-optional-chaining"]
       }
     ],
     "@babel/preset-react"

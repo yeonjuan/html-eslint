@@ -31,7 +31,7 @@ module.exports = {
 
   create(context) {
     return {
-      "*"(node) {
+      [["Tag", "ScriptTag", "StyleTag"].join(",")](node) {
         const accessKeyAttr = NodeUtils.findAttr(node, "accesskey");
         if (accessKeyAttr) {
           context.report({

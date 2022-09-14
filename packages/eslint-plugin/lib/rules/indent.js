@@ -1,10 +1,11 @@
 /**
  * @typedef {import("../types").Rule} Rule
- * @typedef {import("../types").ElementNode} ElementNode
- * @typedef {import("../types").AttrNode} AttrNode
  * @typedef {import("../types").TagNode} TagNode
- * @typedef {import("../types").AnyNode} AnyNode
  * @typedef {import("../types").BaseNode} BaseNode
+ * @typedef {import("../types").OpenTagStartNode} OpenTagStartNode
+ * @typedef {import("../types").CloseTagNode} CloseTagNode
+ * @typedef {import("../types").LineNode} LineNode
+ *@typedef {import("../types").AnyNode} AnyNode
  * @typedef {Object} IndentType
  * @property {"tab"} TAB
  * @property {"space"} SPACE
@@ -12,7 +13,7 @@
  * @typedef {Object} MessageId
  * @property {"wrongIndent"} WRONG_INDENT
  */
-const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
 /** @type {MessageId} */
@@ -26,12 +27,7 @@ const INDENT_TYPES = {
   SPACE: "space",
 };
 
-const IGNORING_NODES = [
-  NODE_TYPES.PRE,
-  NODE_TYPES.SCRIPT,
-  NODE_TYPES.STYLE,
-  NODE_TYPES.XMP,
-];
+const IGNORING_NODES = ["pre", "xmp", "script", "style"];
 
 /**
  * @type {Rule}
@@ -67,219 +63,209 @@ module.exports = {
   },
   create(context) {
     const sourceCode = context.getSourceCode();
+    let indentLevel = -1;
+    let parentIgnoringChildCount = 0;
 
-    const indentLevel = new IndentLevel();
-    const { indentType, indentSize } = getIndentTypeAndSize(context.options);
-    const indentUnit =
-      indentType === INDENT_TYPES.SPACE ? " ".repeat(indentSize) : "\t";
+    const { indentType, indentSize, indentChar } = (function () {
+      const options = context.options;
+      /**
+       * @type {IndentType['SPACE'] | IndentType['TAB']}
+       */
+      let indentType = INDENT_TYPES.SPACE;
+      let indentSize = 4;
+      if (options.length) {
+        if (options[0] === INDENT_TYPES.TAB) {
+          indentType = INDENT_TYPES.TAB;
+        } else {
+          indentSize = options[0];
+        }
+      }
+      const indentChar =
+        indentType === INDENT_TYPES.SPACE ? " ".repeat(indentSize) : "\t";
+      return { indentType, indentSize, indentChar };
+    })();
+
+    function indent() {
+      indentLevel++;
+    }
+    function unindent() {
+      indentLevel--;
+    }
 
     /**
      * @param {string} str
+     * @returns {number}
      */
-    function countIndentSize(str) {
+    function countLeftPadding(str) {
       return str.length - str.replace(/^[\s\t]+/, "").length;
     }
 
     /**
-     * @param {BaseNode} node
+     * @param {AnyNode} node
+     * @returns {node is LineNode}
      */
-    function getLineCodeBefore(node) {
+    function isLineNode(node) {
+      return node.type === "Line";
+    }
+
+    /**
+     * @param {AnyNode} node
+     * @returns {string}
+     */
+    function getActualIndent(node) {
       const lines = sourceCode.getLines();
       const line = lines[node.loc.start.line - 1];
-      let end = node.loc.start.column;
-      // @ts-ignore
-      if (typeof node.textLine === "string") {
-        // @ts-ignore
-        end += countIndentSize(node.textLine);
+      let column = node.loc.start.column;
+
+      if (isLineNode(node)) {
+        column += countLeftPadding(node.value);
       }
 
-      return line.slice(0, end);
+      return line.slice(0, column);
     }
 
     /**
-     * @param {BaseNode} node
-     * @param {BaseNode} [nodeToReport]
+     * @returns {string}
      */
-    function checkIndent(node, nodeToReport) {
-      const codeBefore = getLineCodeBefore(node);
-      if (codeBefore.trim().length === 0) {
-        const level = indentLevel.get();
-        const expectedIndent = indentUnit.repeat(level);
-        if (codeBefore !== expectedIndent) {
-          const expected = `${
-            indentType === INDENT_TYPES.SPACE ? level * indentSize : level
-          } ${indentType}`;
-          const actualTabs = (codeBefore.match(/\t/g) || []).length;
-          const actualSpaces = (codeBefore.match(/[^\S\t\n\r]/g) || []).length;
+    function getExpectedIndent() {
+      return indentChar.repeat(indentLevel);
+    }
 
-          let actual = "";
+    /**
+     * @param {AnyNode} node
+     * @param {string} actualIndent
+     * @return {BaseNode}
+     */
+    function getIndentNodeToReport(node, actualIndent) {
+      let rangeStart = node.range[0];
 
-          if (!actualTabs && !actualSpaces) {
-            actual = "no indent";
-          }
-          if (actualTabs) {
-            actual += `${actualTabs} ${INDENT_TYPES.TAB}`;
-          }
-          if (actualSpaces) {
-            actual += `${actual.length ? ", " : ""}${actualSpaces} ${
-              INDENT_TYPES.SPACE
-            }`;
-          }
-
-          context.report({
-            node: nodeToReport || node,
-            messageId: MESSAGE_ID.WRONG_INDENT,
-            data: {
-              expected,
-              actual,
-            },
-            fix(fixer) {
-              const start = node.range[0] - node.loc.start.column;
-              let end = node.range[0];
-              // @ts-ignore
-              if (node.textLine) {
-                end += codeBefore.length;
-              }
-              return fixer.replaceTextRange([start, end], expectedIndent);
-            },
-          });
-        }
+      if (node.type !== "Line") {
+        rangeStart -= actualIndent.length;
       }
-    }
 
-    /**
-     * @param {AnyNode} startTag
-     * @param {AttrNode[]} attrs
-     */
-    function checkAttrsIndent(startTag, attrs) {
-      attrs.forEach((attr) => {
-        if (attr.loc.start.line !== startTag.loc.start.line) {
-          checkIndent(attr);
-        }
-      });
-    }
-
-    /**
-     * @param {BaseNode} startTag
-     */
-    function checkEndOfStartTag(startTag) {
-      const start = startTag.range[1] - 1;
-      const end = startTag.range[1];
-      const line = startTag.loc.end.line;
-      const endCol = startTag.loc.end.column;
-      const startCol = startTag.loc.end.column - 1;
-
-      checkIndent({
-        range: [start, end],
-        start,
-        end,
+      return {
+        range: [rangeStart, rangeStart + actualIndent.length],
         loc: {
           start: {
-            line,
-            column: startCol,
+            column: 0,
+            line: node.loc.start.line,
           },
           end: {
-            line,
-            column: endCol,
+            column: actualIndent.length,
+            line: node.loc.start.line,
           },
         },
-      });
+      };
     }
-    let nodesToIgnoreChildren = [];
-    return {
-      /**
-       * @param {ElementNode} node
-       */
-      "*"(node) {
-        if (IGNORING_NODES.includes(node.type)) {
-          nodesToIgnoreChildren.push(node);
-          return;
-        }
-        if (nodesToIgnoreChildren.length) {
-          return;
-        }
 
-        indentLevel.up();
-
-        if (node.startTag && Array.isArray(node.attrs)) {
-          checkAttrsIndent(node.startTag, node.attrs);
+    /**
+     * @param {string} actualIndent
+     * @param {number} expectedIndentSize
+     */
+    function getMessageData(actualIndent, expectedIndentSize) {
+      const actualTabs = (actualIndent.match(/\t/g) || []).length;
+      const actualSpaces = (actualIndent.match(/[^\S\t\n\r]/g) || []).length;
+      let actual = "";
+      if (!actualTabs && !actualSpaces) {
+        actual = "no indent";
+      } else {
+        if (actualTabs) {
+          actual += `${actualTabs} tab`;
         }
-
-        (node.childNodes || []).forEach((current) => {
-          if (current.startTag) {
-            checkIndent(current.startTag);
+        if (actualSpaces) {
+          if (actual) {
+            actual += ", ";
           }
-          if (current.endTag) {
-            checkIndent(current.endTag);
+          actual += `${actualSpaces} space`;
+        }
+      }
+
+      if (indentType === "space") {
+        expectedIndentSize *= indentSize;
+      }
+
+      return {
+        actual,
+        expected: `${expectedIndentSize} ${indentType}`,
+      };
+    }
+
+    /**
+     * @param {AnyNode} node
+     */
+    function checkIndent(node) {
+      if (parentIgnoringChildCount > 0) {
+        return;
+      }
+      const actualIndent = getActualIndent(node);
+      const expectedIndent = getExpectedIndent();
+      if (actualIndent.trim().length) {
+        return;
+      }
+      if (actualIndent !== expectedIndent) {
+        const targetNode = getIndentNodeToReport(node, actualIndent);
+        context.report({
+          node: targetNode,
+          messageId: MESSAGE_ID.WRONG_INDENT,
+          data: getMessageData(actualIndent, indentLevel),
+          fix(fixer) {
+            return fixer.replaceText(targetNode, expectedIndent);
+          },
+        });
+      }
+    }
+
+    return {
+      // Tag
+      Tag(node) {
+        if (IGNORING_NODES.includes(node.name)) {
+          parentIgnoringChildCount++;
+        }
+        indent();
+      },
+      OpenTagStart: checkIndent,
+      OpenTagEnd: checkIndent,
+      CloseTag: checkIndent,
+      "Tag:exit"(node) {
+        if (IGNORING_NODES.includes(node.name)) {
+          parentIgnoringChildCount--;
+        }
+        unindent();
+      },
+
+      // Attribute
+      Attribute: indent,
+      AttributeKey: checkIndent,
+      AttributeValue: checkIndent,
+      "Attribute:exit": unindent,
+
+      // Text
+      Text(node) {
+        indent();
+        const lineNodes = NodeUtils.splitToLineNodes(node);
+        lineNodes.forEach((lineNode) => {
+          if (lineNode.value.trim().length) {
+            checkIndent(lineNode);
           }
         });
-
-        if (
-          (NodeUtils.isTextNode(node) || NodeUtils.isCommentNode(node)) &&
-          node.lineNodes &&
-          node.lineNodes.length
-        ) {
-          if (!node.startTag) {
-            indentLevel.down();
-          }
-          node.lineNodes.forEach((lineNode) => {
-            if (lineNode.textLine.trim().length) {
-              checkIndent(lineNode);
-            }
-          });
-          if (!node.startTag) {
-            indentLevel.up();
-          }
-        }
       },
-      "*:exit"(node) {
-        if (IGNORING_NODES.includes(node.type)) {
-          nodesToIgnoreChildren.pop();
-          return;
-        }
-        if (nodesToIgnoreChildren.length) {
-          return;
-        }
-        indentLevel.down();
+      "Text:exit": unindent,
 
-        if (node.startTag) {
-          checkEndOfStartTag(node.startTag);
-        }
+      // Comment
+      Comment: indent,
+      CommentOpen: checkIndent,
+      CommentContent(node) {
+        indent();
+        const lineNodes = NodeUtils.splitToLineNodes(node);
+        lineNodes.forEach((lineNode) => {
+          if (lineNode.value.trim().length) {
+            checkIndent(lineNode);
+          }
+        });
       },
+      CommentClose: checkIndent,
+      "Comment:exit": unindent,
+      "CommentContent:exit": unindent,
     };
   },
 };
-
-function getIndentTypeAndSize(options) {
-  /**
-   * @type {IndentType['SPACE'] | IndentType['TAB']}
-   */
-  let indentType = INDENT_TYPES.SPACE;
-  let indentSize = 4;
-  if (options.length) {
-    if (options[0] === INDENT_TYPES.TAB) {
-      indentType = INDENT_TYPES.TAB;
-    } else {
-      indentSize = options[0];
-    }
-  }
-  return { indentType, indentSize };
-}
-
-class IndentLevel {
-  constructor() {
-    this.level = -1;
-  }
-
-  up() {
-    this.level++;
-  }
-
-  down() {
-    this.level--;
-  }
-
-  get() {
-    return this.level;
-  }
-}

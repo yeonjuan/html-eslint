@@ -1,14 +1,32 @@
 /**
  * @typedef {import("../types").Rule} Rule
+ * @typedef {import("es-html-parser").TagNode} TagNode
+ * @typedef {import("es-html-parser").TextNode} TextNode
  */
-
-const { RULE_CATEGORY, NODE_TYPES } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   MISSING_TITLE: "missing",
   EMPTY_TITLE: "empty",
 };
+
+/**
+ * Checks whether the node is a title TagNode.
+ * @param {TagNode['children'][number]} node A node to check
+ * @returns {node is TagNode} Returns true if the given node is a title TagNode, otherwise false
+ */
+function isTitleTagNode(node) {
+  return node.type === "Tag" && node.name === "title";
+}
+
+/**
+ * Checks whether the node is a TextNode that has value.
+ * @param {TagNode['children'][number]} node A node to check
+ * @returns {node is TextNode} Returns true if the given node is a TextNode with non-empty value, otherwise false
+ */
+function isNonEmptyTextNode(node) {
+  return node.type === "Text" && node.value.trim().length > 0;
+}
 
 /**
  * @type {Rule}
@@ -33,25 +51,29 @@ module.exports = {
   },
   create(context) {
     return {
-      Head(node) {
-        const titleTag = (node.childNodes || []).find(
-          (node) => node.type === NODE_TYPES.TITLE
-        );
+      Tag(node) {
+        if (node.name !== "head") {
+          return;
+        }
+        const titleTag = node.children.find(isTitleTagNode);
 
         if (!titleTag) {
           context.report({
             node,
             messageId: MESSAGE_IDS.MISSING_TITLE,
           });
-        } else if (
-          !(titleTag.childNodes || []).some(
-            (node) => NodeUtils.isTextNode(node) && node.value.trim().length > 0
-          )
-        ) {
-          context.report({
-            node: titleTag,
-            messageId: MESSAGE_IDS.EMPTY_TITLE,
-          });
+          return;
+        }
+
+        if (isTitleTagNode(titleTag)) {
+          const titleContentText = titleTag.children.find(isNonEmptyTextNode);
+
+          if (!titleContentText) {
+            context.report({
+              node: titleTag,
+              messageId: MESSAGE_IDS.EMPTY_TITLE,
+            });
+          }
         }
       },
     };
