@@ -77,7 +77,7 @@ module.exports = {
       }
     }
     return {
-      [["Tag", "StyleTag", "ScriptTag", "Program"].join(",")](node) {
+      [["Tag", "Program"].join(",")](node) {
         const children = node.type === "Program" ? node.body : node.children;
         checkSiblings(children);
         checkChild(node, children);
