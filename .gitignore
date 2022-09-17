@@ -2,3 +2,4 @@ node_modules/
 **/coverage
 website/build
 website/static/js/playground
+packages/website/.next
