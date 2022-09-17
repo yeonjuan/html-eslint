@@ -1,11 +1,18 @@
+/**
+ * @typedef {import("../types").Rule} Rule
+ */
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   EXTRA_BETWEEN: "unexpectedBetween",
   EXTRA_AFTER: "unexpectedAfter",
   EXTRA_BEFORE: "unexpectedBefore",
+  MISSING_BEFORE_SELF_CLOSE: "missingBeforeSelfClose",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -17,14 +24,28 @@ module.exports = {
     },
 
     fixable: true,
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          enforceBeforeSelfClose: {
+            type: "boolean",
+          },
+        },
+      },
+    ],
     messages: {
       [MESSAGE_IDS.EXTRA_BETWEEN]: "Unexpected space between attributes",
       [MESSAGE_IDS.EXTRA_AFTER]: "Unexpected space after attribute",
       [MESSAGE_IDS.EXTRA_BEFORE]: "Unexpected space before attribute",
+      [MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE]:
+        "Missing space before self closing",
     },
   },
   create(context) {
+    const enforceBeforeSelfClose = !!(context.options[0] || {})
+      .enforceBeforeSelfClose;
+
     function checkExtraSpacesBetweenAttrs(attrs) {
       attrs.forEach((current, index, attrs) => {
         if (index >= attrs.length - 1) {
@@ -56,12 +77,10 @@ module.exports = {
         // skip the attribute on the different line with the start tag
         return;
       }
-      let spacesBetween = openEnd.loc.end.column - lastAttr.loc.end.column;
-      if (isSelfClosed) {
-        spacesBetween--;
-      }
+      const limit = isSelfClosed && enforceBeforeSelfClose ? 1 : 0;
+      const spacesBetween = openEnd.loc.start.column - lastAttr.loc.end.column;
 
-      if (spacesBetween > 1) {
+      if (spacesBetween > limit) {
         context.report({
           loc: {
             start: lastAttr.loc.end,
@@ -71,8 +90,21 @@ module.exports = {
           fix(fixer) {
             return fixer.removeRange([
               lastAttr.range[1],
-              lastAttr.range[1] + spacesBetween - 1,
+              lastAttr.range[1] + spacesBetween - limit,
             ]);
+          },
+        });
+      }
+
+      if (isSelfClosed && enforceBeforeSelfClose && spacesBetween < 1) {
+        context.report({
+          loc: {
+            start: lastAttr.loc.end,
+            end: openEnd.loc.end,
+          },
+          messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
+          fix(fixer) {
+            return fixer.insertTextAfter(lastAttr, " ");
           },
         });
       }

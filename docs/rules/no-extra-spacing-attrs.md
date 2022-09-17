@@ -28,3 +28,30 @@ Examples of **correct** code for this rule:
 <div foo="foo" bar="bar"></div>
 <div foo="foo"></div>
 ```
+
+## Options
+
+- `enforceBeforeSelfClose` (default: false): enforce space before self closing (`/>`)
+
+
+Examples of **incorrect** code for this rule with the default `{ "enforceBeforeSelfClose": true }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<img src="foo.png"  />
+
+<img src="foo.png"/>
+```
+
+<!-- prettier-ignore-end -->
+
+Examples of **correct** code for this rule with the default `{ "enforceBeforeSelfClose": true }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<img src="foo.png" />
+```
+
+<!-- prettier-ignore-end -->

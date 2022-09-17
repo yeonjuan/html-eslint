@@ -70,6 +70,22 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
     </html>
     `,
     },
+    {
+      code: "<img src='foo.png' />",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png'\n/>",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -215,6 +231,43 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
       errors: [
         {
           messageId: "unexpectedAfter",
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png' />",
+      output: "<img src='foo.png'/>",
+      errors: [
+        {
+          messageId: "unexpectedAfter",
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png'  />",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+      output: "<img src='foo.png' />",
+      errors: [
+        {
+          messageId: "unexpectedAfter",
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png'/>",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+      output: "<img src='foo.png' />",
+      errors: [
+        {
+          messageId: "missingBeforeSelfClose",
         },
       ],
     },
