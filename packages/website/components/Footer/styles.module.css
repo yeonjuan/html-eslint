@@ -1,0 +1,44 @@
+.footer {
+  background: #20232a;
+  border: none;
+  color: #202020;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  line-height: 24px;
+  padding-bottom: 2em;
+  padding-top: 2em;
+  position: relative;
+}
+
+@media only screen and (min-width: 1024px) {
+  .footer {
+    flex-shrink: 0;
+  }
+}
+
+.sitemap {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 3em;
+  max-width: 1080px;
+}
+
+.sitemap > div {
+  padding-left: 16px;
+  flex: 1;
+}
+
+.sitemap h5 {
+  color: #fff;
+  margin: 0 0 10px;
+  font-size: 14px;
+}
+
+.sitemap a {
+  color: hsla(0, 0%, 100%, 0.6);
+  display: block;
+  margin: 2px 0;
+  padding: 3px 0;
+}

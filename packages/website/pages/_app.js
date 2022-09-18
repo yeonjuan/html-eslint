@@ -1,6 +1,8 @@
 import "../styles/globals.css";
 import Header from "../components/Header";
 import Head from "next/head";
+import Footer from "../components/Footer";
+import NavPusher from "../components/NavPusher";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -12,7 +14,10 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <Header />
-      <Component {...pageProps} />
+      <NavPusher>
+        <Component {...pageProps} />
+        <Footer />
+      </NavPusher>
     </>
   );
 }

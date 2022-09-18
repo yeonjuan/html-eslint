@@ -1,0 +1,18 @@
+.button {
+  border: 1px solid #202020;
+  border-radius: 3px;
+  color: #202020;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2em;
+  padding: 10px;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  transition: background 0.3s, color 0.3s;
+}
+
+.button:hover {
+  background: #202020;
+  color: #fff;
+}

@@ -147,7 +147,6 @@
 .navList li a {
   align-items: center;
   box-sizing: border-box;
-  color: #202020;
   color: inherit;
   display: flex;
   font-size: 0.9em;
@@ -157,6 +156,11 @@
   margin: 0;
   padding: 10px;
   transition: background-color 0.3s;
+}
+
+.navList li a:hover {
+  background-color: #202020;
+  color: #fff;
 }
 
 @media only screen and (min-width: 1024px) {

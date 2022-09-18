@@ -1,0 +1,10 @@
+.navPusher {
+  display: flex;
+  flex-direction: column;
+
+  left: 0;
+  min-height: 100vh;
+  padding-top: 100px;
+  position: relative;
+  z-index: 99;
+}
