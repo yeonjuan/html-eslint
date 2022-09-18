@@ -8,6 +8,7 @@ const MESSAGE_IDS = {
   EXTRA_AFTER: "unexpectedAfter",
   EXTRA_BEFORE: "unexpectedBefore",
   MISSING_BEFORE_SELF_CLOSE: "missingBeforeSelfClose",
+  EXTRA_BEFORE_SELF_CLOSE: "unexpectedBeforeSelfClose",
 };
 
 /**
@@ -40,6 +41,8 @@ module.exports = {
       [MESSAGE_IDS.EXTRA_BEFORE]: "Unexpected space before attribute",
       [MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE]:
         "Missing space before self closing",
+      [MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE]:
+        "Unexpected extra spaces before self closing",
     },
   },
   create(context) {
@@ -134,23 +137,72 @@ module.exports = {
       }
     }
 
+    function checkSpaceBeforeSelfClosing(beforeSelfClosing, openEnd) {
+      if (beforeSelfClosing.loc.start.line !== openEnd.loc.start.line) {
+        // skip the attribute on the different line with the start tag
+        return;
+      }
+      const spacesBetween =
+        openEnd.loc.start.column - beforeSelfClosing.loc.end.column;
+
+      if (spacesBetween > 1) {
+        context.report({
+          loc: {
+            start: beforeSelfClosing.loc.end,
+            end: openEnd.loc.start,
+          },
+          messageId: MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE,
+          fix(fixer) {
+            return fixer.removeRange([
+              beforeSelfClosing.range[1] + 1,
+              openEnd.range[0],
+            ]);
+          },
+        });
+      } else if (spacesBetween < 1) {
+        context.report({
+          loc: {
+            start: beforeSelfClosing.loc.end,
+            end: openEnd.loc.start,
+          },
+          messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
+          fix(fixer) {
+            return fixer.insertTextAfter(beforeSelfClosing, " ");
+          },
+        });
+      }
+    }
+
     return {
       [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
-        if (!node.attributes || node.attributes.length <= 0) {
+        if (!node.attributes) {
           return;
         }
 
-        checkExtraSpaceBefore(node.openStart, node.attributes[0]);
+        if (node.attributes.length) {
+          checkExtraSpaceBefore(node.openStart, node.attributes[0]);
+        }
+
+        const selfClosing = node.openEnd.value === "/>";
 
         if (node.openEnd && node.attributes && node.attributes.length > 0) {
-          const selfClosing = node.openEnd.value === "/>";
           checkExtraSpaceAfter(
             node.openEnd,
             node.attributes[node.attributes.length - 1],
             selfClosing
           );
         }
+
         checkExtraSpacesBetweenAttrs(node.attributes);
+
+        const isSelfClosing = node.openEnd.value === "/>";
+        if (
+          node.attributes.length === 0 &&
+          isSelfClosing &&
+          enforceBeforeSelfClose
+        ) {
+          checkSpaceBeforeSelfClosing(node.openStart, node.openEnd);
+        }
       },
     };
   },
