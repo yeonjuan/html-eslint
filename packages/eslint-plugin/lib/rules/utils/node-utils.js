@@ -5,6 +5,8 @@
  * @typedef {import("es-html-parser").AttributeNode} AttributeNode
  * @typedef {import("../../types").LineNode} LineNode
  * @typedef {import("../../types").CommentContentNode} CommentContentNode
+ * @typedef {import("../../types").BaseNode} BaseNode
+ * @typedef {import("../../types").Location} Location
  */
 
 module.exports = {
@@ -94,5 +96,17 @@ module.exports = {
       line += 1;
       return lineNode;
     });
+  },
+  /**
+   * Get location between two nodes.
+   * @param {BaseNode} before A node placed in before
+   * @param {BaseNode} after A node placed in after
+   * @returns {Location} location between two nodes.
+   */
+  getLocBetween(before, after) {
+    return {
+      start: before.loc.end,
+      end: after.loc.start,
+    };
   },
 };

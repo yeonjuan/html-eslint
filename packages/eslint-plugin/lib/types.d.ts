@@ -9,6 +9,8 @@ export type AnyNode = ESHtml.AnyNode | LineNode;
 
 export type Range = ESLint.AST.Range;
 
+export type Location = ESLint.AST.SourceLocation;
+
 export interface BaseNode {
   range: [number, number];
   loc: {

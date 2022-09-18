@@ -2,6 +2,7 @@
  * @typedef {import("../types").Rule} Rule
  */
 const { RULE_CATEGORY } = require("../constants");
+const { NodeUtils } = require("./utils");
 
 const MESSAGE_IDS = {
   EXTRA_BETWEEN: "unexpectedBetween",
@@ -62,10 +63,7 @@ module.exports = {
         const spacesBetween = after.loc.start.column - current.loc.end.column;
         if (spacesBetween > 1) {
           context.report({
-            loc: {
-              start: current.loc.end,
-              end: after.loc.start,
-            },
+            loc: NodeUtils.getLocBetween(current, after),
             messageId: MESSAGE_IDS.EXTRA_BETWEEN,
             fix(fixer) {
               return fixer.removeRange([current.range[1] + 1, after.range[0]]);
@@ -85,10 +83,7 @@ module.exports = {
 
       if (spacesBetween > limit) {
         context.report({
-          loc: {
-            start: lastAttr.loc.end,
-            end: openEnd.loc.end,
-          },
+          loc: NodeUtils.getLocBetween(lastAttr, openEnd),
           messageId: MESSAGE_IDS.EXTRA_AFTER,
           fix(fixer) {
             return fixer.removeRange([
@@ -101,10 +96,7 @@ module.exports = {
 
       if (isSelfClosed && enforceBeforeSelfClose && spacesBetween < 1) {
         context.report({
-          loc: {
-            start: lastAttr.loc.end,
-            end: openEnd.loc.end,
-          },
+          loc: NodeUtils.getLocBetween(lastAttr, openEnd),
           messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
           fix(fixer) {
             return fixer.insertTextAfter(lastAttr, " ");
@@ -122,10 +114,8 @@ module.exports = {
       const spacesBetween = firstAttr.loc.start.column - node.loc.end.column;
       if (spacesBetween >= 2) {
         context.report({
-          loc: {
-            start: node.loc.start,
-            end: firstAttr.loc.start,
-          },
+          loc: NodeUtils.getLocBetween(node, firstAttr),
+
           messageId: MESSAGE_IDS.EXTRA_BEFORE,
           fix(fixer) {
             return fixer.removeRange([
@@ -144,13 +134,11 @@ module.exports = {
       }
       const spacesBetween =
         openEnd.loc.start.column - beforeSelfClosing.loc.end.column;
+      const locBetween = NodeUtils.getLocBetween(beforeSelfClosing, openEnd);
 
       if (spacesBetween > 1) {
         context.report({
-          loc: {
-            start: beforeSelfClosing.loc.end,
-            end: openEnd.loc.start,
-          },
+          loc: locBetween,
           messageId: MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE,
           fix(fixer) {
             return fixer.removeRange([
@@ -161,10 +149,7 @@ module.exports = {
         });
       } else if (spacesBetween < 1) {
         context.report({
-          loc: {
-            start: beforeSelfClosing.loc.end,
-            end: openEnd.loc.start,
-          },
+          loc: locBetween,
           messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
           fix(fixer) {
             return fixer.insertTextAfter(beforeSelfClosing, " ");
@@ -183,19 +168,17 @@ module.exports = {
           checkExtraSpaceBefore(node.openStart, node.attributes[0]);
         }
 
-        const selfClosing = node.openEnd.value === "/>";
+        const isSelfClosing = node.openEnd.value === "/>";
 
         if (node.openEnd && node.attributes && node.attributes.length > 0) {
           checkExtraSpaceAfter(
             node.openEnd,
             node.attributes[node.attributes.length - 1],
-            selfClosing
+            isSelfClosing
           );
         }
 
         checkExtraSpacesBetweenAttrs(node.attributes);
-
-        const isSelfClosing = node.openEnd.value === "/>";
         if (
           node.attributes.length === 0 &&
           isSelfClosing &&
