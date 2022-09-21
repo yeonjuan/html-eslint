@@ -70,6 +70,46 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
     </html>
     `,
     },
+    {
+      code: "<img />",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+    },
+    {
+      code: "<img\n/>",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png' />",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png'\n/>",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png'/>",
+      options: [
+        {
+          enforceBeforeSelfClose: false,
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -212,6 +252,85 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
 </svg>
 </body>
 </html>`,
+      errors: [
+        {
+          messageId: "unexpectedAfter",
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png' />",
+      output: "<img src='foo.png'/>",
+      errors: [
+        {
+          messageId: "unexpectedAfter",
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png'  />",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+      output: "<img src='foo.png' />",
+      errors: [
+        {
+          messageId: "unexpectedAfter",
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png'/>",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+      output: "<img src='foo.png' />",
+      errors: [
+        {
+          messageId: "missingBeforeSelfClose",
+        },
+      ],
+    },
+    {
+      code: "<img/>",
+      output: "<img />",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+      errors: [
+        {
+          messageId: "missingBeforeSelfClose",
+        },
+      ],
+    },
+    {
+      code: "<img  />",
+      output: "<img />",
+      options: [
+        {
+          enforceBeforeSelfClose: true,
+        },
+      ],
+      errors: [
+        {
+          messageId: "unexpectedBeforeSelfClose",
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png' />",
+      output: "<img src='foo.png'/>",
+      options: [
+        {
+          enforceBeforeSelfClose: false,
+        },
+      ],
       errors: [
         {
           messageId: "unexpectedAfter",
