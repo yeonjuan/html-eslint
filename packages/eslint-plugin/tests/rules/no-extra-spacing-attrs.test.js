@@ -102,6 +102,14 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
         },
       ],
     },
+    {
+      code: "<img src='foo.png'/>",
+      options: [
+        {
+          enforceBeforeSelfClose: false,
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -312,6 +320,20 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
       errors: [
         {
           messageId: "unexpectedBeforeSelfClose",
+        },
+      ],
+    },
+    {
+      code: "<img src='foo.png' />",
+      output: "<img src='foo.png'/>",
+      options: [
+        {
+          enforceBeforeSelfClose: false,
+        },
+      ],
+      errors: [
+        {
+          messageId: "unexpectedAfter",
         },
       ],
     },
