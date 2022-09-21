@@ -31,7 +31,7 @@ Examples of **correct** code for this rule:
 
 ## Options
 
-- `enforceBeforeSelfClose` (default: false): enforce space before self closing (`/>`)
+- `enforceBeforeSelfClose` (default: false): enforce one space before self closing (`/>`)
 
 
 Examples of **incorrect** code for this rule with the default `{ "enforceBeforeSelfClose": true }` option:
