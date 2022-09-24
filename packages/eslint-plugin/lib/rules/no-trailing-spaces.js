@@ -3,7 +3,6 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
 
 const MESSAGE_IDS = {
   TRAILING_SPACE: "trailingSpace",
@@ -18,6 +17,7 @@ module.exports = {
     docs: {
       description: "Disallow trailing whitespace at the end of lines",
       recommended: false,
+      category: RULE_CATEGORY.STYLE,
     },
     fixable: true,
     schema: [],
@@ -28,6 +28,7 @@ module.exports = {
 
   create(context) {
     const sourceCode = context.getSourceCode();
+    const lineBreaks = sourceCode.getText().match(/\r\n|[\r\n\u2028\u2029]/gu);
 
     return {
       Program() {
@@ -36,9 +37,14 @@ module.exports = {
 
         lines.forEach((line, index) => {
           const lineNumber = index + 1;
-          const match = line.match(/[ \t]+$/);
+          const match = line.match(/[ \t\u00a0\u2000-\u200b\u3000]+$/);
+          const lineBreakLength =
+            lineBreaks && lineBreaks[index] ? lineBreaks[index].length : 1;
+          const lineLength = line.length + lineBreakLength;
+
           if (match) {
-            if (typeof match.index === "number") {
+            console.log(match);
+            if (typeof match.index === "number" && match.index > 0) {
               const loc = {
                 start: {
                   line: lineNumber,
@@ -46,7 +52,7 @@ module.exports = {
                 },
                 end: {
                   line: lineNumber,
-                  column: line.length,
+                  column: lineLength - lineBreakLength,
                 },
               };
 
@@ -62,7 +68,7 @@ module.exports = {
               });
             }
           }
-          rangeIndex += line.length;
+          rangeIndex += lineLength;
         });
       },
     };

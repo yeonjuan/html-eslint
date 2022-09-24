@@ -14,6 +14,9 @@ ruleTester.run("no-tailing-spaces", rule, {
     {
       code: "<div></div>\r\n",
     },
+    {
+      code: "<div>\n  text\n  </div>\n",
+    },
   ],
   invalid: [
     {
@@ -29,6 +32,33 @@ ruleTester.run("no-tailing-spaces", rule, {
       code: "<div></div>  \n",
       output: "<div></div>\n",
       errors: [
+        {
+          messageId: "trailingSpace",
+        },
+      ],
+    },
+    {
+      code: "<div>  \n  text\n  </div>",
+      output: "<div>\n  text\n  </div>",
+      errors: [
+        {
+          messageId: "trailingSpace",
+        },
+      ],
+    },
+    {
+      code: `<div>${"  "}
+    text
+</div>${"  "}
+`,
+      output: `<div>
+    text
+</div>
+`,
+      errors: [
+        {
+          messageId: "trailingSpace",
+        },
         {
           messageId: "trailingSpace",
         },
