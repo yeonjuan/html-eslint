@@ -43,7 +43,6 @@ module.exports = {
           const lineLength = line.length + lineBreakLength;
 
           if (match) {
-            console.log(match);
             if (typeof match.index === "number" && match.index > 0) {
               const loc = {
                 start: {
