@@ -71,6 +71,9 @@
       "rules/no-target-blank": {
         "title": "@html-eslint/no-target-blank"
       },
+      "rules/no-trailing-spaces": {
+        "title": "@html-eslint/no-trailing-spaces"
+      },
       "rules/quotes": {
         "title": "@html-eslint/quotes"
       },

@@ -55,3 +55,4 @@ title: All Rules
 | [@html-eslint/quotes](rules/quotes) | Enforce consistent quoting attributes with double(") or single(') | ⭐🔧 |
 | [@html-eslint/id-naming-convention](rules/id-naming-convention) | Enforce consistent naming id attributes |  |
 | [@html-eslint/no-multiple-empty-lines](rules/no-multiple-empty-lines) | Disallow multiple empty lines | 🔧 |
+| [@html-eslint/no-trailing-spaces](rules/no-trailing-spaces) | Disallow trailing whitespace at the end of lines | 🔧 |
