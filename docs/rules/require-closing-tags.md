@@ -39,6 +39,10 @@ This rule has an  object option for [Void Elements](https://html.spec.whatwg.org
 
 - `"selfClosing": "always"`: enforce using self closing tag on [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements).
 
+- `"allowSelfClosingCustom": false`: (default) disallow self-closing for the custom tags.
+
+- `"allowSelfClosingCustom": true`: allow self-closing for the custom tags.
+
 
 #### selfClosing : "never"
 
@@ -84,6 +88,46 @@ This rule has an  object option for [Void Elements](https://html.spec.whatwg.org
 ```html
 <img />
 <base />
+```
+
+<!-- prettier-ignore-end -->
+
+
+#### "allowSelfClosingCustom": false
+
+👎 Examples of **incorrect** code for the `{ "allowSelfClosingCustom": false }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<custom-tag />
+```
+
+<!-- prettier-ignore-end -->
+
+👍 Examples of **correct** code for the `{ "allowSelfClosingCustom": false }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<custom-tag> </custom-tag>
+```
+
+<!-- prettier-ignore-end -->
+
+
+#### "allowSelfClosingCustom": true
+
+
+👍 Examples of **correct** code for the `{ "allowSelfClosingCustom": true }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<!-- both allowed -->
+
+<custom-tag> </custom-tag>
+<custom-tag />
 ```
 
 <!-- prettier-ignore-end -->

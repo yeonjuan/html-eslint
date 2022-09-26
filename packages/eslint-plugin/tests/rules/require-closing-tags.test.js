@@ -20,6 +20,46 @@ ruleTester.run("require-closing-tags", rule, {
       ],
     },
     {
+      code: `<custom-tag> </custom-tag>`,
+      options: [
+        {
+          allowSelfClosingCustom: false,
+        },
+      ],
+    },
+    {
+      code: `<custom-tag/>`,
+      options: [
+        {
+          allowSelfClosingCustom: true,
+        },
+      ],
+    },
+    {
+      code: `<custom-tag />`,
+      options: [
+        {
+          allowSelfClosingCustom: true,
+        },
+      ],
+    },
+    {
+      code: `<custom-tag> </custom-tag>`,
+      options: [
+        {
+          allowSelfClosingCustom: true,
+        },
+      ],
+    },
+    {
+      code: `<custom-tag id="foo" />`,
+      options: [
+        {
+          allowSelfClosingCustom: true,
+        },
+      ],
+    },
+    {
       code: `
     <body>
       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
@@ -92,6 +132,33 @@ ruleTester.run("require-closing-tags", rule, {
           selfClosing: "never",
         },
       ],
+      errors: [
+        {
+          messageId: "unexpected",
+        },
+      ],
+    },
+    {
+      code: `<custom-tag />`,
+      options: [
+        {
+          allowSelfClosingCustom: false,
+        },
+      ],
+      errors: [
+        {
+          messageId: "unexpected",
+        },
+      ],
+    },
+    {
+      code: `<custom-tag id="foo" />`,
+      options: [
+        {
+          allowSelfClosingCustom: false,
+        },
+      ],
+      output: null,
       errors: [
         {
           messageId: "unexpected",
