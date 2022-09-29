@@ -33,6 +33,9 @@ module.exports = {
           selfClosing: {
             enum: ["always", "never"],
           },
+          allowSelfClosingCustom: {
+            type: "boolean",
+          },
         },
         additionalProperties: false,
       },
@@ -46,11 +49,13 @@ module.exports = {
   },
 
   create(context) {
-    let svgStacks = [];
-
     const shouldSelfClose =
       context.options && context.options.length
         ? context.options[0].selfClosing === "always"
+        : false;
+    const allowSelfClosingCustom =
+      context.options && context.options.length
+        ? context.options[0].allowSelfClosingCustom === true
         : false;
 
     function checkClosingTag(node) {
@@ -65,7 +70,7 @@ module.exports = {
       }
     }
 
-    function checkVoidElement(node) {
+    function checkVoidElement(node, shouldSelfClose, fixable) {
       const hasSelfClose = node.openEnd.value === "/>";
       if (shouldSelfClose && !hasSelfClose) {
         context.report({
@@ -75,6 +80,9 @@ module.exports = {
           },
           messageId: MESSAGE_IDS.MISSING_SELF,
           fix(fixer) {
+            if (!fixable) {
+              return null;
+            }
             return fixer.replaceText(node.openEnd, " />");
           },
         });
@@ -87,6 +95,9 @@ module.exports = {
           },
           messageId: MESSAGE_IDS.UNEXPECTED,
           fix(fixer) {
+            if (!fixable) {
+              return null;
+            }
             return fixer.replaceText(node.openEnd, ">");
           },
         });
@@ -95,18 +106,17 @@ module.exports = {
 
     return {
       Tag(node) {
-        if (node.name === "svg") {
-          svgStacks.push(node);
-        }
-        if (node.selfClosing || VOID_ELEMENTS_SET.has(node.name)) {
-          checkVoidElement(node);
+        const isVoidElement = VOID_ELEMENTS_SET.has(node.name);
+        if (
+          node.selfClosing &&
+          allowSelfClosingCustom &&
+          node.name.indexOf("-") !== -1
+        ) {
+          checkVoidElement(node, true, false);
+        } else if (node.selfClosing || isVoidElement) {
+          checkVoidElement(node, shouldSelfClose, isVoidElement);
         } else if (node.openEnd.value !== "/>") {
           checkClosingTag(node);
-        }
-      },
-      "Tag:exit"(node) {
-        if (node.name === "svg") {
-          svgStacks.push(node);
         }
       },
     };
