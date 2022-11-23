@@ -1,13 +1,24 @@
 # `@html-eslint/parser`
 
-Parser for `@html-eslint/plugin`.
+A parser for HTML-ESLint which parse HTML syntax.
 
-This project contains code forked from [parse5](https://github.com/inikulin/parse5). Some codes were transformed for generating suitable AST for `@html-eslint/plugin`.
+## Installation
+
+```bash
+$ yarn add -D @html-eslint/parser
+$ npm install -D @html-eslint/parser
+```
 
 ## Usage
 
-```
-const parser = require('@html-eslint/parser');
+Set the `parser` property in your ESLint configuration file.
 
-// TODO: DEMONSTRATE API
+```json
+{
+  "parser": "@html-eslint/parser"
+}
 ```
+
+## License
+
+MIT
