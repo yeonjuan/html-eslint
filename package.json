@@ -3,6 +3,7 @@
   "version": "0.4.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "lerna run test --stream",
     "lint": "eslint . --ext .js",
@@ -21,7 +22,7 @@
     "gh-pages": "^3.1.0",
     "husky": "^4.3.0",
     "jest": "^27.3.1",
-    "lerna": "^4.0.0",
+    "lerna": "^6.0.3",
     "prettier": "^2.4.1",
     "turbo": "^1.6.3",
     "typescript": "^4.4.4"
@@ -34,5 +35,10 @@
       "pre-commit": "npm run test && npm run check:format",
       "pre-push": "npm run test && npm run check:format"
     }
+  },
+  "workspaces": {
+    "packages": [
+      "packages/**"
+    ]
   }
 }
