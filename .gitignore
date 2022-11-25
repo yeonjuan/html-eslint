@@ -1,5 +1,5 @@
 node_modules/
 **/coverage
-website/build
+packages/website/build
 website/static/js/playground
 .turbo
