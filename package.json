@@ -5,13 +5,12 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "lerna run test --stream",
-    "lint": "eslint . --ext .js",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "ts": "turbo run ts",
     "format": "prettier --write .",
-    "check:ts": "lerna run check:ts",
-    "check:format": "prettier --list-different .",
-    "bootstrap": "lerna bootstrap",
-    "test:all": "npm run check:ts && npm run check:format && npm run lint && npm run test"
+    "format-check": "prettier --list-different .",
+    "dev": "turbo run dev"
   },
   "author": "yeonjuan",
   "license": "MIT",
@@ -32,8 +31,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test && npm run check:format",
-      "pre-push": "npm run test && npm run check:format"
+      "pre-commit": "npm run test && npm run format-check",
+      "pre-push": "npm run test && npm run format-check"
     }
   },
   "workspaces": {

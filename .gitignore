@@ -3,3 +3,5 @@ node_modules/
 packages/website/build
 website/static/js/playground
 .turbo
+.next
+next-env.d.ts
