@@ -1,7 +1,7 @@
 node_modules/
 **/coverage
 packages/website/build
+.next
 website/static/js/playground
 .turbo
-.next
 next-env.d.ts

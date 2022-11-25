@@ -5,4 +5,5 @@ lerna.json
 packages/website/build
 packages/website/static
 packages/website/sidebars.json
+packages/website2/.next
 docs
