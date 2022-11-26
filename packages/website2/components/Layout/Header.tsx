@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const NAV_ITEMS = [
   {
-    path: "/docs",
+    path: "/docs/getting-started",
     title: "Docs",
   },
   {
@@ -20,7 +20,6 @@ const NAV_ITEMS = [
 
 const Header = () => {
   const router = useRouter();
-
   return (
     <header className="bg-slate-900 text-white flex py-3 pl-3 pr-6 items-center fixed w-full">
       <Link href="/" className="flex flex-row items-center">
@@ -33,7 +32,7 @@ const Header = () => {
             <li key={item.path}>
               <NavLink
                 href={item.path}
-                isActive={item.path === router.pathname}
+                isActive={router.route.indexOf(item.path) !== -1}
               >
                 {item.title}
               </NavLink>

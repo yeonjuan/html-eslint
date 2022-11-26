@@ -2,7 +2,11 @@ import { FC, ReactNode } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Layout: FC = ({ children }) => {
+type Props = {
+  children: ReactNode;
+};
+
+const Layout: FC<Props> = ({ children }) => {
   return (
     <div className="min-h-[100%]">
       <Header />
