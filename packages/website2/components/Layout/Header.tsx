@@ -19,9 +19,9 @@ const NAV_ITEMS = [
 ];
 
 const Header = () => {
-  const router = useRouter();
+  const { asPath } = useRouter();
   return (
-    <header className="bg-slate-900 text-white flex py-3 pl-3 pr-6 items-center fixed w-full">
+    <header className="bg-slate-900 text-white flex py-3 pl-3 pr-6 items-center fixed w-full z-50">
       <Link href="/" className="flex flex-row items-center">
         <Logo width="35px" height="35px" />
         <h2>HTML ESLint</h2>
@@ -32,7 +32,7 @@ const Header = () => {
             <li key={item.path}>
               <NavLink
                 href={item.path}
-                isActive={router.route.indexOf(item.path) !== -1}
+                isActive={asPath.indexOf(item.path) !== -1}
               >
                 {item.title}
               </NavLink>
