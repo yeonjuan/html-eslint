@@ -3,18 +3,27 @@ import Link from "next/link";
 import classnames from "classnames";
 
 type Props = {
-  isActive: boolean;
+  isActive?: boolean;
   href: string;
   children: ReactNode;
+  className?: string;
+  activeClassName?: string;
 };
 
-const NavLink: FC<Props> = ({ isActive, children, href }) => {
+const NavLink: FC<Props> = ({
+  isActive,
+  children,
+  href,
+  className = "text-slate-400",
+  activeClassName = "text-white",
+}) => {
+  const hoverClassName = `hover:${activeClassName}`;
   return (
     <Link
       href={href}
       className={classnames(
-        "hover:text-white",
-        isActive ? "text-white" : "text-slate-400"
+        hoverClassName,
+        isActive ? activeClassName : className
       )}
     >
       {children}

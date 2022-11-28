@@ -3,19 +3,24 @@ id: getting-started
 title: Getting Started
 ---
 
+# Getting Started
+
+## Prerequisite
+
+- Node.js `>=8.10.0`.
+- ESLint `>=6`.
+
 ## Installation
 
 ```
 $ npm install --save-dev eslint @html-eslint/parser @html-eslint/eslint-plugin
 ```
 
-- Requires Node.js `>=8.10.0`.
-- Requires ESLLint `>=6`.
+
 
 ## Configuration
 
 Populate it with the following on your `.eslintrc.js`. If it does not exist create a `.eslintrc.js` config file in the root of your project.
-
 We can apply these [plugin rules](#Rules) to only HTML files(`*.html`) by using `overrides` in `.eslintrc.js`. (see [ESLint Configuration](https://eslint.org/docs/user-guide/configuring#configuration-based-on-glob-patterns))
 
 ```js
@@ -40,7 +45,7 @@ To get [vscode-eslint](https://github.com/microsoft/vscode-eslint) support, we n
 
 - `.vscode/settings.json`:
 
-```json5
+```json
 {
   "eslint.enable": true,
   "eslint.validate": [

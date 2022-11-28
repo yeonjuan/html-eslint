@@ -10,7 +10,7 @@ type Props = {
 export default function Docs({ html, docs }: Props) {
   return (
     <div className="relative flex">
-      <aside className="sticky overflow-y-auto top-[60px] py-4" style={{height: 'calc(100vh - 60px)'}}>
+      <aside className="sticky overflow-y-auto top-[60px] py-4 flex-[0_0_240px] border-r-slate-300 border-r-[1px]" style={{height: 'calc(100vh - 60px)'}}>
         <ul>
           <li className="py-2">
             <h2 className="font-medium text-slate-900 text-lg">Getting Started</h2>

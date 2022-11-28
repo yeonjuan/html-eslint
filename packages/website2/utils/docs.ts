@@ -4,10 +4,22 @@ import * as path from "path";
 import matter from "gray-matter";
 import * as fs from "fs";
 import type { DocData } from "../data/docs";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import rehypeHighlight from "rehype-highlight";
+
 import { all } from "mdast-util-to-hast";
 
 export async function getMarkdownHTML(data: DocData) {
-  const remarkResult = await remark().use(html).process(data.markdown);
+  const remarkResult = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypeHighlight)
+    .use(rehypeStringify)
+    .process(data.markdown);
+
   const processedHTML = `
 <article class="markdown-body">
 ${remarkResult.toString()}
