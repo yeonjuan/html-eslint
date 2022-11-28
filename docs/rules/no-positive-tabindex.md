@@ -1,6 +1,6 @@
 ---
 id: no-positive-tabindex
-title: "@html-eslint/no-positive-tabindex"
+title: "no-positive-tabindex"
 ---
 
 ## Disallow use of positive `tabindex` attribute.

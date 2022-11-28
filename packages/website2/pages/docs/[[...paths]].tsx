@@ -1,16 +1,19 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import DOCS_DATA, {DocData} from "../../data/docs";
+import { inspect } from "util";
+import DocAside from "../../components/DocAside";
+import DOCS_DATA, {DocData, DocTree} from "../../data/docs";
 import { getMarkdownHTML } from "../../utils/docs";
 
 type Props = {
   html: string;
-  docs: Record<string, Omit<DocData, 'markdown'>>;
+  trees: DocTree[];
 };
 
-export default function Docs({ html, docs }: Props) {
+export default function Docs({ html, trees }: Props) {
   return (
     <div className="relative flex">
-      <aside className="sticky overflow-y-auto top-[60px] py-4 flex-[0_0_240px] border-r-slate-300 border-r-[1px]" style={{height: 'calc(100vh - 60px)'}}>
+      <DocAside trees={trees}/>
+      {/* <aside className="sticky overflow-y-auto top-[60px] py-4 flex-[0_0_240px] border-r-slate-300 border-r-[1px]" style={{height: 'calc(100vh - 60px)'}}>
         <ul>
           <li className="py-2">
             <h2 className="font-medium text-slate-900 text-lg">Getting Started</h2>
@@ -33,14 +36,14 @@ export default function Docs({ html, docs }: Props) {
           <li className="py-2">
             <h2 className="font-medium text-slate-900 text-lg">Others</h2>
           </li>
-        </ul>
+        </ul> */}
      
         {/* <ul>
           {
             Object.values(docs).map(data => <li key={data.title}>{data.title}</li>)
           }
         </ul> */}
-      </aside>
+      {/* </aside> */}
       <article
           className="markdown-body"
           dangerouslySetInnerHTML={{ __html: html }}
@@ -49,16 +52,43 @@ export default function Docs({ html, docs }: Props) {
   );
 }
 
+
+function traverse(docs: DocTree[], callback: (doc: DocTree) => void) {
+  docs.forEach(doc => {
+    callback(doc);
+    traverse(doc.children || [], callback);
+  });
+}
+
+function findByPath(docs: DocTree[], path: string, callback: (doc: DocTree) => void) {
+  docs.some(doc => {
+    if (doc.doc?.path === path) {
+      callback(doc);
+      return true;
+    }
+    return findByPath(doc.children || [], path, callback);
+  });
+}
+
 export const getStaticPaths: GetStaticPaths = () => {
-  const keys = Object.keys(DOCS_DATA);
-  return {
-    paths: keys.map((key) => {
-      return {
+  const paths: {
+    params: {
+       paths: string[];
+    };
+  }[] = [];
+
+  traverse(DOCS_DATA, (doc: DocTree) => {
+    if (doc.doc?.path) {
+      paths.push({
         params: {
-          paths: key.split("/").filter((p) => p && p !== 'docs'),
-        },
-      };
-    }),
+          paths: doc.doc.path.split("/").filter(p => p && p !== 'docs'),
+        }
+      })
+    }
+  });
+
+  return {
+    paths,
     fallback: false,
   };
 };
@@ -66,22 +96,21 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const paths = (context.params?.paths || []) as string[];
   const key = `/docs/${paths.join("/")}`;
-  const data = DOCS_DATA[key];
-  const html = await getMarkdownHTML(data);
+  let html: Promise<string>; 
+  findByPath(DOCS_DATA, key, doc => {
+    if (doc.doc) {
+      html = getMarkdownHTML(doc.doc);
+    }
+  });
+  
+  // @ts-ignore
+  if (!await html) {
+    throw new Error('');
+  }
   return {
     props: {
-      html,
-      docs: Object.entries(DOCS_DATA).reduce((docsData, [key, docData]) => {
-        docsData = {
-          // @ts-ignore
-          ...docsData,
-          [key]: {
-            path: docData.path,
-            title: docData.title
-          }
-        };
-        return docsData;
-      }, {})
+      html: await html!,
+      trees: DOCS_DATA
     },
   };
 };

@@ -1,6 +1,6 @@
 ---
 id: no-trailing-spaces
-title: "@html-eslint/no-trailing-spaces"
+title: "no-trailing-spaces"
 ---
 
 ## Disallow trailing whitespaces at the end of lines

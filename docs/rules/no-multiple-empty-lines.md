@@ -1,6 +1,6 @@
 ---
 id: no-multiple-empty-lines
-title: "@html-eslint/no-multiple-empty-lines"
+title: "no-multiple-empty-lines"
 ---
 
 ## Disallow use of multiple empty lines.

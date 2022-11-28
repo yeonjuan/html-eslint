@@ -1,6 +1,6 @@
 ---
 id: no-obsolete-tags
-title: "@html-eslint/no-obsolete-tags"
+title: "no-obsolete-tags"
 ---
 
 ## Disallow using obsolete tags in HTML5

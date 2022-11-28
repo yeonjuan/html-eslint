@@ -1,6 +1,6 @@
 ---
 id: no-accesskey-attrs
-title: "@html-eslint/no-accesskey-attrs"
+title: "no-accesskey-attrs"
 ---
 
 ## Disallow accesskey attributes.

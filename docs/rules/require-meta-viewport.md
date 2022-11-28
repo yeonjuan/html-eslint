@@ -1,6 +1,6 @@
 ---
 id: require-meta-viewport
-title: "@html-eslint/require-meta-viewport"
+title: "require-meta-viewport"
 ---
 
 ## Enforce to use `<meta name="viewport" ...>` in the `<head></head>`.

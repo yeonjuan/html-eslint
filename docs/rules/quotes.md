@@ -1,6 +1,6 @@
 ---
 id: quotes
-title: "@html-eslint/quotes"
+title: "quotes"
 ---
 <!-- prettier-ignore-start -->
 

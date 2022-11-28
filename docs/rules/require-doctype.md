@@ -1,6 +1,6 @@
 ---
 id: require-doctype
-title: "@html-eslint/require-doctype"
+title: "require-doctype"
 ---
 
 ## Require `<!DOCTYPE html>` in the document

@@ -1,6 +1,6 @@
 ---
 id: no-abstract-roles
-title: "@html-eslint/no-abstract-roles"
+title: "no-abstract-roles"
 ---
 
 ## Disallow use of abstract roles.

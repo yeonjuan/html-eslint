@@ -1,6 +1,6 @@
 ---
 id: require-title
-title: "@html-eslint/require-title"
+title: "require-title"
 ---
 
 ## Require `<title>` in the `<head>`.

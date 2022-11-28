@@ -1,6 +1,6 @@
 ---
 id: no-skip-heading-levels
-title: "@html-eslint/no-skip-heading-levels"
+title: "no-skip-heading-levels"
 ---
 
 ## Disallow skipping heading levels.

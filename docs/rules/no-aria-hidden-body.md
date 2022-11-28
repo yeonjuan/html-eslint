@@ -1,6 +1,6 @@
 ---
 id: no-aria-hidden-body
-title: "@html-eslint/no-aria-hidden-body"
+title: "no-aria-hidden-body"
 ---
 
 ## Disallow to use aria-hidden attributes on the `body` element.

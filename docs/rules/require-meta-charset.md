@@ -1,6 +1,6 @@
 ---
 id: require-meta-charset
-title: "@html-eslint/require-meta-charset"
+title: "require-meta-charset"
 ---
 
 ## Enforce to use `<meta charset="...">` in the `<head></head>`.

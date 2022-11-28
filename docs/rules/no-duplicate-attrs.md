@@ -1,6 +1,6 @@
 ---
 id: no-duplicate-attrs
-title: "@html-eslint/no-duplicate-attrs"
+title: "no-duplicate-attrs"
 ---
 
 ## Disallow duplicate attributes.

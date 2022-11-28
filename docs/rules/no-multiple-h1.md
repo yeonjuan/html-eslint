@@ -1,6 +1,6 @@
 ---
 id: no-multiple-h1
-title: "@html-eslint/no-multiple-h1"
+title: "no-multiple-h1"
 ---
 
 ## Disallow multiple `<h1><h1>`.

@@ -1,6 +1,6 @@
 ---
 id: require-lang
-title: "@html-eslint/require-lang"
+title: "require-lang"
 ---
 
 ## Require `lang` attribute at `html` tag

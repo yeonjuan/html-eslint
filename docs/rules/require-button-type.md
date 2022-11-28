@@ -1,6 +1,6 @@
 ---
 id: require-button-type
-title: "@html-eslint/require-button-type"
+title: "require-button-type"
 ---
 
 ## Require use of button element with a valid type attribute.

@@ -1,6 +1,6 @@
 ---
 id: no-target-blank
-title: "@html-eslint/no-target-blank"
+title: "no-target-blank"
 ---
 
 ## Disallow usage of unsafe `target='_blank'`

@@ -1,6 +1,6 @@
 ---
 id: no-extra-spacing-attrs
-title: "@html-eslint/no-extra-spacing-attrs"
+title: "no-extra-spacing-attrs"
 ---
 
 ## Disallow extra spaces around attributes.

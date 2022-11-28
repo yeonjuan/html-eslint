@@ -1,6 +1,6 @@
 ---
 id: require-closing-tags
-title: "@html-eslint/require-closing-tags"
+title: "require-closing-tags"
 ---
 
 ## Require use of closing tag.

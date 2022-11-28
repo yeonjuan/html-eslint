@@ -1,6 +1,6 @@
 ---
 id: require-li-container
-title: "@html-eslint/require-li-container"
+title: "require-li-container"
 ---
 
 ## Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.

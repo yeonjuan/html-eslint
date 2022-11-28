@@ -1,6 +1,6 @@
 ---
 id: no-duplicate-id
-title: "@html-eslint/no-duplicate-id"
+title: "no-duplicate-id"
 ---
 
 ## Disallow duplicate `id` attributes.

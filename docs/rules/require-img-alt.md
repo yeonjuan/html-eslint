@@ -1,6 +1,6 @@
 ---
 id: require-img-alt
-title: "@html-eslint/require-img-alt"
+title: "require-img-alt"
 ---
 
 ## Require `alt` attribute at `img` tag

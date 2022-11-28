@@ -1,6 +1,6 @@
 ---
 id: require-meta-description
-title: "@html-eslint/require-meta-description"
+title: "require-meta-description"
 ---
 
 ## Enforce to use `<meta name="description" ...>` in the `<head></head>`.

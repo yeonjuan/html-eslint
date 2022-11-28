@@ -20,10 +20,7 @@ export async function getMarkdownHTML(data: DocData) {
     .use(rehypeStringify)
     .process(data.markdown);
 
-  const processedHTML = `
-<article class="markdown-body">
-${remarkResult.toString()}
-</article>`;
+  const processedHTML = remarkResult.toString();
   return processedHTML;
 }
 

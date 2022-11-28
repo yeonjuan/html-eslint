@@ -9,6 +9,12 @@ export type DocData = {
   path: string;
 };
 
+export type DocTree = {
+  doc?: DocData;
+  title?: string;
+  children?: DocTree[];
+};
+
 const getDocData = (markdownPath: string): DocData => {
   const path = resolveRoot(markdownPath);
   const markdown = fs.readFileSync(path, "utf-8");
@@ -22,25 +28,56 @@ const getDocData = (markdownPath: string): DocData => {
 
 const CATEGORY_RULE_DOC_DATA_MAP = Object.entries(plugin.rules).reduce(
   (categoryMap, [key, rule]: any) => {
-    categoryMap[rule.meta.docs.category] = {
-      ...(categoryMap[rule.meta.docs.category] || {}),
-      [`/docs/rules/${key}`]: getDocData(`docs/rules/${key}.md`),
-    };
+    categoryMap[rule.meta.docs.category] = [
+      ...(categoryMap[rule.meta.docs.category] || []),
+      {
+        doc: getDocData(`docs/rules/${key}.md`),
+      },
+    ];
     return categoryMap;
   },
-  {} as Record<string, Record<string, DocData>>
+  {} as Record<string, DocTree[]>
 );
 
-const DOCS_DATA: Record<string, DocData> = {
-  "/docs/getting-started": getDocData("docs/getting-started.md"),
-  "/docs/disabling-with-inline-comments": getDocData(
-    "docs/disabling-with-inline-comments.md"
-  ),
-  "/docs/cli": getDocData("docs/cli.md"),
-  ...CATEGORY_RULE_DOC_DATA_MAP["Best Practice"],
-  ...CATEGORY_RULE_DOC_DATA_MAP["SEO"],
-  ...CATEGORY_RULE_DOC_DATA_MAP["Accessibility"],
-  ...CATEGORY_RULE_DOC_DATA_MAP["Style"],
-};
+Object.entries(CATEGORY_RULE_DOC_DATA_MAP).forEach(([key, v]) => {
+  CATEGORY_RULE_DOC_DATA_MAP[key] = v.sort((a, b) =>
+    a.doc!.title.localeCompare(b.doc!.title)
+  );
+});
 
-export default DOCS_DATA;
+const DOCS: DocTree[] = [
+  {
+    doc: getDocData("docs/getting-started.md"),
+    children: [
+      {
+        doc: getDocData("docs/disabling-with-inline-comments.md"),
+      },
+      {
+        doc: getDocData("docs/cli.md"),
+      },
+    ],
+  },
+  {
+    doc: getDocData("docs/all-rules.md"),
+    children: [
+      {
+        title: "Best Practice",
+        children: CATEGORY_RULE_DOC_DATA_MAP["Best Practice"],
+      },
+      {
+        title: "SEO",
+        children: CATEGORY_RULE_DOC_DATA_MAP["SEO"],
+      },
+      {
+        title: "Accessibility",
+        children: CATEGORY_RULE_DOC_DATA_MAP["Accessibility"],
+      },
+      {
+        title: "Style",
+        children: CATEGORY_RULE_DOC_DATA_MAP["Style"],
+      },
+    ],
+  },
+];
+
+export default DOCS;

@@ -1,6 +1,6 @@
 ---
 id: require-frame-title
-title: "@html-eslint/require-frame-title"
+title: "require-frame-title"
 ---
 
 ## Require `title` attribute in `<frame>` and `<iframe>`

@@ -1,6 +1,6 @@
 ---
 id: indent
-title: "@html-eslint/indent"
+title: "indent"
 ---
 
 ## Enforce consistent indentation

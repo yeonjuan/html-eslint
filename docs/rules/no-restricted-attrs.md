@@ -1,6 +1,6 @@
 ---
 id: no-restricted-attrs
-title: "@html-eslint/no-restricted-attrs"
+title: "no-restricted-attrs"
 ---
 
 ## Disallow specified attributes

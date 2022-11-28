@@ -1,6 +1,6 @@
 ---
 id: element-newline
-title: "@html-eslint/element-newline"
+title: "element-newline"
 ---
 
 ## Require newline between elements
