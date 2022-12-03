@@ -25,13 +25,13 @@ const NAV_ITEMS = [
 const Header = () => {
   const { asPath } = useRouter();
   return (
-    <header className="bg-slate-900 text-white flex py-3 pl-3 pr-6 items-center fixed w-full z-50">
+    <header className="bg-slate-900 text-white flex py-3 pl-3 pr-6 items-center fixed w-full z-50 flex-col text-sm md:flex-row md:text-base">
       <Link href="/" className="flex flex-row items-center">
         <Logo width="35px" height="35px" />
         <h2>HTML ESLint</h2>
       </Link>
-      <nav className="ml-auto">
-        <ul className="flex gap-4">
+      <nav className="w-full md:w-auto md:ml-auto">
+        <ul className="flex gap-4 justify-around ">
           {NAV_ITEMS.map((item) => (
             <li key={item.path}>
               <NavLink

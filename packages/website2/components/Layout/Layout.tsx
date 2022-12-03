@@ -10,7 +10,7 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <div className="min-h-[100%]">
       <Header />
-      <main className="pt-[60px] min-h-[100vh] px-8">{children}</main>
+      <main className="pt-[60px] min-h-[100vh] px-2 md:px-8">{children}</main>
       <Footer />
     </div>
   );
