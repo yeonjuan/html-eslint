@@ -3,6 +3,8 @@ id: require-title
 title: "require-title"
 ---
 
+# require-title
+
 ## Require `<title>` in the `<head>`.
 
 `<title><title/>` tag is used to define the document's title.

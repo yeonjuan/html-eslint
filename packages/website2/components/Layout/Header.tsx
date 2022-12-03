@@ -6,7 +6,11 @@ import Link from "next/link";
 const NAV_ITEMS = [
   {
     path: "/docs/getting-started",
-    title: "Docs",
+    title: "Getting Started",
+  },
+  {
+    path: "/docs/rules",
+    title: "Rules",
   },
   {
     path: "/playground",

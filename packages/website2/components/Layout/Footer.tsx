@@ -16,15 +16,22 @@ const Footer = () => {
         <div className="flex-1">
           <h5 className="text-white text-sm">Docs</h5>
           <div className="pl-1">
-            <FooterLink href="/docs/getting-started">
-              Getting Started
-            </FooterLink>
+            <ul>
+              <li>
+                <FooterLink href="/docs/getting-started">
+                  Getting Started
+                </FooterLink>
+              </li>
+              <li>
+                <FooterLink href="/docs/rules">Rules</FooterLink>
+              </li>
+            </ul>
           </div>
         </div>
         <div className="flex-1">
           <h5 className="text-white text-sm">Playground</h5>
           <div className="pl-1">
-            <FooterLink href="/docs/getting-started">Playground</FooterLink>
+            <FooterLink href="/playground">Playground</FooterLink>
           </div>
         </div>
         <div className="flex-1">

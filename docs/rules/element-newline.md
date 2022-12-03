@@ -3,9 +3,23 @@ id: element-newline
 title: "element-newline"
 ---
 
-## Require newline between elements
+# element-newline
 
-### Rule Details
+> Require newline between elements
+
+## How to use
+
+- .eslintrc.js
+
+    ```js
+    module.exports = {
+      rules: {
+        '@html-eslint/element-newline': "error"
+      }
+    };
+    ```
+
+## Rule Details
 
 This rule enforces newline between elements.
 

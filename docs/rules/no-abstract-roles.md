@@ -3,6 +3,8 @@ id: no-abstract-roles
 title: "no-abstract-roles"
 ---
 
+# no-abstract-roles
+
 ## Disallow use of abstract roles.
 
 ### Rule Details

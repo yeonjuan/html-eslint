@@ -1,7 +1,9 @@
 ---
-id: all-rules
-title: All Rules
+id: rules
+title: Rules
 ---
+
+# Rules
 
 - 🔧 - Meaning the rule can fix problems automatically by running eslint `--fix` options.
 - ⭐ - Meaning the rule is recommended.

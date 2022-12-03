@@ -3,6 +3,8 @@ id: no-duplicate-id
 title: "no-duplicate-id"
 ---
 
+# no-duplicate-id
+
 ## Disallow duplicate `id` attributes.
 
 ### Rule Details

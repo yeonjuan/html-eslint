@@ -3,6 +3,8 @@ id: no-skip-heading-levels
 title: "no-skip-heading-levels"
 ---
 
+# no-skip-heading-levels
+
 ## Disallow skipping heading levels.
 
 ### Rule Details

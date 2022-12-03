@@ -2,6 +2,7 @@ import { resolveRoot } from "../utils/docs";
 import * as plugin from "@html-eslint/eslint-plugin";
 import * as fs from "fs";
 import matter from "gray-matter";
+import { RULE_CATEGORY } from "../constants";
 
 export type DocData = {
   title: string;
@@ -58,23 +59,23 @@ const DOCS: DocTree[] = [
     ],
   },
   {
-    doc: getDocData("docs/all-rules.md"),
+    doc: getDocData("docs/rules.md"),
     children: [
       {
-        title: "Best Practice",
-        children: CATEGORY_RULE_DOC_DATA_MAP["Best Practice"],
+        title: RULE_CATEGORY.BEST_PRACTICE,
+        children: CATEGORY_RULE_DOC_DATA_MAP[RULE_CATEGORY.BEST_PRACTICE],
       },
       {
-        title: "SEO",
-        children: CATEGORY_RULE_DOC_DATA_MAP["SEO"],
+        title: RULE_CATEGORY.SEO,
+        children: CATEGORY_RULE_DOC_DATA_MAP[RULE_CATEGORY.SEO],
       },
       {
-        title: "Accessibility",
-        children: CATEGORY_RULE_DOC_DATA_MAP["Accessibility"],
+        title: RULE_CATEGORY.ACCESSIBILITY,
+        children: CATEGORY_RULE_DOC_DATA_MAP[RULE_CATEGORY.ACCESSIBILITY],
       },
       {
-        title: "Style",
-        children: CATEGORY_RULE_DOC_DATA_MAP["Style"],
+        title: RULE_CATEGORY.STYLE,
+        children: CATEGORY_RULE_DOC_DATA_MAP[RULE_CATEGORY.STYLE],
       },
     ],
   },

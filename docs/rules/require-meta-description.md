@@ -3,6 +3,8 @@ id: require-meta-description
 title: "require-meta-description"
 ---
 
+# require-meta-description
+
 ## Enforce to use `<meta name="description" ...>` in the `<head></head>`.
 
 ### Rule Details

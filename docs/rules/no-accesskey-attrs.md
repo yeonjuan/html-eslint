@@ -3,6 +3,8 @@ id: no-accesskey-attrs
 title: "no-accesskey-attrs"
 ---
 
+# no-accesskey-attrs
+
 ## Disallow accesskey attributes.
 
 ### Rule Details

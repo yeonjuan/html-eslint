@@ -3,6 +3,7 @@ id: indent
 title: "indent"
 ---
 
+# indent
 ## Enforce consistent indentation
 
 ### Rule Details

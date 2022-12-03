@@ -3,6 +3,8 @@ id: require-lang
 title: "require-lang"
 ---
 
+# require-lang
+
 ## Require `lang` attribute at `html` tag
 
 The `lang` attribute is used to represent the language used in the content.

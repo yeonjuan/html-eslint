@@ -3,6 +3,8 @@ id: no-obsolete-tags
 title: "no-obsolete-tags"
 ---
 
+# no-obsolete-tags
+
 ## Disallow using obsolete tags in HTML5
 
 The following element list is obsoleted in HTML5.

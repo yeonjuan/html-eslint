@@ -23,7 +23,7 @@ const DocList: FC<Props> = ({ trees, level }) => {
   }
   return (
     <ul className={`pl-${level} pb-1`}>
-      {trees.map((tree) => {
+      {trees.map((tree, index) => {
         const HeadingWrap: FC = ({ children }) => {
           if (tree.doc?.path) {
             return <Link href={tree.doc?.path || ""}>{children}</Link>;
@@ -32,7 +32,7 @@ const DocList: FC<Props> = ({ trees, level }) => {
         };
 
         return (
-          <li key={tree.doc?.title}>
+          <li key={tree.doc?.path || index}>
             <HeadingWrap>
               <Heading
                 level={level}

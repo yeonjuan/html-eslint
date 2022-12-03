@@ -3,7 +3,9 @@
   "pipeline": {
     "build": {},
     "lint": {},
-    "dev": {},
+    "dev": {
+      "dependsOn": ["^dev"]
+    },
     "test": {}
   }
 }

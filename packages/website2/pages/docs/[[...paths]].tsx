@@ -13,37 +13,6 @@ export default function Docs({ html, trees }: Props) {
   return (
     <div className="relative flex">
       <DocAside trees={trees}/>
-      {/* <aside className="sticky overflow-y-auto top-[60px] py-4 flex-[0_0_240px] border-r-slate-300 border-r-[1px]" style={{height: 'calc(100vh - 60px)'}}>
-        <ul>
-          <li className="py-2">
-            <h2 className="font-medium text-slate-900 text-lg">Getting Started</h2>
-          </li>
-          <li className="py-2">
-            <h2 className="font-medium text-slate-900 text-lg">Rules</h2>
-          </li>
-          <li className="py-1">
-            <h3 className="pl-2 font-normal text-slate-800 text-base">Best Practice</h3>
-          </li>
-          <li className="py-1">
-            <h3 className="pl-2 font-normal text-slate-800 text-base">SEO</h3>
-          </li>
-          <li className="py-1">
-            <h3 className="pl-2 font-normal text-slate-800 text-base">Accessibility</h3>
-          </li>
-          <li className="py-1">
-            <h3 className="pl-2 font-normal text-slate-800 text-base">Style</h3>
-          </li>
-          <li className="py-2">
-            <h2 className="font-medium text-slate-900 text-lg">Others</h2>
-          </li>
-        </ul> */}
-     
-        {/* <ul>
-          {
-            Object.values(docs).map(data => <li key={data.title}>{data.title}</li>)
-          }
-        </ul> */}
-      {/* </aside> */}
       <article
           className="markdown-body"
           dangerouslySetInnerHTML={{ __html: html }}

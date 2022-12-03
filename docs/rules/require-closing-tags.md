@@ -3,6 +3,8 @@ id: require-closing-tags
 title: "require-closing-tags"
 ---
 
+# require-closing-tags
+
 ## Require use of closing tag.
 
 ### Rule Details

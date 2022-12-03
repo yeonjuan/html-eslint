@@ -3,6 +3,8 @@ id: require-frame-title
 title: "require-frame-title"
 ---
 
+# require-frame-title
+
 ## Require `title` attribute in `<frame>` and `<iframe>`
 
 ### Rule Details

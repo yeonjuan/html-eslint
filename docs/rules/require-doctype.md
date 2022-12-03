@@ -3,6 +3,8 @@ id: require-doctype
 title: "require-doctype"
 ---
 
+# require-doctype
+
 ## Require `<!DOCTYPE html>` in the document
 
 ### Rule Details

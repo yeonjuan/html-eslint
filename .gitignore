@@ -5,3 +5,4 @@ packages/website/build
 website/static/js/playground
 .turbo
 next-env.d.ts
+packages/web-linter/out

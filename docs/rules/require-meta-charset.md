@@ -3,6 +3,8 @@ id: require-meta-charset
 title: "require-meta-charset"
 ---
 
+# require-meta-charset
+
 ## Enforce to use `<meta charset="...">` in the `<head></head>`.
 
 ### Rule Details

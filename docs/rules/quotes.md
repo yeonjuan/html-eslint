@@ -2,8 +2,10 @@
 id: quotes
 title: "quotes"
 ---
-<!-- prettier-ignore-start -->
 
+# quotes
+
+<!-- prettier-ignore-start -->
 ## Enforce consistent quoting attributes with double(`"`) or single(`'`)
 
 ### Rule Details

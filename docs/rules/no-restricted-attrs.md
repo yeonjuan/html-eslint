@@ -3,6 +3,8 @@ id: no-restricted-attrs
 title: "no-restricted-attrs"
 ---
 
+# no-restricted-attrs
+
 ## Disallow specified attributes
 
 ### Rule Details

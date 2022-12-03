@@ -3,6 +3,8 @@ id: no-extra-spacing-attrs
 title: "no-extra-spacing-attrs"
 ---
 
+# no-extra-spacing-attrs
+
 ## Disallow extra spaces around attributes.
 
 ### Rule Details

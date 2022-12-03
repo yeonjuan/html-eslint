@@ -3,6 +3,8 @@ id: require-img-alt
 title: "require-img-alt"
 ---
 
+# require-img-alt
+
 ## Require `alt` attribute at `img` tag
 
 The screen reader uses `alt` attributes in `img` tag for describing the image.

@@ -3,6 +3,8 @@ id: no-inline-styles
 title: "no-inline-styles"
 ---
 
+# no-inline-styles
+
 ## Disallow inline styles.
 
 ### Rule Details

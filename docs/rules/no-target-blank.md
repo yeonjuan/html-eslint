@@ -3,6 +3,8 @@ id: no-target-blank
 title: "no-target-blank"
 ---
 
+# no-target-blank
+
 ## Disallow usage of unsafe `target='_blank'`
 
 ### Rule Details

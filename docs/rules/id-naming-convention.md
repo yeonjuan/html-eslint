@@ -3,6 +3,8 @@ id: id-naming-convention
 title: "id-naming-convention"
 ---
 
+# id-naming-convention
+
 ## Enforce naming conventions for id attributes.
 
 ### Rule Details

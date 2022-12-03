@@ -3,6 +3,8 @@ id: require-li-container
 title: "require-li-container"
 ---
 
+# require-li-container
+
 ## Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.
 
 The `<li>` tag should be contained in a parent element: `<ol>`, `<ul>` or `<menu>`.

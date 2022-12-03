@@ -3,6 +3,8 @@ id: no-trailing-spaces
 title: "no-trailing-spaces"
 ---
 
+# no-trailing-spaces
+
 ## Disallow trailing whitespaces at the end of lines
 
 

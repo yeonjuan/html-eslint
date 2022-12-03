@@ -3,6 +3,8 @@ id: no-non-scalable-viewport
 title: "no-non-scalable-viewport"
 ---
 
+# no-non-scalable-viewport
+
 ## Disallow use of `user-scalable=no` in `<meta name="viewport">`.
 
 ### Rule Details

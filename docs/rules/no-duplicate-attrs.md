@@ -3,6 +3,8 @@ id: no-duplicate-attrs
 title: "no-duplicate-attrs"
 ---
 
+# no-duplicate-attrs
+
 ## Disallow duplicate attributes.
 
 ### Rule Details

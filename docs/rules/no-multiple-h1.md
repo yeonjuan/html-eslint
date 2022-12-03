@@ -3,6 +3,8 @@ id: no-multiple-h1
 title: "no-multiple-h1"
 ---
 
+# no-multiple-h1
+
 ## Disallow multiple `<h1><h1>`.
 
 ### Rule Details

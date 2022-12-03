@@ -3,6 +3,8 @@ id: no-multiple-empty-lines
 title: "no-multiple-empty-lines"
 ---
 
+# no-multiple-empty-lines
+
 ## Disallow use of multiple empty lines.
 
 ### Rule Details
