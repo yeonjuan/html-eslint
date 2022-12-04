@@ -7,7 +7,7 @@ title: "require-meta-description"
 
 Enforce to use `<meta name="description" ...>` in the `<head></head>`.
 
-### Rule Details
+## Rule Details
 
 Examples of **incorrect** code for this rule:
 

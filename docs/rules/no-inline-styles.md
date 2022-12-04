@@ -7,9 +7,21 @@ title: "no-inline-styles"
 
 Disallow inline styles.
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-inline-styles": "error",
+  },
+};
+```
+
 ## Rule Details
 
-This rule disallow the use of inline styles.
+This rule disallows the use of inline styles.
 
 Examples of **incorrect** code for this rule:
 
@@ -21,18 +33,6 @@ Examples of **correct** code for this rule:
 
 ```html
 <div class="some-color"></div>
-```
-
-## How to use
-
-.eslintrc.js
-
-```js
-module.exports = {
-  rules: {
-    "@html-eslint/no-inline-styles": "error",
-  },
-};
 ```
 
 ## Further reading

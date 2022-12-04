@@ -11,7 +11,7 @@ Require use of closing tag.
 
 This rule checks whether the tag has closing tag or not.
 
-👎 Examples of **incorrect** code for this rule:
+Examples of **incorrect** code for this rule:
 
 <!-- prettier-ignore-start -->
 
@@ -21,7 +21,7 @@ This rule checks whether the tag has closing tag or not.
 
 <!-- prettier-ignore-end -->
 
-👍 Examples of **correct** code for this rule:
+Examples of **correct** code for this rule:
 
 <!-- prettier-ignore-start -->
 
@@ -45,7 +45,7 @@ This rule has an object option for [Void Elements](https://html.spec.whatwg.org/
 
 #### selfClosing : "never"
 
-👎 Examples of **incorrect** code for the `{ "selfClosing": "never"}` option:
+Examples of **incorrect** code for the `{ "selfClosing": "never"}` option:
 
 <!-- prettier-ignore-start -->
 
@@ -56,7 +56,7 @@ This rule has an object option for [Void Elements](https://html.spec.whatwg.org/
 
 <!-- prettier-ignore-end -->
 
-👍 Examples of **correct** code for the `{ "selfClosing": "never"}` option:
+Examples of **correct** code for the `{ "selfClosing": "never"}` option:
 
 <!-- prettier-ignore-start -->
 
@@ -69,7 +69,7 @@ This rule has an object option for [Void Elements](https://html.spec.whatwg.org/
 
 #### selfClosing : "always"
 
-👎 Examples of **incorrect** code for the `{ "selfClosing": "always" }` option:
+Examples of **incorrect** code for the `{ "selfClosing": "always" }` option:
 
 <!-- prettier-ignore-start -->
 
@@ -80,7 +80,7 @@ This rule has an object option for [Void Elements](https://html.spec.whatwg.org/
 
 <!-- prettier-ignore-end -->
 
-👍 Examples of **correct** code for the `{ "selfClosing": "always" }` option:
+Examples of **correct** code for the `{ "selfClosing": "always" }` option:
 
 <!-- prettier-ignore-start -->
 
@@ -93,7 +93,7 @@ This rule has an object option for [Void Elements](https://html.spec.whatwg.org/
 
 #### "allowSelfClosingCustom": false
 
-👎 Examples of **incorrect** code for the `{ "allowSelfClosingCustom": false }` option:
+Examples of **incorrect** code for the `{ "allowSelfClosingCustom": false }` option:
 
 <!-- prettier-ignore-start -->
 
@@ -103,7 +103,7 @@ This rule has an object option for [Void Elements](https://html.spec.whatwg.org/
 
 <!-- prettier-ignore-end -->
 
-👍 Examples of **correct** code for the `{ "allowSelfClosingCustom": false }` option:
+Examples of **correct** code for the `{ "allowSelfClosingCustom": false }` option:
 
 <!-- prettier-ignore-start -->
 
@@ -115,7 +115,7 @@ This rule has an object option for [Void Elements](https://html.spec.whatwg.org/
 
 #### "allowSelfClosingCustom": true
 
-👍 Examples of **correct** code for the `{ "allowSelfClosingCustom": true }` option:
+Examples of **correct** code for the `{ "allowSelfClosingCustom": true }` option:
 
 <!-- prettier-ignore-start -->
 

@@ -7,6 +7,8 @@ title: "no-non-scalable-viewport"
 
 Disallow use of `user-scalable=no` in `<meta name="viewport">`.
 
+The `user-scalable=no` disables zooming on a page. It makes users with partial vision or low vision hard to read web content.
+
 ## Rule Details
 
 This rule disallow use of `user-scalable-no` in `<meta name="viewport">`.
@@ -32,3 +34,7 @@ Examples of **correct** code for this rule:
   <body></body>
 </html>
 ```
+
+## Further reading
+
+- [MDN - Viewport meta tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag)

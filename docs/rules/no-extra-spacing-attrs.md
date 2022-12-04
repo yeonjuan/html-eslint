@@ -7,7 +7,7 @@ title: "no-extra-spacing-attrs"
 
 Disallow extra spaces around attributes.
 
-### Rule Details
+## Rule Details
 
 This rule disallows the use of extra spaces around attributes.
 

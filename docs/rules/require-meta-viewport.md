@@ -7,7 +7,7 @@ title: "require-meta-viewport"
 
 Enforce to use `<meta name="viewport" ...>` in the `<head></head>`.
 
-### Rule Details
+## Rule Details
 
 Examples of **incorrect** code for this rule:
 

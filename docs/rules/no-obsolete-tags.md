@@ -14,17 +14,6 @@ It's not encouraged to use these tags.
 applet, acronym, bgsound, dir, frame, frameset, noframes, isindex, keygen, listing, menuitem, nextid, noembed, plaintext, rb, rtc, strike, xmp, basefont, big, blink, center, font, marquee, multicol, nobr, spacer, tt
 ```
 
-## Rule Details
-
-This rule disallow using obsolete tags.
-
-Examples of **incorrect** code for this rule:
-
-```html
-<applet></applet>
-<dir></dir>
-```
-
 ## How to use
 
 .eslintrc.js
@@ -35,6 +24,17 @@ module.exports = {
     "@html-eslint/no-obsolete-tags": "error",
   },
 };
+```
+
+## Rule Details
+
+This rule disallow using obsolete tags.
+
+Examples of **incorrect** code for this rule:
+
+```html
+<applet></applet>
+<dir></dir>
 ```
 
 ## Further reading

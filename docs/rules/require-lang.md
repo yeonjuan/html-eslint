@@ -34,6 +34,6 @@ Examples of **correct** code for this rule:
 </html>
 ```
 
-### Further reading
+## Further reading
 
 - [MDN - lang](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/lang)

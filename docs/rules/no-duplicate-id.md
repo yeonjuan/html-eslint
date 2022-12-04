@@ -7,6 +7,18 @@ title: "no-duplicate-id"
 
 Disallow duplicate `id` attributes.
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-duplicate-id": "error",
+  },
+};
+```
+
 ## Rule Details
 
 This rule disallow the use of duplicate `id` attributes.
@@ -23,18 +35,6 @@ Examples of **correct** code for this rule:
 ```html
 <div id="foo"></div>
 <div id="bar"></div>
-```
-
-## How to use
-
-.eslintrc.js
-
-```js
-module.exports = {
-  rules: {
-    "@html-eslint/no-duplicate-id": "error",
-  },
-};
 ```
 
 ## Further reading

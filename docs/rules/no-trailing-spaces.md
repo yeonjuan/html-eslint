@@ -5,11 +5,11 @@ title: "no-trailing-spaces"
 
 # no-trailing-spaces
 
-Disallow trailing whitespaces at the end of lines
+Disallow trailing white spaces at the end of lines
 
 ## Rule Details
 
-This rule disallows trailing whitespace (spaces, tabs) at the end of lines.
+This rule disallows trailing white spaces (spaces, tabs) at the end of lines.
 
 Examples of **incorrect** code for this rule:
 

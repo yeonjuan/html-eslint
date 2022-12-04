@@ -9,7 +9,7 @@ Disallow skipping heading levels.
 
 ## Rule Details
 
-This rule disallow skipping heading levels.
+This rule disallows skipping heading levels.
 
 Examples of **incorrect** code for this rule:
 

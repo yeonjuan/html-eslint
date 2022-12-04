@@ -9,7 +9,7 @@ Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.
 
 The `<li>` tag should be contained in a parent element: `<ol>`, `<ul>` or `<menu>`.
 
-### Rule Details
+## Rule Details
 
 Examples of **incorrect** code for this rule:
 

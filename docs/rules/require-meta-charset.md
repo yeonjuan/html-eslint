@@ -7,7 +7,7 @@ title: "require-meta-charset"
 
 Enforce to use `<meta charset="...">` in the `<head></head>`.
 
-### Rule Details
+## Rule Details
 
 Examples of **incorrect** code for this rule:
 

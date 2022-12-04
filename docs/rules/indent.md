@@ -7,9 +7,21 @@ title: "indent"
 
 Enforce consistent indentation
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/indent": "error",
+  },
+};
+```
+
 ## Rule Details
 
-This rule enforces consistent indentation styles. The default indent is `4spaces`.
+This rule enforces consistent indentation styles. The default indent is `4 spaces`.
 
 ### Options
 

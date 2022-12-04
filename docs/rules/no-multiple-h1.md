@@ -9,7 +9,7 @@ Disallow multiple `<h1><h1>`.
 
 ## Rule Details
 
-This rule disallow the usage of multiple `<h1></h1>` tags.
+This rule disallows the use of multiple `<h1></h1>` tags.
 
 Examples of **incorrect** code for this rule:
 
