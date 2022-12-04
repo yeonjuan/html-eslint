@@ -5,9 +5,9 @@ title: "no-non-scalable-viewport"
 
 # no-non-scalable-viewport
 
-## Disallow use of `user-scalable=no` in `<meta name="viewport">`.
+Disallow use of `user-scalable=no` in `<meta name="viewport">`.
 
-### Rule Details
+## Rule Details
 
 This rule disallow use of `user-scalable-no` in `<meta name="viewport">`.
 

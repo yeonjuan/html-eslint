@@ -5,7 +5,7 @@ title: "require-li-container"
 
 # require-li-container
 
-## Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.
+Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.
 
 The `<li>` tag should be contained in a parent element: `<ol>`, `<ul>` or `<menu>`.
 
@@ -36,4 +36,4 @@ Examples of **correct** code for this rule:
 
 ## Further reading
 
-[MDN - li](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li)
+- [MDN - li](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li)

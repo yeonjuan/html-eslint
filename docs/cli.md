@@ -1,9 +1,9 @@
 ---
 id: cli
-title: CLI (Run on URLs)
+title: CLI
 ---
 
-## Run HTML-ESLint on URLs.
+## CLI
 
 ### Installation
 

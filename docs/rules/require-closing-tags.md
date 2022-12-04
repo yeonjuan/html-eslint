@@ -5,9 +5,9 @@ title: "require-closing-tags"
 
 # require-closing-tags
 
-## Require use of closing tag.
+Require use of closing tag.
 
-### Rule Details
+## Rule Details
 
 This rule checks whether the tag has closing tag or not.
 
@@ -21,7 +21,6 @@ This rule checks whether the tag has closing tag or not.
 
 <!-- prettier-ignore-end -->
 
-
 👍 Examples of **correct** code for this rule:
 
 <!-- prettier-ignore-start -->
@@ -32,10 +31,9 @@ This rule checks whether the tag has closing tag or not.
 
 <!-- prettier-ignore-end -->
 
-
 ### Options
 
-This rule has an  object option for [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements).
+This rule has an object option for [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements).
 
 - `"selfClosing": "never"`: (default) disallow using self closing tag on [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements).
 
@@ -44,7 +42,6 @@ This rule has an  object option for [Void Elements](https://html.spec.whatwg.org
 - `"allowSelfClosingCustom": false`: (default) disallow self-closing for the custom tags.
 
 - `"allowSelfClosingCustom": true`: allow self-closing for the custom tags.
-
 
 #### selfClosing : "never"
 
@@ -94,7 +91,6 @@ This rule has an  object option for [Void Elements](https://html.spec.whatwg.org
 
 <!-- prettier-ignore-end -->
 
-
 #### "allowSelfClosingCustom": false
 
 👎 Examples of **incorrect** code for the `{ "allowSelfClosingCustom": false }` option:
@@ -117,9 +113,7 @@ This rule has an  object option for [Void Elements](https://html.spec.whatwg.org
 
 <!-- prettier-ignore-end -->
 
-
 #### "allowSelfClosingCustom": true
-
 
 👍 Examples of **correct** code for the `{ "allowSelfClosingCustom": true }` option:
 
@@ -134,6 +128,6 @@ This rule has an  object option for [Void Elements](https://html.spec.whatwg.org
 
 <!-- prettier-ignore-end -->
 
-### Further reading
+## Further reading
 
 - [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements)

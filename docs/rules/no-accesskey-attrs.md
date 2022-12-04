@@ -5,9 +5,9 @@ title: "no-accesskey-attrs"
 
 # no-accesskey-attrs
 
-## Disallow accesskey attributes.
+Disallow accesskey attributes.
 
-### Rule Details
+## Rule Details
 
 This rule disallow the use of `accesskey` attributes. Access keys are HTML attributes that allow web developers to assign keyboard shortcuts to elements. Inconsistencies between keyboard shortcuts and keyboard commands used by screenreader and keyboard only users create accessibility complications so to avoid complications, access keys should not be used.
 

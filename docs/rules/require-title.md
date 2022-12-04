@@ -5,12 +5,12 @@ title: "require-title"
 
 # require-title
 
-## Require `<title>` in the `<head>`.
+Require `<title>` in the `<head>`.
 
 `<title><title/>` tag is used to define the document's title.
 The content of the title is used by the search engine to decide the order of search results.
 
-### Rule Details
+## Rule Details
 
 This rule enforces `<title><title/>` tag in the `<head><head/>`.
 
@@ -39,6 +39,6 @@ Examples of **correct** code for this rule:
 </html>
 ```
 
-### Further reading
+## Further reading
 
-[MDN - title](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title)
+- [MDN - title](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title)

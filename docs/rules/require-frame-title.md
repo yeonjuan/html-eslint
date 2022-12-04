@@ -5,9 +5,9 @@ title: "require-frame-title"
 
 # require-frame-title
 
-## Require `title` attribute in `<frame>` and `<iframe>`
+Require `title` attribute in `<frame>` and `<iframe>`
 
-### Rule Details
+## Rule Details
 
 This rule enforces usr of `title` attribute in `<frame>` and `<iframe>`.
 

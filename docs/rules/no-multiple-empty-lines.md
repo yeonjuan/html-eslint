@@ -5,13 +5,13 @@ title: "no-multiple-empty-lines"
 
 # no-multiple-empty-lines
 
-## Disallow use of multiple empty lines.
+Disallow use of multiple empty lines.
 
-### Rule Details
+## Rule Details
 
 This rule disallows the use of empty lines which exceeded the maximum lines allowed.
 
-## Options
+### Options
 
 - `max` (default 2): enforces a maximum number of consecutive empty lines.
 

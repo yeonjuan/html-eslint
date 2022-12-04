@@ -5,13 +5,13 @@ title: "no-abstract-roles"
 
 # no-abstract-roles
 
-## Disallow use of abstract roles.
+Disallow use of abstract roles.
 
-### Rule Details
+## Rule Details
 
 This rule disallow use of abstract roles.
 
-#### Abstract Roles
+- Abstract Roles
   - command
   - composite
   - input
@@ -41,4 +41,4 @@ Examples of **correct** code for this rule:
 
 ### Further reading
 
-[HTML spec - Abstract Roles](https://www.w3.org/TR/wai-aria-1.0/roles#abstract_roles)
+- [HTML spec - Abstract Roles](https://www.w3.org/TR/wai-aria-1.0/roles#abstract_roles)

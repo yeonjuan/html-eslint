@@ -11,7 +11,7 @@ const FooterLink = (props: { href: string; children: ReactNode }) => {
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-900 text-slate-400 py-4 px-16">
+    <footer className="bg-slate-900 text-slate-400 py-4 px-4 md:px-16">
       <section className="flex justify-between my-4">
         <div className="flex-1">
           <h5 className="text-white text-sm">Docs</h5>

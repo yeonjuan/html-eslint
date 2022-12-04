@@ -5,7 +5,7 @@ title: "no-extra-spacing-attrs"
 
 # no-extra-spacing-attrs
 
-## Disallow extra spaces around attributes.
+Disallow extra spaces around attributes.
 
 ### Rule Details
 
@@ -15,13 +15,13 @@ Examples of **incorrect** code for this rule:
 
 ```html
 <!-- an extra space between attributes -->
-<div foo="foo"  bar="bar"></div>
+<div foo="foo" bar="bar"></div>
 
 <!-- an extra space between tag start and attribute -->
-<div  foo="foo"></div>
+<div foo="foo"></div>
 
 <!-- an extra space between tag end and attribute -->
-<div foo="foo" ></div>
+<div foo="foo"></div>
 ```
 
 Examples of **correct** code for this rule:
@@ -34,7 +34,6 @@ Examples of **correct** code for this rule:
 ## Options
 
 - `enforceBeforeSelfClose` (default: false): enforce one space before self closing (`/>`)
-
 
 Examples of **incorrect** code for this rule with the default `{ "enforceBeforeSelfClose": true }` option:
 

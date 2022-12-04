@@ -32,7 +32,7 @@ const RuleConfig: FC<Props> = ({ rules, onChange }) => {
     });
   };
   return (
-    <div className="flex flex-row justify-around">
+    <div className="flex flex-col justify-around md:flex-row">
       {RULE_NAMES_ENTRY.map(([category, names]) => {
         return (
           <div key={category}>

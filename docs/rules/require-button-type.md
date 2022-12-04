@@ -5,11 +5,11 @@ title: "require-button-type"
 
 # require-button-type
 
-## Require use of button element with a valid type attribute.
+Require use of button element with a valid type attribute.
 
-### Rule Details
+## Rule Details
 
-This rule enforces use of a valid type attribute for button elements. (`"button"`, `"submit"`,  `"reset"`)
+This rule enforces use of a valid type attribute for button elements. (`"button"`, `"submit"`, `"reset"`)
 
 Examples of **incorrect** code for this rule:
 
@@ -29,6 +29,6 @@ Examples of **correct** code for this rule:
 <button type="reset"></button>
 ```
 
-### Further reading
+## Further reading
 
 - [HTML spec - the button element](https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-type)

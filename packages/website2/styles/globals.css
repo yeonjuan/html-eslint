@@ -14,15 +14,12 @@ body {
   min-width: 200px;
   max-width: 980px;
   margin: 0 auto;
-  padding: 5px;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: 40px 10px 100px 10px;
 }
 
 @media (min-width: 768px) {
   .markdown-body {
-    padding-top: 60px;
-    padding: 20px;
+    padding: 40px 20px 100px 20px;
   }
 }
 .editor_error {

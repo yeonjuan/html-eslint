@@ -5,9 +5,9 @@ title: "no-skip-heading-levels"
 
 # no-skip-heading-levels
 
-## Disallow skipping heading levels.
+Disallow skipping heading levels.
 
-### Rule Details
+## Rule Details
 
 This rule disallow skipping heading levels.
 
@@ -33,6 +33,6 @@ Examples of **correct** code for this rule:
 </html>
 ```
 
-### Further reading
+## Further reading
 
-[MDN - heading elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements)
+- [MDN - heading elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements)

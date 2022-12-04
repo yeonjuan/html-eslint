@@ -5,9 +5,9 @@ title: "no-multiple-h1"
 
 # no-multiple-h1
 
-## Disallow multiple `<h1><h1>`.
+Disallow multiple `<h1><h1>`.
 
-### Rule Details
+## Rule Details
 
 This rule disallow the usage of multiple `<h1></h1>` tags.
 
@@ -32,6 +32,6 @@ Examples of **correct** code for this rule:
 </html>
 ```
 
-### Further reading
+## Further reading
 
-[MDN - heading elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements)
+- [MDN - heading elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements)

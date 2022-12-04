@@ -5,9 +5,9 @@ title: "require-doctype"
 
 # require-doctype
 
-## Require `<!DOCTYPE html>` in the document
+Require `<!DOCTYPE html>` in the document
 
-### Rule Details
+## Rule Details
 
 This rule enforces the `<!DOCTYPE html>`.
 
@@ -26,4 +26,4 @@ Examples of **correct** code for this rule:
 
 ## Further reading
 
-[MDN - Doctype](https://developer.mozilla.org/en-US/docs/Glossary/Doctype)
+- [MDN - Doctype](https://developer.mozilla.org/en-US/docs/Glossary/Doctype)

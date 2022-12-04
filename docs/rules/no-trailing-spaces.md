@@ -5,23 +5,20 @@ title: "no-trailing-spaces"
 
 # no-trailing-spaces
 
-## Disallow trailing whitespaces at the end of lines
+Disallow trailing whitespaces at the end of lines
 
-
-### Rule Details
+## Rule Details
 
 This rule disallows trailing whitespace (spaces, tabs) at the end of lines.
 
 Examples of **incorrect** code for this rule:
 
 ```html
-<div>••
-</div>
+<div>••</div>
 ```
 
 Examples of **correct** code for this rule:
 
 ```html
-<div>
-</div>
+<div></div>
 ```

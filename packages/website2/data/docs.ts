@@ -51,7 +51,7 @@ const DOCS: DocTree[] = [
     doc: getDocData("docs/getting-started.md"),
     children: [
       {
-        doc: getDocData("docs/disabling-with-inline-comments.md"),
+        doc: getDocData("docs/disabling-rules.md"),
       },
       {
         doc: getDocData("docs/cli.md"),

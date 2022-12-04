@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { inspect } from "util";
 import DocAside from "../../components/DocAside";
-import DOCS_DATA, {DocData, DocTree} from "../../data/docs";
+import DOCS_DATA, { DocData, DocTree } from "../../data/docs";
 import { getMarkdownHTML } from "../../utils/docs";
 
 type Props = {
@@ -11,26 +11,29 @@ type Props = {
 
 export default function Docs({ html, trees }: Props) {
   return (
-    <div className="relative flex">
-      <DocAside trees={trees}/>
+    <div className="relative md:flex">
+      <DocAside trees={trees} />
       <article
-          className="markdown-body"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        className="markdown-body"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </div>
   );
 }
 
-
 function traverse(docs: DocTree[], callback: (doc: DocTree) => void) {
-  docs.forEach(doc => {
+  docs.forEach((doc) => {
     callback(doc);
     traverse(doc.children || [], callback);
   });
 }
 
-function findByPath(docs: DocTree[], path: string, callback: (doc: DocTree) => void) {
-  docs.some(doc => {
+function findByPath(
+  docs: DocTree[],
+  path: string,
+  callback: (doc: DocTree) => void
+) {
+  docs.some((doc) => {
     if (doc.doc?.path === path) {
       callback(doc);
       return true;
@@ -42,7 +45,7 @@ function findByPath(docs: DocTree[], path: string, callback: (doc: DocTree) => v
 export const getStaticPaths: GetStaticPaths = () => {
   const paths: {
     params: {
-       paths: string[];
+      paths: string[];
     };
   }[] = [];
 
@@ -50,9 +53,9 @@ export const getStaticPaths: GetStaticPaths = () => {
     if (doc.doc?.path) {
       paths.push({
         params: {
-          paths: doc.doc.path.split("/").filter(p => p && p !== 'docs'),
-        }
-      })
+          paths: doc.doc.path.split("/").filter((p) => p && p !== "docs"),
+        },
+      });
     }
   });
 
@@ -65,21 +68,21 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const paths = (context.params?.paths || []) as string[];
   const key = `/docs/${paths.join("/")}`;
-  let html: Promise<string>; 
-  findByPath(DOCS_DATA, key, doc => {
+  let html: Promise<string>;
+  findByPath(DOCS_DATA, key, (doc) => {
     if (doc.doc) {
       html = getMarkdownHTML(doc.doc);
     }
   });
-  
+
   // @ts-ignore
-  if (!await html) {
-    throw new Error('');
+  if (!(await html)) {
+    throw new Error("");
   }
   return {
     props: {
       html: await html!,
-      trees: DOCS_DATA
+      trees: DOCS_DATA,
     },
   };
 };

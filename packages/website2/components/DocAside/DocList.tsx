@@ -26,7 +26,11 @@ const DocList: FC<Props> = ({ trees, level }) => {
       {trees.map((tree, index) => {
         const HeadingWrap: FC = ({ children }) => {
           if (tree.doc?.path) {
-            return <Link href={tree.doc?.path || ""}>{children}</Link>;
+            return (
+              <Link href={tree.doc?.path || ""} className="hover:underline">
+                {children}
+              </Link>
+            );
           }
           return <>{children}</>;
         };

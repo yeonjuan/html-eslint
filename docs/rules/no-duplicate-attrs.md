@@ -5,9 +5,9 @@ title: "no-duplicate-attrs"
 
 # no-duplicate-attrs
 
-## Disallow duplicate attributes.
+Disallow duplicate attributes.
 
-### Rule Details
+## Rule Details
 
 This rule disallow the use of duplicate attributes.
 
@@ -23,4 +23,14 @@ Examples of **correct** code for this rule:
 ```html
 <div foo="foo"></div>
 <div bar></div>
+```
+
+## How to use
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-duplicate-attrs": "error",
+  },
+};
 ```

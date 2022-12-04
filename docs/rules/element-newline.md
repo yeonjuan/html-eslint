@@ -5,19 +5,7 @@ title: "element-newline"
 
 # element-newline
 
-> Require newline between elements
-
-## How to use
-
-- .eslintrc.js
-
-    ```js
-    module.exports = {
-      rules: {
-        '@html-eslint/element-newline': "error"
-      }
-    };
-    ```
+Require newline between elements
 
 ## Rule Details
 
@@ -27,7 +15,9 @@ Examples of **incorrect** code for this rule:
 
 ```html
 <html>
-  <head><title>newline</title></head>
+  <head>
+    <title>newline</title>
+  </head>
 </html>
 ```
 
@@ -39,4 +29,16 @@ Examples of **correct** code for this rule:
     <title>newline</title>
   </head>
 </html>
+```
+
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/element-newline": "error",
+  },
+};
 ```

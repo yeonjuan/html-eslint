@@ -4,13 +4,14 @@ title: "indent"
 ---
 
 # indent
-## Enforce consistent indentation
 
-### Rule Details
+Enforce consistent indentation
+
+## Rule Details
 
 This rule enforces consistent indentation styles. The default indent is `4spaces`.
 
-## Options
+### Options
 
 This rule has two options
 
@@ -33,8 +34,6 @@ Examples of **correct** code for this rule:
   <body></body>
 </html>
 ```
-
-### Options
 
 #### space
 

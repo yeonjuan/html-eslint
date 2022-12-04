@@ -16,8 +16,6 @@ title: Getting Started
 $ npm install --save-dev eslint @html-eslint/parser @html-eslint/eslint-plugin
 ```
 
-
-
 ## Configuration
 
 Populate it with the following on your `.eslintrc.js`. If it does not exist create a `.eslintrc.js` config file in the root of your project.
@@ -50,8 +48,8 @@ To get [vscode-eslint](https://github.com/microsoft/vscode-eslint) support, we n
   "eslint.enable": true,
   "eslint.validate": [
     "javascript", // ...
-    "html", // Add "html" to enable linting `.html` files.
-  ],
+    "html" // Add "html" to enable linting `.html` files.
+  ]
 }
 ```
 

@@ -5,9 +5,9 @@ title: "no-positive-tabindex"
 
 # no-positive-tabindex
 
-## Disallow use of positive `tabindex` attribute.
+Disallow use of positive `tabindex` attribute.
 
-### Rule Details
+## Rule Details
 
 This rule disallows use of positive `tabindex` attribute.
 

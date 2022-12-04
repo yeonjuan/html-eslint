@@ -5,7 +5,7 @@ title: "no-aria-hidden-body"
 
 # no-aria-hidden-body
 
-## Disallow to use aria-hidden attributes on the `body` element.
+Disallow to use aria-hidden attributes on the `body` element.
 
 ### Rule Details
 
@@ -15,7 +15,8 @@ Examples of **incorrect** code for this rule:
 
 ```html
 <body aria-hidden>
-<body aria-hidden="true">
+  <body aria-hidden="true"></body>
+</body>
 ```
 
 Examples of **correct** code for this rule:
