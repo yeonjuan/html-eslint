@@ -11,7 +11,7 @@ export default function Home() {
       </div>
       <p className="text-slate-600">
         This is an <Link href="https://eslint.org/">eslint</Link> plugin for
-        linting html. It helps us to find problems in the HTML.
+        linting html. It helps us to find and fix problems in the HTML.
       </p>
       <div className="mt-6 flex justify-center space-x-6 text-sm py-4">
         <span>
