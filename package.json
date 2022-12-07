@@ -10,7 +10,9 @@
     "ts": "turbo run ts",
     "format": "prettier --write .",
     "format-check": "prettier --list-different .",
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "publish-website": "npm run build && gh-pages -d packages/website/out"
   },
   "author": "yeonjuan",
   "license": "MIT",

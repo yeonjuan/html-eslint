@@ -13,7 +13,8 @@
     "rollup-plugin-node-builtins": "^2.1.2"
   },
   "scripts": {
-    "dev": "rollup --config"
+    "dev": "rollup --config",
+    "build": "rollup --config"
   },
   "repository": {
     "type": "git",

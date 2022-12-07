@@ -1,7 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { inspect } from "util";
 import DocAside from "../../components/DocAside";
-import DOCS_DATA, { DocData, DocTree } from "../../data/docs";
+import DOCS_DATA, { DocTree } from "../../data/docs";
 import { getMarkdownHTML } from "../../utils/docs";
 
 type Props = {
