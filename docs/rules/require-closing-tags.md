@@ -7,6 +7,18 @@ title: "require-closing-tags"
 
 Require use of closing tag.
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/require-closing-tags": "error",
+  },
+};
+```
+
 ## Rule Details
 
 This rule checks whether the tag has closing tag or not.

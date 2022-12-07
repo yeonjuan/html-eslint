@@ -7,6 +7,18 @@ title: "no-multiple-empty-lines"
 
 Disallow use of multiple empty lines.
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-multiple-empty-lines": "error",
+  },
+};
+```
+
 ## Rule Details
 
 This rule disallows the use of empty lines which exceeded the maximum lines allowed.

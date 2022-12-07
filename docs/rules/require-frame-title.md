@@ -7,6 +7,18 @@ title: "require-frame-title"
 
 Require `title` attribute in `<frame>` and `<iframe>`
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/require-frame-title": "error",
+  },
+};
+```
+
 ## Rule Details
 
 This rule enforces usr of `title` attribute in `<frame>` and `<iframe>`.

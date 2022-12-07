@@ -7,6 +7,18 @@ title: "no-extra-spacing-attrs"
 
 Disallow extra spaces around attributes.
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-extra-spacing-attrs": "error",
+  },
+};
+```
+
 ## Rule Details
 
 This rule disallows the use of extra spaces around attributes.

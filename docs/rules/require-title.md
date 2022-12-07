@@ -10,6 +10,18 @@ Require `<title>` in the `<head>`.
 `<title><title/>` tag is used to define the document's title.
 The content of the title is used by the search engine to decide the order of search results.
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/require-title": "error",
+  },
+};
+```
+
 ## Rule Details
 
 This rule enforces `<title><title/>` tag in the `<head><head/>`.

@@ -3,15 +3,15 @@ id: cli
 title: CLI
 ---
 
-## CLI
+# CLI
 
-### Installation
+## Installation
 
 ```
 $ npm install -g @html-eslint/cli
 ```
 
-### Configuration
+## Configuration
 
 - `.htmleslintrc.js`
 
@@ -28,13 +28,13 @@ module.exports = {
 };
 ```
 
-### Run
+## Run
 
 ```
 $ html-eslint https://www.example.com
 ```
 
-### Options
+## Options
 
 - `--config` (`-c`)
 

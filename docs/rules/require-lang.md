@@ -7,6 +7,18 @@ title: "require-lang"
 
 Require `lang` attribute at `html` tag
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/require-lang": "error",
+  },
+};
+```
+
 The `lang` attribute is used to represent the language used in the content.
 We can give information to the search engine about the language used in the content.
 

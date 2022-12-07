@@ -7,6 +7,18 @@ title: "require-meta-viewport"
 
 Enforce to use `<meta name="viewport" ...>` in the `<head></head>`.
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/require-meta-viewport": "error",
+  },
+};
+```
+
 ## Rule Details
 
 Examples of **incorrect** code for this rule:

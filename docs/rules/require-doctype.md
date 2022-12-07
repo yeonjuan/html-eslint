@@ -7,6 +7,18 @@ title: "require-doctype"
 
 Require `<!DOCTYPE html>` in the document
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/require-doctype": "error",
+  },
+};
+```
+
 ## Rule Details
 
 This rule enforces the `<!DOCTYPE html>`.

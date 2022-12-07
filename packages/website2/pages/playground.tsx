@@ -31,7 +31,7 @@ export default function Playground() {
   }, [code, linter.current, rules]);
 
   return (
-    <div className="pt-[40px]">
+    <div className="py-[40px]">
       <h1 className="text-2xl p-2">Playground</h1>
       <div className="flex flex-col gap-2 mt-3 md:flex-row">
         <div className="md:w-1/2 min-h-[300px]">

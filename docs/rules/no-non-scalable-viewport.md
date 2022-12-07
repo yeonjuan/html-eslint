@@ -9,6 +9,18 @@ Disallow use of `user-scalable=no` in `<meta name="viewport">`.
 
 The `user-scalable=no` disables zooming on a page. It makes users with partial vision or low vision hard to read web content.
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-non-scalable-viewport": "error",
+  },
+};
+```
+
 ## Rule Details
 
 This rule disallow use of `user-scalable-no` in `<meta name="viewport">`.

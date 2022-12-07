@@ -7,6 +7,17 @@ title: "quotes"
 
 <!-- prettier-ignore-start -->
 Enforce consistent quoting attributes with double(`"`) or single(`'`)
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/quotes": "error",
+  },
+};
+```
 
 ## Rule Details
 

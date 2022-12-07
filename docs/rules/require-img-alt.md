@@ -7,6 +7,18 @@ title: "require-img-alt"
 
 Require `alt` attribute at `img` tag
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/require-img-alt": "error",
+  },
+};
+```
+
 The screen reader uses `alt` attributes in `img` tag for describing the image.
 And the `alt` value is displayed if fails to load the image.
 So the `img` tag should contain the `alt` attribute for those who cannot see images.

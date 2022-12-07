@@ -7,6 +7,18 @@ title: "no-multiple-h1"
 
 Disallow multiple `<h1><h1>`.
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-multiple-h1": "error",
+  },
+};
+```
+
 ## Rule Details
 
 This rule disallows the use of multiple `<h1></h1>` tags.

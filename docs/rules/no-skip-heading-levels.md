@@ -7,6 +7,18 @@ title: "no-skip-heading-levels"
 
 Disallow skipping heading levels.
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-skip-heading-levels": "error",
+  },
+};
+```
+
 ## Rule Details
 
 This rule disallows skipping heading levels.

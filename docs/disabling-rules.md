@@ -9,14 +9,14 @@ title: Disabling Rules
 
 To disable rule in a file, use HTML comments (`<!-- ... -->`) in the following format:
 
-- Disable all rules in an entire file:
+Disable all rules in an entire file:
 
 ```html
 <!-- eslint-disable -->
 <div foo="foo" foo="foo"></div>
 ```
 
-- Disable or enable specific rules in an entire file:
+Disable or enable specific rules in an entire file:
 
 ```html
 <!-- eslint-disable @html-eslint/no-duplicate-attrs -->
@@ -26,14 +26,14 @@ To disable rule in a file, use HTML comments (`<!-- ... -->`) in the following f
 <div foo="foo" foo="foo"></div>
 ```
 
-- Disable all rules on a specific line:
+Disable all rules on a specific line:
 
 ```html
 <!-- eslint-disable-next-line -->
 <div foo="foo" foo="foo"></div>
 ```
 
-- Disable a specific rule on a specific line:
+Disable a specific rule on a specific line:
 
 ```html
 <!-- eslint-disable-next-line @html-eslint/no-duplicate-attrs -->

@@ -7,6 +7,18 @@ title: "no-positive-tabindex"
 
 Disallow use of positive `tabindex` attribute.
 
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-positive-tabindex": "error",
+  },
+};
+```
+
 ## Rule Details
 
 This rule disallows use of positive `tabindex` attribute.
