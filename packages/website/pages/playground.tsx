@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Editor from "../components/Editor";
 import LintResult from "../components/LintResult";
 import RuleConfig from "../components/RuleConfig";
@@ -33,7 +33,7 @@ export default function Playground() {
   return (
     <div className="py-[40px]">
       <h1 className="text-2xl p-2">Playground</h1>
-      <div className="flex flex-col gap-2 mt-3 md:flex-row">
+      <div className="flex flex-col gap-2 mt-3 md:flex-row px-2">
         <div className="md:w-1/2 min-h-[300px]">
           <Editor onChange={setCode} messages={lintResult.messages} />
         </div>
