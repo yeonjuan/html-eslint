@@ -12,7 +12,7 @@
     "format-check": "prettier --list-different .",
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "publish-website": "npm run build && gh-pages -d packages/website/out"
+    "publish-website": "npm run build && gh-pages -d packages/website/out -t true"
   },
   "author": "yeonjuan",
   "license": "MIT",

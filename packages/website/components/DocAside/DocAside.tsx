@@ -1,3 +1,4 @@
+import React from "react";
 import { FC } from "react";
 import { DocTree } from "../../data/docs";
 import DocList from "./DocList";

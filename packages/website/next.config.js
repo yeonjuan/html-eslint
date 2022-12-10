@@ -7,8 +7,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  assetPrefix: isProd ? "/html-eslint" : "",
+  assetPrefix: isProd ? "/html-eslint/" : "",
   basePath: isProd ? "/html-eslint" : "",
+  trailingSlash: true,
 };
 
 module.exports = nextConfig;

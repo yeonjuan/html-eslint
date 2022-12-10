@@ -7,10 +7,23 @@ import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
+import { visit } from "unist-util-visit";
 
 export async function getMarkdownHTML(data: DocData) {
   const remarkResult = await unified()
     .use(remarkParse)
+    .use(() => (tree) => {
+      visit(tree, "link", (node) => {
+        if (process.env.NODE_ENV === "production") {
+          if (!node.url.startsWith("http")) {
+            node.url = `/html-eslint/docs/${node.url
+              .split("/")
+              .filter(Boolean)
+              .join("/")}`;
+          }
+        }
+      });
+    })
     .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypeHighlight)

@@ -1,3 +1,4 @@
+import React from "react";
 type Props = {
   width: string;
   height: string;

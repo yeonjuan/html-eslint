@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build && next export && touch ./out/.nojekyll && echo 'yeonjuan.github.io' > ./out/CNAME",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@html-eslint/eslint-plugin": "^0.15.0",
+    "@html-eslint/eslint-plugin": "workspace:*",
     "@html-eslint/parser": "^0.15.0",
     "@html-eslint/web-linter": "^0.15.0",
     "classnames": "^2.3.1",
@@ -28,7 +29,8 @@
     "remark-html": "^15.0.1",
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
-    "unified": "^10.1.2"
+    "unified": "^10.1.2",
+    "unist-util-visit": "^4.1.1"
   },
   "devDependencies": {
     "@types/codemirror": "^5.60.5",

@@ -1,3 +1,4 @@
+import React from "react";
 import classNames from "classnames";
 import Link from "next/link";
 import { FC, HTMLProps } from "react";
@@ -25,10 +26,10 @@ const DocList: FC<Props> = ({ trees, level }) => {
     <ul className={`pl-${level} pb-1`}>
       {trees.map((tree, index) => {
         const HeadingWrap: FC<{ children: any }> = ({ children }) => {
-          if (tree.doc?.path && typeof children === "string") {
+          if (tree.doc?.path) {
             return (
               <Link href={tree.doc?.path || ""} className="hover:underline">
-                {children}
+                {children as string}
               </Link>
             );
           }

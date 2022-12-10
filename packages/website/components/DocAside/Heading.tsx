@@ -1,4 +1,4 @@
-import { FC, HTMLProps } from "react";
+import React, { FC, HTMLProps } from "react";
 
 type Props = {
   level: number;

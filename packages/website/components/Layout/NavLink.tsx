@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 import Link from "next/link";
 import classnames from "classnames";
 

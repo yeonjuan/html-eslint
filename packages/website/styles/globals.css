@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: light only;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -15,6 +19,7 @@ body {
   max-width: 980px;
   margin: 0 auto;
   padding: 40px 10px 100px 10px;
+  background: white;
 }
 
 @media (min-width: 768px) {
