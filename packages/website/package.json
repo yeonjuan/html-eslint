@@ -10,7 +10,7 @@
     "ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@html-eslint/eslint-plugin": "workspace:*",
+    "@html-eslint/eslint-plugin": "^0.15.0",
     "@html-eslint/parser": "^0.15.0",
     "@html-eslint/web-linter": "^0.15.0",
     "classnames": "^2.3.1",
