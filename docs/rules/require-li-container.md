@@ -1,13 +1,27 @@
 ---
 id: require-li-container
-title: "@html-eslint/require-li-container"
+title: "require-li-container"
 ---
 
-## Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.
+# require-li-container
+
+Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.
 
 The `<li>` tag should be contained in a parent element: `<ol>`, `<ul>` or `<menu>`.
 
-### Rule Details
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/require-li-container": "error",
+  },
+};
+```
+
+## Rule Details
 
 Examples of **incorrect** code for this rule:
 
@@ -34,4 +48,4 @@ Examples of **correct** code for this rule:
 
 ## Further reading
 
-[MDN - li](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li)
+- [MDN - li](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li)

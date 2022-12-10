@@ -11,20 +11,16 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup node 12
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 12.x
+          node-version: 16
 
       - name: setup
         run: npm ci
 
-      - name: bootstrap
-        run: npm run bootstrap
-
       - name: test
-        run: npm run test:all
+        run: npm run test
 
       - name: Code coverage report
         uses: codecov/codecov-action@v2

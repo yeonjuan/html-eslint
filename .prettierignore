@@ -2,7 +2,9 @@
 **/fixtures
 **/__snapshots__
 lerna.json
-website/build
-website/static
-website/sidebars.json
-docs
+packages/website/build
+packages/website/static
+packages/website/sidebars.json
+packages/website2/.next
+out
+.next

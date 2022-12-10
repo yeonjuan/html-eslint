@@ -1,11 +1,29 @@
 ---
 id: no-restricted-attrs
-title: "@html-eslint/no-restricted-attrs"
+title: "no-restricted-attrs"
 ---
 
-## Disallow specified attributes
+# no-restricted-attrs
 
-### Rule Details
+Disallow specified attributes
+
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    '@html-eslint/no-restricted-attrs': ["error",  {
+  tagPatterns: ["^div$", "^img$"],
+    attrPatterns: ["data-.*"]
+    message: "\'data-x\' is restricted."
+  }]
+  }
+};
+```
+
+## Rule Details
 
 This rule allows you to specify attributes that you don't want to use in your application.
 
@@ -17,22 +35,24 @@ This rule takes an array of option objects, where the `tagPatterns` and `attrPat
 - `attrPatterns`: an array of strings representing regular expression pattern, disallows attribute name that match any of the patterns.
 - `message` (optional): a string for custom message.
 
-
-```
-"rules": {
-  "@html-eslint/no-restricted-attrs": [
-    "error",
-  {
-    tagPatterns: ["^div$", "^img$"],
-    attrPatterns: ["data-.*"]
-    message: "\'data-x\' is restricted."
-  },
-  {
-    tagPatterns: ["^img$"],
-    attrPatterns: ["^alt$"]
-    message: "\'alt\' is restricted."
-  }]
-}
+```js
+module.exports = {
+  "rules": {
+    "@html-eslint/no-restricted-attrs": [
+      "error",
+      {
+        tagPatterns: ["^div$", "^img$"],
+        attrPatterns: ["data-.*"]
+        message: "\'data-x\' is restricted."
+      },
+      {
+        tagPatterns: ["^img$"],
+        attrPatterns: ["^alt$"]
+        message: "\'alt\' is restricted."
+      }
+    ],
+  }
+};
 ```
 
 Examples of **incorrect** code for this rule with the option below:

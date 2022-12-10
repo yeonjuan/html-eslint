@@ -1,25 +1,36 @@
 ---
 id: no-trailing-spaces
-title: "@html-eslint/no-trailing-spaces"
+title: "no-trailing-spaces"
 ---
 
-## Disallow trailing whitespaces at the end of lines
+# no-trailing-spaces
 
+Disallow trailing white spaces at the end of lines
 
-### Rule Details
+## How to use
 
-This rule disallows trailing whitespace (spaces, tabs) at the end of lines.
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-trailing-spaces": "error",
+  },
+};
+```
+
+## Rule Details
+
+This rule disallows trailing white spaces (spaces, tabs) at the end of lines.
 
 Examples of **incorrect** code for this rule:
 
 ```html
-<div>••
-</div>
+<div>••</div>
 ```
 
 Examples of **correct** code for this rule:
 
 ```html
-<div>
-</div>
+<div></div>
 ```

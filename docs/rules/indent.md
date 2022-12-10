@@ -1,15 +1,29 @@
 ---
 id: indent
-title: "@html-eslint/indent"
+title: "indent"
 ---
 
-## Enforce consistent indentation
+# indent
 
-### Rule Details
+Enforce consistent indentation
 
-This rule enforces consistent indentation styles. The default indent is `4spaces`.
+## How to use
 
-## Options
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/indent": "error",
+  },
+};
+```
+
+## Rule Details
+
+This rule enforces consistent indentation styles. The default indent is `4 spaces`.
+
+### Options
 
 This rule has two options
 
@@ -32,8 +46,6 @@ Examples of **correct** code for this rule:
   <body></body>
 </html>
 ```
-
-### Options
 
 #### space
 

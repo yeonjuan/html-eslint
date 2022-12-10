@@ -1,4 +1,8 @@
 node_modules/
 **/coverage
-website/build
+packages/website/build
+.next
 website/static/js/playground
+.turbo
+next-env.d.ts
+packages/web-linter/out

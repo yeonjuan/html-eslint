@@ -1,13 +1,27 @@
 ---
 id: require-button-type
-title: "@html-eslint/require-button-type"
+title: "require-button-type"
 ---
 
-## Require use of button element with a valid type attribute.
+# require-button-type
 
-### Rule Details
+Require use of button element with a valid type attribute.
 
-This rule enforces use of a valid type attribute for button elements. (`"button"`, `"submit"`,  `"reset"`)
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/require-button-type": "error",
+  },
+};
+```
+
+## Rule Details
+
+This rule enforces use of a valid type attribute for button elements. (`"button"`, `"submit"`, `"reset"`)
 
 Examples of **incorrect** code for this rule:
 
@@ -27,6 +41,6 @@ Examples of **correct** code for this rule:
 <button type="reset"></button>
 ```
 
-### Further reading
+## Further reading
 
 - [HTML spec - the button element](https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-type)

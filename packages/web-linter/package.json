@@ -1,0 +1,32 @@
+{
+  "name": "@html-eslint/web-linter",
+  "version": "0.15.0",
+  "description": "",
+  "private": true,
+  "main": "out/output.js",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^23.0.3",
+    "@rollup/plugin-json": "^5.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.1.0",
+    "rollup": "^3.5.1",
+    "rollup-plugin-node-builtins": "^2.1.2"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "build": "rollup --config"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeonjuan/html-eslint.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yeonjuan/html-eslint/issues"
+  },
+  "homepage": "https://github.com/yeonjuan/html-eslint#readme",
+  "dependencies": {
+    "eslint": "^8.29.0"
+  }
+}

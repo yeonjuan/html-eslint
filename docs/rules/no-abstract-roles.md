@@ -1,15 +1,27 @@
 ---
 id: no-abstract-roles
-title: "@html-eslint/no-abstract-roles"
+title: "no-abstract-roles"
 ---
 
-## Disallow use of abstract roles.
+# no-abstract-roles
 
-### Rule Details
+Disallow use of abstract roles.
 
-This rule disallow use of abstract roles.
+.eslintrc.js
 
-#### Abstract Roles
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-abstract-roles": "error",
+  },
+};
+```
+
+## Rule Details
+
+This rule disallows the use of abstract roles.
+
+- Abstract roles
   - command
   - composite
   - input
@@ -37,6 +49,6 @@ Examples of **correct** code for this rule:
 <div role="button"></div>
 ```
 
-### Further reading
+## Further reading
 
-[HTML spec - Abstract Roles](https://www.w3.org/TR/wai-aria-1.0/roles#abstract_roles)
+- [HTML spec - Abstract Roles](https://www.w3.org/TR/wai-aria-1.0/roles#abstract_roles)

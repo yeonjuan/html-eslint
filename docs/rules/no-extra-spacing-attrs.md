@@ -1,11 +1,25 @@
 ---
 id: no-extra-spacing-attrs
-title: "@html-eslint/no-extra-spacing-attrs"
+title: "no-extra-spacing-attrs"
 ---
 
-## Disallow extra spaces around attributes.
+# no-extra-spacing-attrs
 
-### Rule Details
+Disallow extra spaces around attributes.
+
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-extra-spacing-attrs": "error",
+  },
+};
+```
+
+## Rule Details
 
 This rule disallows the use of extra spaces around attributes.
 
@@ -13,13 +27,13 @@ Examples of **incorrect** code for this rule:
 
 ```html
 <!-- an extra space between attributes -->
-<div foo="foo"  bar="bar"></div>
+<div foo="foo" bar="bar"></div>
 
 <!-- an extra space between tag start and attribute -->
-<div  foo="foo"></div>
+<div foo="foo"></div>
 
 <!-- an extra space between tag end and attribute -->
-<div foo="foo" ></div>
+<div foo="foo"></div>
 ```
 
 Examples of **correct** code for this rule:
@@ -32,7 +46,6 @@ Examples of **correct** code for this rule:
 ## Options
 
 - `enforceBeforeSelfClose` (default: false): enforce one space before self closing (`/>`)
-
 
 Examples of **incorrect** code for this rule with the default `{ "enforceBeforeSelfClose": true }` option:
 

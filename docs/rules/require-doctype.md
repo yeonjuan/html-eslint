@@ -1,11 +1,25 @@
 ---
 id: require-doctype
-title: "@html-eslint/require-doctype"
+title: "require-doctype"
 ---
 
-## Require `<!DOCTYPE html>` in the document
+# require-doctype
 
-### Rule Details
+Require `<!DOCTYPE html>` in the document
+
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/require-doctype": "error",
+  },
+};
+```
+
+## Rule Details
 
 This rule enforces the `<!DOCTYPE html>`.
 
@@ -24,4 +38,4 @@ Examples of **correct** code for this rule:
 
 ## Further reading
 
-[MDN - Doctype](https://developer.mozilla.org/en-US/docs/Glossary/Doctype)
+- [MDN - Doctype](https://developer.mozilla.org/en-US/docs/Glossary/Doctype)

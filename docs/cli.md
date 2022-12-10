@@ -1,17 +1,17 @@
 ---
 id: cli
-title: CLI (Run on URLs)
+title: CLI
 ---
 
-## Run HTML-ESLint on URLs.
+# CLI
 
-### Installation
+## Installation
 
 ```
 $ npm install -g @html-eslint/cli
 ```
 
-### Configuration
+## Configuration
 
 - `.htmleslintrc.js`
 
@@ -28,13 +28,13 @@ module.exports = {
 };
 ```
 
-### Run
+## Run
 
 ```
 $ html-eslint https://www.example.com
 ```
 
-### Options
+## Options
 
 - `--config` (`-c`)
 

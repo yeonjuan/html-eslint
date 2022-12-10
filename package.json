@@ -3,14 +3,16 @@
   "version": "0.4.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "lerna run test --stream",
-    "lint": "eslint . --ext .js",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "ts": "turbo run ts",
     "format": "prettier --write .",
-    "check:ts": "lerna run check:ts",
-    "check:format": "prettier --list-different .",
-    "bootstrap": "lerna bootstrap",
-    "test:all": "npm run check:ts && npm run check:format && npm run lint && npm run test"
+    "format-check": "prettier --list-different .",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "publish-website": "npm run build && gh-pages -d packages/website/out -t true"
   },
   "author": "yeonjuan",
   "license": "MIT",
@@ -21,8 +23,9 @@
     "gh-pages": "^3.1.0",
     "husky": "^4.3.0",
     "jest": "^27.3.1",
-    "lerna": "^4.0.0",
+    "lerna": "^6.0.3",
     "prettier": "^2.4.1",
+    "turbo": "^1.6.3",
     "typescript": "^4.4.4"
   },
   "engines": {
@@ -30,8 +33,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test && npm run check:format",
-      "pre-push": "npm run test && npm run check:format"
+      "pre-commit": "npm run test && npm run format-check",
+      "pre-push": "npm run test && npm run format-check"
     }
+  },
+  "workspaces": {
+    "packages": [
+      "packages/**"
+    ]
   }
 }

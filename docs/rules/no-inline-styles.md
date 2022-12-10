@@ -1,13 +1,27 @@
 ---
 id: no-inline-styles
-title: "@html-eslint/no-inline-styles"
+title: "no-inline-styles"
 ---
 
-## Disallow inline styles.
+# no-inline-styles
 
-### Rule Details
+Disallow inline styles.
 
-This rule disallow the use of inline styles.
+## How to use
+
+.eslintrc.js
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/no-inline-styles": "error",
+  },
+};
+```
+
+## Rule Details
+
+This rule disallows the use of inline styles.
 
 Examples of **incorrect** code for this rule:
 
@@ -21,6 +35,6 @@ Examples of **correct** code for this rule:
 <div class="some-color"></div>
 ```
 
-### Further reading
+## Further reading
 
-[MDN - id](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id)
+- [MDN - id](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id)

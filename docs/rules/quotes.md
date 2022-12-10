@@ -1,12 +1,25 @@
 ---
 id: quotes
-title: "@html-eslint/quotes"
+title: "quotes"
 ---
+
+# quotes
+
 <!-- prettier-ignore-start -->
+Enforce consistent quoting attributes with double(`"`) or single(`'`)
+## How to use
 
-## Enforce consistent quoting attributes with double(`"`) or single(`'`)
+.eslintrc.js
 
-### Rule Details
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/quotes": "error",
+  },
+};
+```
+
+## Rule Details
 
 This rule enforces the consistent use of double(`"`) or single(`'`) quotes for element attributes.
 
@@ -50,8 +63,8 @@ Examples of **correct** code for this rule with the default `"single"` option:
 <div id="containing 'single' quotes"></div>
 ```
 
-### Further reading
+## Further reading
 
-[MDN - Quoting attributes](https://developer.mozilla.org/en-US/docs/MDN/Guidelines/Code_guidelines/HTML#Quoting_attributes)
+- [MDN - Quoting attributes](https://developer.mozilla.org/en-US/docs/MDN/Guidelines/Code_guidelines/HTML#Quoting_attributes)
 
 <!-- prettier-ignore-end -->
