@@ -19,11 +19,8 @@ jobs:
       - name: setup
         run: npm ci
 
-      - name: bootstrap
-        run: npm run bootstrap
-
       - name: test
-        run: npm run test:all
+        run: npm run test
 
       - name: Code coverage report
         uses: codecov/codecov-action@v2
