@@ -29,7 +29,6 @@ export default function App({ Component, pageProps }: AppProps) {
           content="Find and fix problems in your HTML code"
         />
         <meta name="color-scheme" content="light only" />
-        {/* <Script src="/theme.js">{themeScript}</Script> */}
       </Head>
       {/* @ts-ignore*/}
       <Component {...pageProps} />

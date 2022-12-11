@@ -2,7 +2,7 @@
 
 <p align="center">
  <a href="https://yeonjuan.github.io/html-eslint/">
-    <img src="website/static/img/textlogo.svg" alt="Logo" width="90" height="90">
+    <img src="packages/website/public/favicon.png" alt="Logo" width="90" height="90">
   </a>
    <p align="center">
   Monorepo for ESLint plugin which supports linting HTML(HyperText Markup Language) with ESLint.
