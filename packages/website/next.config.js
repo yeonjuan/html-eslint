@@ -7,8 +7,8 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  assetPrefix: isProd ? "/html-eslint/" : "",
-  basePath: isProd ? "/html-eslint" : "",
+  assetPrefix: "/html-eslint/",
+  basePath: "/html-eslint",
   trailingSlash: true,
 };
 

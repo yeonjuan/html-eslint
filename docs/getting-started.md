@@ -19,7 +19,7 @@ $ npm install --save-dev eslint @html-eslint/parser @html-eslint/eslint-plugin
 ## Configuration
 
 Populate it with the following on your `.eslintrc.js`. If it does not exist create a `.eslintrc.js` config file in the root of your project.
-We can apply these [plugin rules](#Rules) to only HTML files(`*.html`) by using `overrides` in `.eslintrc.js`. (see [ESLint Configuration](https://eslint.org/docs/user-guide/configuring#configuration-based-on-glob-patterns))
+We can apply [HTML-ESLint plugin rules](rules) to only HTML files(`*.html`) by using `overrides` in `.eslintrc.js`. (see [ESLint Configuration](https://eslint.org/docs/user-guide/configuring#configuration-based-on-glob-patterns))
 
 ```js
 module.exports = {
@@ -55,4 +55,4 @@ To get [vscode-eslint](https://github.com/microsoft/vscode-eslint) support, we n
 
 ## Recommended Configs
 
-This plugin provides `plugin:@html-eslint/recommended`. The recommended configuration contains the rules marked ⭐ in [Rules](#Rules).
+This plugin provides `plugin:@html-eslint/recommended`. The recommended configuration contains the rules marked ⭐ in the [all rules](./rules).
