@@ -14,13 +14,11 @@ export async function getMarkdownHTML(data: DocData) {
     .use(remarkParse)
     .use(() => (tree) => {
       visit(tree, "link", (node) => {
-        if (process.env.NODE_ENV === "production") {
-          if (!node.url.startsWith("http")) {
-            node.url = `/html-eslint/docs/${node.url
-              .split("/")
-              .filter(Boolean)
-              .join("/")}`;
-          }
+        if (!node.url.startsWith("http")) {
+          node.url = `/html-eslint/docs/${node.url
+            .split("/")
+            .filter(Boolean)
+            .join("/")}`;
         }
       });
     })

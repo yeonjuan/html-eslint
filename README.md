@@ -36,7 +36,7 @@
      - [VSCode](https://yeonjuan.github.io/html-eslint/docs/getting-started#vscode)
 1. [Recommended Configs](https://yeonjuan.github.io/html-eslint/docs/getting-started#recommended-configs)
 1. [Rules](https://yeonjuan.github.io/html-eslint/docs/all-rules)
-1. [CLI (Check HTML file on URL)](https://yeonjuan.github.io/html-eslint/docs/cli)
+1. [CLI](https://yeonjuan.github.io/html-eslint/docs/cli)
 1. [Playground](https://yeonjuan.github.io/html-eslint/playground)
 1. [License](#License)
 
