@@ -68,3 +68,27 @@ Examples of **correct** code for this rule with the default `{ "enforceBeforeSel
 ```
 
 <!-- prettier-ignore-end -->
+
+- `disallowMissing` (default: false): Enforce at least one space between attributes
+
+Example(s) of **incorrect** code for this rule with the default `{ "disallowMissing": true }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<div id="foo"class="bar">
+</div>
+```
+
+<!-- prettier-ignore-end -->
+
+Example(s) of **correct** code for this rule with the default `{ "disallowMissing": true }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<div id="foo" class="bar">
+</div>
+```
+
+<!-- prettier-ignore-end -->
