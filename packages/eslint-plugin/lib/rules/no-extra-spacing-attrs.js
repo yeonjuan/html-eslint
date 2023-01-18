@@ -77,7 +77,7 @@ module.exports = {
           });
         } else if (disallowMissing && spacesBetween < 1) {
           context.report({
-            loc: NodeUtils.getLocBetween(current, after),
+            loc: after.loc,
             messageId: MESSAGE_IDS.MISSING_BEFORE,
             fix(fixer) {
               return fixer.insertTextAfter(current, " ");
