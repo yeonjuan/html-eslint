@@ -71,7 +71,7 @@ Examples of **correct** code for this rule with the default `{ "enforceBeforeSel
 
 - `disallowMissing` (default: false): Enforce at least one space between attributes
 
-Example(s) of **incorrect** code for this rule with the default `{ "disallowMissing": true }` option:
+Example(s) of **incorrect** code for this rule with the `{ "disallowMissing": true }` option:
 
 <!-- prettier-ignore-start -->
 
