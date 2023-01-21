@@ -110,6 +110,25 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
         },
       ],
     },
+    {
+      code: `<img src='foo.png'alt='foo'/>`,
+    },
+    {
+      code: `<img src='foo.png'alt='foo'/>`,
+      options: [
+        {
+          disallowMissing: false,
+        },
+      ],
+    },
+    {
+      code: `<img src='foo.png' alt='foo'/>`,
+      options: [
+        {
+          disallowMissing: true,
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -334,6 +353,20 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
       errors: [
         {
           messageId: "unexpectedAfter",
+        },
+      ],
+    },
+    {
+      code: `<img src='foo.png'alt='foo'/>`,
+      output: `<img src='foo.png' alt='foo'/>`,
+      options: [
+        {
+          disallowMissing: true,
+        },
+      ],
+      errors: [
+        {
+          messageId: "missingBefore",
         },
       ],
     },

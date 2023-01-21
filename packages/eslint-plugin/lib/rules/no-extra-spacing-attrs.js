@@ -8,6 +8,7 @@ const MESSAGE_IDS = {
   EXTRA_BETWEEN: "unexpectedBetween",
   EXTRA_AFTER: "unexpectedAfter",
   EXTRA_BEFORE: "unexpectedBefore",
+  MISSING_BEFORE: "missingBefore",
   MISSING_BEFORE_SELF_CLOSE: "missingBeforeSelfClose",
   EXTRA_BEFORE_SELF_CLOSE: "unexpectedBeforeSelfClose",
 };
@@ -30,6 +31,9 @@ module.exports = {
       {
         type: "object",
         properties: {
+          disallowMissing: {
+            type: "boolean",
+          },
           enforceBeforeSelfClose: {
             type: "boolean",
           },
@@ -44,11 +48,13 @@ module.exports = {
         "Missing space before self closing",
       [MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE]:
         "Unexpected extra spaces before self closing",
+      [MESSAGE_IDS.MISSING_BEFORE]: "Missing space before attribute",
     },
   },
   create(context) {
     const enforceBeforeSelfClose = !!(context.options[0] || {})
       .enforceBeforeSelfClose;
+    const disallowMissing = !!(context.options[0] || {}).disallowMissing;
 
     function checkExtraSpacesBetweenAttrs(attrs) {
       attrs.forEach((current, index, attrs) => {
@@ -67,6 +73,14 @@ module.exports = {
             messageId: MESSAGE_IDS.EXTRA_BETWEEN,
             fix(fixer) {
               return fixer.removeRange([current.range[1] + 1, after.range[0]]);
+            },
+          });
+        } else if (disallowMissing && spacesBetween < 1) {
+          context.report({
+            loc: after.loc,
+            messageId: MESSAGE_IDS.MISSING_BEFORE,
+            fix(fixer) {
+              return fixer.insertTextAfter(current, " ");
             },
           });
         }
