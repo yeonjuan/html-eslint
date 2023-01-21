@@ -82,7 +82,7 @@ Example(s) of **incorrect** code for this rule with the `{ "disallowMissing": tr
 
 <!-- prettier-ignore-end -->
 
-Example(s) of **correct** code for this rule with the default `{ "disallowMissing": true }` option:
+Example(s) of **correct** code for this rule with the `{ "disallowMissing": true }` option:
 
 <!-- prettier-ignore-start -->
 
