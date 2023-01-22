@@ -12,7 +12,9 @@
     "format-check": "prettier --list-different .",
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "publish-website": "npm run build && gh-pages -d packages/website/out -t true"
+    "publish-website": "npm run build && gh-pages -d packages/website/out -t true",
+    "publish": "lerna publish",
+    "publish:alpha": "lerna publish --dist-tag alpha"
   },
   "author": "yeonjuan",
   "license": "MIT",
