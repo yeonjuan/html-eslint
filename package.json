@@ -37,9 +37,7 @@
       "pre-push": "npm run test && npm run format-check"
     }
   },
-  "workspaces": {
-    "packages": [
-      "packages/**"
-    ]
-  }
+  "workspaces": [
+    "packages/**"
+  ]
 }

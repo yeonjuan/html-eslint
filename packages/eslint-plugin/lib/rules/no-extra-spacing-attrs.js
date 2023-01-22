@@ -181,24 +181,25 @@ module.exports = {
         if (node.attributes.length) {
           checkExtraSpaceBefore(node.openStart, node.attributes[0]);
         }
+        if (node.openEnd) {
+          const isSelfClosing = node.openEnd.value === "/>";
 
-        const isSelfClosing = node.openEnd.value === "/>";
+          if (node.attributes && node.attributes.length > 0) {
+            checkExtraSpaceAfter(
+              node.openEnd,
+              node.attributes[node.attributes.length - 1],
+              isSelfClosing
+            );
+          }
 
-        if (node.openEnd && node.attributes && node.attributes.length > 0) {
-          checkExtraSpaceAfter(
-            node.openEnd,
-            node.attributes[node.attributes.length - 1],
-            isSelfClosing
-          );
-        }
-
-        checkExtraSpacesBetweenAttrs(node.attributes);
-        if (
-          node.attributes.length === 0 &&
-          isSelfClosing &&
-          enforceBeforeSelfClose
-        ) {
-          checkSpaceBeforeSelfClosing(node.openStart, node.openEnd);
+          checkExtraSpacesBetweenAttrs(node.attributes);
+          if (
+            node.attributes.length === 0 &&
+            isSelfClosing &&
+            enforceBeforeSelfClose
+          ) {
+            checkSpaceBeforeSelfClosing(node.openStart, node.openEnd);
+          }
         }
       },
     };
