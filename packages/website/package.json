@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.15.0",
+  "version": "0.16.0-alpha.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,9 +10,9 @@
     "ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@html-eslint/eslint-plugin": "^0.15.0",
-    "@html-eslint/parser": "^0.15.0",
-    "@html-eslint/web-linter": "^0.15.0",
+    "@html-eslint/eslint-plugin": "^0.16.0-alpha.0",
+    "@html-eslint/parser": "^0.16.0-alpha.0",
+    "@html-eslint/web-linter": "^0.16.0-alpha.0",
     "classnames": "^2.3.1",
     "codemirror": "^5.58.3",
     "eslint": "^8.29.0",
