@@ -26,7 +26,7 @@ Examples of **incorrect** code for this rule:
 ```html
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="ESLint plugin for HTML" />
   </head>
 </html>
 ```
@@ -36,7 +36,7 @@ Examples of **correct** code for this rule:
 ```html
 <html>
   <head>
-    <meta name="description" content="ESLint plugin for HTML" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 </html>
 ```
