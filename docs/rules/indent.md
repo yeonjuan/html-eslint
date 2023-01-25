@@ -53,7 +53,7 @@ If the option is number it means the number of spaces for indentation.
 
 ```json
 {
-  "indent": ["error", 2]
+  "@html-eslint/indent": ["error", 2]
 }
 ```
 
@@ -81,7 +81,7 @@ If the option is `"tab"` it means using `tab` for indentation.
 
 ```json
 {
-  "indent": ["error", "tab"]
+  "@html-eslint/indent": ["error", "tab"]
 }
 ```
 
