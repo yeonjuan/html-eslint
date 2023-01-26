@@ -8,7 +8,7 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "ts": "turbo run ts",
-    "spell": "cspell --config .cspell.json \"**/*.{js,ts,tsx,md}\"",
+    "spell-check": "cspell --config .cspell.json \"**/*.{js,ts,tsx,md}\"",
     "format": "prettier --write .",
     "format-check": "prettier --list-different .",
     "dev": "turbo run dev",
@@ -37,8 +37,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test && npm run format-check",
-      "pre-push": "npm run test && npm run format-check"
+      "pre-commit": "npm run test && npm run format-check && npm run spell-check",
+      "pre-push": "npm run test && npm run format-check  && npm run spell-check"
     }
   },
   "workspaces": [
