@@ -1,0 +1,35 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": [
+    ".cspell.json",
+    ".github/workflows/**",
+    ".vscode/*.json",
+    "**/*.{json,snap}",
+    "**/coverage/**",
+    "**/out/**",
+    "**/node_modules/**",
+    "packages/website/.next/**"
+  ],
+  "words": [
+    "rehype",
+    "tailwindcss",
+    "codemirror",
+    "htmlmixed",
+    "yeon",
+    "noreferrer",
+    "noopener",
+    "estree",
+    "linebreak",
+    "optionator",
+    "htmleslintrc",
+    "unist",
+    "sectionhead",
+    "multicol",
+    "bgsound",
+    "noembed",
+    "roletype",
+    "nextid",
+    "screenreader"
+  ]
+}
