@@ -21,6 +21,10 @@ jobs:
 
       - name: test
         run: npm run test
+      - name: spell
+        run: npm run spell-check
+      - name: format
+        run: npm run format-check
 
       - name: Code coverage report
         uses: codecov/codecov-action@v2

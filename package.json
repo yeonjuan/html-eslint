@@ -8,6 +8,7 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "ts": "turbo run ts",
+    "spell-check": "cspell --config .cspell.json \"**/*.{js,ts,tsx,md}\"",
     "format": "prettier --write .",
     "format-check": "prettier --list-different .",
     "dev": "turbo run dev",
@@ -19,6 +20,7 @@
   "author": "yeonjuan",
   "license": "MIT",
   "devDependencies": {
+    "cspell": "^6.19.2",
     "eslint": "^7.14.0",
     "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-node": "^11.1.0",
@@ -35,8 +37,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test && npm run format-check",
-      "pre-push": "npm run test && npm run format-check"
+      "pre-commit": "npm run test && npm run format-check && npm run spell-check",
+      "pre-push": "npm run test && npm run format-check  && npm run spell-check"
     }
   },
   "workspaces": [
