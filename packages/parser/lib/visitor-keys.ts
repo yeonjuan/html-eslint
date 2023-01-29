@@ -1,6 +1,6 @@
-const { NodeTypes } = require("es-html-parser");
+import { NodeTypes } from "es-html-parser";
 
-const visitorKeys = {
+export const visitorKeys = {
   Program: ["body"],
   [NodeTypes.Attribute]: ["key", "startWrapper", "endWrapper", "value"],
   [NodeTypes.AttributeKey]: [],
@@ -47,5 +47,3 @@ const visitorKeys = {
   [NodeTypes.Tag]: ["openStart", "openEnd", "close", "children", "attributes"],
   [NodeTypes.Text]: [],
 };
-
-module.exports = { visitorKeys };

@@ -1,11 +1,12 @@
-const { parse } = require("es-html-parser");
-const { visitorKeys } = require("./visitor-keys");
-const { traverse } = require("./traverse");
+import { parse } from "es-html-parser";
+import { visitorKeys } from "./visitor-keys";
+import { traverse } from "./traverse";
+import { ProgramNode } from "./types";
 
-function parseForESLint(code) {
+export function parseForESLint(code: string) {
   const { ast, tokens } = parse(code);
 
-  const programNode = {
+  const programNode: ProgramNode = {
     type: "Program",
     body: ast.children,
     loc: ast.loc,
@@ -36,5 +37,3 @@ function parseForESLint(code) {
     scopeManager: null,
   };
 }
-
-module.exports = { parseForESLint };
