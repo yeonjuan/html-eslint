@@ -5,13 +5,14 @@
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "lib",
+    "dist"
   ],
   "publishConfig": {
     "access": "public"
@@ -21,7 +22,9 @@
     "url": "git+https://github.com/yeonjuan/html-eslint.git"
   },
   "scripts": {
-    "test": "jest --coverage --updateSnapshot --passWithNoTests"
+    "test": "jest --coverage --updateSnapshot --passWithNoTests",
+    "ts": "tsc --noEmit",
+    "build": "tsc -p ./tsconfig.build.json"
   },
   "engines": {
     "node": ">=8.10.0"
@@ -31,5 +34,8 @@
   },
   "dependencies": {
     "es-html-parser": "^0.0.8"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.4"
   }
 }

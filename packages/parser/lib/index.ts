@@ -1,0 +1,1 @@
+export { parseForESLint } from "./parser";
