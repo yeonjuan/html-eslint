@@ -13,7 +13,17 @@ ruleTester.run("require-attrs", rule, {
       options: [
         {
           tag: "svg",
-          attrs: ["viewBox"],
+          attr: "viewBox",
+        },
+      ],
+    },
+    {
+      code: `<svg viewBox="0 0 100 100"></svg>`,
+      options: [
+        {
+          tag: "svg",
+          attr: "viewBox",
+          value: "0 0 100 100",
         },
       ],
     },
@@ -22,7 +32,16 @@ ruleTester.run("require-attrs", rule, {
       options: [
         {
           tag: "img",
-          attrs: ["alt", "src"],
+          attr: "alt",
+        },
+      ],
+    },
+    {
+      code: `<img alt="" src="/assets/image.png">`,
+      options: [
+        {
+          tag: "img",
+          attr: "alt",
         },
       ],
     },
@@ -33,7 +52,7 @@ ruleTester.run("require-attrs", rule, {
       options: [
         {
           tag: "svg",
-          attrs: ["viewBox"],
+          attr: "viewBox",
         },
       ],
       errors: [
@@ -45,18 +64,38 @@ ruleTester.run("require-attrs", rule, {
       ],
     },
     {
-      code: `<img/>`,
+      code: `<svg></svg>`,
       options: [
         {
-          tag: "img",
-          attrs: ["alt", "src"],
+          tag: "svg",
+          attr: "viewBox",
+          value: "0 0 100 100",
         },
       ],
       errors: [
         {
           line: 1,
           column: 1,
-          message: "Missing 'alt', 'src' attributes for 'img' tag",
+          message: "Missing 'viewBox' attributes for 'svg' tag",
+        },
+      ],
+    },
+    {
+      code: `<svg viewBox=""></svg>`,
+      options: [
+        {
+          tag: "svg",
+          attr: "viewBox",
+          value: "0 0 100 100",
+        },
+      ],
+      errors: [
+        {
+          line: 1,
+          column: 6,
+          endColumn: 16,
+          message:
+            "Unexpected 'viewBox' attributes value. '0 0 100 100' is expected",
         },
       ],
     },
@@ -65,34 +104,58 @@ ruleTester.run("require-attrs", rule, {
       options: [
         {
           tag: "img",
-          attrs: ["alt", "src"],
+          attr: "alt",
         },
       ],
       errors: [
         {
           line: 1,
           column: 1,
-          message: "Missing 'alt', 'src' attributes for 'img' tag",
+          message: "Missing 'alt' attributes for 'img' tag",
         },
       ],
     },
     {
-      code: `<IMG id="1"/>`,
+      code: `<script></script>`,
       options: [
         {
-          tag: "img",
-          attrs: ["alt"],
-        },
-        {
-          tag: "img",
-          attrs: ["src"],
+          tag: "script",
+          attr: "src",
         },
       ],
       errors: [
         {
           line: 1,
           column: 1,
-          message: "Missing 'alt', 'src' attributes for 'img' tag",
+          message: "Missing 'src' attributes for 'script' tag",
+        },
+      ],
+    },
+
+    {
+      code: `<img class="image"/>`,
+      options: [
+        {
+          tag: "img",
+          attr: "alt",
+        },
+        {
+          tag: "img",
+          attr: "class",
+          value: "img",
+        },
+      ],
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'alt' attributes for 'img' tag",
+        },
+        {
+          line: 1,
+          column: 6,
+          endColumn: 19,
+          message: "Unexpected 'class' attributes value. 'img' is expected",
         },
       ],
     },

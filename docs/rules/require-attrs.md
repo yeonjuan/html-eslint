@@ -18,7 +18,7 @@ module.exports = {
       "error",
       {
         tag: "svg",
-        attrs: ["viewBox"],
+        attr: "viewBox",
       },
     ],
   },
@@ -39,12 +39,13 @@ module.exports = {
     "@html-eslint/require-attrs": [
       "error",
       {
-        tag: "svg",
-        attrs: ["viewBox"], // Enforce to use svg with viewBox attribute.
+        tag: "img",
+        attr: "alt", // Enforce to use img with alt attribute.
       },
       {
-        tag: "img",
-        attrs: ["alt", "src"], // Enforce multiple attributes
+        tag: "svg",
+        attr: "viewBox" // Enforce to use svg and viewBox attributes with "0 0 100 100" value.
+        value: "0 0 100 100"
       },
     ],
   },
@@ -55,17 +56,22 @@ Examples of **incorrect** code for this rule with the option below:
 
 ```json
 {
+  "tag": "img",
+  "attr": "alt"
+},
+{
   "tag": "svg",
-  "attrs": ["viewBox"]
+  "attr": "viewBox",
+  "value": "0 0 100 100"
 }
 ```
 
 ```html
-<svg></svg>
+<img /> <svg></svg>
 ```
 
 Examples of **correct** code for this rule with the option above:
 
 ```html
-<svg viewBox="0 0 100 100"></svg>
+<img alt="" /><svg viewBox="0 0 100 100"></svg>
 ```

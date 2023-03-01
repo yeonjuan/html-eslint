@@ -6,11 +6,8 @@ const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
+  UNEXPECTED: "unexpected",
 };
-
-function dedupe(arr) {
-  return arr.filter((item, index, self) => self.indexOf(item) === index);
-}
 
 /**
  * @type {Rule}
@@ -31,62 +28,82 @@ module.exports = {
         type: "object",
         properties: {
           tag: { type: "string" },
-          attrs: {
-            type: "array",
-            items: {
-              type: "string",
-            },
-            additionalProperties: false,
-          },
+          attr: { type: "string" },
+          value: { type: "string" },
         },
-        required: ["tag", "attrs"],
+        required: ["tag", "attr"],
         additionalProperties: false,
       },
     },
     messages: {
-      [MESSAGE_IDS.MISSING]: "Missing {{attrs}} attributes for {{tag}} tag",
+      [MESSAGE_IDS.MISSING]: "Missing '{{attr}}' attributes for '{{tag}}' tag",
+      [MESSAGE_IDS.UNEXPECTED]:
+        "Unexpected '{{attr}}' attributes value. '{{expected}}' is expected",
     },
   },
 
   create(context) {
     const options = context.options || [];
-    const attrsMap = new Map();
+    const tagOptionsMap = new Map();
 
     options.forEach((option) => {
-      const key = option.tag.toLowerCase();
-      const attrs = dedupe(option.attrs);
-      if (attrsMap.has(key)) {
-        attrsMap.set(key, dedupe([...attrsMap.get(key), attrs]));
+      const tagName = option.tag.toLowerCase();
+      if (tagOptionsMap.has(tagName)) {
+        tagOptionsMap.set(tagName, [...tagOptionsMap.get(tagName), option]);
       } else {
-        attrsMap.set(key, attrs);
+        tagOptionsMap.set(tagName, [option]);
       }
     });
 
-    return {
-      [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
-        const tagName = node.name.toLocaleLowerCase();
-        if (!attrsMap.has(tagName)) {
-          return;
-        }
-        const requiredAttrs = attrsMap.get(tagName);
-        const attributes = (node.attributes || []).map(
-          (attr) => attr.key && attr.key.value
-        );
+    function check(node, tagName) {
+      const tagOptions = tagOptionsMap.get(tagName);
+      const attributes = node.attributes || [];
 
-        const missingAttrs = requiredAttrs.filter(
-          (attr) => !attributes.includes(attr)
+      tagOptions.forEach((option) => {
+        const attrName = option.attr;
+        const attr = attributes.find(
+          (attr) => attr.key && attr.key.value === attrName
         );
-
-        if (missingAttrs.length) {
+        if (!attr) {
           context.report({
             messageId: MESSAGE_IDS.MISSING,
-            node: node,
+            node,
             data: {
-              attrs: missingAttrs.map((attr) => `'${attr}'`).join(", "),
-              tag: `'${tagName}'`,
+              attr: attrName,
+              tag: tagName,
+            },
+          });
+        } else if (
+          attr.value &&
+          typeof option.value === "string" &&
+          attr.value.value !== option.value
+        ) {
+          context.report({
+            messageId: MESSAGE_IDS.UNEXPECTED,
+            node: attr,
+            data: {
+              attr: attrName,
+              expected: option.value,
             },
           });
         }
+      });
+    }
+
+    return {
+      [["StyleTag", "ScriptTag"].join(",")](node) {
+        const tagName = node.type === "StyleTag" ? "style" : "script";
+        if (!tagOptionsMap.has(tagName)) {
+          return;
+        }
+        check(node, tagName);
+      },
+      Tag(node) {
+        const tagName = node.name.toLowerCase();
+        if (!tagOptionsMap.has(tagName)) {
+          return;
+        }
+        check(node, tagName);
       },
     };
   },
