@@ -45,6 +45,24 @@ ruleTester.run("require-attrs", rule, {
         },
       ],
     },
+    {
+      code: `<div></div>`,
+      options: [
+        {
+          tag: "img",
+          attr: "alt",
+        },
+      ],
+    },
+    {
+      code: `<script></script>`,
+      options: [
+        {
+          tag: "img",
+          attr: "alt",
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -131,7 +149,40 @@ ruleTester.run("require-attrs", rule, {
         },
       ],
     },
-
+    {
+      code: `<script></script>`,
+      options: [
+        {
+          tag: "script",
+          attr: "src",
+        },
+      ],
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'src' attributes for 'script' tag",
+        },
+      ],
+    },
+    {
+      code: `<style type="txt/css"></style>`,
+      options: [
+        {
+          tag: "style",
+          attr: "type",
+          value: "text/css",
+        },
+      ],
+      errors: [
+        {
+          line: 1,
+          column: 8,
+          endColumn: 22,
+          message: "Unexpected 'type' attributes value. 'text/css' is expected",
+        },
+      ],
+    },
     {
       code: `<img class="image"/>`,
       options: [
