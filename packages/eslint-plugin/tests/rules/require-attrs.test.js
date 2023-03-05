@@ -28,6 +28,25 @@ ruleTester.run("require-attrs", rule, {
       ],
     },
     {
+      code: `<svg viewBox></svg>`,
+      options: [
+        {
+          tag: "svg",
+          attr: "viewBox",
+        },
+      ],
+    },
+    {
+      code: `<svg viewBox=""></svg>`,
+      options: [
+        {
+          tag: "svg",
+          attr: "viewBox",
+          value: "",
+        },
+      ],
+    },
+    {
       code: `<img alt="image" src="/assets/image.png">`,
       options: [
         {
@@ -112,6 +131,25 @@ ruleTester.run("require-attrs", rule, {
           line: 1,
           column: 6,
           endColumn: 16,
+          message:
+            "Unexpected 'viewBox' attributes value. '0 0 100 100' is expected",
+        },
+      ],
+    },
+    {
+      code: `<svg viewBox></svg>`,
+      options: [
+        {
+          tag: "svg",
+          attr: "viewBox",
+          value: "0 0 100 100",
+        },
+      ],
+      errors: [
+        {
+          line: 1,
+          column: 6,
+          endColumn: 13,
           message:
             "Unexpected 'viewBox' attributes value. '0 0 100 100' is expected",
         },

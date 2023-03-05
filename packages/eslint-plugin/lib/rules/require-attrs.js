@@ -74,9 +74,8 @@ module.exports = {
             },
           });
         } else if (
-          attr.value &&
           typeof option.value === "string" &&
-          attr.value.value !== option.value
+          (!attr.value || attr.value.value !== option.value)
         ) {
           context.report({
             messageId: MESSAGE_IDS.UNEXPECTED,
