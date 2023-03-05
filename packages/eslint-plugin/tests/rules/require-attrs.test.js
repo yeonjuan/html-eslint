@@ -37,6 +37,16 @@ ruleTester.run("require-attrs", rule, {
       ],
     },
     {
+      code: `<svg viewBox=""></svg>`,
+      options: [
+        {
+          tag: "svg",
+          attr: "viewBox",
+          value: "",
+        },
+      ],
+    },
+    {
       code: `<img alt="image" src="/assets/image.png">`,
       options: [
         {
