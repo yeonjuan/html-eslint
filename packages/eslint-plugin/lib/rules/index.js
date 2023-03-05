@@ -29,6 +29,7 @@ const noMultipleEmptyLines = require("./no-multiple-empty-lines");
 const noAccesskeyAttrs = require("./no-accesskey-attrs");
 const noRestrictedAttrs = require("./no-restricted-attrs");
 const noTrailingSpaces = require("./no-trailing-spaces");
+const requireAttrs = require("./require-attrs");
 
 module.exports = {
   "require-lang": requireLang,
@@ -46,6 +47,7 @@ module.exports = {
   quotes: quotes,
   "id-naming-convention": idNamingConvention,
   "no-obsolete-tags": noObsoleteTags,
+  "require-attrs": requireAttrs,
   "require-closing-tags": requireClosingTags,
   "require-meta-description": requireMetaDescription,
   "require-frame-title": requireFrameTitle,

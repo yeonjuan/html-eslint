@@ -23,6 +23,7 @@ title: Rules
 | [@html-eslint/no-duplicate-attrs](rules/no-duplicate-attrs)     | Disallow to use duplicate attributes                       | ⭐   |
 | [@html-eslint/require-button-type](rules/require-button-type)   | Require use of button element with a valid type attribute. |      |
 | [@html-eslint/no-restricted-attrs](rules/no-restricted-attrs)   | Disallow specified attributes                              |      |
+| [@html-eslint/no-restricted-attrs](rules/require-attrs)         | Enforce to use of specified attributes                     |      |
 
 ### SEO
 
