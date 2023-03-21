@@ -250,6 +250,78 @@ function createTests() {
     </ng-container>
 </table>`,
       },
+      // script & style
+      {
+        code: `
+<script
+>
+</script>`,
+      },
+      {
+        code: `
+<script
+    defer
+    src="source.js">
+</script>`,
+      },
+      {
+        code: `
+<html>
+    <head>
+        <script
+            defer
+            src="source.js">
+        </script>
+    </head>
+</html>
+`,
+      },
+      {
+        code: `
+<html>
+    <head>
+        <script>
+    console.log('aa');
+        </script>
+    </head>
+</html>
+`,
+      },
+      {
+        code: `
+<style
+>
+</style>`,
+      },
+      {
+        code: `
+<style
+    defer
+    src="source.js">
+</style>`,
+      },
+      {
+        code: `
+<html>
+    <head>
+        <style
+        >
+        </style>
+    </head>
+</html>
+`,
+      },
+      {
+        code: `
+<html>
+    <head>
+        <style>
+.foo { }
+        </style>
+    </head>
+</html>
+`,
+      },
     ],
     invalid: [
       {
@@ -858,6 +930,32 @@ id="bar"
     </ng-container>
 </table>`,
         errors: wrongIndentErrors(1),
+      },
+      {
+        code: `
+<script
+  defer
+    src="source.js">
+</script>`,
+        errors: wrongIndentErrors(1),
+        output: `
+<script
+    defer
+    src="source.js">
+</script>`,
+      },
+      {
+        code: `
+<style
+  >
+    .foo {}
+</style>`,
+        errors: wrongIndentErrors(1),
+        output: `
+<style
+>
+    .foo {}
+</style>`,
       },
     ],
   };
