@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.17.1",
+  "version": "0.17.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,7 +10,7 @@
     "ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@html-eslint/eslint-plugin": "^0.17.1",
+    "@html-eslint/eslint-plugin": "^0.17.2",
     "@html-eslint/parser": "^0.17.1",
     "@html-eslint/web-linter": "^0.17.1",
     "classnames": "^2.3.1",
