@@ -27,7 +27,7 @@ const INDENT_TYPES = {
   SPACE: "space",
 };
 
-const IGNORING_NODES = ["pre", "xmp", "script", "style"];
+const IGNORING_NODES = ["pre", "xmp"];
 
 /**
  * @type {Rule}
@@ -223,6 +223,14 @@ module.exports = {
         }
         indent();
       },
+      ScriptTag: indent,
+      "ScriptTag:exit": unindent,
+      OpenScriptTagStart: checkIndent,
+      OpenScriptTagEnd: checkIndent,
+      StyleTag: indent,
+      "StyleTag:exit": unindent,
+      OpenStyleTagStart: checkIndent,
+      OpenStyleTagEnd: checkIndent,
       OpenTagStart: checkIndent,
       OpenTagEnd: checkIndent,
       CloseTag: checkIndent,
