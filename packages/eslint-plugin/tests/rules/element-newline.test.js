@@ -28,6 +28,48 @@ ruleTester.run("element-newline", rule, {
           </body>
       </html>`,
     },
+    {
+      code: `
+<html>
+<body>
+      <pre><div></div></pre>
+      <code>
+      <div></div></code>
+</body>
+</html>
+`,
+      options: [
+        {
+          skipTags: ["pre", "code"],
+        },
+      ],
+    },
+    {
+      code: `
+<div>
+<span><a></a></span>
+</div>
+`,
+      options: [
+        {
+          skipTags: ["div"],
+        },
+      ],
+    },
+    {
+      code: `
+<div>
+<span><a></a></span>
+</div>
+<span></span>
+<a></a>
+`,
+      options: [
+        {
+          skipTags: ["div"],
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -258,6 +300,75 @@ ruleTester.run("element-newline", rule, {
         },
         {
           messageId: "expectBefore",
+        },
+      ],
+    },
+    {
+      code: `<pre><div></div></pre><code><div></div></code>`,
+      output: `<pre><div></div></pre>
+<code><div></div></code>`,
+      options: [
+        {
+          skipTags: ["pre", "code"],
+        },
+      ],
+      errors: [
+        {
+          messageId: "expectAfter",
+        },
+      ],
+    },
+    {
+      code: `
+<span></span><a></a>
+<div>
+<span><a></a></span>
+</div>
+<span></span><a></a>
+`,
+      output: `
+<span></span>
+<a></a>
+<div>
+<span><a></a></span>
+</div>
+<span></span>
+<a></a>
+`,
+      options: [
+        {
+          skipTags: ["div"],
+        },
+      ],
+      errors: [
+        {
+          messageId: "expectAfter",
+        },
+        {
+          messageId: "expectAfter",
+        },
+      ],
+    },
+    {
+      code: `
+<span></span><div>
+<span><a></a></span>
+</div>
+`,
+      output: `
+<span></span>
+<div>
+<span><a></a></span>
+</div>
+`,
+      options: [
+        {
+          skipTags: ["div"],
+        },
+      ],
+      errors: [
+        {
+          messageId: "expectAfter",
         },
       ],
     },
