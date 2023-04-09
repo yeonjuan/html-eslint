@@ -20,7 +20,7 @@ module.exports = {
       {
         type: "object",
         properties: {
-          skipTags: {
+          skip: {
             type: "array",
             items: {
               type: "string",
@@ -38,8 +38,8 @@ module.exports = {
   },
 
   create(context) {
-    const option = context.options[0] || { skipTags: [] };
-    const skipTags = option.skipTags;
+    const option = context.options[0] || { skip: [] };
+    const skipTags = option.skip;
 
     let isInSkipTags = false;
 

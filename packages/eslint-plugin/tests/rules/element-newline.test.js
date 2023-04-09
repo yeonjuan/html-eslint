@@ -40,7 +40,7 @@ ruleTester.run("element-newline", rule, {
 `,
       options: [
         {
-          skipTags: ["pre", "code"],
+          skip: ["pre", "code"],
         },
       ],
     },
@@ -52,7 +52,7 @@ ruleTester.run("element-newline", rule, {
 `,
       options: [
         {
-          skipTags: ["div"],
+          skip: ["div"],
         },
       ],
     },
@@ -66,7 +66,7 @@ ruleTester.run("element-newline", rule, {
 `,
       options: [
         {
-          skipTags: ["div"],
+          skip: ["div"],
         },
       ],
     },
@@ -309,7 +309,7 @@ ruleTester.run("element-newline", rule, {
 <code><div></div></code>`,
       options: [
         {
-          skipTags: ["pre", "code"],
+          skip: ["pre", "code"],
         },
       ],
       errors: [
@@ -337,7 +337,7 @@ ruleTester.run("element-newline", rule, {
 `,
       options: [
         {
-          skipTags: ["div"],
+          skip: ["div"],
         },
       ],
       errors: [
@@ -363,7 +363,7 @@ ruleTester.run("element-newline", rule, {
 `,
       options: [
         {
-          skipTags: ["div"],
+          skip: ["div"],
         },
       ],
       errors: [

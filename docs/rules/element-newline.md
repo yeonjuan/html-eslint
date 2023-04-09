@@ -49,9 +49,9 @@ Examples of **correct** code for this rule:
 
 This rule has an object option.
 
-- `skipTags`: Specifies an array of tag names. Newlines are not checked for children elements of the specified tags.
+- `skip`: Specifies an array of tag names. Newlines are not checked for children elements of the specified tags.
 
-Examples of **correct** code for the `{ "skipTags": ["pre", "code"] }` option:
+Examples of **correct** code for the `{ "skip": ["pre", "code"] }` option:
 
 <!-- prettier-ignore-start -->
 
