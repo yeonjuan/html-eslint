@@ -16,7 +16,19 @@ module.exports = {
     },
 
     fixable: true,
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          skip: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+        },
+      },
+    ],
     messages: {
       [MESSAGE_IDS.EXPECT_NEW_LINE_AFTER]:
         "There should be a linebreak after {{tag}}.",
@@ -26,6 +38,11 @@ module.exports = {
   },
 
   create(context) {
+    const option = context.options[0] || { skip: [] };
+    const skipTags = option.skip;
+
+    let isInSkipTags = false;
+
     function checkSiblings(siblings) {
       siblings
         .filter((node) => node.type !== "Text")
@@ -78,9 +95,23 @@ module.exports = {
     }
     return {
       [["Tag", "Program"].join(",")](node) {
+        if (isInSkipTags) {
+          return;
+        }
+
         const children = node.type === "Program" ? node.body : node.children;
         checkSiblings(children);
+        if (skipTags.includes(node.name)) {
+          isInSkipTags = true;
+          return;
+        }
         checkChild(node, children);
+      },
+      "Tag:exit"(node) {
+        if (skipTags.includes(node.name)) {
+          isInSkipTags = false;
+          return;
+        }
       },
     };
   },

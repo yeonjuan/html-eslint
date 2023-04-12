@@ -44,3 +44,25 @@ Examples of **correct** code for this rule:
   </head>
 </html>
 ```
+
+### Options
+
+This rule has an object option.
+
+- `skip`: Specifies an array of tag names. Newlines are not checked for children elements of the specified tags.
+
+Examples of **correct** code for the `{ "skip": ["pre", "code"] }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<pre>
+    <div></div><div></div>
+</pre>
+
+<code>
+  <span></span><div></div>
+</code>
+```
+
+<!-- prettier-ignore-end -->
