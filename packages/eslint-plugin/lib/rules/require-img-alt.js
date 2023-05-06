@@ -15,19 +15,37 @@ module.exports = {
     },
 
     fixable: null,
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          substitute: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+        },
+      },
+    ],
     messages: {
       [MESSAGE_IDS.MISSING_ALT]: "Missing `alt` attribute at `<img>` tag",
     },
   },
 
   create(context) {
+    const substitute =
+      (context.options &&
+        context.options[0] &&
+        context.options[0].substitute) ||
+      [];
+
     return {
       Tag(node) {
         if (node.name !== "img") {
           return;
         }
-        if (!hasAltAttrAndValue(node)) {
+        if (!hasAltAttrAndValue(node, substitute)) {
           context.report({
             node: {
               loc: {
@@ -44,10 +62,13 @@ module.exports = {
   },
 };
 
-function hasAltAttrAndValue(node) {
+function hasAltAttrAndValue(node, substitute = []) {
   return node.attributes.some((attr) => {
     if (attr.key && attr.value) {
-      return attr.key.value === "alt" && typeof attr.value.value === "string";
+      return (
+        (attr.key.value === "alt" || substitute.includes(attr.key.value)) &&
+        typeof attr.value.value === "string"
+      );
     }
   });
 }

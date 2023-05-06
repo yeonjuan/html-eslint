@@ -12,6 +12,26 @@ ruleTester.run("require-img-alt", rule, {
     },
     {
       code: `
+<img src="./image.png" [alt]="image description"/>
+`,
+      options: [
+        {
+          substitute: ["[alt]"],
+        },
+      ],
+    },
+    {
+      code: `
+<img src="./image.png" [attr.alt]="image description"/>
+`,
+      options: [
+        {
+          substitute: ["[alt]", "[attr.alt]"],
+        },
+      ],
+    },
+    {
+      code: `
 <html>
   <body>
     <img src="./image.png" alt="image description">
@@ -50,6 +70,29 @@ ruleTester.run("require-img-alt", rule, {
 </html>
 `,
 
+      errors: [
+        {
+          messageId: "missingAlt",
+          line: 4,
+          column: 5,
+          endColumn: 28,
+          endLine: 4,
+        },
+      ],
+    },
+    {
+      code: `
+<html>
+  <body>
+    <img src="./image.png">
+  </body>
+</html>
+`,
+      options: [
+        {
+          substitute: ["[alt]"],
+        },
+      ],
       errors: [
         {
           messageId: "missingAlt",
