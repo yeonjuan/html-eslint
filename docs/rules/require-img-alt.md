@@ -42,6 +42,20 @@ Examples of **correct** code for this rule:
 <img src="image.png" alt="some description" />
 ```
 
+### Options
+
+This rule takes an object option.
+
+- `substitute`: Specifies an array of attribute keys that can replace the alt attribute.
+
+Examples of **correct** code for the `{ substitute: ["[alt]", "[attr.alt]"] }` option:
+
+```html
+<img src="image.png" [alt]="..." />
+
+<img src="image.png" [attr.alt]="..." />
+```
+
 ## Further reading
 
 - [MDN - img](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)
