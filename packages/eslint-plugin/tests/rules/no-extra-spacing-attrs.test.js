@@ -70,6 +70,10 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
     </html>
     `,
     },
+    // https://github.com/yeonjuan/html-eslint/issues/137
+    {
+      code: "<a target=”_blank” a b c d e f></a>",
+    },
     {
       code: "<img />",
       options: [
@@ -283,6 +287,15 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
       errors: [
         {
           messageId: "unexpectedAfter",
+        },
+      ],
+    },
+    {
+      code: "<a target=”_blank”  a b c d e f></a>",
+      output: "<a target=”_blank” a b c d e f></a>",
+      errors: [
+        {
+          messageId: "unexpectedBetween",
         },
       ],
     },
