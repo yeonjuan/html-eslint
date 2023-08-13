@@ -50,6 +50,9 @@ const Editor: FC<Props> = ({ messages, onChange }) => {
 
   useEffect(() => {
     if (editorRef.current) {
+      if (messages.some((message) => message.fatal)) {
+        return;
+      }
       messages.map(toMarker).map(([start, end]) =>
         editorRef.current?.markText(start, end, {
           startStyle: "editor_error",
