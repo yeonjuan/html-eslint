@@ -1,4 +1,4 @@
-import parser from "@html-eslint/parser";
+import { parseForESLint } from "@html-eslint/parser";
 import plugin from "@html-eslint/eslint-plugin";
 import { Linter } from "@html-eslint/web-linter";
 
@@ -16,7 +16,7 @@ export const createLinter = () => {
 
   linter.defineParser(PARSER_NAME, {
     parseForESLint(code, options) {
-      return parser.parseForESLint(code, options);
+      return parseForESLint(code) as any;
     },
   });
   linter.defineRules(allRules);
