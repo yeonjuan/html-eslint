@@ -21,7 +21,7 @@ module.exports = {
 
 ## Rule Details
 
-This rule enforces usr of `title` attribute in `<frame>` and `<iframe>`.
+This rule enforces use of `title` attribute in `<frame>` and `<iframe>`.
 
 Examples of **incorrect** code for this rule:
 
