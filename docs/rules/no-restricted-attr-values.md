@@ -31,7 +31,7 @@ This rule allows you to specify attribute values that you don't want to use in y
 
 This rule takes an array of option objects, where the `attrPatterns` and `attrValues` are specified.
 
-- `attrPatterns`: an array of strings representing regular expression pattern, disallows atrribute names that match any of the patterns.
+- `attrPatterns`: an array of strings representing regular expression pattern, disallows attribute names that match any of the patterns.
 - `attrValues`: an array of strings representing regular expression pattern, disallows attribute values that match any of the patterns.
 - `message` (optional): a string for custom message.
 
