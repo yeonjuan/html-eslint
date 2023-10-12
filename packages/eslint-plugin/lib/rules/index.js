@@ -30,6 +30,7 @@ const noAccesskeyAttrs = require("./no-accesskey-attrs");
 const noRestrictedAttrs = require("./no-restricted-attrs");
 const noTrailingSpaces = require("./no-trailing-spaces");
 const requireAttrs = require("./require-attrs");
+const noRestrictedAttrValues = require("./no-restricted-attr-values");
 
 module.exports = {
   "require-lang": requireLang,
@@ -64,4 +65,5 @@ module.exports = {
   "no-accesskey-attrs": noAccesskeyAttrs,
   "no-restricted-attrs": noRestrictedAttrs,
   "no-trailing-spaces": noTrailingSpaces,
+  "no-restricted-attr-values": noRestrictedAttrValues,
 };
