@@ -64,7 +64,7 @@ module.exports = {
     return {
       [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
         node.attributes.forEach((attr) => {
-          if (!attr.key || !attr.value?.value || !attr.key?.value) {
+          if (!attr.key || typeof attr.value?.value !== "string" || !attr.key?.value) {
             return;
           }
           const matched = checkers.find((checker) =>
