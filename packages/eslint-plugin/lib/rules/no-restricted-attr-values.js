@@ -1,6 +1,6 @@
 /**
  * @typedef {import("../types").Rule} Rule
- * @typedef {{attrPatterns: string[], attrValues: string[], message?: string}[]} Options
+ * @typedef {{attrPatterns: string[], attrValuePatterns: string[], message?: string}[]} Options
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -28,7 +28,7 @@ module.exports = {
 
       items: {
         type: "object",
-        required: ["attrPatterns", "attrValues"],
+        required: ["attrPatterns", "attrValuePatterns"],
         properties: {
           attrPatterns: {
             type: "array",
@@ -36,7 +36,7 @@ module.exports = {
               type: "string",
             },
           },
-          attrValues: {
+          attrValuePatterns: {
             type: "array",
             items: {
               type: "string",
@@ -50,7 +50,7 @@ module.exports = {
     },
     messages: {
       [MESSAGE_IDS.RESTRICTED]:
-        "'{{attrValues}}' is restricted from being used.",
+        "'{{attrValuePatterns}}' is restricted from being used.",
     },
   },
 
@@ -64,7 +64,11 @@ module.exports = {
     return {
       [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
         node.attributes.forEach((attr) => {
-          if (!attr.key || typeof attr.value?.value !== "string" || !attr.key?.value) {
+          if (
+            !attr.key ||
+            typeof attr.value?.value !== "string" ||
+            !attr.key?.value
+          ) {
             return;
           }
           const matched = checkers.find((checker) =>
@@ -90,7 +94,7 @@ module.exports = {
 
           context.report({
             ...result,
-            data: { attrValues: attr.value.value },
+            data: { attrValuePatterns: attr.value.value },
           });
         });
       },
@@ -108,7 +112,7 @@ class PatternChecker {
       (pattern) => new RegExp(pattern, "u")
     );
 
-    this.valueRegExps = option.attrValues.map(
+    this.valueRegExps = option.attrValuePatterns.map(
       (pattern) => new RegExp(pattern, "u")
     );
     this.message = option.message;

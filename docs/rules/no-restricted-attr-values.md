@@ -16,7 +16,7 @@ module.exports = {
   rules: {
     '@html-eslint/no-restricted-attr-values': ["error",  {
     attrPatterns: ["class"],
-    attrValues: ["data-.*"]
+    attrValuePatterns: ["data-.*"]
     message: "\'data-x\' is restricted."
   }]
   }
@@ -29,10 +29,10 @@ This rule allows you to specify attribute values that you don't want to use in y
 
 ### Options
 
-This rule takes an array of option objects, where the `attrPatterns` and `attrValues` are specified.
+This rule takes an array of option objects, where the `attrPatterns` and `attrValuePatterns` are specified.
 
 - `attrPatterns`: an array of strings representing regular expression pattern, disallows attribute names that match any of the patterns.
-- `attrValues`: an array of strings representing regular expression pattern, disallows attribute values that match any of the patterns.
+- `attrValuePatterns`: an array of strings representing regular expression pattern, disallows attribute values that match any of the patterns.
 - `message` (optional): a string for custom message.
 
 ```js
@@ -42,12 +42,12 @@ module.exports = {
       "error",
       {
         attrPatterns: ["class", "alt"],
-        attrValues: ["data-.*"]
+        attrValuePatterns: ["data-.*"]
         message: "\'data-x\' is restricted."
       },
       {
         attrPatterns: [".*"],
-        attrValues: ["^foo$"]
+        attrValuePatterns: ["^foo$"]
         message: "\'foo\' is restricted."
       }
     ],
@@ -60,7 +60,7 @@ Examples of **incorrect** code for this rule with the option below:
 ```json
 {
   "attrPatterns": ["data-.*"],
-  "attrValues": ["foo"],
+  "attrValuePatterns": ["foo"],
   "message": "Do not use foo attr value"
 }
 ```

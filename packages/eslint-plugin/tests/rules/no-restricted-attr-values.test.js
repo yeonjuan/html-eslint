@@ -10,16 +10,16 @@ ruleTester.run("no-restricted-attr-values", rule, {
       options: [
         {
           attrPatterns: [".*"],
-          attrValues: ["data-.*"],
+          attrValuePatterns: ["data-.*"],
         },
       ],
     },
     {
-      code: `<div> </div>`,
+      code: `<div class="foo"> </div>`,
       options: [
         {
           attrPatterns: ["class"],
-          attrValues: ["data-.*"],
+          attrValuePatterns: ["data-.*"],
         },
       ],
     },
@@ -30,14 +30,31 @@ ruleTester.run("no-restricted-attr-values", rule, {
       options: [
         {
           attrPatterns: [".*"],
-          attrValues: ["data-.*"],
+          attrValuePatterns: ["data-.*"],
         },
       ],
       errors: [
         {
           messageId: "restricted",
           data: {
-            attrValues: "data-x",
+            attrValuePatterns: "data-x",
+          },
+        },
+      ],
+    },
+    {
+      code: `<div foo=""> </div>`,
+      options: [
+        {
+          attrPatterns: [".*"],
+          attrValuePatterns: [""],
+        },
+      ],
+      errors: [
+        {
+          messageId: "restricted",
+          data: {
+            attrValuePatterns: "",
           },
         },
       ],
@@ -47,14 +64,14 @@ ruleTester.run("no-restricted-attr-values", rule, {
       options: [
         {
           attrPatterns: ["alt"],
-          attrValues: ["foo"],
+          attrValuePatterns: ["foo"],
         },
       ],
       errors: [
         {
           messageId: "restricted",
           data: {
-            attrValues: "foo",
+            attrValuePatterns: "foo",
           },
         },
       ],
@@ -64,7 +81,7 @@ ruleTester.run("no-restricted-attr-values", rule, {
       options: [
         {
           attrPatterns: ["alt", "class"],
-          attrValues: ["^foo$"],
+          attrValuePatterns: ["^foo$"],
           message: "no foo for alt or class",
         },
       ],
@@ -83,7 +100,7 @@ ruleTester.run("no-restricted-attr-values", rule, {
       options: [
         {
           attrPatterns: [".*"],
-          attrValues: ["data.*"],
+          attrValuePatterns: ["data.*"],
           message: "please do not use 'data-x'",
         },
       ],
@@ -95,4 +112,3 @@ ruleTester.run("no-restricted-attr-values", rule, {
     },
   ],
 });
-///^a$/
