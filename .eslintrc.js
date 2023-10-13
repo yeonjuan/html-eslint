@@ -2,7 +2,7 @@ module.exports = {
   extends: ["eslint:recommended"],
   plugins: ["jest", "node"],
   parserOptions: {
-    ecmaVersion: 9,
+    ecmaVersion: 2020,
   },
   env: {
     node: true,
