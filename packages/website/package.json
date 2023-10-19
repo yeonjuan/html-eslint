@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build && next export && touch ./out/.nojekyll && echo 'yeonjuan.github.io' > ./out/CNAME",
     "start": "next start",
-    "lint": "next lint",
     "ts": "tsc --noEmit"
   },
   "dependencies": {
