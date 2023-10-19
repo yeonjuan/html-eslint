@@ -2,7 +2,7 @@ module.exports = {
   extends: ["eslint:recommended"],
   plugins: ["jest", "node"],
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 9,
   },
   env: {
     node: true,
@@ -15,7 +15,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["packages/*/tests/**/*.test.js"],
+      files: ["*.test.js"],
       env: {
         "jest/globals": true,
       },

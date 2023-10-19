@@ -66,11 +66,13 @@ module.exports = {
         node.attributes.forEach((attr) => {
           if (
             !attr.key ||
-            typeof attr.value?.value !== "string" ||
-            !attr.key?.value
+            !attr.key.value ||
+            !attr.value ||
+            typeof attr.value.value !== "string"
           ) {
             return;
           }
+
           const matched = checkers.find((checker) =>
             checker.test(attr.key.value, attr.value.value)
           );

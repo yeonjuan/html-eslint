@@ -22,13 +22,14 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "check:ts": "tsc"
+    "check:ts": "tsc",
+    "lint": "eslint . --ext .js"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "engines": {
-    "node": ">=8.10.0"
+    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
   },
   "keywords": [
     "eslint",
