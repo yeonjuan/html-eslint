@@ -3,7 +3,7 @@ id: no-restricted-attr-values
 title: "no-restricted-attr-values"
 ---
 
-# no-restricted-attrs
+# no-restricted-attr-values
 
 Disallow specified attribute values
 
