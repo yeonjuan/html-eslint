@@ -14,12 +14,15 @@ Disallow specified attributes
 ```js
 module.exports = {
   rules: {
-    '@html-eslint/no-restricted-attrs': ["error",  {
-  tagPatterns: ["^div$", "^img$"],
-    attrPatterns: ["data-.*"]
-    message: "\'data-x\' is restricted."
-  }]
-  }
+    "@html-eslint/no-restricted-attrs": [
+      "error",
+      {
+        tagPatterns: ["^div$", "^img$"],
+        attrPatterns: ["data-.*"],
+        message: "'data-x' is restricted.",
+      },
+    ],
+  },
 };
 ```
 

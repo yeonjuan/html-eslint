@@ -95,4 +95,3 @@ ruleTester.run("no-restricted-attrs", rule, {
     },
   ],
 });
-///^a$/
