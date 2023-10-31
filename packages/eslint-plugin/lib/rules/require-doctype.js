@@ -34,7 +34,10 @@ module.exports = {
       Doctype() {
         hasDocType = true;
       },
-      "Program:exit"(node) {
+      "Tag:exit"(node) {
+        if (node.name !== "html") {
+          return;
+        }
         if (!hasDocType) {
           context.report({
             node,

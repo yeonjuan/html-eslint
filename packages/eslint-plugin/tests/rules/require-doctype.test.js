@@ -12,6 +12,11 @@ ruleTester.run("require-doctype", rule, {
 </html>
 `,
     },
+    {
+      code: `
+<div></div>
+      `,
+    },
   ],
   invalid: [
     {
@@ -21,32 +26,6 @@ ruleTester.run("require-doctype", rule, {
       output: `<!DOCTYPE html>
 <html>
 </html>
-`,
-
-      errors: [
-        {
-          messageId: "missing",
-        },
-      ],
-    },
-    {
-      code: `<body>
-</body>
-`,
-      output: `<!DOCTYPE html>
-<body>
-</body>
-`,
-
-      errors: [
-        {
-          messageId: "missing",
-        },
-      ],
-    },
-    {
-      code: ``,
-      output: `<!DOCTYPE html>
 `,
 
       errors: [
