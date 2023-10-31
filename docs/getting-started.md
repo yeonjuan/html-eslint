@@ -1,19 +1,22 @@
----
-id: getting-started
-title: Getting Started
----
-
 # Getting Started
 
 ## Prerequisite
 
-- Node.js `>=8.10.0`.
-- ESLint `>=6`.
+- Node.js: `^12.22.0 || ^14.17.0 || >=16.0.0`.
+- ESLint: `>=6`.
 
 ## Installation
 
+- npm
+
+```console
+npm install --save-dev eslint @html-eslint/parser @html-eslint/eslint-plugin
 ```
-$ npm install --save-dev eslint @html-eslint/parser @html-eslint/eslint-plugin
+
+- yarn
+
+```console
+yarn add -D eslint @html-eslint/parser @html-eslint/eslint-plugin
 ```
 
 ## Configuration
@@ -52,7 +55,3 @@ To get [vscode-eslint](https://github.com/microsoft/vscode-eslint) support, we n
   ]
 }
 ```
-
-## Recommended Configs
-
-This plugin provides `plugin:@html-eslint/recommended`. The recommended configuration contains the rules marked ⭐ in the [all rules](./rules).

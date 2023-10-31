@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  a {
+    @apply text-blue-600 underline font-normal;
+  }
+  pre {
+    @apply py-2;
+  }
+  p {
+    @apply leading-7;
+  }
+  h1 {
+    @apply text-3xl md:text-4xl font-bold;
+  }
+  h2 {
+    @apply text-2xl md:text-2xl font-semibold;
+  }
+  h3 {
+    @apply text-lg md:text-2xl font-semibold;
+  }
+  h4 {
+    @apply text-base md:text-xl;
+  }
+  p {
+    @apply text-base leading-8 font-light;
+  }
+}

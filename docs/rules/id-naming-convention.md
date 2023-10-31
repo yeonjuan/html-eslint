@@ -1,11 +1,6 @@
----
-id: id-naming-convention
-title: "id-naming-convention"
----
+# @html-eslint/id-naming-convention
 
-# id-naming-convention
-
-Enforce naming conventions for id attributes.
+- Enforce naming conventions for id attributes.
 
 ## How to use
 

@@ -1,11 +1,13 @@
 node_modules/
 **/coverage
-packages/website/build
+packages/website/dist
 .next
-website/static/js/playground
 .turbo
 next-env.d.ts
 packages/web-linter/out
+packages/website/out
+packages/website/src/out/**/*.html
 packages/**/dist
 *.tsbuildinfo
 packages/parser/types
+.parcel-cache/

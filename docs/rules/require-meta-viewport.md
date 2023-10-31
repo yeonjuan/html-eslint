@@ -1,15 +1,10 @@
----
-id: require-meta-viewport
-title: "require-meta-viewport"
----
-
-# require-meta-viewport
+# @html-eslint/require-meta-viewport
 
 Enforce to use `<meta name="viewport" ...>` in the `<head></head>`.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

@@ -1,15 +1,10 @@
----
-id: require-attrs
-title: "require-attrs"
----
-
-# require-attrs
+# @html-eslint/require-attrs
 
 Enforces the use of tag with specified attributes.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

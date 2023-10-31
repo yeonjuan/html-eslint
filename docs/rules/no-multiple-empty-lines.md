@@ -1,15 +1,10 @@
----
-id: no-multiple-empty-lines
-title: "no-multiple-empty-lines"
----
-
-# no-multiple-empty-lines
+# @html-eslint/no-multiple-empty-lines
 
 Disallow use of multiple empty lines.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

@@ -1,13 +1,8 @@
----
-id: no-abstract-roles
-title: "no-abstract-roles"
----
-
-# no-abstract-roles
+# @html-eslint/no-abstract-roles
 
 Disallow use of abstract roles.
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

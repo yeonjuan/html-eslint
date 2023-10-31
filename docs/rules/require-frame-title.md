@@ -1,15 +1,10 @@
----
-id: require-frame-title
-title: "require-frame-title"
----
-
-# require-frame-title
+# @html-eslint/require-frame-title
 
 Require `title` attribute in `<frame>` and `<iframe>`
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

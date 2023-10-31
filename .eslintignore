@@ -1,1 +1,4 @@
-website
+node_modules
+.vscode
+.parce-cache
+out

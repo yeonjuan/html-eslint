@@ -13,8 +13,10 @@
     "rollup-plugin-node-builtins": "^2.1.2"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "build": "rollup --config"
+    "line": "eslint .",
+    "dev": "rollup --config && npm run post",
+    "build": "rollup --config && npm run post",
+    "post": "node ./postprocess.js"
   },
   "repository": {
     "type": "git",

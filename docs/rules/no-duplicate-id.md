@@ -1,15 +1,10 @@
----
-id: no-duplicate-id
-title: "no-duplicate-id"
----
-
-# no-duplicate-id
+# @html-eslint/no-duplicate-id
 
 Disallow duplicate `id` attributes.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

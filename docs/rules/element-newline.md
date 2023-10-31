@@ -1,15 +1,10 @@
----
-id: element-newline
-title: "element-newline"
----
+# @html-eslint/element-newline
 
-# element-newline
-
-Enforce newline between elements
+Enforce newline between elements.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {
@@ -25,15 +20,12 @@ This rule enforces newline between elements.
 
 Examples of **incorrect** code for this rule:
 
-<!-- prettier-ignore-start -->
-
+<!-- prettier-ignore -->
 ```html
 <html>
   <head><title>newline</title></head>
 </html>
 ```
-
-<!-- prettier-ignore-end -->
 
 Examples of **correct** code for this rule:
 
@@ -53,8 +45,7 @@ This rule has an object option.
 
 Examples of **correct** code for the `{ "skip": ["pre", "code"] }` option:
 
-<!-- prettier-ignore-start -->
-
+<!-- prettier-ignore -->
 ```html
 <pre>
     <div></div><div></div>
@@ -64,5 +55,3 @@ Examples of **correct** code for the `{ "skip": ["pre", "code"] }` option:
   <span></span><div></div>
 </code>
 ```
-
-<!-- prettier-ignore-end -->

@@ -1,0 +1,83 @@
+<div class="w-full p-4">
+    <style>
+      .CodeMirror {
+          font-size: 14px;
+      }
+      .editor_error {
+  text-decoration: underline dashed red;
+}
+    </style>
+    <h1 class="text-2xl">Playground</h1>
+    <div class="flex flex-col gap-2 mt-3 px-2 w-full ">
+        <div class="flex-1 min-h-[300px]  border-[1px] border-slate rounded md:min-w-[400px]">
+            <textarea id="code-editor"></textarea>
+        </div>
+        <div class="flex flex-col md:flex-row flex-1 h-[400px] gap-2">
+            <div class="flex-1 min-h-[300px]">
+                <div>
+                    <span class="inline-block p-2 rounded-t">.eslintrc.json</span>
+                </div>
+                <div class="border-[1px] border-slate rounded md:min-w-[400px] h-[400px]">
+                    <textarea id="config-editor"></textarea>
+                </div>
+            </div>
+            <div class="flex-1">
+                <div class="flex flex-col w-full">
+                    <ul id="tabs" class="[&>li]:inline-block [&>li]:p-2 [&>li]:border-[1px] [&>li]:rounded-t [&>li]:border-b-0 [&>li]:border-transparent">
+                        <li data-tab="errors" class="tab cursor-pointer !border-gray-200">
+                            Errors
+                        </li>
+                        <li data-tab="fixed" class="tab cursor-pointer">
+                            Fixed
+                        </li>
+                    </ul>
+                </div>
+                <div class="border-[1px] border-slate rounded flex-grow p-2 bg-gray-100 h-[400px]">
+                    <div id="errors" class="block">
+                        HERE
+                    </div>
+                    <pre id="fixed" class="hidden text-sm">
+                        HERE
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <script type="module" src="~/src/scripts/playground/main.js"></script>
+        <script>
+          const $tabs = document.getElementById("tabs");
+          $tabs.addEventListener("click", (e) => {
+            const $errors = document.getElementById("errors");
+            const $fixed = document.getElementById("fixed");
+  
+            if (e.target) {
+              let $openTarget = null;
+              let $closeTarget = null;
+
+              if (e.target.dataset.tab === "errors") {
+                $openTarget = $errors;
+                $closeTarget = $fixed;
+              } else if (e.target.dataset.tab === "fixed") {
+                $openTarget = $fixed;
+                $closeTarget = $errors;
+              }
+              if ($openTarget || $closeTarget) {
+                document.querySelectorAll(".tab").forEach(elem => {
+                  elem.classList.remove("!border-gray-200");
+                })
+              }
+
+              if ($openTarget) {
+                $openTarget.classList.remove("hidden");
+                $openTarget.classList.add("block");
+                e.target.classList.add("!border-gray-200");
+              }
+              if ($closeTarget) {
+                $closeTarget.classList.remove("block");
+                $closeTarget.classList.add("hidden");
+              }
+            }
+          })
+        </script>
+    </div>
+</div>
+

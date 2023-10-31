@@ -1,15 +1,10 @@
----
-id: require-button-type
-title: "require-button-type"
----
-
-# require-button-type
+# @html-eslint/require-button-type
 
 Require use of button element with a valid type attribute.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {
@@ -25,13 +20,11 @@ This rule enforces use of a valid type attribute for button elements. (`"button"
 
 Examples of **incorrect** code for this rule:
 
-<!-- prettier-ignore-start -->
-
+<!-- prettier-ignore -->
 ```html
 <button></button>
 <button type="invalid"></button>
 ```
-<!-- prettier-ignore-end -->
 
 Examples of **correct** code for this rule:
 

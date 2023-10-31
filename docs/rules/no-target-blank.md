@@ -1,13 +1,10 @@
----
-id: no-target-blank
-title: "no-target-blank"
----
+# @html-eslint/no-target-blank
 
-# no-target-blank
-
-Disallow usage of unsafe `target='_blank'`
+Disallow usage of unsafe `target='_blank'`.
 
 ## How to use
+
+- .eslintrc.js
 
 ```js
 module.exports = {

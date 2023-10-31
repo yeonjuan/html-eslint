@@ -1,15 +1,10 @@
----
-id: require-lang
-title: "require-lang"
----
+# @html-eslint/require-lang
 
-# require-lang
-
-Require `lang` attribute at `html` tag
+Require `lang` attribute at `html` tag.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

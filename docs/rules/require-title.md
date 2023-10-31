@@ -1,9 +1,4 @@
----
-id: require-title
-title: "require-title"
----
-
-# require-title
+# @html-eslint/require-title
 
 Require `<title>` in the `<head>`.
 
@@ -12,7 +7,7 @@ The content of the title is used by the search engine to decide the order of sea
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

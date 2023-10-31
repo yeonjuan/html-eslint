@@ -1,15 +1,10 @@
----
-id: no-restricted-attr-values
-title: "no-restricted-attr-values"
----
+# @html-eslint/no-restricted-attr-values
 
-# no-restricted-attr-values
-
-Disallow specified attribute values
+Disallow specified attribute values.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

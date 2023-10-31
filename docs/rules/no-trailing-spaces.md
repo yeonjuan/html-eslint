@@ -1,15 +1,10 @@
----
-id: no-trailing-spaces
-title: "no-trailing-spaces"
----
+# @html-eslint/no-trailing-spaces
 
-# no-trailing-spaces
-
-Disallow trailing white spaces at the end of lines
+Disallow trailing white spaces at the end of lines.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

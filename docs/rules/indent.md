@@ -1,15 +1,10 @@
----
-id: indent
-title: "indent"
----
+# @html-eslint/indent
 
-# indent
-
-Enforce consistent indentation
+Enforce consistent indentation.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

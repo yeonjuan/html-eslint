@@ -1,0 +1,14 @@
+<script locals>
+  module.exports = {
+    version: locals.version,
+  };
+</script>
+<extends src="components/layout.html" locals="{{version}}">
+
+    <block name="nav">
+        <include src="components/nav.html"></include>
+    </block>
+    <block name="content">
+        <include src="out/rules/element-newline.html"></include>
+    </block>
+</extends>
