@@ -1,11 +1,7 @@
-/**
- * @typedef {import("../types").Rule} Rule
- * @typedef {import("es-html-parser").TagNode} TagNode
- */
-
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { filter } = require("./utils/array");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -13,8 +9,8 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @param {TagNode['children'][number]} node
- * @returns {boolean}
+ * @param {ChildType<TagNode>} node
+ * @returns {node is TagNode}
  */
 function isMetaTagNode(node) {
   return node.type === NODE_TYPES.Tag && node.name === "meta";
@@ -47,10 +43,10 @@ module.exports = {
         if (node.name !== "head") {
           return;
         }
-        const metaTags = node.children.filter(isMetaTagNode);
+        const metaTags = filter(node.children, isMetaTagNode);
 
         const descriptionMetaTags = metaTags.filter((meta) => {
-          const nameAttr = NodeUtils.findAttr(meta, "name");
+          const nameAttr = findAttr(meta, "name");
           return (
             !!nameAttr &&
             nameAttr.value &&
@@ -65,7 +61,7 @@ module.exports = {
           });
         } else {
           descriptionMetaTags.forEach((meta) => {
-            const content = NodeUtils.findAttr(meta, "content");
+            const content = findAttr(meta, "content");
             if (
               !content ||
               !content.value ||

@@ -1,11 +1,7 @@
-/**
- * @typedef {import("../types").Rule} Rule
- * @typedef {import("es-html-parser").TagNode} TagNode
- */
-
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { find } = require("./utils/array");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -13,14 +9,13 @@ const MESSAGE_IDS = {
 };
 
 /**
- * Checks whether a given node is a meta tag with viewport attribute or not.
- * @param {TagNode['children'][number]} node A node to check
- * @returns {node is TagNode} Return true if the given node is a meta tag with viewport attribute, otherwise false.
+ * @param {ChildType<TagNode>} node
+ * @returns {node is TagNode}
  */
 function isMetaViewport(node) {
   if (node.type === NODE_TYPES.Tag && node.name === "meta") {
-    const nameAttribute = NodeUtils.findAttr(node, "name");
-    return (
+    const nameAttribute = findAttr(node, "name");
+    return !!(
       nameAttribute &&
       nameAttribute.value &&
       nameAttribute.value.value.toLowerCase() === "viewport"
@@ -58,7 +53,7 @@ module.exports = {
           return;
         }
 
-        const metaViewport = node.children.find(isMetaViewport);
+        const metaViewport = find(node.children, isMetaViewport);
 
         if (!metaViewport) {
           context.report({
@@ -68,14 +63,17 @@ module.exports = {
           return;
         }
 
-        const contentAttribute = NodeUtils.findAttr(metaViewport, "content");
-        const isValueEmpty =
-          !contentAttribute.value || !contentAttribute.value.value.length;
+        const contentAttribute = findAttr(metaViewport, "content");
+        const isAttributeEmpty =
+          !contentAttribute ||
+          !contentAttribute.value ||
+          !contentAttribute.value.value.length;
 
-        if (isValueEmpty) {
-          const reportTarget = !contentAttribute.value
-            ? metaViewport
-            : contentAttribute;
+        if (isAttributeEmpty) {
+          const reportTarget =
+            !contentAttribute || !contentAttribute.value
+              ? metaViewport
+              : contentAttribute;
           context.report({
             node: reportTarget,
             messageId: MESSAGE_IDS.EMPTY,
