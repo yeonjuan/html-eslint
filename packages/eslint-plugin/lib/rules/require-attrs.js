@@ -2,6 +2,7 @@
  * @typedef {import("../types").Rule} Rule
  */
 
+const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -91,7 +92,7 @@ module.exports = {
 
     return {
       [["StyleTag", "ScriptTag"].join(",")](node) {
-        const tagName = node.type === "StyleTag" ? "style" : "script";
+        const tagName = node.type === NODE_TYPES.StyleTag ? "style" : "script";
         if (!tagOptionsMap.has(tagName)) {
           return;
         }

@@ -1,0 +1,52 @@
+const { NODE_TYPES } = require("./node-types");
+
+const visitorKeys = {
+  [NODE_TYPES.Program]: ["body"],
+  [NODE_TYPES.Attribute]: ["key", "startWrapper", "endWrapper", "value"],
+  [NODE_TYPES.AttributeKey]: [],
+  [NODE_TYPES.AttributeValue]: [],
+  [NODE_TYPES.AttributeValueWrapperEnd]: [],
+  [NODE_TYPES.AttributeValueWrapperStart]: [],
+  [NODE_TYPES.CloseScriptTag]: [],
+  [NODE_TYPES.CloseStyleTag]: [],
+  [NODE_TYPES.CloseTag]: [],
+  [NODE_TYPES.Comment]: ["open", "close", "value"],
+  [NODE_TYPES.CommentContent]: [],
+  [NODE_TYPES.CommentOpen]: [],
+  [NODE_TYPES.CommentClose]: [],
+  [NODE_TYPES.Doctype]: ["open", "close", "attributes"],
+  [NODE_TYPES.DoctypeAttribute]: ["startWrapper", "value", "endWrapper"],
+  [NODE_TYPES.DoctypeAttributeValue]: [],
+  [NODE_TYPES.DoctypeAttributeWrapperEnd]: [],
+  [NODE_TYPES.DoctypeAttributeWrapperStart]: [],
+  [NODE_TYPES.DoctypeOpen]: [],
+  [NODE_TYPES.DoctypeClose]: [],
+  [NODE_TYPES.OpenScriptTagEnd]: [],
+  [NODE_TYPES.OpenScriptTagStart]: [],
+  [NODE_TYPES.OpenStyleTagEnd]: [],
+  [NODE_TYPES.OpenStyleTagStart]: [],
+  [NODE_TYPES.OpenTagEnd]: [],
+  [NODE_TYPES.OpenTagStart]: [],
+  [NODE_TYPES.ScriptTag]: [
+    "attributes",
+    "openStart",
+    "openEnd",
+    "close",
+    "value",
+  ],
+  [NODE_TYPES.ScriptTagContent]: [],
+  [NODE_TYPES.StyleTag]: [
+    "attributes",
+    "openStart",
+    "openEnd",
+    "close",
+    "value",
+  ],
+  [NODE_TYPES.StyleTagContent]: [],
+  [NODE_TYPES.Tag]: ["openStart", "openEnd", "close", "children", "attributes"],
+  [NODE_TYPES.Text]: [],
+};
+
+module.exports = {
+  visitorKeys,
+};
