@@ -1,9 +1,5 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -40,7 +36,7 @@ module.exports = {
         if (node.name !== "button") {
           return;
         }
-        const typeAttr = NodeUtils.findAttr(node, "type");
+        const typeAttr = findAttr(node, "type");
         if (!typeAttr || !typeAttr.value) {
           context.report({
             node: node.openStart,
