@@ -1,7 +1,3 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
 
 const VOID_ELEMENTS_SET = new Set(VOID_ELEMENTS);
@@ -44,7 +40,6 @@ module.exports = {
       [MESSAGE_IDS.MISSING]: "Missing closing tag for {{tag}}.",
       [MESSAGE_IDS.MISSING_SELF]: "Missing self closing tag for {{tag}}",
       [MESSAGE_IDS.UNEXPECTED]: "Unexpected self closing tag for {{tag}}.",
-      [MESSAGE_IDS.HUCKS]: "HUCKS.",
     },
   },
 

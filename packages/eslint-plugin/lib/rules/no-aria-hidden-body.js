@@ -1,9 +1,5 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -36,7 +32,7 @@ module.exports = {
         if (node.name !== "body") {
           return;
         }
-        const ariaHiddenAttr = NodeUtils.findAttr(node, "aria-hidden");
+        const ariaHiddenAttr = findAttr(node, "aria-hidden");
         if (ariaHiddenAttr) {
           if (
             (ariaHiddenAttr.value && ariaHiddenAttr.value.value !== "false") ||

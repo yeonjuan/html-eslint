@@ -7,7 +7,7 @@
 
 module.exports = {
   /**
-   * @param {TagNode} node
+   * @param {TagNode | ScriptTagNode | StyleTagNode} node
    * @param {string} key
    * @returns {AttributeNode | undefined}
    */

@@ -1,9 +1,5 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -46,15 +42,21 @@ module.exports = {
 
   create(context) {
     return {
+      /**
+       *
+       * @param {TagNode | ScriptTagNode | StyleTagNode} node
+       */
       [["Tag", "ScriptTag", "StyleTag"].join(",")](node) {
-        const roleAttr = NodeUtils.findAttr(node, "role");
-        if (roleAttr) {
-          if (roleAttr.value && ABSTRACT_ROLE_SET.has(roleAttr.value.value)) {
-            context.report({
-              messageId: MESSAGE_IDS.UNEXPECTED,
-              node: roleAttr,
-            });
-          }
+        const roleAttr = findAttr(node, "role");
+        if (
+          roleAttr &&
+          roleAttr.value &&
+          ABSTRACT_ROLE_SET.has(roleAttr.value.value)
+        ) {
+          context.report({
+            messageId: MESSAGE_IDS.UNEXPECTED,
+            node: roleAttr,
+          });
         }
       },
     };
