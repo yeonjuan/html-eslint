@@ -4,6 +4,9 @@ const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
