@@ -23,6 +23,7 @@ jobs:
             test
             chore
             ci
+            refactor
           requireScope: false
           subjectPattern: ^[a-z].+[^\.]$
           subjectPatternError: |
