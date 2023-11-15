@@ -1,11 +1,14 @@
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
   UNEXPECTED: "unexpected",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -30,7 +33,7 @@ module.exports = {
         if (node.name !== "frame" && node.name !== "iframe") {
           return;
         }
-        const title = NodeUtils.findAttr(node, "title");
+        const title = findAttr(node, "title");
         if (!title) {
           context.report({
             node: node.openStart,
