@@ -8,3 +8,4 @@ next-env.d.ts
 packages/web-linter/out
 packages/**/dist
 *.tsbuildinfo
+packages/parser/types

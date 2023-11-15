@@ -9,3 +9,4 @@ packages/website2/.next
 out
 .next
 dist
+packages/parser/types
