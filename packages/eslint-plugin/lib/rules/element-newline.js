@@ -1,4 +1,5 @@
 const { RULE_CATEGORY } = require("../constants");
+const { NODE_TYPES } = require("@html-eslint/parser");
 
 const MESSAGE_IDS = {
   EXPECT_NEW_LINE_AFTER: "expectAfter",
@@ -99,7 +100,8 @@ module.exports = {
           return;
         }
 
-        const children = node.type === "Program" ? node.body : node.children;
+        const children =
+          node.type === NODE_TYPES.Program ? node.body : node.children;
         checkSiblings(children);
         if (skipTags.includes(node.name)) {
           isInSkipTags = true;

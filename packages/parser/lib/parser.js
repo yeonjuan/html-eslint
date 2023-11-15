@@ -4,6 +4,7 @@
 const { parse } = require("es-html-parser");
 const { visitorKeys } = require("./visitor-keys");
 const { traverse } = require("./traverse");
+const { NODE_TYPES } = require("./node-types");
 
 /**
  * @param {string} code
@@ -19,15 +20,15 @@ module.exports.parseForESLint = function parseForESLint(code) {
     range: ast.range,
     tokens: tokens.filter(
       (token) =>
-        token.type !== "CommentContent" &&
-        token.type !== "CommentOpen" &&
-        token.type !== "CommentClose"
+        token.type !== NODE_TYPES.CommentContent &&
+        token.type !== NODE_TYPES.CommentOpen &&
+        token.type !== NODE_TYPES.CommentClose
     ),
     comments: [],
   };
 
   traverse(programNode, (node) => {
-    if (node.type === "CommentContent") {
+    if (node.type === NODE_TYPES.CommentContent) {
       programNode.comments.push({
         type: node.type,
         range: node.range,

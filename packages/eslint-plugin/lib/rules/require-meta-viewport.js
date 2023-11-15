@@ -3,6 +3,7 @@
  * @typedef {import("es-html-parser").TagNode} TagNode
  */
 
+const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
@@ -17,7 +18,7 @@ const MESSAGE_IDS = {
  * @returns {node is TagNode} Return true if the given node is a meta tag with viewport attribute, otherwise false.
  */
 function isMetaViewport(node) {
-  if (node.type === "Tag" && node.name === "meta") {
+  if (node.type === NODE_TYPES.Tag && node.name === "meta") {
     const nameAttribute = NodeUtils.findAttr(node, "name");
     return (
       nameAttribute &&

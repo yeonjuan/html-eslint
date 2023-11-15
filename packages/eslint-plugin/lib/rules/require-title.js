@@ -3,6 +3,7 @@
  * @typedef {import("es-html-parser").TagNode} TagNode
  * @typedef {import("es-html-parser").TextNode} TextNode
  */
+const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -16,7 +17,7 @@ const MESSAGE_IDS = {
  * @returns {node is TagNode} Returns true if the given node is a title TagNode, otherwise false
  */
 function isTitleTagNode(node) {
-  return node.type === "Tag" && node.name === "title";
+  return node.type === NODE_TYPES.Tag && node.name === "title";
 }
 
 /**
@@ -25,7 +26,7 @@ function isTitleTagNode(node) {
  * @returns {node is TextNode} Returns true if the given node is a TextNode with non-empty value, otherwise false
  */
 function isNonEmptyTextNode(node) {
-  return node.type === "Text" && node.value.trim().length > 0;
+  return node.type === NODE_TYPES.Text && node.value.trim().length > 0;
 }
 
 /**

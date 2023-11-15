@@ -3,6 +3,7 @@
  * @typedef {import("es-html-parser").TagNode} TagNode
  */
 
+const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { NodeUtils } = require("./utils");
 
@@ -16,7 +17,7 @@ const MESSAGE_IDS = {
  * @returns {boolean}
  */
 function isMetaTagNode(node) {
-  return node.type === "Tag" && node.name === "meta";
+  return node.type === NODE_TYPES.Tag && node.name === "meta";
 }
 
 /**
