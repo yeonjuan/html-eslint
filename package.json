@@ -15,7 +15,8 @@
     "build": "turbo run build",
     "publish-website": "npm run build && gh-pages -d packages/website/out -t true",
     "publish": "lerna publish",
-    "publish:alpha": "lerna publish --dist-tag alpha"
+    "publish:alpha": "lerna publish --dist-tag alpha",
+    "check:all": "npm run test && npm run format-check && npm run spell-check && npm run ts"
   },
   "author": "yeonjuan",
   "license": "MIT",
@@ -38,8 +39,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test && npm run format-check && npm run spell-check",
-      "pre-push": "npm run test && npm run format-check  && npm run spell-check"
+      "pre-push": "npm run check:all"
     }
   },
   "workspaces": [
