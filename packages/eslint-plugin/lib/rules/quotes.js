@@ -12,6 +12,9 @@ const QUOTES_STYLES = {
 
 const QUOTES_CODES = [`"`, `'`];
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -53,10 +56,20 @@ module.exports = {
       return sourceCode.text.slice(range[0], range[1]);
     }
 
+    /**
+     *
+     * @param {AttributeNode} attr
+     * @returns {[string, string]}
+     */
     function getQuotes(attr) {
+      // @ts-ignore
       return [attr.startWrapper.value, attr.endWrapper.value];
     }
 
+    /**
+     * @param {AttributeNode} attr
+     * @returns {void}
+     */
     function checkQuotes(attr) {
       if (!attr.value || attr.value.value.includes(expectedQuote)) {
         return;
@@ -77,6 +90,12 @@ module.exports = {
                     : `${QUOTES_STYLES.SINGLE}(')`,
               },
               fix(fixer) {
+                if (
+                  !attr.startWrapper ||
+                  !attr.endWrapper ||
+                  attr.value === undefined
+                )
+                  return null;
                 return fixer.replaceTextRange(
                   [attr.startWrapper.range[0], attr.endWrapper.range[1]],
                   `${expectedQuote}${attr.value.value}${expectedQuote}`
@@ -93,6 +112,7 @@ module.exports = {
             expected: `${SELECTED_STYLE}(${expectedQuote})`,
           },
           fix(fixer) {
+            if (attr.value === undefined) return null;
             const originCode = getCodeIn(attr.value.range);
             return fixer.replaceTextRange(
               attr.value.range,
@@ -104,8 +124,11 @@ module.exports = {
     }
 
     return {
+      /**
+       * @param {TagNode | ScriptTagNode | StyleTagNode} node
+       */
       [["Tag", "ScriptTag", "StyleTag"].join(",")](node) {
-        node.attributes.forEach(checkQuotes);
+        node.attributes.forEach((attr) => checkQuotes(attr));
       },
     };
   },

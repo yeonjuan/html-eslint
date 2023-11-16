@@ -36,6 +36,7 @@ declare global {
   }
 
   interface TagNode extends ESHtml.TagNode {
+    attributes: AttributeNode[];
     parent: TagNode | ProgramNode;
     openStart: OpenTagStartNode;
     close: CloseTagNode;
@@ -57,7 +58,7 @@ declare global {
   }
 
   interface AttributeNode extends ESHtml.AttributeNode {
-    parent: TagNode;
+    parent: TagNode | StyleTagNode | ScriptTagNode;
   }
 
   interface AttributeValueNode extends ESHtml.AttributeValueNode {
@@ -75,6 +76,7 @@ declare global {
   }
 
   interface ScriptTagNode extends ESHtml.ScriptTagNode {
+    attributes: AttributeNode[];
     parent: ProgramNode | TagNode;
   }
 
@@ -95,6 +97,7 @@ declare global {
   }
 
   interface StyleTagNode extends ESHtml.StyleTagNode {
+    attributes: AttributeNode[];
     parent: TagNode | ProgramNode;
   }
 
