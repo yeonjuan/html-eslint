@@ -26,7 +26,7 @@ jobs:
         run: npm run spell-check
       - name: format
         run: npm run format-check
-      - npm: ts
+      - name: ts
         run: npm run ts
 
       - name: Code coverage report
