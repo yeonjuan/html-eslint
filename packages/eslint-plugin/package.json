@@ -22,7 +22,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "check:ts": "tsc",
+    "ts": "tsc",
     "lint": "eslint . --ext .js"
   },
   "bugs": {
