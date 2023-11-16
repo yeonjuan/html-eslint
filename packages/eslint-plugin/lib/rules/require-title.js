@@ -61,7 +61,7 @@ module.exports = {
           return;
         }
 
-        const content = find(node.children, isNonEmptyText);
+        const content = find(title.children, isNonEmptyText);
 
         if (!content) {
           context.report({

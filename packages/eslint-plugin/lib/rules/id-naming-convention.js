@@ -1,9 +1,11 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
-const { NamingUtils, NodeUtils } = require("./utils");
+const {
+  isCamelCase,
+  isSnakeCase,
+  isPascalCase,
+  isKebabCase,
+} = require("./utils/naming");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   WRONG: "wrong",
@@ -17,10 +19,10 @@ const CONVENTIONS = {
 };
 
 const CONVENTION_CHECKERS = {
-  [CONVENTIONS.CAMEL_CASE]: NamingUtils.isCamelCase,
-  [CONVENTIONS.SNAKE_CASE]: NamingUtils.isSnakeCase,
-  [CONVENTIONS.PASCAL_CASE]: NamingUtils.isPascalCase,
-  [CONVENTIONS.KEBAB_CASE]: NamingUtils.isKebabCase,
+  [CONVENTIONS.CAMEL_CASE]: isCamelCase,
+  [CONVENTIONS.SNAKE_CASE]: isSnakeCase,
+  [CONVENTIONS.PASCAL_CASE]: isPascalCase,
+  [CONVENTIONS.KEBAB_CASE]: isKebabCase,
 };
 
 /**
@@ -57,11 +59,15 @@ module.exports = {
     const checkNaming = CONVENTION_CHECKERS[convention];
 
     return {
-      "*"(node) {
+      /**
+       * @param {TagNode | ScriptTagNode | StyleTagNode} node
+       * @returns
+       */
+      [["Tag", "ScriptTag", "StyleTag"].join(",")](node) {
         if (!node.attributes || node.attributes.length <= 0) {
           return;
         }
-        const idAttr = NodeUtils.findAttr(node, "id");
+        const idAttr = findAttr(node, "id");
         if (idAttr && idAttr.value && !checkNaming(idAttr.value.value)) {
           context.report({
             node: idAttr,

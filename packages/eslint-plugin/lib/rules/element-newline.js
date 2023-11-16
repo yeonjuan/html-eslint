@@ -1,5 +1,4 @@
 const { RULE_CATEGORY } = require("../constants");
-const { NODE_TYPES } = require("@html-eslint/parser");
 
 const MESSAGE_IDS = {
   EXPECT_NEW_LINE_AFTER: "expectAfter",
@@ -48,7 +47,7 @@ module.exports = {
     let isInSkipTags = false;
 
     /**
-     * @param {(TagNode | TextNode)[]} siblings
+     * @param {ChildType<TagNode | ProgramNode>[]} siblings
      */
     function checkSiblings(siblings) {
       siblings
@@ -60,6 +59,7 @@ module.exports = {
               context.report({
                 node: current,
                 messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
+                // @ts-ignore
                 data: { tag: `<${current.name}>` },
                 fix(fixer) {
                   return fixer.insertTextAfter(current, "\n");
@@ -70,6 +70,10 @@ module.exports = {
         });
     }
 
+    /**
+     * @param {TagNode} node
+     * @param {ChildType<TagNode>[]} children
+     */
     function checkChild(node, children) {
       const targetChildren = children.filter((n) => n.type !== "Text");
       const first = targetChildren[0];
@@ -101,19 +105,20 @@ module.exports = {
       }
     }
     return {
-      [["Tag", "Program"].join(",")](node) {
+      Program(node) {
+        checkSiblings(node.body);
+      },
+      Tag(node) {
         if (isInSkipTags) {
           return;
         }
 
-        const children =
-          node.type === NODE_TYPES.Program ? node.body : node.children;
-        checkSiblings(children);
+        checkSiblings(node.children);
         if (skipTags.includes(node.name)) {
           isInSkipTags = true;
           return;
         }
-        checkChild(node, children);
+        checkChild(node, node.children);
       },
       /**
        * @param {TagNode} node
@@ -129,6 +134,11 @@ module.exports = {
   },
 };
 
+/**
+ * @param {BaseNode} nodeBefore
+ * @param {BaseNode} nodeAfter
+ * @returns
+ */
 function isOnTheSameLine(nodeBefore, nodeAfter) {
   if (nodeBefore && nodeAfter) {
     return nodeBefore.loc.end.line === nodeAfter.loc.start.line;

@@ -34,7 +34,7 @@ module.exports = {
         if (node.name !== "li") {
           return;
         }
-        if (!node.parent) {
+        if (!node.parent || node.parent.type === NODE_TYPES.Program) {
           context.report({
             node,
             messageId: MESSAGE_IDS.INVALID,
