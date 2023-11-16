@@ -1,11 +1,4 @@
 /**
- * @typedef {import("../types").Rule} Rule
- * @typedef {import("../types").TagNode} TagNode
- * @typedef {import("../types").BaseNode} BaseNode
- * @typedef {import("../types").OpenTagStartNode} OpenTagStartNode
- * @typedef {import("../types").CloseTagNode} CloseTagNode
- * @typedef {import("../types").LineNode} LineNode
- *@typedef {import("../types").AnyNode} AnyNode
  * @typedef {Object} IndentType
  * @property {"tab"} TAB
  * @property {"space"} SPACE
@@ -13,8 +6,9 @@
  * @typedef {Object} MessageId
  * @property {"wrongIndent"} WRONG_INDENT
  */
+
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { splitToLineNodes } = require("./utils/node");
 
 /** @type {MessageId} */
 const MESSAGE_ID = {
@@ -234,6 +228,9 @@ module.exports = {
       OpenTagStart: checkIndent,
       OpenTagEnd: checkIndent,
       CloseTag: checkIndent,
+      /**
+       * @param {TagNode} node
+       */
       "Tag:exit"(node) {
         if (IGNORING_NODES.includes(node.name)) {
           parentIgnoringChildCount--;
@@ -250,7 +247,7 @@ module.exports = {
       // Text
       Text(node) {
         indent();
-        const lineNodes = NodeUtils.splitToLineNodes(node);
+        const lineNodes = splitToLineNodes(node);
         lineNodes.forEach((lineNode) => {
           if (lineNode.value.trim().length) {
             checkIndent(lineNode);
@@ -264,7 +261,7 @@ module.exports = {
       CommentOpen: checkIndent,
       CommentContent(node) {
         indent();
-        const lineNodes = NodeUtils.splitToLineNodes(node);
+        const lineNodes = splitToLineNodes(node);
         lineNodes.forEach((lineNode) => {
           if (lineNode.value.trim().length) {
             checkIndent(lineNode);

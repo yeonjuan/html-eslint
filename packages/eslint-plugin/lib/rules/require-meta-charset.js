@@ -1,14 +1,24 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
+const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { find } = require("./utils/array");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
   EMPTY: "empty",
 };
+
+/**
+ * @param {ChildType<TagNode>} node
+ * @returns {node is TagNode}
+ */
+function isMetaCharset(node) {
+  return (
+    node.type === NODE_TYPES.Tag &&
+    node.name === "meta" &&
+    !!findAttr(node, "charset")
+  );
+}
 
 /**
  * @type {Rule}
@@ -38,13 +48,7 @@ module.exports = {
           return;
         }
 
-        const metaCharset = node.children.find((child) => {
-          return (
-            child.type === "Tag" &&
-            child.name === "meta" &&
-            !!NodeUtils.findAttr(child, "charset")
-          );
-        });
+        const metaCharset = find(node.children, isMetaCharset);
 
         if (!metaCharset) {
           context.report({
@@ -53,7 +57,9 @@ module.exports = {
           });
           return;
         }
-        const charsetAttr = NodeUtils.findAttr(metaCharset, "charset");
+
+        const charsetAttr = findAttr(metaCharset, "charset");
+
         if (charsetAttr) {
           if (!charsetAttr.value || !charsetAttr.value.value.length) {
             context.report({

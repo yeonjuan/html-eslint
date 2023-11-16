@@ -1,9 +1,5 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -31,8 +27,11 @@ module.exports = {
 
   create(context) {
     return {
+      /**
+       * @param {TagNode | ScriptTagNode | StyleTagNode} node
+       */
       [["Tag", "ScriptTag", "StyleTag"].join(",")](node) {
-        const accessKeyAttr = NodeUtils.findAttr(node, "accesskey");
+        const accessKeyAttr = findAttr(node, "accesskey");
         if (accessKeyAttr) {
           context.report({
             node: accessKeyAttr,

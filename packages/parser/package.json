@@ -9,11 +9,12 @@
   "types": "types/index.d.ts",
   "directories": {
     "lib": "lib",
+    "types": "types",
     "test": "__tests__"
   },
   "files": [
     "lib",
-    "dist"
+    "types"
   ],
   "publishConfig": {
     "access": "public"

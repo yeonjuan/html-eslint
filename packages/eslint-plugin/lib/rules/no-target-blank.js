@@ -1,9 +1,5 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -43,12 +39,12 @@ module.exports = {
         if (node.name !== "a") {
           return;
         }
-        /* eslint-disable */
-        const target = NodeUtils.findAttr(node, "target");
+
+        const target = findAttr(node, "target");
         if (target && target.value && target.value.value === "_blank") {
-          const href = NodeUtils.findAttr(node, "href");
+          const href = findAttr(node, "href");
           if (href && href.value && isExternalLink(href.value.value)) {
-            const rel = NodeUtils.findAttr(node, "rel");
+            const rel = findAttr(node, "rel");
             if (!rel || !rel.value || !rel.value.value.includes("noreferrer")) {
               context.report({
                 node: target,

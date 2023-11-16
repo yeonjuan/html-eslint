@@ -4,6 +4,9 @@ const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -62,6 +65,12 @@ module.exports = {
   },
 };
 
+/**
+ *
+ * @param {TagNode} node
+ * @param {string[]} substitute
+ * @returns
+ */
 function hasAltAttrAndValue(node, substitute = []) {
   return node.attributes.some((attr) => {
     if (attr.key && attr.value) {
@@ -70,5 +79,6 @@ function hasAltAttrAndValue(node, substitute = []) {
         typeof attr.value.value === "string"
       );
     }
+    return false;
   });
 }

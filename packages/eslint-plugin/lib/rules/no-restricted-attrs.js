@@ -1,8 +1,8 @@
 /**
- * @typedef {import("../types").Rule} Rule
  * @typedef {{tagPatterns: string[], attrPatterns: string[], message?: string}[]} Options
  */
 
+const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -61,8 +61,16 @@ module.exports = {
     const checkers = options.map((option) => new PatternChecker(option));
 
     return {
+      /**
+       * @param {TagNode | StyleTagNode | ScriptTagNode} node
+       */
       [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
-        const tagName = node.name;
+        const tagName =
+          node.type === NODE_TYPES.Tag
+            ? node.name
+            : node.type === NODE_TYPES.ScriptTag
+            ? "script"
+            : "style";
         node.attributes.forEach((attr) => {
           if (!attr.key || !attr.key.value) {
             return;
@@ -75,6 +83,9 @@ module.exports = {
             return;
           }
 
+          /**
+           * @type {{node: AttributeNode, message: string, messageId?: string}}
+           */
           const result = {
             node: attr,
             message: "",

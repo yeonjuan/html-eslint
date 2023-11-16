@@ -1,7 +1,3 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 
@@ -45,19 +41,29 @@ module.exports = {
 
   create(context) {
     const options = context.options || [];
+    /**
+     * @type {Map<string, { tag: string, attr: string, value?: string}[]>}
+     */
     const tagOptionsMap = new Map();
 
     options.forEach((option) => {
       const tagName = option.tag.toLowerCase();
       if (tagOptionsMap.has(tagName)) {
-        tagOptionsMap.set(tagName, [...tagOptionsMap.get(tagName), option]);
+        tagOptionsMap.set(tagName, [
+          ...(tagOptionsMap.get(tagName) || []),
+          option,
+        ]);
       } else {
         tagOptionsMap.set(tagName, [option]);
       }
     });
 
+    /**
+     * @param {StyleTagNode | ScriptTagNode | TagNode} node
+     * @param {string} tagName
+     */
     function check(node, tagName) {
-      const tagOptions = tagOptionsMap.get(tagName);
+      const tagOptions = tagOptionsMap.get(tagName) || [];
       const attributes = node.attributes || [];
 
       tagOptions.forEach((option) => {
@@ -91,6 +97,10 @@ module.exports = {
     }
 
     return {
+      /**
+       * @param {StyleTagNode | ScriptTagNode} node
+       * @returns
+       */
       [["StyleTag", "ScriptTag"].join(",")](node) {
         const tagName = node.type === NODE_TYPES.StyleTag ? "style" : "script";
         if (!tagOptionsMap.has(tagName)) {

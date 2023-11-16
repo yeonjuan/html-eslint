@@ -1,10 +1,6 @@
-/**
- * @typedef {import("../types").Rule} Rule
- * @typedef {import("es-html-parser").TagNode} TagNode
- * @typedef {import("es-html-parser").TextNode} TextNode
- */
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
+const { find } = require("./utils/array");
 
 const MESSAGE_IDS = {
   MISSING_TITLE: "missing",
@@ -12,20 +8,18 @@ const MESSAGE_IDS = {
 };
 
 /**
- * Checks whether the node is a title TagNode.
- * @param {TagNode['children'][number]} node A node to check
- * @returns {node is TagNode} Returns true if the given node is a title TagNode, otherwise false
+ * @param {ChildType<TagNode>} node
+ * @returns {node is TagNode}
  */
-function isTitleTagNode(node) {
+function isTitle(node) {
   return node.type === NODE_TYPES.Tag && node.name === "title";
 }
 
 /**
- * Checks whether the node is a TextNode that has value.
- * @param {TagNode['children'][number]} node A node to check
- * @returns {node is TextNode} Returns true if the given node is a TextNode with non-empty value, otherwise false
+ * @param {ChildType<TagNode>} node
+ * @returns {node is TextNode}
  */
-function isNonEmptyTextNode(node) {
+function isNonEmptyText(node) {
   return node.type === NODE_TYPES.Text && node.value.trim().length > 0;
 }
 
@@ -56,9 +50,10 @@ module.exports = {
         if (node.name !== "head") {
           return;
         }
-        const titleTag = node.children.find(isTitleTagNode);
 
-        if (!titleTag) {
+        const title = find(node.children, isTitle);
+
+        if (!title) {
           context.report({
             node,
             messageId: MESSAGE_IDS.MISSING_TITLE,
@@ -66,15 +61,13 @@ module.exports = {
           return;
         }
 
-        if (isTitleTagNode(titleTag)) {
-          const titleContentText = titleTag.children.find(isNonEmptyTextNode);
+        const content = find(title.children, isNonEmptyText);
 
-          if (!titleContentText) {
-            context.report({
-              node: titleTag,
-              messageId: MESSAGE_IDS.EMPTY_TITLE,
-            });
-          }
+        if (!content) {
+          context.report({
+            node: title,
+            messageId: MESSAGE_IDS.EMPTY_TITLE,
+          });
         }
       },
     };

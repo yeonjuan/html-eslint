@@ -1,8 +1,5 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { getLocBetween } = require("./utils/node");
 
 const MESSAGE_IDS = {
   EXTRA_BETWEEN: "unexpectedBetween",
@@ -56,6 +53,9 @@ module.exports = {
       .enforceBeforeSelfClose;
     const disallowMissing = !!(context.options[0] || {}).disallowMissing;
 
+    /**
+     * @param {AttributeNode[]} attrs
+     */
     function checkExtraSpacesBetweenAttrs(attrs) {
       attrs.forEach((current, index, attrs) => {
         if (index >= attrs.length - 1) {
@@ -69,7 +69,7 @@ module.exports = {
         const spacesBetween = after.loc.start.column - current.loc.end.column;
         if (spacesBetween > 1) {
           context.report({
-            loc: NodeUtils.getLocBetween(current, after),
+            loc: getLocBetween(current, after),
             messageId: MESSAGE_IDS.EXTRA_BETWEEN,
             fix(fixer) {
               return fixer.removeRange([current.range[1] + 1, after.range[0]]);
@@ -87,6 +87,12 @@ module.exports = {
       });
     }
 
+    /**
+     * @param {OpenTagEndNode | OpenScriptTagEndNode | OpenStyleTagEndNode} openEnd
+     * @param {AttributeNode} lastAttr
+     * @param {boolean} isSelfClosed
+     * @returns {void}
+     */
     function checkExtraSpaceAfter(openEnd, lastAttr, isSelfClosed) {
       if (openEnd.loc.end.line !== lastAttr.loc.end.line) {
         // skip the attribute on the different line with the start tag
@@ -97,7 +103,7 @@ module.exports = {
 
       if (spacesBetween > limit) {
         context.report({
-          loc: NodeUtils.getLocBetween(lastAttr, openEnd),
+          loc: getLocBetween(lastAttr, openEnd),
           messageId: MESSAGE_IDS.EXTRA_AFTER,
           fix(fixer) {
             return fixer.removeRange([
@@ -110,7 +116,7 @@ module.exports = {
 
       if (isSelfClosed && enforceBeforeSelfClose && spacesBetween < 1) {
         context.report({
-          loc: NodeUtils.getLocBetween(lastAttr, openEnd),
+          loc: getLocBetween(lastAttr, openEnd),
           messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
           fix(fixer) {
             return fixer.insertTextAfter(lastAttr, " ");
@@ -119,6 +125,11 @@ module.exports = {
       }
     }
 
+    /**
+     * @param {OpenScriptTagStartNode | OpenTagStartNode | OpenStyleTagStartNode} node
+     * @param {AttributeNode} firstAttr
+     * @returns
+     */
     function checkExtraSpaceBefore(node, firstAttr) {
       if (node.loc.start.line !== firstAttr.loc.start.line) {
         // skip the attribute on the different line with the start tag
@@ -128,7 +139,7 @@ module.exports = {
       const spacesBetween = firstAttr.loc.start.column - node.loc.end.column;
       if (spacesBetween >= 2) {
         context.report({
-          loc: NodeUtils.getLocBetween(node, firstAttr),
+          loc: getLocBetween(node, firstAttr),
 
           messageId: MESSAGE_IDS.EXTRA_BEFORE,
           fix(fixer) {
@@ -141,6 +152,11 @@ module.exports = {
       }
     }
 
+    /**
+     * @param {AnyNode} beforeSelfClosing
+     * @param {OpenTagEndNode | OpenScriptTagEndNode | OpenStyleTagEndNode} openEnd
+     * @returns
+     */
     function checkSpaceBeforeSelfClosing(beforeSelfClosing, openEnd) {
       if (beforeSelfClosing.loc.start.line !== openEnd.loc.start.line) {
         // skip the attribute on the different line with the start tag
@@ -148,7 +164,7 @@ module.exports = {
       }
       const spacesBetween =
         openEnd.loc.start.column - beforeSelfClosing.loc.end.column;
-      const locBetween = NodeUtils.getLocBetween(beforeSelfClosing, openEnd);
+      const locBetween = getLocBetween(beforeSelfClosing, openEnd);
 
       if (spacesBetween > 1) {
         context.report({
@@ -173,6 +189,10 @@ module.exports = {
     }
 
     return {
+      /**
+       * @param {TagNode | StyleTagNode | ScriptTagNode} node
+       * @returns
+       */
       [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
         if (!node.attributes) {
           return;

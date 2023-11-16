@@ -1,9 +1,5 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   DUPLICATE_ID: "duplicateId",
@@ -32,11 +28,15 @@ module.exports = {
   create(context) {
     const IdAttrsMap = new Map();
     return {
-      "*"(node) {
+      /**
+       * @param {TagNode | ScriptTagNode | StyleTagNode} node
+       * @returns
+       */
+      Tag(node) {
         if (!node.attributes || node.attributes.length <= 0) {
           return;
         }
-        const idAttr = NodeUtils.findAttr(node, "id");
+        const idAttr = findAttr(node, "id");
         if (idAttr && idAttr.value) {
           if (!IdAttrsMap.has(idAttr.value.value)) {
             IdAttrsMap.set(idAttr.value.value, []);

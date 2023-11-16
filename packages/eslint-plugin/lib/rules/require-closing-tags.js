@@ -1,7 +1,3 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
 
 const VOID_ELEMENTS_SET = new Set(VOID_ELEMENTS);
@@ -44,7 +40,6 @@ module.exports = {
       [MESSAGE_IDS.MISSING]: "Missing closing tag for {{tag}}.",
       [MESSAGE_IDS.MISSING_SELF]: "Missing self closing tag for {{tag}}",
       [MESSAGE_IDS.UNEXPECTED]: "Unexpected self closing tag for {{tag}}.",
-      [MESSAGE_IDS.HUCKS]: "HUCKS.",
     },
   },
 
@@ -58,6 +53,9 @@ module.exports = {
         ? context.options[0].allowSelfClosingCustom === true
         : false;
 
+    /**
+     * @param {TagNode} node
+     */
     function checkClosingTag(node) {
       if (!node.close) {
         context.report({
@@ -70,6 +68,11 @@ module.exports = {
       }
     }
 
+    /**
+     * @param {TagNode} node
+     * @param {boolean} shouldSelfClose
+     * @param {boolean} fixable
+     */
     function checkVoidElement(node, shouldSelfClose, fixable) {
       const hasSelfClose = node.openEnd.value === "/>";
       if (shouldSelfClose && !hasSelfClose) {

@@ -1,10 +1,13 @@
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   INLINE_STYLE: "unexpectedInlineStyle",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -25,7 +28,7 @@ module.exports = {
   create(context) {
     return {
       Tag(node) {
-        const styleAttr = NodeUtils.findAttr(node, "style");
+        const styleAttr = findAttr(node, "style");
         if (styleAttr) {
           context.report({
             node: styleAttr,

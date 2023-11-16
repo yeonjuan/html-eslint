@@ -3,21 +3,17 @@
  * @typedef {import("es-html-parser").AnyNode} AnyNode
  * @typedef {import("es-html-parser").TextNode} TextNode
  * @typedef {import("es-html-parser").AttributeNode} AttributeNode
- * @typedef {import("../../types").LineNode} LineNode
- * @typedef {import("../../types").CommentContentNode} CommentContentNode
- * @typedef {import("../../types").BaseNode} BaseNode
- * @typedef {import("../../types").Location} Location
  */
 
 module.exports = {
   /**
-   * @param {TagNode} node
-   * @param {string} name
+   * @param {TagNode | ScriptTagNode | StyleTagNode} node
+   * @param {string} key
    * @returns {AttributeNode | undefined}
    */
-  findAttr(node, name) {
+  findAttr(node, key) {
     return node.attributes.find(
-      (attr) => attr.key && attr.key.value.toLowerCase() === name.toLowerCase()
+      (attr) => attr.key && attr.key.value.toLowerCase() === key.toLowerCase()
     );
   },
 

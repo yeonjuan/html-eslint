@@ -1,9 +1,5 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -31,8 +27,11 @@ module.exports = {
 
   create(context) {
     return {
+      /**
+       * @param {TagNode | StyleTagNode | ScriptTagNode} node
+       */
       [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
-        const tabIndexAttr = NodeUtils.findAttr(node, "tabindex");
+        const tabIndexAttr = findAttr(node, "tabindex");
         if (
           tabIndexAttr &&
           tabIndexAttr.value &&

@@ -1,3 +1,4 @@
+const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -6,6 +7,9 @@ const MESSAGE_IDS = {
 
 const VALID_CONTAINERS = ["ul", "ol", "menu"];
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -30,12 +34,15 @@ module.exports = {
         if (node.name !== "li") {
           return;
         }
-        if (!node.parent) {
+        if (!node.parent || node.parent.type === NODE_TYPES.Program) {
           context.report({
             node,
             messageId: MESSAGE_IDS.INVALID,
           });
-        } else if (!VALID_CONTAINERS.includes(node.parent.name || "")) {
+        } else if (
+          node.parent.type === NODE_TYPES.Tag &&
+          !VALID_CONTAINERS.includes(node.parent.name || "")
+        ) {
           context.report({
             node,
             messageId: MESSAGE_IDS.INVALID,

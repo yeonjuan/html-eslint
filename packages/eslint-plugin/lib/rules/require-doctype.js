@@ -1,7 +1,3 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -34,7 +30,7 @@ module.exports = {
       Doctype() {
         hasDocType = true;
       },
-      "Tag:exit"(node) {
+      Tag(node) {
         if (node.name !== "html") {
           return;
         }

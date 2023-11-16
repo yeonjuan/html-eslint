@@ -1,5 +1,4 @@
 /**
- * @typedef {import("../types").Rule} Rule
  * @typedef {{attrPatterns: string[], attrValuePatterns: string[], message?: string}[]} Options
  */
 
@@ -62,6 +61,9 @@ module.exports = {
     const checkers = options.map((option) => new PatternChecker(option));
 
     return {
+      /**
+       * @param {TagNode | StyleTagNode | ScriptTagNode} node
+       */
       [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
         node.attributes.forEach((attr) => {
           if (
@@ -73,14 +75,18 @@ module.exports = {
             return;
           }
 
-          const matched = checkers.find((checker) =>
-            checker.test(attr.key.value, attr.value.value)
+          const matched = checkers.find(
+            (checker) =>
+              attr.value && checker.test(attr.key.value, attr.value.value)
           );
 
           if (!matched) {
             return;
           }
 
+          /**
+           * @type {{node: AttributeNode, message: string, messageId?: string}}
+           */
           const result = {
             node: attr,
             message: "",

@@ -1,15 +1,14 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
   EMPTY: "empty",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -34,7 +33,7 @@ module.exports = {
         if (node.name !== "html") {
           return;
         }
-        const langAttr = NodeUtils.findAttr(node, "lang");
+        const langAttr = findAttr(node, "lang");
         if (!langAttr) {
           context.report({
             node: {

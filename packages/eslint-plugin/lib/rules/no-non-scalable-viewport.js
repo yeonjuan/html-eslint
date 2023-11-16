@@ -1,9 +1,5 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
-const { NodeUtils } = require("./utils");
+const { findAttr } = require("./utils/node");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -36,8 +32,8 @@ module.exports = {
         if (node.name !== "meta") {
           return;
         }
-        const nameAttr = NodeUtils.findAttr(node, "name");
-        const contentAttr = NodeUtils.findAttr(node, "content");
+        const nameAttr = findAttr(node, "name");
+        const contentAttr = findAttr(node, "content");
         if (
           nameAttr &&
           nameAttr.value &&

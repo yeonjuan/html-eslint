@@ -1,7 +1,3 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -30,6 +26,9 @@ module.exports = {
   },
 
   create(context) {
+    /**
+     * @type {{node: TagNode; level: number}[]}
+     */
     const headings = [];
 
     return {
@@ -53,7 +52,7 @@ module.exports = {
             if (next.level - current.level > 1) {
               context.report({
                 node: next.node,
-                data: { expected: current.level + 1 },
+                data: { expected: String(current.level + 1) },
                 messageId: MESSAGE_IDS.UNEXPECTED,
               });
             }
