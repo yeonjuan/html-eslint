@@ -53,6 +53,9 @@ module.exports = {
         ? context.options[0].allowSelfClosingCustom === true
         : false;
 
+    /**
+     * @param {TagNode} node
+     */
     function checkClosingTag(node) {
       if (!node.close) {
         context.report({
@@ -65,6 +68,11 @@ module.exports = {
       }
     }
 
+    /**
+     * @param {TagNode} node
+     * @param {boolean} shouldSelfClose
+     * @param {boolean} fixable
+     */
     function checkVoidElement(node, shouldSelfClose, fixable) {
       const hasSelfClose = node.openEnd.value === "/>";
       if (shouldSelfClose && !hasSelfClose) {

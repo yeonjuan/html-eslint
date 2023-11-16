@@ -1,5 +1,4 @@
-const { RULE_CATEGORY } = require("../constants");
-const { OBSOLETE_TAGS } = require("../constants");
+const { RULE_CATEGORY, OBSOLETE_TAGS } = require("../constants");
 
 const OBSOLETE_TAGS_SET = new Set(OBSOLETE_TAGS);
 
@@ -7,6 +6,9 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",

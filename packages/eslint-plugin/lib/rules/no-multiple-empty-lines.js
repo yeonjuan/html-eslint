@@ -1,7 +1,3 @@
-/**
- * @typedef {import("../types").Rule} Rule
- */
-
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -45,6 +41,9 @@ module.exports = {
     const lines = sourceCode.lines;
     const max = context.options.length ? context.options[0].max : 2;
     return {
+      /**
+       * @param {ProgramNode} node
+       */
       "Program:exit"(node) {
         /** @type {number[]} */
         const nonEmptyLineNumbers = [];

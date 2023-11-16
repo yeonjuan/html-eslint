@@ -6,6 +6,9 @@ const MESSAGE_IDS = {
   EXPECT_NEW_LINE_BEFORE: "expectBefore",
 };
 
+/**
+ * @type {Rule}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -44,6 +47,9 @@ module.exports = {
 
     let isInSkipTags = false;
 
+    /**
+     * @param {(TagNode | TextNode)[]} siblings
+     */
     function checkSiblings(siblings) {
       siblings
         .filter((node) => node.type !== "Text")
@@ -109,6 +115,10 @@ module.exports = {
         }
         checkChild(node, children);
       },
+      /**
+       * @param {TagNode} node
+       * @returns
+       */
       "Tag:exit"(node) {
         if (skipTags.includes(node.name)) {
           isInSkipTags = false;
