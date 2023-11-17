@@ -31,6 +31,7 @@ const noRestrictedAttrs = require("./no-restricted-attrs");
 const noTrailingSpaces = require("./no-trailing-spaces");
 const requireAttrs = require("./require-attrs");
 const noRestrictedAttrValues = require("./no-restricted-attr-values");
+const noScriptStyleType = require("./no-script-style-type");
 
 module.exports = {
   "require-lang": requireLang,
@@ -66,4 +67,5 @@ module.exports = {
   "no-restricted-attrs": noRestrictedAttrs,
   "no-trailing-spaces": noTrailingSpaces,
   "no-restricted-attr-values": noRestrictedAttrValues,
+  "no-script-style-type": noScriptStyleType,
 };
