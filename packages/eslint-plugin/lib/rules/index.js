@@ -32,6 +32,7 @@ const noTrailingSpaces = require("./no-trailing-spaces");
 const requireAttrs = require("./require-attrs");
 const noRestrictedAttrValues = require("./no-restricted-attr-values");
 const noScriptStyleType = require("./no-script-style-type");
+const lowercase = require("./lowercase");
 
 module.exports = {
   "require-lang": requireLang,
@@ -68,4 +69,5 @@ module.exports = {
   "no-trailing-spaces": noTrailingSpaces,
   "no-restricted-attr-values": noRestrictedAttrValues,
   "no-script-style-type": noScriptStyleType,
+  lowercase: lowercase,
 };
