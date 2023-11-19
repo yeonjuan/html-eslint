@@ -1,10 +1,3 @@
-/**
- * @typedef {import("es-html-parser").TagNode} TagNode
- * @typedef {import("es-html-parser").AnyNode} AnyNode
- * @typedef {import("es-html-parser").TextNode} TextNode
- * @typedef {import("es-html-parser").AttributeNode} AttributeNode
- */
-
 module.exports = {
   /**
    * @param {TagNode | ScriptTagNode | StyleTagNode} node
