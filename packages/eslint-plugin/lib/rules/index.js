@@ -33,6 +33,7 @@ const requireAttrs = require("./require-attrs");
 const noRestrictedAttrValues = require("./no-restricted-attr-values");
 const noScriptStyleType = require("./no-script-style-type");
 const lowercase = require("./lowercase");
+const requireOpenGraphProtocol = require("./require-open-graph-protocol");
 
 module.exports = {
   "require-lang": requireLang,
@@ -70,4 +71,5 @@ module.exports = {
   "no-restricted-attr-values": noRestrictedAttrValues,
   "no-script-style-type": noScriptStyleType,
   lowercase: lowercase,
+  "require-open-graph-protocol": requireOpenGraphProtocol,
 };

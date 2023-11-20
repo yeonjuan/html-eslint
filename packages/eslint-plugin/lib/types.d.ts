@@ -1,8 +1,6 @@
 import ESTree from "estree";
 import ESLint from "eslint";
 import * as ESHtml from "es-html-parser";
-{
-}
 
 declare global {
   type Fix = ESLint.Rule.Fix;
@@ -59,6 +57,8 @@ declare global {
   }
 
   interface AttributeNode extends ESHtml.AttributeNode {
+    key: AttributeKeyNode;
+    value?: AttributeValueNode;
     parent: TagNode | StyleTagNode | ScriptTagNode;
   }
 
