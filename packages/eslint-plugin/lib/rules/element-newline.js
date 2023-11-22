@@ -43,9 +43,7 @@ module.exports = {
   create(context) {
     const option = context.options[0] || { skip: [] };
     const skipTags = option.skip;
-
-    let isInSkipTags = false;
-
+    let skipTagCount = 0;
     /**
      * @param {ChildType<TagNode | ProgramNode>[]} siblings
      */
@@ -109,15 +107,14 @@ module.exports = {
         checkSiblings(node.body);
       },
       Tag(node) {
-        if (isInSkipTags) {
+        if (skipTagCount > 0) {
           return;
         }
-
-        checkSiblings(node.children);
         if (skipTags.includes(node.name)) {
-          isInSkipTags = true;
+          skipTagCount++;
           return;
         }
+        checkSiblings(node.children);
         checkChild(node, node.children);
       },
       /**
@@ -126,7 +123,7 @@ module.exports = {
        */
       "Tag:exit"(node) {
         if (skipTags.includes(node.name)) {
-          isInSkipTags = false;
+          skipTagCount--;
           return;
         }
       },
