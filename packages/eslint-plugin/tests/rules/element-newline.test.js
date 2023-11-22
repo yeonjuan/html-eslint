@@ -70,6 +70,26 @@ ruleTester.run("element-newline", rule, {
         },
       ],
     },
+    {
+      code: `
+<div>
+<div></div><span></span><a></a>
+</div>
+`,
+      options: [
+        {
+          skip: ["div"],
+        },
+      ],
+    },
+    {
+      code: `<pre><div></div><code><span></span></code><a></a></pre>`,
+      options: [
+        {
+          skip: ["pre", "code"],
+        },
+      ],
+    },
   ],
   invalid: [
     {
