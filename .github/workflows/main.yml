@@ -14,14 +14,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18.16.1
       - name: Install
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
       - name: Build
         run: yarn build
       - name: Unit Tests
         run: yarn test
-      - name: Check Sepll
+      - name: Check Spells
         run: yarn check:spell
       - name: Check Format
         run: yarn check:format

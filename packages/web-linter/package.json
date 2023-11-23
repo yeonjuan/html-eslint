@@ -14,8 +14,8 @@
   },
   "scripts": {
     "line": "eslint .",
-    "dev": "rollup --config && npm run post",
-    "build": "rollup --config && npm run post",
+    "dev": "rollup --config && yarn post",
+    "build": "rollup --config && yarn post",
     "post": "node ./postprocess.js"
   },
   "repository": {
