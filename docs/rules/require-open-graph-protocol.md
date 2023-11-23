@@ -1,17 +1,10 @@
----
-id: require-open-graph-protocol
-title: "require-open-graph-protocol"
----
-
 # require-open-graph-protocol
 
-Enforce to use specified meta tags for open graph protocol.
+This rule enforces to use specified meta tags for open graph protocol.
 
 ## How to use
 
-.eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/require-open-graph-protocol": "error",
@@ -61,6 +54,6 @@ Examples of **correct** code for this rule:
 </html>
 ```
 
-## Further reading
+## Further Reading
 
 - [The Open Graph protocol](https://ogp.me/)

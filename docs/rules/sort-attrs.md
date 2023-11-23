@@ -1,12 +1,10 @@
 # sort-attrs
 
-Enforce attributes alphabetical sorting.
+This rule enforces attributes alphabetical sorting.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/sort-attrs": "error",
@@ -15,8 +13,6 @@ module.exports = {
 ```
 
 ## Rule Details
-
-This rule checks that all attributes are sorted alphabetically.
 
 Examples of **incorrect** code for this rule:
 

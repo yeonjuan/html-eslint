@@ -1,12 +1,15 @@
-# @html-eslint/require-lang
+# require-lang
 
-Require `lang` attribute at `html` tag.
+This rule enforces `lang` attribute at `<html>` tag.
+
+## Why?
+
+The `lang` attribute in the HTML tag (`<html>`) is used to declare the language of the document.
+This attribute is important for accessibility and helps browsers, search engines, and other software understand the language of the content.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/require-lang": "error",
@@ -14,12 +17,7 @@ module.exports = {
 };
 ```
 
-The `lang` attribute is used to represent the language used in the content.
-We can give information to the search engine about the language used in the content.
-
 ## Rule Details
-
-This rule enforces the `lang` attribute at `html` tag
 
 Examples of **incorrect** code for this rule:
 
@@ -41,6 +39,6 @@ Examples of **correct** code for this rule:
 </html>
 ```
 
-## Further reading
+## Further Reading
 
-- [MDN - lang](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/lang)
+- [MDN: lang](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/lang)

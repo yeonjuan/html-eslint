@@ -1,12 +1,10 @@
-# @html-eslint/no-restricted-attrs
+# no-restricted-attrs
 
-Disallow specified attributes.
+This rule disallows use of specified attributes.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/no-restricted-attrs": [

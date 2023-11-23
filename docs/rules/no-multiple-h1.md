@@ -1,12 +1,10 @@
-# @html-eslint/no-multiple-h1
+# no-multiple-h1
 
-Disallow multiple `<h1><h1>`.
+This rule disallows multiple `<h1>`.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/no-multiple-h1": "error",
@@ -16,7 +14,7 @@ module.exports = {
 
 ## Rule Details
 
-This rule disallows the use of multiple `<h1></h1>` tags.
+This rule disallows the use of multiple `<h1>` tags.
 
 Examples of **incorrect** code for this rule:
 
@@ -39,6 +37,6 @@ Examples of **correct** code for this rule:
 </html>
 ```
 
-## Further reading
+## Further Reading
 
 - [MDN - heading elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements)

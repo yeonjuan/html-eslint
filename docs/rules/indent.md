@@ -1,12 +1,10 @@
-# @html-eslint/indent
+# indent
 
-Enforce consistent indentation.
+This rule enforces consistent indentation.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/indent": "error",
@@ -16,11 +14,14 @@ module.exports = {
 
 ## Rule Details
 
-This rule enforces consistent indentation styles. The default indent is `4 spaces`.
-
 ### Options
 
-This rule has two options
+```ts
+//...
+"@html-eslint/indent": ["error", "tab" | number]
+```
+
+This rule has two options.
 
 - `number(0, 1, ..)` (default 4): requires the use of indentation with specified number of spaces.
 
@@ -42,7 +43,7 @@ Examples of **correct** code for this rule:
 </html>
 ```
 
-#### space
+#### number (default: 4)
 
 If the option is number it means the number of spaces for indentation.
 
@@ -54,9 +55,10 @@ If the option is number it means the number of spaces for indentation.
 
 Examples of **incorrect** code for this rule with the `"2"` option:
 
+<!-- prettier-ignore -->
 ```html
 <html>
-  <body></body>
+      <body></body>
 </html>
 ```
 
@@ -67,8 +69,6 @@ Examples of **correct** code for this rule with the `"2"` option:
   <body></body>
 </html>
 ```
-
-<!-- prettier-ignore-end -->
 
 #### tab
 
@@ -82,9 +82,10 @@ If the option is `"tab"` it means using `tab` for indentation.
 
 Examples of **incorrect** code for this rule:
 
+<!-- prettier-ignore -->
 ```html
 <html>
-  <body></body>
+          <body></body>
 </html>
 ```
 
@@ -92,9 +93,6 @@ Examples of **correct** code for this rule:
 
 ```html
 <html>
-  <body>
-    <!-- tab -->
-  </body>
-  <!-- tab -->
+  <body></body>
 </html>
 ```

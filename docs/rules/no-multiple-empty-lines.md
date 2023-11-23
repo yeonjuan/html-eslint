@@ -1,12 +1,10 @@
-# @html-eslint/no-multiple-empty-lines
+# no-multiple-empty-lines
 
-Disallow use of multiple empty lines.
+This rule disallows use of multiple empty lines.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/no-multiple-empty-lines": "error",
@@ -24,8 +22,7 @@ This rule disallows the use of empty lines which exceeded the maximum lines allo
 
 Examples of **incorrect** code for this rule with the default `{ "max": 2 }` option:
 
-<!-- prettier-ignore-start -->
-
+<!-- prettier-ignore -->
 ```html
 <div id="foo"></div>
 
@@ -33,18 +30,13 @@ Examples of **incorrect** code for this rule with the default `{ "max": 2 }` opt
 
 <div id="bar"></div>
 ```
-
-<!-- prettier-ignore-end -->
 
 Examples of **correct** code for this rule with the default `{ "max": 2 }` option:
 
-<!-- prettier-ignore-start -->
-
+<!-- prettier-ignore -->
 ```html
 <div id="foo"></div>
 
 
 <div id="bar"></div>
 ```
-
-<!-- prettier-ignore-end -->

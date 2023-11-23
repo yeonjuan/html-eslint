@@ -1,12 +1,10 @@
-# @html-eslint/require-attrs
+# require-attrs
 
-Enforces the use of tag with specified attributes.
+This rule enforces the use of tag with specified attributes.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/require-attrs": [
@@ -21,8 +19,6 @@ module.exports = {
 ```
 
 ## Rule Details
-
-This rule enforces use of tag with specified attributes.
 
 ### Options
 

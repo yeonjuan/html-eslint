@@ -1,12 +1,10 @@
-# @html-eslint/id-naming-convention
+# id-naming-convention
 
-- Enforce naming conventions for id attributes.
+This rule enforces consistent naming convention for `id` attribute values.
 
 ## How to use
 
-.eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/id-naming-convention": "error",
@@ -16,8 +14,7 @@ module.exports = {
 
 ## Rule Details
 
-This rule enforces naming conventions for id attributes.
-It supports 4 naming cases. `camelCase`, `snake_case`, `PascalCase`, `kebab-case` (default `snake_case`).
+This rule supports 4 naming cases. `camelCase`, `snake_case`, `PascalCase`, `kebab-case` (default `snake_case`).
 
 ### Options
 
@@ -82,6 +79,6 @@ Examples of **correct** code for this rule with the `"kebab-case"` option:
 <div id="foo-bar"></div>
 ```
 
-## Further reading
+## Further Reading
 
 [Wiki - Naming convention](<https://en.wikipedia.org/wiki/Naming_convention_(programming)>)

@@ -1,6 +1,8 @@
-# @html-eslint/no-obsolete-tags
+# no-obsolete-tags
 
-Disallow using obsolete tags in HTML5.
+This rule disallows using obsolete tags in HTML5.
+
+## Why?
 
 The following element list is obsoleted in HTML5.
 It's not encouraged to use these tags.
@@ -11,9 +13,7 @@ applet, acronym, bgsound, dir, frame, frameset, noframes, isindex, keygen, listi
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/no-obsolete-tags": "error",
@@ -32,6 +32,6 @@ Examples of **incorrect** code for this rule:
 <dir></dir>
 ```
 
-## Further reading
+## Further Reading
 
 - [html spec 16.2. Non-conforming features](https://html.spec.whatwg.org/#non-conforming-features)

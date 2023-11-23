@@ -1,12 +1,10 @@
-# @html-eslint/no-skip-heading-levels
+# no-skip-heading-levels
 
-Disallow skipping heading levels.
+This rule disallows skipping heading levels.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/no-skip-heading-levels": "error",
@@ -15,8 +13,6 @@ module.exports = {
 ```
 
 ## Rule Details
-
-This rule disallows skipping heading levels.
 
 Examples of **incorrect** code for this rule:
 
@@ -40,6 +36,6 @@ Examples of **correct** code for this rule:
 </html>
 ```
 
-## Further reading
+## Further Reading
 
 - [MDN - heading elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements)
