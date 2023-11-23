@@ -3,7 +3,7 @@
   "version": "0.20.0",
   "private": true,
   "scripts": {
-    "dev": "parcel ./src/index.html",
+    "dev": "npm run docs && parcel ./src/index.html",
     "build": "npm run docs && parcel build ./src/index.html --dist-dir out",
     "start": "next start",
     "lint": "eslint src",
@@ -12,12 +12,13 @@
     "deploy": "firebase deploy"
   },
   "dependencies": {
-    "@html-eslint/eslint-plugin": "*",
-    "@html-eslint/parser": "*",
+    "@html-eslint/eslint-plugin": "^0.20.0",
+    "@html-eslint/parser": "^0.20.0",
     "@html-eslint/web-linter": "*",
     "codemirror": "^5.58.3"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "2.10.3",
     "@types/codemirror": "^5.60.5",
     "@types/eslint": "^8.4.10",
     "@types/node": "17.0.23",
@@ -29,12 +30,12 @@
     "highlight.js": "^11.9.0",
     "marked": "^9.1.5",
     "marked-highlight": "^2.0.6",
-    "null-loader": "^4.0.1",
     "parcel": "^2.10.1",
     "postcss": "^8.4.19",
     "posthtml-extend": "^0.6.5",
     "posthtml-include": "^1.7.4",
     "posthtml-modules": "^0.9.1",
+    "rimraf": "^5.0.5",
     "tailwindcss": "^3.3.5"
   },
   "@parcel/transformer-js": {

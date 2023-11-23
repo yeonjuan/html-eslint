@@ -10,3 +10,5 @@ packages/web-linter/out
 dist
 packages/parser/types
 **/dist
+.yarn/releases
+yarn.lock
