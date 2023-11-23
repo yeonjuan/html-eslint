@@ -39,7 +39,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run check:all"
+      "pre-push": "yarn check"
     }
   },
   "packageManager": "yarn@4.0.2",
