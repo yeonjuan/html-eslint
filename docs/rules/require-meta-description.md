@@ -1,15 +1,10 @@
----
-id: require-meta-description
-title: "require-meta-description"
----
-
-# require-meta-description
+# @html-eslint/require-meta-description
 
 Enforce to use `<meta name="description" ...>` in the `<head></head>`.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

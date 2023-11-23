@@ -1,15 +1,10 @@
----
-id: no-positive-tabindex
-title: "no-positive-tabindex"
----
-
-# no-positive-tabindex
+# @html-eslint/no-positive-tabindex
 
 Disallow use of positive `tabindex` attribute.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

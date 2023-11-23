@@ -1,15 +1,10 @@
----
-id: no-extra-spacing-attrs
-title: "no-extra-spacing-attrs"
----
-
-# no-extra-spacing-attrs
+# @html-eslint/no-extra-spacing-attrs
 
 Disallow extra spaces around attributes.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {
@@ -25,15 +20,16 @@ This rule disallows the use of extra spaces around attributes.
 
 Examples of **incorrect** code for this rule:
 
+<!-- prettier-ignore -->
 ```html
 <!-- an extra space between attributes -->
-<div foo="foo" bar="bar"></div>
+<div foo="foo"  bar="bar"></div>
 
 <!-- an extra space between tag start and attribute -->
-<div foo="foo"></div>
+<div  foo="foo"></div>
 
 <!-- an extra space between tag end and attribute -->
-<div foo="foo"></div>
+<div foo="foo" ></div>
 ```
 
 Examples of **correct** code for this rule:

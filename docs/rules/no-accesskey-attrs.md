@@ -1,9 +1,4 @@
----
-id: no-accesskey-attrs
-title: "no-accesskey-attrs"
----
-
-# no-accesskey-attrs
+# @html-eslint/no-accesskey-attrs
 
 Disallow accesskey attributes.
 
@@ -11,7 +6,7 @@ Access keys are HTML attributes that allow web developers to assign keyboard sho
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

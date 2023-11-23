@@ -9,7 +9,7 @@
     "**/coverage/**",
     "**/out/**",
     "**/node_modules/**",
-    "packages/website/.next/**"
+    "packages/website/**"
   ],
   "words": [
     "rehype",

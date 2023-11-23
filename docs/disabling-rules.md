@@ -1,8 +1,3 @@
----
-id: disable-rules-with-inline-comments
-title: Disabling Rules
----
-
 # Disabling Rules
 
 ## Disable rules with inline comments.

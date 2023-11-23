@@ -1,15 +1,10 @@
----
-id: no-skip-heading-levels
-title: "no-skip-heading-levels"
----
-
-# no-skip-heading-levels
+# @html-eslint/no-skip-heading-levels
 
 Disallow skipping heading levels.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

@@ -1,15 +1,10 @@
----
-id: no-inline-styles
-title: "no-inline-styles"
----
-
-# no-inline-styles
+# @html-eslint/no-inline-styles
 
 Disallow inline styles.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

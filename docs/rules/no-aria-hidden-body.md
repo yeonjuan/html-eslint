@@ -1,15 +1,10 @@
----
-id: no-aria-hidden-body
-title: "no-aria-hidden-body"
----
-
-# no-aria-hidden-body
+# @html-eslint/no-aria-hidden-body
 
 Disallow to use aria-hidden attributes on the `body` element.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

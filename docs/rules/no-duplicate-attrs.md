@@ -1,13 +1,10 @@
----
-id: no-duplicate-attrs
-title: "no-duplicate-attrs"
----
-
-# no-duplicate-attrs
+# @html-eslint/no-duplicate-attrs
 
 Disallow duplicate attributes.
 
 ## How to use
+
+- .eslintrc.js
 
 ```js
 module.exports = {

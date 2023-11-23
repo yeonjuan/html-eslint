@@ -1,15 +1,10 @@
----
-id: require-doctype
-title: "require-doctype"
----
+# @html-eslint/require-doctype
 
-# require-doctype
-
-Require `<!DOCTYPE html>` in the document
+Require `<!DOCTYPE html>` in the document.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

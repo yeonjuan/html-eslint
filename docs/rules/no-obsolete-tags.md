@@ -1,22 +1,17 @@
----
-id: no-obsolete-tags
-title: "no-obsolete-tags"
----
+# @html-eslint/no-obsolete-tags
 
-# no-obsolete-tags
-
-Disallow using obsolete tags in HTML5
+Disallow using obsolete tags in HTML5.
 
 The following element list is obsoleted in HTML5.
 It's not encouraged to use these tags.
 
-```
+```plaintext
 applet, acronym, bgsound, dir, frame, frameset, noframes, isindex, keygen, listing, menuitem, nextid, noembed, plaintext, rb, rtc, strike, xmp, basefont, big, blink, center, font, marquee, multicol, nobr, spacer, tt
 ```
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

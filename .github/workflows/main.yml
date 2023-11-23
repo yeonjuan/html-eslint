@@ -8,26 +8,25 @@ on:
       - "**"
 jobs:
   build:
-    name: Test
+    name: CI
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
-
-      - name: setup
-        run: npm ci
-      - name: build
-        run: npm run build
-      - name: test
-        run: npm run test
-      - name: spell
-        run: npm run spell-check
-      - name: format
-        run: npm run format-check
-      - name: ts
-        run: npm run ts
+          node-version: 18.16.1
+      - name: Install
+        run: yarn install --immutable
+      - name: Build
+        run: yarn build
+      - name: Unit Tests
+        run: yarn test
+      - name: Check Spells
+        run: yarn check:spell
+      - name: Check Format
+        run: yarn check:format
+      - name: Check Types
+        run: yarn check:ts
 
       - name: Code coverage report
         uses: codecov/codecov-action@v2

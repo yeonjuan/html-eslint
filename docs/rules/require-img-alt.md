@@ -1,15 +1,10 @@
----
-id: require-img-alt
-title: "require-img-alt"
----
+# @html-eslint/require-img-alt
 
-# require-img-alt
-
-Require `alt` attribute at `img` tag
+Require `alt` attribute at `img` tag.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

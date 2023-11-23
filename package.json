@@ -7,21 +7,21 @@
   "scripts": {
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "ts": "turbo run ts",
-    "spell-check": "cspell --config .cspell.json \"**/*.{js,ts,tsx,md}\"",
     "format": "prettier --write .",
-    "format-check": "prettier --list-different .",
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "publish-website": "npm run build && gh-pages -d packages/website/out -t true",
     "publish": "lerna publish",
     "publish:alpha": "lerna publish --dist-tag alpha",
-    "check:all": "npm run test && npm run format-check && npm run spell-check && npm run ts"
+    "check:ts": "turbo run ts",
+    "check:format": "prettier --check .",
+    "check:spell": "cspell --config .cspell.json \"**/*.{js,ts,tsx,md}\" --quiet",
+    "check": "yarn test && yarn check:format && yarn check:spell && yarn check:ts",
+    "publish:website": "yarn workspace website deploy"
   },
   "author": "yeonjuan",
   "license": "MIT",
   "devDependencies": {
-    "cspell": "^6.19.2",
+    "cspell": "^8.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-node": "^11.1.0",
@@ -39,9 +39,10 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run check:all"
+      "pre-push": "yarn check"
     }
   },
+  "packageManager": "yarn@4.0.2",
   "workspaces": [
     "packages/**"
   ]

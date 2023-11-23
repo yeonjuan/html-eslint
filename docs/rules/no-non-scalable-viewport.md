@@ -1,9 +1,4 @@
----
-id: no-non-scalable-viewport
-title: "no-non-scalable-viewport"
----
-
-# no-non-scalable-viewport
+# @html-eslint/no-non-scalable-viewport
 
 Disallow use of `user-scalable=no` in `<meta name="viewport">`.
 
@@ -11,7 +6,7 @@ The `user-scalable=no` disables zooming on a page. It makes users with partial v
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {

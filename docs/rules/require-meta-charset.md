@@ -1,15 +1,10 @@
----
-id: require-meta-charset
-title: "require-meta-charset"
----
-
-# require-meta-charset
+# @html-eslint/require-meta-charset
 
 Enforce to use `<meta charset="...">` in the `<head></head>`.
 
 ## How to use
 
-.eslintrc.js
+- .eslintrc.js
 
 ```js
 module.exports = {
