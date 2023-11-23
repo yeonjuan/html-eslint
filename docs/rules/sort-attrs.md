@@ -1,9 +1,9 @@
 ---
-id: sorted-attrs
-title: "sorted-attrs"
+id: sort-attrs
+title: "sort-attrs"
 ---
 
-# sorted-attrs
+# sort-attrs
 
 Enforce attributes alphabetical sorting.
 
