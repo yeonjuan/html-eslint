@@ -10,13 +10,13 @@
     "format": "prettier --write .",
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "publish-website": "npm run build && gh-pages -d packages/website/out -t true",
     "publish": "lerna publish",
     "publish:alpha": "lerna publish --dist-tag alpha",
     "check:ts": "turbo run ts",
     "check:format": "prettier --check .",
     "check:spell": "cspell --config .cspell.json \"**/*.{js,ts,tsx,md}\" --quiet",
-    "check": "yarn test && yarn check:format && yarn check:spell && yarn check:ts"
+    "check": "yarn test && yarn check:format && yarn check:spell && yarn check:ts",
+    "publish:website": "yarn workspace website deploy"
   },
   "author": "yeonjuan",
   "license": "MIT",
