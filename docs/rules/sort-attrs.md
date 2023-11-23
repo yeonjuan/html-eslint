@@ -39,7 +39,7 @@ Examples of **correct** code for this rule:
 }]
 ```
 
-#### `priority`
+#### priority
 
 This option allows you to set an array of attributes key names.
 When `priority` is defined, the specified attributes are sorted to the front with the highest priority.

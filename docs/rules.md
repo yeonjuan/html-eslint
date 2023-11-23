@@ -19,6 +19,8 @@
 
 - [@html-eslint/no-restricted-attrs](rules/no-restricted-attrs) : Disallow specified attributes
 
+- [@html-eslint/no-script-style-type](rules/no-script-style-type) (🔧): Enforce to omit type attributes for style sheets and scripts
+
 - [@html-eslint/no-target-blank](rules/no-target-blank) : Disallow usage of unsafe `target='_blank'`
 
 - [@html-eslint/require-attrs](rules/require-attrs) : Require specified attributes
@@ -40,6 +42,8 @@
 - [@html-eslint/require-lang](rules/require-lang) (⭐): Require `lang` attribute at `<html>` tag
 
 - [@html-eslint/require-meta-description](rules/require-meta-description) : Require use of `<meta name="description">` in `<head>`
+
+- [@html-eslint/require-open-graph-protocol](rules/require-open-graph-protocol) : Enforce to use `<meta name="viewport">` in `<head>`
 
 - [@html-eslint/require-title](rules/require-title) (⭐): Require `<title><title/>` in the `<head><head/>`
 
@@ -71,6 +75,8 @@
 
 - [@html-eslint/indent](rules/indent) (⭐🔧): Enforce consistent indentation
 
+- [@html-eslint/lowercase](rules/lowercase) (🔧): Enforce to use lowercase for tag and attribute names.
+
 - [@html-eslint/no-extra-spacing-attrs](rules/no-extra-spacing-attrs) (⭐🔧): Disallow an extra spacing around attributes
 
 - [@html-eslint/no-multiple-empty-lines](rules/no-multiple-empty-lines) (🔧): Disallow multiple empty lines
@@ -78,3 +84,5 @@
 - [@html-eslint/no-trailing-spaces](rules/no-trailing-spaces) (🔧): Disallow trailing whitespace at the end of lines
 
 - [@html-eslint/quotes](rules/quotes) (⭐🔧): Enforce consistent quoting attributes with double(") or single(')
+
+- [@html-eslint/sort-attrs](rules/sort-attrs) (🔧): Enforce attributes alphabetical sorting

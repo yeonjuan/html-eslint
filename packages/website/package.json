@@ -3,12 +3,11 @@
   "version": "0.20.0",
   "private": true,
   "scripts": {
-    "dev": "npm run docs && parcel ./src/index.html",
-    "build": "npm run docs && parcel build ./src/index.html --dist-dir out",
-    "start": "next start",
+    "dev": "rimraf ../../.parcel-cache && yarn docs && parcel ./src/index.html",
+    "build": "yarn docs && parcel build ./src/index.html --dist-dir out",
     "lint": "eslint src",
     "docs": "node ./scripts/docs",
-    "predeploy": "npm run build",
+    "predeploy": "yarn build",
     "deploy": "firebase deploy"
   },
   "dependencies": {
