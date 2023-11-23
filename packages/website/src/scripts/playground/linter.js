@@ -7,7 +7,7 @@ import { Linter as WebLinter } from "@html-eslint/web-linter";
  * @typedef {import("eslint").Rule.RuleModule } RuleModule
  * @typedef {import("eslint").Linter.RulesRecord} RulesRecord
  * @typedef {import('eslint').Linter.LintMessage} LintMessage
- * @typedef {import('eslint').Linter.Fi} LintMessage
+ * @typedef {import('eslint').Linter.LintMessage} LintMessage
  * @typedef {Object.<string, RuleModule>} RulesModules
  *
  * @callback OnChangeHadnler
@@ -75,7 +75,11 @@ export default class Linter {
   lint(code, fix = false) {
     try {
       let fatalMessage;
-      const { output, messages } = this._linter.verifyAndFix(
+      const messages = this._linter.verify(code, {
+        parser: "@html-eslint/parser",
+        rules: this._rules,
+      });
+      const { output } = this._linter.verifyAndFix(
         code,
         {
           parser: "@html-eslint/parser",

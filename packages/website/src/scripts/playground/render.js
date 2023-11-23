@@ -1,7 +1,13 @@
 /**
  * @typedef {import("codemirror").Editor} Editor
+ * @typedef {import("codemirror").TextMarker} TextMarker
  * @typedef {import('eslint').Linter.LintMessage} LintMessage
  */
+
+/**
+ * @type {TextMarker[]}
+ */
+let prevMarks = [];
 
 /**
  * @param {Editor} editor
@@ -14,8 +20,16 @@ export function renderErrors(editor, $errors, messages, fatalMessage) {
   if (messages.some((message) => message.fatal)) {
     return;
   }
-  messages.map(toMarker).map(([start, end]) => {
-    editor.markText(start, end, { startStyle: "editor_error" });
+
+  prevMarks.forEach((mark) => mark.clear());
+  prevMarks = [];
+
+  messages.map(toMarker).forEach(([start, end]) => {
+    prevMarks.push(
+      editor.markText(start, end, {
+        className: "editor_error",
+      })
+    );
   });
 }
 

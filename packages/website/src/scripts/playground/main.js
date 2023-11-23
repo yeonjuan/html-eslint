@@ -42,7 +42,7 @@ const configEditor = CodeMirror.fromTextArea(
  * @param {string} code
  */
 function handleCodeChange(code) {
-  const { messages, output } = linter.lint(code);
+  const { messages, output } = linter.lint(code, true);
   renderFixed($fixed, output);
   renderErrors(codeEditor, $errors, messages);
   update(codeEditor.getValue(), configEditor.getValue());
@@ -54,7 +54,7 @@ function handleCodeChange(code) {
  */
 function handleRulesChange(rules, code) {
   linter.setRules(rules);
-  const { messages, output } = linter.lint(code);
+  const { messages, output } = linter.lint(code, true);
   renderFixed($fixed, output);
   renderErrors(codeEditor, $errors, messages);
   update(codeEditor.getValue(), configEditor.getValue());
