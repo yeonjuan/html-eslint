@@ -1,12 +1,10 @@
-# @html-eslint/no-duplicate-id
+# no-duplicate-id
 
-Disallow duplicate `id` attributes.
+This rule disallows duplicate `id` attributes.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/no-duplicate-id": "error",
@@ -15,8 +13,6 @@ module.exports = {
 ```
 
 ## Rule Details
-
-This rule disallow the use of duplicate `id` attributes.
 
 Examples of **incorrect** code for this rule:
 
@@ -32,6 +28,6 @@ Examples of **correct** code for this rule:
 <div id="bar"></div>
 ```
 
-## Further reading
+## Further Reading
 
-- [MDN - id](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id)
+- [MDN: id](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id)

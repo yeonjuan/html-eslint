@@ -30,7 +30,7 @@ module.exports = function generateHTMLs(srcDir, distDir, outDir) {
           partialHtmlPath: resolve(outDir, parsed.name + ".html"),
           htmlPath: resolve(distDir, parsed.name + ".html"),
         },
-        createMarked("!bg-slate-800 text-xs py-3 rounded-md shadow-lg"),
+        createMarked("!bg-gray-100 text-xs py-3 rounded-md shadow-lg"),
         {
           includePath:
             outDir.slice(outDir.indexOf("/out") + 1) +

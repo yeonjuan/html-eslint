@@ -1,12 +1,10 @@
-# @html-eslint/element-newline
+# element-newline
 
-Enforce newline between elements.
+This rule enforces newlines between tags.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/element-newline": "error",
@@ -15,8 +13,6 @@ module.exports = {
 ```
 
 ## Rule Details
-
-This rule enforces newline between elements.
 
 Examples of **incorrect** code for this rule:
 
@@ -39,9 +35,21 @@ Examples of **correct** code for this rule:
 
 ### Options
 
-This rule has an object option.
+This rule has an object option:
 
-- `skip`: Specifies an array of tag names. Newlines are not checked for children elements of the specified tags.
+- `"skip"`: skips newline checking for the specified element's children.
+
+```ts
+//...
+"@html-eslint/element-newline": ["error", {
+  "skip": Array<string>
+}]
+```
+
+#### skip
+
+You can specify list of tag names in the `skip` option.
+Newline checking is not performed on children of the specified tags.
 
 Examples of **correct** code for the `{ "skip": ["pre", "code"] }` option:
 
@@ -50,8 +58,11 @@ Examples of **correct** code for the `{ "skip": ["pre", "code"] }` option:
 <pre>
     <div></div><div></div>
 </pre>
+```
 
+<!-- prettier-ignore -->
+```html
 <code>
-  <span></span><div></div>
+    <span></span><div></div>
 </code>
 ```

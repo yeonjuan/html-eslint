@@ -1,12 +1,15 @@
-# @html-eslint/no-duplicate-attrs
+# no-duplicate-attrs
 
 Disallow duplicate attributes.
 
+## Why?
+
+The HTML specification mandates that attribute names must be unique within a single HTML element.
+Violating this rule results in non-compliance with the standard.
+
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/no-duplicate-attrs": "error",

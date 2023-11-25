@@ -1,12 +1,15 @@
-# @html-eslint/require-meta-viewport
+# require-meta-viewport
 
-Enforce to use `<meta name="viewport" ...>` in the `<head></head>`.
+This rule enforces to use `<meta name="viewport" content="..">` in the `<head>`.
+
+## Why?
+
+Different browsers and devices may have default viewport settings.
+Explicitly setting the viewport properties using the `<meta name="viewport">` tag ensures a consistent and predictable display across various platforms.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/require-meta-viewport": "error",
@@ -20,9 +23,7 @@ Examples of **incorrect** code for this rule:
 
 ```html
 <html>
-  <head>
-    <meta name="description" content="ESLint plugin for HTML" />
-  </head>
+  <head></head>
 </html>
 ```
 

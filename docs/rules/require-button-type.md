@@ -1,6 +1,6 @@
-# @html-eslint/require-button-type
+# require-button-type
 
-Require use of button element with a valid type attribute.
+This rule enforces to use of button element with a valid type attribute.(`"button"`, `"submit"`, `"reset"`)
 
 ## How to use
 
@@ -15,8 +15,6 @@ module.exports = {
 ```
 
 ## Rule Details
-
-This rule enforces use of a valid type attribute for button elements. (`"button"`, `"submit"`, `"reset"`)
 
 Examples of **incorrect** code for this rule:
 
@@ -34,6 +32,6 @@ Examples of **correct** code for this rule:
 <button type="reset"></button>
 ```
 
-## Further reading
+## Further Reading
 
 - [HTML spec - the button element](https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-type)

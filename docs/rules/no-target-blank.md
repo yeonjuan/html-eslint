@@ -1,12 +1,10 @@
-# @html-eslint/no-target-blank
+# no-target-blank
 
-Disallow usage of unsafe `target='_blank'`.
+This rule disallows usage of unsafe `target='_blank'`.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/no-target-blank": "error",

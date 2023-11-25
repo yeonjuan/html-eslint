@@ -1,6 +1,6 @@
-# @html-eslint/require-closing-tags
+# require-closing-tags
 
-Require use of closing tag.
+This rule enforces closing tag.
 
 ## How to use
 
@@ -15,8 +15,6 @@ module.exports = {
 ```
 
 ## Rule Details
-
-This rule checks whether the tag has closing tag or not.
 
 Examples of **incorrect** code for this rule:
 
@@ -108,6 +106,6 @@ Examples of **correct** code for the `{ "allowSelfClosingCustom": true }` option
 <custom-tag />
 ```
 
-## Further reading
+## Further Reading
 
 - [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements)

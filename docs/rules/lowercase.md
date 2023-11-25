@@ -1,17 +1,10 @@
----
-id: lowercase
-title: "lowercase"
----
-
 # lowercase
 
-Enforce to use lowercase for tag and attribute names.
+This rule enforces to use lowercase for tag and attribute names.
 
 ## How to use
 
-.eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/lowercase": "error",

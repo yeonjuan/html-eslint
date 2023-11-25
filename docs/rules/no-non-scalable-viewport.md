@@ -1,14 +1,12 @@
-# @html-eslint/no-non-scalable-viewport
+# no-non-scalable-viewport
 
-Disallow use of `user-scalable=no` in `<meta name="viewport">`.
+This rule disallows use of `user-scalable=no` in `<meta name="viewport">`.
 
 The `user-scalable=no` disables zooming on a page. It makes users with partial vision or low vision hard to read web content.
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/no-non-scalable-viewport": "error",
@@ -17,8 +15,6 @@ module.exports = {
 ```
 
 ## Rule Details
-
-This rule disallow use of `user-scalable-no` in `<meta name="viewport">`.
 
 Examples of **incorrect** code for this rule:
 
@@ -42,6 +38,6 @@ Examples of **correct** code for this rule:
 </html>
 ```
 
-## Further reading
+## Further Reading
 
-- [MDN - Viewport meta tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag)
+- [MDN: Viewport meta tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag)
