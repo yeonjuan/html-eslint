@@ -6,7 +6,7 @@ packages/website/dist
 next-env.d.ts
 packages/web-linter/out
 packages/website/out
-packages/website/src/docs/rules/**/*.html
+packages/website/src/docs/**/*.html
 packages/website/src/out/**/*.html
 packages/**/dist
 *.tsbuildinfo

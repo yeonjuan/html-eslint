@@ -1,7 +1,15 @@
+<!-- eslint-disable @html-eslint/require-title -->
+<script locals>
+  module.exports = {
+    version: locals.version
+  }
+</script>
 <!DOCTYPE html>
 <html lang="en" class="light">
     <head>
-        <title>html-eslint</title>
+        <block name="meta">
+            <title>html-eslint</title>
+        </block>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta
@@ -23,56 +31,22 @@
         <link href="~/src/common.css" rel="stylesheet">
         <block name="head"></block>
         <link rel="stylesheet" href="~/src/highlight.scss">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&family=DM+Sans:opsz,wght@9..40,600;9..40,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     </head>
-    <body class="bg-white text-slate-950 text-base">
-        <header class="flex sticky top-0 bg-white font-semibold py-3 pl-3 pr-3  w-full z-50 flex-row items-center text-base h-[60px] border-slate-200 border-b">
-            <a class="flex flex-row items-center md:py-0 no-underline text-black font-medium" href="/">
-                <h2 class="text-base">
-                    <img src="~/src/assets/logo.svg" alt="" class="inline w-[26px]">
-                    @html-eslint
-                </h2>
-            </a>
-            <span class="hidden pl-3 text-slate-600 text-xs md:block">
-                v{{version}}
-            </span>
-            <nav class="ml-auto mr-3">
-                <ul class="flex flex-row gap-2 text-sm md:gap-4">
-                    <li>
-                        <a href="~/src/docs/getting-started.html" class="no-underline text-black">Docs</a>
-                    </li>
-                    <li>
-                        <a href="~/src/playground.html" class="no-underline text-black">Playground</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/yeonjuan/html-eslint" class="no-underline text-black" target="_blank noreferrer">Github</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <main class="flex relative" role="main">
-            <div id="nav-overlay" tabindex="-1" class="hidden w-full fixed h-full bg-slate-800/[0.3]"></div>
+    <body class="bg-white text-slate-950 text-base relative">
+        <module href="/components/header/header.html"></module>
+        <main class="relative pt-[83px] px-[20px] md:flex" role="main">
+            <block name="menu"></block>
             <block name="nav"></block>
             <block name="content"></block>
+            <div id="overlay" class="hidden md:hidden fixed inset-0 bg-black/20 backdrop-blur-sm dark:bg-slate-900/80 h-full">
+            </div>
         </main>
-        <footer class="py-4 px-4 md:px-16 border-t border-slate-200 ">
-            <section class="flex justify-between py-4 text-sm [&>div]:flex-1 [&>div]:px-2 [&>div>h2]:font-semibold [&>div>ul]:pt-1 md:pr-[270px]">
-                <div>
-                    <ul class="flex [&>li]:border-r [&>li]:border-slate-400 [&>li]:px-3">
-                        <li>
-                            <a href="https://github.com/yeonjuan/html-eslint" target="_blank noreferrer" class="text-slate-600">GitHub</a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/yeonjuan/html-eslint/issues" target="_blank noreferrer" class="text-slate-600">Report issue</a>
-                        </li>
-                        <li>
-                            <a href="~/src/docs/getting-started.html" class="text-slate-600">Docs</a>
-                        </li>
-                        <li class="!border-r-0">
-                            <a href="~/src/playground.html" class=" text-slate-600">Playground</a>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-        </footer>
+        <block name="footer"></block>
+        <script src="~/src/scripts/layout.js"></script>
     </body>
 </html>
+
+

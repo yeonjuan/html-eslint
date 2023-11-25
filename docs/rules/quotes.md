@@ -26,13 +26,13 @@ This rule has two options
 Examples of **incorrect** code for this rule with the default `"double"` option:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <div id='foo'></div>
 ```
 
 Examples of **correct** code for this rule with the default `"double"` option:
 
-```html
+```html,correct
 <div id="foo"></div>
 <div id='containing "double" quotes'></div>
 ```
@@ -41,14 +41,14 @@ Examples of **correct** code for this rule with the default `"double"` option:
 
 Examples of **incorrect** code for this rule with the `"single"` option:
 
-```html
+```html,incorrect
 <div id="foo"></div>
 ```
 
 Examples of **correct** code for this rule with the default `"single"` option:
 
 <!-- prettier-ignore -->
-```html
+```html,correct
 <div id='foo'></div>
 <div id="containing 'single' quotes"></div>
 ```

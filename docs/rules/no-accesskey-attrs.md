@@ -21,13 +21,13 @@ module.exports = {
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <div accesskey="h"></div>
 ```
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <div></div>
 ```
 

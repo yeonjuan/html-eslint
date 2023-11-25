@@ -23,14 +23,14 @@ This rule disallows the use of duplicate attributes.
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <div foo="foo1" foo="foo2"></div>
 <div foo foo></div>
 ```
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <div foo="foo"></div>
 <div bar></div>
 ```

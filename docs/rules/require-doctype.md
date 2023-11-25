@@ -16,13 +16,13 @@ module.exports = {
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <html></html>
 ```
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <!DOCTYPE html>
 <html></html>
 ```

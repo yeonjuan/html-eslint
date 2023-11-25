@@ -30,15 +30,14 @@ module.exports = function generateHTMLs(srcDir, distDir, outDir) {
           partialHtmlPath: resolve(outDir, parsed.name + ".html"),
           htmlPath: resolve(distDir, parsed.name + ".html"),
         },
-        createMarked("!bg-gray-100 text-xs py-3 rounded-md shadow-lg"),
+        createMarked(),
         {
           includePath:
             outDir.slice(outDir.indexOf("/out") + 1) +
             "/" +
             parsed.name +
             ".html",
-          wrapper: (html) =>
-            `<section class='w-full px-4 pb-6 pt-2 md:pr-[270px]'>${html}</section>`,
+          wrapper: (html) => `<section class='md-wrapper'>${html}</section>`,
         }
       );
     }

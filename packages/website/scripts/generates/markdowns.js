@@ -33,22 +33,29 @@ function generateRulesMarkdown() {
     let meta = "";
     if (rule.meta.docs.recommended) meta += "⭐";
     if (rule.meta.fixable) meta += "🔧";
-    if (meta) meta = "(" + meta + ")";
     lines.push(
-      `- [@html-eslint/${ruleId}](rules/${ruleId}) ${meta}: ${rule.meta.docs.description}`
+      `| [${ruleId}](rules/${ruleId}) | ${rule.meta.docs.description} | ${meta} |`
     );
   };
 
-  lines.push("## Best Practice");
+  lines.push("## Best Practice\n");
+  lines.push("| Rule | Description |  |");
+  lines.push("| --- | --- | --- |");
   rules["Best Practice"].forEach(pushRuleItem);
   lines.push("## SEO");
+  lines.push("| Rule | Description |  |");
+  lines.push("| --- | --- | --- |");
   rules.SEO.forEach(pushRuleItem);
-  lines.push("## Accessibility");
+  lines.push("## Accessibility\n");
+  lines.push("| Rule | Description |  |");
+  lines.push("| --- | --- | --- |");
   rules.Accessibility.forEach(pushRuleItem);
-  lines.push("## Style");
+  lines.push("## Style\n");
+  lines.push("| Rule | Description |  |");
+  lines.push("| --- | --- | --- |");
   rules.Style.forEach(pushRuleItem);
 
-  const markedown = lines.join("\n\n");
+  const markedown = lines.join("\n");
 
   writeFileSync(
     resolve(cwd(), "../../docs/rules.md"),

@@ -16,7 +16,7 @@ module.exports = {
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <html>
   <body>
     <h1>head1</h1>
@@ -27,7 +27,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <html>
   <body>
     <h1>head1</h1>

@@ -20,7 +20,7 @@ module.exports = {
 
 Examples of **incorrect** code for this rule with the default `{ "ogp": ['og:title', 'og:type', 'og:url', 'og:image'] }` options:
 
-```html
+```html,incorrect
 <html>
   <head>
     <title>title</title>
@@ -29,7 +29,7 @@ Examples of **incorrect** code for this rule with the default `{ "ogp": ['og:tit
 ```
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <html>
   <head>
     <title>title</title>
@@ -42,7 +42,7 @@ Examples of **incorrect** code for this rule with the default `{ "ogp": ['og:tit
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <html>
   <head>
     <title>title</title>

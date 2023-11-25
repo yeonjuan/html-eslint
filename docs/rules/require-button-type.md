@@ -4,9 +4,7 @@ This rule enforces to use of button element with a valid type attribute.(`"butto
 
 ## How to use
 
-- .eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/require-button-type": "error",
@@ -19,14 +17,14 @@ module.exports = {
 Examples of **incorrect** code for this rule:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <button></button>
 <button type="invalid"></button>
 ```
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <button type="submit"></button>
 <button type="button"></button>
 <button type="reset"></button>

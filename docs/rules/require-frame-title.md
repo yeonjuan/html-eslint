@@ -22,12 +22,12 @@ module.exports = {
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <iframe src="..."></iframe> <iframe src="..." title=""></iframe>
 ```
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <iframe src="..." title="frame title"></iframe>
 ```

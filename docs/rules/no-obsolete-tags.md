@@ -27,7 +27,7 @@ This rule disallow using obsolete tags.
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <applet></applet>
 <dir></dir>
 ```

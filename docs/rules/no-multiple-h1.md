@@ -18,7 +18,7 @@ This rule disallows the use of multiple `<h1>` tags.
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <html>
   <body>
     <h1>head</h1>
@@ -29,7 +29,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <html>
   <body>
     <h1>head</h1>

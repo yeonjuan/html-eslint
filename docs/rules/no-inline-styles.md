@@ -27,12 +27,12 @@ module.exports = {
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <div style="color:#ff0a00"></div>
 ```
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <div class="some-color"></div>
 ```

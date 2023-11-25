@@ -27,13 +27,13 @@ This rule supports 4 naming cases. `camelCase`, `snake_case`, `PascalCase`, `keb
 
 Examples of **incorrect** code for this rule with the default `"snake_case"` option:
 
-```html
+```html,incorrect
 <div id="Foo"></div>
 ```
 
 Examples of **correct** code for this rule with the default `"snake_case"` option:
 
-```html
+```html,correct
 <div id="foo_bar"></div>
 ```
 
@@ -41,13 +41,13 @@ Examples of **correct** code for this rule with the default `"snake_case"` optio
 
 Examples of **incorrect** code for this rule with the `"camelCase"` option:
 
-```html
+```html,incorrect
 <div id="foo_bar"></div>
 ```
 
 Examples of **correct** code for this rule with the `"camelCase"` option:
 
-```html
+```html,correct
 <div id="fooBar"></div>
 ```
 
@@ -55,13 +55,13 @@ Examples of **correct** code for this rule with the `"camelCase"` option:
 
 Examples of **incorrect** code for this rule with the `"PascalCase"` option:
 
-```html
+```html,incorrect
 <div id="foo_bar"></div>
 ```
 
 Examples of **correct** code for this rule with the `"PascalCase"` option:
 
-```html
+```html,correct
 <div id="FooBar"></div>
 ```
 
@@ -69,13 +69,13 @@ Examples of **correct** code for this rule with the `"PascalCase"` option:
 
 Examples of **incorrect** code for this rule with the `"kebab-case"` option:
 
-```html
+```html,incorrect
 <div id="foo_bar"></div>
 ```
 
 Examples of **correct** code for this rule with the `"kebab-case"` option:
 
-```html
+```html,correct
 <div id="foo-bar"></div>
 ```
 

@@ -1,8 +1,14 @@
 <!doctype html>
 <extends src="components/layout.html">
+    <block name="meta">
+        <title>Playground - html-eslint</title>
+    </block>
     <block name="nav">
     </block>
     <block name="content">
         <include src="components/playground.html"></include>
+    </block>
+    <block name="footer">
+        <module href="/components/footer.html" locals='{"class":""}'></module>
     </block>
 </extends>

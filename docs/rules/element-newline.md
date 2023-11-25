@@ -17,7 +17,7 @@ module.exports = {
 Examples of **incorrect** code for this rule:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <html>
   <head><title>newline</title></head>
 </html>
@@ -25,7 +25,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <html>
   <head>
     <title>newline</title>

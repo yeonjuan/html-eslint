@@ -4,9 +4,7 @@ This rule enforces closing tag.
 
 ## How to use
 
-.eslintrc.js
-
-```js
+```js,.eslintrc.js
 module.exports = {
   rules: {
     "@html-eslint/require-closing-tags": "error",
@@ -19,14 +17,14 @@ module.exports = {
 Examples of **incorrect** code for this rule:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <div>
 ```
 
 Examples of **correct** code for this rule:
 
 <!-- prettier-ignore -->
-```html
+```html,correct
 <div></div>
 ```
 
@@ -47,7 +45,7 @@ This rule has an object option for [Void Elements](https://html.spec.whatwg.org/
 Examples of **incorrect** code for the `{ "selfClosing": "never"}` option:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <img />
 <base />
 ```
@@ -55,7 +53,7 @@ Examples of **incorrect** code for the `{ "selfClosing": "never"}` option:
 Examples of **correct** code for the `{ "selfClosing": "never"}` option:
 
 <!-- prettier-ignore -->
-```html
+```html,correct
 <img>
 <base>
 ```
@@ -65,7 +63,7 @@ Examples of **correct** code for the `{ "selfClosing": "never"}` option:
 Examples of **incorrect** code for the `{ "selfClosing": "always" }` option:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <img>
 <base>
 ```
@@ -73,7 +71,7 @@ Examples of **incorrect** code for the `{ "selfClosing": "always" }` option:
 Examples of **correct** code for the `{ "selfClosing": "always" }` option:
 
 <!-- prettier-ignore -->
-```html
+```html,correct
 <img />
 <base />
 ```
@@ -83,14 +81,14 @@ Examples of **correct** code for the `{ "selfClosing": "always" }` option:
 Examples of **incorrect** code for the `{ "allowSelfClosingCustom": false }` option:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <custom-tag />
 ```
 
 Examples of **correct** code for the `{ "allowSelfClosingCustom": false }` option:
 
 <!-- prettier-ignore -->
-```html
+```html,correct
 <custom-tag> </custom-tag>
 ```
 
@@ -99,7 +97,7 @@ Examples of **correct** code for the `{ "allowSelfClosingCustom": false }` optio
 Examples of **correct** code for the `{ "allowSelfClosingCustom": true }` option:
 
 <!-- prettier-ignore -->
-```html
+```html,correct
 <!-- both allowed -->
 
 <custom-tag> </custom-tag>

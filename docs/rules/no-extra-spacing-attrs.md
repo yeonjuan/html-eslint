@@ -17,7 +17,7 @@ module.exports = {
 Examples of **incorrect** code for this rule:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <!-- an extra space between attributes -->
 <div foo="foo"  bar="bar"></div>
 
@@ -30,7 +30,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <div foo="foo" bar="bar"></div>
 <div foo="foo"></div>
 ```

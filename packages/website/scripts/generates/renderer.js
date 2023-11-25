@@ -1,9 +1,4 @@
-const headingLevelClass = {
-  1: "text-2xl my-6 md:text-3xl scroll-mt-[64px]",
-  2: "text-xl my-4 md:text-2xl scroll-mt-[64px]",
-  3: "text-lg my-2 md:text-xl scroll-mt-[64px]",
-  4: "my-2 block  scroll-mt-[64px]",
-};
+const { fileName, exampleCode, exampleIcon } = require("./html-factory");
 
 const linkIconClass = {
   1: "w-[20px]",
@@ -19,18 +14,60 @@ module.exports = {
       .replace(/^@/, "")
       .replace(/[\s\/]/g, "-");
     return `
-    <h${level} id="${id}" class="${headingLevelClass[level]}">
+    <h${level} id="${id}" class="group md-heading${level}">
       ${text}
-      <a href="#${id}"><img src="~/src/assets/link.svg" class="inline ${linkIconClass[level]}"></a>
+      <a href="#${id}" ><img src="~/src/assets/link.svg" alt="" class="inline md:hidden md:group-hover:inline ${linkIconClass[level]}"></a>
     </h${level}>`;
   },
   paragraph(text) {
-    return `<p>${text}</p>`;
+    let icon = "";
+    if (text.includes("<strong>correct</strong>")) {
+      icon = exampleIcon("correct");
+    }
+
+    if (text.includes("<strong>incorrect</strong>")) {
+      icon = exampleIcon("incorrect");
+    }
+
+    return `<p class="md-p">${icon}${text}</p>`;
   },
   list(body) {
-    return `<ol class="list-disc pl-6 py-2 font-light">${body}</ol>`;
+    return `<ol class="md-list">${body}</ol>`;
+  },
+  listitem(text) {
+    return `<li class="md-listitem">${text}</li>`;
   },
   codespan(code) {
-    return `<code class="py-1 px-1 rounded bg-slate-100 font-light text-sm">${code}</code>`;
+    return `<code class="md-codespan">${code}</code>`;
+  },
+  code(code, info) {
+    [_, info] = info.includes(",") ? info.split(",") : [info];
+
+    if (info === "correct" || info === "incorrect") {
+      return exampleCode(info, code);
+    }
+
+    return `<div class="md-code-wrapper">
+      ${fileName(info)}
+       <pre><code class="hljs code2 md-code${
+         info ? "" : "-no-filename"
+       }">${code}</code></pre>
+      </div>
+    `;
+  },
+  link(href, title, text) {
+    if (href.indexOf("http") === 0) {
+      text += `<img class="inline" src="~/src/assets/icon-external-link.svg">`;
+    }
+    return `<a href="${href}" class="md-a" target="_blank" rel="noopener noreferrer">${text}</a>`;
+  },
+  tablecell(content, flags) {
+    if (flags.header) {
+      return `<th class="md-th">${content}</th>`;
+    }
+    return `<td class="md-td">${content}</td>`;
+  },
+  table(header, body) {
+    return `<div class="md-table-wrapper"><table class="md-table">${header}${body}</table></div>`;
   },
 };
