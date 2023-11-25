@@ -1062,8 +1062,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/cli@workspace:packages/cli"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.20.0"
-    "@html-eslint/parser": "npm:^0.20.0"
+    "@html-eslint/eslint-plugin": "npm:^0.21.0"
+    "@html-eslint/parser": "npm:^0.21.0"
     axios: "npm:^0.21.1"
     chalk: "npm:^4.1.1"
     eslint: "npm:^7.27.0"
@@ -1073,11 +1073,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin@npm:^0.20.0, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
+"@html-eslint/eslint-plugin@npm:^0.21.0, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
   dependencies:
-    "@html-eslint/parser": "npm:^0.20.0"
+    "@html-eslint/parser": "npm:^0.21.0"
     "@types/eslint": "npm:^7.2.10"
     "@types/estree": "npm:^0.0.47"
     es-html-parser: "npm:^0.0.8"
@@ -1103,7 +1103,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/parser@npm:^0.20.0, @html-eslint/parser@workspace:packages/parser":
+"@html-eslint/parser@npm:^0.21.0, @html-eslint/parser@workspace:packages/parser":
   version: 0.0.0-use.local
   resolution: "@html-eslint/parser@workspace:packages/parser"
   dependencies:
@@ -1112,7 +1112,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/web-linter@npm:*, @html-eslint/web-linter@workspace:packages/web-linter":
+"@html-eslint/web-linter@npm:^0.21.0, @html-eslint/web-linter@workspace:packages/web-linter":
   version: 0.0.0-use.local
   resolution: "@html-eslint/web-linter@workspace:packages/web-linter"
   dependencies:
@@ -5390,9 +5390,9 @@ __metadata:
   linkType: hard
 
 "cli-spinners@npm:^2.5.0":
-  version: 2.9.1
-  resolution: "cli-spinners@npm:2.9.1"
-  checksum: c9b1152bd387e5b76823bdee6f19079c4017994d352627216e5d3dab9220a8402514519ad96a0a12120b80752fead98d1e7a7a5f56ce32125f92778ef47bdd8c
+  version: 2.9.2
+  resolution: "cli-spinners@npm:2.9.2"
+  checksum: 907a1c227ddf0d7a101e7ab8b300affc742ead4b4ebe920a5bf1bc6d45dce2958fcd195eb28fa25275062fe6fa9b109b93b63bc8033396ed3bcb50297008b3a3
   languageName: node
   linkType: hard
 
@@ -6874,9 +6874,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.535":
-  version: 1.4.592
-  resolution: "electron-to-chromium@npm:1.4.592"
-  checksum: 94a4719f792243b5914ef3630c30827712e4ddb683f0b1ce6848f2e96ce1f33c29a7f4bf65ffe50d0ad8a3fa8c87f740c85d48dafe4297c770738125a9f2f494
+  version: 1.4.594
+  resolution: "electron-to-chromium@npm:1.4.594"
+  checksum: 3714e204c5dd00fa95aaddd636953c4e6b8b358f780c0b1ba94140fe1b3c25f54364fd818a2d501fbdae5f85903bfa64d634fa57d8b4160847fa0a0f6a53575f
   languageName: node
   linkType: hard
 
@@ -12330,13 +12330,13 @@ __metadata:
   linkType: hard
 
 "node-gyp-build@npm:^4.3.0":
-  version: 4.7.0
-  resolution: "node-gyp-build@npm:4.7.0"
+  version: 4.7.1
+  resolution: "node-gyp-build@npm:4.7.1"
   bin:
     node-gyp-build: bin.js
     node-gyp-build-optional: optional.js
     node-gyp-build-test: build-test.js
-  checksum: fe158b20ef63394d7c95d1d5a5e1eb5284e9e2d85c6e0499052baacef2221ad5bc1da3c1d67ec9406c603f5ab41a13402891fc042f6f990ab245d30aa4471807
+  checksum: b8e4a3f889237cd08edde3775e2b4e1e39a0571580584e33e29979f0c532a254ce3c5ec9435bd526254ad0b3f0b4a7e7fe14e53bd400f6ea9445f3bfd88a6b1e
   languageName: node
   linkType: hard
 
@@ -16639,9 +16639,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "website@workspace:packages/website"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.20.0"
-    "@html-eslint/parser": "npm:^0.20.0"
-    "@html-eslint/web-linter": "npm:*"
+    "@html-eslint/eslint-plugin": "npm:^0.21.0"
+    "@html-eslint/parser": "npm:^0.21.0"
+    "@html-eslint/web-linter": "npm:^0.21.0"
     "@parcel/transformer-sass": "npm:2.10.3"
     "@types/codemirror": "npm:^5.60.5"
     "@types/eslint": "npm:^8.4.10"
