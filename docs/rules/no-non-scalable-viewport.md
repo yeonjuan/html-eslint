@@ -18,7 +18,7 @@ module.exports = {
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <html>
   <head>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
@@ -29,7 +29,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <html>
   <head>
     <meta name="viewport" content="width=device-width" />

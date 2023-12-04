@@ -23,7 +23,7 @@ module.exports = {
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <body aria-hidden>
   <body aria-hidden="true"></body>
 </body>
@@ -31,7 +31,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <body></body>
 ```
 

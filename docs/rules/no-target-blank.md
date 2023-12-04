@@ -16,13 +16,13 @@ module.exports = {
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <a target="_blank" href="http://example.com/"></a>
 ```
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <a target="_blank" href="relative/path/"></a>
 <a target="_blank" rel="noreferrer" href="http://example.com/"></a>
 ```

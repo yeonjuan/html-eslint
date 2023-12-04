@@ -27,13 +27,13 @@ This rule enforces `<title>` tag in the `<head>`.
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <html>
   <head> </head>
 </html>
 ```
 
-```html
+```html,incorrect
 <html>
   <head>
     <title> </title>
@@ -43,7 +43,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <html>
   <head>
     <title>Site Title</title>

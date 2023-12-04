@@ -23,7 +23,7 @@ This rule disallows the use of empty lines which exceeded the maximum lines allo
 Examples of **incorrect** code for this rule with the default `{ "max": 2 }` option:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <div id="foo"></div>
 
 
@@ -34,7 +34,7 @@ Examples of **incorrect** code for this rule with the default `{ "max": 2 }` opt
 Examples of **correct** code for this rule with the default `{ "max": 2 }` option:
 
 <!-- prettier-ignore -->
-```html
+```html,correct
 <div id="foo"></div>
 
 

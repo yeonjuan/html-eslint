@@ -31,7 +31,7 @@ This rule enforces the `alt` attribute at `img` tag.
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <img src="image.png" />
 
 <img src="image.png" alt="" />
@@ -40,7 +40,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <img src="image.png" alt="some description" />
 ```
 
@@ -52,7 +52,7 @@ This rule takes an object option.
 
 Examples of **correct** code for the `{ substitute: ["[alt]", "[attr.alt]"] }` option:
 
-```html
+```html,correct
 <img src="image.png" [alt]="..." />
 
 <img src="image.png" [attr.alt]="..." />

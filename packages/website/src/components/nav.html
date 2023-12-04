@@ -8,107 +8,75 @@
     styleNavs: locals.navs.style
   }
 </script>
-<button type="button" id="nav-open-btn" class="fixed p-2 top-[64px] right-[4px] ml-auto inline-block bg-slate-200 rounded bg-opacity-70" aria-label="menu">
-    <svg width="24" height="24">
-        <path d="M5 6h14M5 12h14M5 18h14" fill="black" stroke="#000" stroke-width="2" stroke-linecap="round">
-        </path>
-    </svg>
-</button>
-<nav
-    id="nav"
-    class="fixed flex flex-col text-base top-[60px] h-[calc(100%-60px)] right-0 z-20 w-[256px] overflow-y-auto transition-all duration-500 transform translate-x-full bg-white shadow-lg md:flex md:translate-x-0"
->
-    <div class="flex flex-col justify-center pr-4 pt-4 md:hidden">
-        <button type="button" id="nav-close-btn" class="ml-auto w-[24px] h-[24px]">
-            <img src="~/src/assets/icon-close.svg" alt="">
-        </button>
-    </div>
-
-    <ul class="bg-white pl-4 pb-6">
-        <li>
-            <module
-                href="/components/nav-list.html"
-                locals='{ "id": "project-nav", "list": {{projectNavs}} }'>
-                <h4 class="font-semibold py-2 text-base">
-                    Docs
-                </h4>
-            </module>
-        </li>
-        <li>
-            <h4 class="font-semibold py-2 text-base">
-                Rules
-            </h4>
-            <ul class="[&>li>h5]:py-1 [&>li]:ml-1">
-                <li class="hover:border-slate-800  cursor-pointer [&>a]:text-slate-700 [&>a]:hover:text-slate-900">
-                    <a href="~/src/docs/rules.html" class="w-full no-underline">All Rules</a>
-                </li>
-                <li>
-                    <module
-                        href="/components/nav-list.html"
-                        locals='{ "id": "best-practice-nav", "list": {{bestPracticeNavs}} }'>
-                        <h5 class="font-semibold text-base">
-                            Best Practice
-                        </h5>
-                    </module>
-                </li>
-                <li>
-                    <module
-                        href="/components/nav-list.html"
-                        locals='{ "id": "seo-nav", "list": {{seoNavs}} }'>
-                        <h5 class="font-semibold text-base">
-                            SEO
-                        </h5>
-                    </module>
-                </li>
-                <li>
-                    <module
-                        href="/components/nav-list.html"
-                        locals='{ "id": "accesibility-nav", "list": {{accssibilityNavs}} }'>
-                        <h5 class="font-semibold text-base">
-                            Accesibility
-                        </h5>
-                    </module>
-                </li>
-                <li>
-                    <module
-                        href="/components/nav-list.html"
-                        locals='{ "id": "style-nav", "list": {{styleNavs}} }'>
-                        <h5 class="font-semibold text-base">
-                            Style
-                        </h5>
-                    </module>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <script>
-      const $nav = document.getElementById('nav');
-      const $anchors = $nav.querySelectorAll("li > a");
-      const $navOverlay = document.getElementById('nav-overlay');
-  
-      $anchors.forEach(anchor => {
-        if (new URL(anchor.href).pathname === window.location.pathname) {
-          anchor.parentElement.classList.add('!border-slate-800', '!text-slate-900');
-        }
-      });
-
-      const $navOpenBtn = document.getElementById('nav-open-btn');
-      const $navCloseBtn = document.getElementById('nav-close-btn');
-
-      function openNav() {
-        $navOverlay.classList.remove('hidden');
-        $nav.classList.remove("translate-x-full");
-        document.body.classList.add("overflow-y-hidden");
-      }
-
-      function closeNav () {
-        $navOverlay.classList.add('hidden');
-        $nav.classList.add("translate-x-full");
-        document.body.classList.remove("overflow-y-hidden");
-      }
-
-      $navOpenBtn.addEventListener('click',openNav);
-      $navCloseBtn.addEventListener('click', closeNav);
-      $navOverlay.addEventListener('click',closeNav);
-    </script>
-</nav>
+<div class="font-black md:pl-[280px] w-full md:w-[200px]">
+    <button id="nav-button" type="button" class="flex md:hidden body4 text-black-700 w-full px-[16px] py-[12px] border-gray-300 border rounded-[6px]">
+        Menu
+        <img src="~/src/assets/icon-chevron-right.svg" class="rotate-90 ml-auto" alt="">
+    </button>
+    <nav
+        id="nav"
+        class="hidden w-full border border-gray-300 border-t-0 bg-white md:h-[calc(100vh-66px)] md:overflow-y-auto md:block md:w-[280px] md:top-0 md:mt-[66px] md:fixed md:left-0 md:pb-[60px]"
+    >
+        <div class="flex flex-col justify-center pr-4 pt-4 md:hidden">
+            <button type="button" id="nav-close-btn" class="hidden ml-auto w-[24px] h-[24px]">
+                <img src="~/src/assets/icon-close.svg" alt="">
+            </button>
+        </div>
+        <ul class="mt-[22px] px-[12px] [&>li]:px-[12px] [&>li]:mb-[12px]">
+            <li>
+                <a href="~/src/docs/getting-started.html" class="w-full flex items-center">
+                    <div class="w-[28px] h-[28px] rounded-[6px] p-[6px] border-[1px] border-gray-300 drop-shadow-[4px_0_2px_#E8EBEF] mr-[12px]">
+                        <img src="~/src/assets/icon-flag.svg" alt="">
+                    </div>
+                    <h4 class="title5">Getting Started</h4>
+                    <img src="~/src/assets/icon-chevron-right.svg" alt="" class="ml-auto">
+                </a>
+            </li>
+            <li>
+                <a href="~/src/docs/rules.html" class="w-full flex items-center">
+                    <div class="w-[28px] h-[28px] rounded-[6px] p-[6px] border-[1px] border-gray-300 drop-shadow-[4px_0_2px_#E8EBEF] mr-[12px]">
+                        <img src="~/src/assets/icon-docs.svg" alt="">
+                    </div>
+                    <h4 class="title5">Rules</h4>
+                    <img src="~/src/assets/icon-chevron-right.svg" alt="" class="ml-auto">
+                </a>
+            </li>
+            <li>
+                <module
+                    href="/components/nav-list.html"
+                    locals='{ "id": "best-practice-nav", "list": {{bestPracticeNavs}} }'>
+                    <h4 class="title5">
+                        Best Practice
+                    </h4>
+                </module>
+            </li>
+            <li>
+                <module
+                    href="/components/nav-list.html"
+                    locals='{ "id": "seo-nav", "list": {{seoNavs}} }'>
+                    <h4 class="title5">
+                        SEO
+                    </h4>
+                </module>
+            </li>
+            <li>
+                <module
+                    href="/components/nav-list.html"
+                    locals='{ "id": "accesibility-nav", "list": {{accssibilityNavs}} }'>
+                    <h4 class="title5">
+                        Accesibility
+                    </h4>
+                </module>
+            </li>
+            <li>
+                <module
+                    href="/components/nav-list.html"
+                    locals='{ "id": "style-nav", "list": {{styleNavs}} }'>
+                    <h4 class="title5">
+                        Style
+                    </h4>
+                </module>
+            </li>
+        </ul>
+    </nav>
+</div>

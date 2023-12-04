@@ -17,39 +17,39 @@ module.exports = {
 Examples of **incorrect** code for this rule:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <Div></Div>
 ```
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <div ID="foo"></div>
 ```
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <SCRIPT></SCRIPT>
 ```
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <sTyle></sTyle>
 ```
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <div></div>
 ```
 
-```html
+```html,correct
 <div id="foo"></div>
 ```
 
-```html
+```html,correct
 <script></script>
 ```
 
-```html
+```html,correct
 <style></style>
 ```

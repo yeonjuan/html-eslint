@@ -9,13 +9,13 @@
 
 - npm
 
-```console
+```console,Terminal
 npm install --save-dev eslint @html-eslint/parser @html-eslint/eslint-plugin
 ```
 
 - yarn
 
-```console
+```console,Terminal
 yarn add -D eslint @html-eslint/parser @html-eslint/eslint-plugin
 ```
 
@@ -24,7 +24,7 @@ yarn add -D eslint @html-eslint/parser @html-eslint/eslint-plugin
 Populate it with the following on your `.eslintrc.js`. If it does not exist create a `.eslintrc.js` config file in the root of your project.
 We can apply [HTML-ESLint plugin rules](rules) to only HTML files(`*.html`) by using `overrides` in `.eslintrc.js`. (see [ESLint Configuration](https://eslint.org/docs/user-guide/configuring#configuration-based-on-glob-patterns))
 
-```js
+```js,.eslintrc.js
 module.exports = {
   //...
   plugins: ["@html-eslint"],
@@ -44,9 +44,7 @@ module.exports = {
 
 To get [vscode-eslint](https://github.com/microsoft/vscode-eslint) support, we need to add the following in vscode settings.
 
-- `.vscode/settings.json`:
-
-```json
+```json,.vscode/settings.json
 {
   "eslint.enable": true,
   "eslint.validate": [

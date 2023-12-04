@@ -57,12 +57,12 @@ Examples of **incorrect** code for this rule with the option below:
 }
 ```
 
-```html
+```html,incorrect
 <img /> <svg></svg>
 ```
 
 Examples of **correct** code for this rule with the option above:
 
-```html
+```html,correct
 <img alt="" /><svg viewBox="0 0 100 100"></svg>
 ```

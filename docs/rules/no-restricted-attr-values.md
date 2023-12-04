@@ -58,7 +58,7 @@ Examples of **incorrect** code for this rule with the option below:
 }
 ```
 
-```html
+```html,incorrect
 <div data-name="foo"></div>
 <img data-name="foo"></div>
 ```

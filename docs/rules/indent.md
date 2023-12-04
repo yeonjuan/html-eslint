@@ -29,7 +29,7 @@ This rule has two options.
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <html>
   <body></body>
 </html>
@@ -37,7 +37,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <html>
   <body></body>
 </html>
@@ -56,7 +56,7 @@ If the option is number it means the number of spaces for indentation.
 Examples of **incorrect** code for this rule with the `"2"` option:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <html>
       <body></body>
 </html>
@@ -64,7 +64,7 @@ Examples of **incorrect** code for this rule with the `"2"` option:
 
 Examples of **correct** code for this rule with the `"2"` option:
 
-```html
+```html,correct
 <html>
   <body></body>
 </html>
@@ -83,7 +83,7 @@ If the option is `"tab"` it means using `tab` for indentation.
 Examples of **incorrect** code for this rule:
 
 <!-- prettier-ignore -->
-```html
+```html,incorrect
 <html>
           <body></body>
 </html>
@@ -91,7 +91,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <html>
   <body></body>
 </html>

@@ -25,33 +25,33 @@ This rule disallows the use of `type` attributes for style sheets (unless not us
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <script type="text/javascript" src="https://script.js"></script>
 ```
 
-```html
+```html,incorrect
 <link type="text/css" rel="stylesheet" href="https://styles.css" />
 ```
 
-```html
+```html,incorrect
 <style type="text/css"></style>
 ```
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <script src="https://script.js"></script>
 ```
 
-```html
+```html,correct
 <script type="module" src="https://script.js"></script>
 ```
 
-```html
+```html,correct
 <link rel="stylesheet" href="https://styles.css" />
 ```
 
-```html
+```html,correct
 <style></style>
 ```
 

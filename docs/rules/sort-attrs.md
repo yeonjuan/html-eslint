@@ -16,13 +16,13 @@ module.exports = {
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <input checked autocomplete="foo" />
 ```
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <input autocomplete="foo" checked />
 ```
 
@@ -44,13 +44,13 @@ The default value of `priority` is `["id", "type", "class", "style"]`.
 
 Examples of **incorrect** code for this rule with the default options (`{ "priority": ["id", "type", "class", "style] }`).
 
-```html
+```html,incorrect
 <button type="submit" id="foo" style="background:red" class="bar"></button>
 ```
 
 Examples of **correct** code for this rule with the default options (`{ "priority": ["id", "type", "class", "style] }`).
 
-```html
+```html,correct
 <button id="foo" type="submit" class="bar" style="background:red"></button>
 ```
 
@@ -58,16 +58,16 @@ You can also set your own priority if then the default priority will be overwrit
 
 Examples of **incorrect** code for this rule with the `{ "priority": ["id", "style"] }` option:
 
-```html
+```html,incorrect
 <div onclick="foo" style="color:red" id="foo"></div>
 ```
 
-```html
+```html,incorrect
 <div style="color:red" id="foo" onclick="foo"></div>
 ```
 
 Examples of **correct** code for this rule with the `{ "priority": ["id", "style"] }` option:
 
-```html
+```html,correct
 <div id="foo" style="color:red" onclick="foo"></div>
 ```

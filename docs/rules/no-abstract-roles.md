@@ -32,7 +32,7 @@ This rule disallows the use of abstract roles.
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <div role="command"></div>
 <div role="composite"></div>
 <div role="input"></div>
@@ -40,7 +40,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <div role="button"></div>
 ```
 

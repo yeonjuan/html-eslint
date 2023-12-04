@@ -1,29 +1,150 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@layer base {
-  a {
-    @apply text-blue-600 underline font-normal;
+
+@layer components {
+  .display1 {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
   }
-  pre {
-    @apply py-2;
+  .display3 {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 36px;
   }
-  p {
-    @apply leading-7;
+  .display4 {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
   }
-  h1 {
-    @apply text-3xl md:text-4xl font-bold;
+  .display4 {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
   }
-  h2 {
-    @apply text-2xl md:text-2xl font-semibold;
+  .title4 {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
   }
-  h3 {
-    @apply text-lg md:text-2xl font-semibold;
+  .title5 {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
   }
+  .body2 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .body3 {
+    font-weight: 400;
+    font-size: 16;
+    line-height: 24px;
+  }
+  .body4 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .body5 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .body8 {
+    line-height: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.5%;
+  }
+  .code1 {
+    font-family: "DM Mono", monospace;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+  }
+  .code2 {
+    font-family: "DM Mono", monospace;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .md-list {
+    @apply list-disc body3 text-black-700 pl-[20px];
+  }
+  .md-listitem {
+    @apply my-[14px];
+  }
+  .md-p {
+    @apply body3 text-black-700 py-[6px];
+  }
+  .md-codespan {
+    @apply code1 text-black-700 bg-gray-200 border-[1px] border-gray-300 rounded-[6px] py-[2px] px-[8px];
+  }
+  .md-code-wrapper {
+    @apply mt-[12px] mb-[22px];
+  }
+  .md-code {
+    @apply !bg-gray-200 code2 rounded-b-[8px];
+  }
+  .md-code-no-filename {
+    @apply !bg-gray-200 code2 rounded-[8px];
+  }
+  .md-heading1 {
+    @apply display1 text-black-900 my-[28px];
+  }
+  .md-heading2 {
+    @apply display3 text-black-900 my-[12px];
+  }
+  .mad-heading3 {
+    @apply text-lg my-2 md:text-xl scroll-mt-[64px];
+  }
+  .md-heading4 {
+    @apply my-2 block scroll-mt-[64px];
+  }
+  .md-wrapper {
+    @apply w-full pb-6 max-w-[1200px] md:pl-[40px] md:pr-[40px];
+  }
+  .md-code-filename {
+    @apply flex bg-gray-300 text-black-500 code2 px-[20px] py-[12px] rounded-t-[8px];
+  }
+  .md-code-incorrect {
+    @apply !bg-gray-200 border-l-[#E94C6B] border-l-[3px] ml-[7px] rounded-r-[8px];
+  }
+  .md-code-correct {
+    @apply !bg-gray-200 border-l-[#5EBA94] border-l-[3px] ml-[7px] rounded-r-[8px];
+  }
+  h1,
+  h2,
+  h3,
   h4 {
-    @apply text-base md:text-xl;
+    @apply scroll-mt-[76px];
   }
-  p {
-    @apply text-base leading-8 font-light;
+  .md-a {
+    @apply body2 text-accent hover:underline;
+  }
+  .md-table-wrapper {
+    @apply overflow-x-auto;
+  }
+  .md-table {
+    @apply border-collapse min-w-[700px] md:w-full;
+  }
+  .md-th {
+    @apply bg-gray-200 text-left body2 px-[20px] py-[12px] text-black-900;
+  }
+  .md-td {
+    @apply px-[20px] py-[12px] text-black-700 body3 border-b border-gray-300;
+  }
+}
+
+@layer base {
+  html {
+    font-family: "Inter", sans-serif;
   }
 }

@@ -24,12 +24,12 @@ module.exports = {
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <span tabindex="1">foo</span> <span tabindex="3">bar</span>
 ```
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <span tabindex="0">foo</span> <span tabindex="-1">bar</span>
 ```

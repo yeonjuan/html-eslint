@@ -20,7 +20,7 @@ module.exports = {
 
 Examples of **incorrect** code for this rule:
 
-```html
+```html,incorrect
 <div>
   <li>item 1</li>
   <li>item 2</li>
@@ -29,7 +29,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html
+```html,correct
 <ol>
   <li>item 1</li>
   <li>item 2</li>
