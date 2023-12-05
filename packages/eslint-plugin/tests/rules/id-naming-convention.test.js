@@ -21,6 +21,10 @@ ruleTester.run("id-naming-convention", rule, {
       code: `<div id="snake_case"> </div>`,
       options: ["snake_case"],
     },
+    {
+      code: `<div id="CuStOmReGeX"> </div>`,
+      options: ["regex", { pattern: "^([A-Z][a-z])+[A-Z]?$" }],
+    },
   ],
   invalid: [
     {
@@ -38,6 +42,15 @@ ruleTester.run("id-naming-convention", rule, {
       errors: [
         {
           message: "The id 'kebab-case' is not matched with the snake_case.",
+        },
+      ],
+    },
+    {
+      code: `<div id="kebab-case"> </div>`,
+      options: ["regex", { pattern: "^([A-Z][a-z])+[A-Z]?$" }],
+      errors: [
+        {
+          message: "The id 'kebab-case' is not matched with the regex.",
         },
       ],
     },

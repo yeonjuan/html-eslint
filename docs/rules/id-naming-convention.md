@@ -14,7 +14,7 @@ module.exports = {
 
 ## Rule Details
 
-This rule supports 4 naming cases. `camelCase`, `snake_case`, `PascalCase`, `kebab-case` (default `snake_case`).
+This rule supports 4 naming cases. `camelCase`, `snake_case`, `PascalCase`, `kebab-case` (default `snake_case`). It also supports `regex`, which allows you to configure a custom naming convention.
 
 ### Options
 
@@ -22,6 +22,7 @@ This rule supports 4 naming cases. `camelCase`, `snake_case`, `PascalCase`, `keb
 - `"camelCase"`: Enforce camelCase format.
 - `"PascalCase"`: Enforce PascalCase format.
 - `"kebab-case"`: Enforce kebab-case format.
+- `"regex", { "pattern": "^my-regex$" }`: Enforce a format defined by a custom regex.
 
 #### "snake_case" (default)
 
@@ -77,6 +78,32 @@ Examples of **correct** code for this rule with the `"kebab-case"` option:
 
 ```html,correct
 <div id="foo-bar"></div>
+```
+
+### "regex"
+
+Examples of **incorrect** code for this rule with the `"regex"` option below:
+
+```js
+{
+  "@html-eslint/id-naming-convention": ["error", "regex", { "pattern": "^([A-Z][a-z])+[A-Z]?$" }]
+}
+```
+
+```html,incorrect
+<div id="foo_bar"></div>
+```
+
+Examples of **correct** code for this rule with the `"regex"` option below:
+
+```js
+{
+  "@html-eslint/id-naming-convention": ["error", "regex", { "pattern": "^([A-Z][a-z])+[A-Z]?$" }]
+}
+```
+
+```html,correct
+<div id="CuStOmReGeX"></div>
 ```
 
 ## Further Reading
