@@ -45,12 +45,12 @@ module.exports = {
         enum: Object.values(CONVENTIONS),
       },
       {
-          type: "object",
-          properties: {
-              pattern: { type: "string" }
-          },
-          additionalProperties: false
-      }
+        type: "object",
+        properties: {
+          pattern: { type: "string" },
+        },
+        additionalProperties: false,
+      },
     ],
     messages: {
       [MESSAGE_IDS.WRONG]:
@@ -64,7 +64,10 @@ module.exports = {
         ? context.options[0]
         : CONVENTIONS.SNAKE_CASE;
 
-    const checkNaming = convention === CONVENTIONS.REGEX ? (name) => new RegExp(context.options[1].pattern).test(name) : CONVENTION_CHECKERS[convention];
+    const checkNaming =
+      convention === CONVENTIONS.REGEX
+        ? (name) => new RegExp(context.options[1].pattern).test(name)
+        : CONVENTION_CHECKERS[convention];
 
     return {
       /**
