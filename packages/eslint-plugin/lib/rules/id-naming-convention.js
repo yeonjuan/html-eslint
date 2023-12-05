@@ -66,7 +66,8 @@ module.exports = {
 
     const checkNaming =
       convention === CONVENTIONS.REGEX
-        ? (name) => new RegExp(context.options[1].pattern).test(name)
+        ? (/** @type string */ name) =>
+            new RegExp(context.options[1].pattern).test(name)
         : CONVENTION_CHECKERS[convention];
 
     return {
