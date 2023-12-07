@@ -29,7 +29,7 @@
   "dependencies": {
     "@html-eslint/eslint-plugin": "^0.21.0",
     "@html-eslint/parser": "^0.21.0",
-    "axios": "^0.21.1",
+    "axios": "^1.6.2",
     "chalk": "^4.1.1",
     "eslint": "^7.27.0",
     "optionator": "^0.9.1"
