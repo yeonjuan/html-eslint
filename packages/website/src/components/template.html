@@ -1,9 +1,7 @@
-<script locals>
-  module.exports = {
-    version: locals.version,
-  };
-</script>
-<extends src="components/layout.html" locals="{{version}}">
+<extends src="components/layout.html">
+    <block name="meta">
+        {{meta}}
+    </block>
     <block name="nav">
         <include src="components/nav.html"></include>
     </block>
