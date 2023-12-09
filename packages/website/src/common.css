@@ -112,7 +112,7 @@
     @apply w-full pb-6 max-w-[1200px] md:pl-[40px] md:pr-[40px];
   }
   .md-code-filename {
-    @apply flex bg-gray-300 text-black-500 code2 px-[20px] py-[12px] rounded-t-[8px];
+    @apply flex bg-gray-300 text-black-700 code2 px-[20px] py-[12px] rounded-t-[8px];
   }
   .md-code-incorrect {
     @apply !bg-gray-200 border-l-[#E94C6B] border-l-[3px] ml-[7px] rounded-r-[8px];

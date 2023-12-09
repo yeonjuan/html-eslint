@@ -16,7 +16,7 @@ module.exports = {
     return `
     <h${level} id="${id}" class="group md-heading${level}">
       ${text}
-      <a href="#${id}" ><img src="~/src/assets/link.svg" alt="" class="inline md:hidden md:group-hover:inline ${linkIconClass[level]}"></a>
+      <a href="#${id}" aria-label="${text}"><img src="~/src/assets/link.svg" alt="" class="inline md:hidden md:group-hover:inline ${linkIconClass[level]}"></a>
     </h${level}>`;
   },
   paragraph(text) {
@@ -57,7 +57,7 @@ module.exports = {
   },
   link(href, title, text) {
     if (href.indexOf("http") === 0) {
-      text += `<img class="inline" src="~/src/assets/icon-external-link.svg">`;
+      text += `<img class="inline" src="~/src/assets/icon-external-link.svg" alt="" width="20" height="20">`;
     }
     return `<a href="${href}" class="md-a" target="_blank" rel="noopener noreferrer">${text}</a>`;
   },

@@ -2,6 +2,7 @@
  * @typedef {import("marked").Marked} Marked
  */
 const fs = require("fs");
+const path = require("path");
 
 /**
  * @param {object} src
@@ -19,9 +20,18 @@ function convertToHTML(src, dist, marked, options) {
   const srcMarkdown = fs.readFileSync(src.markdownPath, "utf-8");
   const partialHtml = options.wrapper(marked.parse(srcMarkdown));
   fs.writeFileSync(dist.partialHtmlPath, partialHtml);
-
   const templateHtml = fs.readFileSync(src.templateHtmlPath, "utf-8");
-  const html = templateHtml.replace("{{path}}", options.includePath);
+  const meta = `<title>${
+    path.parse(src.markdownPath).name
+  } - html-eslint</title>
+  <link rel="canonical" href="${dist.htmlPath
+    .replace(path.join(process.cwd(), "src"), "https://html-eslint.org")
+    .replace(".html", "/")}">
+   `;
+
+  const html = templateHtml
+    .replace("{{path}}", options.includePath)
+    .replace("{{meta}}", meta);
   fs.writeFileSync(dist.htmlPath, html);
 }
 

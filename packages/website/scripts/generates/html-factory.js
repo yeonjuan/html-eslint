@@ -7,7 +7,7 @@ const fileIconMap = {
 const fileIcon = (name) => {
   const icon = fileIconMap[name];
   if (!icon) return "";
-  return `<img src="${icon}" alt="">`;
+  return `<img src="${icon}" alt="" width="20" height="20">`;
 };
 
 const fileName = (name) => {
@@ -32,7 +32,7 @@ const exampleCode = (type, code) => {
 };
 
 const exampleIcon = (type) => {
-  return `<img src="~/src/assets/icon-${type}.svg" class="inline mr-[9px] alt="">`;
+  return `<img src="~/src/assets/icon-${type}.svg" class="inline mr-[9px]" alt="">`;
 };
 
 module.exports = {
