@@ -37,7 +37,7 @@ const expressionsOption = {
       ],
       bestPractice: rules["Best Practice"],
       seo: rules["SEO"],
-      accssibility: rules["Accessibility"],
+      accessibility: rules["Accessibility"],
       style: rules["Style"],
     },
   },

@@ -14,7 +14,7 @@
     "publish:alpha": "lerna publish --dist-tag alpha",
     "check:ts": "turbo run ts",
     "check:format": "prettier --check .",
-    "check:spell": "cspell --config .cspell.json \"**/*.{js,ts,tsx,md}\" --quiet",
+    "check:spell": "cspell --config .cspell.json \"**/*.{js,ts,tsx,md,html}\" --quiet",
     "check": "yarn test && yarn check:format && yarn check:spell && yarn check:ts",
     "publish:website": "yarn workspace website deploy"
   },
