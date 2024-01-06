@@ -6,8 +6,8 @@
     "dev": {
       "dependsOn": ["^dev"]
     },
-    "test": {},
-    "ts": {},
+    "test": { "dependsOn": ["^build"] },
+    "ts": { "dependsOn": ["^build"] },
     "docs": {}
   }
 }
