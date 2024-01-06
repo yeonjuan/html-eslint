@@ -13116,6 +13116,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"process@npm:0.11.10":
+  version: 0.11.10
+  resolution: "process@npm:0.11.10"
+  checksum: 40c3ce4b7e6d4b8c3355479df77aeed46f81b279818ccdc500124e6a5ab882c0cc81ff7ea16384873a95a74c4570b01b120f287abbdd4c877931460eca6084b3
+  languageName: node
+  linkType: hard
+
 "progress@npm:^2.0.0, progress@npm:^2.0.3":
   version: 2.0.3
   resolution: "progress@npm:2.0.3"
@@ -15767,6 +15774,7 @@ __metadata:
     posthtml-extend: "npm:^0.6.5"
     posthtml-include: "npm:^1.7.4"
     posthtml-modules: "npm:^0.9.1"
+    process: "npm:0.11.10"
     rimraf: "npm:^5.0.5"
     tailwindcss: "npm:^3.3.5"
   languageName: unknown
