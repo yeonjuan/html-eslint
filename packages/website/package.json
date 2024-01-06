@@ -25,7 +25,7 @@
     "@types/react-dom": "18.0.9",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.52.0",
-    "firebase-tools": "^12.8.1",
+    "firebase-tools": "^13.0.2",
     "highlight.js": "^11.9.0",
     "marked": "^9.1.5",
     "marked-highlight": "^2.0.6",
@@ -34,6 +34,7 @@
     "posthtml-extend": "^0.6.5",
     "posthtml-include": "^1.7.4",
     "posthtml-modules": "^0.9.1",
+    "process": "0.11.10",
     "rimraf": "^5.0.5",
     "tailwindcss": "^3.3.5"
   },
