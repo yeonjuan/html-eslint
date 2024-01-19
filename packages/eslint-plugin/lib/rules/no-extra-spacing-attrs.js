@@ -1,3 +1,18 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").AttributeNode } AttributeNode
+ * @typedef { import("../types").OpenTagEndNode } OpenTagEndNode
+ * @typedef { import("../types").OpenScriptTagEndNode } OpenScriptTagEndNode
+ * @typedef { import("../types").OpenStyleTagEndNode } OpenStyleTagEndNode
+ * @typedef { import("../types").OpenScriptTagStartNode } OpenScriptTagStartNode
+ * @typedef { import("../types").OpenTagStartNode } OpenTagStartNode
+ * @typedef { import("../types").OpenStyleTagStartNode } OpenStyleTagStartNode
+ * @typedef { import("../types").TagNode } TagNode
+ * @typedef { import("../types").StyleTagNode } StyleTagNode
+ * @typedef { import("../types").ScriptTagNode } ScriptTagNode
+ * @typedef { import("../types").AnyNode } AnyNode
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 const { getLocBetween } = require("./utils/node");
 
@@ -11,7 +26,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

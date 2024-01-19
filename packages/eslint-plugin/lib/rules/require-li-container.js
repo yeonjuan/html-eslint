@@ -1,3 +1,7 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ */
+
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 
@@ -8,7 +12,7 @@ const MESSAGE_IDS = {
 const VALID_CONTAINERS = ["ul", "ol", "menu"];
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

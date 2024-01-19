@@ -1,3 +1,9 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").TagNode } TagNode
+ * @typedef { import("../types").TextNode } TextNode
+ */
+
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { find } = require("./utils/array");
@@ -8,7 +14,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @param {ChildType<TagNode>} node
+ * @param {import("../types").ChildType<TagNode>} node
  * @returns {node is TagNode}
  */
 function isTitle(node) {
@@ -16,7 +22,7 @@ function isTitle(node) {
 }
 
 /**
- * @param {ChildType<TagNode>} node
+ * @param {import("../types").ChildType<TagNode>} node
  * @returns {node is TextNode}
  */
 function isNonEmptyText(node) {
@@ -24,7 +30,7 @@ function isNonEmptyText(node) {
 }
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

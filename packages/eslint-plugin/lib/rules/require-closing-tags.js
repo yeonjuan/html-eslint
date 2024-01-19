@@ -1,3 +1,8 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").TagNode } TagNode
+ */
+
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
 
 const VOID_ELEMENTS_SET = new Set(VOID_ELEMENTS);
@@ -9,7 +14,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

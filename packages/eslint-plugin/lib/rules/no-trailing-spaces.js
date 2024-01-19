@@ -1,3 +1,7 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -5,7 +9,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

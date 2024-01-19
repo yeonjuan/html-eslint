@@ -1,3 +1,7 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ */
+
 const { RULE_CATEGORY, OBSOLETE_TAGS } = require("../constants");
 
 const OBSOLETE_TAGS_SET = new Set(OBSOLETE_TAGS);
@@ -7,7 +11,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

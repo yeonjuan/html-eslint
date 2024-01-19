@@ -1,3 +1,10 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").TagNode } TagNode
+ * @typedef { import("../types").ScriptTagNode } ScriptTagNode
+ * @typedef { import("../types").StyleTagNode } StyleTagNode
+ */
+
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 
@@ -7,7 +14,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

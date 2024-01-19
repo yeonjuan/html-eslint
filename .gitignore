@@ -10,7 +10,6 @@ packages/website/src/docs/**/*.html
 packages/website/src/out/**/*.html
 packages/**/dist
 *.tsbuildinfo
-packages/parser/types
 .parcel-cache/
 .pnp.*
 .yarn/*
@@ -20,3 +19,7 @@ packages/**/.yarn
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# generated types
+packages/parser/types
+packages/eslint-plugin/types

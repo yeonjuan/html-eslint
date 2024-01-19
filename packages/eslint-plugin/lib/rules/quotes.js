@@ -1,3 +1,12 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").Range } Range
+ * @typedef { import("../types").AttributeNode } AttributeNode
+ * @typedef { import("../types").TagNode } TagNode
+ * @typedef { import("../types").ScriptTagNode } ScriptTagNode
+ * @typedef { import("../types").StyleTagNode } StyleTagNode
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -13,7 +22,7 @@ const QUOTES_STYLES = {
 const QUOTES_CODES = [`"`, `'`];
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {
