@@ -1,3 +1,16 @@
+/**
+ * @typedef { import("../../types").TagNode } TagNode
+ * @typedef { import("../../types").ScriptTagNode } ScriptTagNode
+ * @typedef { import("../../types").StyleTagNode } StyleTagNode
+ * @typedef { import("../../types").AttributeNode } AttributeNode
+ * @typedef { import("../../types").AnyNode } AnyNode
+ * @typedef { import("../../types").TextNode } TextNode
+ * @typedef { import("../../types").CommentContentNode } CommentContentNode
+ * @typedef { import("../../types").LineNode } LineNode
+ * @typedef { import("../../types").BaseNode } BaseNode
+ * @typedef { import("../../types").Location } Location
+ */
+
 module.exports = {
   /**
    * @param {TagNode | ScriptTagNode | StyleTagNode} node

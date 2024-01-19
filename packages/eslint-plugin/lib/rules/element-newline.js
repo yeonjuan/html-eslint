@@ -1,3 +1,10 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").ProgramNode } ProgramNode
+ * @typedef { import("../types").TagNode } TagNode
+ * @typedef { import("../types").BaseNode } BaseNode
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -6,7 +13,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {
@@ -45,7 +52,7 @@ module.exports = {
     const skipTags = option.skip;
     let skipTagCount = 0;
     /**
-     * @param {ChildType<TagNode | ProgramNode>[]} siblings
+     * @param {import("../types").ChildType<TagNode | ProgramNode>[]} siblings
      */
     function checkSiblings(siblings) {
       siblings
@@ -70,7 +77,7 @@ module.exports = {
 
     /**
      * @param {TagNode} node
-     * @param {ChildType<TagNode>[]} children
+     * @param {import("../types").ChildType<TagNode>[]} children
      */
     function checkChild(node, children) {
       const targetChildren = children.filter((n) => n.type !== "Text");

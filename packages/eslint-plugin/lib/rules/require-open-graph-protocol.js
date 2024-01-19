@@ -1,3 +1,8 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").TagNode } TagNode
+ */
+
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { filter } = require("./utils/array");
@@ -27,7 +32,7 @@ function normalize(properties) {
 }
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {
@@ -65,7 +70,7 @@ module.exports = {
     );
 
     /**
-     * @param {ChildType<TagNode>} node
+     * @param {import("../types").ChildType<TagNode>} node
      * @returns {node is TagNode}
      */
     function isOgpMeta(node) {

@@ -1,3 +1,10 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").AttributeNode } AttributeNode
+ * @typedef { import("../types").TextNode } TextNode
+ * @typedef { import("../types").RuleFixer } RuleFixer
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 
 const MESSAGE_IDS = {
@@ -5,7 +12,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

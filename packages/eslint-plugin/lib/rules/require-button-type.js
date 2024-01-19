@@ -1,3 +1,7 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 
@@ -9,7 +13,7 @@ const MESSAGE_IDS = {
 const VALID_BUTTON_TYPES_SET = new Set(["submit", "button", "reset"]);
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

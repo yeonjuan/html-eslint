@@ -1,4 +1,9 @@
 /**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").StyleTagNode } StyleTagNode
+ * @typedef { import("../types").AttributeNode } AttributeNode
+ * @typedef { import("../types").TagNode } TagNode
+ * @typedef { import("../types").ScriptTagNode } ScriptTagNode
  * @typedef {{tagPatterns: string[], attrPatterns: string[], message?: string}[]} Options
  */
 
@@ -10,7 +15,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

@@ -1,3 +1,10 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").TagNode } TagNode
+ * @typedef { import("../types").ScriptTagNode } ScriptTagNode
+ * @typedef { import("../types").StyleTagNode } StyleTagNode
+ */
+
 const { RULE_CATEGORY } = require("../constants");
 const {
   isCamelCase,
@@ -27,7 +34,7 @@ const CONVENTION_CHECKERS = {
 };
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

@@ -1,8 +1,12 @@
 /**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").AnyNode } AnyNode
+ * @typedef { import("../types").LineNode } LineNode
+ * @typedef { import("../types").BaseNode } BaseNode
+ * @typedef { import("../types").TagNode } TagNode
  * @typedef {Object} IndentType
  * @property {"tab"} TAB
  * @property {"space"} SPACE
- *
  * @typedef {Object} MessageId
  * @property {"wrongIndent"} WRONG_INDENT
  */
@@ -24,7 +28,7 @@ const INDENT_TYPES = {
 const IGNORING_NODES = ["pre", "xmp"];
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {

@@ -8,7 +8,10 @@ packages/website/**/*.html
 packages/web-linter/out
 .next
 dist
-packages/parser/types
 **/dist
 .yarn/releases
 yarn.lock
+
+# generated types
+packages/parser/types
+packages/eslint-plugin/types

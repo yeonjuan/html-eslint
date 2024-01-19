@@ -1,3 +1,8 @@
+/**
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").TagNode } TagNode
+ */
+
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { find } = require("./utils/array");
@@ -9,7 +14,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @param {ChildType<TagNode>} node
+ * @param {import("../types").ChildType<TagNode>} node
  * @returns {node is TagNode}
  */
 function isMetaViewport(node) {
@@ -25,7 +30,7 @@ function isMetaViewport(node) {
 }
 
 /**
- * @type {Rule}
+ * @type {RuleModule}
  */
 module.exports = {
   meta: {
