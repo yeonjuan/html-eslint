@@ -24,25 +24,51 @@ yarn add -D eslint @html-eslint/parser @html-eslint/eslint-plugin
 ### Flat config
 
 ```js,eslint.config.js
-import * as html from '@html-eslint/eslint-plugin';
-import * as parser from '@html-eslint/parser';
+import html from "@html-eslint/eslint-plugin";
+import parser from "@html-eslint/parser";
 
-const config = [
+export default [
   // recommended configuration included in the plugin
-  html.configs['flat/recommended'],
+  html.configs["flat/recommended"],
   // your own configurations.
   {
-    files: ['**/*.html'],
+    files: ["**/*.html"],
     plugins: {
       "@html-eslint": html,
     },
+    languageOptions: {
+      parser,
+    },
     rules: {
-      '@html-eslint/indent': 'error'
-    }
-  }
+      "@html-eslint/indent": "error",
+    },
+  },
 ];
+```
 
-export default config;
+or if using `require(..);`
+
+```js,eslint.config.js
+const html = require("@html-eslint/eslint-plugin");
+const parser = require("@html-eslint/parser");
+
+module.exports = [
+  // recommended configuration included in the plugin
+  html.configs["flat/recommended"],
+  // your own configurations.
+  {
+    files: ["**/*.html"],
+    plugins: {
+      "@html-eslint": html,
+    },
+    languageOptions: {
+      parser,
+    },
+    rules: {
+      "@html-eslint/indent": "error",
+    },
+  },
+];
 ```
 
 ### `.eslintrc.*`
