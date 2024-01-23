@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/parser",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "description": "Parser for @html-eslint/eslint-plugin",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
