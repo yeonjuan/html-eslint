@@ -23,6 +23,8 @@ yarn add -D eslint @html-eslint/parser @html-eslint/eslint-plugin
 
 ### Flat config
 
+If you are using the ESLint [Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), see examples below.
+
 ```js,eslint.config.js
 import html from "@html-eslint/eslint-plugin";
 import parser from "@html-eslint/parser";
@@ -71,7 +73,7 @@ module.exports = [
 ];
 ```
 
-### `.eslintrc.*`
+### eslintrc config (.eslintrc.\*)
 
 Populate it with the following on your `.eslintrc.js`. If it does not exist create a `.eslintrc.js` config file in the root of your project.
 We can apply [HTML-ESLint plugin rules](rules) to only HTML files(`*.html`) by using `overrides` in `.eslintrc.js`. (see [ESLint Configuration](https://eslint.org/docs/user-guide/configuring#configuration-based-on-glob-patterns))
