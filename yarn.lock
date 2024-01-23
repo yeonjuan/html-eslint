@@ -1071,7 +1071,7 @@ __metadata:
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
   dependencies:
     "@html-eslint/parser": "npm:^0.22.0"
-    "@types/eslint": "npm:^7.2.10"
+    "@types/eslint": "npm:^8.56.2"
     "@types/estree": "npm:^0.0.47"
     es-html-parser: "npm:^0.0.8"
     typescript: "npm:^4.4.4"
@@ -3431,23 +3431,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:^7.2.10":
-  version: 7.29.0
-  resolution: "@types/eslint@npm:7.29.0"
+"@types/eslint@npm:^8.56.2":
+  version: 8.56.2
+  resolution: "@types/eslint@npm:8.56.2"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: 780ea3f4abba77a577a9ca5c4b66f74acc0f5ff5162b9a361ca931763ed65bca062389fc26027b416ed0a54d390e2206412db6c682f565e523d2b82159e6c46f
-  languageName: node
-  linkType: hard
-
-"@types/eslint@npm:^8.4.10":
-  version: 8.44.7
-  resolution: "@types/eslint@npm:8.44.7"
-  dependencies:
-    "@types/estree": "npm:*"
-    "@types/json-schema": "npm:*"
-  checksum: 447b55ccff47668fc63466728e7e598ae16a03de8d489350e855b6020ad16f58a703e75b875376dd6cd5fcab630311a805fa7f934476637ea35819f01c9db3ca
+  checksum: e33ca87a30a9454ba9943e1270ac759996f5fe598a1c1afbaec1d1e7346a339e20bf2a9d81f177067116bbaa6cfa4f748993cb338f57978ae862ad38ffae56fe
   languageName: node
   linkType: hard
 
@@ -15758,7 +15748,7 @@ __metadata:
     "@html-eslint/web-linter": "npm:^0.22.0"
     "@parcel/transformer-sass": "npm:2.10.3"
     "@types/codemirror": "npm:^5.60.5"
-    "@types/eslint": "npm:^8.4.10"
+    "@types/eslint": "npm:^8.56.2"
     "@types/node": "npm:17.0.23"
     "@types/react": "npm:^18.0.26"
     "@types/react-dom": "npm:18.0.9"
