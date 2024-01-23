@@ -15,7 +15,7 @@ const plugin = {
 
 Object.assign(plugin.configs, {
   "flat/recommended": {
-    plugin: {
+    plugins: {
       "@html-eslint": plugin,
     },
     languageOptions: {
