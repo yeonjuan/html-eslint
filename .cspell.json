@@ -9,7 +9,8 @@
     "**/coverage/**",
     "**/out/**",
     "**/node_modules/**",
-    "packages/website/**"
+    "packages/website/**",
+    "packages/eslint-plugin/types/**"
   ],
   "words": [
     "rehype",
