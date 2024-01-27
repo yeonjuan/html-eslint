@@ -7,6 +7,7 @@
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
+const SVG_CAMEL_CASE_ATTRIBUTES = require("../constants/svg-camel-case-attributes");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -33,6 +34,31 @@ module.exports = {
   },
 
   create(context) {
+    const allowedAttrKeySet = new Set(SVG_CAMEL_CASE_ATTRIBUTES);
+    /**
+     * @type {TagNode[]}
+     */
+    const svgStack = [];
+
+    /**
+     * @param {TagNode} node
+     */
+    function enterSvg(node) {
+      svgStack.push(node);
+    }
+
+    function exitSvg() {
+      svgStack.pop();
+    }
+
+    /**
+     * @param {string} key
+     * @returns {boolean}
+     */
+    function isAllowedAttributeKey(key) {
+      return !!svgStack.length && allowedAttrKeySet.has(key);
+    }
+
     /**
      * @param {TagNode | StyleTagNode | ScriptTagNode} node
      */
@@ -72,6 +98,9 @@ module.exports = {
       }
       if (node.attributes && node.attributes.length) {
         node.attributes.forEach((attribute) => {
+          if (isAllowedAttributeKey(attribute.key.value)) {
+            return;
+          }
           if (attribute.key.value !== attribute.key.value.toLowerCase()) {
             context.report({
               node: attribute.key,
@@ -92,7 +121,20 @@ module.exports = {
     }
 
     return {
-      Tag: check,
+      Tag(node) {
+        if (node.name.toLocaleLowerCase() === "svg") {
+          enterSvg(node);
+        }
+        check(node);
+      },
+      /**
+       * @param {TagNode} node
+       */
+      "Tag:exit"(node) {
+        if (node.name.toLocaleLowerCase() === "svg") {
+          exitSvg();
+        }
+      },
       StyleTag: check,
       ScriptTag: check,
     };
