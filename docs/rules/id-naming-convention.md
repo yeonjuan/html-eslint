@@ -22,7 +22,7 @@ This rule supports 4 naming cases. `camelCase`, `snake_case`, `PascalCase`, `keb
 - `"camelCase"`: Enforce camelCase format.
 - `"PascalCase"`: Enforce PascalCase format.
 - `"kebab-case"`: Enforce kebab-case format.
-- `"regex", { "pattern": "^my-regex$" }`: Enforce a format defined by a custom regex.
+- `"regex", { "pattern": "^my-regex$", "flags": "i" }`: Enforce a format defined by a custom regex (`flags` option is optional).
 
 #### "snake_case" (default)
 
