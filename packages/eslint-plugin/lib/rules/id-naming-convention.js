@@ -55,6 +55,7 @@ module.exports = {
         type: "object",
         properties: {
           pattern: { type: "string" },
+          flags: { type: "string" },
         },
         additionalProperties: false,
       },
@@ -74,7 +75,10 @@ module.exports = {
     const checkNaming =
       convention === CONVENTIONS.REGEX
         ? (/** @type string */ name) =>
-            new RegExp(context.options[1].pattern).test(name)
+            new RegExp(
+              context.options[1].pattern,
+              context.options[1].flags || ""
+            ).test(name)
         : CONVENTION_CHECKERS[convention];
 
     return {
