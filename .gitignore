@@ -23,3 +23,6 @@ packages/**/.yarn
 # generated types
 packages/parser/types
 packages/eslint-plugin/types
+
+
+integration-test-projects/**/*.yarn
