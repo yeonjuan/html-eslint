@@ -7,7 +7,7 @@ on:
     branches:
       - "**"
 jobs:
-  build:
+  ci:
     name: CI
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +27,6 @@ jobs:
         run: yarn check:format
       - name: Check Types
         run: yarn check:ts
-
       - name: Code coverage report
         uses: codecov/codecov-action@v2
         with:
@@ -35,3 +34,21 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittest
           name: codecov
+  eslint-v8:
+    name: ESLint v8
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.16.1
+      - name: Install
+        run: yarn install --immutable
+      - name: Build
+        run: yarn build
+      - name: (v8) Install
+        working-directory: integration-test-projects/v8
+        run: yarn install --immutable
+      - name: (v8) Print config
+        working-directory: integration-test-projects/v8
+        run: yarn run print-config
