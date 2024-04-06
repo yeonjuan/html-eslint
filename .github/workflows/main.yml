@@ -48,7 +48,7 @@ jobs:
         run: yarn build
       - name: (v8) Install
         working-directory: integration-test-projects/v8
-        run: yarn install --immutable
+        run: npm install
       - name: (v8) Print config
         working-directory: integration-test-projects/v8
-        run: yarn run print-config
+        run: npm run print-config
