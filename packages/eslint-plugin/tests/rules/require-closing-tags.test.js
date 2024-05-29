@@ -77,7 +77,7 @@ ruleTester.run("require-closing-tags", rule, {
         {
           selfClosing: "always",
           allowSelfClosingCustom: true,
-          customPattern: ':',
+          customPattern: ":",
         },
       ],
     },
@@ -207,7 +207,7 @@ ruleTester.run("require-closing-tags", rule, {
         {
           selfClosing: "always",
           allowSelfClosingCustom: true,
-          customPattern: ':',
+          customPattern: ":",
         },
       ],
       output: null,
@@ -225,7 +225,7 @@ ruleTester.run("require-closing-tags", rule, {
           allowSelfClosingCustom: true,
         },
       ],
-      output: '<custom-tag /></custom-tag>',
+      output: "<custom-tag /></custom-tag>",
       errors: [
         {
           messageId: "missingSelf",

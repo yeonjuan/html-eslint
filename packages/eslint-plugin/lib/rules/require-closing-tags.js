@@ -62,8 +62,12 @@ module.exports = {
       context.options && context.options.length
         ? context.options[0].allowSelfClosingCustom === true
         : false;
-        const customPattern =
-        new RegExp(context.options && context.options.length && context.options[0].customPattern || '-');
+    const customPattern = new RegExp(
+      (context.options &&
+        context.options.length &&
+        context.options[0].customPattern) ||
+        "-"
+    );
 
     /**
      * @param {TagNode} node
@@ -123,19 +127,22 @@ module.exports = {
       Tag(node) {
         const isVoidElement = VOID_ELEMENTS_SET.has(node.name);
         const isCustomElement = !!node.name.match(customPattern);
-        const canSelfClose = isVoidElement || foreignContext.length > 0 || (isCustomElement && allowSelfClosingCustom && !node.children.length);
+        const canSelfClose =
+          isVoidElement ||
+          foreignContext.length > 0 ||
+          (isCustomElement && allowSelfClosingCustom && !node.children.length);
         if (node.selfClosing || canSelfClose) {
           checkVoidElement(node, preferSelfClose && canSelfClose, canSelfClose);
         } else if (node.openEnd.value !== "/>") {
           checkClosingTag(node);
         }
-        if (['svg', 'math'].includes(node.name)) foreignContext.push(node.name);
+        if (["svg", "math"].includes(node.name)) foreignContext.push(node.name);
       },
       /**
        * @param {TagNode} node
        */
       "Tag:exit"(node) {
-        if (node.name === foreignContext[foreignContext.length-1]) {
+        if (node.name === foreignContext[foreignContext.length - 1]) {
           foreignContext.pop();
         }
       },
