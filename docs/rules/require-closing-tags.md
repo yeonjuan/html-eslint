@@ -39,6 +39,7 @@ This rule has an object option for [Void Elements](https://html.spec.whatwg.org/
 - `"allowSelfClosingCustom": false`: (default) disallow self-closing for the custom tags.
 
 - `"allowSelfClosingCustom": true`: allow self-closing for the custom tags.
+- `"customPattern": "-"`: regex format for tags allowed by `"allowSelfClosingCustom"`.
 
 #### selfClosing : "never"
 
@@ -94,14 +95,54 @@ Examples of **correct** code for the `{ "allowSelfClosingCustom": false }` optio
 
 #### "allowSelfClosingCustom": true
 
+Examples of **incorrect** code for the `{ "allowSelfClosingCustom": false }` option:
+
+<!-- prettier-ignore -->
+```html,incorrect
+<custom-tag> </custom-tag>
+```
+
 Examples of **correct** code for the `{ "allowSelfClosingCustom": true }` option:
 
 <!-- prettier-ignore -->
 ```html,correct
-<!-- both allowed -->
-
-<custom-tag> </custom-tag>
+<custom-tag>children</custom-tag>
 <custom-tag />
+```
+
+#### "customPattern"
+
+Examples of **incorrect** code for the options below:
+
+```js
+{
+  selfClosing: "always",
+  allowSelfClosingCustom: true,
+  customPattern: ":",
+}
+```
+
+<!-- prettier-ignore -->
+```html,incorrect
+<custom:tag></custom:tag>
+<custom-tag />
+```
+
+Examples of **correct** code for the `options below:
+
+```js
+{
+  selfClosing: "always",
+  allowSelfClosingCustom: true,
+  customPattern: ":",
+}
+```
+
+<!-- prettier-ignore -->
+```html,correct
+<custom:tag>children</custom:tag>
+<custom:tag />
+<custom-tag></custom-tag>
 ```
 
 ## Further Reading
