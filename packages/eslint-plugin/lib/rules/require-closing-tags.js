@@ -116,7 +116,6 @@ module.exports = {
 
     return {
       Tag(node) {
-        if (['svg', 'math'].includes(node.name)) foreignContext.push(node.name);
         const isVoidElement = VOID_ELEMENTS_SET.has(node.name);
         const canSelfClose = isVoidElement || foreignContext.length > 0;
         if (
@@ -130,6 +129,7 @@ module.exports = {
         } else if (node.openEnd.value !== "/>") {
           checkClosingTag(node);
         }
+        if (['svg', 'math'].includes(node.name)) foreignContext.push(node.name);
       },
       /**
        * @param {TagNode} node
