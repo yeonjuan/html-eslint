@@ -122,7 +122,7 @@ module.exports = {
         ) {
           checkVoidElement(node, true, false);
         } else if (node.selfClosing || isVoidElement) {
-          checkVoidElement(node, shouldSelfClose, isVoidElement);
+          checkVoidElement(node, shouldSelfClose && isVoidElement, isVoidElement);
         } else if (node.openEnd.value !== "/>") {
           checkClosingTag(node);
         }
