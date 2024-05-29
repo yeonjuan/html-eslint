@@ -72,6 +72,16 @@ ruleTester.run("require-closing-tags", rule, {
       ],
     },
     {
+      code: `<custom:tag />`,
+      options: [
+        {
+          selfClosing: "always",
+          allowSelfClosingCustom: true,
+          customPattern: ':',
+        },
+      ],
+    },
+    {
       code: `
     <body>
       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
@@ -182,6 +192,22 @@ ruleTester.run("require-closing-tags", rule, {
       options: [
         {
           allowSelfClosingCustom: false,
+        },
+      ],
+      output: null,
+      errors: [
+        {
+          messageId: "unexpected",
+        },
+      ],
+    },
+    {
+      code: `<custom-tag id="foo" />`,
+      options: [
+        {
+          selfClosing: "always",
+          allowSelfClosingCustom: true,
+          customPattern: ':',
         },
       ],
       output: null,
