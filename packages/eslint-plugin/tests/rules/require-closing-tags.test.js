@@ -218,6 +218,21 @@ ruleTester.run("require-closing-tags", rule, {
       ],
     },
     {
+      code: `<custom-tag></custom-tag>`,
+      options: [
+        {
+          selfClosing: "always",
+          allowSelfClosingCustom: true,
+        },
+      ],
+      output: '<custom-tag /></custom-tag>',
+      errors: [
+        {
+          messageId: "missingSelf",
+        },
+      ],
+    },
+    {
       code: `<div />`,
       options: [
         {
