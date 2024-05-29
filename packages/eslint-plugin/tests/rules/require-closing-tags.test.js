@@ -165,5 +165,19 @@ ruleTester.run("require-closing-tags", rule, {
         },
       ],
     },
+    {
+      code: `<div />`,
+      options: [
+        {
+          selfClosing: "always",
+        },
+      ],
+      output: null,
+      errors: [
+        {
+          messageId: "unexpected",
+        },
+      ],
+    },
   ],
 });
