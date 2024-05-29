@@ -49,7 +49,7 @@ module.exports = {
   },
 
   create(context) {
-    const shouldSelfClose =
+    const preferSelfClose =
       context.options && context.options.length
         ? context.options[0].selfClosing === "always"
         : false;
@@ -115,6 +115,7 @@ module.exports = {
     return {
       Tag(node) {
         const isVoidElement = VOID_ELEMENTS_SET.has(node.name);
+        const canSelfClose = isVoidElement;
         if (
           node.selfClosing &&
           allowSelfClosingCustom &&
@@ -122,7 +123,7 @@ module.exports = {
         ) {
           checkVoidElement(node, true, false);
         } else if (node.selfClosing || isVoidElement) {
-          checkVoidElement(node, shouldSelfClose && isVoidElement, isVoidElement);
+          checkVoidElement(node, preferSelfClose && canSelfClose, canSelfClose);
         } else if (node.openEnd.value !== "/>") {
           checkClosingTag(node);
         }
