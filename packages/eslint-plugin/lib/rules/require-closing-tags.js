@@ -49,6 +49,8 @@ module.exports = {
   },
 
   create(context) {
+    /** @type {string[]} */
+    const foreignContext = [];
     const preferSelfClose =
       context.options && context.options.length
         ? context.options[0].selfClosing === "always"
@@ -114,8 +116,9 @@ module.exports = {
 
     return {
       Tag(node) {
+        if (['svg', 'math'].includes(node.name)) foreignContext.push(node.name);
         const isVoidElement = VOID_ELEMENTS_SET.has(node.name);
-        const canSelfClose = isVoidElement;
+        const canSelfClose = isVoidElement || foreignContext.length > 0;
         if (
           node.selfClosing &&
           allowSelfClosingCustom &&
@@ -126,6 +129,14 @@ module.exports = {
           checkVoidElement(node, preferSelfClose && canSelfClose, canSelfClose);
         } else if (node.openEnd.value !== "/>") {
           checkClosingTag(node);
+        }
+      },
+      /**
+       * @param {TagNode} node
+       */
+      "Tag:exit"(node) {
+        if (node.name === foreignContext[foreignContext.length-1]) {
+          foreignContext.pop();
         }
       },
     };
