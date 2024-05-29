@@ -82,6 +82,20 @@ ruleTester.run("require-closing-tags", rule, {
         },
       ],
     },
+    {
+      code: `
+    <body>
+      <math>
+        1<mspace width="100px" />2
+      </math>
+    </body>
+`,
+      options: [
+        {
+          selfClosing: "always",
+        },
+      ],
+    },
     // https://github.com/yeonjuan/html-eslint/issues/73
     {
       code: `
