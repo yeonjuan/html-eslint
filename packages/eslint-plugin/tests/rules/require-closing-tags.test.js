@@ -63,6 +63,15 @@ ruleTester.run("require-closing-tags", rule, {
       ],
     },
     {
+      code: `<custom-tag>children</custom-tag>`,
+      options: [
+        {
+          selfClosing: "always",
+          allowSelfClosingCustom: true,
+        },
+      ],
+    },
+    {
       code: `
     <body>
       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
