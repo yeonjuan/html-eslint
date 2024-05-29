@@ -31,6 +31,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag/>`,
       options: [
         {
+          selfClosing: "always",
           allowSelfClosingCustom: true,
         },
       ],
@@ -39,6 +40,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag />`,
       options: [
         {
+          selfClosing: "always",
           allowSelfClosingCustom: true,
         },
       ],
@@ -55,6 +57,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag id="foo" />`,
       options: [
         {
+          selfClosing: "always",
           allowSelfClosingCustom: true,
         },
       ],
