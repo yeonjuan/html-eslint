@@ -37,6 +37,9 @@ module.exports = {
           allowSelfClosingCustom: {
             type: "boolean",
           },
+          customPattern: {
+            type: "string",
+          },
         },
         additionalProperties: false,
       },
@@ -59,6 +62,8 @@ module.exports = {
       context.options && context.options.length
         ? context.options[0].allowSelfClosingCustom === true
         : false;
+        const customPattern =
+        new RegExp(context.options && context.options.length && context.options[0].customPattern || '-');
 
     /**
      * @param {TagNode} node
@@ -117,7 +122,7 @@ module.exports = {
     return {
       Tag(node) {
         const isVoidElement = VOID_ELEMENTS_SET.has(node.name);
-        const isCustomElement = node.name.indexOf("-") !== -1;
+        const isCustomElement = !!node.name.match(customPattern);
         const canSelfClose = isVoidElement || foreignContext.length > 0 || (isCustomElement && allowSelfClosingCustom && !node.children.length);
         if (node.selfClosing || canSelfClose) {
           checkVoidElement(node, preferSelfClose && canSelfClose, canSelfClose);
