@@ -117,14 +117,9 @@ module.exports = {
     return {
       Tag(node) {
         const isVoidElement = VOID_ELEMENTS_SET.has(node.name);
-        const canSelfClose = isVoidElement || foreignContext.length > 0;
-        if (
-          node.selfClosing &&
-          allowSelfClosingCustom &&
-          node.name.indexOf("-") !== -1
-        ) {
-          checkVoidElement(node, true, false);
-        } else if (node.selfClosing || isVoidElement) {
+        const isCustomElement = node.name.indexOf("-") !== -1;
+        const canSelfClose = isVoidElement || foreignContext.length > 0 || (isCustomElement && allowSelfClosingCustom && !node.children.length);
+        if (node.selfClosing || canSelfClose) {
           checkVoidElement(node, preferSelfClose && canSelfClose, canSelfClose);
         } else if (node.openEnd.value !== "/>") {
           checkClosingTag(node);
