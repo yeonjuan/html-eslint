@@ -65,12 +65,11 @@ module.exports = {
       context.options && context.options.length
         ? context.options[0].allowSelfClosingCustom === true
         : false;
-    /** @type {RegExp[]} */
-    const customPatterns = (
-      (context.options &&
-        context.options.length &&
-        context.options[0].customPatterns) || ["-"]
-    ).map((i) => new RegExp(i));
+    /** @type {string[]} */
+    const customPatternsOption = (context.options &&
+      context.options.length &&
+      context.options[0].customPatterns) || ["-"];
+    const customPatterns = customPatternsOption.map((i) => new RegExp(i));
 
     /**
      * @param {TagNode} node
