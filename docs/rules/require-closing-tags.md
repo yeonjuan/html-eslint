@@ -39,7 +39,7 @@ This rule has an object option for [Void Elements](https://html.spec.whatwg.org/
 - `"allowSelfClosingCustom": false`: (default) disallow self-closing for the custom tags.
 
 - `"allowSelfClosingCustom": true`: allow self-closing for the custom tags.
-- `"customPattern": "-"`: regex format for tags allowed by `"allowSelfClosingCustom"`.
+- `"customPatterns": ["-"]`: an array of strings representing regular expression pattern, defines tags allowed by `"allowSelfClosingCustom"`.
 
 #### selfClosing : "never"
 
@@ -110,7 +110,7 @@ Examples of **correct** code for the `{ "allowSelfClosingCustom": true }` option
 <custom-tag />
 ```
 
-#### "customPattern"
+#### "customPatterns"
 
 Examples of **incorrect** code for the options below:
 
@@ -118,7 +118,7 @@ Examples of **incorrect** code for the options below:
 {
   selfClosing: "always",
   allowSelfClosingCustom: true,
-  customPattern: ":",
+  customPatterns: [":"],
 }
 ```
 
@@ -134,7 +134,7 @@ Examples of **correct** code for the `options below:
 {
   selfClosing: "always",
   allowSelfClosingCustom: true,
-  customPattern: ":",
+  customPatterns: [":"],
 }
 ```
 

@@ -77,7 +77,7 @@ ruleTester.run("require-closing-tags", rule, {
         {
           selfClosing: "always",
           allowSelfClosingCustom: true,
-          customPattern: ":",
+          customPatterns: [":"],
         },
       ],
     },
@@ -207,7 +207,7 @@ ruleTester.run("require-closing-tags", rule, {
         {
           selfClosing: "always",
           allowSelfClosingCustom: true,
-          customPattern: ":",
+          customPatterns: [":"],
         },
       ],
       output: null,
