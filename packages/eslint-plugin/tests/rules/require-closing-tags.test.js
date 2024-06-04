@@ -225,7 +225,7 @@ ruleTester.run("require-closing-tags", rule, {
           allowSelfClosingCustom: true,
         },
       ],
-      output: "<custom-tag /></custom-tag>",
+      output: "<custom-tag />",
       errors: [
         {
           messageId: "missingSelf",
