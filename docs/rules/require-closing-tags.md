@@ -128,7 +128,7 @@ Examples of **incorrect** code for the options below:
 <custom-tag />
 ```
 
-Examples of **correct** code for the `options below:
+Examples of **correct** code for the options below:
 
 ```js
 {
