@@ -104,7 +104,10 @@ module.exports = {
             if (!fixable) {
               return null;
             }
-            return fixer.replaceText(node.openEnd, " />");
+            return [
+              fixer.replaceText(node.openEnd, " />"),
+              fixer.remove(node.close),
+            ];
           },
         });
       }
