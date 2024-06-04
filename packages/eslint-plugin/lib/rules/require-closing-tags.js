@@ -104,10 +104,10 @@ module.exports = {
             if (!fixable) {
               return null;
             }
-            return [
-              fixer.replaceText(node.openEnd, " />"),
-              fixer.remove(node.close),
-            ];
+            const fixes = [];
+            fixes.push(fixer.replaceText(node.openEnd, " />"));
+            if (node.close) fixes.push(fixer.remove(node.close));
+            return fixes;
           },
         });
       }
