@@ -62,7 +62,9 @@ module.exports = {
     const selfClosingCustomPatternsOption = (context.options &&
       context.options.length &&
       context.options[0].selfClosingCustomPatterns) || ["-"];
-    const selfClosingCustomPatterns = selfClosingCustomPatternsOption.map((i) => new RegExp(i));
+    const selfClosingCustomPatterns = selfClosingCustomPatternsOption.map(
+      (i) => new RegExp(i)
+    );
 
     /**
      * @param {TagNode} node
@@ -124,12 +126,19 @@ module.exports = {
     return {
       Tag(node) {
         const isVoidElement = VOID_ELEMENTS_SET.has(node.name);
-        const isSelfClosingCustomElement = !!selfClosingCustomPatterns.some((i) => node.name.match(i));
+        const isSelfClosingCustomElement = !!selfClosingCustomPatterns.some(
+          (i) => node.name.match(i)
+        );
         const isForeign = foreignContext.length > 0;
-        const shouldSelfCloseCustom = isSelfClosingCustomElement && !node.children.length;
+        const shouldSelfCloseCustom =
+          isSelfClosingCustomElement && !node.children.length;
         const shouldSelfCloseForeign = node.selfClosing;
-        const shouldSelfClose = (isVoidElement && shouldSelfCloseVoid) || (isSelfClosingCustomElement && shouldSelfCloseCustom) || (isForeign && shouldSelfCloseForeign);
-        const canSelfClose = isVoidElement || isSelfClosingCustomElement || isForeign;
+        const shouldSelfClose =
+          (isVoidElement && shouldSelfCloseVoid) ||
+          (isSelfClosingCustomElement && shouldSelfCloseCustom) ||
+          (isForeign && shouldSelfCloseForeign);
+        const canSelfClose =
+          isVoidElement || isSelfClosingCustomElement || isForeign;
         if (node.selfClosing || canSelfClose) {
           checkVoidElement(node, shouldSelfClose, canSelfClose);
         } else if (node.openEnd.value !== "/>") {

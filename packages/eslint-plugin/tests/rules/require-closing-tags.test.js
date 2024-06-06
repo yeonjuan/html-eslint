@@ -31,7 +31,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag/>`,
       options: [
         {
-          selfClosingCustomPatterns: ['-'],
+          selfClosingCustomPatterns: ["-"],
         },
       ],
     },
@@ -39,7 +39,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag />`,
       options: [
         {
-          selfClosingCustomPatterns: ['-'],
+          selfClosingCustomPatterns: ["-"],
         },
       ],
     },
@@ -47,7 +47,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag> </custom-tag>`,
       options: [
         {
-          selfClosingCustomPatterns: ['-'],
+          selfClosingCustomPatterns: ["-"],
         },
       ],
     },
@@ -55,7 +55,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag id="foo" />`,
       options: [
         {
-          selfClosingCustomPatterns: ['-'],
+          selfClosingCustomPatterns: ["-"],
         },
       ],
     },
@@ -63,7 +63,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag>children</custom-tag>`,
       options: [
         {
-          selfClosingCustomPatterns: ['-'],
+          selfClosingCustomPatterns: ["-"],
         },
       ],
     },
@@ -190,7 +190,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag></custom-tag>`,
       options: [
         {
-          selfClosingCustomPatterns: ['-'],
+          selfClosingCustomPatterns: ["-"],
         },
       ],
       output: "<custom-tag />",
