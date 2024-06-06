@@ -30,16 +30,15 @@ Examples of **correct** code for this rule:
 
 ### Options
 
-This rule has an object option for [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements).
+This rule has an object option for [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements) and custom element patterns.
 
 - `"selfClosing": "never"`: (default) disallow using self closing tag on [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements).
 
 - `"selfClosing": "always"`: enforce using self closing tag on [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements).
 
-- `"allowSelfClosingCustom": false`: (default) disallow self-closing for the custom tags.
+- `"selfClosingCustomPatterns": ["-"]`: (default) an array of strings representing regular expression pattern, enforce self-closing for tags including `-` in the name.
 
-- `"allowSelfClosingCustom": true`: allow self-closing for the custom tags.
-- `"customPatterns": ["-"]`: an array of strings representing regular expression pattern, defines tags allowed by `"allowSelfClosingCustom"`.
+- `"selfClosingCustomPatterns": []`: disallow self-closing for custom tags.
 
 #### selfClosing : "never"
 
@@ -77,32 +76,16 @@ Examples of **correct** code for the `{ "selfClosing": "always" }` option:
 <base />
 ```
 
-#### "allowSelfClosingCustom": false
+#### selfClosingCustomPatterns: ["-"]
 
-Examples of **incorrect** code for the `{ "allowSelfClosingCustom": false }` option:
-
-<!-- prettier-ignore -->
-```html,incorrect
-<custom-tag />
-```
-
-Examples of **correct** code for the `{ "allowSelfClosingCustom": false }` option:
-
-<!-- prettier-ignore -->
-```html,correct
-<custom-tag> </custom-tag>
-```
-
-#### "allowSelfClosingCustom": true
-
-Examples of **incorrect** code for the `{ "allowSelfClosingCustom": false }` option:
+Examples of **incorrect** code for the `{ "selfClosingCustomPatterns": ["-"] }` option:
 
 <!-- prettier-ignore -->
 ```html,incorrect
 <custom-tag> </custom-tag>
 ```
 
-Examples of **correct** code for the `{ "allowSelfClosingCustom": true }` option:
+Examples of **correct** code for the `{ "selfClosingCustomPatterns": ["-"] }` option:
 
 <!-- prettier-ignore -->
 ```html,correct
@@ -110,39 +93,20 @@ Examples of **correct** code for the `{ "allowSelfClosingCustom": true }` option
 <custom-tag />
 ```
 
-#### "customPatterns"
+#### selfClosingCustomPatterns: []
 
-Examples of **incorrect** code for the options below:
-
-```js
-{
-  selfClosing: "always",
-  allowSelfClosingCustom: true,
-  customPatterns: [":"],
-}
-```
+Examples of **incorrect** code for the `{ "allowSelfClosingCustom": [] }` option:
 
 <!-- prettier-ignore -->
 ```html,incorrect
-<custom:tag></custom:tag>
 <custom-tag />
 ```
 
-Examples of **correct** code for the options below:
-
-```js
-{
-  selfClosing: "always",
-  allowSelfClosingCustom: true,
-  customPatterns: [":"],
-}
-```
+Examples of **correct** code for the `{ "allowSelfClosingCustom": [] }` option:
 
 <!-- prettier-ignore -->
 ```html,correct
-<custom:tag>children</custom:tag>
-<custom:tag />
-<custom-tag></custom-tag>
+<custom-tag> </custom-tag>
 ```
 
 ## Further Reading
