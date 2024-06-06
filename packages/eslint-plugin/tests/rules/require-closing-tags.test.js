@@ -23,7 +23,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag> </custom-tag>`,
       options: [
         {
-          allowSelfClosingCustom: false,
+          selfClosingCustomPatterns: [],
         },
       ],
     },
@@ -31,8 +31,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag/>`,
       options: [
         {
-          selfClosing: "always",
-          allowSelfClosingCustom: true,
+          selfClosingCustomPatterns: ['-'],
         },
       ],
     },
@@ -40,8 +39,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag />`,
       options: [
         {
-          selfClosing: "always",
-          allowSelfClosingCustom: true,
+          selfClosingCustomPatterns: ['-'],
         },
       ],
     },
@@ -49,7 +47,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag> </custom-tag>`,
       options: [
         {
-          allowSelfClosingCustom: true,
+          selfClosingCustomPatterns: ['-'],
         },
       ],
     },
@@ -57,8 +55,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag id="foo" />`,
       options: [
         {
-          selfClosing: "always",
-          allowSelfClosingCustom: true,
+          selfClosingCustomPatterns: ['-'],
         },
       ],
     },
@@ -66,18 +63,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag>children</custom-tag>`,
       options: [
         {
-          selfClosing: "always",
-          allowSelfClosingCustom: true,
-        },
-      ],
-    },
-    {
-      code: `<custom:tag />`,
-      options: [
-        {
-          selfClosing: "always",
-          allowSelfClosingCustom: true,
-          customPatterns: [":"],
+          selfClosingCustomPatterns: ['-'],
         },
       ],
     },
@@ -178,7 +164,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag />`,
       options: [
         {
-          allowSelfClosingCustom: false,
+          selfClosingCustomPatterns: [],
         },
       ],
       errors: [
@@ -191,26 +177,9 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag id="foo" />`,
       options: [
         {
-          allowSelfClosingCustom: false,
+          selfClosingCustomPatterns: [],
         },
       ],
-      output: null,
-      errors: [
-        {
-          messageId: "unexpected",
-        },
-      ],
-    },
-    {
-      code: `<custom-tag id="foo" />`,
-      options: [
-        {
-          selfClosing: "always",
-          allowSelfClosingCustom: true,
-          customPatterns: [":"],
-        },
-      ],
-      output: null,
       errors: [
         {
           messageId: "unexpected",
@@ -221,8 +190,7 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<custom-tag></custom-tag>`,
       options: [
         {
-          selfClosing: "always",
-          allowSelfClosingCustom: true,
+          selfClosingCustomPatterns: ['-'],
         },
       ],
       output: "<custom-tag />",
