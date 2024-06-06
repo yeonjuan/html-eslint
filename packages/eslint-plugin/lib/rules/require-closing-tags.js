@@ -34,10 +34,7 @@ module.exports = {
           selfClosing: {
             enum: ["always", "never"],
           },
-          allowSelfClosingCustom: {
-            type: "boolean",
-          },
-          customPatterns: {
+          selfClosingCustomPatterns: {
             type: "array",
             items: {
               type: "string",
@@ -57,19 +54,15 @@ module.exports = {
   create(context) {
     /** @type {string[]} */
     const foreignContext = [];
-    const preferSelfClose =
+    const shouldSelfCloseVoid =
       context.options && context.options.length
         ? context.options[0].selfClosing === "always"
         : false;
-    const allowSelfClosingCustom =
-      context.options && context.options.length
-        ? context.options[0].allowSelfClosingCustom === true
-        : false;
     /** @type {string[]} */
-    const customPatternsOption = (context.options &&
+    const selfClosingCustomPatternsOption = (context.options &&
       context.options.length &&
-      context.options[0].customPatterns) || ["-"];
-    const customPatterns = customPatternsOption.map((i) => new RegExp(i));
+      context.options[0].selfClosingCustomPatterns) || ["-"];
+    const selfClosingCustomPatterns = selfClosingCustomPatternsOption.map((i) => new RegExp(i));
 
     /**
      * @param {TagNode} node
@@ -131,15 +124,14 @@ module.exports = {
     return {
       Tag(node) {
         const isVoidElement = VOID_ELEMENTS_SET.has(node.name);
-        const isCustomElement = !!customPatterns.some((i) =>
-          node.name.match(i)
-        );
-        const canSelfClose =
-          isVoidElement ||
-          foreignContext.length > 0 ||
-          (isCustomElement && allowSelfClosingCustom && !node.children.length);
+        const isSelfClosingCustomElement = !!selfClosingCustomPatterns.some((i) => node.name.match(i));
+        const isForeign = foreignContext.length > 0;
+        const shouldSelfCloseCustom = isSelfClosingCustomElement && !node.children.length;
+        const shouldSelfCloseForeign = node.selfClosing;
+        const shouldSelfClose = (isVoidElement && shouldSelfCloseVoid) || (isSelfClosingCustomElement && shouldSelfCloseCustom) || (isForeign && shouldSelfCloseForeign);
+        const canSelfClose = isVoidElement || isSelfClosingCustomElement || isForeign;
         if (node.selfClosing || canSelfClose) {
-          checkVoidElement(node, preferSelfClose && canSelfClose, canSelfClose);
+          checkVoidElement(node, shouldSelfClose, canSelfClose);
         } else if (node.openEnd.value !== "/>") {
           checkClosingTag(node);
         }
