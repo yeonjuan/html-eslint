@@ -25,23 +25,49 @@ yarn add -D eslint @html-eslint/parser @html-eslint/eslint-plugin
 
 If you are using the ESLint [Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), see examples below.
 
+#### Minimal configuration
+
 ```js,eslint.config.js
 import html from "@html-eslint/eslint-plugin";
-import parser from "@html-eslint/parser";
 
 export default [
-  // recommended configuration included in the plugin
-  html.configs["flat/recommended"],
   // your own configurations.
   {
+    // recommended configuration included in the plugin
+    ...html.configs["flat/recommended"],
     files: ["**/*.html"],
-    plugins: {
-      "@html-eslint": html,
-    },
-    languageOptions: {
-      parser,
-    },
+  },
+];
+```
+
+or if using `require(..);`
+
+```js,eslint.config.js
+const html = require("@html-eslint/eslint-plugin");
+
+module.exports = [
+  // your own configurations.
+  {
+    // recommended configuration included in the plugin
+    ... html.configs["flat/recommended"],
+    files: ["**/*.html"],
+  },
+];
+```
+
+#### Recommended rules with some customization
+
+```js,eslint.config.js
+import html from "@html-eslint/eslint-plugin";
+
+export default [
+  // your own configurations.
+  {
+    // recommended configuration included in the plugin
+    ...html.configs["flat/recommended"],
+    files: ["**/*.html"],
     rules: {
+      ...html.configs["flat/recommended"].rules, // Must be defined. If not, all recommended rules will be lost
       "@html-eslint/indent": "error",
     },
   },
@@ -52,22 +78,60 @@ or if using `require(..);`
 
 ```js,eslint.config.js
 const html = require("@html-eslint/eslint-plugin");
-const parser = require("@html-eslint/parser");
 
 module.exports = [
-  // recommended configuration included in the plugin
-  html.configs["flat/recommended"],
   // your own configurations.
   {
+    // recommended configuration included in the plugin
+    ...html.configs["flat/recommended"],
+    files: ["**/*.html"],
+    rules: {
+      ...html.configs["flat/recommended"].rules, // Must be defined. If not, all recommended rules will be lost
+      "@html-eslint/indent": "error",
+    },
+  },
+];
+```
+
+#### Explicit plugin and parser configuration
+
+```js,eslint.config.js
+import html from "@html-eslint/eslint-plugin";
+import htmlParser from "@html-eslint/parser";
+
+export default [
+  // your own configurations.
+  {
+    // recommended configuration included in the plugin
+    ...html.configs["flat/recommended"],
     files: ["**/*.html"],
     plugins: {
       "@html-eslint": html,
     },
     languageOptions: {
-      parser,
+      parser: htmlParser,
     },
-    rules: {
-      "@html-eslint/indent": "error",
+  },
+];
+```
+
+or if using `require(..);`
+
+```js,eslint.config.js
+const html = require("@html-eslint/eslint-plugin");
+const htmlParser = require("@html-eslint/parser");
+
+module.exports = [
+  // your own configurations.
+  {
+    // recommended configuration included in the plugin
+    ...html.configs["flat/recommended"],
+    files: ["**/*.html"],
+    plugins: {
+      "@html-eslint": html,
+    },
+    languageOptions: {
+      parser: htmlParser,
     },
   },
 ];
