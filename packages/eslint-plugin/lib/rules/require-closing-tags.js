@@ -61,7 +61,7 @@ module.exports = {
     /** @type {string[]} */
     const selfClosingCustomPatternsOption = (context.options &&
       context.options.length &&
-      context.options[0].selfClosingCustomPatterns) || ["-"];
+      context.options[0].selfClosingCustomPatterns) || [];
     const selfClosingCustomPatterns = selfClosingCustomPatternsOption.map(
       (i) => new RegExp(i)
     );
