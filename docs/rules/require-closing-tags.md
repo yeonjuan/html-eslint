@@ -36,9 +36,9 @@ This rule has an object option for [Void Elements](https://html.spec.whatwg.org/
 
 - `"selfClosing": "always"`: enforce using self closing tag on [Void Elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements).
 
-- `"selfClosingCustomPatterns": ["-"]`: (default) an array of strings representing regular expression pattern, enforce self-closing for tags including `-` in the name.
+- `"selfClosingCustomPatterns": []`: (default) disallow self-closing for custom tags.
 
-- `"selfClosingCustomPatterns": []`: disallow self-closing for custom tags.
+- `"selfClosingCustomPatterns": ["-"]`: enforce self-closing for tags matching any of an array of strings representing regular expression pattern (e.g. tags including `-` in the name).
 
 #### selfClosing : "never"
 
