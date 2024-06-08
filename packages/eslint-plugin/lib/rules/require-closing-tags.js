@@ -34,8 +34,11 @@ module.exports = {
           selfClosing: {
             enum: ["always", "never"],
           },
-          allowSelfClosingCustom: {
-            type: "boolean",
+          selfClosingCustomPatterns: {
+            type: "array",
+            items: {
+              type: "string",
+            },
           },
         },
         additionalProperties: false,
@@ -49,14 +52,21 @@ module.exports = {
   },
 
   create(context) {
-    const shouldSelfClose =
+    /** @type {string[]} */
+    const foreignContext = [];
+    const shouldSelfCloseVoid =
       context.options && context.options.length
         ? context.options[0].selfClosing === "always"
         : false;
-    const allowSelfClosingCustom =
-      context.options && context.options.length
-        ? context.options[0].allowSelfClosingCustom === true
-        : false;
+    /** @type {string[]} */
+    const selfClosingCustomPatternsOption =
+      (context.options &&
+        context.options.length &&
+        context.options[0].selfClosingCustomPatterns) ||
+      [];
+    const selfClosingCustomPatterns = selfClosingCustomPatternsOption.map(
+      (i) => new RegExp(i)
+    );
 
     /**
      * @param {TagNode} node
@@ -91,7 +101,10 @@ module.exports = {
             if (!fixable) {
               return null;
             }
-            return fixer.replaceText(node.openEnd, " />");
+            const fixes = [];
+            fixes.push(fixer.replaceText(node.openEnd, " />"));
+            if (node.close) fixes.push(fixer.remove(node.close));
+            return fixes;
           },
         });
       }
@@ -115,16 +128,32 @@ module.exports = {
     return {
       Tag(node) {
         const isVoidElement = VOID_ELEMENTS_SET.has(node.name);
-        if (
-          node.selfClosing &&
-          allowSelfClosingCustom &&
-          node.name.indexOf("-") !== -1
-        ) {
-          checkVoidElement(node, true, false);
-        } else if (node.selfClosing || isVoidElement) {
-          checkVoidElement(node, shouldSelfClose, isVoidElement);
+        const isSelfClosingCustomElement = !!selfClosingCustomPatterns.some(
+          (i) => node.name.match(i)
+        );
+        const isForeign = foreignContext.length > 0;
+        const shouldSelfCloseCustom =
+          isSelfClosingCustomElement && !node.children.length;
+        const shouldSelfCloseForeign = node.selfClosing;
+        const shouldSelfClose =
+          (isVoidElement && shouldSelfCloseVoid) ||
+          (isSelfClosingCustomElement && shouldSelfCloseCustom) ||
+          (isForeign && shouldSelfCloseForeign);
+        const canSelfClose =
+          isVoidElement || isSelfClosingCustomElement || isForeign;
+        if (node.selfClosing || canSelfClose) {
+          checkVoidElement(node, shouldSelfClose, canSelfClose);
         } else if (node.openEnd.value !== "/>") {
           checkClosingTag(node);
+        }
+        if (["svg", "math"].includes(node.name)) foreignContext.push(node.name);
+      },
+      /**
+       * @param {TagNode} node
+       */
+      "Tag:exit"(node) {
+        if (node.name === foreignContext[foreignContext.length - 1]) {
+          foreignContext.pop();
         }
       },
     };
