@@ -52,6 +52,7 @@
 
 | Rule                                                     | Description                                                       |      |
 | -------------------------------------------------------- | ----------------------------------------------------------------- | ---- |
+| [attrs-newline](rules/attrs-newline)                     | Enforce newline between attributes                                | ⭐🔧 |
 | [element-newline](rules/element-newline)                 | Enforce newline between elements.                                 | ⭐🔧 |
 | [id-naming-convention](rules/id-naming-convention)       | Enforce consistent naming id attributes                           |      |
 | [indent](rules/indent)                                   | Enforce consistent indentation                                    | ⭐🔧 |
