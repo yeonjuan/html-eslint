@@ -5,10 +5,11 @@
   "scripts": {
     "clear:cache": "rimraf ../../parcel-cache",
     "dev": "yarn clear:cache && yarn docs && parcel ./src/index.html -p 3000 --open",
-    "build": "yarn docs && parcel build ./src/index.html --dist-dir out",
+    "build": "yarn docs && parcel build ./src/index.html --dist-dir out && yarn sitemap",
     "lint": "eslint src",
     "docs": "node ./scripts/docs",
-    "deploy": "yarn build && firebase deploy"
+    "deploy": "yarn build && firebase deploy",
+    "sitemap": "node ./scripts/sitemap"
   },
   "dependencies": {
     "@html-eslint/eslint-plugin": "^0.25.0",
