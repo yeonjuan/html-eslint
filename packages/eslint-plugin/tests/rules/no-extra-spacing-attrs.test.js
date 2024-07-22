@@ -383,5 +383,48 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
         },
       ],
     },
+    {
+      code: `<img src='foo.png'\talt='foo'/>`,
+      output: `<img src='foo.png' alt='foo'/>`,
+      options: [
+        {
+          disallowTabs: true,
+        }
+      ],
+      errors: [
+        {
+          messageId: "unexpectedTabBetween"
+        }
+      ]
+    },
+    {
+      code: `<img\tsrc='foo.png' alt='foo'/>`,
+      output: `<img src='foo.png' alt='foo'/>`,
+      options: [
+        {
+          disallowTabs: true,
+        }
+      ],
+      errors: [
+        {
+          messageId: "unexpectedTabBefore"
+        }
+      ]
+    },
+    {
+      code: `<img\t/>`,
+      output: `<img />`,
+      options: [
+        {
+          disallowTabs: true,
+          enforceBeforeSelfClose: true,
+        }
+      ],
+      errors: [
+        {
+          messageId: "unexpectedTabBeforeSelfClose"
+        }
+      ]
+    }
   ],
 });

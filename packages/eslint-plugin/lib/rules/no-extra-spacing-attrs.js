@@ -23,6 +23,9 @@ const MESSAGE_IDS = {
   MISSING_BEFORE: "missingBefore",
   MISSING_BEFORE_SELF_CLOSE: "missingBeforeSelfClose",
   EXTRA_BEFORE_SELF_CLOSE: "unexpectedBeforeSelfClose",
+  EXTRA_TAB_BEFORE: "unexpectedTabBefore",
+  EXTRA_TAB_BEFORE_SELF_CLOSE: "unexpectedTabBeforeSelfClose",
+  EXTRA_TAB_BETWEEN: "unexpectedTabBetween",
 };
 
 /**
@@ -46,6 +49,9 @@ module.exports = {
           disallowMissing: {
             type: "boolean",
           },
+          disallowTabs: {
+            type: "boolean",
+          },
           enforceBeforeSelfClose: {
             type: "boolean",
           },
@@ -61,12 +67,18 @@ module.exports = {
       [MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE]:
         "Unexpected extra spaces before self closing",
       [MESSAGE_IDS.MISSING_BEFORE]: "Missing space before attribute",
+      [MESSAGE_IDS.EXTRA_TAB_BEFORE]: "Unexpected tab before attribute; use space instead",
+      [MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE]: "Unexpected tab before self closing; use space instead",
+      [MESSAGE_IDS.EXTRA_TAB_BETWEEN]: "Unexpected tab between attributes; use space instead"
     },
   },
   create(context) {
     const enforceBeforeSelfClose = !!(context.options[0] || {})
       .enforceBeforeSelfClose;
     const disallowMissing = !!(context.options[0] || {}).disallowMissing;
+    const disallowTabs = !!(context.options[0] || {}).disallowTabs;
+
+    const sourceCode = context.getSourceCode().text;
 
     /**
      * @param {AttributeNode[]} attrs
@@ -98,6 +110,16 @@ module.exports = {
               return fixer.insertTextAfter(current, " ");
             },
           });
+        } else if (disallowTabs) {
+          if (sourceCode[current.loc.end.column] === `\t`) {
+            context.report({
+              loc: getLocBetween(current, after),
+              messageId: MESSAGE_IDS.EXTRA_TAB_BETWEEN,
+              fix(fixer) {
+                return fixer.replaceTextRange([current.loc.end.column, after.loc.start.column], ` `);
+              },
+            });
+          }
         }
       });
     }
@@ -164,6 +186,16 @@ module.exports = {
             ]);
           },
         });
+      } else if (disallowTabs) {
+        if (sourceCode[firstAttr.loc.start.column - 1] === `\t`) {
+          context.report({
+            loc: firstAttr.loc,
+            messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE,
+            fix(fixer) {
+              return fixer.replaceTextRange([firstAttr.loc.start.column - 1, firstAttr.loc.start.column], ` `);
+            },
+          });
+        }
       }
     }
 
@@ -200,6 +232,16 @@ module.exports = {
             return fixer.insertTextAfter(beforeSelfClosing, " ");
           },
         });
+      } else if (disallowTabs) {
+        if (sourceCode[openEnd.loc.start.column - 1] === `\t`) {
+          context.report({
+            loc: openEnd.loc,
+            messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE,
+            fix(fixer) {
+              return fixer.replaceTextRange([openEnd.loc.start.column - 1, openEnd.loc.start.column], ` `);
+            },
+          });
+        }
       }
     }
 
@@ -229,7 +271,7 @@ module.exports = {
 
           checkExtraSpacesBetweenAttrs(node.attributes);
           if (
-            node.attributes.length === 0 &&
+            node.attributes.length === 0 && // TODO: Handle when there are attributes
             isSelfClosing &&
             enforceBeforeSelfClose
           ) {
