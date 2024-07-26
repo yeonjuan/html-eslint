@@ -52,3 +52,21 @@ jobs:
       - name: (v8) Print config
         working-directory: integration-test-projects/v8
         run: npm run print-config
+  eslint-v9:
+    name: ESLint v9
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install
+        run: yarn install --immutable
+      - name: Build
+        run: yarn build
+      - name: (v9) Install
+        working-directory: integration-test-projects/v9
+        run: npm install
+      - name: (v9) Print config
+        working-directory: integration-test-projects/v9
+        run: npm run print-config
