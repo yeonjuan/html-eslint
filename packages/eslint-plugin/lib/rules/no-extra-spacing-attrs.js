@@ -20,6 +20,7 @@ const MESSAGE_IDS = {
   EXTRA_BETWEEN: "unexpectedBetween",
   EXTRA_AFTER: "unexpectedAfter",
   EXTRA_BEFORE: "unexpectedBefore",
+  EXTRA_BEFORE_CLOSE: "unexpectedBeforeClose",
   MISSING_BEFORE: "missingBefore",
   MISSING_BEFORE_SELF_CLOSE: "missingBeforeSelfClose",
   EXTRA_BEFORE_SELF_CLOSE: "unexpectedBeforeSelfClose",
@@ -62,6 +63,7 @@ module.exports = {
       [MESSAGE_IDS.EXTRA_BETWEEN]: "Unexpected space between attributes",
       [MESSAGE_IDS.EXTRA_AFTER]: "Unexpected space after attribute",
       [MESSAGE_IDS.EXTRA_BEFORE]: "Unexpected space before attribute",
+      [MESSAGE_IDS.EXTRA_BEFORE_CLOSE]: "Unexpected space before closing",
       [MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE]:
         "Missing space before self closing",
       [MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE]:
@@ -125,44 +127,6 @@ module.exports = {
     }
 
     /**
-     * @param {OpenTagEndNode | OpenScriptTagEndNode | OpenStyleTagEndNode} openEnd
-     * @param {AttributeNode} lastAttr
-     * @param {boolean} isSelfClosed
-     * @returns {void}
-     */
-    function checkExtraSpaceAfter(openEnd, lastAttr, isSelfClosed) {
-      if (openEnd.loc.end.line !== lastAttr.loc.end.line) {
-        // skip the attribute on the different line with the start tag
-        return;
-      }
-      const limit = isSelfClosed && enforceBeforeSelfClose ? 1 : 0;
-      const spacesBetween = openEnd.loc.start.column - lastAttr.loc.end.column;
-
-      if (spacesBetween > limit) {
-        context.report({
-          loc: getLocBetween(lastAttr, openEnd),
-          messageId: MESSAGE_IDS.EXTRA_AFTER,
-          fix(fixer) {
-            return fixer.removeRange([
-              lastAttr.range[1],
-              lastAttr.range[1] + spacesBetween - limit,
-            ]);
-          },
-        });
-      }
-
-      if (isSelfClosed && enforceBeforeSelfClose && spacesBetween < 1) {
-        context.report({
-          loc: getLocBetween(lastAttr, openEnd),
-          messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
-          fix(fixer) {
-            return fixer.insertTextAfter(lastAttr, " ");
-          },
-        });
-      }
-    }
-
-    /**
      * @param {OpenScriptTagStartNode | OpenTagStartNode | OpenStyleTagStartNode} node
      * @param {AttributeNode} firstAttr
      * @returns
@@ -199,52 +163,6 @@ module.exports = {
       }
     }
 
-    /**
-     * @param {AnyNode} beforeSelfClosing
-     * @param {OpenTagEndNode | OpenScriptTagEndNode | OpenStyleTagEndNode} openEnd
-     * @returns
-     */
-    function checkSpaceBeforeSelfClosing(beforeSelfClosing, openEnd) {
-      if (beforeSelfClosing.loc.start.line !== openEnd.loc.start.line) {
-        // skip the attribute on the different line with the start tag
-        return;
-      }
-      const spacesBetween =
-        openEnd.loc.start.column - beforeSelfClosing.loc.end.column;
-      const locBetween = getLocBetween(beforeSelfClosing, openEnd);
-
-      if (spacesBetween > 1) {
-        context.report({
-          loc: locBetween,
-          messageId: MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE,
-          fix(fixer) {
-            return fixer.removeRange([
-              beforeSelfClosing.range[1] + 1,
-              openEnd.range[0],
-            ]);
-          },
-        });
-      } else if (spacesBetween < 1) {
-        context.report({
-          loc: locBetween,
-          messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
-          fix(fixer) {
-            return fixer.insertTextAfter(beforeSelfClosing, " ");
-          },
-        });
-      } else if (disallowTabs) {
-        if (sourceCode[openEnd.loc.start.column - 1] === `\t`) {
-          context.report({
-            loc: openEnd.loc,
-            messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE,
-            fix(fixer) {
-              return fixer.replaceTextRange([openEnd.loc.start.column - 1, openEnd.loc.start.column], ` `);
-            },
-          });
-        }
-      }
-    }
-
     return {
       /**
        * @param {TagNode | StyleTagNode | ScriptTagNode} node
@@ -259,23 +177,83 @@ module.exports = {
           checkExtraSpaceBefore(node.openStart, node.attributes[0]);
         }
         if (node.openEnd) {
-          const isSelfClosing = node.openEnd.value === "/>";
-
-          if (node.attributes && node.attributes.length > 0) {
-            checkExtraSpaceAfter(
-              node.openEnd,
-              node.attributes[node.attributes.length - 1],
-              isSelfClosing
-            );
-          }
-
           checkExtraSpacesBetweenAttrs(node.attributes);
-          if (
-            node.attributes.length === 0 && // TODO: Handle when there are attributes
-            isSelfClosing &&
-            enforceBeforeSelfClose
-          ) {
-            checkSpaceBeforeSelfClosing(node.openStart, node.openEnd);
+
+          const lastAttr = node.attributes[node.attributes.length - 1];
+          const nodeBeforeEnd = node.attributes.length === 0
+            ? node.openStart
+            : lastAttr;
+
+          if (nodeBeforeEnd.loc.end.line === node.openEnd.loc.start.line) {
+            const isSelfClosing = node.openEnd.value === "/>";
+
+            const spacesBetween = node.openEnd.loc.start.column - nodeBeforeEnd.loc.end.column;
+            const locBetween = getLocBetween(nodeBeforeEnd, node.openEnd);
+
+            if (isSelfClosing && enforceBeforeSelfClose) {
+              if (spacesBetween < 1) {
+                context.report({
+                  loc: locBetween,
+                  messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
+                  fix(fixer) {
+                    return fixer.insertTextAfter(nodeBeforeEnd, " ");
+                  },
+                });
+              } else if (spacesBetween === 1) {
+                if (
+                  disallowTabs
+                  && sourceCode[node.openEnd.loc.start.column - 1] === `\t`
+                ) {
+                  context.report({
+                    loc: node.openEnd.loc,
+                    messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE,
+                    fix(fixer) {
+                      return fixer.replaceTextRange(
+                        [node.openEnd.loc.start.column - 1, node.openEnd.loc.start.column],
+                        ` `
+                      );
+                    },
+                  });
+                }
+              } else {
+                context.report({
+                  loc: locBetween,
+                  messageId: MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE,
+                  fix(fixer) {
+                    return fixer.removeRange([
+                      nodeBeforeEnd.range[1] + 1,
+                      node.openEnd.range[0],
+                    ]);
+                  },
+                });
+              }
+            } else {
+              if (spacesBetween > 0) {
+                if (node.attributes.length > 0) {
+                  context.report({
+                    loc: locBetween,
+                    messageId: MESSAGE_IDS.EXTRA_AFTER,
+                    fix(fixer) {
+                      return fixer.removeRange([
+                        lastAttr.range[1],
+                        node.openEnd.range[0]
+                      ]);
+                    },
+                  });
+                } else {
+                  context.report({
+                    loc: locBetween,
+                    messageId: MESSAGE_IDS.EXTRA_BEFORE_CLOSE,
+                    fix(fixer) {
+                      return fixer.removeRange([
+                        node.openStart.range[1],
+                        node.openEnd.range[0]
+                      ]);
+                    }
+                  })
+                }
+              }
+            }
           }
         }
       },

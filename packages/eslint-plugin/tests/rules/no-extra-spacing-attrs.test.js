@@ -309,7 +309,7 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
       output: "<img src='foo.png' />",
       errors: [
         {
-          messageId: "unexpectedAfter",
+          messageId: "unexpectedBeforeSelfClose",
         },
       ],
     },
@@ -425,6 +425,42 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
           messageId: "unexpectedTabBeforeSelfClose"
         }
       ]
-    }
+    },
+    {
+      code: `<div ></div>`,
+      output: `<div></div>`,
+      errors: [
+        {
+          messageId: "unexpectedBeforeClose"
+        }
+      ]
+    },
+    {
+      code: `<div foo="bar" ></div>`,
+      output: `<div foo="bar"></div>`,
+      errors: [
+        {
+          messageId: "unexpectedAfter"
+        }
+      ]
+    },
+    {
+      code: `<div\t></div>`,
+      output: `<div></div>`,
+      errors: [
+        {
+          messageId: "unexpectedBeforeClose"
+        }
+      ]
+    },
+    {
+      code: `<div foo="bar"\t></div>`,
+      output: `<div foo="bar"></div>`,
+      errors: [
+        {
+          messageId: "unexpectedAfter"
+        }
+      ]
+    },
   ],
 });
