@@ -69,9 +69,12 @@ module.exports = {
       [MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE]:
         "Unexpected extra spaces before self closing",
       [MESSAGE_IDS.MISSING_BEFORE]: "Missing space before attribute",
-      [MESSAGE_IDS.EXTRA_TAB_BEFORE]: "Unexpected tab before attribute; use space instead",
-      [MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE]: "Unexpected tab before self closing; use space instead",
-      [MESSAGE_IDS.EXTRA_TAB_BETWEEN]: "Unexpected tab between attributes; use space instead"
+      [MESSAGE_IDS.EXTRA_TAB_BEFORE]:
+        "Unexpected tab before attribute; use space instead",
+      [MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE]:
+        "Unexpected tab before self closing; use space instead",
+      [MESSAGE_IDS.EXTRA_TAB_BETWEEN]:
+        "Unexpected tab between attributes; use space instead",
     },
   },
   create(context) {
@@ -118,7 +121,10 @@ module.exports = {
               loc: getLocBetween(current, after),
               messageId: MESSAGE_IDS.EXTRA_TAB_BETWEEN,
               fix(fixer) {
-                return fixer.replaceTextRange([current.loc.end.column, after.loc.start.column], ` `);
+                return fixer.replaceTextRange(
+                  [current.loc.end.column, after.loc.start.column],
+                  ` `
+                );
               },
             });
           }
@@ -156,7 +162,10 @@ module.exports = {
             loc: firstAttr.loc,
             messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE,
             fix(fixer) {
-              return fixer.replaceTextRange([firstAttr.loc.start.column - 1, firstAttr.loc.start.column], ` `);
+              return fixer.replaceTextRange(
+                [firstAttr.loc.start.column - 1, firstAttr.loc.start.column],
+                ` `
+              );
             },
           });
         }
@@ -180,14 +189,14 @@ module.exports = {
           checkExtraSpacesBetweenAttrs(node.attributes);
 
           const lastAttr = node.attributes[node.attributes.length - 1];
-          const nodeBeforeEnd = node.attributes.length === 0
-            ? node.openStart
-            : lastAttr;
+          const nodeBeforeEnd =
+            node.attributes.length === 0 ? node.openStart : lastAttr;
 
           if (nodeBeforeEnd.loc.end.line === node.openEnd.loc.start.line) {
             const isSelfClosing = node.openEnd.value === "/>";
 
-            const spacesBetween = node.openEnd.loc.start.column - nodeBeforeEnd.loc.end.column;
+            const spacesBetween =
+              node.openEnd.loc.start.column - nodeBeforeEnd.loc.end.column;
             const locBetween = getLocBetween(nodeBeforeEnd, node.openEnd);
 
             if (isSelfClosing && enforceBeforeSelfClose) {
@@ -201,15 +210,18 @@ module.exports = {
                 });
               } else if (spacesBetween === 1) {
                 if (
-                  disallowTabs
-                  && sourceCode[node.openEnd.loc.start.column - 1] === `\t`
+                  disallowTabs &&
+                  sourceCode[node.openEnd.loc.start.column - 1] === `\t`
                 ) {
                   context.report({
                     loc: node.openEnd.loc,
                     messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE,
                     fix(fixer) {
                       return fixer.replaceTextRange(
-                        [node.openEnd.loc.start.column - 1, node.openEnd.loc.start.column],
+                        [
+                          node.openEnd.loc.start.column - 1,
+                          node.openEnd.loc.start.column,
+                        ],
                         ` `
                       );
                     },
@@ -236,7 +248,7 @@ module.exports = {
                     fix(fixer) {
                       return fixer.removeRange([
                         lastAttr.range[1],
-                        node.openEnd.range[0]
+                        node.openEnd.range[0],
                       ]);
                     },
                   });
@@ -247,10 +259,10 @@ module.exports = {
                     fix(fixer) {
                       return fixer.removeRange([
                         node.openStart.range[1],
-                        node.openEnd.range[0]
+                        node.openEnd.range[0],
                       ]);
-                    }
-                  })
+                    },
+                  });
                 }
               }
             }

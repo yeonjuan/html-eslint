@@ -389,13 +389,13 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
       options: [
         {
           disallowTabs: true,
-        }
+        },
       ],
       errors: [
         {
-          messageId: "unexpectedTabBetween"
-        }
-      ]
+          messageId: "unexpectedTabBetween",
+        },
+      ],
     },
     {
       code: `<img\tsrc='foo.png' alt='foo'/>`,
@@ -403,13 +403,13 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
       options: [
         {
           disallowTabs: true,
-        }
+        },
       ],
       errors: [
         {
-          messageId: "unexpectedTabBefore"
-        }
-      ]
+          messageId: "unexpectedTabBefore",
+        },
+      ],
     },
     {
       code: `<img\t/>`,
@@ -418,49 +418,49 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
         {
           disallowTabs: true,
           enforceBeforeSelfClose: true,
-        }
+        },
       ],
       errors: [
         {
-          messageId: "unexpectedTabBeforeSelfClose"
-        }
-      ]
+          messageId: "unexpectedTabBeforeSelfClose",
+        },
+      ],
     },
     {
       code: `<div ></div>`,
       output: `<div></div>`,
       errors: [
         {
-          messageId: "unexpectedBeforeClose"
-        }
-      ]
+          messageId: "unexpectedBeforeClose",
+        },
+      ],
     },
     {
       code: `<div foo="bar" ></div>`,
       output: `<div foo="bar"></div>`,
       errors: [
         {
-          messageId: "unexpectedAfter"
-        }
-      ]
+          messageId: "unexpectedAfter",
+        },
+      ],
     },
     {
       code: `<div\t></div>`,
       output: `<div></div>`,
       errors: [
         {
-          messageId: "unexpectedBeforeClose"
-        }
-      ]
+          messageId: "unexpectedBeforeClose",
+        },
+      ],
     },
     {
       code: `<div foo="bar"\t></div>`,
       output: `<div foo="bar"></div>`,
       errors: [
         {
-          messageId: "unexpectedAfter"
-        }
-      ]
+          messageId: "unexpectedAfter",
+        },
+      ],
     },
   ],
 });
