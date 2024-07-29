@@ -192,79 +192,83 @@ module.exports = {
           const nodeBeforeEnd =
             node.attributes.length === 0 ? node.openStart : lastAttr;
 
-          if (nodeBeforeEnd.loc.end.line === node.openEnd.loc.start.line) {
-            const isSelfClosing = node.openEnd.value === "/>";
+          if (nodeBeforeEnd.loc.end.line !== node.openEnd.loc.start.line) {
+            return;
+          }
 
-            const spacesBetween =
-              node.openEnd.loc.start.column - nodeBeforeEnd.loc.end.column;
-            const locBetween = getLocBetween(nodeBeforeEnd, node.openEnd);
+          const isSelfClosing = node.openEnd.value === "/>";
 
-            if (isSelfClosing && enforceBeforeSelfClose) {
-              if (spacesBetween < 1) {
+          const spacesBetween =
+            node.openEnd.loc.start.column - nodeBeforeEnd.loc.end.column;
+          const locBetween = getLocBetween(nodeBeforeEnd, node.openEnd);
+
+          if (isSelfClosing && enforceBeforeSelfClose) {
+            if (spacesBetween < 1) {
+              context.report({
+                loc: locBetween,
+                messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
+                fix(fixer) {
+                  return fixer.insertTextAfter(nodeBeforeEnd, " ");
+                },
+              });
+            } else if (spacesBetween === 1) {
+              if (
+                disallowTabs &&
+                sourceCode[node.openEnd.loc.start.column - 1] === `\t`
+              ) {
                 context.report({
-                  loc: locBetween,
-                  messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
+                  loc: node.openEnd.loc,
+                  messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE,
                   fix(fixer) {
-                    return fixer.insertTextAfter(nodeBeforeEnd, " ");
-                  },
-                });
-              } else if (spacesBetween === 1) {
-                if (
-                  disallowTabs &&
-                  sourceCode[node.openEnd.loc.start.column - 1] === `\t`
-                ) {
-                  context.report({
-                    loc: node.openEnd.loc,
-                    messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE,
-                    fix(fixer) {
-                      return fixer.replaceTextRange(
-                        [
-                          node.openEnd.loc.start.column - 1,
-                          node.openEnd.loc.start.column,
-                        ],
-                        ` `
-                      );
-                    },
-                  });
-                }
-              } else {
-                context.report({
-                  loc: locBetween,
-                  messageId: MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE,
-                  fix(fixer) {
-                    return fixer.removeRange([
-                      nodeBeforeEnd.range[1] + 1,
-                      node.openEnd.range[0],
-                    ]);
+                    return fixer.replaceTextRange(
+                      [
+                        node.openEnd.loc.start.column - 1,
+                        node.openEnd.loc.start.column,
+                      ],
+                      ` `
+                    );
                   },
                 });
               }
             } else {
-              if (spacesBetween > 0) {
-                if (node.attributes.length > 0) {
-                  context.report({
-                    loc: locBetween,
-                    messageId: MESSAGE_IDS.EXTRA_AFTER,
-                    fix(fixer) {
-                      return fixer.removeRange([
-                        lastAttr.range[1],
-                        node.openEnd.range[0],
-                      ]);
-                    },
-                  });
-                } else {
-                  context.report({
-                    loc: locBetween,
-                    messageId: MESSAGE_IDS.EXTRA_BEFORE_CLOSE,
-                    fix(fixer) {
-                      return fixer.removeRange([
-                        node.openStart.range[1],
-                        node.openEnd.range[0],
-                      ]);
-                    },
-                  });
-                }
-              }
+              context.report({
+                loc: locBetween,
+                messageId: MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE,
+                fix(fixer) {
+                  return fixer.removeRange([
+                    nodeBeforeEnd.range[1] + 1,
+                    node.openEnd.range[0],
+                  ]);
+                },
+              });
+            }
+
+            return;
+          }
+
+          if (spacesBetween > 0) {
+            if (node.attributes.length > 0) {
+              context.report({
+                loc: locBetween,
+                messageId: MESSAGE_IDS.EXTRA_AFTER,
+                fix(fixer) {
+                  return fixer.removeRange([
+                    lastAttr.range[1],
+                    node.openEnd.range[0],
+                  ]);
+                },
+              });
+            } else {
+              context.report({
+                loc: locBetween,
+                messageId: MESSAGE_IDS.EXTRA_BEFORE_CLOSE,
+                fix(fixer) {
+                  return fixer.removeRange([
+                    node.openStart.range[1],
+                    node.openEnd.range[0],
+                  ]);
+                },
+              });
             }
           }
         }
