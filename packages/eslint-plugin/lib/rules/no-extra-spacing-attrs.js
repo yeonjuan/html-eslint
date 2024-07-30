@@ -122,7 +122,7 @@ module.exports = {
               messageId: MESSAGE_IDS.EXTRA_TAB_BETWEEN,
               fix(fixer) {
                 return fixer.replaceTextRange(
-                  [current.loc.end.column, after.loc.start.column],
+                  [current.range[1], current.range[1] + 1],
                   ` `
                 );
               },
