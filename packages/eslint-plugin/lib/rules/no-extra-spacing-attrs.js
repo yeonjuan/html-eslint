@@ -163,10 +163,7 @@ module.exports = {
             messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE,
             fix(fixer) {
               return fixer.replaceTextRange(
-                [
-                  firstAttr.range[0] - 1,
-                  firstAttr.range[0]
-                ],
+                [firstAttr.range[0] - 1, firstAttr.range[0]],
                 ` `
               );
             },
@@ -225,10 +222,7 @@ module.exports = {
                   messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE,
                   fix(fixer) {
                     return fixer.replaceTextRange(
-                      [
-                        node.openEnd.range[0] - 1,
-                        node.openEnd.range[0],
-                      ],
+                      [node.openEnd.range[0] - 1, node.openEnd.range[0]],
                       ` `
                     );
                   },

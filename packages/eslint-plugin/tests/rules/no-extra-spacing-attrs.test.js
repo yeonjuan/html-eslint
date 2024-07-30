@@ -144,10 +144,10 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
         {
           disallowMissing: true,
           disallowTabs: true,
-          enforceBeforeSelfClose: true
-        }
-      ]
-    }
+          enforceBeforeSelfClose: true,
+        },
+      ],
+    },
   ],
   invalid: [
     {
