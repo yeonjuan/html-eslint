@@ -477,5 +477,43 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
         },
       ],
     },
+    {
+      code: `
+\t<div>
+\t\t<img\tsrc="foo"\t/>
+\t\t<div\tfoo="bar"\tbar="baz"\t></div>
+\t</div>
+`,
+      output: `
+\t<div>
+\t\t<img src="foo" />
+\t\t<div foo="bar" bar="baz"></div>
+\t</div>
+`,
+      options: [
+        {
+          disallowMissing: true,
+          disallowTabs: true,
+          enforceBeforeSelfClose: true,
+        },
+      ],
+      errors: [
+        {
+          messageId: "unexpectedTabBefore",
+        },
+        {
+          messageId: "unexpectedTabBeforeSelfClose",
+        },
+        {
+          messageId: "unexpectedTabBefore",
+        },
+        {
+          messageId: "unexpectedTabBetween",
+        },
+        {
+          messageId: "unexpectedAfter",
+        },
+      ],
+    },
   ],
 });
