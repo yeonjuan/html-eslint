@@ -133,6 +133,21 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
         },
       ],
     },
+    {
+      code: `
+\t<div>
+\t\t<img src="foo" />
+\t\t<div foo="bar"></div>
+\t</div>
+`,
+      options: [
+        {
+          disallowMissing: true,
+          disallowTabs: true,
+          enforceBeforeSelfClose: true
+        }
+      ]
+    }
   ],
   invalid: [
     {

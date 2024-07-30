@@ -116,7 +116,7 @@ module.exports = {
             },
           });
         } else if (disallowTabs) {
-          if (sourceCode[current.loc.end.column] === `\t`) {
+          if (sourceCode[current.range[1]] === `\t`) {
             context.report({
               loc: getLocBetween(current, after),
               messageId: MESSAGE_IDS.EXTRA_TAB_BETWEEN,
@@ -157,13 +157,16 @@ module.exports = {
           },
         });
       } else if (disallowTabs) {
-        if (sourceCode[firstAttr.loc.start.column - 1] === `\t`) {
+        if (sourceCode[firstAttr.range[0] - 1] === `\t`) {
           context.report({
             loc: firstAttr.loc,
             messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE,
             fix(fixer) {
               return fixer.replaceTextRange(
-                [firstAttr.loc.start.column - 1, firstAttr.loc.start.column],
+                [
+                  firstAttr.range[0] - 1,
+                  firstAttr.range[0]
+                ],
                 ` `
               );
             },
@@ -185,6 +188,7 @@ module.exports = {
         if (node.attributes.length) {
           checkExtraSpaceBefore(node.openStart, node.attributes[0]);
         }
+
         if (node.openEnd) {
           checkExtraSpacesBetweenAttrs(node.attributes);
 
@@ -214,7 +218,7 @@ module.exports = {
             } else if (spacesBetween === 1) {
               if (
                 disallowTabs &&
-                sourceCode[node.openEnd.loc.start.column - 1] === `\t`
+                sourceCode[node.openEnd.range[0] - 1] === `\t`
               ) {
                 context.report({
                   loc: node.openEnd.loc,
@@ -222,8 +226,8 @@ module.exports = {
                   fix(fixer) {
                     return fixer.replaceTextRange(
                       [
-                        node.openEnd.loc.start.column - 1,
-                        node.openEnd.loc.start.column,
+                        node.openEnd.range[0] - 1,
+                        node.openEnd.range[0],
                       ],
                       ` `
                     );
