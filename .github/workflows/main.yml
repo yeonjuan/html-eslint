@@ -19,6 +19,8 @@ jobs:
         run: yarn install --immutable
       - name: Build
         run: yarn build
+      - name: Lint
+        run: yarn lint
       - name: Unit Tests
         run: yarn test
       - name: Check Spells

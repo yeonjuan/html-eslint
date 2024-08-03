@@ -2,3 +2,4 @@ dist
 .turbo
 src/out
 node_modules
+src/docs
