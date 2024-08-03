@@ -37,6 +37,10 @@
 1. [Playground](https://html-eslint.org/playground)
 1. [License](#License)
 
+## Lint JavaScript inside HTML
+
+This ESLint plugin supports linting HTML syntax and does not provide JavaScript syntax linting. To lint JavaScript in HTML, such as inline scripts, you can use [eslint-plugin-html](https://github.com/BenoitZugmeyer/eslint-plugin-html).
+
 ## License
 
 Distributed under the MIT License. See [LICENSE](./LICENSE) for more information.
