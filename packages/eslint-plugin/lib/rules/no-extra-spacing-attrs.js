@@ -20,9 +20,13 @@ const MESSAGE_IDS = {
   EXTRA_BETWEEN: "unexpectedBetween",
   EXTRA_AFTER: "unexpectedAfter",
   EXTRA_BEFORE: "unexpectedBefore",
+  EXTRA_BEFORE_CLOSE: "unexpectedBeforeClose",
   MISSING_BEFORE: "missingBefore",
   MISSING_BEFORE_SELF_CLOSE: "missingBeforeSelfClose",
   EXTRA_BEFORE_SELF_CLOSE: "unexpectedBeforeSelfClose",
+  EXTRA_TAB_BEFORE: "unexpectedTabBefore",
+  EXTRA_TAB_BEFORE_SELF_CLOSE: "unexpectedTabBeforeSelfClose",
+  EXTRA_TAB_BETWEEN: "unexpectedTabBetween",
 };
 
 /**
@@ -46,6 +50,9 @@ module.exports = {
           disallowMissing: {
             type: "boolean",
           },
+          disallowTabs: {
+            type: "boolean",
+          },
           enforceBeforeSelfClose: {
             type: "boolean",
           },
@@ -56,17 +63,27 @@ module.exports = {
       [MESSAGE_IDS.EXTRA_BETWEEN]: "Unexpected space between attributes",
       [MESSAGE_IDS.EXTRA_AFTER]: "Unexpected space after attribute",
       [MESSAGE_IDS.EXTRA_BEFORE]: "Unexpected space before attribute",
+      [MESSAGE_IDS.EXTRA_BEFORE_CLOSE]: "Unexpected space before closing",
       [MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE]:
         "Missing space before self closing",
       [MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE]:
         "Unexpected extra spaces before self closing",
       [MESSAGE_IDS.MISSING_BEFORE]: "Missing space before attribute",
+      [MESSAGE_IDS.EXTRA_TAB_BEFORE]:
+        "Unexpected tab before attribute; use space instead",
+      [MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE]:
+        "Unexpected tab before self closing; use space instead",
+      [MESSAGE_IDS.EXTRA_TAB_BETWEEN]:
+        "Unexpected tab between attributes; use space instead",
     },
   },
   create(context) {
     const enforceBeforeSelfClose = !!(context.options[0] || {})
       .enforceBeforeSelfClose;
     const disallowMissing = !!(context.options[0] || {}).disallowMissing;
+    const disallowTabs = !!(context.options[0] || {}).disallowTabs;
+
+    const sourceCode = context.getSourceCode().text;
 
     /**
      * @param {AttributeNode[]} attrs
@@ -98,46 +115,21 @@ module.exports = {
               return fixer.insertTextAfter(current, " ");
             },
           });
+        } else if (disallowTabs) {
+          if (sourceCode[current.range[1]] === `\t`) {
+            context.report({
+              loc: getLocBetween(current, after),
+              messageId: MESSAGE_IDS.EXTRA_TAB_BETWEEN,
+              fix(fixer) {
+                return fixer.replaceTextRange(
+                  [current.range[1], current.range[1] + 1],
+                  ` `
+                );
+              },
+            });
+          }
         }
       });
-    }
-
-    /**
-     * @param {OpenTagEndNode | OpenScriptTagEndNode | OpenStyleTagEndNode} openEnd
-     * @param {AttributeNode} lastAttr
-     * @param {boolean} isSelfClosed
-     * @returns {void}
-     */
-    function checkExtraSpaceAfter(openEnd, lastAttr, isSelfClosed) {
-      if (openEnd.loc.end.line !== lastAttr.loc.end.line) {
-        // skip the attribute on the different line with the start tag
-        return;
-      }
-      const limit = isSelfClosed && enforceBeforeSelfClose ? 1 : 0;
-      const spacesBetween = openEnd.loc.start.column - lastAttr.loc.end.column;
-
-      if (spacesBetween > limit) {
-        context.report({
-          loc: getLocBetween(lastAttr, openEnd),
-          messageId: MESSAGE_IDS.EXTRA_AFTER,
-          fix(fixer) {
-            return fixer.removeRange([
-              lastAttr.range[1],
-              lastAttr.range[1] + spacesBetween - limit,
-            ]);
-          },
-        });
-      }
-
-      if (isSelfClosed && enforceBeforeSelfClose && spacesBetween < 1) {
-        context.report({
-          loc: getLocBetween(lastAttr, openEnd),
-          messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
-          fix(fixer) {
-            return fixer.insertTextAfter(lastAttr, " ");
-          },
-        });
-      }
     }
 
     /**
@@ -164,42 +156,19 @@ module.exports = {
             ]);
           },
         });
-      }
-    }
-
-    /**
-     * @param {AnyNode} beforeSelfClosing
-     * @param {OpenTagEndNode | OpenScriptTagEndNode | OpenStyleTagEndNode} openEnd
-     * @returns
-     */
-    function checkSpaceBeforeSelfClosing(beforeSelfClosing, openEnd) {
-      if (beforeSelfClosing.loc.start.line !== openEnd.loc.start.line) {
-        // skip the attribute on the different line with the start tag
-        return;
-      }
-      const spacesBetween =
-        openEnd.loc.start.column - beforeSelfClosing.loc.end.column;
-      const locBetween = getLocBetween(beforeSelfClosing, openEnd);
-
-      if (spacesBetween > 1) {
-        context.report({
-          loc: locBetween,
-          messageId: MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE,
-          fix(fixer) {
-            return fixer.removeRange([
-              beforeSelfClosing.range[1] + 1,
-              openEnd.range[0],
-            ]);
-          },
-        });
-      } else if (spacesBetween < 1) {
-        context.report({
-          loc: locBetween,
-          messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
-          fix(fixer) {
-            return fixer.insertTextAfter(beforeSelfClosing, " ");
-          },
-        });
+      } else if (disallowTabs) {
+        if (sourceCode[firstAttr.range[0] - 1] === `\t`) {
+          context.report({
+            loc: firstAttr.loc,
+            messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE,
+            fix(fixer) {
+              return fixer.replaceTextRange(
+                [firstAttr.range[0] - 1, firstAttr.range[0]],
+                ` `
+              );
+            },
+          });
+        }
       }
     }
 
@@ -216,24 +185,89 @@ module.exports = {
         if (node.attributes.length) {
           checkExtraSpaceBefore(node.openStart, node.attributes[0]);
         }
-        if (node.openEnd) {
-          const isSelfClosing = node.openEnd.value === "/>";
 
-          if (node.attributes && node.attributes.length > 0) {
-            checkExtraSpaceAfter(
-              node.openEnd,
-              node.attributes[node.attributes.length - 1],
-              isSelfClosing
-            );
+        if (node.openEnd) {
+          checkExtraSpacesBetweenAttrs(node.attributes);
+
+          const lastAttr = node.attributes[node.attributes.length - 1];
+          const nodeBeforeEnd =
+            node.attributes.length === 0 ? node.openStart : lastAttr;
+
+          if (nodeBeforeEnd.loc.end.line !== node.openEnd.loc.start.line) {
+            return;
           }
 
-          checkExtraSpacesBetweenAttrs(node.attributes);
-          if (
-            node.attributes.length === 0 &&
-            isSelfClosing &&
-            enforceBeforeSelfClose
-          ) {
-            checkSpaceBeforeSelfClosing(node.openStart, node.openEnd);
+          const isSelfClosing = node.openEnd.value === "/>";
+
+          const spacesBetween =
+            node.openEnd.loc.start.column - nodeBeforeEnd.loc.end.column;
+          const locBetween = getLocBetween(nodeBeforeEnd, node.openEnd);
+
+          if (isSelfClosing && enforceBeforeSelfClose) {
+            if (spacesBetween < 1) {
+              context.report({
+                loc: locBetween,
+                messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
+                fix(fixer) {
+                  return fixer.insertTextAfter(nodeBeforeEnd, " ");
+                },
+              });
+            } else if (spacesBetween === 1) {
+              if (
+                disallowTabs &&
+                sourceCode[node.openEnd.range[0] - 1] === `\t`
+              ) {
+                context.report({
+                  loc: node.openEnd.loc,
+                  messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE,
+                  fix(fixer) {
+                    return fixer.replaceTextRange(
+                      [node.openEnd.range[0] - 1, node.openEnd.range[0]],
+                      ` `
+                    );
+                  },
+                });
+              }
+            } else {
+              context.report({
+                loc: locBetween,
+                messageId: MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE,
+                fix(fixer) {
+                  return fixer.removeRange([
+                    nodeBeforeEnd.range[1] + 1,
+                    node.openEnd.range[0],
+                  ]);
+                },
+              });
+            }
+
+            return;
+          }
+
+          if (spacesBetween > 0) {
+            if (node.attributes.length > 0) {
+              context.report({
+                loc: locBetween,
+                messageId: MESSAGE_IDS.EXTRA_AFTER,
+                fix(fixer) {
+                  return fixer.removeRange([
+                    lastAttr.range[1],
+                    node.openEnd.range[0],
+                  ]);
+                },
+              });
+            } else {
+              context.report({
+                loc: locBetween,
+                messageId: MESSAGE_IDS.EXTRA_BEFORE_CLOSE,
+                fix(fixer) {
+                  return fixer.removeRange([
+                    node.openStart.range[1],
+                    node.openEnd.range[0],
+                  ]);
+                },
+              });
+            }
           }
         }
       },

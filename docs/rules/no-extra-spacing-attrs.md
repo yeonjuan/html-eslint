@@ -1,6 +1,6 @@
 # no-extra-spacing-attrs
 
-This rule disallows extra spaces around attributes.
+This rule disallows extra spaces around attributes, and/or between the tag start and end
 
 ## How to use
 
@@ -26,6 +26,9 @@ Examples of **incorrect** code for this rule:
 
 <!-- an extra space between tag end and attribute -->
 <div foo="foo" ></div>
+
+<!-- an extra space between tag start and end -->
+<div ></div>
 ```
 
 Examples of **correct** code for this rule:
@@ -33,6 +36,7 @@ Examples of **correct** code for this rule:
 ```html,correct
 <div foo="foo" bar="bar"></div>
 <div foo="foo"></div>
+<div></div>
 ```
 
 ## Options
@@ -75,6 +79,30 @@ Example(s) of **incorrect** code for this rule with the `{ "disallowMissing": tr
 <!-- prettier-ignore-end -->
 
 Example(s) of **correct** code for this rule with the `{ "disallowMissing": true }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<div id="foo" class="bar">
+</div>
+```
+
+<!-- prettier-ignore-end -->
+
+- `disallowTabs` (default: false): Enforce using spaces instead of tabs between attributes
+
+Example(s) of **incorrect** code for this rule with the `{ "disallowTabs": true }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<div	id="foo"	class="bar">
+</div>
+```
+
+<!-- prettier-ignore-end -->
+
+Example(s) of **correct** code for this rule with the `{ "disallowTabs": true }` option:
 
 <!-- prettier-ignore-start -->
 
