@@ -16,7 +16,8 @@
     "check:format": "prettier --check .",
     "check:spell": "cspell --config .cspell.json \"**/*.{js,ts,tsx,md,html}\" --quiet",
     "check": "yarn test && yarn check:format && yarn check:spell && yarn check:ts",
-    "publish:website": "yarn workspace website deploy"
+    "publish:website": "yarn workspace website deploy",
+    "prepare": "husky"
   },
   "author": "yeonjuan",
   "license": "MIT",
@@ -35,11 +36,6 @@
   "engines": {
     "node": "^12.22.0 || ^14.17.0 || >=16.0.0",
     "npm": ">=7"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn check"
-    }
   },
   "packageManager": "yarn@4.0.2",
   "workspaces": [
