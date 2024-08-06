@@ -11,6 +11,7 @@ dist
 **/dist
 .yarn/releases
 yarn.lock
+.turbo
 
 # generated types
 packages/parser/types
