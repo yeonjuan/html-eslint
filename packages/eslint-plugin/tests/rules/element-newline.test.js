@@ -22,7 +22,7 @@ ruleTester.run("element-newline", rule, {
       <html lang="en">
           <body>
               <ul>
-                  <li>Item Here
+                  <li>Item Here</li>
                   <li>Second Item Here</li>
               </ul>
           </body>
@@ -40,7 +40,7 @@ ruleTester.run("element-newline", rule, {
 `,
       options: [
         {
-          skip: ["pre", "code"],
+          skip: ["pre", "code", "div"],
         },
       ],
     },
@@ -52,7 +52,7 @@ ruleTester.run("element-newline", rule, {
 `,
       options: [
         {
-          skip: ["div"],
+          skip: ["a"],
         },
       ],
     },
@@ -66,7 +66,7 @@ ruleTester.run("element-newline", rule, {
 `,
       options: [
         {
-          skip: ["div"],
+          skip: ["a"],
         },
       ],
     },
@@ -78,7 +78,7 @@ ruleTester.run("element-newline", rule, {
 `,
       options: [
         {
-          skip: ["div"],
+          skip: ["div", "span", "a"],
         },
       ],
     },
@@ -86,10 +86,47 @@ ruleTester.run("element-newline", rule, {
       code: `<pre><div></div><code><span></span></code><a></a></pre>`,
       options: [
         {
-          skip: ["pre", "code"],
+          skip: ["pre", "code", "div", "span", "a"],
         },
       ],
     },
+    {
+      code: `
+<a>
+<b></b>
+<c></c>
+</a>
+`,
+    },
+    {
+      code: `
+<a><b></b>
+<c></c></a>
+`,
+      options: [
+        {
+          skip: ["a"]
+        }
+      ]
+    },
+    {
+      code: `<a><b></b><c></c></a>`,
+      options: [
+        {
+          skip: ["b", "c"]
+        }
+      ]
+    },
+    {
+      code: `<a>
+<b></b><c></c>
+</a>`,
+      options: [
+        {
+          skip: ["b", "c"]
+        }
+      ]
+    }
   ],
   invalid: [
     {
@@ -122,7 +159,7 @@ ruleTester.run("element-newline", rule, {
           messageId: "expectAfter",
         },
         {
-          messageId: "expectAfter",
+          messageId: "expectBefore",
         },
       ],
     },
@@ -139,10 +176,10 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
         },
         {
-          messageId: "expectAfter",
+          messageId: "expectBeforeClose",
         },
         {
           messageId: "expectBefore",
@@ -163,16 +200,16 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
         },
         {
-          messageId: "expectAfter",
+          messageId: "expectBeforeClose",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfterOpen",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectBeforeClose",
         },
       ],
     },
@@ -188,10 +225,10 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectBeforeClose",
         },
       ],
     },
@@ -207,10 +244,10 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectBeforeClose",
         },
       ],
     },
@@ -229,19 +266,19 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
+        },
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
         },
         {
           messageId: "expectAfter",
-        },
-        {
-          messageId: "expectAfter",
-        },
-        {
-          messageId: "expectBefore",
-        },
-        {
-          messageId: "expectBefore",
         },
       ],
     },
@@ -261,22 +298,22 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
+        },
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
         },
         {
           messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
-        },
-        {
-          messageId: "expectAfter",
-        },
-        {
-          messageId: "expectBefore",
-        },
-        {
-          messageId: "expectBefore",
         },
       ],
     },
@@ -298,28 +335,28 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
+        },
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
         },
         {
           messageId: "expectAfter",
         },
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
         },
         {
           messageId: "expectAfter",
-        },
-        {
-          messageId: "expectAfter",
-        },
-        {
-          messageId: "expectBefore",
-        },
-        {
-          messageId: "expectBefore",
-        },
-        {
-          messageId: "expectBefore",
         },
       ],
     },
@@ -329,7 +366,7 @@ ruleTester.run("element-newline", rule, {
 <code><div></div></code>`,
       options: [
         {
-          skip: ["pre", "code"],
+          skip: ["div"],
         },
       ],
       errors: [
@@ -350,7 +387,9 @@ ruleTester.run("element-newline", rule, {
 <span></span>
 <a></a>
 <div>
-<span><a></a></span>
+<span>
+<a></a>
+</span>
 </div>
 <span></span>
 <a></a>
@@ -363,6 +402,12 @@ ruleTester.run("element-newline", rule, {
       errors: [
         {
           messageId: "expectAfter",
+        },
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
         },
         {
           messageId: "expectAfter",
@@ -378,7 +423,9 @@ ruleTester.run("element-newline", rule, {
       output: `
 <span></span>
 <div>
-<span><a></a></span>
+<span>
+<a></a>
+</span>
 </div>
 `,
       options: [
@@ -390,7 +437,23 @@ ruleTester.run("element-newline", rule, {
         {
           messageId: "expectAfter",
         },
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
+        },
       ],
+    },
+    {
+      code: `<div></div><div></div>`,
+      output: `<div></div>
+<div></div>`,
+      errors: [
+        {
+          messageId: "expectAfter"
+        }
+      ]
     },
   ],
 });
