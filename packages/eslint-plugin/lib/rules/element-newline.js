@@ -26,46 +26,6 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {Object.<string, Array<string>>}
- */
-const PRESETS = {
-  // From https://developer.mozilla.org/en-US/docs/Web/HTML/Element#inline_text_semantics
-  $inlines: `
-a
-abbr
-b
-bdi
-bdo
-br
-cite
-code
-data
-dfn
-em
-i
-kbd
-mark
-q
-rp
-rt
-ruby
-s
-samp
-small
-span
-strong
-sub
-sup
-time
-u
-var
-wbr
-  `.trim().split(`\n`),
-}
-
-// TODO1: Add <pre>
-
-/**
  * @type {RuleModule}
  */
 module.exports = {
@@ -105,27 +65,13 @@ module.exports = {
   },
 
   create(context) {
-    console.log(`>>> <<<`);
-    console.log(context.getSourceCode().text);
     const option = context.options[0] || { skip: [] };
+    const skipTags = option.skip;
     /**
-     * @type {string[]}
-     */
-    const skipTags = [];
-
-    for (const tag of option.skip) {
-      if (tag in PRESETS) {
-        skipTags.push(...PRESETS[tag]);
-      } else {
-        skipTags.push(tag);
-      }
-    }
-
-    /**
-     * @param {Array<NewlineNode>} nodes
+     * @param {Array<NewlineNode>} siblings
      * @returns {NodeMeta} meta
      */
-    function checkSiblings(nodes) {
+    function checkSiblings(siblings) {
       /**
        * @type {NodeMeta}
        */
@@ -135,8 +81,8 @@ module.exports = {
         childLast: null,
       };
 
-      for (let length = nodes.length, index = 0; index < length; index += 1) {
-        const node = nodes[index];
+      for (let length = siblings.length, index = 0; index < length; index += 1) {
+        const node = siblings[index];
 
         if (isEmptyText(node)) {
           continue;
@@ -150,7 +96,7 @@ module.exports = {
 
         const nodeIsNewline = isNewline(node);
 
-        if (mayHaveChildren(node)) {
+        if (mayHaveChildren(node) && skipTags.includes(node.name) === false) {
           const nodeMeta = checkSiblings(node.children);
           const nodeContainsNewline = nodeMeta.containsNewline;
 
@@ -188,7 +134,7 @@ module.exports = {
           }
         }
 
-        const nodeNext = nodes[index + 1];
+        const nodeNext = siblings[index + 1];
 
         if (nodeNext) {
           if (nodeIsNewline && isEmptyText(nodeNext) === false) {
@@ -223,8 +169,8 @@ module.exports = {
       switch (node.type) {
         case `Comment`:
           return node.value.value.trim().match(/\n|\r/) === null;
-        case `Tag`:
-          return skipTags.includes(node.name);
+        // case `Tag`:
+        //   return skipTags.includes(node.name);
         case `Text`:
           return node.value.trim().match(/\n|\r/) === null;
         default:
