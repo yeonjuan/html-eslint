@@ -26,6 +26,16 @@ const MESSAGE_IDS = {
 };
 
 /**
+ * @type {Object.<string, Array<string>>}
+ */
+const PRESETS = {
+  $pre: `
+code
+pre
+  `.trim().split(`\n`),
+}
+
+/**
  * @type {RuleModule}
  */
 module.exports = {
@@ -65,8 +75,9 @@ module.exports = {
   },
 
   create(context) {
-    const option = context.options[0] || { skip: [] };
-    const skipTags = option.skip;
+    const option = context.options[0] || {};
+    const skipTags = optionsOrPresets(option.skip || []);
+
     /**
      * @param {Array<NewlineNode>} siblings
      * @returns {NodeMeta} meta
@@ -165,6 +176,13 @@ module.exports = {
     /**
      * @param {NewlineNode} node
      */
+    function isEmptyText(node) {
+      return (node.type === `Text` && node.value.trim().length === 0);
+    }
+
+    /**
+     * @param {NewlineNode} node
+     */
     function isInline(node) {
       switch (node.type) {
         case `Comment`:
@@ -183,13 +201,6 @@ module.exports = {
      */
     function isNewline(node) {
       return (isInline(node) === false);
-    }
-
-    /**
-     * @param {NewlineNode} node
-     */
-    function isEmptyText(node) {
-      return (node.type === `Text` && node.value.trim().length === 0);
     }
 
     /**
@@ -215,6 +226,22 @@ module.exports = {
      */
     function mayHaveChildren(node) {
       return (node.type === `Tag`);
+    }
+
+    /**
+     * @param {Array<string>} options
+     */
+    function optionsOrPresets(options) {
+      const result = [];
+      for (const option of options) {
+        if (option in PRESETS) {
+          const preset = PRESETS[option];
+          result.push(...preset);
+        } else {
+          result.push(option);
+        }
+      }
+      return result;
     }
 
     return {

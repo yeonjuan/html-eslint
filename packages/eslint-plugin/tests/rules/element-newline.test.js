@@ -46,6 +46,22 @@ ruleTester.run("element-newline", rule, {
     },
     {
       code: `
+<html>
+<body>
+      <pre><div></div></pre>
+      <code>
+      <div></div></code>
+</body>
+</html>
+`,
+      options: [
+        {
+          skip: ["$pre"],
+        },
+      ],
+    },
+    {
+      code: `
 <div>
 <span><a></a></span>
 </div>
@@ -330,6 +346,21 @@ ruleTester.run("element-newline", rule, {
       options: [
         {
           skip: ["pre", "code"],
+        },
+      ],
+      errors: [
+        {
+          messageId: "expectAfter",
+        },
+      ],
+    },
+    {
+      code: `<pre><div></div></pre><code><div></div></code>`,
+      output: `<pre><div></div></pre>
+<code><div></div></code>`,
+      options: [
+        {
+          skip: ["$pre"],
         },
       ],
       errors: [
