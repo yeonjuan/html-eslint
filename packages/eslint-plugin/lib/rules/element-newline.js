@@ -10,9 +10,9 @@
  * @typedef { import("../types").TextNode } TextNode
  * @typedef { CommentNode | DoctypeNode | ScriptTagNode | StyleTagNode | TagNode | TextNode } NewlineNode
  * @typedef {{
- *   containsNewline: boolean;
  *   childFirst: NewlineNode | null;
  *   childLast: NewlineNode | null;
+ *   shouldBeNewline: boolean;
  * }} NodeMeta
  */
 
@@ -87,17 +87,23 @@ module.exports = {
        * @type {NodeMeta}
        */
       const meta = {
-        containsNewline: false,
         childFirst: null,
         childLast: null,
+        shouldBeNewline: false,
       };
 
+      const nodesWithContent = [];
       for (let length = siblings.length, index = 0; index < length; index += 1) {
         const node = siblings[index];
 
-        if (isEmptyText(node)) {
-          continue;
+        if (isEmptyText(node) === false) {
+          nodesWithContent.push(node);
         }
+      }
+
+      for (let length = nodesWithContent.length, index = 0; index < length; index += 1) {
+        const node = nodesWithContent[index];
+        const nodeNext = nodesWithContent[index + 1];
 
         if (meta.childFirst === null) {
           meta.childFirst = node;
@@ -109,10 +115,10 @@ module.exports = {
 
         if (mayHaveChildren(node) && skipTags.includes(node.name) === false) {
           const nodeMeta = checkSiblings(node.children);
-          const nodeChildShouldBeNewline = nodeMeta.containsNewline;
+          const nodeChildShouldBeNewline = nodeMeta.shouldBeNewline;
 
           if (nodeShouldBeNewline || nodeChildShouldBeNewline) {
-            meta.containsNewline = true;
+            meta.shouldBeNewline = true;
           }
 
           if (
@@ -145,10 +151,11 @@ module.exports = {
           }
         }
 
-        const nodeNext = siblings[index + 1];
-
-        if (nodeNext) {
-          if (nodeShouldBeNewline && isEmptyText(nodeNext) === false) {
+        if (
+          nodeNext
+          && node.loc.end.line === nodeNext.loc.start.line
+        ) {
+          if (nodeShouldBeNewline) {
             context.report({
               node: nodeNext,
               messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
