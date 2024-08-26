@@ -105,19 +105,19 @@ module.exports = {
 
         meta.childLast = node;
 
-        const nodeIsNewline = isNewline(node);
+        const nodeShouldBeNewline = shouldBeNewline(node);
 
         if (mayHaveChildren(node) && skipTags.includes(node.name) === false) {
           const nodeMeta = checkSiblings(node.children);
-          const nodeContainsNewline = nodeMeta.containsNewline;
+          const nodeChildShouldBeNewline = nodeMeta.containsNewline;
 
-          if (nodeIsNewline || nodeContainsNewline) {
+          if (nodeShouldBeNewline || nodeChildShouldBeNewline) {
             meta.containsNewline = true;
           }
 
           if (
-            nodeIsNewline
-            && nodeContainsNewline
+            nodeShouldBeNewline
+            && nodeChildShouldBeNewline
             && nodeMeta.childFirst
             && nodeMeta.childLast
           ) {
@@ -148,7 +148,7 @@ module.exports = {
         const nodeNext = siblings[index + 1];
 
         if (nodeNext) {
-          if (nodeIsNewline && isEmptyText(nodeNext) === false) {
+          if (nodeShouldBeNewline && isEmptyText(nodeNext) === false) {
             context.report({
               node: nodeNext,
               messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
@@ -157,7 +157,7 @@ module.exports = {
                 return fixer.insertTextAfter(node, `\n`);
               },
             });
-          } else if (isNewline(nodeNext)) {
+          } else if (shouldBeNewline(nodeNext)) {
             context.report({
               node: nodeNext,
               messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE,
@@ -178,29 +178,6 @@ module.exports = {
      */
     function isEmptyText(node) {
       return (node.type === `Text` && node.value.trim().length === 0);
-    }
-
-    /**
-     * @param {NewlineNode} node
-     */
-    function isInline(node) {
-      switch (node.type) {
-        case `Comment`:
-          return node.value.value.trim().match(/\n|\r/) === null;
-        // case `Tag`:
-        //   return skipTags.includes(node.name);
-        case `Text`:
-          return node.value.trim().match(/\n|\r/) === null;
-        default:
-          return false;
-      }
-    }
-
-    /**
-     * @param {NewlineNode} node
-     */
-    function isNewline(node) {
-      return (isInline(node) === false);
     }
 
     /**
@@ -242,6 +219,21 @@ module.exports = {
         }
       }
       return result;
+    }
+
+
+    /**
+     * @param {NewlineNode} node
+     */
+    function shouldBeNewline(node) {
+      switch (node.type) {
+        case `Comment`:
+          return /[\n\r]+/.test(node.value.value.trim());
+        case `Text`:
+          return /[\n\r]+/.test(node.value.trim());
+        default:
+          return true;
+      }
     }
 
     return {

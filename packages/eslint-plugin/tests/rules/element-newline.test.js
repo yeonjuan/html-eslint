@@ -125,6 +125,25 @@ ruleTester.run("element-newline", rule, {
     },
     {
       code: `
+<!DOCTYPE html>foo<html></html>
+`,
+      output: `
+<!DOCTYPE html>
+foo
+<html></html>
+`,
+
+      errors: [
+        {
+          messageId: "expectAfter",
+        },
+        {
+          messageId: "expectBefore",
+        },
+      ],
+    },
+    {
+      code: `
 <!DOCTYPE html><!-- comment --><html></html>
 `,
       output: `
