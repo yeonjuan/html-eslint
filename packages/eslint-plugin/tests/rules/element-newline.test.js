@@ -106,6 +106,44 @@ ruleTester.run("element-newline", rule, {
         },
       ],
     },
+    {
+      code: `
+<a>
+  <b>
+    <c><d></d></c>
+  </b>
+</a>
+`,
+      options: [
+        {
+          inline: [`d`]
+        }
+      ]
+    },
+    {
+      code: `
+<a>
+  <b>
+    <c><d></d></c>
+  </b>
+</a>
+`,
+      options: [
+        {
+          skip: [`c`]
+        }
+      ]
+    },
+    {
+      code: `
+<a></a><abbr></abbr><b></b><bdi></bdi><bdo></bdo><br></br><cite></cite><code></code><data></data><dfn></dfn><em></em><i></i><kbd></kbd><mark></mark><q></q><rp></rp><rt></rt><ruby></ruby><s></s><samp></samp><small></small><span></span><strong></strong><sub></sub><sup></sup><time></time><u></u><var></var><wbr></wbr>
+`,
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -439,6 +477,29 @@ foo
       errors: [
         {
           messageId: "expectAfter",
+        },
+      ],
+    },
+    {
+      code: `
+<a></a><abbr></abbr><b></b><bdi></bdi><bdo></bdo><br></br><cite></cite><code></code><div></div><data></data><dfn></dfn><em></em><i></i><kbd></kbd><mark></mark><q></q><rp></rp><rt></rt><ruby></ruby><s></s><samp></samp><small></small><span></span><strong></strong><sub></sub><sup></sup><time></time><u></u><var></var><wbr></wbr>
+`,
+      output: `
+<a></a><abbr></abbr><b></b><bdi></bdi><bdo></bdo><br></br><cite></cite><code></code>
+<div></div>
+<data></data><dfn></dfn><em></em><i></i><kbd></kbd><mark></mark><q></q><rp></rp><rt></rt><ruby></ruby><s></s><samp></samp><small></small><span></span><strong></strong><sub></sub><sup></sup><time></time><u></u><var></var><wbr></wbr>
+`,
+      errors: [
+        {
+          messageId: "expectBefore",
+        },
+        {
+          messageId: "expectAfter",
+        },
+      ],
+      options: [
+        {
+          inline: [`$inline`],
         },
       ],
     },

@@ -29,6 +29,39 @@ const MESSAGE_IDS = {
  * @type {Object.<string, Array<string>>}
  */
 const PRESETS = {
+  // From https://developer.mozilla.org/en-US/docs/Web/HTML/Element#inline_text_semantics
+  $inline: `
+a
+abbr
+b
+bdi
+bdo
+br
+cite
+code
+data
+dfn
+em
+i
+kbd
+mark
+q
+rp
+rt
+ruby
+s
+samp
+small
+span
+strong
+sub
+sup
+time
+u
+var
+wbr
+  `.trim().split(`\n`),
+
   $pre: `
 code
 pre
@@ -53,6 +86,13 @@ module.exports = {
       {
         type: "object",
         properties: {
+          inline: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+
           skip: {
             type: "array",
             items: {
@@ -77,6 +117,7 @@ module.exports = {
   create(context) {
     const option = context.options[0] || {};
     const skipTags = optionsOrPresets(option.skip || []);
+    const inlineTags = optionsOrPresets(option.inline || []);
 
     /**
      * @param {Array<NewlineNode>} siblings
@@ -236,6 +277,8 @@ module.exports = {
       switch (node.type) {
         case `Comment`:
           return /[\n\r]+/.test(node.value.value.trim());
+        case `Tag`:
+          return inlineTags.includes(node.name.toLowerCase()) === false;
         case `Text`:
           return /[\n\r]+/.test(node.value.trim());
         default:
