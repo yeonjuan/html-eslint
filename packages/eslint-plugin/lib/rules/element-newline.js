@@ -288,6 +288,7 @@ module.exports = {
 
     return {
       Program(node) {
+        // @ts-ignore
         checkSiblings(node.body);
       },
     };
