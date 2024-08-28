@@ -11,7 +11,7 @@ const pluginRules = Object.fromEntries(
 
 const testDirs = fs
   .readdirSync(__dirname, { withFileTypes: true })
-  .filter(entry => entry.isDirectory());
+  .filter((entry) => entry.isDirectory());
 
 for (const testDir of testDirs) {
   const testDirPath = `${testDir.path}/${testDir.name}`;
@@ -27,7 +27,9 @@ for (const testDir of testDirs) {
     linter.defineParser(`@html-eslint/parser`, parser);
     linter.defineRules(pluginRules);
 
-    const source = fs.readFileSync(`${testDirPath}/source.html`, { encoding: `utf8` });
+    const source = fs.readFileSync(`${testDirPath}/source.html`, {
+      encoding: `utf8`,
+    });
 
     const outputPath = `${testDirPath}/fixed.html`;
     const shouldHaveErrors = fs.existsSync(outputPath);
