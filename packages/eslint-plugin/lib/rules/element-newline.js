@@ -251,7 +251,7 @@ module.exports = {
           }
           return `<${node.name}>`;
         default:
-          return `<${node.type}>`; // TODO1
+          return `<${node.type}>`;
       }
     }
 
