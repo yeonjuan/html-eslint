@@ -141,6 +141,36 @@ ruleTester.run("element-newline", rule, {
         },
       ],
     },
+    {
+      code: `
+        <h1 class="display1 md:text-[60px] md:leading-[68px] md:font-bold">
+            An <span class="text-accent">ESLint</span>
+            <br class="md:hidden">
+            plugin<br>
+            to lint and fix <span class="text-accent">HTML code</span>.
+        </h1>
+`,
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
+    {
+      code: `
+      <header>
+        <img
+            foo="bar"
+        >
+        html-eslint
+      </header>
+      `,
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
   ],
   invalid: [
     {

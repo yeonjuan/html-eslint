@@ -176,8 +176,7 @@ module.exports = {
             if (
               node.openEnd.loc.end.line === nodeMeta.childFirst.loc.start.line
             ) {
-              const child = nodeMeta.childFirst;
-              if (child.type !== `Text` || /^\n/.test(child.value) === false) {
+              if (isNotNewlineStart(nodeMeta.childFirst)) {
                 context.report({
                   node: node,
                   messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER_OPEN,
@@ -190,30 +189,34 @@ module.exports = {
             }
 
             if (nodeMeta.childLast.loc.end.line === node.close.loc.start.line) {
-              context.report({
-                node: node,
-                messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE_CLOSE,
-                data: { tag: label(node, { isClose: true }) },
-                fix(fixer) {
-                  return fixer.insertTextBefore(node.close, `\n`);
-                },
-              });
+              if (isNotNewlineEnd(nodeMeta.childLast)) {
+                context.report({
+                  node: node,
+                  messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE_CLOSE,
+                  data: { tag: label(node, { isClose: true }) },
+                  fix(fixer) {
+                    return fixer.insertTextBefore(node.close, `\n`);
+                  },
+                });
+              }
             }
           }
         }
 
         if (nodeNext && node.loc.end.line === nodeNext.loc.start.line) {
           if (nodeShouldBeNewline) {
-            context.report({
-              node: nodeNext,
-              messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
-              data: { tag: label(node) },
-              fix(fixer) {
-                return fixer.insertTextAfter(node, `\n`);
-              },
-            });
+            if (isNotNewlineStart(nodeNext)) {
+              context.report({
+                node: nodeNext,
+                messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
+                data: { tag: label(node) },
+                fix(fixer) {
+                  return fixer.insertTextAfter(node, `\n`);
+                },
+              });
+            }
           } else if (shouldBeNewline(nodeNext)) {
-            if (node.type !== `Text` || /\n\s*$/.test(node.value) === false) {
+            if (isNotNewlineEnd(node)) {
               context.report({
                 node: nodeNext,
                 messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE,
@@ -235,6 +238,20 @@ module.exports = {
      */
     function isEmptyText(node) {
       return node.type === `Text` && node.value.trim().length === 0;
+    }
+
+    /**
+     * @param {NewlineNode} node
+     */
+    function isNotNewlineEnd(node) {
+      return node.type !== `Text` || /\n\s*$/.test(node.value) === false;
+    }
+
+    /**
+     * @param {NewlineNode} node
+     */
+    function isNotNewlineStart(node) {
+      return node.type !== `Text` || /^\n/.test(node.value) === false;
     }
 
     /**
