@@ -100,9 +100,9 @@ ruleTester.run("element-newline", rule, {
 `,
       options: [
         {
-          inline: [`d`]
-        }
-      ]
+          inline: [`d`],
+        },
+      ],
     },
     {
       code: `
@@ -114,9 +114,9 @@ ruleTester.run("element-newline", rule, {
 `,
       options: [
         {
-          skip: [`c`]
-        }
-      ]
+          skip: [`c`],
+        },
+      ],
     },
     {
       code: `

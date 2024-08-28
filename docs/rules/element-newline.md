@@ -83,4 +83,3 @@ Examples of **correct** code for the `{ "inline": ["$inline"] }` option:
     <p>It's <em>true</em>!</p>
 </div>
 ```
-

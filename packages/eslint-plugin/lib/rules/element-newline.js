@@ -60,8 +60,10 @@ time
 u
 var
 wbr
-  `.trim().split(`\n`),
-}
+  `
+    .trim()
+    .split(`\n`),
+};
 
 /**
  * @type {RuleModule}
@@ -129,7 +131,11 @@ module.exports = {
       };
 
       const nodesWithContent = [];
-      for (let length = siblings.length, index = 0; index < length; index += 1) {
+      for (
+        let length = siblings.length, index = 0;
+        index < length;
+        index += 1
+      ) {
         const node = siblings[index];
 
         if (isEmptyText(node) === false) {
@@ -137,7 +143,11 @@ module.exports = {
         }
       }
 
-      for (let length = nodesWithContent.length, index = 0; index < length; index += 1) {
+      for (
+        let length = nodesWithContent.length, index = 0;
+        index < length;
+        index += 1
+      ) {
         const node = nodesWithContent[index];
         const nodeNext = nodesWithContent[index + 1];
 
@@ -158,12 +168,14 @@ module.exports = {
           }
 
           if (
-            nodeShouldBeNewline
-            && nodeChildShouldBeNewline
-            && nodeMeta.childFirst
-            && nodeMeta.childLast
+            nodeShouldBeNewline &&
+            nodeChildShouldBeNewline &&
+            nodeMeta.childFirst &&
+            nodeMeta.childLast
           ) {
-            if (node.openEnd.loc.end.line === nodeMeta.childFirst.loc.start.line) {
+            if (
+              node.openEnd.loc.end.line === nodeMeta.childFirst.loc.start.line
+            ) {
               const child = nodeMeta.childFirst;
               if (child.type !== `Text` || /^\n/.test(child.value) === false) {
                 context.report({
@@ -190,10 +202,7 @@ module.exports = {
           }
         }
 
-        if (
-          nodeNext
-          && node.loc.end.line === nodeNext.loc.start.line
-        ) {
+        if (nodeNext && node.loc.end.line === nodeNext.loc.start.line) {
           if (nodeShouldBeNewline) {
             context.report({
               node: nodeNext,
@@ -225,7 +234,7 @@ module.exports = {
      * @param {NewlineNode} node
      */
     function isEmptyText(node) {
-      return (node.type === `Text` && node.value.trim().length === 0);
+      return node.type === `Text` && node.value.trim().length === 0;
     }
 
     /**
@@ -261,7 +270,6 @@ module.exports = {
       }
       return result;
     }
-
 
     /**
      * @param {NewlineNode} node
