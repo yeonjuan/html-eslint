@@ -61,11 +61,6 @@ u
 var
 wbr
   `.trim().split(`\n`),
-
-  $pre: `
-code
-pre
-  `.trim().split(`\n`),
 }
 
 /**
@@ -116,7 +111,7 @@ module.exports = {
 
   create(context) {
     const option = context.options[0] || {};
-    const skipTags = optionsOrPresets(option.skip || []);
+    const skipTags = option.skip || [];
     const inlineTags = optionsOrPresets(option.inline || []);
 
     /**
@@ -154,7 +149,7 @@ module.exports = {
 
         const nodeShouldBeNewline = shouldBeNewline(node);
 
-        if (mayHaveChildren(node) && skipTags.includes(node.name) === false) {
+        if (node.type === `Tag` && skipTags.includes(node.name) === false) {
           const nodeMeta = checkSiblings(node.children);
           const nodeChildShouldBeNewline = nodeMeta.shouldBeNewline;
 
@@ -169,14 +164,17 @@ module.exports = {
             && nodeMeta.childLast
           ) {
             if (node.openEnd.loc.end.line === nodeMeta.childFirst.loc.start.line) {
-              context.report({
-                node: node,
-                messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER_OPEN,
-                data: { tag: label(node) },
-                fix(fixer) {
-                  return fixer.insertTextAfter(node.openEnd, `\n`);
-                },
-              });
+              const child = nodeMeta.childFirst;
+              if (child.type !== `Text` || /^\n/.test(child.value) === false) {
+                context.report({
+                  node: node,
+                  messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER_OPEN,
+                  data: { tag: label(node) },
+                  fix(fixer) {
+                    return fixer.insertTextAfter(node.openEnd, `\n`);
+                  },
+                });
+              }
             }
 
             if (nodeMeta.childLast.loc.end.line === node.close.loc.start.line) {
@@ -206,14 +204,16 @@ module.exports = {
               },
             });
           } else if (shouldBeNewline(nodeNext)) {
-            context.report({
-              node: nodeNext,
-              messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE,
-              data: { tag: label(nodeNext) },
-              fix(fixer) {
-                return fixer.insertTextBefore(nodeNext, `\n`);
-              },
-            });
+            if (node.type !== `Text` || /\n\s*$/.test(node.value) === false) {
+              context.report({
+                node: nodeNext,
+                messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE,
+                data: { tag: label(nodeNext) },
+                fix(fixer) {
+                  return fixer.insertTextBefore(nodeNext, `\n`);
+                },
+              });
+            }
           }
         }
       }
@@ -244,13 +244,6 @@ module.exports = {
         default:
           return `<${node.type}>`; // TODO1
       }
-    }
-
-    /**
-     * @param {NewlineNode} node
-     */
-    function mayHaveChildren(node) {
-      return (node.type === `Tag`);
     }
 
     /**

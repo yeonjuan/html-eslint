@@ -46,22 +46,6 @@ ruleTester.run("element-newline", rule, {
     },
     {
       code: `
-<html>
-<body>
-      <pre><div></div></pre>
-      <code>
-      <div></div></code>
-</body>
-</html>
-`,
-      options: [
-        {
-          skip: ["$pre"],
-        },
-      ],
-    },
-    {
-      code: `
 <div>
 <span><a></a></span>
 </div>
@@ -137,6 +121,19 @@ ruleTester.run("element-newline", rule, {
     {
       code: `
 <a></a><abbr></abbr><b></b><bdi></bdi><bdo></bdo><br></br><cite></cite><code></code><data></data><dfn></dfn><em></em><i></i><kbd></kbd><mark></mark><q></q><rp></rp><rt></rt><ruby></ruby><s></s><samp></samp><small></small><span></span><strong></strong><sub></sub><sup></sup><time></time><u></u><var></var><wbr></wbr>
+`,
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
+    {
+      code: `
+<div>
+    I <strong>like</strong> these <dfn>inline</dfn> tags.
+    <p>It's <em>true</em>!</p>
+</div>
 `,
       options: [
         {
@@ -412,21 +409,6 @@ foo
       ],
     },
     {
-      code: `<pre><div></div></pre><code><div></div></code>`,
-      output: `<pre><div></div></pre>
-<code><div></div></code>`,
-      options: [
-        {
-          skip: ["$pre"],
-        },
-      ],
-      errors: [
-        {
-          messageId: "expectAfter",
-        },
-      ],
-    },
-    {
       code: `
 <span></span><a></a>
 <div>
@@ -495,6 +477,33 @@ foo
         },
         {
           messageId: "expectAfter",
+        },
+      ],
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
+    {
+      code: `
+<div>aaa<strong>bbb</strong><a>ccc</a><p>ddd<i>eee</i></p></div>
+`,
+      output: `
+<div>
+aaa<strong>bbb</strong><a>ccc</a>
+<p>ddd<i>eee</i></p>
+</div>
+`,
+      errors: [
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
+        },
+        {
+          messageId: "expectBefore",
         },
       ],
       options: [
