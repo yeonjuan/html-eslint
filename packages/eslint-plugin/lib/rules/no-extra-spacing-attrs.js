@@ -21,6 +21,7 @@ const MESSAGE_IDS = {
   EXTRA_AFTER: "unexpectedAfter",
   EXTRA_BEFORE: "unexpectedBefore",
   EXTRA_BEFORE_CLOSE: "unexpectedBeforeClose",
+  EXTRA_IN_ASSIGNMENT: "unexpectedInAssignment",
   MISSING_BEFORE: "missingBefore",
   MISSING_BEFORE_SELF_CLOSE: "missingBeforeSelfClose",
   EXTRA_BEFORE_SELF_CLOSE: "unexpectedBeforeSelfClose",
@@ -47,6 +48,9 @@ module.exports = {
       {
         type: "object",
         properties: {
+          disallowInAssignment: {
+            type: "boolean",
+          },
           disallowMissing: {
             type: "boolean",
           },
@@ -64,6 +68,8 @@ module.exports = {
       [MESSAGE_IDS.EXTRA_AFTER]: "Unexpected space after attribute",
       [MESSAGE_IDS.EXTRA_BEFORE]: "Unexpected space before attribute",
       [MESSAGE_IDS.EXTRA_BEFORE_CLOSE]: "Unexpected space before closing",
+      [MESSAGE_IDS.EXTRA_IN_ASSIGNMENT]:
+        "Unexpected space in attribute assignment",
       [MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE]:
         "Missing space before self closing",
       [MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE]:
@@ -82,6 +88,7 @@ module.exports = {
       .enforceBeforeSelfClose;
     const disallowMissing = !!(context.options[0] || {}).disallowMissing;
     const disallowTabs = !!(context.options[0] || {}).disallowTabs;
+    const disallowInAssignment = !!(context.options[0] || []).disallowInAssignment;
 
     const sourceCode = context.getSourceCode().text;
 
@@ -104,7 +111,10 @@ module.exports = {
             loc: getLocBetween(current, after),
             messageId: MESSAGE_IDS.EXTRA_BETWEEN,
             fix(fixer) {
-              return fixer.removeRange([current.range[1] + 1, after.range[0]]);
+              return fixer.replaceTextRange(
+                [current.range[1], after.range[0]],
+                ` `
+              );
             },
           });
         } else if (disallowMissing && spacesBetween < 1) {
@@ -122,7 +132,7 @@ module.exports = {
               messageId: MESSAGE_IDS.EXTRA_TAB_BETWEEN,
               fix(fixer) {
                 return fixer.replaceTextRange(
-                  [current.range[1], current.range[1] + 1],
+                  [current.range[1], after.range[0]],
                   ` `
                 );
               },
@@ -184,6 +194,26 @@ module.exports = {
 
         if (node.attributes.length) {
           checkExtraSpaceBefore(node.openStart, node.attributes[0]);
+
+          for (const attr of node.attributes) {
+            if (attr.startWrapper && attr.value) {
+              if (
+                disallowInAssignment
+                && attr.startWrapper.loc.start.column - attr.key.loc.end.column >
+                1
+              ) {
+                const start = attr.key.range[1];
+                const end = attr.startWrapper.range[0];
+                context.report({
+                  node: attr,
+                  messageId: MESSAGE_IDS.EXTRA_IN_ASSIGNMENT,
+                  fix(fixer) {
+                    return fixer.replaceTextRange([start, end], `=`);
+                  },
+                });
+              }
+            }
+          }
         }
 
         if (node.openEnd) {
