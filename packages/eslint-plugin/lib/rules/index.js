@@ -6,6 +6,7 @@ const noDuplicateId = require("./no-duplicate-id");
 const noInlineStyles = require("./no-inline-styles");
 const noMultipleH1 = require("./no-multiple-h1");
 const noExtraSpacingAttrs = require("./no-extra-spacing-attrs");
+const noExtraSpacingText = require("./no-extra-spacing-text");
 const attrsNewline = require("./attrs-newline");
 const elementNewLine = require("./element-newline");
 const noSkipHeadingLevels = require("./no-skip-heading-levels");
@@ -46,6 +47,7 @@ module.exports = {
   "no-inline-styles": noInlineStyles,
   "no-multiple-h1": noMultipleH1,
   "no-extra-spacing-attrs": noExtraSpacingAttrs,
+  "no-extra-spacing-text": noExtraSpacingText,
   "attrs-newline": attrsNewline,
   "element-newline": elementNewLine,
   "no-skip-heading-levels": noSkipHeadingLevels,
