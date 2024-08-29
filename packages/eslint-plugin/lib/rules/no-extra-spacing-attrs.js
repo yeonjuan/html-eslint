@@ -88,7 +88,8 @@ module.exports = {
       .enforceBeforeSelfClose;
     const disallowMissing = !!(context.options[0] || {}).disallowMissing;
     const disallowTabs = !!(context.options[0] || {}).disallowTabs;
-    const disallowInAssignment = !!(context.options[0] || []).disallowInAssignment;
+    const disallowInAssignment = !!(context.options[0] || [])
+      .disallowInAssignment;
 
     const sourceCode = context.getSourceCode().text;
 
@@ -198,9 +199,8 @@ module.exports = {
           for (const attr of node.attributes) {
             if (attr.startWrapper && attr.value) {
               if (
-                disallowInAssignment
-                && attr.startWrapper.loc.start.column - attr.key.loc.end.column >
-                1
+                disallowInAssignment &&
+                attr.startWrapper.loc.start.column - attr.key.loc.end.column > 1
               ) {
                 const start = attr.key.range[1];
                 const end = attr.startWrapper.range[0];
