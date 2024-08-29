@@ -58,6 +58,7 @@
 | [indent](rules/indent)                                   | Enforce consistent indentation                                    | ⭐🔧 |
 | [lowercase](rules/lowercase)                             | Enforce to use lowercase for tag and attribute names.             | 🔧   |
 | [no-extra-spacing-attrs](rules/no-extra-spacing-attrs)   | Disallow an extra spacing around attributes                       | ⭐🔧 |
+| [no-extra-spacing-text](rules/no-extra-spacing-text)     | Disallow extra spacing in text                                    | 🔧   |
 | [no-multiple-empty-lines](rules/no-multiple-empty-lines) | Disallow multiple empty lines                                     | 🔧   |
 | [no-trailing-spaces](rules/no-trailing-spaces)           | Disallow trailing whitespace at the end of lines                  | 🔧   |
 | [quotes](rules/quotes)                                   | Enforce consistent quoting attributes with double(") or single(') | ⭐🔧 |
