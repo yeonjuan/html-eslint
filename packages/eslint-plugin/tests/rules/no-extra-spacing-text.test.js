@@ -1,17 +1,29 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-extra-spacing-text");
 
-/**
- * @param {Array<Array<number, number, number>>} positions
- */
+
 function errorsAt(...positions) {
-  return positions.map(([line, column, length]) => ({
-    messageId: `unexpected`,
-    line,
-    column,
-    endLine: line,
-    endColumn: column + length,
-  }));
+  return positions.map(input => {
+    const [line, column, length] = input;
+    if (input.length === 3) {
+      return {
+        messageId: `unexpected`,
+        line,
+        column,
+        endLine: line,
+        endColumn: column + length,
+      };
+    } else {
+      const [line, column, endLine, endColumn] = input;
+      return {
+        messageId: `unexpected`,
+        line,
+        column,
+        endLine,
+        endColumn,
+      };
+    }
+  });
 }
 
 const ruleTester = createRuleTester();
@@ -23,7 +35,7 @@ ruleTester.run("no-extra-spacing-text", rule, {
     },
 
     {
-      code: `<div>\tfoo\tbar\t</div>`,
+      code: `<div> foo bar </div>`,
     },
 
     {
@@ -38,7 +50,7 @@ ruleTester.run("no-extra-spacing-text", rule, {
     },
 
     {
-      code: `<pre>   foo   bar   </pre><script>   const   foo   =   'bar'   </script><style>   .foo   {   bar   }   </style>`,
+      code: `<pre>   foo\t\t\tbar   </pre><script>   const   foo   =   'bar'   </script><style>   .foo   {   bar   }   </style>`,
       options: [
         {
           skip: [`pre`],
@@ -64,21 +76,43 @@ ruleTester.run("no-extra-spacing-text", rule, {
 
   invalid: [
     {
-      code: `foo   bar`,
-      output: `foo bar`,
-      errors: errorsAt([1, 4, 3]),
+      code: `foo   bar   `,
+      output: `foo bar `,
+      errors: errorsAt([1, 4, 3], [1, 10, 3]),
     },
 
     {
       code: `<div>\tfoo	\t</div>`,
-      output: `<div>\tfoo </div>`,
-      errors: errorsAt([1, 10, 2]),
+      output: `<div> foo </div>`,
+      errors: errorsAt([1, 6, 1], [1, 10, 2]),
     },
 
     {
       code: `<div>  foo   </div>`,
       output: `<div> foo </div>`,
       errors: errorsAt([1, 6, 2], [1, 11, 3]),
+    },
+
+    {
+      code: `<div>foo \n</div>`,
+      output: `<div>foo\n</div>`,
+      errors: errorsAt([1, 9, 2, 1]),
+    },
+
+    {
+      code: `<div>foo\t\n</div>`,
+      output: `<div>foo\n</div>`,
+      errors: errorsAt([1, 9, 2, 1]),
+    },
+
+    {
+      code: `<div>\n\tfoo \n</div> \n<div>\n\tbar\t\n</div>`,
+      output: `<div>\n\tfoo\n</div>\n<div>\n\tbar\n</div>`,
+      errors: errorsAt(
+        [2, 5, 3, 1],
+        [3, 7, 4, 1],
+        [5, 5, 6, 1],
+      ),
     },
 
     {
@@ -94,7 +128,7 @@ ruleTester.run("no-extra-spacing-text", rule, {
     {
       code: `
 <div>
-  foo     bar
+  foo     bar     
 </div>
 `,
       output: `
@@ -102,7 +136,10 @@ ruleTester.run("no-extra-spacing-text", rule, {
   foo bar
 </div>
 `,
-      errors: errorsAt([3, 6, 5]),
+      errors: errorsAt(
+        [3, 6, 5],
+        [3, 14, 4, 1],
+      ),
     },
 
     {

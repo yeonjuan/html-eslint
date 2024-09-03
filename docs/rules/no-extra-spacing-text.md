@@ -14,13 +14,16 @@ module.exports = {
 
 ## Rule Details
 
-[Whitespace in HTML is largely ignored](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Whitespace), so the purpose of this rule is to prevent unnecessary sequences of whitespace in text.
+[Whitespace in HTML is largely ignored](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Whitespace), so the purpose of this rule is to prevent unnecessary whitespace in text, such as:
+
+- Tab characters
+- Sequences of more than 1 whitepsace character
 
 When used with `--fix`, the rule will replace invalid whitespace with a single space.
 
 Note:
 
-- This rule ignores whitespace at the start and end of lines/strings so as not to conflict with indentation rules. See [./indent](@html-eslint/indent).
+- This rule ignores whitespace at the start of lines in order to not conflict with indentation rules. See [./indent](@html-eslint/indent).
 - This rule does **not** affect whitespace around attributes. See [./no-extra-spacing-attrs](@html-eslint/no-extra-spacing-attrs).
 
 Examples of **incorrect** code for this rule:

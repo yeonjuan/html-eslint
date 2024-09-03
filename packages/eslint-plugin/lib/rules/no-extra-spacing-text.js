@@ -41,7 +41,7 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "Multiple consecutive spaces not allowed here",
+      [MESSAGE_IDS.UNEXPECTED]: "Tabs and/or multiple consecutive spaces not allowed here",
     },
   },
 
@@ -83,7 +83,7 @@ module.exports = {
      */
     function stripConsecutiveSpaces(node) {
       const text = node.value;
-      const matcher = /(^|[^\n \t])([ \t]{2,})($|[^\n \t])/g;
+      const matcher = /(^|[^\n \t])([ \t]+\n|\t[\t ]*|[ \t]{2,})/g;
 
       // eslint-disable-next-line no-constant-condition
       while (true) {
@@ -93,9 +93,7 @@ module.exports = {
         }
 
         const space = offender[2];
-        const spaceAfter = offender[3];
-        const indexStart =
-          node.range[0] + matcher.lastIndex - space.length - spaceAfter.length;
+        const indexStart = node.range[0] + matcher.lastIndex - space.length;
         const indexEnd = indexStart + space.length;
 
         context.report({
@@ -106,7 +104,10 @@ module.exports = {
           },
           messageId: MESSAGE_IDS.UNEXPECTED,
           fix(fixer) {
-            return fixer.replaceTextRange([indexStart, indexEnd], ` `);
+            return fixer.replaceTextRange(
+              [indexStart, indexEnd],
+              space.endsWith(`\n`) ? `\n` : ` `
+            );
           },
         });
       }
