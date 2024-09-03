@@ -3,7 +3,5 @@
   "eslint.validate": [
     "javascript", // ...
     "html" // Add "html" to enable linting `.html` files.
-  ],
-
-  "files.trimTrailingWhitespace": false
+  ]
 }
