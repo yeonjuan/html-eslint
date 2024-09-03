@@ -1,9 +1,8 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-extra-spacing-text");
 
-
 function errorsAt(...positions) {
-  return positions.map(input => {
+  return positions.map((input) => {
     const [line, column, length] = input;
     if (input.length === 3) {
       return {
@@ -108,11 +107,7 @@ ruleTester.run("no-extra-spacing-text", rule, {
     {
       code: `<div>\n\tfoo \n</div> \n<div>\n\tbar\t\n</div>`,
       output: `<div>\n\tfoo\n</div>\n<div>\n\tbar\n</div>`,
-      errors: errorsAt(
-        [2, 5, 3, 1],
-        [3, 7, 4, 1],
-        [5, 5, 6, 1],
-      ),
+      errors: errorsAt([2, 5, 3, 1], [3, 7, 4, 1], [5, 5, 6, 1]),
     },
 
     {
@@ -136,10 +131,7 @@ ruleTester.run("no-extra-spacing-text", rule, {
   foo bar
 </div>
 `,
-      errors: errorsAt(
-        [3, 6, 5],
-        [3, 14, 4, 1],
-      ),
+      errors: errorsAt([3, 6, 5], [3, 14, 4, 1]),
     },
 
     {

@@ -41,7 +41,8 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "Tabs and/or multiple consecutive spaces not allowed here",
+      [MESSAGE_IDS.UNEXPECTED]:
+        "Tabs and/or multiple consecutive spaces not allowed here",
     },
   },
 

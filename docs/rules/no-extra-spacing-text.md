@@ -17,7 +17,7 @@ module.exports = {
 [Whitespace in HTML is largely ignored](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Whitespace), so the purpose of this rule is to prevent unnecessary whitespace in text, such as:
 
 - Tab characters
-- Sequences of more than 1 whitepsace character
+- Sequences of more than 1 whitespace character
 
 When used with `--fix`, the rule will replace invalid whitespace with a single space.
 
