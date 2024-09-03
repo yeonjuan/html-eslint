@@ -18,6 +18,15 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
       code: `
     <html>
     <body>
+    <div foo = "foo" bar  =  "bar" class\t=\t"baz"></div>
+    </body>
+    </html>
+    `,
+    },
+    {
+      code: `
+    <html>
+    <body>
     <div foo="foo" bar="bar"></div>
     </body>
     </html>
@@ -512,6 +521,54 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
         },
         {
           messageId: "unexpectedAfter",
+        },
+      ],
+    },
+
+    {
+      code: `
+\t<div   class\t=   "foo"\t\tdata-custom\t\tid\t\t=\t\t"boo">
+\t\t<img\tsrc   =\t"foo"\talt= "name"/>
+\t</div>
+`,
+      output: `
+\t<div class="foo" data-custom id="boo">
+\t\t<img src="foo" alt="name"/>
+\t</div>
+`,
+      options: [
+        {
+          disallowInAssignment: true,
+          disallowTabs: true,
+        },
+      ],
+      errors: [
+        {
+          messageId: "unexpectedBefore",
+        },
+        {
+          messageId: "unexpectedInAssignment",
+        },
+        {
+          messageId: "unexpectedBetween",
+        },
+        {
+          messageId: "unexpectedBetween",
+        },
+        {
+          messageId: "unexpectedInAssignment",
+        },
+        {
+          messageId: "unexpectedTabBefore",
+        },
+        {
+          messageId: "unexpectedInAssignment",
+        },
+        {
+          messageId: "unexpectedTabBetween",
+        },
+        {
+          messageId: "unexpectedInAssignment",
         },
       ],
     },

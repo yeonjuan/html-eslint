@@ -112,3 +112,27 @@ Example(s) of **correct** code for this rule with the `{ "disallowTabs": true }`
 ```
 
 <!-- prettier-ignore-end -->
+
+- `disallowInAssignment` (default: false): Disallows spaces around the attribute assignment operator `=`
+
+Example(s) of **incorrect** code for this rule with the `{ "disallowInAssignment": true }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<div id = "foo" class = "bar">
+</div>
+```
+
+<!-- prettier-ignore-end -->
+
+Example(s) of **correct** code for this rule with the `{ "disallowInAssignment": true }` option:
+
+<!-- prettier-ignore-start -->
+
+```html
+<div id="foo" class="bar">
+</div>
+```
+
+<!-- prettier-ignore-end -->
