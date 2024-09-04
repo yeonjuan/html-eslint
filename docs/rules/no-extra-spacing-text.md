@@ -18,13 +18,15 @@ module.exports = {
 
 - Tab characters
 - Sequences of more than 1 whitespace character
+- Whitespace at the end of a line
 
 When used with `--fix`, the rule will replace invalid whitespace with a single space.
 
 Note:
 
-- This rule ignores whitespace at the start of lines in order to not conflict with indentation rules. See [./indent](@html-eslint/indent).
-- This rule does **not** affect whitespace around attributes. See [./no-extra-spacing-attrs](@html-eslint/no-extra-spacing-attrs).
+- This rule ignores whitespace at the start of lines in order to not conflict with indentation rules. See [@html-eslint/indent](./indent).
+- This rule strips whitespace from the end of lines, as does [@html-eslint/no-trailing-spaces](./no-trailing-spaces).
+- This rule does **not** affect whitespace around attributes. See [@html-eslint/no-extra-spacing-attrs](./no-extra-spacing-attrs).
 
 Examples of **incorrect** code for this rule:
 
