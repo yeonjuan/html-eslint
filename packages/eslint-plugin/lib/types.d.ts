@@ -267,3 +267,11 @@ export type ChildType<T extends BaseNode> = T extends ProgramNode
   : T extends TagNode
   ? T["children"][number]
   : never;
+
+export type ContentNode =
+  | CommentNode
+  | DoctypeNode
+  | ScriptTagNode
+  | StyleTagNode
+  | TagNode
+  | TextNode;
