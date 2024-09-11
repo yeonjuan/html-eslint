@@ -22,7 +22,7 @@ ruleTester.run("element-newline", rule, {
       <html lang="en">
           <body>
               <ul>
-                  <li>Item Here
+                  <li>Item Here</li>
                   <li>Second Item Here</li>
               </ul>
           </body>
@@ -90,6 +90,87 @@ ruleTester.run("element-newline", rule, {
         },
       ],
     },
+    {
+      code: `
+<a>
+  <b>
+    <c><d></d></c>
+  </b>
+</a>
+`,
+      options: [
+        {
+          inline: [`d`],
+        },
+      ],
+    },
+    {
+      code: `
+<a>
+  <b>
+    <c><d></d></c>
+  </b>
+</a>
+`,
+      options: [
+        {
+          skip: [`c`],
+        },
+      ],
+    },
+    {
+      code: `
+<a></a><abbr></abbr><b></b><bdi></bdi><bdo></bdo><br></br><cite></cite><code></code><data></data><dfn></dfn><em></em><i></i><kbd></kbd><mark></mark><q></q><rp></rp><rt></rt><ruby></ruby><s></s><samp></samp><small></small><span></span><strong></strong><sub></sub><sup></sup><time></time><u></u><var></var><wbr></wbr>
+`,
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
+    {
+      code: `
+<div>
+    I <strong>like</strong> these <dfn>inline</dfn> tags.
+    <p>It's <em>true</em>!</p>
+</div>
+`,
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
+    {
+      code: `
+        <h1 class="display1 md:text-[60px] md:leading-[68px] md:font-bold">
+            An <span class="text-accent">ESLint</span>
+            <br class="md:hidden">
+            plugin<br>
+            to lint and fix <span class="text-accent">HTML code</span>.
+        </h1>
+`,
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
+    {
+      code: `
+      <header>
+        <img
+            foo="bar"
+        >
+        html-eslint
+      </header>
+      `,
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -109,6 +190,25 @@ ruleTester.run("element-newline", rule, {
     },
     {
       code: `
+<!DOCTYPE html>foo<html></html>
+`,
+      output: `
+<!DOCTYPE html>
+foo
+<html></html>
+`,
+
+      errors: [
+        {
+          messageId: "expectAfter",
+        },
+        {
+          messageId: "expectBefore",
+        },
+      ],
+    },
+    {
+      code: `
 <!DOCTYPE html><!-- comment --><html></html>
 `,
       output: `
@@ -122,7 +222,7 @@ ruleTester.run("element-newline", rule, {
           messageId: "expectAfter",
         },
         {
-          messageId: "expectAfter",
+          messageId: "expectBefore",
         },
       ],
     },
@@ -139,10 +239,10 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
         },
         {
-          messageId: "expectAfter",
+          messageId: "expectBeforeClose",
         },
         {
           messageId: "expectBefore",
@@ -163,16 +263,16 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
         },
         {
-          messageId: "expectAfter",
+          messageId: "expectBeforeClose",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfterOpen",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectBeforeClose",
         },
       ],
     },
@@ -188,10 +288,10 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectBeforeClose",
         },
       ],
     },
@@ -207,10 +307,10 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectBeforeClose",
         },
       ],
     },
@@ -229,19 +329,19 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
+        },
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
         },
         {
           messageId: "expectAfter",
-        },
-        {
-          messageId: "expectAfter",
-        },
-        {
-          messageId: "expectBefore",
-        },
-        {
-          messageId: "expectBefore",
         },
       ],
     },
@@ -261,22 +361,22 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
+        },
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
         },
         {
           messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
-        },
-        {
-          messageId: "expectAfter",
-        },
-        {
-          messageId: "expectBefore",
-        },
-        {
-          messageId: "expectBefore",
         },
       ],
     },
@@ -298,28 +398,28 @@ ruleTester.run("element-newline", rule, {
 
       errors: [
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
+        },
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
         },
         {
           messageId: "expectAfter",
         },
         {
-          messageId: "expectAfter",
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
         },
         {
           messageId: "expectAfter",
-        },
-        {
-          messageId: "expectAfter",
-        },
-        {
-          messageId: "expectBefore",
-        },
-        {
-          messageId: "expectBefore",
-        },
-        {
-          messageId: "expectBefore",
         },
       ],
     },
@@ -389,6 +489,56 @@ ruleTester.run("element-newline", rule, {
       errors: [
         {
           messageId: "expectAfter",
+        },
+      ],
+    },
+    {
+      code: `
+<a></a><abbr></abbr><b></b><bdi></bdi><bdo></bdo><br></br><cite></cite><code></code><div></div><data></data><dfn></dfn><em></em><i></i><kbd></kbd><mark></mark><q></q><rp></rp><rt></rt><ruby></ruby><s></s><samp></samp><small></small><span></span><strong></strong><sub></sub><sup></sup><time></time><u></u><var></var><wbr></wbr>
+`,
+      output: `
+<a></a><abbr></abbr><b></b><bdi></bdi><bdo></bdo><br></br><cite></cite><code></code>
+<div></div>
+<data></data><dfn></dfn><em></em><i></i><kbd></kbd><mark></mark><q></q><rp></rp><rt></rt><ruby></ruby><s></s><samp></samp><small></small><span></span><strong></strong><sub></sub><sup></sup><time></time><u></u><var></var><wbr></wbr>
+`,
+      errors: [
+        {
+          messageId: "expectBefore",
+        },
+        {
+          messageId: "expectAfter",
+        },
+      ],
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
+    {
+      code: `
+<div>aaa<strong>bbb</strong><a>ccc</a><p>ddd<i>eee</i></p></div>
+`,
+      output: `
+<div>
+aaa<strong>bbb</strong><a>ccc</a>
+<p>ddd<i>eee</i></p>
+</div>
+`,
+      errors: [
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
+        },
+        {
+          messageId: "expectBefore",
+        },
+      ],
+      options: [
+        {
+          inline: [`$inline`],
         },
       ],
     },
