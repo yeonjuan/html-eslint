@@ -1312,6 +1312,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@html-eslint/template-parser@workspace:packages/template-parser":
+  version: 0.0.0-use.local
+  resolution: "@html-eslint/template-parser@workspace:packages/template-parser"
+  languageName: unknown
+  linkType: soft
+
 "@html-eslint/web-linter@npm:^0.27.0, @html-eslint/web-linter@workspace:packages/web-linter":
   version: 0.0.0-use.local
   resolution: "@html-eslint/web-linter@workspace:packages/web-linter"
