@@ -26,12 +26,20 @@
   "scripts": {
     "ts": "tsc",
     "lint": "eslint . --ext .js",
-    "build": "tsc -p ./tsconfig.build.json"
+    "build": "tsc -p ./tsconfig.build.json",
+    "test": "jest --coverage"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "engines": {
     "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+  },
+  "dependencies": {
+    "es-html-parser": "^0.0.10"
+  },
+  "devDependencies": {
+    "@types/estree": "^0.0.47",
+    "espree": "^10.3.0"
   }
 }

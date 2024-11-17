@@ -1,0 +1,332 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseTemplate newline 1`] = `
+{
+  "children": [
+    {
+      "attributes": [],
+      "children": [
+        {
+          "loc": {
+            "end": {
+              "column": 8,
+              "line": 2,
+            },
+            "start": {
+              "column": 13,
+              "line": 1,
+            },
+          },
+          "range": [
+            6,
+            7,
+          ],
+          "type": "Text",
+          "value": "
+",
+        },
+      ],
+      "close": {
+        "loc": {
+          "end": {
+            "column": 6,
+            "line": 2,
+          },
+          "start": {
+            "column": 0,
+            "line": 2,
+          },
+        },
+        "range": [
+          7,
+          13,
+        ],
+        "type": "CloseTag",
+        "value": "</div>",
+      },
+      "loc": {
+        "end": {
+          "column": 6,
+          "line": 2,
+        },
+        "start": {
+          "column": 8,
+          "line": 1,
+        },
+      },
+      "name": "div",
+      "openEnd": {
+        "loc": {
+          "end": {
+            "column": 13,
+            "line": 1,
+          },
+          "start": {
+            "column": 12,
+            "line": 1,
+          },
+        },
+        "range": [
+          5,
+          6,
+        ],
+        "type": "OpenTagEnd",
+        "value": ">",
+      },
+      "openStart": {
+        "loc": {
+          "end": {
+            "column": 12,
+            "line": 1,
+          },
+          "start": {
+            "column": 8,
+            "line": 1,
+          },
+        },
+        "range": [
+          1,
+          5,
+        ],
+        "type": "OpenTagStart",
+        "value": "<div",
+      },
+      "range": [
+        1,
+        13,
+      ],
+      "selfClosing": false,
+      "type": "Tag",
+    },
+  ],
+  "loc": {
+    "end": {
+      "column": 6,
+      "line": 2,
+    },
+    "start": {
+      "column": 8,
+      "line": 1,
+    },
+  },
+  "range": [
+    0,
+    13,
+  ],
+  "type": "Document",
+}
+`;
+
+exports[`parseTemplate padding 1`] = `
+{
+  "children": [
+    {
+      "attributes": [],
+      "children": [
+        {
+          "loc": {
+            "end": {
+              "column": 8,
+              "line": 2,
+            },
+            "start": {
+              "column": 13,
+              "line": 1,
+            },
+          },
+          "range": [
+            19,
+            20,
+          ],
+          "type": "Text",
+          "value": "
+",
+        },
+      ],
+      "close": {
+        "loc": {
+          "end": {
+            "column": 6,
+            "line": 2,
+          },
+          "start": {
+            "column": 0,
+            "line": 2,
+          },
+        },
+        "range": [
+          20,
+          26,
+        ],
+        "type": "CloseTag",
+        "value": "</div>",
+      },
+      "loc": {
+        "end": {
+          "column": 6,
+          "line": 2,
+        },
+        "start": {
+          "column": 8,
+          "line": 1,
+        },
+      },
+      "name": "div",
+      "openEnd": {
+        "loc": {
+          "end": {
+            "column": 13,
+            "line": 1,
+          },
+          "start": {
+            "column": 12,
+            "line": 1,
+          },
+        },
+        "range": [
+          18,
+          19,
+        ],
+        "type": "OpenTagEnd",
+        "value": ">",
+      },
+      "openStart": {
+        "loc": {
+          "end": {
+            "column": 12,
+            "line": 1,
+          },
+          "start": {
+            "column": 8,
+            "line": 1,
+          },
+        },
+        "range": [
+          14,
+          18,
+        ],
+        "type": "OpenTagStart",
+        "value": "<div",
+      },
+      "range": [
+        14,
+        26,
+      ],
+      "selfClosing": false,
+      "type": "Tag",
+    },
+  ],
+  "loc": {
+    "end": {
+      "column": 6,
+      "line": 2,
+    },
+    "start": {
+      "column": 8,
+      "line": 1,
+    },
+  },
+  "range": [
+    0,
+    26,
+  ],
+  "type": "Document",
+}
+`;
+
+exports[`parseTemplate simple 1`] = `
+{
+  "children": [
+    {
+      "attributes": [],
+      "children": [],
+      "close": {
+        "loc": {
+          "end": {
+            "column": 25,
+            "line": 1,
+          },
+          "start": {
+            "column": 19,
+            "line": 1,
+          },
+        },
+        "range": [
+          6,
+          12,
+        ],
+        "type": "CloseTag",
+        "value": "</div>",
+      },
+      "loc": {
+        "end": {
+          "column": 25,
+          "line": 1,
+        },
+        "start": {
+          "column": 14,
+          "line": 1,
+        },
+      },
+      "name": "div",
+      "openEnd": {
+        "loc": {
+          "end": {
+            "column": 19,
+            "line": 1,
+          },
+          "start": {
+            "column": 18,
+            "line": 1,
+          },
+        },
+        "range": [
+          5,
+          6,
+        ],
+        "type": "OpenTagEnd",
+        "value": ">",
+      },
+      "openStart": {
+        "loc": {
+          "end": {
+            "column": 18,
+            "line": 1,
+          },
+          "start": {
+            "column": 14,
+            "line": 1,
+          },
+        },
+        "range": [
+          1,
+          5,
+        ],
+        "type": "OpenTagStart",
+        "value": "<div",
+      },
+      "range": [
+        1,
+        12,
+      ],
+      "selfClosing": false,
+      "type": "Tag",
+    },
+  ],
+  "loc": {
+    "end": {
+      "column": 25,
+      "line": 1,
+    },
+    "start": {
+      "column": 14,
+      "line": 1,
+    },
+  },
+  "range": [
+    0,
+    12,
+  ],
+  "type": "Document",
+}
+`;
