@@ -60,16 +60,14 @@ const visitorKeys = {
 function traverse(node, visitors) {
   const visitor = visitors[node.type];
   visitor && visitor(node);
-  const nextKeys = node[visitorKeys[node.type]];
-  if (!Array.isArray(nextKeys) || nextKeys.length === 0) {
-    return;
-  }
+  const nextKeys = visitorKeys[node.type];
+
   nextKeys.forEach((key) => {
     const next = node[key];
     if (Array.isArray(next)) {
-      next.forEach((n) => traverse(n, visitor));
-    } else {
-      traverse(next, visitor);
+      next.forEach((n) => traverse(n, visitors));
+    } else if (next) {
+      traverse(next, visitors);
     }
   });
 }
