@@ -88,6 +88,7 @@ describe("parseTemplate", () => {
     const ast = parseCode(code);
     const exp = ast.body[0].expression.quasi;
     const sourcecode = createSoureCode(code, ast);
+    templateParser.parse(exp, sourcecode, visitors);
     expect(visitors.AttributeValue).toHaveBeenCalledWith(
       expect.objectContaining({
         type: NodeTypes.AttributeValue,
