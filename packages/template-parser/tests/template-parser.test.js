@@ -47,7 +47,7 @@ describe("parseTemplate", () => {
           start: { line: 1, column: 1 },
           end: { line: 1, column: 5 },
         },
-      }),
+      })
     );
     expect(visitors.Tag).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -57,7 +57,7 @@ describe("parseTemplate", () => {
           start: { line: 1, column: 1 },
           end: { line: 1, column: 12 },
         },
-      }),
+      })
     );
   });
 
@@ -76,7 +76,7 @@ describe("parseTemplate", () => {
           start: { line: 2, column: 2 },
           end: { line: 2, column: 8 },
         },
-      }),
+      })
     );
   });
 
@@ -93,7 +93,7 @@ describe("parseTemplate", () => {
       expect.objectContaining({
         type: NodeTypes.AttributeValue,
         value: "${ id }",
-      }),
+      })
     );
     expect(visitors.Text).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -101,7 +101,7 @@ describe("parseTemplate", () => {
         value: `
     \${text}
   `,
-      }),
+      })
     );
   });
 });

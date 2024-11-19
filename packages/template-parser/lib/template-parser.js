@@ -27,7 +27,7 @@ function parse(node, sourceCode, visitors) {
       const nextQuasisElement = quasis[index + 1];
       const str = sourceCode.text.slice(
         element.range[1] - "${".length,
-        nextQuasisElement.range[0] + "}".length,
+        nextQuasisElement.range[0] + "}".length
       );
       htmlParts.push(str);
     }

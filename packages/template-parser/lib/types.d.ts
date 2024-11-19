@@ -40,10 +40,10 @@ export type TemplateHTMLVisitor = Partial<{
   [NodeTypes.AttributeKey]: (node: AttributeKeyNode) => void;
   [NodeTypes.AttributeValue]: (node: AttributeValueNode) => void;
   [NodeTypes.AttributeValueWrapperEnd]: (
-    node: AttributeValueWrapperEndNode,
+    node: AttributeValueWrapperEndNode
   ) => void;
   [NodeTypes.AttributeValueWrapperStart]: (
-    node: AttributeValueWrapperStartNode,
+    node: AttributeValueWrapperStartNode
   ) => void;
   [NodeTypes.CloseScriptTag]: (node: CloseScriptTagNode) => void;
   [NodeTypes.CloseStyleTag]: (node: CloseStyleTagNode) => void;
@@ -56,10 +56,10 @@ export type TemplateHTMLVisitor = Partial<{
   [NodeTypes.DoctypeAttribute]: (node: DoctypeAttributeNode) => void;
   [NodeTypes.DoctypeAttributeValue]: (node: DoctypeAttributeValueNode) => void;
   [NodeTypes.DoctypeAttributeWrapperEnd]: (
-    node: DoctypeAttributeWrapperEndNode,
+    node: DoctypeAttributeWrapperEndNode
   ) => void;
   [NodeTypes.DoctypeAttributeWrapperStart]: (
-    node: DoctypeAttributeWrapperStartNode,
+    node: DoctypeAttributeWrapperStartNode
   ) => void;
   [NodeTypes.DoctypeOpen]: (node: DoctypeOpenNode) => void;
   [NodeTypes.DoctypeClose]: (node: DoctypeCloseNode) => void;
