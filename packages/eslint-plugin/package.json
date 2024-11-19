@@ -46,6 +46,7 @@
   ],
   "devDependencies": {
     "@html-eslint/parser": "^0.27.0",
+    "@html-eslint/template-parser": "^0.27.0",
     "@types/eslint": "^8.56.2",
     "@types/estree": "^0.0.47",
     "es-html-parser": "^0.0.8",

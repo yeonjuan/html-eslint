@@ -1,1 +1,1 @@
-# template-parser
+# @html-eslint/template-parser

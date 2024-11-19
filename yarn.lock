@@ -1344,6 +1344,7 @@ __metadata:
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
   dependencies:
     "@html-eslint/parser": "npm:^0.27.0"
+    "@html-eslint/template-parser": "npm:^0.27.0"
     "@types/eslint": "npm:^8.56.2"
     "@types/estree": "npm:^0.0.47"
     es-html-parser: "npm:^0.0.8"
@@ -1377,7 +1378,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/template-parser@workspace:packages/template-parser":
+"@html-eslint/template-parser@npm:^0.27.0, @html-eslint/template-parser@workspace:packages/template-parser":
   version: 0.0.0-use.local
   resolution: "@html-eslint/template-parser@workspace:packages/template-parser"
   dependencies:

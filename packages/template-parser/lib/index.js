@@ -1,4 +1,4 @@
-const TemplateParser = require("./template-parser");
+const { parse } = require("./template-parser");
 module.exports = {
-  TemplateParser,
+  parse,
 };
