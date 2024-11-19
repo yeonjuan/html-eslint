@@ -9,7 +9,7 @@ const parseCode = (code) =>
     loc: true,
     ecmaVersion: "latest",
   });
-const createSoureCode = (code, ast) =>
+const createSourceCode = (code, ast) =>
   new SourceCode({
     text: code,
     ast: {
@@ -66,7 +66,7 @@ describe("parseTemplate", () => {
   </div>\`;`;
     const ast = parseCode(code);
     const exp = ast.body[0].expression;
-    const sourcecode = createSoureCode(code, ast);
+    const sourcecode = createSourceCode(code, ast);
     templateParser.parse(exp, sourcecode, visitors);
     expect(visitors.CloseTag).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -87,7 +87,7 @@ describe("parseTemplate", () => {
   </div>\`;`;
     const ast = parseCode(code);
     const exp = ast.body[0].expression.quasi;
-    const sourcecode = createSoureCode(code, ast);
+    const sourcecode = createSourceCode(code, ast);
     templateParser.parse(exp, sourcecode, visitors);
     expect(visitors.AttributeValue).toHaveBeenCalledWith(
       expect.objectContaining({
