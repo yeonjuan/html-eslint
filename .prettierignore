@@ -14,7 +14,6 @@ yarn.lock
 .turbo
 
 # generated types
-packages/parser/types
-packages/eslint-plugin/types
+packages/**/types
 packages/eslint-plugin/tests/e2e/**/*.html
 integration-test-projects

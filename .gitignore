@@ -21,8 +21,7 @@ packages/**/.yarn
 !.yarn/versions
 
 # generated types
-packages/parser/types
-packages/eslint-plugin/types
+packages/**/types
 
 
 integration-test-projects/**/*.yarn
