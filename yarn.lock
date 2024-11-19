@@ -1385,6 +1385,7 @@ __metadata:
     es-html-parser: "npm:^0.0.10"
     eslint: "npm:^9.15.0"
     espree: "npm:^10.3.0"
+    globals: "npm:^15.12.0"
   languageName: unknown
   linkType: soft
 
@@ -8595,6 +8596,13 @@ __metadata:
   version: 14.0.0
   resolution: "globals@npm:14.0.0"
   checksum: b96ff42620c9231ad468d4c58ff42afee7777ee1c963013ff8aabe095a451d0ceeb8dcd8ef4cbd64d2538cef45f787a78ba3a9574f4a634438963e334471302d
+  languageName: node
+  linkType: hard
+
+"globals@npm:^15.12.0":
+  version: 15.12.0
+  resolution: "globals@npm:15.12.0"
+  checksum: f34e0a1845b694f45188331742af9f488b07ba7440a06e9d2039fce0386fbbfc24afdbb9846ebdccd4092d03644e43081c49eb27b30f4b88e43af156e1c1dc34
   languageName: node
   linkType: hard
 

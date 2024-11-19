@@ -25,7 +25,7 @@
   },
   "scripts": {
     "ts": "tsc",
-    "lint": "eslint . --ext .js",
+    "lint": "eslint .",
     "build": "tsc -p ./tsconfig.build.json",
     "test": "jest --coverage"
   },
@@ -41,6 +41,7 @@
   "devDependencies": {
     "@types/estree": "^0.0.47",
     "eslint": "^9.15.0",
-    "espree": "^10.3.0"
+    "espree": "^10.3.0",
+    "globals": "^15.12.0"
   }
 }
