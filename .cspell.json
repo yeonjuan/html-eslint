@@ -36,6 +36,7 @@
     "multiline",
     "sameline",
     "quasis",
-    "sourcecode"
+    "sourcecode",
+    "espree"
   ]
 }
