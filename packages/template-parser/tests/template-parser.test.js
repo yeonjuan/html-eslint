@@ -37,7 +37,7 @@ describe("parseTemplate", () => {
     const code = "`<div></div>`;";
     const ast = parseCode(code);
     const exp = ast.body[0].expression;
-    const sourcecode = createSoureCode(code, ast);
+    const sourcecode = createSourceCode(code, ast);
     expect(templateParser.parse(exp, sourcecode, visitors));
     expect(visitors.OpenTagStart).toHaveBeenCalledWith(
       expect.objectContaining({
