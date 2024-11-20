@@ -18,7 +18,7 @@
     "codemirror": "^5.58.3"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "2.10.3",
+    "@parcel/transformer-sass": "2.13.0",
     "@types/codemirror": "^5.60.5",
     "@types/eslint": "^8.56.2",
     "@types/node": "17.0.23",
