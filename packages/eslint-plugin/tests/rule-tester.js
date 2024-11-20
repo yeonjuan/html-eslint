@@ -20,8 +20,13 @@ class RuleTester extends ESLintRuleTester {
   }
 }
 
-module.exports = function createRuleTester() {
+module.exports = function createRuleTester(parser) {
   return new RuleTester({
-    parser: require.resolve("@html-eslint/parser"),
+    parser: require.resolve(parser || "@html-eslint/parser"),
+    ...(!parser
+      ? undefined
+      : {
+          parserOptions: { ecmaVersion: 2015 },
+        }),
   });
 };

@@ -1,4 +1,4 @@
-import ESTree from "estree";
+import ESTree, { TaggedTemplateExpression, TemplateLiteral } from "estree";
 import ESLint from "eslint";
 import * as ESHtml from "es-html-parser";
 
@@ -200,12 +200,14 @@ interface RuleListener {
   CommentClose?: (node: CommentCloseNode) => void;
   CommentContent?: (node: CommentContentNode) => void;
   Doctype?: (node: DoctypeNode) => void;
-  DoctypeOpen: (node: DoctypeOpenNode) => void;
+  DoctypeOpen?: (node: DoctypeOpenNode) => void;
   DoctypeClose?: (node: DoctypeCloseNode) => void;
   DoctypeAttribute?: (node: DoctypeAttributeNode) => void;
   DoctypeAttributeValue?: (node: DoctypeAttributeValueNode) => void;
   DoctypeAttributeWrapperStart?: (node: DoctypeAttributeWrapperStart) => void;
   DoctypeAttributeWrapperEnd?: (node: DoctypeAttributeWrapperEnd) => void;
+  TaggedTemplateExpression?: (node: TaggedTemplateExpression) => void;
+  TemplateLiteral?: (node: TemplateLiteral) => void;
 }
 
 export interface RuleModule extends ESLint.Rule.RuleModule {
@@ -258,15 +260,15 @@ type ReportDescriptorLocation = {
   column?: number;
 };
 
-interface Context extends Omit<ESLint.Rule.RuleContext, "report"> {
+export interface Context extends Omit<ESLint.Rule.RuleContext, "report"> {
   report(descriptor: ReportDescriptor): void;
 }
 
 export type ChildType<T extends BaseNode> = T extends ProgramNode
   ? T["body"][number]
   : T extends TagNode
-  ? T["children"][number]
-  : never;
+    ? T["children"][number]
+    : never;
 
 export type ContentNode =
   | CommentNode
@@ -275,3 +277,17 @@ export type ContentNode =
   | StyleTagNode
   | TagNode
   | TextNode;
+
+export type MaybeHTMLSettings = {
+  templateLiterals?: {
+    tags?: string[];
+    comments?: string[];
+  };
+};
+
+export type HTMLSettings = {
+  templateLiterals: {
+    tags: RegExp[];
+    comments: RegExp[];
+  };
+};
