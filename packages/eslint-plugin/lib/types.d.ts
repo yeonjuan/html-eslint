@@ -267,8 +267,8 @@ export interface Context extends Omit<ESLint.Rule.RuleContext, "report"> {
 export type ChildType<T extends BaseNode> = T extends ProgramNode
   ? T["body"][number]
   : T extends TagNode
-    ? T["children"][number]
-    : never;
+  ? T["children"][number]
+  : never;
 
 export type ContentNode =
   | CommentNode
