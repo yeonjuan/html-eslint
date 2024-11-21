@@ -58,8 +58,8 @@ const visitorKeys = {
  * @param {TemplateHTMLVisitor} visitors
  */
 function traverse(node, visitors) {
-  const visitor = visitors[node.type];
-  visitor && visitor(node);
+  const enterVisitor = visitors[node.type];
+  enterVisitor && enterVisitor(node);
   const nextKeys = visitorKeys[node.type];
 
   nextKeys.forEach((key) => {
@@ -70,6 +70,8 @@ function traverse(node, visitors) {
       traverse(next, visitors);
     }
   });
+  const exitVisitor = visitors[`${node.type}:exit`];
+  exitVisitor && exitVisitor(node);
 }
 
 module.exports = {

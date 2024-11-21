@@ -173,7 +173,13 @@ interface LineNode extends BaseNode {
   value: string;
 }
 
-interface RuleListener {
+type PostFix<T, S extends string> = {
+  [K in keyof T as `${K & string}${S}`]: T[K];
+};
+
+export type RuleListener = BaseRuleListenr & PostFix<BaseRuleListenr, ":exit">;
+
+interface BaseRuleListenr {
   Program?: (node: ProgramNode) => void;
   AttributeKey?: (node: AttributeKeyNode) => void;
   Text?: (node: TextNode) => void;
@@ -267,8 +273,8 @@ export interface Context extends Omit<ESLint.Rule.RuleContext, "report"> {
 export type ChildType<T extends BaseNode> = T extends ProgramNode
   ? T["body"][number]
   : T extends TagNode
-  ? T["children"][number]
-  : never;
+    ? T["children"][number]
+    : never;
 
 export type ContentNode =
   | CommentNode

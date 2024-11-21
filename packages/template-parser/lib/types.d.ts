@@ -34,7 +34,14 @@ import type {
 } from "es-html-parser";
 import { Comment } from "estree";
 
-export type TemplateHTMLVisitor = Partial<{
+type PostFix<T, S extends string> = {
+  [K in keyof T as `${K & string}${S}`]: T[K];
+};
+export type TemplateHTMLVisitor = BaseVisiter & PostFix<BaseVisiter, ":exit">;
+
+declare const a: TemplateHTMLVisitor;
+
+type BaseVisiter = Partial<{
   [NodeTypes.Document]: (node: DocumentNode) => void;
   [NodeTypes.Attribute]: (node: AttributeNode) => void;
   [NodeTypes.AttributeKey]: (node: AttributeKeyNode) => void;

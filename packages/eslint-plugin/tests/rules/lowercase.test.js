@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/lowercase");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("lowercase", rule, {
   valid: [
@@ -93,6 +94,37 @@ ruleTester.run("lowercase", rule, {
     {
       code: `<svg xmlns="http://www.w3.org/2000/svg" STYLE="" viewBox="0 0 200 200"></svg>`,
       output: `<svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 200 200"></svg>`,
+      errors: [
+        {
+          message: "'STYLE' is not in lowercase.",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] lowercase", rule, {
+  valid: [
+    {
+      code: `html\`<svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 200 200"></svg>\``,
+    },
+    {
+      code: `const code = /* html */\`<svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 200 200"></svg>\``,
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`<svg xmlns="http://www.w3.org/2000/svg" STYLE="" viewBox="0 0 200 200"></svg>\``,
+      output: `html\`<svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 200 200"></svg>\``,
+      errors: [
+        {
+          message: "'STYLE' is not in lowercase.",
+        },
+      ],
+    },
+    {
+      code: `const code = /* html */\`<svg xmlns="http://www.w3.org/2000/svg" STYLE="" viewBox="0 0 200 200"></svg>\``,
+      output: `const code = /* html */\`<svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 200 200"></svg>\``,
       errors: [
         {
           message: "'STYLE' is not in lowercase.",

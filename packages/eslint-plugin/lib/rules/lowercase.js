@@ -3,11 +3,13 @@
  * @typedef { import("../types").TagNode } TagNode
  * @typedef { import("../types").StyleTagNode } StyleTagNode
  * @typedef { import("../types").ScriptTagNode } ScriptTagNode
+ * @typedef { import("../types").RuleListener } RuleListener
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const SVG_CAMEL_CASE_ATTRIBUTES = require("../constants/svg-camel-case-attributes");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -120,23 +122,23 @@ module.exports = {
       }
     }
 
-    return {
-      Tag(node) {
-        if (node.name.toLocaleLowerCase() === "svg") {
-          enterSvg(node);
-        }
-        check(node);
+    return createVisitors(
+      {
+        Tag(node) {
+          if (node.name.toLocaleLowerCase() === "svg") {
+            enterSvg(node);
+          }
+          check(node);
+        },
+        "Tag:exit"(node) {
+          if (node.name.toLocaleLowerCase() === "svg") {
+            exitSvg();
+          }
+        },
+        StyleTag: check,
+        ScriptTag: check,
       },
-      /**
-       * @param {TagNode} node
-       */
-      "Tag:exit"(node) {
-        if (node.name.toLocaleLowerCase() === "svg") {
-          exitSvg();
-        }
-      },
-      StyleTag: check,
-      ScriptTag: check,
-    };
+      context
+    );
   },
 };
