@@ -44,6 +44,9 @@
     "lint",
     "accessibility"
   ],
+  "dependencies": {
+    "@html-eslint/template-parser": "^0.27.0"
+  },
   "devDependencies": {
     "@html-eslint/parser": "^0.27.0",
     "@html-eslint/template-parser": "^0.27.0",

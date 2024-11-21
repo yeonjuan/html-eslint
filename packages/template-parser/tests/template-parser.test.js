@@ -23,6 +23,7 @@ const createSourceCode = (code, ast) =>
 
 const visitors = {
   Tag: jest.fn(),
+  "Tag:exit": jest.fn(),
   OpenTagStart: jest.fn(),
   CloseTag: jest.fn(),
   AttributeValue: jest.fn(),
@@ -50,6 +51,16 @@ describe("parseTemplate", () => {
       })
     );
     expect(visitors.Tag).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: NodeTypes.Tag,
+        range: [1, 12],
+        loc: {
+          start: { line: 1, column: 1 },
+          end: { line: 1, column: 12 },
+        },
+      })
+    );
+    expect(visitors["Tag:exit"]).toHaveBeenCalledWith(
       expect.objectContaining({
         type: NodeTypes.Tag,
         range: [1, 12],

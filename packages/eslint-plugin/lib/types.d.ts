@@ -173,7 +173,14 @@ interface LineNode extends BaseNode {
   value: string;
 }
 
-interface RuleListener {
+type PostFix<T, S extends string> = {
+  [K in keyof T as `${K & string}${S}`]: T[K];
+};
+
+export type RuleListener = BaseRuleListener &
+  PostFix<BaseRuleListener, ":exit">;
+
+interface BaseRuleListener {
   Program?: (node: ProgramNode) => void;
   AttributeKey?: (node: AttributeKeyNode) => void;
   Text?: (node: TextNode) => void;

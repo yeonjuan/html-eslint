@@ -5,12 +5,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
-const { parse } = require("@html-eslint/template-parser");
-const {
-  shouldCheckTaggedTemplateExpression,
-  shouldCheckTemplateLiteral,
-} = require("./utils/settings");
-const { getSourceCode } = require("./utils/source-code");
+const { createVisitors } = require("./utils/visitors");
 const MESSAGE_IDS = {
   INLINE_STYLE: "unexpectedInlineStyle",
 };
@@ -36,33 +31,19 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @type {RuleListener}
-     */
-    const visitors = {
-      Tag(node) {
-        const styleAttr = findAttr(node, "style");
-        if (styleAttr) {
-          context.report({
-            node: styleAttr,
-            messageId: MESSAGE_IDS.INLINE_STYLE,
-          });
-        }
+    return createVisitors(
+      {
+        Tag(node) {
+          const styleAttr = findAttr(node, "style");
+          if (styleAttr) {
+            context.report({
+              node: styleAttr,
+              messageId: MESSAGE_IDS.INLINE_STYLE,
+            });
+          }
+        },
       },
-    };
-
-    return {
-      ...visitors,
-      TaggedTemplateExpression(node) {
-        if (shouldCheckTaggedTemplateExpression(node, context)) {
-          parse(node.quasi, getSourceCode(context), visitors);
-        }
-      },
-      TemplateLiteral(node) {
-        if (shouldCheckTemplateLiteral(node, context)) {
-          parse(node, getSourceCode(context), visitors);
-        }
-      },
-    };
+      context
+    );
   },
 };

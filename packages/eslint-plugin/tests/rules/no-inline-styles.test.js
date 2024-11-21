@@ -35,7 +35,7 @@ ruleTester.run("no-inline-styles", rule, {
   ],
 });
 
-templateRuleTester.run("[template]no-inline-styles", rule, {
+templateRuleTester.run("[template] no-inline-styles", rule, {
   valid: [
     {
       code: `
