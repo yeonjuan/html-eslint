@@ -177,9 +177,10 @@ type PostFix<T, S extends string> = {
   [K in keyof T as `${K & string}${S}`]: T[K];
 };
 
-export type RuleListener = BaseRuleListenr & PostFix<BaseRuleListenr, ":exit">;
+export type RuleListener = BaseRuleListener &
+  PostFix<BaseRuleListener, ":exit">;
 
-interface BaseRuleListenr {
+interface BaseRuleListener {
   Program?: (node: ProgramNode) => void;
   AttributeKey?: (node: AttributeKeyNode) => void;
   Text?: (node: TextNode) => void;
