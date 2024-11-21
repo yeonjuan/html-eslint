@@ -37,6 +37,7 @@
     "sameline",
     "quasis",
     "sourcecode",
-    "espree"
+    "espree",
+    "nohtml"
   ]
 }
