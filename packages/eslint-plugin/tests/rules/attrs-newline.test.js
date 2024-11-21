@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/attrs-newline");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 const closeStyles = ["sameline", "newline"];
 
@@ -318,5 +319,85 @@ id="p"
       </p>`,
       errors: [{ messageId: "newlineUnexpected" }],
     })),
+  ],
+});
+
+templateRuleTester.run("[template] attrs-newline", rule, {
+  valid: [
+    {
+      code: `html\`<div class="foo"></div>\``,
+    },
+  ],
+  invalid: [
+    {
+      code: `
+html\`<div class="foo" style="background:red;"></div>\`;
+`,
+      output: `
+html\`<div
+class="foo"
+style="background:red;"></div>\`;
+`,
+      options: [
+        {
+          closeStyle: "sameline",
+          ifAttrsMoreThan: 1,
+        },
+      ],
+      errors: [{ messageId: "newlineMissing" }],
+    },
+    {
+      code: `
+html\`<div class="foo" style="background:red;"></div>\`;
+`,
+      output: `
+html\`<div
+class="foo"
+style="background:red;"
+></div>\`;
+`,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 1,
+        },
+      ],
+      errors: [{ messageId: "newlineMissing" }],
+    },
+    {
+      code: `
+html\`<div class="foo" style="background:red;"></div>\`;
+`,
+      output: `
+html\`<div
+class="foo"
+style="background:red;"></div>\`;
+`,
+      options: [
+        {
+          closeStyle: "sameline",
+          ifAttrsMoreThan: 1,
+        },
+      ],
+      errors: [{ messageId: "newlineMissing" }],
+    },
+    {
+      code: `
+const code = /*html*/\`<div class="foo" style="background:red;"></div>\`;
+`,
+      output: `
+const code = /*html*/\`<div
+class="foo"
+style="background:red;"
+></div>\`;
+`,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 1,
+        },
+      ],
+      errors: [{ messageId: "newlineMissing" }],
+    },
   ],
 });
