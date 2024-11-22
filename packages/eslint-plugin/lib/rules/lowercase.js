@@ -122,23 +122,20 @@ module.exports = {
       }
     }
 
-    return createVisitors(
-      {
-        Tag(node) {
-          if (node.name.toLocaleLowerCase() === "svg") {
-            enterSvg(node);
-          }
-          check(node);
-        },
-        "Tag:exit"(node) {
-          if (node.name.toLocaleLowerCase() === "svg") {
-            exitSvg();
-          }
-        },
-        StyleTag: check,
-        ScriptTag: check,
+    return createVisitors(context, {
+      Tag(node) {
+        if (node.name.toLocaleLowerCase() === "svg") {
+          enterSvg(node);
+        }
+        check(node);
       },
-      context
-    );
+      "Tag:exit"(node) {
+        if (node.name.toLocaleLowerCase() === "svg") {
+          exitSvg();
+        }
+      },
+      StyleTag: check,
+      ScriptTag: check,
+    });
   },
 };

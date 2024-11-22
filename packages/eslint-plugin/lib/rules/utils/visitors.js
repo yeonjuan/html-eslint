@@ -11,13 +11,12 @@ const { parse } = require("@html-eslint/template-parser");
 const { getSourceCode } = require("./source-code");
 
 /**
- * @param {RuleListener} visitors
  * @param {Context} context
+ * @param {any} visitors
  * @returns {RuleListener}
  */
-function createVisitors(visitors, context) {
+function createTemplateVisitors(context, visitors) {
   return {
-    ...visitors,
     TaggedTemplateExpression(node) {
       if (shouldCheckTaggedTemplateExpression(node, context)) {
         parse(node.quasi, getSourceCode(context), visitors);
@@ -28,6 +27,23 @@ function createVisitors(visitors, context) {
         parse(node, getSourceCode(context), visitors);
       }
     },
+  };
+}
+
+/**
+ * @param {Context} context
+ * @param {RuleListener} visitors
+ * @param {any} [templateVisitors]
+ * @returns {RuleListener}
+ */
+function createVisitors(context, visitors, templateVisitors) {
+  const tmplVisitors = createTemplateVisitors(
+    context,
+    templateVisitors || visitors
+  );
+  return {
+    ...visitors,
+    ...tmplVisitors,
   };
 }
 

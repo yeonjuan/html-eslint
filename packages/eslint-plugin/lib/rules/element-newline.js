@@ -17,7 +17,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-
+const { createVisitors } = require("./utils/visitors");
 const MESSAGE_IDS = {
   EXPECT_NEW_LINE_AFTER: "expectAfter",
   EXPECT_NEW_LINE_AFTER_OPEN: "expectAfterOpen",
@@ -304,11 +304,20 @@ module.exports = {
       }
     }
 
-    return {
-      Program(node) {
-        // @ts-ignore
-        checkSiblings(node.body);
+    return createVisitors(
+      context,
+      {
+        Program(node) {
+          // @ts-ignore
+          checkSiblings(node.body);
+        },
       },
-    };
+      {
+        // @ts-ignore
+        Document(node) {
+          checkSiblings(node.children);
+        },
+      }
+    );
   },
 };

@@ -31,19 +31,16 @@ module.exports = {
   },
 
   create(context) {
-    return createVisitors(
-      {
-        Tag(node) {
-          const styleAttr = findAttr(node, "style");
-          if (styleAttr) {
-            context.report({
-              node: styleAttr,
-              messageId: MESSAGE_IDS.INLINE_STYLE,
-            });
-          }
-        },
+    return createVisitors(context, {
+      Tag(node) {
+        const styleAttr = findAttr(node, "style");
+        if (styleAttr) {
+          context.report({
+            node: styleAttr,
+            messageId: MESSAGE_IDS.INLINE_STYLE,
+          });
+        }
       },
-      context
-    );
+    });
   },
 };
