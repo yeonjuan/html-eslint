@@ -12,7 +12,12 @@ const {
   isPascalCase,
   isKebabCase,
 } = require("./utils/naming");
-const { findAttr } = require("./utils/node");
+const {
+  findAttr,
+  isAttributesEmpty,
+  isExpressionInTemplate,
+} = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   WRONG: "wrong",
@@ -81,27 +86,63 @@ module.exports = {
             ).test(name)
         : CONVENTION_CHECKERS[convention];
 
-    return {
-      /**
-       * @param {TagNode | ScriptTagNode | StyleTagNode} node
-       * @returns
-       */
-      [["Tag", "ScriptTag", "StyleTag"].join(",")](node) {
-        if (!node.attributes || node.attributes.length <= 0) {
-          return;
-        }
-        const idAttr = findAttr(node, "id");
-        if (idAttr && idAttr.value && !checkNaming(idAttr.value.value)) {
-          context.report({
-            node: idAttr,
-            data: {
-              actual: idAttr.value.value,
-              convention,
-            },
-            messageId: MESSAGE_IDS.WRONG,
-          });
-        }
+    /**
+     * @param {TagNode | ScriptTagNode | StyleTagNode} node
+     */
+    function check(node) {
+      if (isAttributesEmpty(node)) {
+        return;
+      }
+      const idAttr = findAttr(node, "id");
+      if (idAttr && idAttr.value && !checkNaming(idAttr.value.value)) {
+        context.report({
+          node: idAttr,
+          data: {
+            actual: idAttr.value.value,
+            convention,
+          },
+          messageId: MESSAGE_IDS.WRONG,
+        });
+      }
+    }
+
+    /**
+     * @param {TagNode | ScriptTagNode | StyleTagNode} node
+     */
+    function checkInTemplate(node) {
+      if (isAttributesEmpty(node)) {
+        return;
+      }
+      const idAttr = findAttr(node, "id");
+      if (
+        idAttr &&
+        idAttr.value &&
+        !isExpressionInTemplate(idAttr.value) &&
+        !checkNaming(idAttr.value.value)
+      ) {
+        context.report({
+          node: idAttr,
+          data: {
+            actual: idAttr.value.value,
+            convention,
+          },
+          messageId: MESSAGE_IDS.WRONG,
+        });
+      }
+    }
+
+    return createVisitors(
+      context,
+      {
+        Tag: check,
+        ScriptTag: check,
+        StyleTag: check,
       },
-    };
+      {
+        Tag: checkInTemplate,
+        ScriptTag: checkInTemplate,
+        StyleTag: checkInTemplate,
+      }
+    );
   },
 };

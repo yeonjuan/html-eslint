@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/id-naming-convention");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("id-naming-convention", rule, {
   valid: [
@@ -64,6 +65,34 @@ ruleTester.run("id-naming-convention", rule, {
       errors: [
         {
           message: "The id 'kebab-case' is not matched with the regex.",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] id-naming-convention", rule, {
+  valid: [
+    {
+      code: `html\`<div id="camelCase"> </div>\`;`,
+      options: ["camelCase"],
+    },
+    {
+      code: `html\`<div id="\${foo}"> </div>\`;`,
+      options: ["camelCase"],
+    },
+    {
+      code: `html\`<div id=\${foo}> </div>\`;`,
+      options: ["camelCase"],
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`<div id="kebab-case"> </div>\`;`,
+      options: ["PascalCase"],
+      errors: [
+        {
+          message: "The id 'kebab-case' is not matched with the PascalCase.",
         },
       ],
     },
