@@ -38,6 +38,7 @@
     "quasis",
     "sourcecode",
     "espree",
-    "nohtml"
+    "nohtml",
+    "tmpl"
   ]
 }

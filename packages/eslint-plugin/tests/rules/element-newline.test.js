@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/element-newline");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("element-newline", rule, {
   valid: [
@@ -525,6 +526,67 @@ aaa<strong>bbb</strong><a>ccc</a>
 <p>ddd<i>eee</i></p>
 </div>
 `,
+      errors: [
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
+        },
+        {
+          messageId: "expectBefore",
+        },
+      ],
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] element-newline", rule, {
+  valid: [
+    {
+      code: `
+    const code = /* html */\`<html>
+    <body>
+    </body>
+    </html>\`
+    `,
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`<div>aaa<strong>bbb</strong><a>ccc</a><p>ddd<i>eee</i></p></div>\`;`,
+      output: `html\`<div>
+aaa<strong>bbb</strong><a>ccc</a>
+<p>ddd<i>eee</i></p>
+</div>\`;`,
+      errors: [
+        {
+          messageId: "expectAfterOpen",
+        },
+        {
+          messageId: "expectBeforeClose",
+        },
+        {
+          messageId: "expectBefore",
+        },
+      ],
+      options: [
+        {
+          inline: [`$inline`],
+        },
+      ],
+    },
+    {
+      code: `const code = /* html */\`<div>aaa<strong>bbb</strong><a>ccc</a><p>ddd<i>eee</i></p></div>\`;`,
+      output: `const code = /* html */\`<div>
+aaa<strong>bbb</strong><a>ccc</a>
+<p>ddd<i>eee</i></p>
+</div>\`;`,
       errors: [
         {
           messageId: "expectAfterOpen",
