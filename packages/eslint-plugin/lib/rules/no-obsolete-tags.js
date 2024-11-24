@@ -3,6 +3,7 @@
  */
 
 const { RULE_CATEGORY, OBSOLETE_TAGS } = require("../constants");
+const { createVisitors } = require("./utils/visitors");
 
 const OBSOLETE_TAGS_SET = new Set(OBSOLETE_TAGS);
 
@@ -31,7 +32,7 @@ module.exports = {
   },
 
   create(context) {
-    return {
+    return createVisitors(context, {
       Tag(node) {
         if (OBSOLETE_TAGS_SET.has(node.name)) {
           context.report({
@@ -43,6 +44,6 @@ module.exports = {
           });
         }
       },
-    };
+    });
   },
 };
