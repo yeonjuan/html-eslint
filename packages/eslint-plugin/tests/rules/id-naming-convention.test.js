@@ -7,6 +7,10 @@ const templateRuleTester = createRuleTester("espree");
 ruleTester.run("id-naming-convention", rule, {
   valid: [
     {
+      code: `<div"> </div>`,
+      options: ["camelCase"],
+    },
+    {
       code: `<div id="camelCase"> </div>`,
       options: ["camelCase"],
     },
@@ -73,6 +77,10 @@ ruleTester.run("id-naming-convention", rule, {
 
 templateRuleTester.run("[template] id-naming-convention", rule, {
   valid: [
+    {
+      code: `html\`<div> </div>\`;`,
+      options: ["camelCase"],
+    },
     {
       code: `html\`<div id="camelCase"> </div>\`;`,
       options: ["camelCase"],
