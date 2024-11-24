@@ -3,6 +3,7 @@
  * @typedef { import("../../types").ScriptTagNode } ScriptTagNode
  * @typedef { import("../../types").StyleTagNode } StyleTagNode
  * @typedef { import("../../types").AttributeNode } AttributeNode
+ * @typedef {import("../../types").AttributeValueNode} AttributeValueNode
  * @typedef { import("../../types").AnyNode } AnyNode
  * @typedef { import("../../types").TextNode } TextNode
  * @typedef { import("../../types").CommentContentNode } CommentContentNode
@@ -10,6 +11,8 @@
  * @typedef { import("../../types").BaseNode } BaseNode
  * @typedef { import("../../types").Location } Location
  */
+
+const { NODE_TYPES } = require("@html-eslint/parser");
 
 module.exports = {
   /**
@@ -21,6 +24,13 @@ module.exports = {
     return node.attributes.find(
       (attr) => attr.key && attr.key.value.toLowerCase() === key.toLowerCase()
     );
+  },
+  /**
+   * @param {TagNode | ScriptTagNode | StyleTagNode} node
+   * @returns {boolean}
+   */
+  isAttributesEmpty(node) {
+    return !node.attributes || node.attributes.length <= 0;
   },
 
   /**
@@ -79,5 +89,17 @@ module.exports = {
       start: before.loc.end,
       end: after.loc.start,
     };
+  },
+
+  /**
+   *
+   * @param {AttributeValueNode} node
+   * @return {boolean}
+   */
+  isExpressionInTemplate(node) {
+    if (node.type === NODE_TYPES.AttributeValue) {
+      return node.value.indexOf("${") === 0;
+    }
+    return false;
   },
 };
