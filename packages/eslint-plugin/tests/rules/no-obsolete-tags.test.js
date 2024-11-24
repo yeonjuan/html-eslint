@@ -3,6 +3,7 @@ const rule = require("../../lib/rules/no-obsolete-tags");
 const { OBSOLETE_TAGS } = require("../../lib/constants");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-obsolete-tags", rule, {
   valid: [
@@ -39,5 +40,29 @@ ruleTester.run("no-obsolete-tags", rule, {
         },
       ],
     },
+  ],
+});
+
+templateRuleTester.run("[template] no-obsolete-tags", rule, {
+  valid: [
+    {
+      code: `
+html\`<html>
+<body>
+<h1>one heading</h1>
+</body>
+</html>\`;
+`,
+    },
+  ],
+  invalid: [
+    ...OBSOLETE_TAGS.filter((tag) => tag !== "frame").map((tag) => ({
+      code: `html\`<${tag}></${tag}>\`;`,
+      errors: [
+        {
+          message: `Unexpected use of obsolete tag <${tag}>`,
+        },
+      ],
+    })),
   ],
 });
