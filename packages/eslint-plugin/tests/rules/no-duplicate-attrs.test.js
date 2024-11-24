@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-duplicate-attrs");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-duplicate-attrs", rule, {
   valid: [
@@ -62,6 +63,38 @@ ruleTester.run("no-duplicate-attrs", rule, {
       errors: [
         {
           message: "The attribute 'class' is duplicated.",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] no-duplicate-attrs", rule, {
+  valid: [
+    {
+      code: `html\`<div> </div>\``,
+    },
+    {
+      code: `html\`<div foo="foo" </div>\``,
+    },
+    {
+      code: `html\`<div foo="foo" bar="bar"> </div>\``,
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`<div foo="\${id1}" foo="\${id2}"> </div>\`;`,
+      errors: [
+        {
+          message: "The attribute 'foo' is duplicated.",
+        },
+      ],
+    },
+    {
+      code: `html\`<div foo foo> </div>\`;`,
+      errors: [
+        {
+          message: "The attribute 'foo' is duplicated.",
         },
       ],
     },

@@ -6,6 +6,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   DUPLICATE_ATTRS: "duplicateAttrs",
@@ -33,28 +34,31 @@ module.exports = {
   },
 
   create(context) {
-    return {
-      /**
-       * @param {TagNode | StyleTagNode | ScriptTagNode} node
-       */
-      [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
-        if (Array.isArray(node.attributes)) {
-          const attrsSet = new Set();
-          node.attributes.forEach((attr) => {
-            if (attr.key && attrsSet.has(attr.key.value)) {
-              context.report({
-                node: attr,
-                data: {
-                  attrName: attr.key.value,
-                },
-                messageId: MESSAGE_IDS.DUPLICATE_ATTRS,
-              });
-            } else {
-              attrsSet.add(attr.key.value);
-            }
-          });
-        }
-      },
-    };
+    /**
+     * @param {TagNode | StyleTagNode | ScriptTagNode} node
+     */
+    function check(node) {
+      if (Array.isArray(node.attributes)) {
+        const attrsSet = new Set();
+        node.attributes.forEach((attr) => {
+          if (attr.key && attrsSet.has(attr.key.value)) {
+            context.report({
+              node: attr,
+              data: {
+                attrName: attr.key.value,
+              },
+              messageId: MESSAGE_IDS.DUPLICATE_ATTRS,
+            });
+          } else {
+            attrsSet.add(attr.key.value);
+          }
+        });
+      }
+    }
+    return createVisitors(context, {
+      Tag: check,
+      StyleTag: check,
+      ScriptTag: check,
+    });
   },
 };
