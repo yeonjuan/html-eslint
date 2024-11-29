@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-extra-spacing-attrs");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-extra-spacing-attrs", rule, {
   valid: [
@@ -569,6 +570,48 @@ ruleTester.run("no-extra-spacing-attrs", rule, {
         },
         {
           messageId: "unexpectedInAssignment",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] no-extra-spacing-attrs", rule, {
+  valid: [],
+  invalid: [
+    {
+      code: "html`<div foo='foo'  bar='baz'> </div>`",
+      output: "html`<div foo='foo' bar='baz'> </div>`",
+      errors: [
+        {
+          messageId: "unexpectedBetween",
+        },
+      ],
+    },
+    {
+      code: "html`<div ${foo}  ${bar}> </div>`",
+      output: "html`<div ${foo} ${bar}> </div>`",
+      errors: [
+        {
+          messageId: "unexpectedBetween",
+        },
+      ],
+    },
+    {
+      code: 'html`<div foo="${bar}" > </div>`',
+      output: 'html`<div foo="${bar}"> </div>`',
+      errors: [
+        {
+          messageId: "unexpectedAfter",
+        },
+      ],
+    },
+    {
+      code: "html`<div ${foo}  ${'foo'}> </div>`",
+      output: "html`<div ${foo} ${'foo'}> </div>`",
+      errors: [
+        {
+          messageId: "unexpectedBetween",
         },
       ],
     },
