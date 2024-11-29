@@ -21,6 +21,10 @@ function parse(node, sourceCode, visitors) {
   const rangeOffset = node.range[0] + 1;
   const lineOffset = node.loc.start.line - 1;
   const expressions = node.expressions;
+  /**
+   * @type {[number, number][]}
+   */
+  const ranges = [];
   quasis.forEach((element, index) => {
     htmlParts.push(element.value.raw);
     if (expressions[index]) {
@@ -30,12 +34,18 @@ function parse(node, sourceCode, visitors) {
         nextQuasisElement.range[0] + "}".length
       );
       htmlParts.push(str);
+
+      ranges.push([
+        element.range[1] - "${".length + rangeOffset,
+        nextQuasisElement.range[0] + "}".length + rangeOffset,
+      ]);
     }
   });
 
   const html = htmlParts.join("");
 
   const { ast } = esHtmlParser.parse(html, {
+    tokenRanges: ranges,
     tokenAdapter: {
       finalizeLocation(token) {
         const startLine = token.loc.start.line + lineOffset;

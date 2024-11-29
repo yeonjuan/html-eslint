@@ -15,6 +15,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { getLocBetween } = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   EXTRA_BETWEEN: "unexpectedBetween",
@@ -182,125 +183,128 @@ module.exports = {
         }
       }
     }
+    /**
+     * @param {TagNode | StyleTagNode | ScriptTagNode} node
+     * @returns
+     */
+    function check(node) {
+      if (!node.attributes) {
+        return;
+      }
 
-    return {
-      /**
-       * @param {TagNode | StyleTagNode | ScriptTagNode} node
-       * @returns
-       */
-      [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
-        if (!node.attributes) {
+      if (node.attributes.length) {
+        checkExtraSpaceBefore(node.openStart, node.attributes[0]);
+
+        for (const attr of node.attributes) {
+          if (attr.startWrapper && attr.value) {
+            if (
+              disallowInAssignment &&
+              attr.startWrapper.loc.start.column - attr.key.loc.end.column > 1
+            ) {
+              const start = attr.key.range[1];
+              const end = attr.startWrapper.range[0];
+              context.report({
+                node: attr,
+                messageId: MESSAGE_IDS.EXTRA_IN_ASSIGNMENT,
+                fix(fixer) {
+                  return fixer.replaceTextRange([start, end], `=`);
+                },
+              });
+            }
+          }
+        }
+      }
+
+      if (node.openEnd) {
+        checkExtraSpacesBetweenAttrs(node.attributes);
+
+        const lastAttr = node.attributes[node.attributes.length - 1];
+        const nodeBeforeEnd =
+          node.attributes.length === 0 ? node.openStart : lastAttr;
+
+        if (nodeBeforeEnd.loc.end.line !== node.openEnd.loc.start.line) {
           return;
         }
 
-        if (node.attributes.length) {
-          checkExtraSpaceBefore(node.openStart, node.attributes[0]);
+        const isSelfClosing = node.openEnd.value === "/>";
 
-          for (const attr of node.attributes) {
-            if (attr.startWrapper && attr.value) {
-              if (
-                disallowInAssignment &&
-                attr.startWrapper.loc.start.column - attr.key.loc.end.column > 1
-              ) {
-                const start = attr.key.range[1];
-                const end = attr.startWrapper.range[0];
-                context.report({
-                  node: attr,
-                  messageId: MESSAGE_IDS.EXTRA_IN_ASSIGNMENT,
-                  fix(fixer) {
-                    return fixer.replaceTextRange([start, end], `=`);
-                  },
-                });
-              }
+        const spacesBetween =
+          node.openEnd.loc.start.column - nodeBeforeEnd.loc.end.column;
+        const locBetween = getLocBetween(nodeBeforeEnd, node.openEnd);
+
+        if (isSelfClosing && enforceBeforeSelfClose) {
+          if (spacesBetween < 1) {
+            context.report({
+              loc: locBetween,
+              messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
+              fix(fixer) {
+                return fixer.insertTextAfter(nodeBeforeEnd, " ");
+              },
+            });
+          } else if (spacesBetween === 1) {
+            if (
+              disallowTabs &&
+              sourceCode[node.openEnd.range[0] - 1] === `\t`
+            ) {
+              context.report({
+                loc: node.openEnd.loc,
+                messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE,
+                fix(fixer) {
+                  return fixer.replaceTextRange(
+                    [node.openEnd.range[0] - 1, node.openEnd.range[0]],
+                    ` `
+                  );
+                },
+              });
             }
+          } else {
+            context.report({
+              loc: locBetween,
+              messageId: MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE,
+              fix(fixer) {
+                return fixer.removeRange([
+                  nodeBeforeEnd.range[1] + 1,
+                  node.openEnd.range[0],
+                ]);
+              },
+            });
           }
+
+          return;
         }
 
-        if (node.openEnd) {
-          checkExtraSpacesBetweenAttrs(node.attributes);
-
-          const lastAttr = node.attributes[node.attributes.length - 1];
-          const nodeBeforeEnd =
-            node.attributes.length === 0 ? node.openStart : lastAttr;
-
-          if (nodeBeforeEnd.loc.end.line !== node.openEnd.loc.start.line) {
-            return;
-          }
-
-          const isSelfClosing = node.openEnd.value === "/>";
-
-          const spacesBetween =
-            node.openEnd.loc.start.column - nodeBeforeEnd.loc.end.column;
-          const locBetween = getLocBetween(nodeBeforeEnd, node.openEnd);
-
-          if (isSelfClosing && enforceBeforeSelfClose) {
-            if (spacesBetween < 1) {
-              context.report({
-                loc: locBetween,
-                messageId: MESSAGE_IDS.MISSING_BEFORE_SELF_CLOSE,
-                fix(fixer) {
-                  return fixer.insertTextAfter(nodeBeforeEnd, " ");
-                },
-              });
-            } else if (spacesBetween === 1) {
-              if (
-                disallowTabs &&
-                sourceCode[node.openEnd.range[0] - 1] === `\t`
-              ) {
-                context.report({
-                  loc: node.openEnd.loc,
-                  messageId: MESSAGE_IDS.EXTRA_TAB_BEFORE_SELF_CLOSE,
-                  fix(fixer) {
-                    return fixer.replaceTextRange(
-                      [node.openEnd.range[0] - 1, node.openEnd.range[0]],
-                      ` `
-                    );
-                  },
-                });
-              }
-            } else {
-              context.report({
-                loc: locBetween,
-                messageId: MESSAGE_IDS.EXTRA_BEFORE_SELF_CLOSE,
-                fix(fixer) {
-                  return fixer.removeRange([
-                    nodeBeforeEnd.range[1] + 1,
-                    node.openEnd.range[0],
-                  ]);
-                },
-              });
-            }
-
-            return;
-          }
-
-          if (spacesBetween > 0) {
-            if (node.attributes.length > 0) {
-              context.report({
-                loc: locBetween,
-                messageId: MESSAGE_IDS.EXTRA_AFTER,
-                fix(fixer) {
-                  return fixer.removeRange([
-                    lastAttr.range[1],
-                    node.openEnd.range[0],
-                  ]);
-                },
-              });
-            } else {
-              context.report({
-                loc: locBetween,
-                messageId: MESSAGE_IDS.EXTRA_BEFORE_CLOSE,
-                fix(fixer) {
-                  return fixer.removeRange([
-                    node.openStart.range[1],
-                    node.openEnd.range[0],
-                  ]);
-                },
-              });
-            }
+        if (spacesBetween > 0) {
+          if (node.attributes.length > 0) {
+            context.report({
+              loc: locBetween,
+              messageId: MESSAGE_IDS.EXTRA_AFTER,
+              fix(fixer) {
+                return fixer.removeRange([
+                  lastAttr.range[1],
+                  node.openEnd.range[0],
+                ]);
+              },
+            });
+          } else {
+            context.report({
+              loc: locBetween,
+              messageId: MESSAGE_IDS.EXTRA_BEFORE_CLOSE,
+              fix(fixer) {
+                return fixer.removeRange([
+                  node.openStart.range[1],
+                  node.openEnd.range[0],
+                ]);
+              },
+            });
           }
         }
-      },
-    };
+      }
+    }
+
+    return createVisitors(context, {
+      Tag: check,
+      StyleTag: check,
+      ScriptTag: check,
+    });
   },
 };
