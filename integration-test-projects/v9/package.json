@@ -1,0 +1,14 @@
+{
+    "name": "v8",
+    "type": "module",
+    "packageManager": "yarn@4.0.2",
+    "scripts": {
+      "print-config": "eslint --print-config input.html"
+    },
+    "devDependencies": {
+      "@html-eslint/eslint-plugin": "file:../../packages/eslint-plugin",
+      "@html-eslint/parser": "file:../../packages/parser",
+      "eslint": "^9"
+    }
+  }
+  
