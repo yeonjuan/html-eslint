@@ -17,6 +17,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { isTag, isComment, isText } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const MESSAGE_IDS = {
   EXPECT_NEW_LINE_AFTER: "expectAfter",
@@ -159,7 +160,7 @@ module.exports = {
 
         const nodeShouldBeNewline = shouldBeNewline(node);
 
-        if (node.type === `Tag` && skipTags.includes(node.name) === false) {
+        if (isTag(node) && skipTags.includes(node.name) === false) {
           const nodeMeta = checkSiblings(node.children);
           const nodeChildShouldBeNewline = nodeMeta.shouldBeNewline;
 
@@ -260,16 +261,13 @@ module.exports = {
      */
     function label(node, options = {}) {
       const isClose = options.isClose || false;
-
-      switch (node.type) {
-        case `Tag`:
-          if (isClose) {
-            return `</${node.name}>`;
-          }
-          return `<${node.name}>`;
-        default:
-          return `<${node.type}>`;
+      if (isTag(node)) {
+        if (isClose) {
+          return `</${node.name}>`;
+        }
+        return `<${node.name}>`;
       }
+      return `<${node.type}>`;
     }
 
     /**
@@ -292,16 +290,16 @@ module.exports = {
      * @param {NewlineNode} node
      */
     function shouldBeNewline(node) {
-      switch (node.type) {
-        case `Comment`:
-          return /[\n\r]+/.test(node.value.value.trim());
-        case `Tag`:
-          return inlineTags.includes(node.name.toLowerCase()) === false;
-        case `Text`:
-          return /[\n\r]+/.test(node.value.trim());
-        default:
-          return true;
+      if (isComment(node)) {
+        return /[\n\r]+/.test(node.value.value.trim());
       }
+      if (isTag(node)) {
+        return inlineTags.includes(node.name.toLowerCase()) === false;
+      }
+      if (isText(node)) {
+        return /[\n\r]+/.test(node.value.trim());
+      }
+      return true;
     }
 
     return createVisitors(

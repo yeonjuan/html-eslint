@@ -1,12 +1,13 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").TagNode } TagNode
- * @typedef { import("../types").TextNode } TextNode
+ * @typedef { import("es-html-parser").TagNode } TagNode
+ * @typedef { import("es-html-parser").TextNode } TextNode
+ * @typedef { import("es-html-parser").AnyNode } AnyNode
  */
 
-const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { find } = require("./utils/array");
+const { isText, isTag } = require("./utils/node");
 
 const MESSAGE_IDS = {
   MISSING_TITLE: "missing",
@@ -14,19 +15,19 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @param {import("../types").ChildType<TagNode>} node
+ * @param {AnyNode} node
  * @returns {node is TagNode}
  */
 function isTitle(node) {
-  return node.type === NODE_TYPES.Tag && node.name === "title";
+  return isTag(node) && node.name === "title";
 }
 
 /**
- * @param {import("../types").ChildType<TagNode>} node
+ * @param {AnyNode} node
  * @returns {node is TextNode}
  */
 function isNonEmptyText(node) {
-  return node.type === NODE_TYPES.Text && node.value.trim().length > 0;
+  return isText(node) && node.value.trim().length > 0;
 }
 
 /**
