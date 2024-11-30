@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "include": ["lib/**/*.js"],
   "compilerOptions": {
+    "target": "es2017",
     "allowJs": true,
     "composite": true,
     "outDir": "./types",

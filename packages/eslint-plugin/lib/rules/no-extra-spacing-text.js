@@ -7,6 +7,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { isTag, isText, isComment } = require("./utils/node");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -62,11 +63,11 @@ module.exports = {
       ) {
         const node = siblings[index];
 
-        if (node.type === `Tag` && skipTags.includes(node.name) === false) {
+        if (isTag(node) && skipTags.includes(node.name) === false) {
           checkSiblings(node.children);
-        } else if (node.type === `Text`) {
+        } else if (isText(node)) {
           stripConsecutiveSpaces(node);
-        } else if (node.type === `Comment`) {
+        } else if (isComment(node)) {
           stripConsecutiveSpaces(node.value);
         }
       }

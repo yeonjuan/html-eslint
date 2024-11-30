@@ -28,6 +28,7 @@ module.exports = {
 
   create(context) {
     const sourceCode = context.getSourceCode();
+    // @ts-ignore
     const lineBreaks = sourceCode.getText().match(/\r\n|[\r\n\u2028\u2029]/gu);
 
     return {

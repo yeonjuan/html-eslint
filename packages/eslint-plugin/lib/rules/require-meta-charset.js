@@ -1,12 +1,12 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").TagNode } TagNode
+ * @typedef { import("es-html-parser").TagNode } TagNode
+ * @typedef { import("es-html-parser").AnyNode } AnyNode
  */
 
-const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { find } = require("./utils/array");
-const { findAttr } = require("./utils/node");
+const { findAttr, isTag } = require("./utils/node");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -14,15 +14,11 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @param { import("../types").ChildType<TagNode>} node
+ * @param {AnyNode} node
  * @returns {node is TagNode}
  */
 function isMetaCharset(node) {
-  return (
-    node.type === NODE_TYPES.Tag &&
-    node.name === "meta" &&
-    !!findAttr(node, "charset")
-  );
+  return isTag(node) && node.name === "meta" && !!findAttr(node, "charset");
 }
 
 /**
