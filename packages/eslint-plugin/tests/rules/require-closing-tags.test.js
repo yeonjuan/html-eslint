@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/require-closing-tags");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("require-closing-tags", rule, {
   valid: [
@@ -211,6 +212,24 @@ ruleTester.run("require-closing-tags", rule, {
       errors: [
         {
           messageId: "unexpected",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] require-closing-tags", rule, {
+  valid: [
+    {
+      code: "html`<div></div>`",
+    },
+  ],
+  invalid: [
+    {
+      code: "html`<div>`",
+      errors: [
+        {
+          messageId: "missing",
         },
       ],
     },

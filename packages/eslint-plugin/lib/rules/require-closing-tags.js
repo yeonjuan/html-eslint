@@ -4,6 +4,7 @@
  */
 
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
+const { createVisitors } = require("./utils/visitors");
 
 const VOID_ELEMENTS_SET = new Set(VOID_ELEMENTS);
 
@@ -125,7 +126,7 @@ module.exports = {
       }
     }
 
-    return {
+    return createVisitors(context, {
       Tag(node) {
         const isVoidElement = VOID_ELEMENTS_SET.has(node.name);
         const isSelfClosingCustomElement = !!selfClosingCustomPatterns.some(
@@ -156,6 +157,6 @@ module.exports = {
           foreignContext.pop();
         }
       },
-    };
+    });
   },
 };
