@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/sort-attrs");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("sort-attrs", rule, {
   valid: [
@@ -194,6 +195,90 @@ ruleTester.run("sort-attrs", rule, {
           priority: ["id", "style"],
         },
       ],
+      errors: [
+        {
+          messageId: "unsorted",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] sort-attrs", rule, {
+  valid: [
+    {
+      code: 'html`<input id="foo" type="checkbox" autocomplete="bar" checked />`',
+    },
+  ],
+  invalid: [
+    {
+      code: `
+        html\`<div
+          style="background:red"
+          b
+          id="foo"
+          a="1"
+          c
+        >
+        </div>\`
+      `,
+      output: `
+        html\`<div
+          id="foo"
+          style="background:red"
+          a="1"
+          b
+          c
+        >
+        </div>\`
+      `,
+      options: [
+        {
+          priority: ["id", "style"],
+        },
+      ],
+      errors: [
+        {
+          messageId: "unsorted",
+        },
+      ],
+    },
+    {
+      code: `
+        html\`<div
+          style="background:red"
+          b
+          id="\${foo}"
+          a="1"
+          c
+        >
+        </div>\`
+      `,
+      output: `
+        html\`<div
+          id="\${foo}"
+          style="background:red"
+          a="1"
+          b
+          c
+        >
+        </div>\`
+      `,
+      options: [
+        {
+          priority: ["id", "style"],
+        },
+      ],
+      errors: [
+        {
+          messageId: "unsorted",
+        },
+      ],
+    },
+    {
+      code: 'html`<input ${some} id="foo" type="checkbox" autocomplete="bar" checked />`',
+      output:
+        'html`<input id="foo" type="checkbox" ${some} autocomplete="bar" checked />`',
       errors: [
         {
           messageId: "unsorted",
