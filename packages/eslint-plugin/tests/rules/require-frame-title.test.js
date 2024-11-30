@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/require-frame-title");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("require-frame-title", rule, {
   valid: [
@@ -69,6 +70,27 @@ ruleTester.run("require-frame-title", rule, {
 <frameset cols="10%, 90%">
 <frame src="nav.html" title/>
 </frameset>`,
+      errors: [
+        {
+          messageId: "unexpected",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] require-iframe-title", rule, {
+  valid: [
+    {
+      code: 'html`<iframe title="foo"></iframe>`',
+    },
+    {
+      code: 'html`<iframe title="${title}"></iframe>`',
+    },
+  ],
+  invalid: [
+    {
+      code: 'html`<iframe title=""></iframe>`',
       errors: [
         {
           messageId: "unexpected",

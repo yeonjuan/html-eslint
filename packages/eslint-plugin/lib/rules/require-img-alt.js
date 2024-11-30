@@ -4,6 +4,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",
@@ -48,7 +49,7 @@ module.exports = {
         context.options[0].substitute) ||
       [];
 
-    return {
+    return createVisitors(context, {
       Tag(node) {
         if (node.name !== "img") {
           return;
@@ -66,7 +67,7 @@ module.exports = {
           });
         }
       },
-    };
+    });
   },
 };
 

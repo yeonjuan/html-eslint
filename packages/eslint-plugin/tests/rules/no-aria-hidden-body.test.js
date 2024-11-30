@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-aria-hidden-body");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-aria-hidden-body", rule, {
   valid: [
@@ -26,6 +27,27 @@ ruleTester.run("no-aria-hidden-body", rule, {
     },
     {
       code: `<body aria-hidden="true"> </body>`,
+      errors: [
+        {
+          message: "Unexpected aria-hidden on body tag.",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] no-aria-hidden-body", rule, {
+  valid: [
+    {
+      code: `html\`<div aria-hidden> </div>\``,
+    },
+    {
+      code: `html\`<body aria-hidden=\${value}> </body>\``,
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`<body aria-hidden="true"> </body>\``,
       errors: [
         {
           message: "Unexpected aria-hidden on body tag.",

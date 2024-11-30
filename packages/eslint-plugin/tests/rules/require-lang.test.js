@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/require-lang");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("require-lang", rule, {
   valid: [
@@ -50,6 +51,27 @@ ruleTester.run("require-lang", rule, {
       errors: [
         {
           messageId: "empty",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] require-lang", rule, {
+  valid: [
+    {
+      code: `html\`<html lang="ko"></html>\``,
+    },
+    {
+      code: `html\`<html lang="\${lang}"></html>\``,
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`<html></html>\``,
+      errors: [
+        {
+          messageId: "missing",
         },
       ],
     },

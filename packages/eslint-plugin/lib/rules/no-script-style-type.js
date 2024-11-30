@@ -7,6 +7,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   UNNECESSARY: "unnecessary",
@@ -56,7 +57,7 @@ module.exports = {
         });
       }
     }
-    return {
+    return createVisitors(context, {
       ScriptTag(node) {
         check(node, "text/javascript");
       },
@@ -71,6 +72,6 @@ module.exports = {
           }
         }
       },
-    };
+    });
   },
 };

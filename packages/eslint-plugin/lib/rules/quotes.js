@@ -8,6 +8,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -131,14 +132,17 @@ module.exports = {
         });
       }
     }
+    /**
+     * @param {TagNode | ScriptTagNode | StyleTagNode} node
+     */
+    function check(node) {
+      node.attributes.forEach((attr) => checkQuotes(attr));
+    }
 
-    return {
-      /**
-       * @param {TagNode | ScriptTagNode | StyleTagNode} node
-       */
-      [["Tag", "ScriptTag", "StyleTag"].join(",")](node) {
-        node.attributes.forEach((attr) => checkQuotes(attr));
-      },
-    };
+    return createVisitors(context, {
+      Tag: check,
+      ScriptTag: check,
+      StyleTag: check,
+    });
   },
 };

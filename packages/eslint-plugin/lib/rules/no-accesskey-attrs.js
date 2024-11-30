@@ -7,6 +7,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -33,19 +34,22 @@ module.exports = {
   },
 
   create(context) {
-    return {
-      /**
-       * @param {TagNode | ScriptTagNode | StyleTagNode} node
-       */
-      [["Tag", "ScriptTag", "StyleTag"].join(",")](node) {
-        const accessKeyAttr = findAttr(node, "accesskey");
-        if (accessKeyAttr) {
-          context.report({
-            node: accessKeyAttr,
-            messageId: MESSAGE_IDS.UNEXPECTED,
-          });
-        }
-      },
-    };
+    /**
+     * @param {TagNode | ScriptTagNode | StyleTagNode} node
+     */
+    function check(node) {
+      const accessKeyAttr = findAttr(node, "accesskey");
+      if (accessKeyAttr) {
+        context.report({
+          node: accessKeyAttr,
+          messageId: MESSAGE_IDS.UNEXPECTED,
+        });
+      }
+    }
+    return createVisitors(context, {
+      Tag: check,
+      ScriptTag: check,
+      StyleTag: check,
+    });
   },
 };

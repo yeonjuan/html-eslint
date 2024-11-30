@@ -4,6 +4,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -31,24 +32,29 @@ module.exports = {
   },
 
   create(context) {
-    return {
+    return createVisitors(context, {
       Tag(node) {
         if (node.name !== "body") {
           return;
         }
         const ariaHiddenAttr = findAttr(node, "aria-hidden");
-        if (ariaHiddenAttr) {
-          if (
-            (ariaHiddenAttr.value && ariaHiddenAttr.value.value !== "false") ||
-            !ariaHiddenAttr.value
-          ) {
-            context.report({
-              node: ariaHiddenAttr,
-              messageId: MESSAGE_IDS.UNEXPECTED,
-            });
-          }
+        if (!ariaHiddenAttr) {
+          return;
+        }
+        if (ariaHiddenAttr.value && ariaHiddenAttr.value.templates.length) {
+          return;
+        }
+
+        if (
+          (ariaHiddenAttr.value && ariaHiddenAttr.value.value !== "false") ||
+          !ariaHiddenAttr.value
+        ) {
+          context.report({
+            node: ariaHiddenAttr,
+            messageId: MESSAGE_IDS.UNEXPECTED,
+          });
         }
       },
-    };
+    });
   },
 };
