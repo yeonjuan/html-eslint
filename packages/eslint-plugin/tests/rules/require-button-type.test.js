@@ -45,6 +45,9 @@ templateRuleTester.run("[template] require-button-type", rule, {
     {
       code: 'html`<button type="submit">Submit Button</button>`',
     },
+    {
+      code: 'html`<button type="${type}">Submit Button</button>`',
+    },
   ],
   invalid: [
     {

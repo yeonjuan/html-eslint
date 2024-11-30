@@ -47,7 +47,10 @@ module.exports = {
             node: node.openStart,
             messageId: MESSAGE_IDS.MISSING,
           });
-        } else if (!VALID_BUTTON_TYPES_SET.has(typeAttr.value.value)) {
+        } else if (
+          !VALID_BUTTON_TYPES_SET.has(typeAttr.value.value) &&
+          !typeAttr.value.templates.length
+        ) {
           context.report({
             node: typeAttr,
             messageId: MESSAGE_IDS.INVALID,
