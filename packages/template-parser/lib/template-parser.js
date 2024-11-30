@@ -34,18 +34,13 @@ function parse(node, sourceCode, visitors) {
         nextQuasisElement.range[0] + "}".length
       );
       htmlParts.push(str);
-
-      ranges.push([
-        element.range[1] - "${".length + rangeOffset,
-        nextQuasisElement.range[0] + "}".length + rangeOffset,
-      ]);
+      const start = element.range[1] - "${".length - rangeOffset;
+      ranges.push([start, start + str.length]);
     }
   });
-
   const html = htmlParts.join("");
-
   const { ast } = esHtmlParser.parse(html, {
-    tokenRanges: ranges,
+    templateRanges: ranges,
     tokenAdapter: {
       finalizeLocation(token) {
         const startLine = token.loc.start.line + lineOffset;
@@ -68,7 +63,6 @@ function parse(node, sourceCode, visitors) {
       },
     },
   });
-
   traverse(ast, visitors);
   return ast;
 }

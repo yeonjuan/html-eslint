@@ -13,6 +13,8 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { splitToLineNodes } = require("./utils/node");
+const { getSourceCode } = require("./utils/source-code");
+const { createVisitors } = require("./utils/visitors");
 
 /** @type {MessageId} */
 const MESSAGE_ID = {
@@ -60,7 +62,7 @@ module.exports = {
     },
   },
   create(context) {
-    const sourceCode = context.getSourceCode();
+    const sourceCode = getSourceCode(context);
     let indentLevel = -1;
     let parentIgnoringChildCount = 0;
 
@@ -213,8 +215,7 @@ module.exports = {
       }
     }
 
-    return {
-      // Tag
+    return createVisitors(context, {
       Tag(node) {
         if (IGNORING_NODES.includes(node.name)) {
           parentIgnoringChildCount++;
@@ -253,6 +254,9 @@ module.exports = {
         indent();
         const lineNodes = splitToLineNodes(node);
         lineNodes.forEach((lineNode) => {
+          if (lineNode.skipIndentCheck) {
+            return;
+          }
           if (lineNode.value.trim().length) {
             checkIndent(lineNode);
           }
@@ -267,6 +271,9 @@ module.exports = {
         indent();
         const lineNodes = splitToLineNodes(node);
         lineNodes.forEach((lineNode) => {
+          if (lineNode.skipIndentCheck) {
+            return;
+          }
           if (lineNode.value.trim().length) {
             checkIndent(lineNode);
           }
@@ -275,6 +282,6 @@ module.exports = {
       CommentClose: checkIndent,
       "Comment:exit": unindent,
       "CommentContent:exit": unindent,
-    };
+    });
   },
 };

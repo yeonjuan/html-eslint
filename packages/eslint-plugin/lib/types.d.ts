@@ -171,6 +171,7 @@ interface DoctypeAttributeWrapperEnd
 interface LineNode extends BaseNode {
   type: "Line";
   value: string;
+  skipIndentCheck: boolean;
 }
 
 type PostFix<T, S extends string> = {

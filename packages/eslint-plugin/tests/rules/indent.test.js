@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/indent");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 function wrongIndentErrors(length) {
   return Array.from({ length }, () => ({
@@ -964,3 +965,50 @@ id="bar"
 ruleTester.run("indent LF", rule, createTests());
 
 ruleTester.run("indent CRLF", rule, changeLineEndings(createTests()));
+
+templateRuleTester.run("[template] indent", rule, {
+  valid: [
+    {
+      code: `html\`
+<div>
+    <div></div>
+</div>
+      \``,
+    },
+    // Ignore indentation in template expressions
+    {
+      code: `html\`
+<div>
+    \${items.map((item) => {
+return "<div></div>"
+})}
+</div>
+      \``,
+    },
+    {
+      code: `html\`
+<!-- \${\`
+foo
+   bar
+      baz
+\`}
+-->
+      \``,
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`
+<div
+id="\${bar}">
+</div>
+      \``,
+      output: `html\`
+<div
+    id="\${bar}">
+</div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+  ],
+});

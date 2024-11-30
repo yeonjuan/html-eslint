@@ -53,32 +53,82 @@ function splitToLineNodes(node) {
   let start = node.range[0];
   let line = node.loc.start.line;
   const startCol = node.loc.start.column;
+  /**
+   * @type {LineNode[]}
+   */
+  const lineNodes = [];
+  const templates = node.templates || [];
+  /**
+   *
+   * @param {import("../../types").Range} range
+   * @param {import("../../types").Location} loc
+   */
+  function shouldSkipIndentCheck(range, loc) {
+    const overlappedTemplates = templates.filter((template) => {
+      if (!template.isTemplate) return false;
+      if (loc.end.line < template.loc.start.line) {
+        return false;
+      }
+      if (loc.start.line > template.loc.end.line) {
+        return false;
+      }
+      return true;
+    });
+    const isLineInTemplate = overlappedTemplates.some((template) => {
+      return template.range[0] <= range[0] && template.range[1] >= range[1];
+    });
+    if (isLineInTemplate) {
+      return true;
+    }
+    const isLineBeforeTemplate = overlappedTemplates.some((template) => {
+      return template.range[0] <= range[0] && template.range[1] <= range[1];
+    });
+    if (isLineBeforeTemplate) {
+      return true;
+    }
+    const isLineAfterTemplate = overlappedTemplates.some((template) => {
+      return template.range[1] <= range[0];
+    });
+    if (isLineAfterTemplate) {
+      return true;
+    }
+    return false;
+  }
 
-  return node.value.split("\n").map((value, index) => {
+  node.value.split("\n").forEach((value, index) => {
     const columnStart = index === 0 ? startCol : 0;
+    /**
+     * @type {import("../../types").Range}
+     */
+    const range = [start, start + value.length];
+    const loc = {
+      start: {
+        line,
+        column: columnStart,
+      },
+      end: {
+        line,
+        column: columnStart + value.length,
+      },
+    };
     /**
      * @type {LineNode}
      */
     const lineNode = {
       type: "Line",
       value,
-      range: [start, start + value.length],
-      loc: {
-        start: {
-          line,
-          column: columnStart,
-        },
-        end: {
-          line,
-          column: columnStart + value.length,
-        },
-      },
+      range,
+      loc,
+      skipIndentCheck: shouldSkipIndentCheck(range, loc),
     };
 
     start += value.length + 1;
     line += 1;
-    return lineNode;
+
+    lineNodes.push(lineNode);
   });
+
+  return lineNodes;
 }
 
 /**
