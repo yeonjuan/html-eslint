@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/require-attrs");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("require-attrs", rule, {
   valid: [
@@ -244,6 +245,49 @@ ruleTester.run("require-attrs", rule, {
           line: 1,
           column: 6,
           endColumn: 19,
+          message: "Unexpected 'class' attributes value. 'img' is expected",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] require-attrs", rule, {
+  valid: [
+    {
+      code: "html`<svg viewBox></svg>`",
+      options: [
+        {
+          tag: "svg",
+          attr: "viewBox",
+        },
+      ],
+    },
+  ],
+  invalid: [
+    {
+      code: 'html`<img class="image"/>`',
+      options: [
+        {
+          tag: "img",
+          attr: "alt",
+        },
+        {
+          tag: "img",
+          attr: "class",
+          value: "img",
+        },
+      ],
+      errors: [
+        {
+          line: 1,
+          column: 6,
+          message: "Missing 'alt' attributes for 'img' tag",
+        },
+        {
+          line: 1,
+          column: 11,
+          endColumn: 24,
           message: "Unexpected 'class' attributes value. 'img' is expected",
         },
       ],
