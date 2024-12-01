@@ -38,7 +38,7 @@ module.exports = {
         if (node.name !== "li") {
           return;
         }
-        if (!node.parent || node.parent.type === NODE_TYPES.Program) {
+        if (!node.parent || node.parent.type === NODE_TYPES.Document) {
           context.report({
             node,
             messageId: MESSAGE_IDS.INVALID,

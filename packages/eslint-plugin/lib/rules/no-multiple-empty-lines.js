@@ -1,6 +1,5 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").ProgramNode } ProgramNode
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -46,10 +45,7 @@ module.exports = {
     const lines = sourceCode.lines;
     const max = context.options.length ? context.options[0].max : 2;
     return {
-      /**
-       * @param {ProgramNode} node
-       */
-      "Program:exit"(node) {
+      "Document:exit"(node) {
         /** @type {number[]} */
         const nonEmptyLineNumbers = [];
 

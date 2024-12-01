@@ -32,7 +32,7 @@ module.exports = {
     const lineBreaks = sourceCode.getText().match(/\r\n|[\r\n\u2028\u2029]/gu);
 
     return {
-      Program() {
+      Document() {
         const lines = sourceCode.lines;
         let rangeIndex = 0;
 

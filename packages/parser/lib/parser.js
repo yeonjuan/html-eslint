@@ -15,7 +15,7 @@ module.exports.parseForESLint = function parseForESLint(code) {
 
   const programNode = {
     type: "Program",
-    body: ast.children,
+    body: [ast],
     loc: ast.loc,
     range: ast.range,
     tokens: tokens.filter(

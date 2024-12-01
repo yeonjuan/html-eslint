@@ -46,7 +46,7 @@ module.exports = {
           level: parseInt(node.name.replace("h", ""), 10),
         });
       },
-      "Program:exit"() {
+      "Document:exit"() {
         if (headings.length <= 1) {
           return;
         }

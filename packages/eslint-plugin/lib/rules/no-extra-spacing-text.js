@@ -1,6 +1,5 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").ProgramNode } ProgramNode
  * @typedef { import("es-html-parser").CommentContentNode } CommentContentNode
  * @typedef { import("es-html-parser").TagNode } TagNode
  * @typedef { import("es-html-parser").CommentNode } CommentNode

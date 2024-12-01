@@ -85,7 +85,7 @@ module.exports = {
 
     return {
       Tag: createTagVisitor(htmlIdAttrsMap),
-      "Program:exit"() {
+      "Document:exit"() {
         report(htmlIdAttrsMap);
       },
       TaggedTemplateExpression(node) {

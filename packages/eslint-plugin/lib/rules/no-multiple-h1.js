@@ -41,7 +41,7 @@ module.exports = {
           h1s.push(node);
         }
       },
-      "Program:exit"() {
+      "Document:exit"() {
         if (h1s.length > 1) {
           h1s.forEach((h1) => {
             context.report({

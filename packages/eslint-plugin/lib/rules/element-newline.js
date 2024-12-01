@@ -1,6 +1,5 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").ProgramNode } ProgramNode
  * @typedef { import("../types").TagNode } TagNode
  * @typedef { import("../types").BaseNode } BaseNode
  * @typedef { import("../types").CommentNode } CommentNode
@@ -302,20 +301,11 @@ module.exports = {
       return true;
     }
 
-    return createVisitors(
-      context,
-      {
-        Program(node) {
-          // @ts-ignore
-          checkSiblings(node.body);
-        },
-      },
-      {
+    return createVisitors(context, {
+      Document(node) {
         // @ts-ignore
-        Document(node) {
-          checkSiblings(node.children);
-        },
-      }
-    );
+        checkSiblings(node.children);
+      },
+    });
   },
 };
