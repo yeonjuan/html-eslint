@@ -2,12 +2,18 @@
  * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("../types").ProgramNode } ProgramNode
  * @typedef { import("es-html-parser").CommentContentNode } CommentContentNode
+ * @typedef { import("es-html-parser").TagNode } TagNode
+ * @typedef { import("es-html-parser").CommentNode } CommentNode
  * @typedef { import("../types").ContentNode } ContentNode
- * @typedef { import("../types").TextNode } TextNode
+ * @typedef { import("es-html-parser").TextNode } TextNode
+ * @typedef { import("../types").LineNode } LineNode
+ * @typedef { import("../types").Range } Range
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { isTag, isText, isComment } = require("./utils/node");
+const { isTag, splitToLineNodes } = require("./utils/node");
+const { getSourceCode } = require("./utils/source-code");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -49,44 +55,43 @@ module.exports = {
 
   create(context) {
     const options = context.options[0] || {};
+    /**
+     * @type {string[]}
+     */
     const skipTags = options.skip || [];
-    const sourceCode = context.getSourceCode();
+    const sourceCode = getSourceCode(context);
+    /**
+     * @type {TagNode[]}
+     */
+    const tagStack = [];
 
     /**
-     * @param {Array<ContentNode>} siblings
+     * @param {CommentNode | TextNode} node
+     * @returns {boolean}
      */
-    function checkSiblings(siblings) {
-      for (
-        let length = siblings.length, index = 0;
-        index < length;
-        index += 1
+    function hasSkipTagOnParent(node) {
+      // @ts-ignore
+      const parent = node.parent;
+      if (
+        parent &&
+        // @ts-ignore
+        isTag(parent) &&
+        skipTags.some((skipTag) => skipTag === parent.name)
       ) {
-        const node = siblings[index];
-
-        if (isTag(node) && skipTags.includes(node.name) === false) {
-          checkSiblings(node.children);
-        } else if (isText(node)) {
-          stripConsecutiveSpaces(node);
-        } else if (isComment(node)) {
-          stripConsecutiveSpaces(node.value);
-        }
+        return true;
       }
+      return false;
     }
 
-    return {
-      Program(node) {
-        // @ts-ignore
-        checkSiblings(node.body);
-      },
-    };
-
     /**
-     * @param {TextNode | CommentContentNode} node
+     * @param {CommentContentNode | TextNode} node
      */
     function stripConsecutiveSpaces(node) {
       const text = node.value;
       const matcher = /(^|[^\n \t])([ \t]+\n|\t[\t ]*|[ \t]{2,})/g;
-
+      const templates = node.templates.filter(
+        (template) => template.isTemplate
+      );
       // eslint-disable-next-line no-constant-condition
       while (true) {
         const offender = matcher.exec(text);
@@ -97,6 +102,13 @@ module.exports = {
         const space = offender[2];
         const indexStart = node.range[0] + matcher.lastIndex - space.length;
         const indexEnd = indexStart + space.length;
+
+        const hasOverlap = templates.some((template) => {
+          return template.range[0] < indexEnd && indexStart < template.range[1];
+        });
+        if (hasOverlap) {
+          return;
+        }
 
         context.report({
           node: node,
@@ -114,5 +126,33 @@ module.exports = {
         });
       }
     }
+
+    return createVisitors(context, {
+      Comment(node) {
+        if (hasSkipTagOnParent(node)) {
+          return;
+        }
+        stripConsecutiveSpaces(node.value);
+      },
+      Text(node) {
+        if (hasSkipTagOnParent(node)) {
+          return;
+        }
+        stripConsecutiveSpaces(node);
+      },
+      Tag(node) {
+        tagStack.push(node);
+        if (
+          skipTags.some((skipTag) =>
+            tagStack.some((tag) => tag.name === skipTag)
+          )
+        ) {
+          return;
+        }
+      },
+      "Tag:exit"() {
+        tagStack.pop();
+      },
+    });
   },
 };

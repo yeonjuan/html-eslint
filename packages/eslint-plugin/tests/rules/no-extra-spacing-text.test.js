@@ -26,13 +26,13 @@ function errorsAt(...positions) {
 }
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-extra-spacing-text", rule, {
   valid: [
     {
       code: `<div> foo </div>`,
     },
-
     {
       code: `<div> foo bar </div>`,
     },
@@ -146,6 +146,48 @@ ruleTester.run("no-extra-spacing-text", rule, {
         [3, 41, 3],
         [3, 48, 3]
       ),
+    },
+  ],
+});
+
+templateRuleTester.run("[template] no-extra-spacing-text", rule, {
+  valid: [
+    {
+      code: "html`<div> foo </div>`",
+    },
+    {
+      code: `html\`
+\t  <div>
+    \t  <div>
+      foo
+          bar
+    \t\t  </div>
+\t  </div>\`
+`,
+    },
+    {
+      code: `
+html\`<div>
+      \${items => {    }}
+</div>\`
+      `,
+    },
+    {
+      code: `
+html\`<div>
+      \${items => { 
+        var foo;    var bar;   
+        
+        }}
+</div>\`
+      `,
+    },
+  ],
+  invalid: [
+    {
+      code: "html`<div>foo\t\n</div>`",
+      output: "html`<div>foo\n</div>`",
+      errors: errorsAt([1, 14, 2, 1]),
     },
   ],
 });
