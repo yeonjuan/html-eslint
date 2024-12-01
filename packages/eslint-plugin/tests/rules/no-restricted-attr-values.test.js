@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-restricted-attr-values");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-restricted-attr-values", rule, {
   valid: [
@@ -107,6 +108,40 @@ ruleTester.run("no-restricted-attr-values", rule, {
       errors: [
         {
           message: "please do not use 'data-x'",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[tempalte] no-restricted-attr-values", rule, {
+  valid: [
+    {
+      code: `html\`<div> </div>\``,
+      options: [
+        {
+          attrPatterns: [".*"],
+          attrValuePatterns: ["data-.*"],
+        },
+      ],
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`<div alt="foo"> </div> <custom-element class="foo"></custom-element>\``,
+      options: [
+        {
+          attrPatterns: ["alt", "class"],
+          attrValuePatterns: ["^foo$"],
+          message: "no foo for alt or class",
+        },
+      ],
+      errors: [
+        {
+          message: "no foo for alt or class",
+        },
+        {
+          message: "no foo for alt or class",
         },
       ],
     },

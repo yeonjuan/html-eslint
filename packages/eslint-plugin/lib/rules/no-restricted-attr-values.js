@@ -8,6 +8,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   RESTRICTED: "restricted",
@@ -64,54 +65,57 @@ module.exports = {
      */
     const options = context.options;
     const checkers = options.map((option) => new PatternChecker(option));
+    /**
+     * @param {TagNode | StyleTagNode | ScriptTagNode} node
+     */
+    function check(node) {
+      node.attributes.forEach((attr) => {
+        if (
+          !attr.key ||
+          !attr.key.value ||
+          !attr.value ||
+          typeof attr.value.value !== "string"
+        ) {
+          return;
+        }
 
-    return {
-      /**
-       * @param {TagNode | StyleTagNode | ScriptTagNode} node
-       */
-      [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
-        node.attributes.forEach((attr) => {
-          if (
-            !attr.key ||
-            !attr.key.value ||
-            !attr.value ||
-            typeof attr.value.value !== "string"
-          ) {
-            return;
-          }
+        const matched = checkers.find(
+          (checker) =>
+            attr.value && checker.test(attr.key.value, attr.value.value)
+        );
 
-          const matched = checkers.find(
-            (checker) =>
-              attr.value && checker.test(attr.key.value, attr.value.value)
-          );
+        if (!matched) {
+          return;
+        }
 
-          if (!matched) {
-            return;
-          }
+        /**
+         * @type {{node: AttributeNode, message: string, messageId?: string}}
+         */
+        const result = {
+          node: attr,
+          message: "",
+        };
 
-          /**
-           * @type {{node: AttributeNode, message: string, messageId?: string}}
-           */
-          const result = {
-            node: attr,
-            message: "",
-          };
+        const customMessage = matched.getMessage();
 
-          const customMessage = matched.getMessage();
+        if (customMessage) {
+          result.message = customMessage;
+        } else {
+          result.messageId = MESSAGE_IDS.RESTRICTED;
+        }
 
-          if (customMessage) {
-            result.message = customMessage;
-          } else {
-            result.messageId = MESSAGE_IDS.RESTRICTED;
-          }
-
-          context.report({
-            ...result,
-            data: { attrValuePatterns: attr.value.value },
-          });
+        context.report({
+          ...result,
+          data: { attrValuePatterns: attr.value.value },
         });
-      },
-    };
+      });
+    }
+
+    return createVisitors(context, {
+      Tag: check,
+      StyleTag: check,
+      ScriptTag: check,
+    });
   },
 };
 
