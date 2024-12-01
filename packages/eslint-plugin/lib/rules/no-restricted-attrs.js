@@ -74,8 +74,8 @@ module.exports = {
         node.type === NODE_TYPES.Tag
           ? node.name
           : node.type === NODE_TYPES.ScriptTag
-            ? "script"
-            : "style";
+          ? "script"
+          : "style";
       node.attributes.forEach((attr) => {
         if (!attr.key || !attr.key.value) {
           return;
