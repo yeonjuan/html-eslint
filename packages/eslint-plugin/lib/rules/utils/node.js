@@ -53,7 +53,7 @@ function isNodeTokensOnSameLine(node) {
  * @returns {boolean}
  */
 function isRangesOverlap(rangeA, rangeB) {
-  return rangeA[0] < rangeB[1] && rangeB[0] < rangeB[1];
+  return rangeA[0] < rangeB[1] && rangeB[0] < rangeA[1];
 }
 
 /**
