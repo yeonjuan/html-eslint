@@ -11,7 +11,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { isTag, splitToLineNodes } = require("./utils/node");
+const { isTag, isOverlapWithTemplates } = require("./utils/node");
 const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
 
@@ -89,9 +89,7 @@ module.exports = {
     function stripConsecutiveSpaces(node) {
       const text = node.value;
       const matcher = /(^|[^\n \t])([ \t]+\n|\t[\t ]*|[ \t]{2,})/g;
-      const templates = node.templates.filter(
-        (template) => template.isTemplate
-      );
+
       // eslint-disable-next-line no-constant-condition
       while (true) {
         const offender = matcher.exec(text);
@@ -103,9 +101,11 @@ module.exports = {
         const indexStart = node.range[0] + matcher.lastIndex - space.length;
         const indexEnd = indexStart + space.length;
 
-        const hasOverlap = templates.some((template) => {
-          return template.range[0] < indexEnd && indexStart < template.range[1];
-        });
+        const hasOverlap = isOverlapWithTemplates(node.templates, [
+          indexStart,
+          indexEnd,
+        ]);
+
         if (hasOverlap) {
           return;
         }
