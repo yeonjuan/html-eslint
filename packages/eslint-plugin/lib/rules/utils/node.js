@@ -8,6 +8,7 @@
  * @typedef { import("es-html-parser").TextNode } TextNode
  * @typedef { import("es-html-parser").CommentContentNode } CommentContentNode
  * @typedef { import("es-html-parser").CommentNode } CommentNode
+ * @typedef { import("es-html-parser").AnyToken} AnyToken
  * @typedef { import("../../types").LineNode } LineNode
  * @typedef { import("../../types").BaseNode } BaseNode
  * @typedef { import("../../types").Location } Location
@@ -195,6 +196,34 @@ function isText(node) {
   return node.type === NODE_TYPES.Text;
 }
 
+const lineBreakPattern = /\r\n|[\r\n\u2028\u2029]/u;
+const lineEndingPattern = new RegExp(lineBreakPattern.source, "gu");
+/**
+ * @param {string} source
+ * @returns {string[]}
+ */
+function codeToLines(source) {
+  return source.split(lineEndingPattern);
+}
+
+/**
+ *
+ * @param {AnyToken[]} tokens
+ * @returns {((CommentContentNode | TextNode)['templates'][number])[]}
+ */
+function getTemplateTokens(tokens) {
+  return (
+    []
+      .concat(
+        ...tokens
+          // @ts-ignore
+          .map((token) => token["templates"] || [])
+      )
+      // @ts-ignore
+      .filter((token) => token.isTemplate)
+  );
+}
+
 module.exports = {
   findAttr,
   isAttributesEmpty,
@@ -206,4 +235,7 @@ module.exports = {
   isComment,
   isText,
   isOverlapWithTemplates,
+  codeToLines,
+  isRangesOverlap,
+  getTemplateTokens,
 };

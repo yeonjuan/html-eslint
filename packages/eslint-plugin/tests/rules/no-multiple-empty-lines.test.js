@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-multiple-empty-lines");
 
 const ruleTester = createRuleTester();
+const teaplateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-multiple-empty-lines", rule, {
   valid: [
@@ -88,6 +89,74 @@ ruleTester.run("no-multiple-empty-lines", rule, {
         },
         {
           message: "More than 1 blank lines not allowed.",
+        },
+      ],
+    },
+  ],
+});
+
+teaplateRuleTester.run("[template] no-multiple-empty-lines", rule, {
+  valid: [
+    {
+      code: `
+html\`<html>
+<body>
+<div></div>
+</body>
+</html>\`
+`,
+    },
+    {
+      code: `
+const html = \`
+
+
+
+\`
+`,
+    },
+    {
+      code: `
+html\`
+<body>
+\${(() => {
+  
+  
+
+
+  return "<div></div>"
+})()}
+</body>
+\`
+`,
+    },
+  ],
+  invalid: [
+    {
+      code: `
+html\`<html>
+<body>
+<div>
+
+
+
+</div>
+</body>
+</html>\`
+`,
+      output: `
+html\`<html>
+<body>
+<div>
+
+
+</div>
+</body>
+</html>\`
+`,
+      errors: [
+        {
+          message: "More than 2 blank lines not allowed.",
         },
       ],
     },
