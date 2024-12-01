@@ -2,7 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-multiple-empty-lines");
 
 const ruleTester = createRuleTester();
-const teaplateRuleTester = createRuleTester("espree");
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-multiple-empty-lines", rule, {
   valid: [
@@ -95,7 +95,7 @@ ruleTester.run("no-multiple-empty-lines", rule, {
   ],
 });
 
-teaplateRuleTester.run("[template] no-multiple-empty-lines", rule, {
+templateRuleTester.run("[template] no-multiple-empty-lines", rule, {
   valid: [
     {
       code: `
