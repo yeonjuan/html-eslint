@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-trailing-spaces");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-tailing-spaces", rule, {
   valid: [
@@ -65,4 +66,17 @@ ruleTester.run("no-tailing-spaces", rule, {
       ],
     },
   ],
+});
+
+templateRuleTester.run("[template] no-tailing-spaces", rule, {
+  valid: [
+    {
+      code: `html\`<div>
+      \${(() => {
+        return ""      \t\t
+      })()}
+</div>\``,
+    },
+  ],
+  invalid: [],
 });

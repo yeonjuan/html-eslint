@@ -1,9 +1,23 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").ProgramNode } ProgramNode
+ * @typedef { import("es-html-parser").DocumentNode } DocumentNode
+ * @typedef { import("es-html-parser").AnyToken } AnyToken
+ * @typedef { import("es-html-parser").CommentContentNode } CommentContentNode
+ * @typedef { import("es-html-parser").TextNode } TextNode
  */
 
+const { parse } = require("@html-eslint/template-parser");
 const { RULE_CATEGORY } = require("../constants");
+const {
+  shouldCheckTaggedTemplateExpression,
+  shouldCheckTemplateLiteral,
+} = require("./utils/settings");
+const { getSourceCode } = require("./utils/source-code");
+const {
+  codeToLines,
+  isRangesOverlap,
+  getTemplateTokens,
+} = require("./utils/node");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -42,52 +56,90 @@ module.exports = {
   },
 
   create(context) {
-    const sourceCode = context.getSourceCode();
-    const lines = sourceCode.lines;
     const max = context.options.length ? context.options[0].max : 2;
-    return {
-      /**
-       * @param {ProgramNode} node
-       */
-      "Program:exit"(node) {
-        /** @type {number[]} */
-        const nonEmptyLineNumbers = [];
+    const sourceCode = getSourceCode(context);
 
-        lines.forEach((line, index) => {
-          if (line.trim().length > 0) {
-            nonEmptyLineNumbers.push(index + 1);
-          }
-        });
+    /**
+     * @param {string[]} lines
+     * @param {number} lineOffset
+     * @param {((CommentContentNode | TextNode)['templates'][number])[]} tokens
+     */
+    function check(lines, lineOffset, tokens) {
+      /** @type {number[]} */
+      const nonEmptyLineNumbers = [];
 
-        nonEmptyLineNumbers.forEach((current, index, arr) => {
-          const before = arr[index - 1];
-          if (typeof before === "number") {
-            if (current - before - 1 > max) {
-              context.report({
-                node,
-                loc: {
-                  start: { line: before, column: 0 },
-                  end: { line: current, column: 0 },
-                },
-                messageId: MESSAGE_IDS.UNEXPECTED,
-                data: {
-                  max,
-                },
-                fix(fixer) {
-                  const start = sourceCode.getIndexFromLoc({
-                    line: before + 1,
-                    column: 0,
-                  });
-                  const end = sourceCode.getIndexFromLoc({
-                    line: current - max,
-                    column: 0,
-                  });
-                  return fixer.removeRange([start, end]);
-                },
-              });
+      lines.forEach((line, index) => {
+        if (line.trim().length > 0) {
+          nonEmptyLineNumbers.push(index + lineOffset);
+        }
+      });
+
+      nonEmptyLineNumbers.forEach((current, index, arr) => {
+        const before = arr[index - 1];
+        if (typeof before === "number") {
+          if (current - before - 1 > max) {
+            const start = sourceCode.getIndexFromLoc({
+              line: before + 1,
+              column: 0,
+            });
+            const end = sourceCode.getIndexFromLoc({
+              line: current - max,
+              column: 0,
+            });
+            if (
+              tokens.some((token) => isRangesOverlap(token.range, [start, end]))
+            ) {
+              return;
             }
+
+            context.report({
+              loc: {
+                start: { line: before, column: 0 },
+                end: { line: current, column: 0 },
+              },
+              messageId: MESSAGE_IDS.UNEXPECTED,
+              data: {
+                max,
+              },
+              fix(fixer) {
+                return fixer.removeRange([start, end]);
+              },
+            });
           }
-        });
+        }
+      });
+    }
+    return {
+      "Document:exit"() {
+        check(sourceCode.lines, 1, []);
+      },
+      TaggedTemplateExpression(node) {
+        if (shouldCheckTaggedTemplateExpression(node, context)) {
+          const { html, tokens } = parse(
+            node.quasi,
+            getSourceCode(context),
+            {}
+          );
+          const lines = codeToLines(html);
+          check(
+            lines,
+            // @ts-ignore
+            node.quasi.loc.start.line,
+            getTemplateTokens(tokens)
+          );
+        }
+      },
+      TemplateLiteral(node) {
+        if (shouldCheckTemplateLiteral(node, context)) {
+          const { html, tokens } = parse(node, getSourceCode(context), {});
+          const lines = codeToLines(html);
+          check(
+            lines,
+            // @ts-ignore
+            node.quasi.loc.start.line,
+            getTemplateTokens(tokens)
+          );
+        }
       },
     };
   },

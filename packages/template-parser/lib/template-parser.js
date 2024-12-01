@@ -39,7 +39,7 @@ function parse(node, sourceCode, visitors) {
     }
   });
   const html = htmlParts.join("");
-  const { ast } = esHtmlParser.parse(html, {
+  const { ast, tokens } = esHtmlParser.parse(html, {
     templateRanges: ranges,
     tokenAdapter: {
       finalizeLocation(token) {
@@ -64,7 +64,7 @@ function parse(node, sourceCode, visitors) {
     },
   });
   traverse(ast, visitors);
-  return ast;
+  return { ast, html, tokens };
 }
 
 module.exports = {

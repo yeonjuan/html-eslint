@@ -8,9 +8,11 @@
  * @typedef { import("es-html-parser").TextNode } TextNode
  * @typedef { import("es-html-parser").CommentContentNode } CommentContentNode
  * @typedef { import("es-html-parser").CommentNode } CommentNode
+ * @typedef { import("es-html-parser").AnyToken} AnyToken
  * @typedef { import("../../types").LineNode } LineNode
  * @typedef { import("../../types").BaseNode } BaseNode
  * @typedef { import("../../types").Location } Location
+ * @typedef { import("../../types").Range } Range
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -46,6 +48,27 @@ function isNodeTokensOnSameLine(node) {
 
 /**
  *
+ * @param {Range} rangeA
+ * @param {Range} rangeB
+ * @returns {boolean}
+ */
+function isRangesOverlap(rangeA, rangeB) {
+  return rangeA[0] < rangeB[1] && rangeB[0] < rangeB[1];
+}
+
+/**
+ * @param {(TextNode | CommentContentNode)['templates']} templates
+ * @param {Range} range
+ * @returns {boolean}
+ */
+function isOverlapWithTemplates(templates, range) {
+  return templates
+    .filter((template) => template.isTemplate)
+    .some((template) => isRangesOverlap(template.range, range));
+}
+
+/**
+ *
  * @param {TextNode | CommentContentNode} node
  * @returns {LineNode[]}
  */
@@ -61,19 +84,13 @@ function splitToLineNodes(node) {
   /**
    *
    * @param {import("../../types").Range} range
-   * @param {import("../../types").Location} loc
    */
-  function shouldSkipIndentCheck(range, loc) {
-    const overlappedTemplates = templates.filter((template) => {
-      if (!template.isTemplate) return false;
-      if (loc.end.line < template.loc.start.line) {
-        return false;
-      }
-      if (loc.start.line > template.loc.end.line) {
-        return false;
-      }
-      return true;
-    });
+  function shouldSkipIndentCheck(range) {
+    const overlappedTemplates = templates.filter(
+      (template) =>
+        template.isTemplate && isRangesOverlap(template.range, range)
+    );
+
     const isLineInTemplate = overlappedTemplates.some((template) => {
       return template.range[0] <= range[0] && template.range[1] >= range[1];
     });
@@ -119,7 +136,7 @@ function splitToLineNodes(node) {
       value,
       range,
       loc,
-      skipIndentCheck: shouldSkipIndentCheck(range, loc),
+      skipIndentCheck: shouldSkipIndentCheck(range),
     };
 
     start += value.length + 1;
@@ -179,6 +196,34 @@ function isText(node) {
   return node.type === NODE_TYPES.Text;
 }
 
+const lineBreakPattern = /\r\n|[\r\n\u2028\u2029]/u;
+const lineEndingPattern = new RegExp(lineBreakPattern.source, "gu");
+/**
+ * @param {string} source
+ * @returns {string[]}
+ */
+function codeToLines(source) {
+  return source.split(lineEndingPattern);
+}
+
+/**
+ *
+ * @param {AnyToken[]} tokens
+ * @returns {((CommentContentNode | TextNode)['templates'][number])[]}
+ */
+function getTemplateTokens(tokens) {
+  return (
+    []
+      .concat(
+        ...tokens
+          // @ts-ignore
+          .map((token) => token["templates"] || [])
+      )
+      // @ts-ignore
+      .filter((token) => token.isTemplate)
+  );
+}
+
 module.exports = {
   findAttr,
   isAttributesEmpty,
@@ -189,4 +234,8 @@ module.exports = {
   isTag,
   isComment,
   isText,
+  isOverlapWithTemplates,
+  codeToLines,
+  isRangesOverlap,
+  getTemplateTokens,
 };

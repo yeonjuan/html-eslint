@@ -1,7 +1,8 @@
 const { NODE_TYPES } = require("./node-types");
 
 const visitorKeys = {
-  [NODE_TYPES.Program]: ["body"],
+  Program: ["body"],
+  [NODE_TYPES.Document]: ["children"],
   [NODE_TYPES.Attribute]: ["key", "startWrapper", "endWrapper", "value"],
   [NODE_TYPES.AttributeKey]: [],
   [NODE_TYPES.AttributeValue]: [],

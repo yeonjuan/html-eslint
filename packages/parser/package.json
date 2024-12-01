@@ -35,7 +35,7 @@
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "dependencies": {
-    "es-html-parser": "^1.0.0-alpha.3"
+    "es-html-parser": "^1.0.0-alpha.4"
   },
   "devDependencies": {
     "typescript": "^5.7.2"

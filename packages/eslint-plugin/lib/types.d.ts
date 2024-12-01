@@ -19,12 +19,6 @@ export interface BaseNode {
   };
 }
 
-export interface ProgramNode
-  extends Omit<ESHtml.DocumentNode, "type" | "children"> {
-  type: "Program";
-  body: ESHtml.DocumentNode["children"];
-}
-
 interface AttributeKeyNode extends ESHtml.AttributeKeyNode {
   parent: AttributeNode;
 }
@@ -35,7 +29,7 @@ interface TextNode extends ESHtml.TextNode {
 
 export interface TagNode extends ESHtml.TagNode {
   attributes: AttributeNode[];
-  parent: TagNode | ProgramNode;
+  parent: TagNode | HTMLNode;
   openStart: OpenTagStartNode;
   openEnd: OpenTagEndNode;
   close: CloseTagNode;
@@ -78,7 +72,7 @@ interface AttributeValueWrapperStartNode
 
 export interface ScriptTagNode extends ESHtml.ScriptTagNode {
   attributes: AttributeNode[];
-  parent: ProgramNode | TagNode;
+  parent: HTMLNode | TagNode;
   openStart: OpenScriptTagStartNode;
   openEnd: OpenScriptTagEndNode;
 }
@@ -101,7 +95,7 @@ interface ScriptTagContentNode extends ESHtml.ScriptTagContentNode {
 
 export interface StyleTagNode extends ESHtml.StyleTagNode {
   attributes: AttributeNode[];
-  parent: TagNode | ProgramNode;
+  parent: TagNode | HTMLNode;
   openStart: OpenStyleTagStartNode;
   openEnd: OpenStyleTagEndNode;
 }
@@ -123,7 +117,7 @@ interface CloseStyleTagNode extends ESHtml.CloseStyleTagNode {
 }
 
 interface CommentNode extends ESHtml.CommentNode {
-  parent: ProgramNode | TagNode;
+  parent: HTMLNode | TagNode;
 }
 
 interface CommentOpenNode extends ESHtml.CommentOpenNode {
@@ -139,7 +133,7 @@ interface CommentContentNode extends ESHtml.CommentContentNode {
 }
 
 interface DoctypeNode extends ESHtml.DoctypeNode {
-  parent: ProgramNode;
+  parent: HTMLNode;
 }
 
 interface DoctypeOpenNode extends ESHtml.DoctypeOpenNode {
@@ -182,7 +176,7 @@ export type RuleListener = BaseRuleListener &
   PostFix<BaseRuleListener, ":exit">;
 
 interface BaseRuleListener {
-  Program?: (node: ProgramNode) => void;
+  Document?: (node: ESHtml.DocumentNode) => void;
   AttributeKey?: (node: AttributeKeyNode) => void;
   Text?: (node: TextNode) => void;
   Tag?: (node: TagNode) => void;
@@ -271,12 +265,6 @@ type ReportDescriptorLocation = {
 export interface Context extends Omit<ESLint.Rule.RuleContext, "report"> {
   report(descriptor: ReportDescriptor): void;
 }
-
-export type ChildType<T extends BaseNode> = T extends ProgramNode
-  ? T["body"][number]
-  : T extends TagNode
-  ? T["children"][number]
-  : never;
 
 export type ContentNode =
   | CommentNode
