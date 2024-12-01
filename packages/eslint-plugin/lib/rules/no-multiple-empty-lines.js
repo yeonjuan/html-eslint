@@ -136,7 +136,7 @@ module.exports = {
           check(
             lines,
             // @ts-ignore
-            node.quasi.loc.start.line,
+            node.loc.start.line,
             getTemplateTokens(tokens)
           );
         }

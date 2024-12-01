@@ -160,5 +160,30 @@ html\`<html>
         },
       ],
     },
+    {
+      code: `
+const html = /* html */\`
+<div style=\${"aa"}>
+    <div></div>
+
+
+
+
+</div>\`
+`,
+      output: `
+const html = /* html */\`
+<div style=\${"aa"}>
+    <div></div>
+
+
+</div>\`
+`,
+      errors: [
+        {
+          message: "More than 2 blank lines not allowed.",
+        },
+      ],
+    },
   ],
 });
