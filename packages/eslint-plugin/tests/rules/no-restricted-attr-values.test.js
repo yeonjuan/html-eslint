@@ -114,7 +114,7 @@ ruleTester.run("no-restricted-attr-values", rule, {
   ],
 });
 
-templateRuleTester.run("[tempalte] no-restricted-attr-values", rule, {
+templateRuleTester.run("[template] no-restricted-attr-values", rule, {
   valid: [
     {
       code: `html\`<div> </div>\``,
