@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-restricted-attrs");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-restricted-attrs", rule, {
   valid: [
@@ -80,6 +81,37 @@ ruleTester.run("no-restricted-attrs", rule, {
     // custom message
     {
       code: `<div data-x="1"> </div>`,
+      options: [
+        {
+          tagPatterns: [".*"],
+          attrPatterns: ["data-.*"],
+          message: "please do not use 'data-x'",
+        },
+      ],
+      errors: [
+        {
+          message: "please do not use 'data-x'",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] no-restricted-attrs", rule, {
+  valid: [
+    {
+      code: `html\`<div> </div>\``,
+      options: [
+        {
+          tagPatterns: [".*"],
+          attrPatterns: ["data-.*"],
+        },
+      ],
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`<div data-x="1"> </div>\``,
       options: [
         {
           tagPatterns: [".*"],

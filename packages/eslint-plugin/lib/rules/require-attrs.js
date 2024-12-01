@@ -7,6 +7,7 @@
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -103,25 +104,32 @@ module.exports = {
       });
     }
 
-    return {
-      /**
-       * @param {StyleTagNode | ScriptTagNode} node
-       * @returns
-       */
-      [["StyleTag", "ScriptTag"].join(",")](node) {
-        const tagName = node.type === NODE_TYPES.StyleTag ? "style" : "script";
-        if (!tagOptionsMap.has(tagName)) {
-          return;
-        }
-        check(node, tagName);
-      },
-      Tag(node) {
-        const tagName = node.name.toLowerCase();
-        if (!tagOptionsMap.has(tagName)) {
-          return;
-        }
-        check(node, tagName);
-      },
-    };
+    /**
+     * @param {StyleTagNode | ScriptTagNode} node
+     */
+    function checkStyleOrScript(node) {
+      const tagName = node.type === NODE_TYPES.StyleTag ? "style" : "script";
+      if (!tagOptionsMap.has(tagName)) {
+        return;
+      }
+      check(node, tagName);
+    }
+
+    /**
+     * @param {TagNode} node
+     */
+    function checkTag(node) {
+      const tagName = node.name.toLowerCase();
+      if (!tagOptionsMap.has(tagName)) {
+        return;
+      }
+      check(node, tagName);
+    }
+
+    return createVisitors(context, {
+      StyleTag: checkStyleOrScript,
+      ScriptTag: checkStyleOrScript,
+      Tag: checkTag,
+    });
   },
 };

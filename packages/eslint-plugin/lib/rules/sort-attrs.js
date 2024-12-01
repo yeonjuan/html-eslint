@@ -6,6 +6,8 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { getSourceCode } = require("./utils/source-code");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   UNSORTED: "unsorted",
@@ -43,7 +45,7 @@ module.exports = {
     },
   },
   create(context) {
-    const sourceCode = context.getSourceCode();
+    const sourceCode = getSourceCode(context);
     const option = context.options[0] || {
       priority: ["id", "type", "class", "style"],
     };
@@ -150,7 +152,7 @@ module.exports = {
       });
     }
 
-    return {
+    return createVisitors(context, {
       ScriptTag(node) {
         checkSorting(node.attributes);
       },
@@ -160,6 +162,6 @@ module.exports = {
       StyleTag(node) {
         checkSorting(node.attributes);
       },
-    };
+    });
   },
 };

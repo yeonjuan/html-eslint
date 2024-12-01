@@ -4,6 +4,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -32,7 +33,7 @@ module.exports = {
   },
 
   create(context) {
-    return {
+    return createVisitors(context, {
       Tag(node) {
         if (node.name !== "frame" && node.name !== "iframe") {
           return;
@@ -51,6 +52,6 @@ module.exports = {
           });
         }
       },
-    };
+    });
   },
 };

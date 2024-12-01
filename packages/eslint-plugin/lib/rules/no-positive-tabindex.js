@@ -7,6 +7,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -33,23 +34,28 @@ module.exports = {
   },
 
   create(context) {
-    return {
-      /**
-       * @param {TagNode | StyleTagNode | ScriptTagNode} node
-       */
-      [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
-        const tabIndexAttr = findAttr(node, "tabindex");
-        if (
-          tabIndexAttr &&
-          tabIndexAttr.value &&
-          parseInt(tabIndexAttr.value.value, 10) > 0
-        ) {
-          context.report({
-            node: tabIndexAttr,
-            messageId: MESSAGE_IDS.UNEXPECTED,
-          });
-        }
-      },
-    };
+    /**
+     * @param {TagNode | StyleTagNode | ScriptTagNode} node
+     */
+    function check(node) {
+      const tabIndexAttr = findAttr(node, "tabindex");
+      if (
+        tabIndexAttr &&
+        tabIndexAttr.value &&
+        !tabIndexAttr.value.templates.length &&
+        parseInt(tabIndexAttr.value.value, 10) > 0
+      ) {
+        context.report({
+          node: tabIndexAttr,
+          messageId: MESSAGE_IDS.UNEXPECTED,
+        });
+      }
+    }
+
+    return createVisitors(context, {
+      Tag: check,
+      StyleTag: check,
+      ScriptTag: check,
+    });
   },
 };

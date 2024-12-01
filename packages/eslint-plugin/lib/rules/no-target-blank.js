@@ -4,6 +4,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -38,7 +39,7 @@ module.exports = {
     function isExternalLink(link) {
       return /^(?:\w+:|\/\/)/.test(link);
     }
-    return {
+    return createVisitors(context, {
       Tag(node) {
         if (node.name !== "a") {
           return;
@@ -49,6 +50,10 @@ module.exports = {
           const href = findAttr(node, "href");
           if (href && href.value && isExternalLink(href.value.value)) {
             const rel = findAttr(node, "rel");
+            if (rel && rel.value && rel.value.templates.length) {
+              return;
+            }
+
             if (!rel || !rel.value || !rel.value.value.includes("noreferrer")) {
               context.report({
                 node: target,
@@ -58,6 +63,6 @@ module.exports = {
           }
         }
       },
-    };
+    });
   },
 };

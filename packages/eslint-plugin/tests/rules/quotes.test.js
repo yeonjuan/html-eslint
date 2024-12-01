@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/quotes");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("quotes", rule, {
   valid: [
@@ -140,6 +141,37 @@ foo>`,
       code: `<img src = '?size=50&amp;default=retro'>`,
       output: `<img src = "?size=50&amp;default=retro">`,
       options: ["double"],
+      errors: [
+        {
+          messageId: "unexpected",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] quotes", rule, {
+  valid: [
+    {
+      code: `html\`<div id = " foo ">\``,
+    },
+    {
+      code: `html\`<div id = "\${foo}">\``,
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`<div id = ' foo '>\``,
+      output: `html\`<div id = " foo ">\``,
+      errors: [
+        {
+          messageId: "unexpected",
+        },
+      ],
+    },
+    {
+      code: `html\`<div id = ' foo '>\``,
+      output: `html\`<div id = " foo ">\``,
       errors: [
         {
           messageId: "unexpected",

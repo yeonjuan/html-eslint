@@ -4,6 +4,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -35,7 +36,7 @@ module.exports = {
   },
 
   create(context) {
-    return {
+    return createVisitors(context, {
       Tag(node) {
         if (node.name !== "button") {
           return;
@@ -46,7 +47,10 @@ module.exports = {
             node: node.openStart,
             messageId: MESSAGE_IDS.MISSING,
           });
-        } else if (!VALID_BUTTON_TYPES_SET.has(typeAttr.value.value)) {
+        } else if (
+          !VALID_BUTTON_TYPES_SET.has(typeAttr.value.value) &&
+          !typeAttr.value.templates.length
+        ) {
           context.report({
             node: typeAttr,
             messageId: MESSAGE_IDS.INVALID,
@@ -56,6 +60,6 @@ module.exports = {
           });
         }
       },
-    };
+    });
   },
 };

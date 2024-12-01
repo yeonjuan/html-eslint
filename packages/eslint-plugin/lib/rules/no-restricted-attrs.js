@@ -9,6 +9,7 @@
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   RESTRICTED: "restricted",
@@ -65,52 +66,56 @@ module.exports = {
     const options = context.options;
     const checkers = options.map((option) => new PatternChecker(option));
 
-    return {
-      /**
-       * @param {TagNode | StyleTagNode | ScriptTagNode} node
-       */
-      [["Tag", "StyleTag", "ScriptTag"].join(",")](node) {
-        const tagName =
-          node.type === NODE_TYPES.Tag
-            ? node.name
-            : node.type === NODE_TYPES.ScriptTag
-            ? "script"
-            : "style";
-        node.attributes.forEach((attr) => {
-          if (!attr.key || !attr.key.value) {
-            return;
-          }
-          const matched = checkers.find((checker) =>
-            checker.test(tagName, attr.key.value)
-          );
+    /**
+     * @param {TagNode | StyleTagNode | ScriptTagNode} node
+     */
+    function check(node) {
+      const tagName =
+        node.type === NODE_TYPES.Tag
+          ? node.name
+          : node.type === NODE_TYPES.ScriptTag
+          ? "script"
+          : "style";
+      node.attributes.forEach((attr) => {
+        if (!attr.key || !attr.key.value) {
+          return;
+        }
+        const matched = checkers.find((checker) =>
+          checker.test(tagName, attr.key.value)
+        );
 
-          if (!matched) {
-            return;
-          }
+        if (!matched) {
+          return;
+        }
 
-          /**
-           * @type {{node: AttributeNode, message: string, messageId?: string}}
-           */
-          const result = {
-            node: attr,
-            message: "",
-          };
+        /**
+         * @type {{node: AttributeNode, message: string, messageId?: string}}
+         */
+        const result = {
+          node: attr,
+          message: "",
+        };
 
-          const customMessage = matched.getMessage();
+        const customMessage = matched.getMessage();
 
-          if (customMessage) {
-            result.message = customMessage;
-          } else {
-            result.messageId = MESSAGE_IDS.RESTRICTED;
-          }
+        if (customMessage) {
+          result.message = customMessage;
+        } else {
+          result.messageId = MESSAGE_IDS.RESTRICTED;
+        }
 
-          context.report({
-            ...result,
-            data: { attr: attr.key.value },
-          });
+        context.report({
+          ...result,
+          data: { attr: attr.key.value },
         });
-      },
-    };
+      });
+    }
+
+    return createVisitors(context, {
+      Tag: check,
+      StyleTag: check,
+      ScriptTag: check,
+    });
   },
 };
 
