@@ -7,9 +7,13 @@
   text-decoration: underline dashed red;
 }
     </style>
-    <h1 class="text-2xl">Playground</h1>
-    <div class="flex flex-col gap-2 mt-3 px-2 w-full ">
-        <div class="flex-1 min-h-[300px]  border-[1px] border-slate rounded md:min-w-[400px]">
+    <h1 class="sr-only">Playground</h1>
+    <div class="flex flex-col mt-3 px-2 w-full ">
+        <div>
+            <span class="text-gray-800 border-gray-300 border-[1px] rounded-t py-2 px-4 inline-block border-b-0 bg-gray-300">playground.html</span>
+            <span class="text-gray-600">playground.js</span>
+        </div>
+        <div class="flex-1 min-h-[300px] border-[1px] border-gray-300 rounded md:min-w-[400px] mb-2 rounded-t-none">
             <textarea id="code-editor"></textarea>
         </div>
         <div class="flex flex-col md:flex-row flex-1 h-[400px] gap-2">
@@ -24,7 +28,7 @@
             <div class="flex-1">
                 <div class="flex flex-col w-full">
                     <ul id="tabs" class="[&>li]:inline-block [&>li]:p-2 [&>li]:border-[1px] [&>li]:rounded-t [&>li]:border-b-0 [&>li]:border-transparent">
-                        <li data-tab="errors" class="tab cursor-pointer !border-gray-200">
+                        <li data-tab="errors" class="tab cursor-pointer !border-gray-400">
                             Errors
                         </li>
                         <li data-tab="fixed" class="tab cursor-pointer">
@@ -62,14 +66,14 @@
               }
               if ($openTarget || $closeTarget) {
                 document.querySelectorAll(".tab").forEach(elem => {
-                  elem.classList.remove("!border-gray-200");
+                  elem.classList.remove("!border-gray-400");
                 })
               }
 
               if ($openTarget) {
                 $openTarget.classList.remove("hidden");
                 $openTarget.classList.add("block");
-                e.target.classList.add("!border-gray-200");
+                e.target.classList.add("!border-gray-400");
               }
               if ($closeTarget) {
                 $closeTarget.classList.remove("block");
