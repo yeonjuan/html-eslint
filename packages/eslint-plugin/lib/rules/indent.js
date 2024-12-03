@@ -4,6 +4,10 @@
  * @typedef { import("../types").LineNode } LineNode
  * @typedef { import("../types").BaseNode } BaseNode
  * @typedef { import("../types").TagNode } TagNode
+ * @typedef { import("../types").RuleListener } RuleListener
+ * @typedef { import("eslint").AST.Token } Token
+ * @typedef { import("eslint").SourceCode } SourceCode
+ * @typedef { import("estree").TemplateLiteral } TemplateLiteral
  * @typedef {Object} IndentType
  * @property {"tab"} TAB
  * @property {"space"} SPACE
@@ -11,10 +15,14 @@
  * @property {"wrongIndent"} WRONG_INDENT
  */
 
+const { parse } = require("@html-eslint/template-parser");
 const { RULE_CATEGORY } = require("../constants");
 const { splitToLineNodes } = require("./utils/node");
+const {
+  shouldCheckTaggedTemplateExpression,
+  shouldCheckTemplateLiteral,
+} = require("./utils/settings");
 const { getSourceCode } = require("./utils/source-code");
-const { createVisitors } = require("./utils/visitors");
 
 /** @type {MessageId} */
 const MESSAGE_ID = {
@@ -63,6 +71,8 @@ module.exports = {
   },
   create(context) {
     const sourceCode = getSourceCode(context);
+
+    let baseIndentLevel = 0;
     let indentLevel = -1;
     let parentIgnoringChildCount = 0;
 
@@ -90,6 +100,9 @@ module.exports = {
     }
     function unindent() {
       indentLevel--;
+    }
+    function getIndentLevel() {
+      return indentLevel + baseIndentLevel;
     }
 
     /**
@@ -128,7 +141,7 @@ module.exports = {
      * @returns {string}
      */
     function getExpectedIndent() {
-      return indentChar.repeat(indentLevel);
+      return indentChar.repeat(getIndentLevel());
     }
 
     /**
@@ -199,6 +212,7 @@ module.exports = {
       }
       const actualIndent = getActualIndent(node);
       const expectedIndent = getExpectedIndent();
+
       if (actualIndent.trim().length) {
         return;
       }
@@ -207,7 +221,7 @@ module.exports = {
         context.report({
           node: targetNode,
           messageId: MESSAGE_ID.WRONG_INDENT,
-          data: getMessageData(actualIndent, indentLevel),
+          data: getMessageData(actualIndent, getIndentLevel()),
           fix(fixer) {
             return fixer.replaceText(targetNode, expectedIndent);
           },
@@ -215,7 +229,58 @@ module.exports = {
       }
     }
 
-    return createVisitors(context, {
+    /**
+     *
+     * @param {Token} token
+     */
+    function getBaseIndentToken(token) {
+      /**
+       * @type {Token | null}
+       */
+      let currentToken = token;
+      let tokenBefore = token;
+
+      while (
+        // @ts-ignore
+        (tokenBefore = sourceCode.getTokenBefore(currentToken, {
+          includeComments: true,
+        }))
+      ) {
+        if (!tokenBefore) {
+          return currentToken;
+        }
+        if (tokenBefore.loc.start.line !== currentToken.loc.start.line) {
+          return currentToken;
+        }
+        currentToken = tokenBefore;
+      }
+      return tokenBefore;
+    }
+
+    /**
+     *
+     * @param {TemplateLiteral} node
+     * @returns {number}
+     */
+    function getBaseIndentLevel(node) {
+      const firstToken = sourceCode.getFirstToken(node);
+      if (!firstToken) return 0;
+      const baseToken = getBaseIndentToken(firstToken);
+      if (!baseToken) {
+        return 0;
+      }
+      const spaceCount = baseToken.loc.start.column;
+
+      if (indentType === "space") {
+        return Math.floor(spaceCount / indentSize);
+      } else {
+        return spaceCount;
+      }
+    }
+    /**
+     * @type {RuleListener}
+     */
+    const visitor = {
       Tag(node) {
         if (IGNORING_NODES.includes(node.name)) {
           parentIgnoringChildCount++;
@@ -282,6 +347,32 @@ module.exports = {
       CommentClose: checkIndent,
       "Comment:exit": unindent,
       "CommentContent:exit": unindent,
-    });
+    };
+
+    return {
+      ...visitor,
+      TaggedTemplateExpression(node) {
+        if (shouldCheckTaggedTemplateExpression(node, context)) {
+          baseIndentLevel = getBaseIndentLevel(node.quasi) + 1;
+          parse(node.quasi, getSourceCode(context), visitor);
+        }
+      },
+      "TaggedTemplateExpression:exit"(node) {
+        if (shouldCheckTaggedTemplateExpression(node, context)) {
+          baseIndentLevel = 0;
+        }
+      },
+      TemplateLiteral(node) {
+        if (shouldCheckTemplateLiteral(node, context)) {
+          baseIndentLevel = getBaseIndentLevel(node) + 1;
+          parse(node, getSourceCode(context), visitor);
+        }
+      },
+      "TemplateLiteral:exit"(node) {
+        if (shouldCheckTemplateLiteral(node, context)) {
+          baseIndentLevel = 0;
+        }
+      },
+    };
   },
 };
