@@ -969,31 +969,44 @@ ruleTester.run("indent CRLF", rule, changeLineEndings(createTests()));
 templateRuleTester.run("[template] indent", rule, {
   valid: [
     {
+      code: `/*html*/\`<div></div>\``,
+    },
+    {
       code: `html\`
-<div>
-    <div></div>
-</div>
+    <div>
+        <div></div>
+    </div>
       \``,
     },
     // Ignore indentation in template expressions
     {
       code: `html\`
-<div>
-    \${items.map((item) => {
+    <div>
+        \${items.map((item) => {
 return "<div></div>"
 })}
-</div>
+    </div>
       \``,
     },
     {
       code: `html\`
-<!-- \${\`
-foo
-   bar
-      baz
-\`}
--->
+    <!-- \${\`
+    foo
+    bar
+    baz
+    \`}
+    -->
       \``,
+    },
+    {
+      code: `
+  class Component extends LitElement {
+    render() {
+      return html\`<p>content</p>
+      \`;
+    }
+  }
+        `,
     },
   ],
   invalid: [
@@ -1004,10 +1017,173 @@ id="\${bar}">
 </div>
       \``,
       output: `html\`
-<div
-    id="\${bar}">
-</div>
+    <div
+        id="\${bar}">
+    </div>
       \``,
+      errors: wrongIndentErrors(3),
+    },
+    {
+      code: `
+const obj = {
+    html: html\`
+<div>
+            id="\${bar}">
+        </div>\`
+}
+    `,
+      output: `
+const obj = {
+    html: html\`
+        <div>
+            id="\${bar}">
+        </div>\`
+}
+    `,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+const obj = {
+    html: /*html*/\`
+<div>
+            id="\${bar}">
+        </div>\`
+}
+    `,
+      output: `
+const obj = {
+    html: /*html*/\`
+        <div>
+            id="\${bar}">
+        </div>\`
+}
+    `,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+const obj = {
+    one: {
+        two: html\`
+<div>
+            id="\${bar}">
+        </div>\`,
+    }
+}
+    `,
+      output: `
+const obj = {
+    one: {
+        two: html\`
+            <div>
+                id="\${bar}">
+            </div>\`,
+    }
+}
+    `,
+      errors: wrongIndentErrors(3),
+    },
+    {
+      code: `
+class Component extends LitElement {
+  render() {
+    return html\`
+            <p>content</p>
+    \`;
+  }
+}
+      `,
+      output: `
+class Component extends LitElement {
+  render() {
+    return html\`
+      <p>content</p>
+    \`;
+  }
+}
+      `,
+      options: [2],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+class Component extends LitElement {
+  render() {
+    return html\`
+            <div>
+            content
+            <span></span>
+            </div>
+    \`;
+  }
+}
+      `,
+      output: `
+class Component extends LitElement {
+  render() {
+    return html\`
+      <div>
+        content
+        <span></span>
+      </div>
+    \`;
+  }
+}
+      `,
+      options: [2],
+      errors: wrongIndentErrors(4),
+    },
+    {
+      code: `
+class TestTest extends LitElement {
+  render() {
+    return html\`
+      <p>content</p>
+      \${repeat([], item => html\`
+        <p>content</p>
+      \`)}
+      \${repeat(
+          [],
+          item => html\`
+            <p>content</p>
+          \`)}
+      \${
+        repeat(
+            [],
+            item => html\`
+              <p>content</p>
+            \`)
+      }
+    \`;
+  }
+}
+     `,
+      output: `
+class TestTest extends LitElement {
+  render() {
+    return html\`
+      <p>content</p>
+      \${repeat([], item => html\`
+          <p>content</p>
+      \`)}
+      \${repeat(
+          [],
+          item => html\`
+            <p>content</p>
+          \`)}
+      \${
+        repeat(
+            [],
+            item => html\`
+              <p>content</p>
+            \`)
+      }
+    \`;
+  }
+}
+     `,
+      options: [2],
       errors: wrongIndentErrors(1),
     },
   ],
