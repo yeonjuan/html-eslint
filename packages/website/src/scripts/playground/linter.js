@@ -32,7 +32,7 @@ function allRules() {
   );
 }
 
-export default class Linter {
+export class Linter {
   constructor() {
     /**
      * @type {ESLinter}
@@ -66,23 +66,34 @@ export default class Linter {
     });
   }
 
+  getParser(language) {
+    if (language === "js") {
+      return undefined;
+    }
+    return "@html-eslint/parser";
+  }
+
   /**
    * Lints the given code and returns the result.
    * @param {string} code
+   * @param {string} language
    * @param {boolean?} fix
    * @returns {{messages: LintMessage[], output: string, fatalMessage?: LintMessage}}
    */
-  lint(code, fix = false) {
+  lint(code, language, fix = false) {
     try {
       let fatalMessage;
       const messages = this._linter.verify(code, {
-        parser: "@html-eslint/parser",
+        parser: this.getParser(language),
         rules: this._rules,
+        parserOptions: {
+          ecmaVersion: "latest",
+        },
       });
       const { output } = this._linter.verifyAndFix(
         code,
         {
-          parser: "@html-eslint/parser",
+          parser: this.getParser(language),
           rules: this._rules,
         },
         { fix }
