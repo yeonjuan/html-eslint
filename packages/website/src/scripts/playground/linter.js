@@ -32,7 +32,7 @@ function allRules() {
   );
 }
 
-export default class Linter {
+export class Linter {
   constructor() {
     /**
      * @type {ESLinter}
