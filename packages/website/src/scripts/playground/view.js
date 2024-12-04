@@ -35,6 +35,8 @@ export class View {
         lineNumbers: false,
       }
     );
+
+    this.$languageTabs = document.getElementById("language-tabs");
   }
 
   /**
@@ -43,6 +45,20 @@ export class View {
   renderFixed(content) {
     const $fixed = document.getElementById("fixed");
     $fixed.textContent = content;
+  }
+
+  /**
+   * @param {string} language
+   */
+  renderLanguageTabs(language) {
+    const $tabs = document.querySelectorAll("[data-language]");
+    [...$tabs].forEach(($tab) => {
+      if ($tab.dataset.language === language) {
+        $tab.classList.add("bg-gray-300");
+      } else {
+        $tab.classList.remove("bg-gray-300");
+      }
+    });
   }
 
   /**
@@ -79,12 +95,19 @@ export class View {
    * @private
    * @param {LintMessage} message
    */
-  lintMessageHTML({ line, column, message, ruleId }) {
+  lintMessageHTML({ line, column, message, ruleId, fatal }) {
+    if (fatal) {
+      console.error(message);
+      return /* html */ `<li class="bg-red-100 text-red-800 px-2 py-1 my-1 rounded">
+          ${line}:${column} - ${message}
+        </li>`;
+    }
+
     return /* html */ `<li class="bg-red-100 text-red-800 px-2 py-1 my-1 rounded">
         ${line}:${column} - ${message}(<a href="/docs/rules/${ruleId.replace(
-          "@html-eslint/",
-          ""
-        )}">${ruleId}</a>)
+      "@html-eslint/",
+      ""
+    )}">${ruleId}</a>)
       </li>`;
   }
 }

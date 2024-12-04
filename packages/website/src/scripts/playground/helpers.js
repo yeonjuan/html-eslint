@@ -3,6 +3,8 @@
  * @typedef {import("codemirror").Position} Position
  */
 
+import { Language } from "./language";
+
 /**
  * @param {number} pos
  * @returns {number}
@@ -27,14 +29,7 @@ export function toMarker(message) {
   return [from, to];
 }
 
-function parseHash() {
-  const decoded = decodeURIComponent(
-    escape(window.atob(window.location.hash.substring(1)))
-  );
-  return JSON.parse(decoded);
-}
-
-const INITIAL_HTML = /* html */ `<!DOCTYPE html>
+export const INITIAL_HTML = /* html */ `<!DOCTYPE html>
   <html>
     <head>
     </head>
@@ -46,26 +41,32 @@ const INITIAL_HTML = /* html */ `<!DOCTYPE html>
   </html>
 `;
 
-const INITAIL_CONFIG = JSON.stringify(
+export const INITIAL_JAVASCRIPT = `html\`
+    <div>
+        <span>
+    </span>
+    </div>
+\`
+
+const html = /*html*/\`
+<div>
+    <span>
+       </span>
+</div>
+\`;`;
+
+export const INITAIL_CONFIG = JSON.stringify(
   { rules: { "@html-eslint/indent": "error" } },
   null,
   2
 );
 
 /**
- * @returns {{code: string, configs: string}}
+ * @param {string} language
  */
-export function getInitial() {
-  try {
-    const { code, config } = parseHash();
-    return {
-      code: code || INITIAL_HTML,
-      config: config || INITAIL_CONFIG,
-    };
-  } catch (e) {
-    return {
-      code: INITIAL_HTML,
-      config: INITAIL_CONFIG,
-    };
+export function getInitialCode(language) {
+  if (language === "javascript") {
+    return INITIAL_JAVASCRIPT;
   }
+  return INITIAL_HTML;
 }
