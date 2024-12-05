@@ -8,97 +8,97 @@
   }
 </script>
 <div class="font-black md:pl-[280px] w-full md:w-[200px]">
-    <button
-        id="nav-button"
-        type="button"
-        class="mt-[17px] flex md:hidden body4 text-black-700 w-full px-[16px] py-[12px] border-gray-300 border rounded-[6px]"
+  <button
+    id="nav-button"
+    type="button"
+    class="mt-[17px] flex md:hidden body4 text-black-700 w-full px-[16px] py-[12px] border-gray-300 border rounded-[6px]"
+  >
+    Menu
+    <img
+      src="~/src/assets/icon-chevron-right.svg"
+      class="rotate-90 ml-auto"
+      alt=""
     >
-        Menu
-        <img
-            src="~/src/assets/icon-chevron-right.svg"
-            class="rotate-90 ml-auto"
-            alt=""
-        >
-    </button>
-    <aside id="nav" class="hidden w-full border border-gray-300 border-t-0 bg-white md:h-[calc(100vh-66px)] md:overflow-y-auto md:block md:w-[280px] md:top-0 md:mt-[66px] md:fixed md:left-0 md:pb-[60px]">
-        <div class="flex flex-col justify-center pr-4 pt-4 md:hidden">
-            <button
-                type="button"
-                id="nav-close-btn"
-                class="hidden ml-auto w-[24px] h-[24px]"
+  </button>
+  <aside id="nav" class="hidden w-full border border-gray-300 border-t-0 bg-white md:h-[calc(100vh-66px)] md:overflow-y-auto md:block md:w-[280px] md:top-0 md:mt-[66px] md:fixed md:left-0 md:pb-[60px]">
+    <div class="flex flex-col justify-center pr-4 pt-4 md:hidden">
+      <button
+        type="button"
+        id="nav-close-btn"
+        class="hidden ml-auto w-[24px] h-[24px]"
+      >
+        <img src="~/src/assets/icon-close.svg" alt="">
+      </button>
+    </div>
+    <ul class="mt-[22px] px-[12px] [&>li]:px-[12px] [&>li]:mb-[12px]">
+      <li>
+        <a href="~/src/docs/getting-started.html" class="w-full flex items-center">
+          <div class="w-[28px] h-[28px] rounded-[6px] p-[6px] border-[1px] border-gray-300 drop-shadow-[4px_0_2px_#E8EBEF] mr-[12px]">
+            <img
+              src="~/src/assets/icon-flag.svg"
+              alt=""
+              width="14"
+              height="14"
             >
-                <img src="~/src/assets/icon-close.svg" alt="">
-            </button>
-        </div>
-        <ul class="mt-[22px] px-[12px] [&>li]:px-[12px] [&>li]:mb-[12px]">
-            <li>
-                <a href="~/src/docs/getting-started.html" class="w-full flex items-center">
-                    <div class="w-[28px] h-[28px] rounded-[6px] p-[6px] border-[1px] border-gray-300 drop-shadow-[4px_0_2px_#E8EBEF] mr-[12px]">
-                        <img
-                            src="~/src/assets/icon-flag.svg"
-                            alt=""
-                            width="14"
-                            height="14"
-                        >
-                    </div>
-                    <span class="title5">Getting Started</span>
-                    <img
-                        src="~/src/assets/icon-chevron-right.svg"
-                        alt=""
-                        class="ml-auto"
-                        width="20"
-                        height="20"
-                    >
-                </a>
-            </li>
-            <li>
-                <a href="~/src/docs/rules.html" class="w-full flex items-center">
-                    <div class="w-[28px] h-[28px] rounded-[6px] p-[6px] border-[1px] border-gray-300 drop-shadow-[4px_0_2px_#E8EBEF] mr-[12px]">
-                        <img
-                            src="~/src/assets/icon-docs.svg"
-                            alt=""
-                            width="14"
-                            height="14"
-                        >
-                    </div>
-                    <span class="title5">Rules</span>
-                    <img
-                        src="~/src/assets/icon-chevron-right.svg"
-                        alt=""
-                        class="ml-auto"
-                        width="20"
-                        height="20"
-                    >
-                </a>
-            </li>
-            <li>
-                <module href="/components/nav-list.html" locals='{ "id": "best-practice-nav", "list": {{bestPracticeNavs}} }'>
-                    <span class="title5">
-                        Best Practice
-                    </span>
-                </module>
-            </li>
-            <li>
-                <module href="/components/nav-list.html" locals='{ "id": "seo-nav", "list": {{seoNavs}} }'>
-                    <span class="title5">
-                        SEO
-                    </span>
-                </module>
-            </li>
-            <li>
-                <module href="/components/nav-list.html" locals='{ "id": "accessibility-nav", "list": {{accessibilityNavs}} }'>
-                    <span class="title5">
-                        Accessibility
-                    </span>
-                </module>
-            </li>
-            <li>
-                <module href="/components/nav-list.html" locals='{ "id": "style-nav", "list": {{styleNavs}} }'>
-                    <span class="title5">
-                        Style
-                    </span>
-                </module>
-            </li>
-        </ul>
-    </aside>
+          </div>
+          <span class="title5">Getting Started</span>
+          <img
+            src="~/src/assets/icon-chevron-right.svg"
+            alt=""
+            class="ml-auto"
+            width="20"
+            height="20"
+          >
+        </a>
+      </li>
+      <li>
+        <a href="~/src/docs/rules.html" class="w-full flex items-center">
+          <div class="w-[28px] h-[28px] rounded-[6px] p-[6px] border-[1px] border-gray-300 drop-shadow-[4px_0_2px_#E8EBEF] mr-[12px]">
+            <img
+              src="~/src/assets/icon-docs.svg"
+              alt=""
+              width="14"
+              height="14"
+            >
+          </div>
+          <span class="title5">Rules</span>
+          <img
+            src="~/src/assets/icon-chevron-right.svg"
+            alt=""
+            class="ml-auto"
+            width="20"
+            height="20"
+          >
+        </a>
+      </li>
+      <li>
+        <module href="/components/nav-list.html" locals='{ "id": "best-practice-nav", "list": {{bestPracticeNavs}} }'>
+          <span class="title5">
+            Best Practice
+          </span>
+        </module>
+      </li>
+      <li>
+        <module href="/components/nav-list.html" locals='{ "id": "seo-nav", "list": {{seoNavs}} }'>
+          <span class="title5">
+            SEO
+          </span>
+        </module>
+      </li>
+      <li>
+        <module href="/components/nav-list.html" locals='{ "id": "accessibility-nav", "list": {{accessibilityNavs}} }'>
+          <span class="title5">
+            Accessibility
+          </span>
+        </module>
+      </li>
+      <li>
+        <module href="/components/nav-list.html" locals='{ "id": "style-nav", "list": {{styleNavs}} }'>
+          <span class="title5">
+            Style
+          </span>
+        </module>
+      </li>
+    </ul>
+  </aside>
 </div>

@@ -12,7 +12,10 @@ module.exports = {
     const id = text
       .toLowerCase()
       .replace(/^@/, "")
-      .replace(/[\s\/]/g, "-");
+      .replace(/[^a-zA-Z0-9]/g, "-")
+      .replace(/[\s\/]/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/-$/, "");
     return `
     <h${level} id="${id}" class="group md-heading${level}">
       ${text}
@@ -56,10 +59,12 @@ module.exports = {
     `;
   },
   link(href, title, text) {
-    if (href.indexOf("http") === 0) {
-      text += `<img class="inline" src="~/src/assets/icon-external-link.svg" alt="" width="20" height="20">`;
+    const isExternal = href.indexOf("http") === 0;
+    if (isExternal) {
+      text += /* html */ `<img class="inline" src="~/src/assets/icon-external-link.svg" alt="" width="20" height="20">`;
     }
-    return `<a href="${href}" class="md-a" target="_blank" rel="noopener noreferrer">${text}</a>`;
+    href = href.replace(/\.md$/, "");
+    return /* html */ `<a href="${href}" target="${isExternal ? "blank" : ""}" class="md-a" rel="noopener noreferrer">${text}</a>`;
   },
   tablecell(content, flags) {
     if (flags.header) {

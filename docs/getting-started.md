@@ -1,5 +1,15 @@
 # Getting Started
 
+## Contents
+
+- [Prerequisite](#prerequisite)
+- [Installation](#installation)
+- [Configuration](#configuration)
+  - [Flat config](#flat-config)
+  - [eslintrc config (.eslintrc.\*)](#eslintrc-config-eslintrc)
+- [Lint HTML in JavaScript Template Literal](#lint-html-in-javascript-template-literals)
+- [Editor Configuration](#editor-configuration)
+
 ## Prerequisite
 
 - Node.js: `^12.22.0 || ^14.17.0 || >=16.0.0`.
@@ -154,6 +164,57 @@ module.exports = {
     },
   ],
 };
+```
+
+## Lint HTML in JavaScript Template Literals
+
+This plugin provides the ability to lint not only HTML files, but also HTML written in [JavaScript Template Literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
+You can set the [@html-eslint rules](./rules.md) in your settings to lint JavaScript code without any additional configuration.
+
+```js,eslint.config.js
+import eslintHTML from "@html-eslint/eslint-plugin";
+export default [
+  // You can use the @html-eslint rules in your ESLint configuration for JS!
+  // This is used to lint HTML written inside Template Literal.
+  "plugins": {
+    "@html-eslint": eslintHTML
+  },
+  "rules": {
+    // Specifies the @html-eslint rules to apply to Template Literal.
+    "@html-eslint/no-inline-styles": 1,
+    "@html-eslint/indent": 1,
+  }
+];
+```
+
+Not all Template literals are recognized as HTML.
+There are two ways to get the plugin to recognize them as HTML.
+
+```js
+// 1. Tagged Templates with a function named `html`
+html` <div style="${style}"></div>`;
+
+// 2. Template Literal after a html comment (/* html */)
+const code = /* html */ `<div style="${style}"></div>`;
+```
+
+If you want to specify that linting should be done with keywords other than `html`, you can change the settings option.
+
+```js
+ {
+    "plugins": {
+      "@html-eslint": eslintHTML
+    },
+    settings: {
+        html: {
+          templateLiterals: {
+               // default options
+               tags: ["^html$"],
+               comments: ["^\\s*html\\s*$"],
+          }
+        }
+    },
+}
 ```
 
 ## Editor Configuration

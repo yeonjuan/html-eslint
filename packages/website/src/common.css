@@ -79,7 +79,7 @@
     @apply list-disc body3 text-black-700 pl-[20px];
   }
   .md-listitem {
-    @apply my-[14px];
+    @apply my-[12px];
   }
   .md-p {
     @apply body3 text-black-700 py-[6px];
@@ -100,10 +100,10 @@
     @apply display1 text-black-900 my-[28px];
   }
   .md-heading2 {
-    @apply display3 text-black-900 my-[12px];
+    @apply display3 text-black-900 mb-3 mt-6;
   }
   .mad-heading3 {
-    @apply text-lg my-2 md:text-xl scroll-mt-[64px];
+    @apply text-lg mb-3 mt-5 md:text-xl scroll-mt-[64px];
   }
   .md-heading4 {
     @apply my-2 block scroll-mt-[64px];
