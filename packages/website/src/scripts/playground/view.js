@@ -103,11 +103,11 @@ export class View {
         </li>`;
     }
 
-    return /* html */ `<li class="bg-red-100 text-red-800 px-2 py-1 my-1 rounded">
+    return `<li class="bg-red-100 text-red-800 px-2 py-1 my-1 rounded">
         ${line}:${column} - ${message}(<a href="/docs/rules/${ruleId.replace(
-      "@html-eslint/",
-      ""
-    )}">${ruleId}</a>)
+          "@html-eslint/",
+          ""
+        )}">${ruleId}</a>)
       </li>`;
   }
 }

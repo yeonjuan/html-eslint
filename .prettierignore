@@ -2,9 +2,7 @@
 **/fixtures
 **/__snapshots__
 lerna.json
-packages/website/out
-packages/website/src/out
-packages/website/**/*.html
+packages/website/
 packages/web-linter/out
 .next
 dist

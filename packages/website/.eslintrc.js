@@ -2,6 +2,15 @@ module.exports = {
   root: true,
   plugins: ["@html-eslint"],
   parserOptions: { ecmaVersion: 2020, sourceType: "module" },
+  rules: {
+    "@html-eslint/indent": ["error", 2],
+    "@html-eslint/element-newline": "error",
+    "@html-eslint/lowercase": "error",
+    "@html-eslint/no-extra-spacing-attrs": "error",
+    "@html-eslint/no-multiple-empty-lines": "error",
+    "@html-eslint/no-trailing-spaces": "error",
+    "@html-eslint/quotes": "error",
+  },
   overrides: [
     {
       files: ["**/*.html"],
