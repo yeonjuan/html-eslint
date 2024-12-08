@@ -85,7 +85,9 @@ module.exports = {
     const indentLevelOptions = (context.options && context.options[1]) || {};
     const indentLevel = new IndentLevel({
       getIncreasingLevel(node) {
-        return indentLevelOptions[node.type] || 1;
+        return typeof indentLevelOptions[node.type] === "number"
+          ? indentLevelOptions[node.type]
+          : 1;
       },
     });
 
