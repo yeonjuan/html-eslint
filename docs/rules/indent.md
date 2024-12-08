@@ -16,18 +16,25 @@ module.exports = {
 
 ### Options
 
-```ts
-//...
-"@html-eslint/indent": ["error", "tab" | number]
+This rule has a mixed option:
+
+For 4-space indentation (default option):
+
+```json
+{
+  "@html-eslint/indent": ["error", 4]
+}
 ```
 
-This rule has two options.
+Or For tabbed indentation:
 
-- `number(0, 1, ..)` (default 4): requires the use of indentation with specified number of spaces.
+```json
+{
+  "@html-eslint/indent": ["error", "tab"]
+}
+```
 
-- `"tab"`: requires the use of indentation with tab (`\t`).
-
-Examples of **incorrect** code for this rule:
+Examples of **incorrect** code for this rule with the default option:
 
 ```html,incorrect
 <html>
@@ -37,9 +44,10 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
+<!-- prettier-ignore -->
 ```html,correct
 <html>
-  <body></body>
+    <body></body>
 </html>
 ```
 
@@ -96,3 +104,21 @@ Examples of **correct** code for this rule:
   <body></body>
 </html>
 ```
+
+#### Customizing options
+
+This rule has an object option:
+
+```json
+{
+  "@html-eslint/indent": [
+    "error",
+    2,
+    {
+      "Attribute": 2
+    }
+  ]
+}
+```
+
+- `Attribute` (default: 1): enforces indentation level for attributes. e.g. indent of 2 spaces with `Attribute` set to `2` will indent the attributes with `4` spaces (2 x 2).

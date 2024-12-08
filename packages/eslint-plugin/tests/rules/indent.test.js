@@ -323,6 +323,20 @@ function createTests() {
 </html>
 `,
       },
+      {
+        code: `
+<div
+    id="1">
+  <span></span>
+</div>
+        `,
+        options: [
+          2,
+          {
+            Attribute: 2,
+          },
+        ],
+      },
     ],
     invalid: [
       {
@@ -957,6 +971,27 @@ id="bar"
 >
     .foo {}
 </style>`,
+      },
+      {
+        code: `
+<div
+\t\t\t\tid="1">
+\t<span></span>
+</div>
+        `,
+        options: [
+          "tab",
+          {
+            Attribute: 3,
+          },
+        ],
+        errors: wrongIndentErrors(1),
+        output: `
+<div
+\t\t\tid="1">
+\t<span></span>
+</div>
+        `,
       },
     ],
   };
