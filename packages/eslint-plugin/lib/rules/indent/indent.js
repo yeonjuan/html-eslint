@@ -1,10 +1,10 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").AnyNode } AnyNode
- * @typedef { import("../types").LineNode } LineNode
- * @typedef { import("../types").BaseNode } BaseNode
- * @typedef { import("../types").TagNode } TagNode
- * @typedef { import("../types").RuleListener } RuleListener
+ * @typedef { import("../../types").RuleModule } RuleModule
+ * @typedef { import("../../types").AnyNode } AnyNode
+ * @typedef { import("../../types").LineNode } LineNode
+ * @typedef { import("../../types").BaseNode } BaseNode
+ * @typedef { import("../../types").TagNode } TagNode
+ * @typedef { import("../../types").RuleListener } RuleListener
  * @typedef { import("eslint").AST.Token } Token
  * @typedef { import("eslint").SourceCode } SourceCode
  * @typedef { import("estree").TemplateLiteral } TemplateLiteral
@@ -16,13 +16,14 @@
  */
 
 const { parse } = require("@html-eslint/template-parser");
-const { RULE_CATEGORY } = require("../constants");
-const { splitToLineNodes } = require("./utils/node");
+const { RULE_CATEGORY } = require("../../constants");
+const { splitToLineNodes } = require("../utils/node");
 const {
   shouldCheckTaggedTemplateExpression,
   shouldCheckTemplateLiteral,
-} = require("./utils/settings");
-const { getSourceCode } = require("./utils/source-code");
+} = require("../utils/settings");
+const { getSourceCode } = require("../utils/source-code");
+const IndentLevel = require("./indent-level");
 
 /** @type {MessageId} */
 const MESSAGE_ID = {
@@ -63,6 +64,16 @@ module.exports = {
           },
         ],
       },
+      {
+        type: "object",
+        properties: {
+          Attribute: {
+            type: "integer",
+            minimum: 1,
+            default: 1,
+          },
+        },
+      },
     ],
     messages: {
       [MESSAGE_ID.WRONG_INDENT]:
@@ -71,9 +82,10 @@ module.exports = {
   },
   create(context) {
     const sourceCode = getSourceCode(context);
+    const indentLevelOptions =
+      context.options && context.options[1] ? context.options[1] : undefined;
+    const indentLevel = new IndentLevel(indentLevelOptions);
 
-    let baseIndentLevel = 0;
-    let indentLevel = -1;
     let parentIgnoringChildCount = 0;
 
     const { indentType, indentSize, indentChar } = (function () {
@@ -94,16 +106,6 @@ module.exports = {
         indentType === INDENT_TYPES.SPACE ? " ".repeat(indentSize) : "\t";
       return { indentType, indentSize, indentChar };
     })();
-
-    function indent() {
-      indentLevel++;
-    }
-    function unindent() {
-      indentLevel--;
-    }
-    function getIndentLevel() {
-      return indentLevel + baseIndentLevel;
-    }
 
     /**
      * @param {string} str
@@ -141,7 +143,7 @@ module.exports = {
      * @returns {string}
      */
     function getExpectedIndent() {
-      return indentChar.repeat(getIndentLevel());
+      return indentChar.repeat(indentLevel.value());
     }
 
     /**
@@ -221,7 +223,7 @@ module.exports = {
         context.report({
           node: targetNode,
           messageId: MESSAGE_ID.WRONG_INDENT,
-          data: getMessageData(actualIndent, getIndentLevel()),
+          data: getMessageData(actualIndent, indentLevel.value()),
           fix(fixer) {
             return fixer.replaceText(targetNode, expectedIndent);
           },
@@ -285,38 +287,47 @@ module.exports = {
         if (IGNORING_NODES.includes(node.name)) {
           parentIgnoringChildCount++;
         }
-        indent();
+        indentLevel.indent(node);
       },
-      ScriptTag: indent,
-      "ScriptTag:exit": unindent,
+      ScriptTag(node) {
+        indentLevel.indent(node);
+      },
+      "ScriptTag:exit"(node) {
+        indentLevel.dedent(node);
+      },
       OpenScriptTagStart: checkIndent,
       OpenScriptTagEnd: checkIndent,
-      StyleTag: indent,
-      "StyleTag:exit": unindent,
+      StyleTag(node) {
+        indentLevel.indent(node);
+      },
+      "StyleTag:exit"(node) {
+        indentLevel.dedent(node);
+      },
       OpenStyleTagStart: checkIndent,
       OpenStyleTagEnd: checkIndent,
       OpenTagStart: checkIndent,
       OpenTagEnd: checkIndent,
       CloseTag: checkIndent,
-      /**
-       * @param {TagNode} node
-       */
       "Tag:exit"(node) {
         if (IGNORING_NODES.includes(node.name)) {
           parentIgnoringChildCount--;
         }
-        unindent();
+        indentLevel.dedent(node);
       },
 
       // Attribute
-      Attribute: indent,
+      Attribute(node) {
+        indentLevel.indent(node);
+      },
       AttributeKey: checkIndent,
       AttributeValue: checkIndent,
-      "Attribute:exit": unindent,
+      "Attribute:exit"(node) {
+        indentLevel.dedent(node);
+      },
 
       // Text
       Text(node) {
-        indent();
+        indentLevel.indent(node);
         const lineNodes = splitToLineNodes(node);
         lineNodes.forEach((lineNode) => {
           if (lineNode.skipIndentCheck) {
@@ -327,13 +338,15 @@ module.exports = {
           }
         });
       },
-      "Text:exit": unindent,
-
-      // Comment
-      Comment: indent,
+      "Text:exit"(node) {
+        indentLevel.dedent(node);
+      },
+      Comment(node) {
+        indentLevel.indent(node);
+      },
       CommentOpen: checkIndent,
       CommentContent(node) {
-        indent();
+        indentLevel.indent(node);
         const lineNodes = splitToLineNodes(node);
         lineNodes.forEach((lineNode) => {
           if (lineNode.skipIndentCheck) {
@@ -345,32 +358,36 @@ module.exports = {
         });
       },
       CommentClose: checkIndent,
-      "Comment:exit": unindent,
-      "CommentContent:exit": unindent,
+      "Comment:exit"(node) {
+        indentLevel.dedent(node);
+      },
+      "CommentContent:exit"(node) {
+        indentLevel.dedent(node);
+      },
     };
 
     return {
       ...visitor,
       TaggedTemplateExpression(node) {
         if (shouldCheckTaggedTemplateExpression(node, context)) {
-          baseIndentLevel = getBaseIndentLevel(node.quasi) + 1;
+          indentLevel.setBase(getBaseIndentLevel(node.quasi) + 1);
           parse(node.quasi, getSourceCode(context), visitor);
         }
       },
       "TaggedTemplateExpression:exit"(node) {
         if (shouldCheckTaggedTemplateExpression(node, context)) {
-          baseIndentLevel = 0;
+          indentLevel.setBase(0);
         }
       },
       TemplateLiteral(node) {
         if (shouldCheckTemplateLiteral(node, context)) {
-          baseIndentLevel = getBaseIndentLevel(node) + 1;
+          indentLevel.setBase(getBaseIndentLevel(node) + 1);
           parse(node, getSourceCode(context), visitor);
         }
       },
       "TemplateLiteral:exit"(node) {
         if (shouldCheckTemplateLiteral(node, context)) {
-          baseIndentLevel = 0;
+          indentLevel.setBase(0);
         }
       },
     };
