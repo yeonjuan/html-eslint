@@ -18,7 +18,7 @@ module.exports = {
 
 This rule has a mixed option:
 
-For 4-space indentation (detault option):
+For 4-space indentation (default option):
 
 ```json
 {
