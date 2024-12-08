@@ -1,20 +1,15 @@
 /**
  * @typedef {import("../../types").AnyNode} AnyNode
  * @typedef {{ [key in AnyNode['type']]?: number}} IncLevelOptions
+ * @typedef {(node: AnyNode) => number} GetIncreasingLevel
  */
-
-/**
- * @type {IncLevelOptions}
- */
-const DEFAULT_INC_LEVELS = {
-  Attribute: 1,
-};
 
 class IndentLevel {
   /**
-   * @param {IncLevelOptions} [incLevels]
+   * @param {Object} config
+   * @param {GetIncreasingLevel} config.getIncreasingLevel
    */
-  constructor(incLevels) {
+  constructor(config) {
     /**
      * @member
      * @private
@@ -30,9 +25,8 @@ class IndentLevel {
     /**
      * @member
      * @private
-     * @type {IncLevelOptions}
      */
-    this.incLevels = { ...(incLevels || {}), ...DEFAULT_INC_LEVELS };
+    this.getInc = config.getIncreasingLevel;
   }
 
   /**
@@ -61,15 +55,6 @@ class IndentLevel {
    */
   setBase(base) {
     this.baseLevel = base;
-  }
-
-  /**
-   * @private
-   * @param {AnyNode} node
-   */
-  getInc(node) {
-    const inc = this.incLevels[node.type];
-    return inc || 1;
   }
 }
 
