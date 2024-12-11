@@ -1101,7 +1101,7 @@ const obj = {
 const obj = {
     one: {
         two: html\`
-<div>
+<div
             id="\${bar}">
         </div>\`,
     }
@@ -1111,7 +1111,7 @@ const obj = {
 const obj = {
     one: {
         two: html\`
-            <div>
+            <div
                 id="\${bar}">
             </div>\`,
     }
@@ -1171,7 +1171,31 @@ class Component extends LitElement {
     },
     {
       code: `
-class TestTest extends LitElement {
+class Component extends LitElement {
+  render() {
+    return html\`
+      <p>content</p>
+      \${repeat([], item => html\`
+<p>content</p>
+      \`)}
+      \${repeat(
+          [],
+          item => html\`
+            <p>content</p>
+          \`)}
+      \${
+        repeat(
+            [],
+            item => html\`
+              <p>content</p>
+            \`)
+      }
+    \`;
+  }
+}
+      `,
+      output: `
+class Component extends LitElement {
   render() {
     return html\`
       <p>content</p>
@@ -1193,33 +1217,73 @@ class TestTest extends LitElement {
     \`;
   }
 }
-     `,
-      output: `
-class TestTest extends LitElement {
+      `,
+      options: [2],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+class Component extends LitElement {
   render() {
     return html\`
-      <p>content</p>
-      \${repeat([], item => html\`
-          <p>content</p>
+      \${when(true, () => html\`
+          <foo-bar
+          id="1"
+          ></foo-bar>
       \`)}
-      \${repeat(
-          [],
-          item => html\`
-            <p>content</p>
-          \`)}
-      \${
-        repeat(
-            [],
-            item => html\`
-              <p>content</p>
-            \`)
-      }
     \`;
   }
 }
-     `,
-      options: [2],
-      errors: wrongIndentErrors(1),
+      `,
+      output: `
+class Component extends LitElement {
+  render() {
+    return html\`
+      \${when(true, () => html\`
+        <foo-bar
+            id="1"
+        ></foo-bar>
+      \`)}
+    \`;
+  }
+}
+      `,
+      options: [2, { Attribute: 2 }],
+      errors: wrongIndentErrors(3),
+    },
+    {
+      code: `
+class Component extends LitElement {
+  render() {
+    return html\`
+      \${when(true, () => html\`
+        <foo-bar
+            .baz="\${value => html\`
+            <foo-baz
+                 bar></foo-baz>
+              \`}"></foo-bar>
+      \`)}
+    \`;
+  }
+}
+      `,
+      output: `
+class Component extends LitElement {
+  render() {
+    return html\`
+      \${when(true, () => html\`
+        <foo-bar
+            .baz="\${value => html\`
+              <foo-baz
+                  bar></foo-baz>
+              \`}"></foo-bar>
+      \`)}
+    \`;
+  }
+}
+      `,
+      options: [2, { Attribute: 2 }],
+      errors: wrongIndentErrors(2),
     },
   ],
 });

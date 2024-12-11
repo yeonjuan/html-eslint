@@ -86,30 +86,10 @@ function splitToLineNodes(node) {
    * @param {import("../../types").Range} range
    */
   function shouldSkipIndentCheck(range) {
-    const overlappedTemplates = templates.filter(
+    return templates.some(
       (template) =>
         template.isTemplate && isRangesOverlap(template.range, range)
     );
-
-    const isLineInTemplate = overlappedTemplates.some((template) => {
-      return template.range[0] <= range[0] && template.range[1] >= range[1];
-    });
-    if (isLineInTemplate) {
-      return true;
-    }
-    const isLineBeforeTemplate = overlappedTemplates.some((template) => {
-      return template.range[0] <= range[0] && template.range[1] <= range[1];
-    });
-    if (isLineBeforeTemplate) {
-      return true;
-    }
-    const isLineAfterTemplate = overlappedTemplates.some((template) => {
-      return template.range[1] <= range[0];
-    });
-    if (isLineAfterTemplate) {
-      return true;
-    }
-    return false;
   }
 
   node.value.split("\n").forEach((value, index) => {
