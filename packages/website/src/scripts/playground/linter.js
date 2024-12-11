@@ -1,6 +1,7 @@
 import { parseForESLint } from "@html-eslint/parser";
 import plugin from "@html-eslint/eslint-plugin";
 import { Linter as WebLinter } from "@html-eslint/web-linter";
+import { Language } from "./language";
 
 /**
  * @typedef {import("eslint").Linter} ESLinter;
@@ -66,8 +67,12 @@ export class Linter {
     });
   }
 
+  /**
+   * @param {Language} language 
+   * @returns {string | undefined}
+   */
   getParser(language) {
-    if (language === "js") {
+    if (language.value === "javascript") {
       return undefined;
     }
     return "@html-eslint/parser";
@@ -76,7 +81,7 @@ export class Linter {
   /**
    * Lints the given code and returns the result.
    * @param {string} code
-   * @param {string} language
+   * @param {Language} language
    * @param {boolean?} fix
    * @returns {{messages: LintMessage[], output: string, fatalMessage?: LintMessage}}
    */
