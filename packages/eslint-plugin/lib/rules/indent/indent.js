@@ -83,16 +83,7 @@ module.exports = {
   create(context) {
     const sourceCode = getSourceCode(context);
     const indentLevelOptions = (context.options && context.options[1]) || {};
-    const indentLevel = new IndentLevel({
-      getIncreasingLevel(node) {
-        return typeof indentLevelOptions[node.type] === "number"
-          ? indentLevelOptions[node.type]
-          : 1;
-      },
-    });
-
-    let parentIgnoringChildCount = 0;
-
+    const lines = sourceCode.getLines();
     const { indentType, indentSize, indentChar } = (function () {
       const options = context.options;
       /**
@@ -129,270 +120,248 @@ module.exports = {
     }
 
     /**
-     * @param {AnyNode} node
-     * @returns {string}
-     */
-    function getActualIndent(node) {
-      const lines = sourceCode.getLines();
-      const line = lines[node.loc.start.line - 1];
-      let column = node.loc.start.column;
-
-      if (isLineNode(node)) {
-        column += countLeftPadding(node.value);
-      }
-
-      return line.slice(0, column);
-    }
-
-    /**
-     * @returns {string}
-     */
-    function getExpectedIndent() {
-      return indentChar.repeat(indentLevel.value());
-    }
-
-    /**
-     * @param {AnyNode} node
-     * @param {string} actualIndent
-     * @return {BaseNode}
-     */
-    function getIndentNodeToReport(node, actualIndent) {
-      let rangeStart = node.range[0];
-
-      if (node.type !== "Line") {
-        rangeStart -= actualIndent.length;
-      }
-
-      return {
-        range: [rangeStart, rangeStart + actualIndent.length],
-        loc: {
-          start: {
-            column: 0,
-            line: node.loc.start.line,
-          },
-          end: {
-            column: actualIndent.length,
-            line: node.loc.start.line,
-          },
-        },
-      };
-    }
-
-    /**
-     * @param {string} actualIndent
-     * @param {number} expectedIndentSize
-     */
-    function getMessageData(actualIndent, expectedIndentSize) {
-      const actualTabs = (actualIndent.match(/\t/g) || []).length;
-      const actualSpaces = (actualIndent.match(/[^\S\t\n\r]/g) || []).length;
-      let actual = "";
-      if (!actualTabs && !actualSpaces) {
-        actual = "no indent";
-      } else {
-        if (actualTabs) {
-          actual += `${actualTabs} tab`;
-        }
-        if (actualSpaces) {
-          if (actual) {
-            actual += ", ";
-          }
-          actual += `${actualSpaces} space`;
-        }
-      }
-
-      if (indentType === "space") {
-        expectedIndentSize *= indentSize;
-      }
-
-      return {
-        actual,
-        expected: `${expectedIndentSize} ${indentType}`,
-      };
-    }
-
-    /**
-     * @param {AnyNode} node
-     */
-    function checkIndent(node) {
-      if (parentIgnoringChildCount > 0) {
-        return;
-      }
-      const actualIndent = getActualIndent(node);
-      const expectedIndent = getExpectedIndent();
-
-      if (actualIndent.trim().length) {
-        return;
-      }
-      if (actualIndent !== expectedIndent) {
-        const targetNode = getIndentNodeToReport(node, actualIndent);
-        context.report({
-          node: targetNode,
-          messageId: MESSAGE_ID.WRONG_INDENT,
-          data: getMessageData(actualIndent, indentLevel.value()),
-          fix(fixer) {
-            return fixer.replaceText(targetNode, expectedIndent);
-          },
-        });
-      }
-    }
-
-    /**
-     *
-     * @param {Token} token
-     */
-    function getBaseIndentToken(token) {
-      /**
-       * @type {Token | null}
-       */
-      let currentToken = token;
-      let tokenBefore = token;
-
-      while (
-        // @ts-ignore
-        (tokenBefore = sourceCode.getTokenBefore(currentToken, {
-          includeComments: true,
-        }))
-      ) {
-        if (!tokenBefore) {
-          return currentToken;
-        }
-        if (tokenBefore.loc.start.line !== currentToken.loc.start.line) {
-          return currentToken;
-        }
-        currentToken = tokenBefore;
-      }
-      return tokenBefore;
-    }
-
-    /**
      *
      * @param {TemplateLiteral} node
      * @returns {number}
      */
-    function getBaseIndentLevel(node) {
-      const firstToken = sourceCode.getFirstToken(node);
-      if (!firstToken) return 0;
-      const baseToken = getBaseIndentToken(firstToken);
-      if (!baseToken) {
-        return 0;
-      }
-      const spaceCount = baseToken.loc.start.column;
+    function getTemplateLiteralBaseIndentLevel(node) {
+      // @ts-ignore
+      const lineIndex = node.loc.start.line - 1;
+      const line = lines[lineIndex];
 
+      const spaceCount = countLeftPadding(line);
       if (indentType === "space") {
-        return Math.floor(spaceCount / indentSize);
+        return Math.floor(spaceCount / indentSize) + 1;
       } else {
-        return spaceCount;
+        return spaceCount + 1;
       }
     }
+
     /**
-     * @type {RuleListener}
+     * @param {number} baseLevel
      */
-    const visitor = {
-      Tag(node) {
-        if (IGNORING_NODES.includes(node.name)) {
-          parentIgnoringChildCount++;
-        }
-        indentLevel.indent(node);
-      },
-      ScriptTag(node) {
-        indentLevel.indent(node);
-      },
-      "ScriptTag:exit"(node) {
-        indentLevel.dedent(node);
-      },
-      OpenScriptTagStart: checkIndent,
-      OpenScriptTagEnd: checkIndent,
-      StyleTag(node) {
-        indentLevel.indent(node);
-      },
-      "StyleTag:exit"(node) {
-        indentLevel.dedent(node);
-      },
-      OpenStyleTagStart: checkIndent,
-      OpenStyleTagEnd: checkIndent,
-      OpenTagStart: checkIndent,
-      OpenTagEnd: checkIndent,
-      CloseTag: checkIndent,
-      "Tag:exit"(node) {
-        if (IGNORING_NODES.includes(node.name)) {
-          parentIgnoringChildCount--;
-        }
-        indentLevel.dedent(node);
-      },
+    function createIndentVisitor(baseLevel) {
+      const indentLevel = new IndentLevel({
+        getIncreasingLevel(node) {
+          return typeof indentLevelOptions[node.type] === "number"
+            ? indentLevelOptions[node.type]
+            : 1;
+        },
+      });
+      indentLevel.setBase(baseLevel);
 
-      // Attribute
-      Attribute(node) {
-        indentLevel.indent(node);
-      },
-      AttributeKey: checkIndent,
-      AttributeValue: checkIndent,
-      "Attribute:exit"(node) {
-        indentLevel.dedent(node);
-      },
+      let parentIgnoringChildCount = 0;
 
-      // Text
-      Text(node) {
-        indentLevel.indent(node);
-        const lineNodes = splitToLineNodes(node);
-        lineNodes.forEach((lineNode) => {
-          if (lineNode.skipIndentCheck) {
-            return;
+      /**
+       * @param {AnyNode} node
+       * @returns {string}
+       */
+      function getActualIndent(node) {
+        const lines = sourceCode.getLines();
+        const line = lines[node.loc.start.line - 1];
+        let column = node.loc.start.column;
+
+        if (isLineNode(node)) {
+          column += countLeftPadding(node.value);
+        }
+
+        return line.slice(0, column);
+      }
+
+      /**
+       * @returns {string}
+       */
+      function getExpectedIndent() {
+        return indentChar.repeat(indentLevel.value());
+      }
+
+      /**
+       * @param {AnyNode} node
+       * @param {string} actualIndent
+       * @return {BaseNode}
+       */
+      function getIndentNodeToReport(node, actualIndent) {
+        let rangeStart = node.range[0];
+
+        if (node.type !== "Line") {
+          rangeStart -= actualIndent.length;
+        }
+
+        return {
+          range: [rangeStart, rangeStart + actualIndent.length],
+          loc: {
+            start: {
+              column: 0,
+              line: node.loc.start.line,
+            },
+            end: {
+              column: actualIndent.length,
+              line: node.loc.start.line,
+            },
+          },
+        };
+      }
+
+      /**
+       * @param {string} actualIndent
+       * @param {number} expectedIndentSize
+       */
+      function getMessageData(actualIndent, expectedIndentSize) {
+        const actualTabs = (actualIndent.match(/\t/g) || []).length;
+        const actualSpaces = (actualIndent.match(/[^\S\t\n\r]/g) || []).length;
+        let actual = "";
+        if (!actualTabs && !actualSpaces) {
+          actual = "no indent";
+        } else {
+          if (actualTabs) {
+            actual += `${actualTabs} tab`;
           }
-          if (lineNode.value.trim().length) {
-            checkIndent(lineNode);
+          if (actualSpaces) {
+            if (actual) {
+              actual += ", ";
+            }
+            actual += `${actualSpaces} space`;
           }
-        });
-      },
-      "Text:exit"(node) {
-        indentLevel.dedent(node);
-      },
-      Comment(node) {
-        indentLevel.indent(node);
-      },
-      CommentOpen: checkIndent,
-      CommentContent(node) {
-        indentLevel.indent(node);
-        const lineNodes = splitToLineNodes(node);
-        lineNodes.forEach((lineNode) => {
-          if (lineNode.skipIndentCheck) {
-            return;
+        }
+
+        if (indentType === "space") {
+          expectedIndentSize *= indentSize;
+        }
+
+        return {
+          actual,
+          expected: `${expectedIndentSize} ${indentType}`,
+        };
+      }
+
+      /**
+       * @param {AnyNode} node
+       */
+      function checkIndent(node) {
+        if (parentIgnoringChildCount > 0) {
+          return;
+        }
+        const actualIndent = getActualIndent(node);
+        const expectedIndent = getExpectedIndent();
+
+        if (actualIndent.trim().length) {
+          return;
+        }
+        if (actualIndent !== expectedIndent) {
+          const targetNode = getIndentNodeToReport(node, actualIndent);
+          context.report({
+            node: targetNode,
+            messageId: MESSAGE_ID.WRONG_INDENT,
+            data: getMessageData(actualIndent, indentLevel.value()),
+            fix(fixer) {
+              return fixer.replaceText(targetNode, expectedIndent);
+            },
+          });
+        }
+      }
+
+      /**
+       * @type {RuleListener}
+       */
+      const visitor = {
+        Tag(node) {
+          if (IGNORING_NODES.includes(node.name)) {
+            parentIgnoringChildCount++;
           }
-          if (lineNode.value.trim().length) {
-            checkIndent(lineNode);
+          indentLevel.indent(node);
+        },
+        ScriptTag(node) {
+          indentLevel.indent(node);
+        },
+        "ScriptTag:exit"(node) {
+          indentLevel.dedent(node);
+        },
+        OpenScriptTagStart: checkIndent,
+        OpenScriptTagEnd: checkIndent,
+        StyleTag(node) {
+          indentLevel.indent(node);
+        },
+        "StyleTag:exit"(node) {
+          indentLevel.dedent(node);
+        },
+        OpenStyleTagStart: checkIndent,
+        OpenStyleTagEnd: checkIndent,
+        OpenTagStart: checkIndent,
+        OpenTagEnd: checkIndent,
+        CloseTag: checkIndent,
+        "Tag:exit"(node) {
+          if (IGNORING_NODES.includes(node.name)) {
+            parentIgnoringChildCount--;
           }
-        });
-      },
-      CommentClose: checkIndent,
-      "Comment:exit"(node) {
-        indentLevel.dedent(node);
-      },
-      "CommentContent:exit"(node) {
-        indentLevel.dedent(node);
-      },
-    };
+          indentLevel.dedent(node);
+        },
+
+        // Attribute
+        Attribute(node) {
+          indentLevel.indent(node);
+        },
+        AttributeKey: checkIndent,
+        AttributeValue: checkIndent,
+        "Attribute:exit"(node) {
+          indentLevel.dedent(node);
+        },
+
+        // Text
+        Text(node) {
+          indentLevel.indent(node);
+          const lineNodes = splitToLineNodes(node);
+
+          lineNodes.forEach((lineNode) => {
+            if (lineNode.skipIndentCheck) {
+              return;
+            }
+            if (lineNode.value.trim().length) {
+              checkIndent(lineNode);
+            }
+          });
+        },
+        "Text:exit"(node) {
+          indentLevel.dedent(node);
+        },
+        Comment(node) {
+          indentLevel.indent(node);
+        },
+        CommentOpen: checkIndent,
+        CommentContent(node) {
+          indentLevel.indent(node);
+          const lineNodes = splitToLineNodes(node);
+          lineNodes.forEach((lineNode) => {
+            if (lineNode.skipIndentCheck) {
+              return;
+            }
+            if (lineNode.value.trim().length) {
+              checkIndent(lineNode);
+            }
+          });
+        },
+        CommentClose: checkIndent,
+        "Comment:exit"(node) {
+          indentLevel.dedent(node);
+        },
+        "CommentContent:exit"(node) {
+          indentLevel.dedent(node);
+        },
+      };
+      return visitor;
+    }
 
     return {
-      ...visitor,
+      ...createIndentVisitor(0),
       TaggedTemplateExpression(node) {
         if (shouldCheckTaggedTemplateExpression(node, context)) {
-          indentLevel.setBase(getBaseIndentLevel(node.quasi) + 1);
-          parse(node.quasi, getSourceCode(context), visitor);
-        }
-      },
-      "TaggedTemplateExpression:exit"(node) {
-        if (shouldCheckTaggedTemplateExpression(node, context)) {
-          indentLevel.setBase(0);
+          const base = getTemplateLiteralBaseIndentLevel(node.quasi);
+          parse(node.quasi, getSourceCode(context), createIndentVisitor(base));
         }
       },
       TemplateLiteral(node) {
         if (shouldCheckTemplateLiteral(node, context)) {
-          indentLevel.setBase(getBaseIndentLevel(node) + 1);
-          parse(node, getSourceCode(context), visitor);
-        }
-      },
-      "TemplateLiteral:exit"(node) {
-        if (shouldCheckTemplateLiteral(node, context)) {
-          indentLevel.setBase(0);
+          const base = getTemplateLiteralBaseIndentLevel(node);
+          parse(node, getSourceCode(context), createIndentVisitor(base));
         }
       },
     };
