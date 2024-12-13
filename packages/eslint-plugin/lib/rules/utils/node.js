@@ -176,6 +176,14 @@ function isText(node) {
   return node.type === NODE_TYPES.Text;
 }
 
+/**
+ * @param {AnyNode | LineNode} node
+ * @returns {node is LineNode}
+ */
+function isLine(node) {
+  return node.type === "Line";
+}
+
 const lineBreakPattern = /\r\n|[\r\n\u2028\u2029]/u;
 const lineEndingPattern = new RegExp(lineBreakPattern.source, "gu");
 /**
@@ -214,6 +222,7 @@ module.exports = {
   isTag,
   isComment,
   isText,
+  isLine,
   isOverlapWithTemplates,
   codeToLines,
   isRangesOverlap,

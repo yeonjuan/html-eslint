@@ -5,7 +5,11 @@ import * as ESHtml from "es-html-parser";
 type Fix = ESLint.Rule.Fix;
 type Token = ESLint.AST.Token;
 
-type AnyNode = ESHtml.AnyNode | LineNode;
+type WithParent<N extends ESHtml.AnyNode> = N & {
+  parent: null | WithParent<ESHtml.AnyNode>;
+};
+
+export type AnyNode = WithParent<ESHtml.AnyNode>;
 
 export type Range = ESLint.AST.Range;
 
@@ -27,16 +31,7 @@ interface TextNode extends ESHtml.TextNode {
   parent: TagNode;
 }
 
-export interface TagNode extends ESHtml.TagNode {
-  attributes: AttributeNode[];
-  parent: TagNode | HTMLNode;
-  openStart: OpenTagStartNode;
-  openEnd: OpenTagEndNode;
-  close: CloseTagNode;
-  children: Array<
-    TextNode | TagNode | ScriptTagNode | StyleTagNode | CommentNode
-  >;
-}
+export type TagNode = WithParent<ESHtml.TagNode>;
 
 interface OpenTagStartNode extends ESHtml.OpenTagStartNode {
   parent: TagNode;

@@ -5,6 +5,7 @@
  * @typedef { import("../../types").BaseNode } BaseNode
  * @typedef { import("../../types").TagNode } TagNode
  * @typedef { import("../../types").RuleListener } RuleListener
+ * @typedef { import("../../types").Context } Context
  * @typedef { import("eslint").AST.Token } Token
  * @typedef { import("eslint").SourceCode } SourceCode
  * @typedef { import("estree").TemplateLiteral } TemplateLiteral
@@ -13,11 +14,15 @@
  * @property {"space"} SPACE
  * @typedef {Object} MessageId
  * @property {"wrongIndent"} WRONG_INDENT
+ * @typedef {Object} IndentOptionInfo
+ * @property {IndentType["TAB"] | IndentType["SPACE"]} indentType
+ * @property {number} indentSize
+ * @property {string} indentChar
  */
 
 const { parse } = require("@html-eslint/template-parser");
 const { RULE_CATEGORY } = require("../../constants");
-const { splitToLineNodes } = require("../utils/node");
+const { splitToLineNodes, isLine, isTag } = require("../utils/node");
 const {
   shouldCheckTaggedTemplateExpression,
   shouldCheckTemplateLiteral,
@@ -72,6 +77,17 @@ module.exports = {
             minimum: 1,
             default: 1,
           },
+          tagChildrenIndent: {
+            default: {},
+            type: "object",
+            patternProperties: {
+              "^[a-z]+$": {
+                type: "integer",
+                minimum: 0,
+              },
+            },
+            additionalProperties: false,
+          },
         },
       },
     ],
@@ -84,39 +100,44 @@ module.exports = {
     const sourceCode = getSourceCode(context);
     const indentLevelOptions = (context.options && context.options[1]) || {};
     const lines = sourceCode.getLines();
-    const { indentType, indentSize, indentChar } = (function () {
-      const options = context.options;
-      /**
-       * @type {IndentType['SPACE'] | IndentType['TAB']}
-       */
-      let indentType = INDENT_TYPES.SPACE;
-      let indentSize = 4;
-      if (options.length) {
-        if (options[0] === INDENT_TYPES.TAB) {
-          indentType = INDENT_TYPES.TAB;
-        } else {
-          indentSize = options[0];
-        }
-      }
-      const indentChar =
-        indentType === INDENT_TYPES.SPACE ? " ".repeat(indentSize) : "\t";
-      return { indentType, indentSize, indentChar };
-    })();
+    const { indentType, indentSize, indentChar } = getIndentOptionInfo(context);
 
     /**
-     * @param {string} str
-     * @returns {number}
+     * @param {TagNode} node
+     * @return {number}
      */
-    function countLeftPadding(str) {
-      return str.length - str.replace(/^[\s\t]+/, "").length;
+    function getTagIncreasingLevel(node) {
+      if (
+        node.parent &&
+        isTag(node.parent) &&
+        indentLevelOptions &&
+        typeof indentLevelOptions.tagChildrenIndent === "object" &&
+        indentLevelOptions.tagChildrenIndent
+      ) {
+        const option =
+          indentLevelOptions.tagChildrenIndent[node.parent.name.toLowerCase()];
+        if (typeof option === "number") {
+          return option;
+        }
+      }
+
+      return 1;
     }
 
     /**
      * @param {AnyNode} node
-     * @returns {node is LineNode}
+     * @return {number}
      */
-    function isLineNode(node) {
-      return node.type === "Line";
+    function getIncreasingLevel(node) {
+      if (isLine(node)) {
+        return 1;
+      }
+      if (isTag(node)) {
+        return getTagIncreasingLevel(node);
+      }
+      return typeof indentLevelOptions[node.type] === "number"
+        ? indentLevelOptions[node.type]
+        : 1;
     }
 
     /**
@@ -142,18 +163,14 @@ module.exports = {
      */
     function createIndentVisitor(baseLevel) {
       const indentLevel = new IndentLevel({
-        getIncreasingLevel(node) {
-          return typeof indentLevelOptions[node.type] === "number"
-            ? indentLevelOptions[node.type]
-            : 1;
-        },
+        getIncreasingLevel,
       });
       indentLevel.setBase(baseLevel);
 
       let parentIgnoringChildCount = 0;
 
       /**
-       * @param {AnyNode} node
+       * @param {AnyNode | LineNode} node
        * @returns {string}
        */
       function getActualIndent(node) {
@@ -161,7 +178,7 @@ module.exports = {
         const line = lines[node.loc.start.line - 1];
         let column = node.loc.start.column;
 
-        if (isLineNode(node)) {
+        if (isLine(node)) {
           column += countLeftPadding(node.value);
         }
 
@@ -173,33 +190,6 @@ module.exports = {
        */
       function getExpectedIndent() {
         return indentChar.repeat(indentLevel.value());
-      }
-
-      /**
-       * @param {AnyNode} node
-       * @param {string} actualIndent
-       * @return {BaseNode}
-       */
-      function getIndentNodeToReport(node, actualIndent) {
-        let rangeStart = node.range[0];
-
-        if (node.type !== "Line") {
-          rangeStart -= actualIndent.length;
-        }
-
-        return {
-          range: [rangeStart, rangeStart + actualIndent.length],
-          loc: {
-            start: {
-              column: 0,
-              line: node.loc.start.line,
-            },
-            end: {
-              column: actualIndent.length,
-              line: node.loc.start.line,
-            },
-          },
-        };
       }
 
       /**
@@ -235,7 +225,7 @@ module.exports = {
       }
 
       /**
-       * @param {AnyNode} node
+       * @param {AnyNode | LineNode} node
        */
       function checkIndent(node) {
         if (parentIgnoringChildCount > 0) {
@@ -287,7 +277,9 @@ module.exports = {
         OpenStyleTagStart: checkIndent,
         OpenStyleTagEnd: checkIndent,
         OpenTagStart: checkIndent,
-        OpenTagEnd: checkIndent,
+        OpenTagEnd(node) {
+          checkIndent(node);
+        },
         CloseTag: checkIndent,
         "Tag:exit"(node) {
           if (IGNORING_NODES.includes(node.name)) {
@@ -296,7 +288,6 @@ module.exports = {
           indentLevel.dedent(node);
         },
 
-        // Attribute
         Attribute(node) {
           indentLevel.indent(node);
         },
@@ -305,8 +296,6 @@ module.exports = {
         "Attribute:exit"(node) {
           indentLevel.dedent(node);
         },
-
-        // Text
         Text(node) {
           indentLevel.indent(node);
           const lineNodes = splitToLineNodes(node);
@@ -367,3 +356,61 @@ module.exports = {
     };
   },
 };
+
+/**
+ * @param {AnyNode | LineNode} node
+ * @param {string} actualIndent
+ * @return {BaseNode}
+ */
+function getIndentNodeToReport(node, actualIndent) {
+  let rangeStart = node.range[0];
+
+  if (!isLine(node)) {
+    rangeStart -= actualIndent.length;
+  }
+
+  return {
+    range: [rangeStart, rangeStart + actualIndent.length],
+    loc: {
+      start: {
+        column: 0,
+        line: node.loc.start.line,
+      },
+      end: {
+        column: actualIndent.length,
+        line: node.loc.start.line,
+      },
+    },
+  };
+}
+
+/**
+ * @param {string} str
+ * @returns {number}
+ */
+function countLeftPadding(str) {
+  return str.length - str.replace(/^[\s\t]+/, "").length;
+}
+
+/**
+ * @param {Context} context
+ * @return {IndentOptionInfo}
+ */
+function getIndentOptionInfo(context) {
+  const options = context.options;
+  /**
+   * @type {IndentType['SPACE'] | IndentType['TAB']}
+   */
+  let indentType = INDENT_TYPES.SPACE;
+  let indentSize = 4;
+  if (options.length) {
+    if (options[0] === INDENT_TYPES.TAB) {
+      indentType = INDENT_TYPES.TAB;
+    } else {
+      indentSize = options[0];
+    }
+  }
+  const indentChar =
+    indentType === INDENT_TYPES.SPACE ? " ".repeat(indentSize) : "\t";
+  return { indentType, indentSize, indentChar };
+}

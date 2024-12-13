@@ -337,6 +337,43 @@ function createTests() {
           },
         ],
       },
+      {
+        code: `
+<html lang="es">
+<head>
+</head>
+<body>
+</body>
+</html>
+        `,
+        options: [
+          2,
+          {
+            tagChildrenIndent: {
+              html: 0,
+            },
+          },
+        ],
+      },
+      {
+        code: `
+<html
+  lang="es">
+<body>
+  <div></div>
+  text
+</body>
+</html>
+        `,
+        options: [
+          2,
+          {
+            tagChildrenIndent: {
+              html: 0,
+            },
+          },
+        ],
+      },
     ],
     invalid: [
       {
@@ -993,6 +1030,29 @@ id="bar"
 </div>
         `,
       },
+      {
+        code: `
+<html>
+  <body>
+</body>
+</html>
+        `,
+        output: `
+<html>
+<body>
+</body>
+</html>
+        `,
+        errors: wrongIndentErrors(1),
+        options: [
+          2,
+          {
+            tagChildrenIndent: {
+              html: 0,
+            },
+          },
+        ],
+      },
     ],
   };
 }
@@ -1042,6 +1102,27 @@ return "<div></div>"
     }
   }
         `,
+    },
+    {
+      code: `
+const code = html\`
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+  </head>
+  <body>
+  </body>
+  </html>
+\`;
+      `,
+      options: [
+        2,
+        {
+          tagChildrenIndent: {
+            html: 0,
+          },
+        },
+      ],
     },
   ],
   invalid: [
