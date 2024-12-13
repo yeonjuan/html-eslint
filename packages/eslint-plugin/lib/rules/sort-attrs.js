@@ -1,8 +1,8 @@
 /**
+ * @typedef { import("eslint").Rule.RuleFixer } RuleFixer
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").AttributeNode } AttributeNode
- * @typedef { import("../types").TextNode } TextNode
- * @typedef { import("../types").RuleFixer } RuleFixer
+ * @typedef { import("../types").Attribute } Attribute
+ * @typedef { import("../types").Text } Text
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -55,8 +55,8 @@ module.exports = {
     const priority = option.priority;
 
     /**
-     * @param {AttributeNode} attrA
-     * @param {AttributeNode} attrB
+     * @param {Attribute} attrA
+     * @param {Attribute} attrB
      * @return {number}
      */
     function compare(attrA, attrB) {
@@ -76,8 +76,8 @@ module.exports = {
 
     /**
      * @param {string} source
-     * @param {AttributeNode[]} unsorted
-     * @param {AttributeNode[]} sorted
+     * @param {Attribute[]} unsorted
+     * @param {Attribute[]} sorted
      * @returns {string}
      */
     function getSortedCode(source, unsorted, sorted) {
@@ -99,8 +99,8 @@ module.exports = {
 
     /**
      * @param {RuleFixer} fixer
-     * @param {AttributeNode[]} unsorted
-     * @param {AttributeNode[]} sorted
+     * @param {Attribute[]} unsorted
+     * @param {Attribute[]} sorted
      */
     function fix(fixer, unsorted, sorted) {
       const source = sourceCode.getText();
@@ -111,8 +111,8 @@ module.exports = {
     }
 
     /**
-     * @param {AttributeNode[]} before
-     * @param {AttributeNode[]} after
+     * @param {Attribute[]} before
+     * @param {Attribute[]} after
      * @returns {boolean}
      */
     function isChanged(before, after) {
@@ -123,7 +123,7 @@ module.exports = {
     }
 
     /**
-     * @param {AttributeNode[]} unsorted
+     * @param {Attribute[]} unsorted
      */
     function checkSorting(unsorted) {
       if (unsorted.length <= 1) {

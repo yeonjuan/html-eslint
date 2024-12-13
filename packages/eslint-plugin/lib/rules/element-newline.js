@@ -1,13 +1,12 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").TagNode } TagNode
- * @typedef { import("../types").BaseNode } BaseNode
- * @typedef { import("../types").CommentNode } CommentNode
- * @typedef { import("../types").DoctypeNode } DoctypeNode
- * @typedef { import("../types").ScriptTagNode } ScriptTagNode
- * @typedef { import("../types").StyleTagNode } StyleTagNode
- * @typedef { import("../types").TextNode } TextNode
- * @typedef { CommentNode | DoctypeNode | ScriptTagNode | StyleTagNode | TagNode | TextNode } NewlineNode
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").Comment } Comment
+ * @typedef { import("../types").Doctype } Doctype
+ * @typedef { import("../types").ScriptTag } ScriptTag
+ * @typedef { import("../types").StyleTag } StyleTag
+ * @typedef { import("../types").Text } Text
+ * @typedef { Tag | Doctype | ScriptTag | StyleTag | Text } NewlineNode
  * @typedef {{
  *   childFirst: NewlineNode | null;
  *   childLast: NewlineNode | null;
@@ -188,7 +187,10 @@ module.exports = {
               }
             }
 
-            if (nodeMeta.childLast.loc.end.line === node.close.loc.start.line) {
+            if (
+              node.close &&
+              nodeMeta.childLast.loc.end.line === node.close.loc.start.line
+            ) {
               if (isNotNewlineEnd(nodeMeta.childLast)) {
                 context.report({
                   node: node,

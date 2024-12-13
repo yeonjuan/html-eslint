@@ -1,9 +1,9 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").TagNode } TagNode
- * @typedef { import("../types").StyleTagNode } StyleTagNode
- * @typedef { import("../types").ScriptTagNode } ScriptTagNode
- * @typedef { import("es-html-parser").AttributeValueNode } AttributeValueNode
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").StyleTag } StyleTag
+ * @typedef { import("../types").ScriptTag } ScriptTag
+ * @typedef { import("../types").AttributeValue } AttributeValue
  */
 
 const { parse } = require("@html-eslint/template-parser");
@@ -42,11 +42,11 @@ module.exports = {
   create(context) {
     const htmlIdAttrsMap = new Map();
     /**
-     * @param {Map<string, AttributeValueNode[]>} map
+     * @param {Map<string, AttributeValue[]>} map
      */
     function createTagVisitor(map) {
       /**
-       * @param {TagNode} node
+       * @param {Tag} node
        */
       return function (node) {
         if (!node.attributes || node.attributes.length <= 0) {
@@ -67,7 +67,7 @@ module.exports = {
 
     /**
      *
-     * @param {Map<string, AttributeValueNode[]>} map
+     * @param {Map<string, AttributeValue[]>} map
      */
     function report(map) {
       map.forEach((attrs) => {

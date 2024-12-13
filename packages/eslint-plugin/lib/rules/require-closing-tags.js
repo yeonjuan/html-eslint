@@ -1,6 +1,6 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").TagNode } TagNode
+ * @typedef { import("../types").Tag } Tag
  */
 
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
@@ -70,7 +70,7 @@ module.exports = {
     );
 
     /**
-     * @param {TagNode} node
+     * @param {Tag} node
      */
     function checkClosingTag(node) {
       if (!node.close) {
@@ -85,7 +85,7 @@ module.exports = {
     }
 
     /**
-     * @param {TagNode} node
+     * @param {Tag} node
      * @param {boolean} shouldSelfClose
      * @param {boolean} fixable
      */
@@ -150,7 +150,7 @@ module.exports = {
         if (["svg", "math"].includes(node.name)) foreignContext.push(node.name);
       },
       /**
-       * @param {TagNode} node
+       * @param {Tag} node
        */
       "Tag:exit"(node) {
         if (node.name === foreignContext[foreignContext.length - 1]) {

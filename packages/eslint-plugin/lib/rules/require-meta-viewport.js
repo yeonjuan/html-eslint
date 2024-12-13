@@ -1,7 +1,7 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("es-html-parser").TagNode } TagNode
- * @typedef { import("es-html-parser").AnyNode } AnyNode
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").AnyNode } AnyNode
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -15,7 +15,7 @@ const MESSAGE_IDS = {
 
 /**
  * @param {AnyNode} node
- * @returns {node is TagNode}
+ * @returns {node is Tag}
  */
 function isMetaViewport(node) {
   if (isTag(node) && node.name === "meta") {

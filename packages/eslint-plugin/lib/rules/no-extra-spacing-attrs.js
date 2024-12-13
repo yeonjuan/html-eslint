@@ -1,15 +1,15 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").AttributeNode } AttributeNode
- * @typedef { import("../types").OpenTagEndNode } OpenTagEndNode
- * @typedef { import("../types").OpenScriptTagEndNode } OpenScriptTagEndNode
- * @typedef { import("../types").OpenStyleTagEndNode } OpenStyleTagEndNode
- * @typedef { import("../types").OpenScriptTagStartNode } OpenScriptTagStartNode
- * @typedef { import("../types").OpenTagStartNode } OpenTagStartNode
- * @typedef { import("../types").OpenStyleTagStartNode } OpenStyleTagStartNode
- * @typedef { import("../types").TagNode } TagNode
- * @typedef { import("../types").StyleTagNode } StyleTagNode
- * @typedef { import("../types").ScriptTagNode } ScriptTagNode
+ * @typedef { import("../types").Attribute } Attribute
+ * @typedef { import("../types").OpenTagEnd } OpenTagEnd
+ * @typedef { import("../types").OpenScriptTagEnd } OpenScriptTagEnd
+ * @typedef { import("../types").OpenStyleTagEnd } OpenStyleTagEnd
+ * @typedef { import("../types").OpenScriptTagStart } OpenScriptTagStart
+ * @typedef { import("../types").OpenTagStart } OpenTagStart
+ * @typedef { import("../types").OpenStyleTagStart } OpenStyleTagStart
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").StyleTag } StyleTag
+ * @typedef { import("../types").ScriptTag } ScriptTag
  * @typedef { import("../types").AnyNode } AnyNode
  */
 
@@ -95,7 +95,7 @@ module.exports = {
     const sourceCode = context.getSourceCode().text;
 
     /**
-     * @param {AttributeNode[]} attrs
+     * @param {Attribute[]} attrs
      */
     function checkExtraSpacesBetweenAttrs(attrs) {
       attrs.forEach((current, index, attrs) => {
@@ -145,8 +145,8 @@ module.exports = {
     }
 
     /**
-     * @param {OpenScriptTagStartNode | OpenTagStartNode | OpenStyleTagStartNode} node
-     * @param {AttributeNode} firstAttr
+     * @param {OpenScriptTagStart | OpenTagStart | OpenStyleTagStart} node
+     * @param {Attribute} firstAttr
      * @returns
      */
     function checkExtraSpaceBefore(node, firstAttr) {
@@ -184,7 +184,7 @@ module.exports = {
       }
     }
     /**
-     * @param {TagNode | StyleTagNode | ScriptTagNode} node
+     * @param {Tag | StyleTag | ScriptTag} node
      * @returns
      */
     function check(node) {

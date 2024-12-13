@@ -1,6 +1,6 @@
 /**
- * @typedef { import("../../types").RuleListener } RuleListener
  * @typedef { import("../../types").Context } Context
+ * @typedef { import("../../types").RuleListener } RuleListener
  */
 
 const {

@@ -1,9 +1,9 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("es-html-parser").DocumentNode } DocumentNode
  * @typedef { import("es-html-parser").AnyToken } AnyToken
- * @typedef { import("es-html-parser").CommentContentNode } CommentContentNode
- * @typedef { import("es-html-parser").TextNode } TextNode
+ * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").Document } Document
+ * @typedef { import("../types").CommentContent } CommentContent
+ * @typedef { import("../types").Text } Text
  */
 
 const { parse } = require("@html-eslint/template-parser");
@@ -62,7 +62,7 @@ module.exports = {
     /**
      * @param {string[]} lines
      * @param {number} lineOffset
-     * @param {((CommentContentNode | TextNode)['templates'][number])[]} tokens
+     * @param {((CommentContent | Text)['templates'][number])[]} tokens
      */
     function check(lines, lineOffset, tokens) {
       /** @type {number[]} */

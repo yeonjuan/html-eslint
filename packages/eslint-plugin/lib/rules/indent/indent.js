@@ -1,14 +1,16 @@
 /**
  * @typedef { import("../../types").RuleModule } RuleModule
  * @typedef { import("../../types").AnyNode } AnyNode
- * @typedef { import("../../types").LineNode } LineNode
- * @typedef { import("../../types").BaseNode } BaseNode
- * @typedef { import("../../types").TagNode } TagNode
+ * @typedef { import("../../types").Line } Line
  * @typedef { import("../../types").RuleListener } RuleListener
  * @typedef { import("../../types").Context } Context
  * @typedef { import("eslint").AST.Token } Token
  * @typedef { import("eslint").SourceCode } SourceCode
- * @typedef { import("estree").TemplateLiteral } TemplateLiteral
+ * @typedef { import("eslint").AST.Range } Range
+ * @typedef { import("eslint").AST.SourceLocation } SourceLocation
+ * @typedef { import("../../types").TemplateLiteral } TemplateLiteral
+ *
+ *
  * @typedef {Object} IndentType
  * @property {"tab"} TAB
  * @property {"space"} SPACE
