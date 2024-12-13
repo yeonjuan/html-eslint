@@ -1,8 +1,8 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("es-html-parser").TagNode } TagNode
- * @typedef { import("es-html-parser").TextNode } TextNode
- * @typedef { import("es-html-parser").AnyNode } AnyNode
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").Text } Text
+ * @typedef { import("../types").AnyNode } AnyNode
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -16,7 +16,7 @@ const MESSAGE_IDS = {
 
 /**
  * @param {AnyNode} node
- * @returns {node is TagNode}
+ * @returns {node is Tag}
  */
 function isTitle(node) {
   return isTag(node) && node.name === "title";
@@ -24,7 +24,7 @@ function isTitle(node) {
 
 /**
  * @param {AnyNode} node
- * @returns {node is TextNode}
+ * @returns {node is Text}
  */
 function isNonEmptyText(node) {
   return isText(node) && node.value.trim().length > 0;

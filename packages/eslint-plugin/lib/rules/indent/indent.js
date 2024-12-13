@@ -1,13 +1,15 @@
 /**
  * @typedef { import("../../types").RuleModule } RuleModule
  * @typedef { import("../../types").AnyNode } AnyNode
- * @typedef { import("../../types").LineNode } LineNode
- * @typedef { import("../../types").BaseNode } BaseNode
- * @typedef { import("../../types").TagNode } TagNode
+ * @typedef { import("../../types").Line } Line
  * @typedef { import("../../types").RuleListener } RuleListener
  * @typedef { import("eslint").AST.Token } Token
  * @typedef { import("eslint").SourceCode } SourceCode
- * @typedef { import("estree").TemplateLiteral } TemplateLiteral
+ * @typedef { import("eslint").AST.Range } Range
+ * @typedef { import("eslint").AST.SourceLocation } SourceLocation
+ * @typedef { import("../../types").TemplateLiteral } TemplateLiteral
+ *
+ *
  * @typedef {Object} IndentType
  * @property {"tab"} TAB
  * @property {"space"} SPACE
@@ -113,7 +115,7 @@ module.exports = {
 
     /**
      * @param {AnyNode} node
-     * @returns {node is LineNode}
+     * @returns {node is Line}
      */
     function isLineNode(node) {
       return node.type === "Line";
@@ -178,7 +180,7 @@ module.exports = {
       /**
        * @param {AnyNode} node
        * @param {string} actualIndent
-       * @return {BaseNode}
+       * @return {{ range: Range, loc: SourceLocation }}
        */
       function getIndentNodeToReport(node, actualIndent) {
         let rangeStart = node.range[0];

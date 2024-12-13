@@ -1,10 +1,10 @@
 /**
+ * @typedef { import("eslint").AST.Range } Range
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").Range } Range
- * @typedef { import("../types").AttributeNode } AttributeNode
- * @typedef { import("../types").TagNode } TagNode
- * @typedef { import("../types").ScriptTagNode } ScriptTagNode
- * @typedef { import("../types").StyleTagNode } StyleTagNode
+ * @typedef { import("../types").Attribute } Attribute
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").ScriptTag } ScriptTag
+ * @typedef { import("../types").StyleTag } StyleTag
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -68,7 +68,7 @@ module.exports = {
 
     /**
      *
-     * @param {AttributeNode} attr
+     * @param {Attribute} attr
      * @returns {[string, string]}
      */
     function getQuotes(attr) {
@@ -77,7 +77,7 @@ module.exports = {
     }
 
     /**
-     * @param {AttributeNode} attr
+     * @param {Attribute} attr
      * @returns {void}
      */
     function checkQuotes(attr) {
@@ -133,7 +133,7 @@ module.exports = {
       }
     }
     /**
-     * @param {TagNode | ScriptTagNode | StyleTagNode} node
+     * @param {Tag | ScriptTag | StyleTag} node
      */
     function check(node) {
       node.attributes.forEach((attr) => checkQuotes(attr));

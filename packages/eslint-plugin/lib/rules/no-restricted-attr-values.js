@@ -1,9 +1,9 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").StyleTagNode } StyleTagNode
- * @typedef { import("../types").AttributeNode } AttributeNode
- * @typedef { import("../types").TagNode } TagNode
- * @typedef { import("../types").ScriptTagNode } ScriptTagNode
+ * @typedef { import("../types").StyleTag } StyleTag
+ * @typedef { import("../types").Attribute } Attribute
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").ScriptTag } ScriptTag
  * @typedef {{attrPatterns: string[], attrValuePatterns: string[], message?: string}[]} Options
  */
 
@@ -66,7 +66,7 @@ module.exports = {
     const options = context.options;
     const checkers = options.map((option) => new PatternChecker(option));
     /**
-     * @param {TagNode | StyleTagNode | ScriptTagNode} node
+     * @param {Tag | StyleTag | ScriptTag} node
      */
     function check(node) {
       node.attributes.forEach((attr) => {
@@ -89,7 +89,7 @@ module.exports = {
         }
 
         /**
-         * @type {{node: AttributeNode, message: string, messageId?: string}}
+         * @type {{node: Attribute, message: string, messageId?: string}}
          */
         const result = {
           node: attr,
