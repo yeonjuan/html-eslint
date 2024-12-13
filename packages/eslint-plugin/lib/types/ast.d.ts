@@ -4,7 +4,7 @@ import * as estree from "estree";
 
 export interface Document extends Parser.DocumentNode {
   parent: null;
-  childrent: Array<Tag | Text | Comment>;
+  children: Array<Tag | Text | Comment>;
 }
 
 export interface Doctype extends Parser.DoctypeNode {
