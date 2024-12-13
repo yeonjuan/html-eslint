@@ -177,8 +177,8 @@ function isText(node) {
 }
 
 /**
- * @param {AnyNode | LineNode} node
- * @returns {node is LineNode}
+ * @param {AnyNode | Line} node
+ * @returns {node is Line}
  */
 function isLine(node) {
   return node.type === "Line";

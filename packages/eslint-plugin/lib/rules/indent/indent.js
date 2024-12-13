@@ -2,6 +2,7 @@
  * @typedef { import("../../types").RuleModule } RuleModule
  * @typedef { import("../../types").AnyNode } AnyNode
  * @typedef { import("../../types").Line } Line
+ * @typedef { import("../../types").Tag } Tag
  * @typedef { import("../../types").RuleListener } RuleListener
  * @typedef { import("../../types").Context } Context
  * @typedef { import("eslint").AST.Token } Token
@@ -105,7 +106,7 @@ module.exports = {
     const { indentType, indentSize, indentChar } = getIndentOptionInfo(context);
 
     /**
-     * @param {TagNode} node
+     * @param {Tag} node
      * @return {number}
      */
     function getTagIncreasingLevel(node) {
@@ -172,7 +173,7 @@ module.exports = {
       let parentIgnoringChildCount = 0;
 
       /**
-       * @param {AnyNode | LineNode} node
+       * @param {AnyNode | Line} node
        * @returns {string}
        */
       function getActualIndent(node) {
@@ -227,7 +228,7 @@ module.exports = {
       }
 
       /**
-       * @param {AnyNode | LineNode} node
+       * @param {AnyNode | Line} node
        */
       function checkIndent(node) {
         if (parentIgnoringChildCount > 0) {
@@ -360,9 +361,9 @@ module.exports = {
 };
 
 /**
- * @param {AnyNode | LineNode} node
+ * @param {AnyNode | Line} node
  * @param {string} actualIndent
- * @return {BaseNode}
+ * @return {{range: Range; loc: SourceLocation}}
  */
 function getIndentNodeToReport(node, actualIndent) {
   let rangeStart = node.range[0];
