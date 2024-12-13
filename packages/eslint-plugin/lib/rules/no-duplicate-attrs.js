@@ -1,8 +1,8 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").TagNode } TagNode
- * @typedef { import("../types").StyleTagNode } StyleTagNode
- * @typedef { import("../types").ScriptTagNode } ScriptTagNode
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").StyleTag } StyleTag
+ * @typedef { import("../types").ScriptTag } ScriptTag
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -35,7 +35,7 @@ module.exports = {
 
   create(context) {
     /**
-     * @param {TagNode | StyleTagNode | ScriptTagNode} node
+     * @param {Tag | StyleTag | ScriptTag} node
      */
     function check(node) {
       if (Array.isArray(node.attributes)) {

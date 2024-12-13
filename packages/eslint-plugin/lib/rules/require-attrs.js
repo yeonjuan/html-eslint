@@ -1,8 +1,13 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").TagNode } TagNode
- * @typedef { import("../types").ScriptTagNode } ScriptTagNode
- * @typedef { import("../types").StyleTagNode } StyleTagNode
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").ScriptTag } ScriptTag
+ * @typedef { import("../types").StyleTag } StyleTag
+ *
+ * @typedef {Object} Option
+ * @property {string} tag
+ * @property {string} attr
+ * @property {string | undefined} value
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -48,6 +53,9 @@ module.exports = {
   },
 
   create(context) {
+    /**
+     * @type {Option[]}
+     */
     const options = context.options || [];
     /**
      * @type {Map<string, { tag: string, attr: string, value?: string}[]>}
@@ -67,7 +75,7 @@ module.exports = {
     });
 
     /**
-     * @param {StyleTagNode | ScriptTagNode | TagNode} node
+     * @param {StyleTag | ScriptTag | Tag} node
      * @param {string} tagName
      */
     function check(node, tagName) {
@@ -105,7 +113,7 @@ module.exports = {
     }
 
     /**
-     * @param {StyleTagNode | ScriptTagNode} node
+     * @param {StyleTag | ScriptTag} node
      */
     function checkStyleOrScript(node) {
       const tagName = node.type === NODE_TYPES.StyleTag ? "style" : "script";
@@ -116,7 +124,7 @@ module.exports = {
     }
 
     /**
-     * @param {TagNode} node
+     * @param {Tag} node
      */
     function checkTag(node) {
       const tagName = node.name.toLowerCase();

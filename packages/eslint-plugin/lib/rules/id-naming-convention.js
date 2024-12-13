@@ -1,8 +1,8 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").TagNode } TagNode
- * @typedef { import("../types").ScriptTagNode } ScriptTagNode
- * @typedef { import("../types").StyleTagNode } StyleTagNode
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").ScriptTag } ScriptTag
+ * @typedef { import("../types").StyleTag } StyleTag
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -87,7 +87,7 @@ module.exports = {
         : CONVENTION_CHECKERS[convention];
 
     /**
-     * @param {TagNode | ScriptTagNode | StyleTagNode} node
+     * @param {Tag | ScriptTag | StyleTag} node
      */
     function check(node) {
       if (isAttributesEmpty(node)) {
@@ -107,7 +107,7 @@ module.exports = {
     }
 
     /**
-     * @param {TagNode | ScriptTagNode | StyleTagNode} node
+     * @param {Tag | ScriptTag | StyleTag} node
      */
     function checkInTemplate(node) {
       if (isAttributesEmpty(node)) {

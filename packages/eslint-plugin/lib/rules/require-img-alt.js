@@ -1,6 +1,6 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").TagNode } TagNode
+ * @typedef { import("../types").Tag } Tag
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -72,8 +72,7 @@ module.exports = {
 };
 
 /**
- *
- * @param {TagNode} node
+ * @param {Tag} node
  * @param {string[]} substitute
  * @returns
  */

@@ -1,26 +1,26 @@
 /**
- * @typedef { import("es-html-parser").TagNode } TagNode
- * @typedef { import("es-html-parser").ScriptTagNode } ScriptTagNode
- * @typedef { import("es-html-parser").StyleTagNode } StyleTagNode
- * @typedef { import("es-html-parser").AttributeNode } AttributeNode
- * @typedef { import("es-html-parser").AttributeValueNode } AttributeValueNode
- * @typedef { import("es-html-parser").AnyNode } AnyNode
- * @typedef { import("es-html-parser").TextNode } TextNode
- * @typedef { import("es-html-parser").CommentContentNode } CommentContentNode
- * @typedef { import("es-html-parser").CommentNode } CommentNode
- * @typedef { import("es-html-parser").AnyToken} AnyToken
- * @typedef { import("../../types").LineNode } LineNode
- * @typedef { import("../../types").BaseNode } BaseNode
- * @typedef { import("../../types").Location } Location
- * @typedef { import("../../types").Range } Range
+ * @typedef { import("../../types").Attribute } Attribute
+ * @typedef { import("../../types").Tag } Tag
+ * @typedef { import("../../types").ScriptTag } ScriptTag
+ * @typedef { import("../../types").StyleTag } StyleTag
+ * @typedef { import("../../types").Line } Line
+ * @typedef { import("../../types").Text } Text
+ * @typedef { import("../../types").CommentContent } CommentContent
+ * @typedef { import("../../types").Comment } Comment
+ * @typedef { import("../../types").AnyNode } AnyNode
+ * @typedef { import("../../types").AttributeValue } AttributeValue
+ * @typedef { import("eslint").AST.Range } Range
+ * @typedef { import("eslint").AST.SourceLocation } SourceLocation
+ * @typedef { import("es-html-parser").AnyToken } AnyToken
+
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 
 /**
- * @param {TagNode | ScriptTagNode | StyleTagNode} node
+ * @param {Tag | ScriptTag | StyleTag} node
  * @param {string} key
- * @returns {AttributeNode | undefined}
+ * @returns {Attribute | undefined}
  */
 function findAttr(node, key) {
   return node.attributes.find(
@@ -30,7 +30,7 @@ function findAttr(node, key) {
 
 /**
  * Checks whether a node's attributes is empty or not.
- * @param {TagNode | ScriptTagNode | StyleTagNode} node
+ * @param {Tag | ScriptTag | StyleTag} node
  * @returns {boolean}
  */
 function isAttributesEmpty(node) {
@@ -57,7 +57,7 @@ function isRangesOverlap(rangeA, rangeB) {
 }
 
 /**
- * @param {(TextNode | CommentContentNode)['templates']} templates
+ * @param {(Text | CommentContent)['templates']} templates
  * @param {Range} range
  * @returns {boolean}
  */
@@ -69,21 +69,21 @@ function isOverlapWithTemplates(templates, range) {
 
 /**
  *
- * @param {TextNode | CommentContentNode} node
- * @returns {LineNode[]}
+ * @param {Text | CommentContent} node
+ * @returns {Line[]}
  */
 function splitToLineNodes(node) {
   let start = node.range[0];
   let line = node.loc.start.line;
   const startCol = node.loc.start.column;
   /**
-   * @type {LineNode[]}
+   * @type {Line[]}
    */
   const lineNodes = [];
   const templates = node.templates || [];
   /**
    *
-   * @param {import("../../types").Range} range
+   * @param {Range} range
    */
   function shouldSkipIndentCheck(range) {
     return templates.some(
@@ -95,7 +95,7 @@ function splitToLineNodes(node) {
   node.value.split("\n").forEach((value, index) => {
     const columnStart = index === 0 ? startCol : 0;
     /**
-     * @type {import("../../types").Range}
+     * @type {Range}
      */
     const range = [start, start + value.length];
     const loc = {
@@ -109,7 +109,7 @@ function splitToLineNodes(node) {
       },
     };
     /**
-     * @type {LineNode}
+     * @type {Line}
      */
     const lineNode = {
       type: "Line",
@@ -130,9 +130,9 @@ function splitToLineNodes(node) {
 
 /**
  * Get location between two nodes.
- * @param {BaseNode} before A node placed in before
- * @param {BaseNode} after A node placed in after
- * @returns {Location} location between two nodes.
+ * @param {{loc: SourceLocation}} before A node placed in before
+ * @param {{loc: SourceLocation}} after A node placed in after
+ * @returns {SourceLocation} location between two nodes.
  */
 function getLocBetween(before, after) {
   return {
@@ -142,7 +142,7 @@ function getLocBetween(before, after) {
 }
 
 /**
- * @param {AttributeValueNode} node
+ * @param {AttributeValue} node
  * @return {boolean}
  */
 function isExpressionInTemplate(node) {
@@ -154,7 +154,7 @@ function isExpressionInTemplate(node) {
 
 /**
  * @param {AnyNode} node
- * @returns {node is TagNode}
+ * @returns {node is Tag}
  */
 function isTag(node) {
   return node.type === NODE_TYPES.Tag;
@@ -162,7 +162,7 @@ function isTag(node) {
 
 /**
  * @param {AnyNode} node
- * @returns {node is CommentNode}
+ * @returns {node is Comment}
  */
 function isComment(node) {
   return node.type === NODE_TYPES.Comment;
@@ -170,7 +170,7 @@ function isComment(node) {
 
 /**
  * @param {AnyNode} node
- * @returns {node is TextNode}
+ * @returns {node is Text}
  */
 function isText(node) {
   return node.type === NODE_TYPES.Text;
@@ -189,7 +189,7 @@ function codeToLines(source) {
 /**
  *
  * @param {AnyToken[]} tokens
- * @returns {((CommentContentNode | TextNode)['templates'][number])[]}
+ * @returns {((CommentContent | Text)['templates'][number])[]}
  */
 function getTemplateTokens(tokens) {
   return (

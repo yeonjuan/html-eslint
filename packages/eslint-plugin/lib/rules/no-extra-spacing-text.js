@@ -1,12 +1,11 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("es-html-parser").CommentContentNode } CommentContentNode
- * @typedef { import("es-html-parser").TagNode } TagNode
- * @typedef { import("es-html-parser").CommentNode } CommentNode
- * @typedef { import("../types").ContentNode } ContentNode
- * @typedef { import("es-html-parser").TextNode } TextNode
- * @typedef { import("../types").LineNode } LineNode
- * @typedef { import("../types").Range } Range
+ * @typedef { import("../types").CommentContent } CommentContent
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").Comment } Comment
+ * @typedef { import("../types").Text } Text
+ * @typedef { import("../types").Line } Line
+ * @typedef { import("eslint").AST.Range } Range
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -60,12 +59,12 @@ module.exports = {
     const skipTags = options.skip || [];
     const sourceCode = getSourceCode(context);
     /**
-     * @type {TagNode[]}
+     * @type {Tag[]}
      */
     const tagStack = [];
 
     /**
-     * @param {CommentNode | TextNode} node
+     * @param {Comment | Text} node
      * @returns {boolean}
      */
     function hasSkipTagOnParent(node) {
@@ -83,7 +82,7 @@ module.exports = {
     }
 
     /**
-     * @param {CommentContentNode | TextNode} node
+     * @param {CommentContent | Text} node
      */
     function stripConsecutiveSpaces(node) {
       const text = node.value;

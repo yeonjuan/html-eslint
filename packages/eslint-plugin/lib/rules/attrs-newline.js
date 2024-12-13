@@ -1,9 +1,8 @@
 /**
- * @typedef { import("../types").RuleFixer } RuleFixer
+ * @typedef { import("eslint").Rule.RuleFixer } RuleFixer
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").TagNode } TagNode
- * @typedef {import("../types").RuleListener}
- * @typedef {Object} MessageId
+ *
+ * @typedef {Object } MessageId
  * @property {"closeStyleWrong"} CLOSE_STYLE_WRONG
  * @property {"newlineMissing"} NEWLINE_MISSING
  * @property {"newlineUnexpected"} NEWLINE_UNEXPECTED
@@ -15,7 +14,6 @@ const { createVisitors } = require("./utils/visitors");
 /**
  * @type {MessageId}
  */
-
 const MESSAGE_ID = {
   CLOSE_STYLE_WRONG: "closeStyleWrong",
   NEWLINE_MISSING: "newlineMissing",

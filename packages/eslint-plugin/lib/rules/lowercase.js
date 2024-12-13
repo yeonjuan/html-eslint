@@ -1,9 +1,8 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").TagNode } TagNode
- * @typedef { import("../types").StyleTagNode } StyleTagNode
- * @typedef { import("../types").ScriptTagNode } ScriptTagNode
- * @typedef { import("../types").RuleListener } RuleListener
+ * @typedef { import("../types").Tag } Tag
+ * @typedef { import("../types").StyleTag } StyleTag
+ * @typedef { import("../types").ScriptTag } ScriptTag
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -38,12 +37,12 @@ module.exports = {
   create(context) {
     const allowedAttrKeySet = new Set(SVG_CAMEL_CASE_ATTRIBUTES);
     /**
-     * @type {TagNode[]}
+     * @type {Tag[]}
      */
     const svgStack = [];
 
     /**
-     * @param {TagNode} node
+     * @param {Tag} node
      */
     function enterSvg(node) {
       svgStack.push(node);
@@ -62,7 +61,7 @@ module.exports = {
     }
 
     /**
-     * @param {TagNode | StyleTagNode | ScriptTagNode} node
+     * @param {Tag | StyleTag | ScriptTag} node
      */
     function nameOf(node) {
       if (node.type === NODE_TYPES.ScriptTag) return "script";
@@ -71,7 +70,7 @@ module.exports = {
     }
 
     /**
-     * @param {TagNode | StyleTagNode | ScriptTagNode} node
+     * @param {Tag | StyleTag | ScriptTag} node
      */
     function check(node) {
       const raw = node.openStart.value.slice(1);
