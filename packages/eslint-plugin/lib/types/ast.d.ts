@@ -4,7 +4,7 @@ import * as estree from "estree";
 
 export interface Document extends Parser.DocumentNode {
   parent: null;
-  children: Array<Tag | Text | Comment>;
+  children: Array<Tag | Text | Comment | Doctype | ScriptTag | StyleTag>;
 }
 
 export interface Doctype extends Parser.DoctypeNode {
@@ -51,7 +51,7 @@ export interface Tag extends Parser.TagNode {
   openEnd: OpenTagEnd;
   attributes: Array<Attribute>;
   close?: CloseTag;
-  children: Array<Tag | Text>;
+  children: Array<Tag | Text | StyleTag | ScriptTag>;
 }
 
 export interface OpenTagStart extends Parser.OpenTagStartNode {
