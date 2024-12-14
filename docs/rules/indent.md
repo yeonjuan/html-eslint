@@ -115,10 +115,17 @@ This rule has an object option:
     "error",
     2,
     {
-      "Attribute": 2
+      "Attribute": 2,
+      "tagChildrenIndent": {
+        "html": 0,
+        "div": 1
+        // ...
+      }
     }
   ]
 }
 ```
 
 - `Attribute` (default: 1): enforces indentation level for attributes. e.g. indent of 2 spaces with `Attribute` set to `2` will indent the attributes with `4` spaces (2 x 2).
+
+- `tagChildrenIndent` (default: `{}`): specifies the indent increment of the child tags of the specified tag. e.g. For example, `"tagChildIndent": { "html": 0 }` will set the `<html/>` tag children to 0 indent (2 x 0).
