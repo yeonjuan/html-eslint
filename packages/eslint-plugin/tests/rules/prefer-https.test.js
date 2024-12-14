@@ -73,7 +73,7 @@ templateRuleTester.run("[template] prefer-https", rule, {
       code: "html`<script></script>`",
     },
     {
-      code: `html\`<img src="\${httpslink}">\``,
+      code: `html\`<img src="\${variableLink}">\``,
     },
   ],
   invalid: [
