@@ -56,18 +56,20 @@ const visitorKeys = {
  *
  * @param {AnyNode} node
  * @param {TemplateHTMLVisitor} visitors
+ * @param {any} parent
  */
-function traverse(node, visitors) {
+function traverse(node, visitors, parent) {
   const enterVisitor = visitors[node.type];
+  node.parent = parent;
   enterVisitor && enterVisitor(node);
   const nextKeys = visitorKeys[node.type];
 
   nextKeys.forEach((key) => {
     const next = node[key];
     if (Array.isArray(next)) {
-      next.forEach((n) => traverse(n, visitors));
+      next.forEach((n) => traverse(n, visitors, node));
     } else if (next) {
-      traverse(next, visitors);
+      traverse(next, visitors, node);
     }
   });
   const exitVisitor = visitors[`${node.type}:exit`];

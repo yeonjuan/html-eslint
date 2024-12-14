@@ -337,6 +337,43 @@ function createTests() {
           },
         ],
       },
+      {
+        code: `
+<html lang="es">
+<head>
+</head>
+<body>
+</body>
+</html>
+        `,
+        options: [
+          2,
+          {
+            tagChildrenIndent: {
+              html: 0,
+            },
+          },
+        ],
+      },
+      {
+        code: `
+<html
+  lang="es">
+<body>
+  <div></div>
+  text
+</body>
+</html>
+        `,
+        options: [
+          2,
+          {
+            tagChildrenIndent: {
+              html: 0,
+            },
+          },
+        ],
+      },
     ],
     invalid: [
       {
@@ -993,6 +1030,29 @@ id="bar"
 </div>
         `,
       },
+      {
+        code: `
+<html>
+  <body>
+</body>
+</html>
+        `,
+        output: `
+<html>
+<body>
+</body>
+</html>
+        `,
+        errors: wrongIndentErrors(1),
+        options: [
+          2,
+          {
+            tagChildrenIndent: {
+              html: 0,
+            },
+          },
+        ],
+      },
     ],
   };
 }
@@ -1042,6 +1102,27 @@ return "<div></div>"
     }
   }
         `,
+    },
+    {
+      code: `
+const code = html\`
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+  </head>
+  <body>
+  </body>
+  </html>
+\`;
+      `,
+      options: [
+        2,
+        {
+          tagChildrenIndent: {
+            html: 0,
+          },
+        },
+      ],
     },
   ],
   invalid: [
@@ -1284,6 +1365,38 @@ class Component extends LitElement {
       `,
       options: [2, { Attribute: 2 }],
       errors: wrongIndentErrors(2),
+    },
+    {
+      code: `
+class Component extends LitElement {
+\trender() {
+\t\treturn html\`
+\t\t\t<div>
+\t\t\t\t<span></span>
+\t\t\t</div>
+\t\t\t<span>
+\t\t\t\t<div></div>
+\t\t\t</span>
+    \`;
+  }
+}
+      `,
+      output: `
+class Component extends LitElement {
+\trender() {
+\t\treturn html\`
+\t\t\t<div>
+\t\t\t\t<span></span>
+\t\t\t</div>
+\t\t\t<span>
+\t\t\t\t\t<div></div>
+\t\t\t</span>
+    \`;
+  }
+}
+      `,
+      options: ["tab", { Attribute: 2, tagChildrenIndent: { span: 2 } }],
+      errors: wrongIndentErrors(1),
     },
   ],
 });

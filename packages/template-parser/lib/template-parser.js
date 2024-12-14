@@ -63,7 +63,7 @@ function parse(node, sourceCode, visitors) {
       },
     },
   });
-  traverse(ast, visitors);
+  traverse(ast, visitors, null);
   return { ast, html, tokens };
 }
 
