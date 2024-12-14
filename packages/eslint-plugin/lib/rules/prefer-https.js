@@ -77,7 +77,7 @@ module.exports = {
     fixable: false,
     schema: [],
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "Unexpected use of 'http' protocol",
+      [MESSAGE_IDS.UNEXPECTED]: "Unexpected use 'HTTP' protocol.",
     },
   },
 

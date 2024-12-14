@@ -170,14 +170,6 @@ function isScript(node) {
 
 /**
  * @param {AnyNode} node
- * @returns {node is StyleTag}
- */
-function isStyle(node) {
-  return node.type === NODE_TYPES.StyleTag;
-}
-
-/**
- * @param {AnyNode} node
  * @returns {node is Comment}
  */
 function isComment(node) {
@@ -240,7 +232,6 @@ module.exports = {
   isText,
   isLine,
   isScript,
-  isStyle,
   isOverlapWithTemplates,
   codeToLines,
   isRangesOverlap,
