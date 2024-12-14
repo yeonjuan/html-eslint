@@ -18,6 +18,7 @@
 | [no-restricted-attrs](rules/no-restricted-attrs)             | Disallow specified attributes                                |      |
 | [no-script-style-type](rules/no-script-style-type)           | Enforce to omit type attributes for style sheets and scripts | 🔧   |
 | [no-target-blank](rules/no-target-blank)                     | Disallow usage of unsafe `target='_blank'`                   |      |
+| [prefer-https](rules/prefer-https)                           | Prefer to use HTTPS for embedded resources                   |      |
 | [require-attrs](rules/require-attrs)                         | Require specified attributes                                 |      |
 | [require-button-type](rules/require-button-type)             | Require use of button element with a valid type attribute.   |      |
 | [require-closing-tags](rules/require-closing-tags)           | Require closing tags.                                        | ⭐🔧 |
