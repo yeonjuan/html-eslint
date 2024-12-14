@@ -37,6 +37,7 @@ const noScriptStyleType = require("./no-script-style-type");
 const lowercase = require("./lowercase");
 const requireOpenGraphProtocol = require("./require-open-graph-protocol");
 const sortAttrs = require("./sort-attrs");
+const preferHttps = require("./prefer-https");
 
 module.exports = {
   "require-lang": requireLang,
@@ -78,4 +79,5 @@ module.exports = {
   lowercase: lowercase,
   "require-open-graph-protocol": requireOpenGraphProtocol,
   "sort-attrs": sortAttrs,
+  "prefer-https": preferHttps,
 };
