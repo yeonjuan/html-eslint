@@ -162,6 +162,14 @@ function isTag(node) {
 
 /**
  * @param {AnyNode} node
+ * @returns {node is ScriptTag}
+ */
+function isScript(node) {
+  return node.type === NODE_TYPES.ScriptTag;
+}
+
+/**
+ * @param {AnyNode} node
  * @returns {node is Comment}
  */
 function isComment(node) {
@@ -223,6 +231,7 @@ module.exports = {
   isComment,
   isText,
   isLine,
+  isScript,
   isOverlapWithTemplates,
   codeToLines,
   isRangesOverlap,
