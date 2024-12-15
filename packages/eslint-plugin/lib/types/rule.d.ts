@@ -1,5 +1,5 @@
 import eslint from "eslint";
-import { AST } from "./ast";
+import * as AST from "./ast";
 
 type PostFix<T, S extends string> = {
   [K in keyof T as `${K & string}${S}`]: T[K];
