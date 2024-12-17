@@ -13,6 +13,8 @@ const MESSAGE_IDS = {
 
 const INPUT_TAGS = new Set(["input", "textarea", "select"]);
 
+const LABEL_ATTRIBUTES = new Set(["id", "aria-labelledby", "aria-label"]);
+
 /**
  * @type {RuleModule}
  */
@@ -40,7 +42,7 @@ module.exports = {
 
         for (const attr of node.attributes) {
           if (
-            attr.key.value.toLowerCase() === "id" &&
+            LABEL_ATTRIBUTES.has(attr.key.value.toLowerCase()) &&
             attr.value &&
             attr.value.value
           ) {

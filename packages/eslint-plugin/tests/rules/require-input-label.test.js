@@ -8,6 +8,35 @@ ruleTester.run("require-input-label", rule, {
     {
       code: `<input id="foo"></input>`,
     },
+    {
+      code: `<textarea id="foo"></input>`,
+    },
+    {
+      code: `<input type="hidden"></input>`,
+    },
+    {
+      code: `<label>name: <input></input></label>`,
+    },
+    {
+      code: `<textarea aria-labelledby="foo" />`,
+    },
   ],
-  invalid: [],
+  invalid: [
+    {
+      code: `<input></input>`,
+      errors: [
+        {
+          messageId: "missingLabel",
+        },
+      ],
+    },
+    {
+      code: `<label>name: </label><input></input>`,
+      errors: [
+        {
+          messageId: "missingLabel",
+        },
+      ],
+    },
+  ],
 });
