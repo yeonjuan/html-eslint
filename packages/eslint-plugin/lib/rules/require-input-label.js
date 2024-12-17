@@ -5,7 +5,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
-const { findAttr } = require("./utils/node");
+const { findParent, isTag } = require("./utils/node");
 
 const MESSAGE_IDS = {
   MISSING: "missingLabel",
@@ -23,7 +23,7 @@ module.exports = {
     docs: {
       description: "Enforces the use of label for `<input>` tag",
       category: RULE_CATEGORY.ACCESSIBILITY,
-      recommended: true,
+      recommended: false,
     },
     fixable: null,
     schema: [],
@@ -38,17 +38,36 @@ module.exports = {
           return;
         }
 
-        const idAttr = findAttr(node, "id");
+        for (const attr of node.attributes) {
+          if (
+            attr.key.value.toLowerCase() === "id" &&
+            attr.value &&
+            attr.value.value
+          ) {
+            return;
+          }
 
-        if (idAttr && idAttr.value) {
+          if (
+            attr.key.value.toLowerCase() === "type" &&
+            attr.value &&
+            attr.value.value === "hidden"
+          ) {
+            return;
+          }
+        }
+
+        const label = findParent(node, (parent) => {
+          return isTag(parent) && parent.name.toLowerCase() === "label";
+        });
+
+        if (label) {
           return;
         }
 
-        const typeAttr = findAttr(node, "type");
-
-        if (typeAttr && typeAttr.value && typeAttr.value.value === "hidden") {
-          return;
-        }
+        context.report({
+          node,
+          messageId: "missingLabel",
+        });
       },
     });
   },
