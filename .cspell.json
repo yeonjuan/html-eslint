@@ -39,6 +39,7 @@
     "sourcecode",
     "espree",
     "nohtml",
-    "tmpl"
+    "tmpl",
+    "labelledby"
   ]
 }
