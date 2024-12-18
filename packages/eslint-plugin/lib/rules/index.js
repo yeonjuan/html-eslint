@@ -38,6 +38,7 @@ const lowercase = require("./lowercase");
 const requireOpenGraphProtocol = require("./require-open-graph-protocol");
 const sortAttrs = require("./sort-attrs");
 const preferHttps = require("./prefer-https");
+const requireInputLabel = require("./require-input-label");
 
 module.exports = {
   "require-lang": requireLang,
@@ -80,4 +81,5 @@ module.exports = {
   "require-open-graph-protocol": requireOpenGraphProtocol,
   "sort-attrs": sortAttrs,
   "prefer-https": preferHttps,
+  "require-input-label": requireInputLabel,
 };

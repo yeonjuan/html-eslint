@@ -203,6 +203,27 @@ function codeToLines(source) {
 }
 
 /**
+ * @param {Exclude<AnyNode, Line>} node
+ * @param {(node: AnyNode) => boolean} predicate
+ * @returns {null | AnyNode}
+ */
+function findParent(node, predicate) {
+  if (!node.parent) {
+    return null;
+  }
+  if (
+    node.type === "TaggedTemplateExpression" ||
+    node.type === "TemplateLiteral"
+  ) {
+    return null;
+  }
+  if (predicate(node.parent)) {
+    return node.parent;
+  }
+  return findParent(node.parent, predicate);
+}
+
+/**
  *
  * @param {AnyToken[]} tokens
  * @returns {((CommentContent | Text)['templates'][number])[]}
@@ -226,6 +247,7 @@ module.exports = {
   isNodeTokensOnSameLine,
   splitToLineNodes,
   getLocBetween,
+  findParent,
   isExpressionInTemplate,
   isTag,
   isComment,
