@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/require-input-label");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("require-input-label", rule, {
   valid: [
@@ -43,6 +44,24 @@ ruleTester.run("require-input-label", rule, {
     },
     {
       code: `<label>name: </label><input type="text">`,
+      errors: [
+        {
+          messageId: "missingLabel",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] require-input-label", rule, {
+  valid: [
+    {
+      code: `html\`<input id="foo">\``,
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`<input type="text">\``,
       errors: [
         {
           messageId: "missingLabel",
