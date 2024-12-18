@@ -23,7 +23,8 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Enforces the use of label for `<input>` tag",
+      description:
+        "Enforces use of label for form elements(`input`, `textarea`, `select`)",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
     },

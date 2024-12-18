@@ -1,6 +1,6 @@
 # require-input-label
 
-This rule enforces the presence of accessible labels for input elements such as `<input type="text">` and `<textarea>`.
+This rule enforces the presence of accessible labels for input elements such as `<input type="text">`, `<select>` and `<textarea>`.
 
 ## Why?
 
@@ -34,5 +34,3 @@ Examples of **correct** code for this rule:
 <label>name: <input></label>
 <textarea aria-labelledby="foo"></textarea>
 ```
-
-## Further REading
