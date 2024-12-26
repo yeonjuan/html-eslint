@@ -24,7 +24,7 @@ Examples of **incorrect** code for this rule:
 <form method="foo"></form>
 ```
 
-Excamples of **correct** code for this rule:
+Examples of **correct** code for this rule:
 
 ```html,correct
 <form method="post"></form>
