@@ -8,6 +8,7 @@ const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
+  MISSING_VALUE: "missingValue",
   UNEXPECTED: "unexpected",
 };
 
@@ -29,8 +30,11 @@ module.exports = {
     fixable: false,
     schema: [],
     messages: {
-      [MESSAGE_IDS.MISSING]: "Missing `method` attribute in <form>.",
-      [MESSAGE_IDS.UNEXPECTED]: "Unexpected `method`",
+      [MESSAGE_IDS.MISSING]: "The 'method' attribute is missing on the <form>.",
+      [MESSAGE_IDS.MISSING_VALUE]:
+        "The 'method' attribute value is missing on the <form>",
+      [MESSAGE_IDS.UNEXPECTED]:
+        "The 'method' attribute has an invalid value on the <form>.",
     },
   },
 
@@ -51,6 +55,17 @@ module.exports = {
         }
 
         if (!method.value) {
+          context.report({
+            node: node.openStart,
+            messageId: MESSAGE_IDS.MISSING_VALUE,
+          });
+          return;
+        }
+
+        if (
+          method.value.templates &&
+          method.value.templates.some((template) => template.isTemplate)
+        ) {
           return;
         }
 

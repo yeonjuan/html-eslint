@@ -7,6 +7,9 @@ const templateRuleTester = createRuleTester("espree");
 ruleTester.run("require-form-method", rule, {
   valid: [
     {
+      code: "<div></div>",
+    },
+    {
       code: '<form method="POST"></form>',
     },
     {
@@ -35,6 +38,14 @@ ruleTester.run("require-form-method", rule, {
       ],
     },
     {
+      code: "<form method></form>",
+      errors: [
+        {
+          messageId: "missingValue",
+        },
+      ],
+    },
+    {
       code: "<form method='other'></form>",
       errors: [
         {
@@ -46,6 +57,25 @@ ruleTester.run("require-form-method", rule, {
 });
 
 templateRuleTester.run("[template] require-form-method", rule, {
-  valid: [],
-  invalid: [],
+  valid: [
+    {
+      code: "html`<div></div>`",
+    },
+    {
+      code: "html`<form method='GET'></form>`",
+    },
+    {
+      code: 'html`<form method="${METHOD}"></form>`',
+    },
+  ],
+  invalid: [
+    {
+      code: "html`<form method='other'></form>`",
+      errors: [
+        {
+          messageId: "unexpected",
+        },
+      ],
+    },
+  ],
 });
