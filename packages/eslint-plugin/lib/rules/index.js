@@ -40,6 +40,7 @@ const sortAttrs = require("./sort-attrs");
 const preferHttps = require("./prefer-https");
 const requireInputLabel = require("./require-input-label");
 const requireFormMethod = require("./require-form-method");
+const noHeadingInsideButton = require("./no-heading-inside-button");
 
 module.exports = {
   "require-lang": requireLang,
@@ -78,6 +79,7 @@ module.exports = {
   "no-trailing-spaces": noTrailingSpaces,
   "no-restricted-attr-values": noRestrictedAttrValues,
   "no-script-style-type": noScriptStyleType,
+  "no-heading-inside-button": noHeadingInsideButton,
   lowercase: lowercase,
   "require-open-graph-protocol": requireOpenGraphProtocol,
   "require-form-method": requireFormMethod,
