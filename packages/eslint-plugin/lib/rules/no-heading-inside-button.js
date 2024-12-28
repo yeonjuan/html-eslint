@@ -3,11 +3,13 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findParent, isTag } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
+
+const HEADING_NAMES = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
 
 /**
  * @type {RuleModule}
@@ -18,7 +20,7 @@ module.exports = {
 
     docs: {
       description: "Disallows the use of heading elements inside <button>.",
-      category: RULE_CATEGORY.BEST_PRACTICE,
+      category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
     },
 
@@ -32,10 +34,17 @@ module.exports = {
   create(context) {
     return createVisitors(context, {
       Tag(node) {
-        const styleAttr = findAttr(node, "style");
-        if (styleAttr) {
+        if (!HEADING_NAMES.has(node.name.toLowerCase())) {
+          return;
+        }
+        const button = findParent(
+          node,
+          (parent) => isTag(parent) && parent.name.toLowerCase() === "button"
+        );
+
+        if (button) {
           context.report({
-            node: styleAttr,
+            node,
             messageId: MESSAGE_IDS.UNEXPECTED,
           });
         }
