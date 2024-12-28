@@ -22,7 +22,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Require `title` in `<frame>`, `<iframe>`",
+      description: "Require `method` attribute in `<form>`",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
     },

@@ -1,5 +1,7 @@
 # require-form-method
 
+This rule enforces to use a valid `method` attribute on the `<form>`.
+
 ## Why?
 
 The absence of the method attribute means the form will use the default `GET` method.
