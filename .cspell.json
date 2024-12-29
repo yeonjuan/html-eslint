@@ -40,6 +40,14 @@
     "espree",
     "nohtml",
     "tmpl",
-    "labelledby"
+    "labelledby",
+    "associationlist",
+    "associationlistitemkey",
+    "associationlistitemvalue",
+    "menuitemcheckbox",
+    "menuitemradio",
+    "spinbutton",
+    "treegrid",
+    "contentinfo"
   ]
 }
