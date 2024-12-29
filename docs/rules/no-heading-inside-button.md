@@ -1,5 +1,7 @@
 # no-heading-inside-button
 
+This rule disallows the use of heading elements inside `<button>`.
+
 ## Why?
 
 Assistive technologies, such as screen readers, interpret headings as navigational landmarks. Including headings inside buttons may cause unexpected behavior, making it harder for users to understand and navigate the interface.
