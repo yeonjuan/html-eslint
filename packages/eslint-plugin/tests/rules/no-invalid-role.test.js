@@ -7,7 +7,13 @@ const templateRuleTester = createRuleTester("espree");
 ruleTester.run("no-invalid-role", rule, {
   valid: [
     {
+      code: "<div></div>",
+    },
+    {
       code: '<div role="grid"></div>',
+    },
+    {
+      code: `<img role="presentation" alt="">`,
     },
   ],
   invalid: [
@@ -16,6 +22,14 @@ ruleTester.run("no-invalid-role", rule, {
       errors: [
         {
           messageId: "invalid",
+        },
+      ],
+    },
+    {
+      code: "<button role='presentation'></button>",
+      errors: [
+        {
+          messageId: "invalidPresentation",
         },
       ],
     },
@@ -33,7 +47,23 @@ templateRuleTester.run("[template] no-invalid-role", rule, {
       code: "html`<div role='foo'></div>`",
       errors: [
         {
-          messageId: "invalid",
+          message: "Unexpected use of invalid role 'foo'",
+        },
+      ],
+    },
+    {
+      code: "html`<button role='presentation'></button>`",
+      errors: [
+        {
+          message: "Unexpected use of presentation role on <button>",
+        },
+      ],
+    },
+    {
+      code: "html`<button role='none'></button>`",
+      errors: [
+        {
+          message: "Unexpected use of presentation role on <button>",
         },
       ],
     },

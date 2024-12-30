@@ -7,7 +7,13 @@ const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const MESSAGE_IDS = {
   INVALID: "invalid",
+  INVALID_PRESENTATION: "invalidPresentation",
 };
+
+/**
+ * Elements and role attribute constants are taken from ember-template-lint.
+ * https://github.com/ember-template-lint/ember-template-lint/blob/master/lib/rules/no-invalid-role.js
+ */
 
 // https://www.w3.org/TR/wai-aria/#document_structure_roles
 const DOCUMENT_STRUCTURE_ROLES = new Set([
@@ -127,6 +133,96 @@ const ALL_ROLES = new Set([
   ...WINDOW_ROLES,
 ]);
 
+const ELEMENTS_DISALLOWING_PRESENTATION_OR_NONE_ROLE = new Set([
+  "a",
+  "abbr",
+  "applet",
+  "area",
+  "audio",
+  "b",
+  "bdi",
+  "bdo",
+  "blockquote",
+  "br",
+  "button",
+  "caption",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "data",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "dir",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "form",
+  "hr",
+  "i",
+  "iframe",
+  "input",
+  "ins",
+  "kbd",
+  "label",
+  "legend",
+  "main",
+  "map",
+  "mark",
+  "menu",
+  "menuitem",
+  "meter",
+  "noembed",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "param",
+  "pre",
+  "progress",
+  "q",
+  "rb",
+  "rp",
+  "rt",
+  "rtc",
+  "ruby",
+  "s",
+  "samp",
+  "select",
+  "small",
+  "source",
+  "strong",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "tr",
+  "track",
+  "tt",
+  "u",
+  "ul",
+  "var",
+  "video",
+  "wbr",
+]);
+
 /**
  * @type {RuleModule}
  */
@@ -135,7 +231,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Disallow using invalid role",
+      description: "Disallows use of invalid role.",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
     },
@@ -143,7 +239,9 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.INVALID]: "TODO",
+      [MESSAGE_IDS.INVALID]: "Unexpected use of invalid role '{{role}}'",
+      [MESSAGE_IDS.INVALID_PRESENTATION]:
+        "Unexpected use of presentation role on <{{element}}>",
     },
   },
 
@@ -154,12 +252,33 @@ module.exports = {
         if (!role) {
           return;
         }
-        const roleValue = (role.value && role.value.value) || "";
+        const roleValue = (
+          (role.value && role.value.value) ||
+          ""
+        ).toLowerCase();
 
-        if (!ALL_ROLES.has(roleValue.toLowerCase())) {
+        if (
+          (roleValue === "presentation" || roleValue === "none") &&
+          ELEMENTS_DISALLOWING_PRESENTATION_OR_NONE_ROLE.has(
+            node.name.toLowerCase()
+          )
+        ) {
+          context.report({
+            node: role,
+            messageId: MESSAGE_IDS.INVALID_PRESENTATION,
+            data: {
+              element: node.name,
+            },
+          });
+        }
+
+        if (!ALL_ROLES.has(roleValue)) {
           context.report({
             node: role,
             messageId: MESSAGE_IDS.INVALID,
+            data: {
+              role: roleValue,
+            },
           });
         }
       },
