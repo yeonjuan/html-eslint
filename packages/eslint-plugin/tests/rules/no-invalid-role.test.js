@@ -26,6 +26,14 @@ ruleTester.run("no-invalid-role", rule, {
       ],
     },
     {
+      code: "<div role=''></div>",
+      errors: [
+        {
+          messageId: "invalid",
+        },
+      ],
+    },
+    {
       code: "<button role='presentation'></button>",
       errors: [
         {
