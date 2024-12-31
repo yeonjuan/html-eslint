@@ -232,7 +232,7 @@ module.exports = {
 
     docs: {
       description: "Disallows use of invalid role.",
-      category: RULE_CATEGORY.BEST_PRACTICE,
+      category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
     },
 
