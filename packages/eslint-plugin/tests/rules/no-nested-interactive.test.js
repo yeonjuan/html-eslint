@@ -70,6 +70,11 @@ templateRuleTester.run("[template] no-nested-interactive", rule, {
     {
       code: `html\`<button></button>\``,
     },
+    {
+      code: `
+html\`<button></button>\`;
+html\`<a href="foo"></a>\`;`,
+    },
   ],
   invalid: [
     {
