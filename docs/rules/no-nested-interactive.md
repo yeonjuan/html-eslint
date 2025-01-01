@@ -19,3 +19,18 @@ module.exports = {
 ```
 
 ## Rule Details
+
+Examples of **incorrect** code for this rule:
+
+```html,incorrect
+<button><iframe src="https:..."></iframe></button>
+
+<a href="/foo"> <button>Click Me</button> </a>
+```
+
+Examples of **correct** code for this rule:
+
+```html,correct
+<label> text: <input type="text"> </label>
+<div><button>click me</button></div>
+```

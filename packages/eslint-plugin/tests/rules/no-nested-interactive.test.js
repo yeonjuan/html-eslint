@@ -27,6 +27,9 @@ ruleTester.run("no-nested-interactive", rule, {
     {
       code: "<button><input type='hidden'> click </button>",
     },
+    {
+      code: "<label> text: <input type='text'></label>",
+    },
   ],
   invalid: [
     {
@@ -53,6 +56,17 @@ ruleTester.run("no-nested-interactive", rule, {
     },
     {
       code: "<button><img usemap='#vending'></button>",
+      errors: [
+        {
+          messageId: "unexpected",
+          data: {
+            tag: "button",
+          },
+        },
+      ],
+    },
+    {
+      code: "<button><iframe src='https:...'></iframe></button>",
       errors: [
         {
           messageId: "unexpected",

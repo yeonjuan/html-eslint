@@ -90,12 +90,20 @@ module.exports = {
           return;
         }
         if (interactiveStack.length) {
-          const parent = interactiveStack[interactiveStack.length - 1];
+          if (interactiveStack.length === 1) {
+            const parentLabel = interactiveStack.find(
+              (tag) => tag.name.toLowerCase() === "label"
+            );
+            if (parentLabel && node.name.toLowerCase() !== "label") {
+              return;
+            }
+          }
+
           context.report({
             node,
             messageId: MESSAGE_IDS.UNEXPECTED,
             data: {
-              tag: parent.name,
+              tag: interactiveStack[interactiveStack.length - 1].name,
             },
           });
         }
