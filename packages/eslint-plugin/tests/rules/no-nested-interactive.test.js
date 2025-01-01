@@ -102,5 +102,16 @@ html\`<a href="foo"></a>\`;`,
         },
       ],
     },
+    {
+      code: `html\`<a href="/foo">\${html\`<div></div>\`}<button>click</button></a>\``,
+      errors: [
+        {
+          messageId: "unexpected",
+          data: {
+            tag: "a",
+          },
+        },
+      ],
+    },
   ],
 });
