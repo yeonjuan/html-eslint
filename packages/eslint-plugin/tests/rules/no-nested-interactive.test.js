@@ -76,6 +76,28 @@ ruleTester.run("no-nested-interactive", rule, {
         },
       ],
     },
+    {
+      code: "<button><div></div><div><iframe src='https:...'></iframe></div></button>",
+      errors: [
+        {
+          messageId: "unexpected",
+          data: {
+            tag: "button",
+          },
+        },
+      ],
+    },
+    {
+      code: "<label><label>nesting label</label></label>",
+      errors: [
+        {
+          messageId: "unexpected",
+          data: {
+            tag: "label",
+          },
+        },
+      ],
+    },
   ],
 });
 
