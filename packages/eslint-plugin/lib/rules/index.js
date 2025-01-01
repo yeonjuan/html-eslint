@@ -42,6 +42,7 @@ const requireInputLabel = require("./require-input-label");
 const requireFormMethod = require("./require-form-method");
 const noHeadingInsideButton = require("./no-heading-inside-button");
 const noInvalidRole = require("./no-invalid-role");
+const noNestedInteractive = require("./no-nested-interactive");
 
 module.exports = {
   "require-lang": requireLang,
@@ -82,6 +83,7 @@ module.exports = {
   "no-script-style-type": noScriptStyleType,
   "no-heading-inside-button": noHeadingInsideButton,
   "no-invalid-role": noInvalidRole,
+  "no-nested-interactive": noNestedInteractive,
   lowercase: lowercase,
   "require-open-graph-protocol": requireOpenGraphProtocol,
   "require-form-method": requireFormMethod,
