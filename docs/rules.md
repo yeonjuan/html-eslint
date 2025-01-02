@@ -13,6 +13,7 @@
 | [no-duplicate-id](rules/no-duplicate-id)                     | Disallow to use duplicate id                                 | ⭐   |
 | [no-extra-spacing-text](rules/no-extra-spacing-text)         | Disallow unnecessary consecutive spaces                      | 🔧   |
 | [no-inline-styles](rules/no-inline-styles)                   | Disallow using inline style                                  |      |
+| [no-nested-interactive](rules/no-nested-interactive)         | Disallows nested interactive elements                        |      |
 | [no-obsolete-tags](rules/no-obsolete-tags)                   | Disallow to use obsolete elements in HTML5                   | ⭐   |
 | [no-restricted-attr-values](rules/no-restricted-attr-values) | Disallow specified attributes                                |      |
 | [no-restricted-attrs](rules/no-restricted-attrs)             | Disallow specified attributes                                |      |
