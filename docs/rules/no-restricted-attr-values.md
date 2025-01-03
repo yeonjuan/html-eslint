@@ -9,7 +9,7 @@ module.exports = {
   rules: {
     '@html-eslint/no-restricted-attr-values': ["error",  {
     attrPatterns: ["class"],
-    attrValuePatterns: ["data-.*"]
+    attrValuePatterns: ["data-.*"],
     message: "\'data-x\' is restricted."
   }]
   }
@@ -35,12 +35,12 @@ module.exports = {
       "error",
       {
         attrPatterns: ["class", "alt"],
-        attrValuePatterns: ["data-.*"]
+        attrValuePatterns: ["data-.*"],
         message: "\'data-x\' is restricted."
       },
       {
         attrPatterns: [".*"],
-        attrValuePatterns: ["^foo$"]
+        attrValuePatterns: ["^foo$"],
         message: "\'foo\' is restricted."
       }
     ],
