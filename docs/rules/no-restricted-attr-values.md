@@ -30,21 +30,21 @@ This rule takes an array of option objects, where the `attrPatterns` and `attrVa
 
 ```js
 module.exports = {
-  "rules": {
+  rules: {
     "@html-eslint/no-restricted-attrs": [
       "error",
       {
         attrPatterns: ["class", "alt"],
         attrValuePatterns: ["data-.*"],
-        message: "\'data-x\' is restricted."
+        message: "'data-x' is restricted.",
       },
       {
         attrPatterns: [".*"],
         attrValuePatterns: ["^foo$"],
-        message: "\'foo\' is restricted."
-      }
+        message: "'foo' is restricted.",
+      },
     ],
-  }
+  },
 };
 ```
 
