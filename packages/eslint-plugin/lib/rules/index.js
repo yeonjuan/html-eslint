@@ -43,6 +43,7 @@ const requireFormMethod = require("./require-form-method");
 const noHeadingInsideButton = require("./no-heading-inside-button");
 const noInvalidRole = require("./no-invalid-role");
 const noNestedInteractive = require("./no-nested-interactive");
+const maxElementDepth = require("./max-element-depth");
 
 module.exports = {
   "require-lang": requireLang,
@@ -90,4 +91,5 @@ module.exports = {
   "sort-attrs": sortAttrs,
   "prefer-https": preferHttps,
   "require-input-label": requireInputLabel,
+  "max-element-depth": maxElementDepth,
 };
