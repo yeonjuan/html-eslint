@@ -32,16 +32,24 @@ This rule has an object option:
 }]
 ```
 
-Examples of **incorrect** code for this rule:
+Examples of **incorrect** code for this rule with the `{"max": 2}` option:
 
 ```html,incorrect
-
+<div>
+    <div>
+        <div>
+        </div>
+    </div>
+</div>
 ```
 
-Examples of **correct** code for this rule:
+Examples of **correct** code for this rule with the `{"max": 2}` option:
 
 ```html,correct
-
+<div>
+    <div>
+    </div>
+</div>
 ```
 
 ## Further Reading

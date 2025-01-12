@@ -32,7 +32,7 @@ module.exports = {
         properties: {
           max: {
             type: "integer",
-            minimum: 0,
+            minimum: 1,
             default: 32,
           },
         },
@@ -47,6 +47,50 @@ module.exports = {
   },
 
   create(context) {
-    return createVisitors(context, {});
+    const maxDepth =
+      context.options &&
+      context.options[0] &&
+      typeof context.options[0].max === "number"
+        ? context.options[0].max
+        : 32;
+
+    let depth = 0;
+
+    function resetDepth() {
+      depth = 0;
+    }
+
+    /**
+     *
+     * @param {Tag | ScriptTag | StyleTag} node
+     */
+    function increaseDepth(node) {
+      depth++;
+      if (depth > maxDepth) {
+        context.report({
+          node,
+          messageId: MESSAGE_IDS.MAX_DEPTH_EXCEEDED,
+          data: {
+            needed: maxDepth,
+            found: String(depth),
+          },
+        });
+      }
+    }
+
+    function decreaseDepth() {
+      depth--;
+    }
+
+    return createVisitors(context, {
+      Document: resetDepth,
+      "Document:exit": resetDepth,
+      Tag: increaseDepth,
+      "Tag:exit": decreaseDepth,
+      ScriptTag: increaseDepth,
+      "ScriptTag:exit": decreaseDepth,
+      StyleTag: increaseDepth,
+      "StyleTag:exit": decreaseDepth,
+    });
   },
 };
