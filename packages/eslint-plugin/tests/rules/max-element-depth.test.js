@@ -190,5 +190,49 @@ templateRuleTester.run("[template] max-element-depth", rule, {
         },
       ],
     },
+    {
+      code: `
+    html\`
+<div>
+    <div>
+        \${html\`<div><div><div></div></div></div>\`}
+    </div>
+</div>\`
+            `,
+      options: [
+        {
+          max: 2,
+        },
+      ],
+      errors: [
+        {
+          message:
+            "Expected the depth of nested elements to be <= 2, but found 3",
+        },
+      ],
+    },
+    {
+      code: `
+      html\`
+  <div>
+      <div>
+          \${html\`<div><div></div></div>\`}
+          \${html\`<div><div><div></div></div></div>\`}
+          \${html\`<div><div></div></div>\`}
+      </div>
+  </div>\`
+              `,
+      options: [
+        {
+          max: 2,
+        },
+      ],
+      errors: [
+        {
+          message:
+            "Expected the depth of nested elements to be <= 2, but found 3",
+        },
+      ],
+    },
   ],
 });
