@@ -64,6 +64,7 @@
 | [id-naming-convention](rules/id-naming-convention)       | Enforce consistent naming id attributes                           |      |
 | [indent](rules/indent)                                   | Enforce consistent indentation                                    | ⭐🔧 |
 | [lowercase](rules/lowercase)                             | Enforce to use lowercase for tag and attribute names.             | 🔧   |
+| [max-element-depth](rules/max-element-depth)             | Enforce element maximum depth                                     |      |
 | [no-extra-spacing-attrs](rules/no-extra-spacing-attrs)   | Disallow an extra spacing around attributes                       | ⭐🔧 |
 | [no-multiple-empty-lines](rules/no-multiple-empty-lines) | Disallow multiple empty lines                                     | 🔧   |
 | [no-trailing-spaces](rules/no-trailing-spaces)           | Disallow trailing whitespace at the end of lines                  | 🔧   |
