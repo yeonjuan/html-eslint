@@ -42,13 +42,13 @@ When `priority` is defined, the specified attributes are sorted to the front wit
 
 The default value of `priority` is `["id", "type", "class", "style"]`.
 
-Examples of **incorrect** code for this rule with the default options (`{ "priority": ["id", "type", "class", "style] }`).
+Examples of **incorrect** code for this rule with the default options (`{ "priority": ["id", "type", "class", "style"] }`).
 
 ```html,incorrect
 <button type="submit" id="foo" style="background:red" class="bar"></button>
 ```
 
-Examples of **correct** code for this rule with the default options (`{ "priority": ["id", "type", "class", "style] }`).
+Examples of **correct** code for this rule with the default options (`{ "priority": ["id", "type", "class", "style"] }`).
 
 ```html,correct
 <button id="foo" type="submit" class="bar" style="background:red"></button>
