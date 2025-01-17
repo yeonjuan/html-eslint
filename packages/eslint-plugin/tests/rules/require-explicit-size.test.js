@@ -6,17 +6,31 @@ const ruleTester = createRuleTester();
 ruleTester.run("require-explicit-size", rule, {
   valid: [
     {
-      code: `
-<img width="200px" height="300px">
-`,
+      code: "<div></div>",
+    },
+    {
+      code: `<img width="200px" height="300px">`,
+    },
+    {
+      code: `<img class="size" width="200px">`,
+      options: [
+        {
+          allowClass: ["size"],
+        },
+      ],
+    },
+    {
+      code: `<img id="foo">`,
+      options: [
+        {
+          allowClass: ["foo"],
+        },
+      ],
     },
   ],
   invalid: [
     {
-      code: `
-  <img width="200px">
-  `,
-
+      code: `<img width="200px">`,
       errors: [
         {
           messageId: "missingHeight",
@@ -24,10 +38,7 @@ ruleTester.run("require-explicit-size", rule, {
       ],
     },
     {
-      code: `
-    <img height="200px">
-    `,
-
+      code: `<img height="200px">`,
       errors: [
         {
           messageId: "missingWidth",
@@ -35,13 +46,23 @@ ruleTester.run("require-explicit-size", rule, {
       ],
     },
     {
-      code: `
-      <img width="200px">
-      `,
-
+      code: `<img width="200px">`,
       errors: [
         {
           messageId: "missingHeight",
+        },
+      ],
+    },
+    {
+      code: `<img class="foo" width="200px">`,
+      errors: [
+        {
+          messageId: "missingHeight",
+        },
+      ],
+      options: [
+        {
+          allowClass: ["size"],
         },
       ],
     },
