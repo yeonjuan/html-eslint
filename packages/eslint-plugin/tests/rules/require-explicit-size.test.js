@@ -23,7 +23,7 @@ ruleTester.run("require-explicit-size", rule, {
       code: `<img id="foo">`,
       options: [
         {
-          allowClass: ["foo"],
+          allowId: ["foo"],
         },
       ],
     },
