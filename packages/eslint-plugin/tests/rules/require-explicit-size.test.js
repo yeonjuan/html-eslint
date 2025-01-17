@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/require-explicit-size");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("require-explicit-size", rule, {
   valid: [
@@ -63,6 +64,43 @@ ruleTester.run("require-explicit-size", rule, {
       options: [
         {
           allowClass: ["size"],
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] require-explicit-size", rule, {
+  valid: [
+    {
+      code: "html`<div></div>`",
+    },
+    {
+      code: 'html`<img width="200px" height="200px">`',
+    },
+    {
+      code: 'html`<img width="200px" class="size">`',
+      options: [
+        {
+          allowClass: ["size"],
+        },
+      ],
+    },
+    {
+      code: 'html`<img id="size">`',
+      options: [
+        {
+          allowId: ["size"],
+        },
+      ],
+    },
+  ],
+  invalid: [
+    {
+      code: `html\`<img width="200px">\``,
+      errors: [
+        {
+          messageId: "missingHeight",
         },
       ],
     },

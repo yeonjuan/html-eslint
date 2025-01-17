@@ -6,6 +6,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   MISSING_HEIGHT: "missingHeight",
@@ -67,7 +68,7 @@ module.exports = {
 
     const allowClassSet = new Set(allowClass);
     const allowIdSet = new Set(allowId);
-    return {
+    return createVisitors(context, {
       Tag(node) {
         if (
           !TARGET_ELEMENTS.some(
@@ -116,6 +117,6 @@ module.exports = {
           });
         }
       },
-    };
+    });
   },
 };
