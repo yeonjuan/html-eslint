@@ -380,8 +380,8 @@ function createTests() {
 </style>
 <script>
 </script>
-        `
-      }
+        `,
+      },
     ],
     invalid: [
       {
@@ -1075,7 +1075,7 @@ id="bar"
 </script>
         `,
         errors: wrongIndentErrors(2),
-      }
+      },
     ],
   };
 }
