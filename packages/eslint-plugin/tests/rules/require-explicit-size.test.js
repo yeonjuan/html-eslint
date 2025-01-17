@@ -13,6 +13,9 @@ ruleTester.run("require-explicit-size", rule, {
       code: `<img width="200px" height="300px">`,
     },
     {
+      code: `<iframe width="200px" height="300px">`,
+    },
+    {
       code: `<img class="size" width="200px">`,
       options: [
         {
@@ -51,6 +54,17 @@ ruleTester.run("require-explicit-size", rule, {
       errors: [
         {
           messageId: "missingHeight",
+        },
+      ],
+    },
+    {
+      code: `<iframe></iframe>`,
+      errors: [
+        {
+          messageId: "missingHeight",
+        },
+        {
+          messageId: "missingWidth",
         },
       ],
     },
@@ -98,6 +112,14 @@ templateRuleTester.run("[template] require-explicit-size", rule, {
   invalid: [
     {
       code: `html\`<img width="200px">\``,
+      errors: [
+        {
+          messageId: "missingHeight",
+        },
+      ],
+    },
+    {
+      code: `html\`<iframe width="200px">\``,
       errors: [
         {
           messageId: "missingHeight",
