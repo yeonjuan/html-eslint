@@ -374,6 +374,14 @@ function createTests() {
           },
         ],
       },
+      {
+        code: `
+<style>
+</style>
+<script>
+</script>
+        `
+      }
     ],
     invalid: [
       {
@@ -1053,6 +1061,21 @@ id="bar"
           },
         ],
       },
+      {
+        code: `
+<style>
+   </style>
+<script>
+  </script>
+        `,
+        output: `
+<style>
+</style>
+<script>
+</script>
+        `,
+        errors: wrongIndentErrors(2),
+      }
     ],
   };
 }

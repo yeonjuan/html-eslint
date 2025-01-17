@@ -271,6 +271,7 @@ module.exports = {
         },
         OpenScriptTagStart: checkIndent,
         OpenScriptTagEnd: checkIndent,
+        CloseScriptTag: checkIndent,
         StyleTag(node) {
           indentLevel.indent(node);
         },
@@ -279,6 +280,7 @@ module.exports = {
         },
         OpenStyleTagStart: checkIndent,
         OpenStyleTagEnd: checkIndent,
+        CloseStyleTag: checkIndent,
         OpenTagStart: checkIndent,
         OpenTagEnd(node) {
           checkIndent(node);
