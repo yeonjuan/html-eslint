@@ -7,25 +7,26 @@
 
 ## Best Practice
 
-| Rule                                                         | Description                                                  |      |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ---- |
-| [no-duplicate-attrs](rules/no-duplicate-attrs)               | Disallow to use duplicate attributes                         | ⭐   |
-| [no-duplicate-id](rules/no-duplicate-id)                     | Disallow to use duplicate id                                 | ⭐   |
-| [no-extra-spacing-text](rules/no-extra-spacing-text)         | Disallow unnecessary consecutive spaces                      | 🔧   |
-| [no-inline-styles](rules/no-inline-styles)                   | Disallow using inline style                                  |      |
-| [no-nested-interactive](rules/no-nested-interactive)         | Disallows nested interactive elements                        |      |
-| [no-obsolete-tags](rules/no-obsolete-tags)                   | Disallow to use obsolete elements in HTML5                   | ⭐   |
-| [no-restricted-attr-values](rules/no-restricted-attr-values) | Disallow specified attributes                                |      |
-| [no-restricted-attrs](rules/no-restricted-attrs)             | Disallow specified attributes                                |      |
-| [no-script-style-type](rules/no-script-style-type)           | Enforce to omit type attributes for style sheets and scripts | 🔧   |
-| [no-target-blank](rules/no-target-blank)                     | Disallow usage of unsafe `target='_blank'`                   |      |
-| [prefer-https](rules/prefer-https)                           | Prefer to use HTTPS for embedded resources                   |      |
-| [require-attrs](rules/require-attrs)                         | Require specified attributes                                 |      |
-| [require-button-type](rules/require-button-type)             | Require use of button element with a valid type attribute.   |      |
-| [require-closing-tags](rules/require-closing-tags)           | Require closing tags.                                        | ⭐🔧 |
-| [require-doctype](rules/require-doctype)                     | Require `<!DOCTYPE HTML>` in html,                           | ⭐🔧 |
-| [require-li-container](rules/require-li-container)           | Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.          | ⭐   |
-| [require-meta-charset](rules/require-meta-charset)           | Enforce to use `<meta charset="...">` in `<head>`            |      |
+| Rule                                                         | Description                                                                                    |      |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- | ---- |
+| [no-duplicate-attrs](rules/no-duplicate-attrs)               | Disallow to use duplicate attributes                                                           | ⭐   |
+| [no-duplicate-id](rules/no-duplicate-id)                     | Disallow to use duplicate id                                                                   | ⭐   |
+| [no-extra-spacing-text](rules/no-extra-spacing-text)         | Disallow unnecessary consecutive spaces                                                        | 🔧   |
+| [no-inline-styles](rules/no-inline-styles)                   | Disallow using inline style                                                                    |      |
+| [no-nested-interactive](rules/no-nested-interactive)         | Disallows nested interactive elements                                                          |      |
+| [no-obsolete-tags](rules/no-obsolete-tags)                   | Disallow to use obsolete elements in HTML5                                                     | ⭐   |
+| [no-restricted-attr-values](rules/no-restricted-attr-values) | Disallow specified attributes                                                                  |      |
+| [no-restricted-attrs](rules/no-restricted-attrs)             | Disallow specified attributes                                                                  |      |
+| [no-script-style-type](rules/no-script-style-type)           | Enforce to omit type attributes for style sheets and scripts                                   | 🔧   |
+| [no-target-blank](rules/no-target-blank)                     | Disallow usage of unsafe `target='_blank'`                                                     |      |
+| [prefer-https](rules/prefer-https)                           | Prefer to use HTTPS for embedded resources                                                     |      |
+| [require-attrs](rules/require-attrs)                         | Require specified attributes                                                                   |      |
+| [require-button-type](rules/require-button-type)             | Require use of button element with a valid type attribute.                                     |      |
+| [require-closing-tags](rules/require-closing-tags)           | Require closing tags.                                                                          | ⭐🔧 |
+| [require-doctype](rules/require-doctype)                     | Require `<!DOCTYPE HTML>` in html,                                                             | ⭐🔧 |
+| [require-explicit-size](rules/require-explicit-size)         | Enforces that some elements (img, iframe) have explicitly defined width and height attributes. |      |
+| [require-li-container](rules/require-li-container)           | Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.                                            | ⭐   |
+| [require-meta-charset](rules/require-meta-charset)           | Enforce to use `<meta charset="...">` in `<head>`                                              |      |
 
 ## SEO
 
