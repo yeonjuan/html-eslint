@@ -124,6 +124,9 @@ templateRuleTester.run("[template] require-explicit-size", rule, {
         },
       ],
     },
+    {
+      code: "html`<img width=${width} height=${height}>`",
+    },
   ],
   invalid: [
     {
