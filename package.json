@@ -17,7 +17,8 @@
     "check:spell": "cspell --config .cspell.json \"**/*.{js,ts,tsx,md,html}\" --quiet",
     "check": "yarn test && yarn check:format && yarn check:spell && yarn check:ts",
     "publish:website": "yarn workspace website deploy",
-    "prepare": "husky"
+    "prepare": "husky",
+    "new-rule": "node ./tools/add-new-rule.js"
   },
   "author": "yeonjuan",
   "license": "MIT",

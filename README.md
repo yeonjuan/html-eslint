@@ -35,6 +35,7 @@
    - [Editor Configuration](https://html-eslint.org/docs/getting-started#editor-configuration)
 1. [Rules](https://html-eslint.org/docs/rules)
 1. [Playground](https://html-eslint.org/playground)
+1. [Developer Guide](https://html-eslint.org/developer-guide.md)
 1. [License](#License)
 
 ## Lint JavaScript inside HTML
