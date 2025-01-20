@@ -60,7 +60,9 @@ function addNewRule(argv) {
   );
   const indexJs = fs.readFileSync(indexJsPath, "utf-8");
   const [first, ...rest] = ruleName.split("-");
-  const camelCase = `${first}${rest.map((r) => r[0].toUpperCase() + r.slice(1)).join("")}`;
+  const camelCase = `${first}${rest
+    .map((r) => r[0].toUpperCase() + r.slice(1))
+    .join("")}`;
 
   if (!indexJs.includes(camelCase)) {
     console.log(`> Update index.js (${indexJsPath})`);
