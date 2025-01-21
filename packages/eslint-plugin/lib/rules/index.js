@@ -45,6 +45,8 @@ const noInvalidRole = require("./no-invalid-role");
 const noNestedInteractive = require("./no-nested-interactive");
 const maxElementDepth = require("./max-element-depth");
 const requireExplicitSize = require("./require-explicit-size");
+// import new rule here ↑
+// DO NOT REMOVE THIS COMMENT
 
 module.exports = {
   "require-lang": requireLang,
@@ -94,4 +96,6 @@ module.exports = {
   "require-input-label": requireInputLabel,
   "max-element-depth": maxElementDepth,
   "require-explicit-size": requireExplicitSize,
+  // export new rule here ↑
+  // DO NOT REMOVE THIS COMMENT
 };
