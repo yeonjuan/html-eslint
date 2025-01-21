@@ -1269,7 +1269,7 @@ __metadata:
     eslint-plugin-node: "npm:^11.1.0"
     husky: "npm:^9.1.4"
     jest: "npm:^29.7.0"
-    lerna: "npm:^8.1.8"
+    lerna: "npm:^8.1.9"
     prettier: "npm:^2.4.1"
     svgo: "npm:^3"
     turbo: "npm:^2.0.11"
@@ -10311,7 +10311,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lerna@npm:^8.1.8":
+"lerna@npm:^8.1.9":
   version: 8.1.9
   resolution: "lerna@npm:8.1.9"
   dependencies:
