@@ -15,6 +15,9 @@ ruleTester.run("element-newline", rule, {
 `,
     },
     {
+      code: "<body>\r\n<div></div>\r\n test\r\n</body>",
+    },
+    {
       code: "<html>\r\n<body>\r\n</body>\r\n</html>",
     },
     {
@@ -51,6 +54,14 @@ ruleTester.run("element-newline", rule, {
 <span><a></a></span>
 </div>
 `,
+      options: [
+        {
+          skip: ["div"],
+        },
+      ],
+    },
+    {
+      code: "<div>\r\n<span><a></a></span>\r\n</div>",
       options: [
         {
           skip: ["div"],
