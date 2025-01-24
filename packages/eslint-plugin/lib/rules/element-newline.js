@@ -246,14 +246,14 @@ module.exports = {
      * @param {NewlineNode} node
      */
     function isNotNewlineEnd(node) {
-      return node.type !== `Text` || /\n\s*$/.test(node.value) === false;
+      return node.type !== `Text` || /(\n|\r\n)\s*$/.test(node.value) === false;
     }
 
     /**
      * @param {NewlineNode} node
      */
     function isNotNewlineStart(node) {
-      return node.type !== `Text` || /^\n/.test(node.value) === false;
+      return node.type !== `Text` || /^(\n|\r\n)/.test(node.value) === false;
     }
 
     /**
