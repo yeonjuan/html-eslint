@@ -1,17 +1,30 @@
 /**
- * @typedef {import("./types").ProgramNode} ProgramNode
+ * @typedef {import("./types").ParserOptions} ParserOptions
  */
 const { parse } = require("es-html-parser");
 const { visitorKeys } = require("./visitor-keys");
 const { traverse } = require("./traverse");
 const { NODE_TYPES } = require("./node-types");
+const templateSyntaxParser = require("@html-eslint/template-syntax-parser");
 
 /**
  * @param {string} code
- * @returns {ProgramNode}
+ * @param {ParserOptions | undefined} parserOptions
+ * @returns {any}
  */
-module.exports.parseForESLint = function parseForESLint(code) {
-  const { ast, tokens } = parse(code);
+module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
+  const options =
+    (parserOptions &&
+      parserOptions.templateEngineSyntax && {
+        templateRanges: templateSyntaxParser
+          .parse(code, {
+            syntax: parserOptions.templateEngineSyntax,
+          })
+          .syntax.map((s) => s.range),
+      }) ||
+    undefined;
+
+  const { ast, tokens } = parse(code, options);
 
   const programNode = {
     type: "Program",

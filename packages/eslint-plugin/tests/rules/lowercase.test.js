@@ -44,6 +44,14 @@ ruleTester.run("lowercase", rule, {
       </rect>
     </svg>`,
     },
+    {
+      code: "<div {{ID}}></div>",
+      parserOptions: {
+        templateEngineSyntax: {
+          "{{": "}}",
+        },
+      },
+    },
   ],
   invalid: [
     {

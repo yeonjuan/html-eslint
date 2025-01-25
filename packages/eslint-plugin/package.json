@@ -45,13 +45,15 @@
     "accessibility"
   ],
   "dependencies": {
-    "@html-eslint/template-parser": "^0.33.0"
+    "@html-eslint/template-parser": "^0.33.0",
+    "@html-eslint/template-syntax-parser": "^0.33.0"
   },
   "devDependencies": {
     "@html-eslint/parser": "^0.33.0",
     "@types/eslint": "^9.6.1",
     "@types/estree": "^0.0.47",
     "es-html-parser": "^1.0.0-alpha.4",
+    "eslint": "^8",
     "espree": "^10.3.0",
     "typescript": "^5.7.2"
   }

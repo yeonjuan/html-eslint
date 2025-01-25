@@ -9,6 +9,7 @@ const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const SVG_CAMEL_CASE_ATTRIBUTES = require("../constants/svg-camel-case-attributes");
 const { createVisitors } = require("./utils/visitors");
+const { hasTemplate } = require("./utils/node");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -100,6 +101,9 @@ module.exports = {
       if (node.attributes && node.attributes.length) {
         node.attributes.forEach((attribute) => {
           if (isAllowedAttributeKey(attribute.key.value)) {
+            return;
+          }
+          if (hasTemplate(attribute.key)) {
             return;
           }
           if (attribute.key.value !== attribute.key.value.toLowerCase()) {

@@ -9,6 +9,7 @@
  * @typedef { import("../../types").Comment } Comment
  * @typedef { import("../../types").AnyNode } AnyNode
  * @typedef { import("../../types").AttributeValue } AttributeValue
+ * @typedef { import("../../types").AttributeKey } AttributeKey
  * @typedef { import("eslint").AST.Range } Range
  * @typedef { import("eslint").AST.SourceLocation } SourceLocation
  * @typedef { import("es-html-parser").AnyToken } AnyToken
@@ -65,6 +66,14 @@ function isOverlapWithTemplates(templates, range) {
   return templates
     .filter((template) => template.isTemplate)
     .some((template) => isRangesOverlap(template.range, range));
+}
+
+/**
+ * @param {AttributeKey} node
+ * @returns {boolean}
+ */
+function hasTemplate(node) {
+  return node.templates.some((template) => template.isTemplate);
 }
 
 /**
@@ -258,4 +267,5 @@ module.exports = {
   codeToLines,
   isRangesOverlap,
   getTemplateTokens,
+  hasTemplate,
 };
