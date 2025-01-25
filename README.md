@@ -2,7 +2,7 @@
 
 <p align="center">
  <a href="https://html-eslint.org">
-    <img src="packages/website/src/assets/logo.png" alt="Logo" width="90" height="90">
+    <img src="packages/website/src/assets/logo_180x180.png" alt="Logo" width="90" height="90">
   </a>
    <p align="center">
   Monorepo for ESLint plugin which supports linting HTML(HyperText Markup Language) with ESLint.
