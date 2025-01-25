@@ -185,7 +185,9 @@ module.exports = class Parser {
         this.syntaxStack.push(syntax);
       } else {
         throw new Error(
-          `Expecting "${this.getPossibleCloseValueOf(top)}", but found "${syntax.value}" at (${syntax.range[0]}, ${syntax.range[1]}).`
+          `Expecting "${this.getPossibleCloseValueOf(top)}", but found "${
+            syntax.value
+          }" at (${syntax.range[0]}, ${syntax.range[1]}).`
         );
       }
     } else if (syntax.type === "close") {
