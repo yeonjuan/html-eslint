@@ -5,7 +5,7 @@
  * @typedef { import("../types").Text } Text
  */
 
-const { hasTemplate } = require("../rules/utils/node");
+const { hasTemplate } = require("./utils/node");
 const { RULE_CATEGORY } = require("../constants");
 const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
@@ -63,16 +63,6 @@ module.exports = {
     function compare(attrA, attrB) {
       const keyA = attrA.key.value;
       const keyB = attrB.key.value;
-      const keyAHasTemplate = hasTemplate(attrA.key);
-      const keyBHasTemplate = hasTemplate(attrB.key);
-
-      if (keyAHasTemplate && keyBHasTemplate) {
-        return 0;
-      } else if (keyAHasTemplate) {
-        return 1;
-      } else if (keyBHasTemplate) {
-        return -1;
-      }
 
       const keyAReservedValue = priority.indexOf(keyA);
       const keyBReservedValue = priority.indexOf(keyB);
