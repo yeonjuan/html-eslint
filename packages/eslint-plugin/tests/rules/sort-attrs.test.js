@@ -229,6 +229,41 @@ ruleTester.run("sort-attrs", rule, {
         },
       ],
     },
+    {
+      code: `
+<button 
+  style="color:black"
+  id="nice"
+  <% if current_user.admin? %>
+  data-x="1"
+  class="btn-admin"
+  <% end %>
+  >
+</button>
+      `,
+      output: `
+<button 
+  id="nice"
+  style="color:black"
+  <% if current_user.admin? %>
+  class="btn-admin"
+  data-x="1"
+  <% end %>
+  >
+</button>
+      `,
+      parserOptions: {
+        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.ERB,
+      },
+      errors: [
+        {
+          messageId: "unsorted",
+        },
+        {
+          messageId: "unsorted",
+        },
+      ],
+    },
   ],
 });
 
