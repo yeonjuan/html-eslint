@@ -34,6 +34,14 @@ describe("basic", () => {
         [22, 33],
       ],
     ],
+    [
+      "<div>{{ {{ }} }}",
+      {
+        syntax: HANDLEBAR.syntax,
+        skipRanges: [[8, 13]],
+      },
+      [[5, 16]],
+    ],
   ])("parse(%s, %o)", (code, config, expected) => {
     expect(parse(code, config).syntax.map((s) => s.range)).toStrictEqual(
       expected
