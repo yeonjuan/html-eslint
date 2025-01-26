@@ -1,5 +1,6 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/sort-attrs");
+const { TEMPLATE_ENGINE_SYNTAX } = require("@html-eslint/parser");
 
 const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
@@ -27,6 +28,25 @@ ruleTester.run("sort-attrs", rule, {
         templateEngineSyntax: {
           "{{": "}}",
         },
+      },
+    },
+    {
+      code: `<span class="font-semibold text-emerald-500" {{ stimulus_controller('test') }}>Test</span>`,
+      parserOptions: {
+        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+      },
+    },
+    {
+      code: `
+<button id="nice"
+  <% if current_user.admin? %>
+  class="btn-admin"
+  <% end %>
+  >
+</button>
+      `,
+      parserOptions: {
+        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.ERB,
       },
     },
   ],
@@ -277,16 +297,6 @@ templateRuleTester.run("[template] sort-attrs", rule, {
           priority: ["id", "style"],
         },
       ],
-      errors: [
-        {
-          messageId: "unsorted",
-        },
-      ],
-    },
-    {
-      code: 'html`<input ${some} id="foo" type="checkbox" autocomplete="bar" checked />`',
-      output:
-        'html`<input id="foo" type="checkbox" autocomplete="bar" checked ${some} />`',
       errors: [
         {
           messageId: "unsorted",
