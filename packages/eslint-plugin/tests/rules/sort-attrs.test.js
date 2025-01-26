@@ -21,6 +21,14 @@ ruleTester.run("sort-attrs", rule, {
     {
       code: '<style type="text/css" media="all and (max-width: 500px)"',
     },
+    {
+      code: `<span class="font-semibold text-emerald-500" {{ stimulus_controller('test') }}>Test</span>`,
+      parserOptions: {
+        templateEngineSyntax: {
+          "{{": "}}",
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -278,7 +286,7 @@ templateRuleTester.run("[template] sort-attrs", rule, {
     {
       code: 'html`<input ${some} id="foo" type="checkbox" autocomplete="bar" checked />`',
       output:
-        'html`<input id="foo" type="checkbox" ${some} autocomplete="bar" checked />`',
+        'html`<input id="foo" type="checkbox" autocomplete="bar" checked ${some} />`',
       errors: [
         {
           messageId: "unsorted",

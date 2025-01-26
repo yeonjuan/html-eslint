@@ -5,7 +5,9 @@
  * @typedef { import("../types").Text } Text
  */
 
+const { hasTemplate } = require("../rules/utils/node");
 const { RULE_CATEGORY } = require("../constants");
+const { stableSort } = require("./utils/array");
 const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
 
@@ -62,6 +64,17 @@ module.exports = {
     function compare(attrA, attrB) {
       const keyA = attrA.key.value;
       const keyB = attrB.key.value;
+      const keyAHasTemplate = hasTemplate(attrA.key);
+      const keyBHasTemplate = hasTemplate(attrB.key);
+
+      if (keyAHasTemplate && keyBHasTemplate) {
+        return 0;
+      } else if (keyAHasTemplate) {
+        return 1;
+      } else if (keyBHasTemplate) {
+        return -1;
+      }
+
       const keyAReservedValue = priority.indexOf(keyA);
       const keyBReservedValue = priority.indexOf(keyB);
       if (keyAReservedValue >= 0 && keyBReservedValue >= 0) {
@@ -130,7 +143,7 @@ module.exports = {
         return;
       }
 
-      const sorted = [...unsorted].sort(compare);
+      const sorted = stableSort(unsorted, compare);
 
       if (!isChanged(unsorted, sorted)) {
         return;

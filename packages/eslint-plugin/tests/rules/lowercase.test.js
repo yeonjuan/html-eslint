@@ -108,6 +108,20 @@ ruleTester.run("lowercase", rule, {
         },
       ],
     },
+    {
+      code: "<div ID={{ID}}></div>",
+      output: "<div id={{ID}}></div>",
+      parserOptions: {
+        templateEngineSyntax: {
+          "{{": "}}",
+        },
+      },
+      errors: [
+        {
+          message: "'ID' is not in lowercase.",
+        },
+      ],
+    },
   ],
 });
 
@@ -118,6 +132,12 @@ templateRuleTester.run("[template] lowercase", rule, {
     },
     {
       code: `const code = /* html */\`<svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 200 200"></svg>\``,
+    },
+    {
+      code: `
+const KEY = 'id';
+const code = /* html */\`<div \${KEY}></div>\`
+      `,
     },
   ],
   invalid: [
