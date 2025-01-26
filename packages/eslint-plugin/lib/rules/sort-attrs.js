@@ -7,7 +7,6 @@
 
 const { hasTemplate } = require("../rules/utils/node");
 const { RULE_CATEGORY } = require("../constants");
-const { stableSort } = require("./utils/array");
 const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
 
@@ -168,7 +167,7 @@ module.exports = {
       }
       const grouped = groupAttributes(unsorted);
       grouped.forEach((unsorted) => {
-        const sorted = stableSort(unsorted, compare);
+        const sorted = [...unsorted].sort(compare);
 
         if (!isChanged(unsorted, sorted)) {
           return;
