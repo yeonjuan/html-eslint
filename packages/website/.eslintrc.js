@@ -1,7 +1,3 @@
-const {
-  skip
-} = require("node:test");
-
 module.exports = {
   root: true,
   overrides: [
