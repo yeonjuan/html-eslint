@@ -1,6 +1,12 @@
-const {cwd} = process;
-const {resolve} = require("path");
-const {writeFileSync} = require("fs");
+const {
+  cwd
+} = process;
+const {
+  resolve
+} = require("path");
+const {
+  writeFileSync
+} = require("fs");
 const rulesRecord = require("@html-eslint/eslint-plugin/lib/rules");
 const prettier = require("prettier");
 
@@ -14,8 +20,10 @@ function generateRulesMarkdown() {
   Object.entries(rulesRecord).forEach(([
     ruleId,
     rule
-  ]) => rules[rule.meta.docs.category].push({ruleId,
-    rule}));
+  ]) => rules[rule.meta.docs.category].push({
+    ruleId,
+    rule
+  }));
 
   Object.values(rules).forEach((list) => list.sort((a, b) => a.ruleId.localeCompare(b.ruleId)));
 
@@ -25,7 +33,9 @@ function generateRulesMarkdown() {
 
   lines.push("- 🔧: Meaning the rule can fix problems automatically by running eslint `--fix` options.\n- ⭐: Meaning the rule is recommended.");
 
-  const pushRuleItem = ({ruleId, rule}) => {
+  const pushRuleItem = ({
+    ruleId, rule
+  }) => {
     let meta = "";
     if (rule.meta.docs.recommended) meta += "⭐";
     if (rule.meta.fixable) meta += "🔧";

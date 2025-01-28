@@ -1,8 +1,12 @@
 /**
  * @typedef {import("codemirror").Editor} Editor
  */
-import {Model} from "./model";
-import {View} from "./view";
+import {
+  Model
+} from "./model";
+import {
+  View
+} from "./view";
 
 class App {
   constructor() {
@@ -41,7 +45,9 @@ class App {
 
     this.view.codeEditor.setValue(this.model.getCode());
     this.view.configEditor.setValue(JSON.stringify(
-      {rules: this.model.rules},
+      {
+        rules: this.model.rules
+      },
       null,
       2
     ));

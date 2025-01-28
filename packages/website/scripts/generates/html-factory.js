@@ -1,4 +1,6 @@
-const {html} = require("@html-kit/html");
+const {
+  html
+} = require("@html-kit/html");
 
 const fileIconMap = {
   Terminal: "~/src/assets/icon-terminal.svg",

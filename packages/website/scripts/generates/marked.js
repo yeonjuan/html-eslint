@@ -1,6 +1,10 @@
 const renderer = require("./renderer");
-const {markedHighlight} = require("marked-highlight");
-const {Marked} = require("marked");
+const {
+  markedHighlight
+} = require("marked-highlight");
+const {
+  Marked
+} = require("marked");
 const hljs = require("highlight.js");
 const xml = require("highlight.js/lib/languages/xml");
 
@@ -24,11 +28,15 @@ function createMarked() {
 
       return hljs.highlight(
         code,
-        {language}
+        {
+          language
+        }
       ).value;
     }
   }));
-  marked.use({renderer});
+  marked.use({
+    renderer
+  });
   return marked;
 }
 

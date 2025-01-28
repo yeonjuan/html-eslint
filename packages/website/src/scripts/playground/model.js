@@ -4,8 +4,12 @@ import {
   INITIAL_JAVASCRIPT,
   getInitialCode
 } from "./helpers";
-import {Language} from "./language";
-import {Linter} from "./linter";
+import {
+  Language
+} from "./language";
+import {
+  Linter
+} from "./linter";
 
 /**
  * @typedef {import("eslint").Linter.LintMessage} LintMessage
@@ -119,7 +123,9 @@ export class Model {
    */
   lint() {
     this.linter.setRules(this.rules);
-    const {messages, output} = this.linter.lint(
+    const {
+      messages, output
+    } = this.linter.lint(
       this.getCode(),
       this.language,
       true
@@ -143,7 +149,9 @@ export class Model {
   toHash() {
     const hash = window.btoa(unescape(encodeURIComponent(JSON.stringify({
       code: this.getCode(),
-      config: {rules: this.rules},
+      config: {
+        rules: this.rules
+      },
       language: this.language.value
     }))));
     return hash;

@@ -1,7 +1,13 @@
-import {parseForESLint} from "@html-eslint/parser";
+import {
+  parseForESLint
+} from "@html-eslint/parser";
 import plugin from "@html-eslint/eslint-plugin";
-import {Linter as WebLinter} from "@html-eslint/web-linter";
-import {Language} from "./language";
+import {
+  Linter as WebLinter
+} from "@html-eslint/web-linter";
+import {
+  Language
+} from "./language";
 
 /**
  * @typedef {import("eslint").Linter} ESLinter;
@@ -104,19 +110,25 @@ export class Linter {
           }
         }
       );
-      const {output} = this._linter.verifyAndFix(
+      const {
+        output
+      } = this._linter.verifyAndFix(
         code,
         {
           parser: this.getParser(language),
           rules: this._rules
         },
-        {fix}
+        {
+          fix
+        }
       );
       if (messages.length && messages[0].fatal) {
         fatalMessage = messages[0];
       }
-      return {messages,
-        output};
+      return {
+        messages,
+        output
+      };
     } catch (error) {
       console.error(error);
       return {

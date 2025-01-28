@@ -1,4 +1,6 @@
-const {skip} = require("node:test");
+const {
+  skip
+} = require("node:test");
 
 module.exports = {
   root: true,
@@ -9,8 +11,10 @@ module.exports = {
         "@html-eslint",
         "@stylistic"
       ],
-      parserOptions: {ecmaVersion: 2020,
-        sourceType: "module"},
+      parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: "module"
+      },
       rules: {
         "@html-eslint/indent": [
           "error",
@@ -48,7 +52,10 @@ module.exports = {
         ],
         "@stylistic/lines-around-comment": "off",
         "@stylistic/space-before-function-paren": ["error", "never"],
-        "@stylistic/function-call-argument-newline": ["error", "consistent"]
+        "@stylistic/function-call-argument-newline": ["error", "consistent"],
+        "@stylistic/object-curly-newline": ["error",  {
+          minProperties: 1
+        }]
       }
     },
     {

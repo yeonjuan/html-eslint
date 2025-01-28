@@ -1,9 +1,17 @@
-const {cwd} = process;
-const {resolve, parse} = require("path");
-const {readdirSync, statSync, existsSync, mkdirSync} = require("fs");
+const {
+  cwd
+} = process;
+const {
+  resolve, parse
+} = require("path");
+const {
+  readdirSync, statSync, existsSync, mkdirSync
+} = require("fs");
 const createMarked = require("./marked");
 const convertToHTML = require("./convert-to-html");
-const {html} = require("@html-kit/html");
+const {
+  html
+} = require("@html-kit/html");
 
 /**
  * @param {string} srcDir

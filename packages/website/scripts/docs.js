@@ -1,5 +1,9 @@
-const {cwd} = process;
-const {resolve} = require("path");
+const {
+  cwd
+} = process;
+const {
+  resolve
+} = require("path");
 const generateHTMLs = require("./generates/htmls");
 const generateMarkdowns = require("./generates/markdowns");
 

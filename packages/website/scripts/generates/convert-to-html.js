@@ -3,7 +3,9 @@
  */
 const fs = require("fs");
 const path = require("path");
-const {html} = require("@html-kit/html");
+const {
+  html
+} = require("@html-kit/html");
 
 /**
  * @param {object} src
@@ -28,7 +30,9 @@ function convertToHTML(src, dist, marked, options) {
   if (!fs.existsSync(dirname)) {
     fs.mkdirSync(
       dirname,
-      {recursive: true}
+      {
+        recursive: true
+      }
     );
   }
   fs.writeFileSync(

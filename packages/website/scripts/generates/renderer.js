@@ -1,5 +1,9 @@
-const {fileName, exampleCode, exampleIcon} = require("./html-factory");
-const {html} = require("@html-kit/html");
+const {
+  fileName, exampleCode, exampleIcon
+} = require("./html-factory");
+const {
+  html
+} = require("@html-kit/html");
 
 const linkIconClass = {
   1: "w-[20px]",

@@ -2,8 +2,12 @@ import "codemirror/lib/codemirror.css";
 import "codemirror/mode/htmlmixed/htmlmixed.js";
 import "codemirror/mode/javascript/javascript.js";
 import CodeMirror from "codemirror";
-import {toMarker} from "./helpers";
-import {html} from "@html-kit/html";
+import {
+  toMarker
+} from "./helpers";
+import {
+  html
+} from "@html-kit/html";
 
 /**
  * @typedef {import("./linter").LintMessage} LintMessage
@@ -100,7 +104,9 @@ export class View {
    * @private
    * @param {LintMessage} message
    */
-  lintMessageHTML({line, column, message, ruleId, fatal}) {
+  lintMessageHTML({
+    line, column, message, ruleId, fatal
+  }) {
     if (fatal) {
       console.error(message);
       return html`<li class="bg-red-100 text-red-800 px-2 py-1 my-1 rounded">

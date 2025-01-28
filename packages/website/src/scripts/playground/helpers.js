@@ -2,7 +2,9 @@
  * @typedef {import('eslint').Linter.LintMessage} LintMessage
  * @typedef {import("codemirror").Position} Position
  */
-import {html} from "@html-kit/html";
+import {
+  html
+} from "@html-kit/html";
 
 /**
  * @param {number} pos
@@ -58,7 +60,11 @@ const html = /*html*/\`
 \`;`;
 
 export const INITAIL_CONFIG = JSON.stringify(
-  {rules: {"@html-eslint/indent": "error"}},
+  {
+    rules: {
+      "@html-eslint/indent": "error"
+    }
+  },
   null,
   2
 );
