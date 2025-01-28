@@ -51,3 +51,14 @@ if ($navButton) {
     toggleMenu
   );
 }
+document.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('mouseover', () => {
+    const href = link.getAttribute('href');
+    if (href.indexOf("/") === 0) {
+      const prefetchLink = document.createElement('link');
+      prefetchLink.rel = 'prefetch';
+      prefetchLink.href = href;
+      document.head.appendChild(prefetchLink);
+    }
+  });
+});
