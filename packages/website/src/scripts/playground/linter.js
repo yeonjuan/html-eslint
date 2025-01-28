@@ -1,7 +1,7 @@
-import { parseForESLint } from "@html-eslint/parser";
+import {parseForESLint} from "@html-eslint/parser";
 import plugin from "@html-eslint/eslint-plugin";
-import { Linter as WebLinter } from "@html-eslint/web-linter";
-import { Language } from "./language";
+import {Linter as WebLinter} from "@html-eslint/web-linter";
+import {Language} from "./language";
 
 /**
  * @typedef {import("eslint").Linter} ESLinter;
@@ -25,9 +25,12 @@ import { Language } from "./language";
  */
 function allRules() {
   return Object.entries(plugin.rules).reduce(
-    (rules, [name, rule]) => ({
+    (rules, [
+      name,
+      rule
+    ]) => ({
       ...rules,
-      [`@html-eslint/${name}`]: rule,
+      [`@html-eslint/${name}`]: rule
     }),
     {}
   );
@@ -39,11 +42,12 @@ export class Linter {
      * @type {ESLinter}
      */
     this._linter = new WebLinter();
+
     /**
      * @type {RulesRecord}
      */
     this._rules = {
-      "@html-eslint/indent": "error",
+      "@html-eslint/indent": "error"
     };
     this._defineParser();
     this._defineRules();
@@ -60,15 +64,18 @@ export class Linter {
    * @private
    */
   _defineParser() {
-    this._linter.defineParser("@html-eslint/parser", {
-      parseForESLint(code) {
-        return parseForESLint(code);
-      },
-    });
+    this._linter.defineParser(
+      "@html-eslint/parser",
+      {
+        parseForESLint(code) {
+          return parseForESLint(code);
+        }
+      }
+    );
   }
 
   /**
-   * @param {Language} language 
+   * @param {Language} language
    * @returns {string | undefined}
    */
   getParser(language) {
@@ -87,31 +94,34 @@ export class Linter {
    */
   lint(code, language, fix = false) {
     try {
-      let fatalMessage;
-      const messages = this._linter.verify(code, {
-        parser: this.getParser(language),
-        rules: this._rules,
-        parserOptions: {
-          ecmaVersion: "latest",
-        },
-      });
-      const { output } = this._linter.verifyAndFix(
+      const messages = this._linter.verify(
         code,
         {
           parser: this.getParser(language),
           rules: this._rules,
+          parserOptions: {
+            ecmaVersion: "latest"
+          }
+        }
+      );
+      const {output} = this._linter.verifyAndFix(
+        code,
+        {
+          parser: this.getParser(language),
+          rules: this._rules
         },
-        { fix }
+        {fix}
       );
       if (messages.length && messages[0].fatal) {
         fatalMessage = messages[0];
       }
-      return { messages, output };
+      return {messages,
+        output};
     } catch (error) {
       console.error(error);
       return {
         messages: [],
-        output: "Error!",
+        output: "Error!"
       };
     }
   }

@@ -2,7 +2,8 @@ import "codemirror/lib/codemirror.css";
 import "codemirror/mode/htmlmixed/htmlmixed.js";
 import "codemirror/mode/javascript/javascript.js";
 import CodeMirror from "codemirror";
-import { toMarker } from "./helpers";
+import {toMarker} from "./helpers";
+import {html} from "@html-kit/html";
 
 /**
  * @typedef {import("./linter").LintMessage} LintMessage
@@ -20,7 +21,7 @@ export class View {
       {
         mode: "text/html",
         lineNumbers: true,
-        showCursorWhenSelecting: true,
+        showCursorWhenSelecting: true
       }
     );
 
@@ -32,7 +33,7 @@ export class View {
       document.getElementById("config-editor"),
       {
         mode: "application/json",
-        lineNumbers: false,
+        lineNumbers: false
       }
     );
 
@@ -68,15 +69,12 @@ export class View {
   renderErrors(messages) {
     const $errors = document.getElementById("errors");
 
-    const children = messages
-      .map((message) => this.lintMessageHTML(message))
-      .join("");
+    const children = messages.
+      map((message) => this.lintMessageHTML(message));
 
-    const html = /* html */ `<ul class="text-sm">
+    $errors.innerHTML = html`<ul class="text-sm">
         ${children}
       </ul>`;
-
-    $errors.innerHTML = html;
 
     if (messages.some((message) => message.fatal)) {
       return;
@@ -84,10 +82,17 @@ export class View {
 
     this.codeEditor.getAllMarks().forEach((mark) => mark.clear());
     messages.forEach((message) => {
-      const [start, end] = toMarker(message);
-      this.codeEditor.markText(start, end, {
-        className: "editor_error",
-      });
+      const [
+        start,
+        end
+      ] = toMarker(message);
+      this.codeEditor.markText(
+        start,
+        end,
+        {
+          className: "editor_error"
+        }
+      );
     });
   }
 
@@ -95,19 +100,21 @@ export class View {
    * @private
    * @param {LintMessage} message
    */
-  lintMessageHTML({ line, column, message, ruleId, fatal }) {
+  lintMessageHTML({line, column, message, ruleId, fatal}) {
     if (fatal) {
       console.error(message);
-      return /* html */ `<li class="bg-red-100 text-red-800 px-2 py-1 my-1 rounded">
+      return html`<li class="bg-red-100 text-red-800 px-2 py-1 my-1 rounded">
           ${line}:${column} - ${message}
         </li>`;
     }
 
-    return `<li class="bg-red-100 text-red-800 px-2 py-1 my-1 rounded">
-        ${line}:${column} - ${message}(<a href="/docs/rules/${ruleId.replace(
+    return html`<li class="bg-red-100 text-red-800 px-2 py-1 my-1 rounded">
+        ${line}:${column} - ${message}(
+        <a href="/docs/rules/${ruleId.replace(
           "@html-eslint/",
           ""
-        )}">${ruleId}</a>)
+        )}">${ruleId}</a>
+        )
       </li>`;
   }
 }

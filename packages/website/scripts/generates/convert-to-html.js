@@ -3,6 +3,7 @@
  */
 const fs = require("fs");
 const path = require("path");
+const {html} = require("@html-kit/html");
 
 /**
  * @param {object} src
@@ -17,22 +18,57 @@ const path = require("path");
  * @param {string} options.includePath
  */
 function convertToHTML(src, dist, marked, options) {
-  const srcMarkdown = fs.readFileSync(src.markdownPath, "utf-8");
+  const srcMarkdown = fs.readFileSync(
+    src.markdownPath,
+    "utf-8"
+  );
   const partialHtml = options.wrapper(marked.parse(srcMarkdown));
-  fs.writeFileSync(dist.partialHtmlPath, partialHtml);
-  const templateHtml = fs.readFileSync(src.templateHtmlPath, "utf-8");
-  const meta = `<title>${
+  const dirname = path.dirname(dist.partialHtmlPath);
+
+  if (!fs.existsSync(dirname)) {
+    fs.mkdirSync(
+      dirname,
+      {recursive: true}
+    );
+  }
+  fs.writeFileSync(
+    dist.partialHtmlPath,
+    partialHtml
+  );
+  const templateHtml = fs.readFileSync(
+    src.templateHtmlPath,
+    "utf-8"
+  );
+  const meta = html`<title>${
     path.parse(src.markdownPath).name
   } - html-eslint</title>
-  <link rel="canonical" href="${dist.htmlPath
-    .replace(path.join(process.cwd(), "src"), "https://html-eslint.org")
-    .replace(".html", "/")}">
+    <link rel="canonical" href="${dist.htmlPath.
+      replace(
+        path.join(
+          process.cwd(),
+          "src"
+        ),
+        "https://html-eslint.org"
+      ).
+      replace(
+        ".html",
+        "/"
+      )}">
    `;
 
-  const html = templateHtml
-    .replace("{{path}}", options.includePath)
-    .replace("{{meta}}", meta);
-  fs.writeFileSync(dist.htmlPath, html);
+  const content = templateHtml.
+    replace(
+      "{{path}}",
+      options.includePath
+    ).
+    replace(
+      "{{meta}}",
+      meta
+    );
+  fs.writeFileSync(
+    dist.htmlPath,
+    content
+  );
 }
 
 module.exports = convertToHTML;
