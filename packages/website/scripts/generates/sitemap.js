@@ -8,7 +8,13 @@ const fs = require("fs");
 function traverseHTMLs(current, callback) {
   if (fs.lstatSync(current).isDirectory()) {
     fs.readdirSync(current).forEach((next) => {
-      traverseHTMLs(path.join(current, next), callback);
+      traverseHTMLs(
+        path.join(
+          current,
+          next
+        ),
+        callback
+      );
     });
     return;
   } else if (fs.lstatSync(current).isFile()) {
@@ -26,9 +32,19 @@ function traverseHTMLs(current, callback) {
  */
 function toURL(relativePath, baseUrl) {
   const parsed = path.parse(relativePath);
-  const name = parsed.name === "index" ? "" : parsed.name;
-  const url = baseUrl + path.join(parsed.dir, name);
-  return [url, name === "" ? 1 : 0.7];
+  const name = parsed.name === "index"
+    ? ""
+    : parsed.name;
+  const url = baseUrl + path.join(
+    parsed.dir,
+    name
+  );
+  return [
+    url,
+    name === ""
+      ? 1
+      : 0.7
+  ];
 }
 
 /**
@@ -42,9 +58,18 @@ function generateSitemap(src, dest, baseUrl) {
    */
   const urls = [];
 
-  traverseHTMLs(src, (path) => {
-    urls.push(toURL(path.replace(src, ""), baseUrl));
-  });
+  traverseHTMLs(
+    src,
+    (path) => {
+      urls.push(toURL(
+        path.replace(
+          src,
+          ""
+        ),
+        baseUrl
+      ));
+    }
+  );
   const date = new Date().toISOString();
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -53,18 +78,25 @@ function generateSitemap(src, dest, baseUrl) {
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
   http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-${urls
-  .map(([url, priority]) => {
+${urls.
+  map(([
+    url,
+    priority
+  ]) => {
     return `<url>
   <loc>${url}</loc>
   <lastmod>${date}</lastmod>
   <priority>${priority}</priority>
 </url>`;
-  })
-  .join("\n")}
+  }).
+  join("\n")}
 </urlset>`;
 
-  fs.writeFileSync(dest, sitemap, "utf-8");
+  fs.writeFileSync(
+    dest,
+    sitemap,
+    "utf-8"
+  );
 }
 
 module.exports = generateSitemap;

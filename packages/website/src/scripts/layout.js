@@ -19,18 +19,24 @@ function closeOverlay() {
   document.body.classList.remove("overflow-hidden");
 }
 
-$menu.addEventListener("change", (event) => {
-  if (event.target.checked) {
-    openOverlay();
-  } else {
+$menu.addEventListener(
+  "change",
+  (event) => {
+    if (event.target.checked) {
+      openOverlay();
+    } else {
+      closeOverlay();
+    }
+  }
+);
+
+$overlay.addEventListener(
+  "click",
+  (event) => {
+    $menu.checked = false;
     closeOverlay();
   }
-});
-
-$overlay.addEventListener("click", (event) => {
-  $menu.checked = false;
-  closeOverlay();
-});
+);
 
 const $navButton = document.getElementById("nav-button");
 
@@ -40,5 +46,19 @@ function toggleMenu() {
 }
 
 if ($navButton) {
-  $navButton.addEventListener("click", toggleMenu);
+  $navButton.addEventListener(
+    "click",
+    toggleMenu
+  );
 }
+document.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('mouseover', () => {
+    const href = link.getAttribute('href');
+    if (href.indexOf("/") === 0) {
+      const prefetchLink = document.createElement('link');
+      prefetchLink.rel = 'prefetch';
+      prefetchLink.href = href;
+      document.head.appendChild(prefetchLink);
+    }
+  });
+});
