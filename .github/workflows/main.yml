@@ -36,8 +36,8 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittest
           name: codecov
-  eslint-v8:
-    name: ESLint v8
+  integration-test:
+    name: Integration Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -48,9 +48,5 @@ jobs:
         run: yarn install --immutable
       - name: Build
         run: yarn build
-      - name: (v8) Install
-        working-directory: integration-test-projects/v8
-        run: npm install
-      - name: (v8) Print config
-        working-directory: integration-test-projects/v8
-        run: npm run print-config
+      - name: Test
+        run: yarn test:integration
