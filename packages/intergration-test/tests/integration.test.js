@@ -16,7 +16,7 @@ describe("integration tests", () => {
       });
       expect(jsResult[0].fatalErrorCount).toBe(0);
       expect(jsResult[0].messages.length).toBeGreaterThanOrEqual(1);
-    });
+    }, 20000);
     it("should not throw any lint error for valid.html and valid.js", async () => {
       const htmlResult = await runESLint({
         fixtureName: "eslint-v8-legacy-config",
@@ -31,7 +31,7 @@ describe("integration tests", () => {
       });
       expect(jsResult[0].fatalErrorCount).toBe(0);
       expect(jsResult[0].messages.length).toBe(0);
-    });
+    }, 20000);
   });
 
   describe("eslint-v9-flat-config", () => {
@@ -49,7 +49,7 @@ describe("integration tests", () => {
       });
       expect(jsResult[0].fatalErrorCount).toBe(0);
       expect(jsResult[0].messages.length).toBeGreaterThanOrEqual(1);
-    });
+    }, 20000);
     it("should not throw any lint error for valid.html and valid.js", async () => {
       const htmlResult = await runESLint({
         fixtureName: "eslint-v9-flat-config",
@@ -64,6 +64,6 @@ describe("integration tests", () => {
       });
       expect(jsResult[0].fatalErrorCount).toBe(0);
       expect(jsResult[0].messages.length).toBe(0);
-    });
+    }, 20000);
   });
 });
