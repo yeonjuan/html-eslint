@@ -1,0 +1,12 @@
+{
+  "name": "integration-test",
+  "version": "0.33.1",
+  "private": true,
+  "scripts": {
+    "test:integration": "jest --coverage --verbose"
+  },
+  "dependencies": {
+    "ncp": "^2.0.0",
+    "tmp": "^0.2.3"
+  }
+}
