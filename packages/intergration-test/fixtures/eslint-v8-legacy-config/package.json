@@ -4,8 +4,6 @@
     "version": "0.0.1",
     "packageManager": "yarn@4.0.2",
     "devDependencies": {
-        "@html-eslint/eslint-plugin": "^0.33.1",
-        "@html-eslint/parser": "^0.33.0",
         "eslint": "8"
     }
 }

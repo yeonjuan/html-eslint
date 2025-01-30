@@ -19,6 +19,7 @@ packages/**/.yarn
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.DS_Store
 
 # generated types
 packages/**/types

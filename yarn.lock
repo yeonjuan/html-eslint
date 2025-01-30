@@ -1271,15 +1271,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin@npm:^0.33.1":
-  version: 0.33.1
-  resolution: "@html-eslint/eslint-plugin@npm:0.33.1"
-  dependencies:
-    "@html-eslint/template-parser": "npm:^0.33.0"
-  checksum: c34889e834b2f0322735467c3682598bfead56b34645cf7ad2269351f82e499afd9621f1f3545139455d897f45b8675a2a740b3914997c8c49f3dd615507f3bc
-  languageName: node
-  linkType: hard
-
 "@html-eslint/eslint-plugin@npm:^0.34.0-alpha.0, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
@@ -1313,15 +1304,6 @@ __metadata:
     typescript: "npm:^5.7.2"
   languageName: unknown
   linkType: soft
-
-"@html-eslint/parser@npm:^0.33.0":
-  version: 0.33.0
-  resolution: "@html-eslint/parser@npm:0.33.0"
-  dependencies:
-    es-html-parser: "npm:^1.0.0-alpha.4"
-  checksum: 670f268501a0b680b9c43484f241d305e69a55cfbf53848de725ef79dccd8c5675c8baeb84acaf1ccc8485f01b3e184d551ac877b13b4baeb32558010f2b5a43
-  languageName: node
-  linkType: hard
 
 "@html-eslint/parser@npm:^0.34.0-alpha.0, @html-eslint/parser@workspace:packages/parser":
   version: 0.0.0-use.local
@@ -7196,8 +7178,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "eslint-v8-legacy-config@workspace:packages/intergration-test/fixtures/eslint-v8-legacy-config"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.33.1"
-    "@html-eslint/parser": "npm:^0.33.0"
     eslint: "npm:8"
   languageName: unknown
   linkType: soft
@@ -7206,8 +7186,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "eslint-v9-flat-config@workspace:packages/intergration-test/fixtures/eslint-v9-flat-config"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.33.1"
-    "@html-eslint/parser": "npm:^0.33.0"
     eslint: "npm:9"
   languageName: unknown
   linkType: soft
