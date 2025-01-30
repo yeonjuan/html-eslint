@@ -1,5 +1,6 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/id-naming-convention");
+const { TEMPLATE_ENGINE_SYNTAX } = require("@html-eslint/parser");
 
 const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
@@ -13,6 +14,13 @@ ruleTester.run("id-naming-convention", rule, {
     {
       code: `<div id="camelCase"> </div>`,
       options: ["camelCase"],
+    },
+    {
+      code: `<div id="{{ID}}"> </div>`,
+      options: ["camelCase"],
+      parserOptions: {
+        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.HANDLEBAR,
+      },
     },
     {
       code: `<div id="PascalCase"> </div>`,
@@ -91,6 +99,10 @@ templateRuleTester.run("[template] id-naming-convention", rule, {
     },
     {
       code: `html\`<div id=\${foo}> </div>\`;`,
+      options: ["camelCase"],
+    },
+    {
+      code: `html\`<div id=\${FOO}> </div>\`;`,
       options: ["camelCase"],
     },
   ],

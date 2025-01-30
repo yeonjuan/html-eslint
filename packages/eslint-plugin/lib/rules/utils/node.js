@@ -69,7 +69,7 @@ function isOverlapWithTemplates(templates, range) {
 }
 
 /**
- * @param {AttributeKey} node
+ * @param {AttributeKey | AttributeValue} node
  * @returns {boolean}
  */
 function hasTemplate(node) {
@@ -148,17 +148,6 @@ function getLocBetween(before, after) {
     start: before.loc.end,
     end: after.loc.start,
   };
-}
-
-/**
- * @param {AttributeValue} node
- * @return {boolean}
- */
-function isExpressionInTemplate(node) {
-  if (node.type === NODE_TYPES.AttributeValue) {
-    return node.value.indexOf("${") === 0;
-  }
-  return false;
 }
 
 /**
@@ -257,7 +246,6 @@ module.exports = {
   splitToLineNodes,
   getLocBetween,
   findParent,
-  isExpressionInTemplate,
   isTag,
   isComment,
   isText,
