@@ -2,10 +2,14 @@ import {
   INITAIL_CONFIG,
   INITIAL_HTML,
   INITIAL_JAVASCRIPT,
-  getInitialCode,
+  getInitialCode
 } from "./helpers";
-import { Language } from "./language";
-import { Linter } from "./linter";
+import {
+  Language
+} from "./language";
+import {
+  Linter
+} from "./linter";
 
 /**
  * @typedef {import("eslint").Linter.LintMessage} LintMessage
@@ -57,13 +61,14 @@ export class Model {
      * @type {Linter}
      */
     this.linter = new Linter();
+
     /**
      * @member
      * @private
      */
     this.observers = {
       lint: new Set(),
-      changeLanguage: new Set(),
+      changeLanguage: new Set()
     };
   }
 
@@ -118,7 +123,9 @@ export class Model {
    */
   lint() {
     this.linter.setRules(this.rules);
-    const { messages, output } = this.linter.lint(
+    const {
+      messages, output
+    } = this.linter.lint(
       this.getCode(),
       this.language,
       true
@@ -140,17 +147,13 @@ export class Model {
    * @returns {string}
    */
   toHash() {
-    const hash = window.btoa(
-      unescape(
-        encodeURIComponent(
-          JSON.stringify({
-            code: this.getCode(),
-            config: { rules: this.rules },
-            language: this.language.value,
-          })
-        )
-      )
-    );
+    const hash = window.btoa(unescape(encodeURIComponent(JSON.stringify({
+      code: this.getCode(),
+      config: {
+        rules: this.rules
+      },
+      language: this.language.value
+    }))));
     return hash;
   }
 

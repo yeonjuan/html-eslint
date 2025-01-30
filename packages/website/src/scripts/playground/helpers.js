@@ -2,8 +2,9 @@
  * @typedef {import('eslint').Linter.LintMessage} LintMessage
  * @typedef {import("codemirror").Position} Position
  */
-
-import { Language } from "./language";
+import {
+  html
+} from "@html-kit/html";
 
 /**
  * @param {number} pos
@@ -20,16 +21,19 @@ function toMarkerPos(pos) {
 export function toMarker(message) {
   const from = {
     line: toMarkerPos(message.line),
-    ch: toMarkerPos(message.column),
+    ch: toMarkerPos(message.column)
   };
   const to = {
     line: toMarkerPos(message.endLine || message.line),
-    ch: toMarkerPos(message.endColumn || message.column),
+    ch: toMarkerPos(message.endColumn || message.column)
   };
-  return [from, to];
+  return [
+    from,
+    to
+  ];
 }
 
-export const INITIAL_HTML = /* html */ `<!DOCTYPE html>
+export const INITIAL_HTML = html`<!DOCTYPE html>
   <html>
     <head>
     </head>
@@ -56,7 +60,11 @@ const html = /*html*/\`
 \`;`;
 
 export const INITAIL_CONFIG = JSON.stringify(
-  { rules: { "@html-eslint/indent": "error" } },
+  {
+    rules: {
+      "@html-eslint/indent": "error"
+    }
+  },
   null,
   2
 );
