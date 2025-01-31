@@ -66,6 +66,22 @@ ruleTester.run("no-duplicate-attrs", rule, {
         },
       ],
     },
+    {
+      code: `
+<div id="1"
+     ID="1"
+     Id="1"
+ ></div>
+      `,
+      errors: [
+        {
+          message: "The attribute 'ID' is duplicated.",
+        },
+        {
+          message: "The attribute 'Id' is duplicated.",
+        },
+      ],
+    },
   ],
 });
 
