@@ -41,7 +41,7 @@ module.exports = {
       if (Array.isArray(node.attributes)) {
         const attrsSet = new Set();
         node.attributes.forEach((attr) => {
-          if (attr.key && attrsSet.has(attr.key.value)) {
+          if (attr.key && attrsSet.has(attr.key.value.toLowerCase())) {
             context.report({
               node: attr,
               data: {
@@ -50,7 +50,7 @@ module.exports = {
               messageId: MESSAGE_IDS.DUPLICATE_ATTRS,
             });
           } else {
-            attrsSet.add(attr.key.value);
+            attrsSet.add(attr.key.value.toLowerCase());
           }
         });
       }
