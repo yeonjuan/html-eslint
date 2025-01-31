@@ -1,6 +1,6 @@
 {
   "name": "integration-test",
-  "version": "0.33.1",
+  "version": "0.34.0",
   "private": true,
   "scripts": {
     "test:integration": "jest --coverage --verbose"
