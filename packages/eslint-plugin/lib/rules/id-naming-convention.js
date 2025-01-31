@@ -12,11 +12,7 @@ const {
   isPascalCase,
   isKebabCase,
 } = require("./utils/naming");
-const {
-  findAttr,
-  isAttributesEmpty,
-  isExpressionInTemplate,
-} = require("./utils/node");
+const { findAttr, isAttributesEmpty, hasTemplate } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
@@ -94,7 +90,12 @@ module.exports = {
         return;
       }
       const idAttr = findAttr(node, "id");
-      if (idAttr && idAttr.value && !checkNaming(idAttr.value.value)) {
+      if (
+        idAttr &&
+        idAttr.value &&
+        !hasTemplate(idAttr.value) &&
+        !checkNaming(idAttr.value.value)
+      ) {
         context.report({
           node: idAttr,
           data: {
@@ -117,7 +118,7 @@ module.exports = {
       if (
         idAttr &&
         idAttr.value &&
-        !isExpressionInTemplate(idAttr.value) &&
+        !hasTemplate(idAttr.value) &&
         !checkNaming(idAttr.value.value)
       ) {
         context.report({

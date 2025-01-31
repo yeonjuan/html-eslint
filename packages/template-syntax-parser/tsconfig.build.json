@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["lib/**/*.js", "package.json", "lib/*.d.ts"],
+  "compilerOptions": {
+    "allowJs": true,
+    "composite": true,
+    "outDir": "./types",
+    "rootDir": "lib",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "types": ["node", "jest"]
+  }
+}

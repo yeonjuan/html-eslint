@@ -1,5 +1,6 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/sort-attrs");
+const { TEMPLATE_ENGINE_SYNTAX } = require("@html-eslint/parser");
 
 const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
@@ -20,6 +21,33 @@ ruleTester.run("sort-attrs", rule, {
     },
     {
       code: '<style type="text/css" media="all and (max-width: 500px)"',
+    },
+    {
+      code: `<span class="font-semibold text-emerald-500" {{ stimulus_controller('test') }}>Test</span>`,
+      parserOptions: {
+        templateEngineSyntax: {
+          "{{": "}}",
+        },
+      },
+    },
+    {
+      code: `<span class="font-semibold text-emerald-500" {{ stimulus_controller('test') }}>Test</span>`,
+      parserOptions: {
+        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+      },
+    },
+    {
+      code: `
+<button id="nice"
+  <% if current_user.admin? %>
+  class="btn-admin"
+  <% end %>
+  >
+</button>
+      `,
+      parserOptions: {
+        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.ERB,
+      },
     },
   ],
   invalid: [
@@ -201,6 +229,41 @@ ruleTester.run("sort-attrs", rule, {
         },
       ],
     },
+    {
+      code: `
+<button 
+  style="color:black"
+  id="nice"
+  <% if current_user.admin? %>
+  data-x="1"
+  class="btn-admin"
+  <% end %>
+  >
+</button>
+      `,
+      output: `
+<button 
+  id="nice"
+  style="color:black"
+  <% if current_user.admin? %>
+  class="btn-admin"
+  data-x="1"
+  <% end %>
+  >
+</button>
+      `,
+      parserOptions: {
+        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.ERB,
+      },
+      errors: [
+        {
+          messageId: "unsorted",
+        },
+        {
+          messageId: "unsorted",
+        },
+      ],
+    },
   ],
 });
 
@@ -269,16 +332,6 @@ templateRuleTester.run("[template] sort-attrs", rule, {
           priority: ["id", "style"],
         },
       ],
-      errors: [
-        {
-          messageId: "unsorted",
-        },
-      ],
-    },
-    {
-      code: 'html`<input ${some} id="foo" type="checkbox" autocomplete="bar" checked />`',
-      output:
-        'html`<input id="foo" type="checkbox" ${some} autocomplete="bar" checked />`',
       errors: [
         {
           messageId: "unsorted",

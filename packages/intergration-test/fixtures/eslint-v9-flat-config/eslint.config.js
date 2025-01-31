@@ -22,10 +22,14 @@ module.exports = [
             html
         },
         languageOptions: {
-            parser: htmlParser
+            parser: htmlParser,
+            parserOptions: {
+                templateEngineSyntax: htmlParser.TEMPLATE_ENGINE_SYNTAX.HANDLEBAR
+            }
         },
         rules: {
-            "html/indent": ["error", 2]
+            "html/indent": ["error", 2],
+            "html/sort-attrs": ["error"]
         }
     }
 ];

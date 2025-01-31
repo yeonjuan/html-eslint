@@ -5,6 +5,7 @@
  * @typedef { import("../types").Text } Text
  */
 
+const { hasTemplate } = require("./utils/node");
 const { RULE_CATEGORY } = require("../constants");
 const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
@@ -62,6 +63,7 @@ module.exports = {
     function compare(attrA, attrB) {
       const keyA = attrA.key.value;
       const keyB = attrB.key.value;
+
       const keyAReservedValue = priority.indexOf(keyA);
       const keyBReservedValue = priority.indexOf(keyB);
       if (keyAReservedValue >= 0 && keyBReservedValue >= 0) {
@@ -123,32 +125,58 @@ module.exports = {
     }
 
     /**
+     * @param {Attribute[]} attributes
+     * @return {Attribute[][]}
+     */
+    function groupAttributes(attributes) {
+      /**
+       * @type {Attribute[][]}
+       */
+      const attributesList = [];
+      let index = 0;
+
+      for (const attribute of attributes) {
+        if (hasTemplate(attribute.key)) {
+          index = attributesList.length;
+          continue;
+        }
+        if (!attributesList[index]) {
+          attributesList[index] = [];
+        }
+        attributesList[index].push(attribute);
+      }
+      return attributesList;
+    }
+
+    /**
      * @param {Attribute[]} unsorted
      */
     function checkSorting(unsorted) {
       if (unsorted.length <= 1) {
         return;
       }
+      const grouped = groupAttributes(unsorted);
+      grouped.forEach((unsorted) => {
+        const sorted = [...unsorted].sort(compare);
 
-      const sorted = [...unsorted].sort(compare);
-
-      if (!isChanged(unsorted, sorted)) {
-        return;
-      }
-      const first = unsorted[0];
-      const last = unsorted[unsorted.length - 1];
-      context.report({
-        node: {
-          range: [first.range[0], last.range[1]],
-          loc: {
-            start: first.loc.start,
-            end: last.loc.end,
+        if (!isChanged(unsorted, sorted)) {
+          return;
+        }
+        const first = unsorted[0];
+        const last = unsorted[unsorted.length - 1];
+        context.report({
+          node: {
+            range: [first.range[0], last.range[1]],
+            loc: {
+              start: first.loc.start,
+              end: last.loc.end,
+            },
           },
-        },
-        messageId: MESSAGE_IDS.UNSORTED,
-        fix(fixer) {
-          return fix(fixer, unsorted, sorted);
-        },
+          messageId: MESSAGE_IDS.UNSORTED,
+          fix(fixer) {
+            return fix(fixer, unsorted, sorted);
+          },
+        });
       });
     }
 
