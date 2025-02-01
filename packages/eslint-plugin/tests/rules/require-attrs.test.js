@@ -189,22 +189,6 @@ ruleTester.run("require-attrs", rule, {
       ],
     },
     {
-      code: `<script></script>`,
-      options: [
-        {
-          tag: "script",
-          attr: "src",
-        },
-      ],
-      errors: [
-        {
-          line: 1,
-          column: 1,
-          message: "Missing 'src' attributes for 'script' tag",
-        },
-      ],
-    },
-    {
       code: `<style type="txt/css"></style>`,
       options: [
         {

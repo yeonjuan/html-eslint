@@ -24,16 +24,20 @@ ruleTester.run("sort-attrs", rule, {
     },
     {
       code: `<span class="font-semibold text-emerald-500" {{ stimulus_controller('test') }}>Test</span>`,
-      parserOptions: {
-        templateEngineSyntax: {
-          "{{": "}}",
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
         },
       },
     },
     {
       code: `<span class="font-semibold text-emerald-500" {{ stimulus_controller('test') }}>Test</span>`,
-      parserOptions: {
-        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
       },
     },
     {
@@ -45,8 +49,10 @@ ruleTester.run("sort-attrs", rule, {
   >
 </button>
       `,
-      parserOptions: {
-        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.ERB,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.ERB,
+        },
       },
     },
   ],
@@ -252,8 +258,10 @@ ruleTester.run("sort-attrs", rule, {
   >
 </button>
       `,
-      parserOptions: {
-        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.ERB,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.ERB,
+        },
       },
       errors: [
         {

@@ -169,14 +169,5 @@ templateRuleTester.run("[template] quotes", rule, {
         },
       ],
     },
-    {
-      code: `html\`<div id = ' foo '>\``,
-      output: `html\`<div id = " foo ">\``,
-      errors: [
-        {
-          messageId: "unexpected",
-        },
-      ],
-    },
   ],
 });

@@ -21,13 +21,16 @@ for (const testDir of testDirs) {
   test(`e2e/` + testDir.name, () => {
     const configRules = require(path.join(testPath, `rules.js`));
     const config = {
-      parser: `@html-eslint/parser`,
+      plugins: {
+        "@html-eslint": require("@html-eslint/eslint-plugin"),
+      },
+      languageOptions: {
+        parser: require(`@html-eslint/parser`),
+      },
       rules: configRules,
     };
 
     const linter = new eslint.Linter();
-    linter.defineParser(`@html-eslint/parser`, parser);
-    linter.defineRules(pluginRules);
 
     const source = fs.readFileSync(path.join(testPath, `source.html`), {
       encoding: `utf8`,

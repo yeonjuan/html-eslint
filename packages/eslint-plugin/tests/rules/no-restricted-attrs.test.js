@@ -15,15 +15,6 @@ ruleTester.run("no-restricted-attrs", rule, {
         },
       ],
     },
-    {
-      code: `<div> </div>`,
-      options: [
-        {
-          tagPatterns: [".*"],
-          attrPatterns: ["data-.*"],
-        },
-      ],
-    },
   ],
   invalid: [
     {

@@ -1,24 +1,19 @@
 const ESLint = require("eslint");
-const parser = require("@html-eslint/parser");
-const rules = require("../lib/rules");
-
-const SCOPE = "@html-eslint";
-const PARSER = `${SCOPE}/parser`;
-
-function prefixPluginNameReducer(rules, [key, value]) {
-  rules[`${SCOPE}/${key}`] = value;
-  return rules;
-}
 
 function getLinter() {
-  const linter = new ESLint.Linter();
-  linter.defineParser(PARSER, parser);
-  linter.defineRules(Object.entries(rules).reduce(prefixPluginNameReducer, {}));
+  const linter = new ESLint.Linter({
+    configType: "flat",
+  });
 
   return {
     lint(code, rulesConfig) {
       return linter.verify(code, {
-        parser: PARSER,
+        plugins: {
+          "@html-eslint": require("@html-eslint/eslint-plugin"),
+        },
+        languageOptions: {
+          parser: require("@html-eslint/parser"),
+        },
         rules: rulesConfig,
       });
     },

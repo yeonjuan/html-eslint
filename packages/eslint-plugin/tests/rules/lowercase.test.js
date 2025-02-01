@@ -46,9 +46,11 @@ ruleTester.run("lowercase", rule, {
     },
     {
       code: "<div {{ID}}></div>",
-      parserOptions: {
-        templateEngineSyntax: {
-          "{{": "}}",
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
         },
       },
     },
@@ -111,9 +113,11 @@ ruleTester.run("lowercase", rule, {
     {
       code: "<div ID={{ID}}></div>",
       output: "<div id={{ID}}></div>",
-      parserOptions: {
-        templateEngineSyntax: {
-          "{{": "}}",
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
         },
       },
       errors: [

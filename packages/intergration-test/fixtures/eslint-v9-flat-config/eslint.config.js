@@ -29,7 +29,8 @@ module.exports = [
         },
         rules: {
             "html/indent": ["error", 2],
-            "html/sort-attrs": ["error"]
+            "html/sort-attrs": ["error"],
+            "html/quotes": ["error"]
         }
     }
 ];

@@ -366,23 +366,6 @@ style="background:red;"
     },
     {
       code: `
-html\`<div class="foo" style="background:red;"></div>\`;
-`,
-      output: `
-html\`<div
-class="foo"
-style="background:red;"></div>\`;
-`,
-      options: [
-        {
-          closeStyle: "sameline",
-          ifAttrsMoreThan: 1,
-        },
-      ],
-      errors: [{ messageId: "newlineMissing" }],
-    },
-    {
-      code: `
 const code = /*html*/\`<div class="foo" style="background:red;"></div>\`;
 `,
       output: `

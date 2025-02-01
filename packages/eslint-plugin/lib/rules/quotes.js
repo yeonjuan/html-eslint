@@ -8,6 +8,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
@@ -56,7 +57,7 @@ module.exports = {
         : QUOTES_STYLES.DOUBLE;
     const expectedQuote = SELECTED_STYLE === QUOTES_STYLES.DOUBLE ? `"` : `'`;
 
-    const sourceCode = context.getSourceCode();
+    const sourceCode = getSourceCode(context);
 
     /**
      * @param {Range} range

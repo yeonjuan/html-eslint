@@ -18,8 +18,10 @@ ruleTester.run("id-naming-convention", rule, {
     {
       code: `<div id="{{ID}}"> </div>`,
       options: ["camelCase"],
-      parserOptions: {
-        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.HANDLEBAR,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.HANDLEBAR,
+        },
       },
     },
     {
