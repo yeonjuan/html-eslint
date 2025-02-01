@@ -15,7 +15,7 @@ export default [
     ignores: [
       "**/node_modules",
       "**/.vscode",
-      "**/.parce-cache",
+      "**/.parcel-cache",
       "**/out",
       "**/integration-test-projects",
       "**/coverage",
