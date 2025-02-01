@@ -20,7 +20,8 @@ const MESSAGE_IDS = {
 function getProtocol(url) {
   try {
     return new URL(url).protocol;
-  } catch (e) {
+    // eslint-disable-next-line no-unused-vars
+  } catch (_) {
     return null;
   }
 }

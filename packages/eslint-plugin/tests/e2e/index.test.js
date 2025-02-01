@@ -1,14 +1,6 @@
 const eslint = require(`eslint`);
 const fs = require(`fs`);
-const parser = require(`@html-eslint/parser`);
 const path = require(`path`);
-const plugin = require(`../../lib/index`);
-const pluginRules = Object.fromEntries(
-  Object.entries(plugin.rules).map(([name, rule]) => [
-    `@html-eslint/${name}`,
-    rule,
-  ])
-);
 
 const testDirs = fs
   .readdirSync(__dirname, { withFileTypes: true })
