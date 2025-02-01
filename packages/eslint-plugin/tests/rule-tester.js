@@ -22,11 +22,14 @@ class RuleTester extends ESLintRuleTester {
 
 module.exports = function createRuleTester(parser) {
   return new RuleTester({
-    parser: require.resolve(parser || "@html-eslint/parser"),
-    ...(!parser
-      ? undefined
+    languageOptions: !parser
+      ? {
+          parser: require("@html-eslint/parser"),
+        }
       : {
-          parserOptions: { ecmaVersion: 2015 },
-        }),
+          parserOptions: {
+            ecmaVersion: 2015,
+          },
+        },
   });
 };

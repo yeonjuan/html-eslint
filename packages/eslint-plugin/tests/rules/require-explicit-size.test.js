@@ -66,14 +66,6 @@ ruleTester.run("require-explicit-size", rule, {
       ],
     },
     {
-      code: `<img width="200px">`,
-      errors: [
-        {
-          messageId: "missingHeight",
-        },
-      ],
-    },
-    {
       code: `<iframe></iframe>`,
       errors: [
         {

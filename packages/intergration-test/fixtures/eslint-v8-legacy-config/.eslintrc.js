@@ -20,7 +20,8 @@ module.exports = {
             plugins: ["@html-eslint"],
             rules: {
                 "@html-eslint/indent": ["error", 2],
-                "@html-eslint/sort-attrs": ["error"]
+                "@html-eslint/sort-attrs": ["error"],
+                "@html-eslint/quotes": ["error"]
             }
         }
     ]

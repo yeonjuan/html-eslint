@@ -15,6 +15,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { getLocBetween } = require("./utils/node");
+const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
@@ -92,7 +93,7 @@ module.exports = {
     const disallowInAssignment = !!(context.options[0] || [])
       .disallowInAssignment;
 
-    const sourceCode = context.getSourceCode().text;
+    const sourceCode = getSourceCode(context).text;
 
     /**
      * @param {Attribute[]} attrs

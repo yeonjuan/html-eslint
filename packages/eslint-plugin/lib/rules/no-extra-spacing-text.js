@@ -88,7 +88,6 @@ module.exports = {
       const text = node.value;
       const matcher = /(^|[^\n \t])([ \t]+\n|\t[\t ]*|[ \t]{2,})/g;
 
-      // eslint-disable-next-line no-constant-condition
       while (true) {
         const offender = matcher.exec(text);
         if (offender === null) {
