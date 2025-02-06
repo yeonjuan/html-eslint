@@ -10,6 +10,7 @@
  * @typedef { import("../../types").AnyNode } AnyNode
  * @typedef { import("../../types").AttributeValue } AttributeValue
  * @typedef { import("../../types").AttributeKey } AttributeKey
+ * @typedef { import("../../types").TemplateText } TemplateText
  * @typedef { import("eslint").AST.Range } Range
  * @typedef { import("eslint").AST.SourceLocation } SourceLocation
  * @typedef { import("es-html-parser").AnyToken } AnyToken
@@ -69,7 +70,7 @@ function isOverlapWithTemplates(templates, range) {
 }
 
 /**
- * @param {AttributeKey | AttributeValue} node
+ * @param {AttributeKey | AttributeValue | Text} node
  * @returns {boolean}
  */
 function hasTemplate(node) {
@@ -94,7 +95,7 @@ function splitToLineNodes(node) {
    *
    * @param {Range} range
    */
-  function shouldSkipIndentCheck(range) {
+  function hasTemplate(range) {
     return templates.some(
       (template) =>
         template.isTemplate && isRangesOverlap(template.range, range)
@@ -125,7 +126,7 @@ function splitToLineNodes(node) {
       value,
       range,
       loc,
-      skipIndentCheck: shouldSkipIndentCheck(range),
+      hasTemplate: hasTemplate(range),
     };
 
     start += value.length + 1;
@@ -183,7 +184,7 @@ function isText(node) {
 }
 
 /**
- * @param {AnyNode | Line} node
+ * @param {AnyNode | Line | TemplateText} node
  * @returns {node is Line}
  */
 function isLine(node) {

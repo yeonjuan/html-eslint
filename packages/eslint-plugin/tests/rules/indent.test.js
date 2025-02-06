@@ -1076,6 +1076,26 @@ id="bar"
         `,
         errors: wrongIndentErrors(2),
       },
+      {
+        code: `
+<html>
+{{content}}
+</html>
+        `,
+        errors: wrongIndentErrors(1),
+        output: `
+<html>
+    {{content}}
+</html>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+            },
+          },
+        },
+      },
     ],
   };
 }
@@ -1149,6 +1169,19 @@ const code = html\`
     },
   ],
   invalid: [
+    {
+      code: `html\`
+    <div>
+\${content}
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        \${content}
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
     {
       code: `html\`
 <div
