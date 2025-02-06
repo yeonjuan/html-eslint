@@ -16,6 +16,7 @@ import {
  * @typedef {"lint" | "changeLanguage"} EventType
  * @typedef {import("./language").Language} Language
  * @typedef {import("./linter").RulesRecord} RulesRecord
+ * @typedef {import("./linter").ParserOptions} ParserOptions
  */
 
 export class Model {
@@ -43,6 +44,12 @@ export class Model {
      * @type {RulesRecord}
      */
     this.rules = {};
+
+    /**
+     * @member
+     * @type {ParserOptions}
+     */
+    this.parserOptions = null;
 
     /**
      * @member
@@ -87,6 +94,13 @@ export class Model {
     this.rules = rules;
   }
 
+  /**
+   * @param {ParserOptions} parserOptions 
+   */
+  setParserOptions(parserOptions) {
+    this.parserOptions = parserOptions;
+  }
+
   setCode(code) {
     if (this.language.value === "html") {
       this.html = code;
@@ -123,6 +137,7 @@ export class Model {
    */
   lint() {
     this.linter.setRules(this.rules);
+    this.linter.setParserOptions(this.parserOptions);
     const {
       messages, output
     } = this.linter.lint(
@@ -150,7 +165,8 @@ export class Model {
     const hash = window.btoa(unescape(encodeURIComponent(JSON.stringify({
       code: this.getCode(),
       config: {
-        rules: this.rules
+        rules: this.rules,
+        parserOptions: this.parserOptions || undefined,
       },
       language: this.language.value
     }))));
@@ -183,15 +199,20 @@ export class Model {
           this.javascript = INITIAL_JAVASCRIPT;
         }
       }
-      if (
-        parsed.config &&
-        typeof parsed.config === "object" &&
-        parsed.config.rules &&
-        typeof parsed.config.rules === "object"
-      ) {
+      
+      const hasConfig = parsed.config &&
+        typeof parsed.config === "object";
+      const hasRule = hasConfig && parsed.config.rules &&
+        typeof parsed.config.rules === "object";
+      const hasParserOptions = hasConfig && parsed.config.parserOptions &&
+        typeof parsed.config.parserOptions === 'object';
+      if (hasRule) {
         this.setRules(parsed.config.rules);
       } else {
         this.setRules(JSON.parse(INITAIL_CONFIG).rules);
+      }
+      if (hasParserOptions) {
+        this.setParserOptions(parsed.config.parserOptions)
       }
     } catch (error) {
       console.error(error);
