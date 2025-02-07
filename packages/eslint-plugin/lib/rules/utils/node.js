@@ -73,7 +73,8 @@ function isOverlapWithTemplates(templates, range) {
  * @returns {boolean}
  */
 function hasTemplate(node) {
-  return node.templates.some((template) => template.isTemplate);
+  const templates = node.templates || [];
+  return templates.some((template) => template.isTemplate);
 }
 
 /**
