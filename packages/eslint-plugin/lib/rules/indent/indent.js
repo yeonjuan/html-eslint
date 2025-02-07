@@ -313,7 +313,12 @@ module.exports = {
           if (hasTemplate(node)) {
             node.parts.forEach((part) => {
               if (part.type !== NodeTypes.Part) {
-                checkIndent(part);
+                if (part.open) {
+                  checkIndent(part.open);
+                }
+                if (part.close) {
+                  checkIndent(part.close);
+                }
               }
             });
           }

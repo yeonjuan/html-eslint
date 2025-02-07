@@ -196,9 +196,8 @@ module.exports = class Parser {
         return;
       } else if (this.getPossibleCloseValueOf(top) === syntax.value) {
         this.result.push({
-          open: top.value,
-          close: syntax.value,
-          range: [top.range[0], syntax.range[1]],
+          open: [top.range[0], top.range[0] + top.value.length],
+          close: [syntax.range[1] - syntax.value.length, syntax.range[1]],
         });
       }
     }

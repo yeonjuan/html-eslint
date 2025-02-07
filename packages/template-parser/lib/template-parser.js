@@ -22,9 +22,9 @@ function parse(node, sourceCode, visitors) {
   const lineOffset = node.loc.start.line - 1;
   const expressions = node.expressions;
   /**
-   * @type {[number, number][]}
+   * @type {{open: [number, number]; close: [number, number]}[]}
    */
-  const ranges = [];
+  const templateInfos = [];
   quasis.forEach((element, index) => {
     htmlParts.push(element.value.raw);
     if (expressions[index]) {
@@ -35,12 +35,16 @@ function parse(node, sourceCode, visitors) {
       );
       htmlParts.push(str);
       const start = element.range[1] - "${".length - rangeOffset;
-      ranges.push([start, start + str.length]);
+      const end = start + str.length;
+      templateInfos.push({
+        open: [start, start + "${".length],
+        close: [end - "}".length, end],
+      });
     }
   });
   const html = htmlParts.join("");
   const { ast, tokens } = esHtmlParser.parse(html, {
-    templateRanges: ranges,
+    templateRanges: templateInfos,
     tokenAdapter: {
       finalizeLocation(token) {
         const startLine = token.loc.start.line + lineOffset;

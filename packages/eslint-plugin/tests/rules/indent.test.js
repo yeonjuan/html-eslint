@@ -1113,7 +1113,7 @@ id="bar"
 }}
 </html>
         `,
-        errors: wrongIndentErrors(1),
+        errors: wrongIndentErrors(2),
         output: `
 <html>
     {{
