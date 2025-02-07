@@ -41,7 +41,7 @@ module.exports = {
         if (!ariaHiddenAttr) {
           return;
         }
-        if (ariaHiddenAttr.value && ariaHiddenAttr.value.templates.length) {
+        if (ariaHiddenAttr.value && ariaHiddenAttr.value.parts.length) {
           return;
         }
 

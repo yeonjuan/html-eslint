@@ -42,7 +42,7 @@ module.exports = {
       if (
         tabIndexAttr &&
         tabIndexAttr.value &&
-        !tabIndexAttr.value.templates.length &&
+        !tabIndexAttr.value.parts.length &&
         parseInt(tabIndexAttr.value.value, 10) > 0
       ) {
         context.report({

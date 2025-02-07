@@ -88,7 +88,7 @@ module.exports = {
      */
     function check(node) {
       const attributeValue = getResourceAttributeValue(node);
-      if (attributeValue && !attributeValue.templates.length) {
+      if (attributeValue && !attributeValue.parts.length) {
         const protocol = getProtocol(attributeValue.value);
         if (protocol === "http:") {
           context.report({

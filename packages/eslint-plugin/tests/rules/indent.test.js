@@ -382,6 +382,15 @@ function createTests() {
 </script>
         `,
       },
+      {
+        code: `
+<div>
+<pre>
+{{content}}
+</pre>
+</html>
+        `,
+      },
     ],
     invalid: [
       {
@@ -1086,6 +1095,30 @@ id="bar"
         output: `
 <html>
     {{content}}
+</html>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<html>
+{{
+  content
+}}
+</html>
+        `,
+        errors: wrongIndentErrors(1),
+        output: `
+<html>
+    {{
+  content
+    }}
 </html>
         `,
         languageOptions: {

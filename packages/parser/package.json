@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@html-eslint/template-syntax-parser": "^0.34.0",
-    "es-html-parser": "^1.0.0-alpha.4"
+    "es-html-parser": "^1.0.0-alpha.7"
   },
   "devDependencies": {
     "typescript": "^5.7.2"

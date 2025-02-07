@@ -25,6 +25,7 @@
  */
 
 const { parse } = require("@html-eslint/template-parser");
+const { NodeTypes } = require("es-html-parser");
 const { RULE_CATEGORY } = require("../../constants");
 const {
   splitToLineNodes,
@@ -310,8 +311,10 @@ module.exports = {
         Text(node) {
           indentLevel.indent(node);
           if (hasTemplate(node)) {
-            node.templates.forEach((template) => {
-              checkIndent(template);
+            node.parts.forEach((part) => {
+              if (part.type !== NodeTypes.Part) {
+                checkIndent(part);
+              }
             });
           }
 

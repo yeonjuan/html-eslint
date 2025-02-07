@@ -45,7 +45,7 @@ module.exports = {
      * @param {string} source
      * @param {string[]} lines
      * @param {number} rangeOffset
-     * @param {((CommentContent | Text)['templates'][number])[]} tokens
+     * @param {((CommentContent | Text)['parts'][number])[]} tokens
      */
     function check(source, lines, rangeOffset, tokens) {
       let rangeIndex = rangeOffset;

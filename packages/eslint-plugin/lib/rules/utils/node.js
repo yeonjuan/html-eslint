@@ -18,6 +18,7 @@
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
+const { NodeTypes, TokenTypes } = require("es-html-parser");
 
 /**
  * @param {Tag | ScriptTag | StyleTag} node
@@ -59,13 +60,13 @@ function isRangesOverlap(rangeA, rangeB) {
 }
 
 /**
- * @param {(Text | CommentContent)['templates']} templates
+ * @param {(Text | CommentContent)['parts']} parts
  * @param {Range} range
  * @returns {boolean}
  */
-function isOverlapWithTemplates(templates, range) {
-  return templates
-    .filter((template) => template.isTemplate)
+function isOverlapWithTemplates(parts, range) {
+  return parts
+    .filter((part) => part.type !== NodeTypes.Part)
     .some((template) => isRangesOverlap(template.range, range));
 }
 
@@ -74,7 +75,7 @@ function isOverlapWithTemplates(templates, range) {
  * @returns {boolean}
  */
 function hasTemplate(node) {
-  return node.templates.some((template) => template.isTemplate);
+  return node.parts.some((part) => part.type !== NodeTypes.Part);
 }
 
 /**
@@ -90,15 +91,15 @@ function splitToLineNodes(node) {
    * @type {Line[]}
    */
   const lineNodes = [];
-  const templates = node.templates || [];
+  const parts = node.parts || [];
   /**
    *
    * @param {Range} range
    */
   function hasTemplate(range) {
-    return templates.some(
-      (template) =>
-        template.isTemplate && isRangesOverlap(template.range, range)
+    return parts.some(
+      (part) =>
+        part.type !== NodeTypes.Part && isRangesOverlap(part.range, range)
     );
   }
 
@@ -225,7 +226,7 @@ function findParent(node, predicate) {
 /**
  *
  * @param {AnyToken[]} tokens
- * @returns {((CommentContent | Text)['templates'][number])[]}
+ * @returns {((CommentContent | Text)['parts'][number])[]}
  */
 function getTemplateTokens(tokens) {
   return (
@@ -233,10 +234,10 @@ function getTemplateTokens(tokens) {
       .concat(
         ...tokens
           // @ts-ignore
-          .map((token) => token["templates"] || [])
+          .map((token) => token["parts"] || [])
       )
       // @ts-ignore
-      .filter((token) => token.isTemplate)
+      .filter((token) => token.type !== TokenTypes.Part)
   );
 }
 
