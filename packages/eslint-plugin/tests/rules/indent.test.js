@@ -1149,6 +1149,14 @@ templateRuleTester.run("[template] indent", rule, {
     </div>
       \``,
     },
+    {
+      code: `html\`
+    <div>
+        \${
+    content}
+    </div>
+      \``,
+    },
     // Ignore indentation in template expressions
     {
       code: `html\`
@@ -1211,6 +1219,36 @@ const code = html\`
       output: `html\`
     <div>
         \${content}
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+    <div>
+        \${content
+}
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        \${content
+        }
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+    <div>
+\${
+        content}
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        \${
+        content}
     </div>
       \``,
       errors: wrongIndentErrors(1),
