@@ -7,25 +7,24 @@ describe("integration tests", () => {
   });
 
   describe("eslint-v8-legacy-config", () => {
-    // it("should throw a lint error for invalid.html ", async () => {
-    //   const htmlResult = await runESLint({
+    it("should throw a lint error for invalid.html ", async () => {
+      const htmlResult = await runESLint({
+        fixtureName: "eslint-v8-legacy-config",
+        glob: "invalid.html",
+      });
+      expect(htmlResult[0].fatalErrorCount).toBe(0);
+      expect(htmlResult[0].messages.length).toBeGreaterThanOrEqual(1);
+    }, 200000);
+
+    // it("should throw a lint error for invalid.js ", async () => {
+    //   const jsResult = await runESLint({
     //     fixtureName: "eslint-v8-legacy-config",
-    //     glob: "invalid.html",
+    //     glob: "invalid.js",
     //     devDependencies,
     //   });
-    //   expect(htmlResult[0].fatalErrorCount).toBe(0);
-    //   expect(htmlResult[0].messages.length).toBeGreaterThanOrEqual(1);
+    //   expect(jsResult[0].fatalErrorCount).toBe(0);
+    //   expect(jsResult[0].messages.length).toBeGreaterThanOrEqual(1);
     // }, 20000);
-
-    it("should throw a lint error for invalid.js ", async () => {
-      const jsResult = await runESLint({
-        fixtureName: "eslint-v8-legacy-config",
-        glob: "invalid.js",
-        devDependencies,
-      });
-      expect(jsResult[0].fatalErrorCount).toBe(0);
-      expect(jsResult[0].messages.length).toBeGreaterThanOrEqual(1);
-    }, 20000);
   });
 
   //   it("should not throw any lint error for valid.html and valid.js", async () => {

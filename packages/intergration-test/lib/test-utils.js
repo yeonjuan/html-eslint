@@ -19,34 +19,24 @@ tmp.setGracefulCleanup();
  * @param {Record<string, string} config.devDependencies
  */
 async function runESLint(config) {
-  const testDir = await tmpDir();
-  await copyDir(
-    path.join(__dirname, "../fixtures/", config.fixtureName),
-    testDir
-  );
-  const packageJsonPath = path.join(testDir, "package.json");
-  const packageJson = JSON.parse(
-    fs.readFileSync(packageJsonPath, { encoding: "utf-8" })
-  );
-  packageJson.devDependencies = {
-    ...packageJson.devDependencies,
-    ...config.devDependencies,
-  };
-  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-
-  await execFile("yarn", ["install", "--no-immutable"], {
-    cwd: testDir,
+  const cwd = path.join(__dirname, "../fixtures/", config.fixtureName);
+  console.log("cwd", cwd);
+  console.log("yarn install --no-immutable");
+  await execFile("npm", ["install"], {
+    cwd,
   });
-  const outFile = await tmpFile();
+
+  const outJson = path.join(cwd, "out.json");
+  console.log("yarn eslints");
   await execFile(
-    "yarn",
-    ["eslint", "--format", "json", "--output-file", outFile, config.glob],
+    "npm",
+    ["eslint", "--format", "json", "--output-file", outJson, config.glob],
     {
-      cwd: testDir,
+      cwd,
     }
   ).catch((e) => console.error(e));
 
-  const result = await readFile(outFile, "utf-8");
+  const result = await readFile(outJson, "utf-8");
   return JSON.parse(result);
 }
 

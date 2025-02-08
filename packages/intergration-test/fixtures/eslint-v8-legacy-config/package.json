@@ -1,9 +1,12 @@
 {
     "name": "eslint-v8-legacy-config",
     "private": true,
+    "root": true,
     "version": "0.0.1",
     "packageManager": "yarn@4.0.2",
     "devDependencies": {
-        "eslint": "8"
+        "eslint": "8",
+        "@html-eslint/eslint-plugin": "workspace:^",
+        "@html-eslint/parser": "workspace:^"
     }
 }
