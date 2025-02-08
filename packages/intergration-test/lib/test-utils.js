@@ -44,10 +44,38 @@ async function runESLint(config) {
     {
       cwd: testDir,
     }
-  ).catch(() => {});
+  ).catch((e) => console.error(e));
 
   const result = await readFile(outFile, "utf-8");
   return JSON.parse(result);
+}
+
+/**
+ * @param {string} dir
+ * @returns {{packageJson: {name: string; dependencies?: Record<string, string>}; packageDir: string; packageJsonPath: stringl}[]}
+ */
+function getPackages(dir) {
+  const packageDirs = fs.readdirSync(dir);
+  return packageDirs
+    .map((packageDirname) => {
+      const packageDir = path.join(dir, packageDirname);
+      const packageJsonPath = path.join(packageDir, "package.json");
+      if (!fs.existsSync(packageJsonPath)) {
+        return null;
+      }
+      const packageJson = JSON.parse(
+        fs.readFileSync(packageJsonPath, { encoding: "utf-8" })
+      );
+      if (packageJson.private === true) {
+        return null;
+      }
+      return {
+        packageJson,
+        packageJsonPath,
+        packageDir,
+      };
+    })
+    .filter(Boolean);
 }
 
 /**
@@ -59,20 +87,33 @@ async function packPackages() {
   }).name;
 
   const PACKAGES_DIR = path.resolve(__dirname, "../../");
-  const PACKAGES = fs.readdirSync(PACKAGES_DIR);
+  const packages = getPackages(PACKAGES_DIR);
+
+  for (const { packageDir, packageJsonPath, packageJson } of packages) {
+    const dependenciesInPackage = packageJson.dependencies;
+    if (dependenciesInPackage) {
+      const dependencyPackageNames = Object.keys(dependenciesInPackage);
+      const workspacePackageNames = dependencyPackageNames.filter(
+        (packageName) =>
+          packages.find((pkg) => pkg.packageJson.name === packageName)
+      );
+      const newDependencies = {
+        ...packageJson.dependencies,
+      };
+      workspacePackageNames.forEach((packageName) => {
+        newDependencies[packageName] = `file:${packageDir}`;
+      });
+      fs.writeFileSync(
+        packageJsonPath,
+        JSON.stringify({ ...packageJson, dependencies: newDependencies }),
+        "utf-8"
+      );
+    }
+  }
+
   const dependencies = {};
-  for (const pkg of PACKAGES) {
-    const packageDir = path.join(PACKAGES_DIR, pkg);
-    const packageJsonPath = path.join(packageDir, "package.json");
-    if (!fs.existsSync(packageJsonPath)) {
-      continue;
-    }
-    const packageJson = JSON.parse(
-      fs.readFileSync(packageJsonPath, { encoding: "utf-8" })
-    );
-    if (packageJson.private === true) {
-      continue;
-    }
+
+  for (const { packageDir, packageJson } of packages) {
     const result = childProcess.spawnSync("npm", ["pack", packageDir], {
       cwd: tarFolder,
       encoding: "utf-8",
@@ -81,6 +122,7 @@ async function packPackages() {
     const tarball = stdoutLines[stdoutLines.length - 1];
     dependencies[packageJson.name] = `file:${path.join(tarFolder, tarball)}`;
   }
+
   return dependencies;
 }
 
