@@ -6,6 +6,7 @@ describe("integration tests", () => {
       const htmlResult = await runESLint({
         fixtureName: "eslint-v8-legacy-config",
         glob: "invalid.html",
+        eslintVersion: "8",
       });
       expect(htmlResult[0].fatalErrorCount).toBe(0);
       expect(htmlResult[0].messages.length).toBeGreaterThanOrEqual(1);
