@@ -391,6 +391,13 @@ function createTests() {
 </html>
         `,
       },
+      {
+        code: `
+<div>
+    {{content}} {{content2}}
+</html>
+        `,
+      },
     ],
     invalid: [
       {
@@ -1149,6 +1156,75 @@ id="bar"
           parserOptions: {
             templateEngineSyntax: {
               "{{": "}}",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div
+{{ content }}>
+</div>
+        `,
+        errors: wrongIndentErrors(1),
+        output: `
+<div
+    {{ content }}>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div>
+{{ content }}
+ <span></span>
+ {{ content2 }}
+</div>
+        `,
+        errors: wrongIndentErrors(3),
+        output: `
+<div>
+    {{ content }}
+    <span></span>
+    {{ content2 }}
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div>
+{{ content }}
+ <span></span>
+ {{{ content2 }}}
+</div>
+        `,
+        errors: wrongIndentErrors(3),
+        output: `
+<div>
+    {{ content }}
+    <span></span>
+    {{{ content2 }}}
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+              "{{{": "}}}",
             },
           },
         },
