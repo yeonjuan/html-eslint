@@ -44,7 +44,7 @@ function parse(node, sourceCode, visitors) {
   });
   const html = htmlParts.join("");
   const { ast, tokens } = esHtmlParser.parse(html, {
-    templateRanges: templateInfos,
+    templateInfos: templateInfos,
     tokenAdapter: {
       finalizeLocation(token) {
         const startLine = token.loc.start.line + lineOffset;

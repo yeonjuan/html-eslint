@@ -169,7 +169,7 @@ export interface TemplateLiteral extends estree.TemplateLiteral {
   range: eslint.AST.Range;
 }
 
-export type TemplateText = Text["templates"][number];
+export type TemplateText = Text["parts"][number];
 
 export type AnyNode =
   | Document
@@ -203,4 +203,5 @@ export type AnyNode =
   | Text
   | Line
   | TaggedTemplateExpression
-  | TemplateLiteral;
+  | TemplateLiteral
+  | Parser.TemplateNode;

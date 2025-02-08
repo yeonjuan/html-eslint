@@ -67,7 +67,7 @@ function isRangesOverlap(rangeA, rangeB) {
 function isOverlapWithTemplates(parts, range) {
   return parts
     .filter((part) => part.type !== NodeTypes.Part)
-    .some((template) => isRangesOverlap(template.range, range));
+    .some((part) => isRangesOverlap(part.range, range));
 }
 
 /**
