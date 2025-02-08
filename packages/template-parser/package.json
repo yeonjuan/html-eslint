@@ -36,7 +36,7 @@
     "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "es-html-parser": "0.1.0-alpha.1"
+    "es-html-parser": "0.1.0"
   },
   "devDependencies": {
     "@types/estree": "^0.0.47",
