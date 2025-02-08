@@ -24,6 +24,9 @@ import {
  * @callback OnErrorHhandler
  * @param {Error}
  * @returns {void}
+ * 
+ * @typedef {Object} ParserOptions
+ * @property {Record<string, string>} [ParserOptions.templateEngineSyntax]
  */
 
 /**
@@ -47,7 +50,9 @@ export class Linter {
     /**
      * @type {ESLinter}
      */
-    this._linter = new WebLinter();
+    this._linter = new WebLinter({
+      configType: "eslintrc"
+    });
 
     /**
      * @type {RulesRecord}
@@ -55,6 +60,12 @@ export class Linter {
     this._rules = {
       "@html-eslint/indent": "error"
     };
+
+    /**
+     * @type {ParserOptions}
+     */
+    this._parserOptions = null;
+
     this._defineParser();
     this._defineRules();
   }
@@ -73,8 +84,8 @@ export class Linter {
     this._linter.defineParser(
       "@html-eslint/parser",
       {
-        parseForESLint(code) {
-          return parseForESLint(code);
+        parseForESLint(code, options) {
+          return parseForESLint(code, options);
         }
       }
     );
@@ -100,14 +111,15 @@ export class Linter {
    */
   lint(code, language, fix = false) {
     try {
+      const parserOptions = language.value === "javascript" ? {
+        ecmaVersion: "latest"
+      } : this._parserOptions;
       const messages = this._linter.verify(
         code,
         {
-          parser: this.getParser(language),
           rules: this._rules,
-          parserOptions: {
-            ecmaVersion: "latest"
-          }
+          parser:  this.getParser(language),
+          parserOptions,
         }
       );
       const {
@@ -115,15 +127,16 @@ export class Linter {
       } = this._linter.verifyAndFix(
         code,
         {
+          rules: this._rules,
           parser: this.getParser(language),
-          rules: this._rules
+          parserOptions,
         },
         {
           fix
         }
       );
       if (messages.length && messages[0].fatal) {
-        fatalMessage = messages[0];
+        console.error(messages[0]);
       }
       return {
         messages,
@@ -144,5 +157,12 @@ export class Linter {
    */
   setRules(rules) {
     this._rules = rules;
+  }
+
+  /**
+   * @param {ParserOptions} parserOptions 
+   */
+  setParserOptions(parserOptions) {
+    this._parserOptions = parserOptions;
   }
 }

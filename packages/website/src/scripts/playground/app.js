@@ -46,6 +46,7 @@ class App {
     this.view.codeEditor.setValue(this.model.getCode());
     this.view.configEditor.setValue(JSON.stringify(
       {
+        parserOptions: this.model.parserOptions || undefined,
         rules: this.model.rules
       },
       null,
@@ -61,8 +62,11 @@ class App {
    */
   handleConfigChange(editor) {
     try {
-      const rules = JSON.parse(editor.getValue()).rules;
+      const parsed = JSON.parse(editor.getValue());
+      const rules = parsed.rules;
+      const parserOptions = parsed.parserOptions;
       this.model.setRules(rules);
+      this.model.setParserOptions(parserOptions);
       this.model.lint();
     } catch (e) {
       this.view.renderErrors([
