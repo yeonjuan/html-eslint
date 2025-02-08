@@ -1367,6 +1367,19 @@ id="\${bar}">
       errors: wrongIndentErrors(3),
     },
     {
+      code: `html\`
+<div
+\${id}>
+</div>
+      \``,
+      output: `html\`
+    <div
+        \${id}>
+    </div>
+      \``,
+      errors: wrongIndentErrors(3),
+    },
+    {
       code: `
 const obj = {
     html: html\`
