@@ -5,6 +5,7 @@
  * @typedef { import("../../types").Tag } Tag
  * @typedef { import("../../types").RuleListener } RuleListener
  * @typedef { import("../../types").Context } Context
+ * @typedef { import("../../types").TemplateText } TemplateText
  * @typedef { import("eslint").AST.Token } Token
  * @typedef { import("eslint").SourceCode } SourceCode
  * @typedef { import("eslint").AST.Range } Range
@@ -24,8 +25,14 @@
  */
 
 const { parse } = require("@html-eslint/template-parser");
+const { NodeTypes } = require("es-html-parser");
 const { RULE_CATEGORY } = require("../../constants");
-const { splitToLineNodes, isLine, isTag } = require("../utils/node");
+const {
+  splitToLineNodes,
+  isLine,
+  isTag,
+  hasTemplate,
+} = require("../utils/node");
 const {
   shouldCheckTaggedTemplateExpression,
   shouldCheckTemplateLiteral,
@@ -173,7 +180,7 @@ module.exports = {
       let parentIgnoringChildCount = 0;
 
       /**
-       * @param {AnyNode | Line} node
+       * @param {AnyNode | Line | TemplateText} node
        * @returns {string}
        */
       function getActualIndent(node) {
@@ -228,7 +235,7 @@ module.exports = {
       }
 
       /**
-       * @param {AnyNode | Line} node
+       * @param {AnyNode | Line | TemplateText} node
        */
       function checkIndent(node) {
         if (parentIgnoringChildCount > 0) {
@@ -303,10 +310,23 @@ module.exports = {
         },
         Text(node) {
           indentLevel.indent(node);
+          if (hasTemplate(node)) {
+            node.parts.forEach((part) => {
+              if (part.type !== NodeTypes.Part) {
+                if (part.open) {
+                  checkIndent(part.open);
+                }
+                if (part.close) {
+                  checkIndent(part.close);
+                }
+              }
+            });
+          }
+
           const lineNodes = splitToLineNodes(node);
 
           lineNodes.forEach((lineNode) => {
-            if (lineNode.skipIndentCheck) {
+            if (lineNode.hasTemplate) {
               return;
             }
             if (lineNode.value.trim().length) {
@@ -323,9 +343,22 @@ module.exports = {
         CommentOpen: checkIndent,
         CommentContent(node) {
           indentLevel.indent(node);
+          if (hasTemplate(node)) {
+            node.parts.forEach((part) => {
+              if (part.type !== NodeTypes.Part) {
+                if (part.open) {
+                  checkIndent(part.open);
+                }
+                if (part.close) {
+                  checkIndent(part.close);
+                }
+              }
+            });
+          }
+
           const lineNodes = splitToLineNodes(node);
           lineNodes.forEach((lineNode) => {
-            if (lineNode.skipIndentCheck) {
+            if (lineNode.hasTemplate) {
               return;
             }
             if (lineNode.value.trim().length) {
@@ -363,7 +396,7 @@ module.exports = {
 };
 
 /**
- * @param {AnyNode | Line} node
+ * @param {AnyNode | Line | TemplateText} node
  * @param {string} actualIndent
  * @return {{range: Range; loc: SourceLocation}}
  */

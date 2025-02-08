@@ -98,7 +98,7 @@ module.exports = {
         const indexStart = node.range[0] + matcher.lastIndex - space.length;
         const indexEnd = indexStart + space.length;
 
-        const hasOverlap = isOverlapWithTemplates(node.templates, [
+        const hasOverlap = isOverlapWithTemplates(node.parts, [
           indexStart,
           indexEnd,
         ]);

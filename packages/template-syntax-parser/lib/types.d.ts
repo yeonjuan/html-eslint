@@ -4,9 +4,8 @@ export type TemplateSyntaxParserConfig = {
 };
 
 export type TemplateSyntax = {
-  open: string;
-  close: string;
-  range: Range;
+  open: Range;
+  close: Range;
 };
 
 export type OpenSyntax = {

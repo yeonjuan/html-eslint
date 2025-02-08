@@ -16,11 +16,9 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
   const options =
     (parserOptions &&
       parserOptions.templateEngineSyntax && {
-        templateRanges: templateSyntaxParser
-          .parse(code, {
-            syntax: parserOptions.templateEngineSyntax,
-          })
-          .syntax.map((s) => s.range),
+        templateInfos: templateSyntaxParser.parse(code, {
+          syntax: parserOptions.templateEngineSyntax,
+        }).syntax,
       }) ||
     undefined;
 

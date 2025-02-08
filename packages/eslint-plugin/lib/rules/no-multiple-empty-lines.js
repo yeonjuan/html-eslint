@@ -62,7 +62,7 @@ module.exports = {
     /**
      * @param {string[]} lines
      * @param {number} lineOffset
-     * @param {((CommentContent | Text)['templates'][number])[]} tokens
+     * @param {((CommentContent | Text)['parts'][number])[]} tokens
      */
     function check(lines, lineOffset, tokens) {
       /** @type {number[]} */

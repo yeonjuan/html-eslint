@@ -382,6 +382,22 @@ function createTests() {
 </script>
         `,
       },
+      {
+        code: `
+<div>
+<pre>
+{{content}}
+</pre>
+</html>
+        `,
+      },
+      {
+        code: `
+<div>
+    {{content}} {{content2}}
+</html>
+        `,
+      },
     ],
     invalid: [
       {
@@ -1076,6 +1092,143 @@ id="bar"
         `,
         errors: wrongIndentErrors(2),
       },
+      {
+        code: `
+<html>
+{{content}}
+</html>
+        `,
+        errors: wrongIndentErrors(1),
+        output: `
+<html>
+    {{content}}
+</html>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<html>
+{{
+  content
+}}
+</html>
+        `,
+        errors: wrongIndentErrors(2),
+        output: `
+<html>
+    {{
+  content
+    }}
+</html>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<!--
+{{
+  content
+}}
+-->
+        `,
+        errors: wrongIndentErrors(2),
+        output: `
+<!--
+    {{
+  content
+    }}
+-->
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div
+{{ content }}>
+</div>
+        `,
+        errors: wrongIndentErrors(1),
+        output: `
+<div
+    {{ content }}>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div>
+{{ content }}
+ <span></span>
+ {{ content2 }}
+</div>
+        `,
+        errors: wrongIndentErrors(3),
+        output: `
+<div>
+    {{ content }}
+    <span></span>
+    {{ content2 }}
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div>
+{{ content }}
+ <span></span>
+ {{{ content2 }}}
+</div>
+        `,
+        errors: wrongIndentErrors(3),
+        output: `
+<div>
+    {{ content }}
+    <span></span>
+    {{{ content2 }}}
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+              "{{{": "}}}",
+            },
+          },
+        },
+      },
     ],
   };
 }
@@ -1093,6 +1246,14 @@ templateRuleTester.run("[template] indent", rule, {
       code: `html\`
     <div>
         <div></div>
+    </div>
+      \``,
+    },
+    {
+      code: `html\`
+    <div>
+        \${
+    content}
     </div>
       \``,
     },
@@ -1151,6 +1312,49 @@ const code = html\`
   invalid: [
     {
       code: `html\`
+    <div>
+\${content}
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        \${content}
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+    <div>
+        \${content
+}
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        \${content
+        }
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+    <div>
+\${
+        content}
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        \${
+        content}
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
 <div
 id="\${bar}">
 </div>
@@ -1158,6 +1362,19 @@ id="\${bar}">
       output: `html\`
     <div
         id="\${bar}">
+    </div>
+      \``,
+      errors: wrongIndentErrors(3),
+    },
+    {
+      code: `html\`
+<div
+\${id}>
+</div>
+      \``,
+      output: `html\`
+    <div
+        \${id}>
     </div>
       \``,
       errors: wrongIndentErrors(3),

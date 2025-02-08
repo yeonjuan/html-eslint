@@ -49,7 +49,7 @@ module.exports = {
           });
         } else if (
           !VALID_BUTTON_TYPES_SET.has(typeAttr.value.value) &&
-          !typeAttr.value.templates.length
+          !typeAttr.value.parts.length
         ) {
           context.report({
             node: typeAttr,

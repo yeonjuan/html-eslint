@@ -150,7 +150,7 @@ export interface Text extends Parser.TextNode {
 export interface Line {
   type: "Line";
   value: string;
-  skipIndentCheck: boolean;
+  hasTemplate: boolean;
   range: eslint.AST.Range;
   loc: eslint.AST.SourceLocation;
 }
@@ -168,6 +168,8 @@ export interface TemplateLiteral extends estree.TemplateLiteral {
   loc: eslint.AST.SourceLocation;
   range: eslint.AST.Range;
 }
+
+export type TemplateText = Text["parts"][number];
 
 export type AnyNode =
   | Document
@@ -201,4 +203,5 @@ export type AnyNode =
   | Text
   | Line
   | TaggedTemplateExpression
-  | TemplateLiteral;
+  | TemplateLiteral
+  | Parser.TemplateNode;

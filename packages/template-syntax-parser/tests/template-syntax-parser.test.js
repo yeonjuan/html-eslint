@@ -43,9 +43,9 @@ describe("basic", () => {
       [[5, 16]],
     ],
   ])("parse(%s, %o)", (code, config, expected) => {
-    expect(parse(code, config).syntax.map((s) => s.range)).toStrictEqual(
-      expected
-    );
+    expect(
+      parse(code, config).syntax.map((s) => [s.open[0], s.close[1]])
+    ).toStrictEqual(expected);
   });
 });
 
