@@ -1,9 +1,0 @@
-{
-    "name": "eslint-v9-flat-config",
-    "private": true,
-    "version": "0.0.1",
-    "packageManager": "yarn@4.0.2",
-    "devDependencies": {
-        "eslint": "9"
-    }
-}

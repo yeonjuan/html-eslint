@@ -7035,22 +7035,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-v8-legacy-config@workspace:packages/intergration-test/fixtures/eslint-v8-legacy-config":
-  version: 0.0.0-use.local
-  resolution: "eslint-v8-legacy-config@workspace:packages/intergration-test/fixtures/eslint-v8-legacy-config"
-  dependencies:
-    eslint: "npm:8"
-  languageName: unknown
-  linkType: soft
-
-"eslint-v9-flat-config@workspace:packages/intergration-test/fixtures/eslint-v9-flat-config":
-  version: 0.0.0-use.local
-  resolution: "eslint-v9-flat-config@workspace:packages/intergration-test/fixtures/eslint-v9-flat-config"
-  dependencies:
-    eslint: "npm:9"
-  languageName: unknown
-  linkType: soft
-
 "eslint-visitor-keys@npm:^3.4.1, eslint-visitor-keys@npm:^3.4.3":
   version: 3.4.3
   resolution: "eslint-visitor-keys@npm:3.4.3"
@@ -7065,7 +7049,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8, eslint@npm:^8.29.0":
+"eslint@npm:^8.29.0":
   version: 8.57.1
   resolution: "eslint@npm:8.57.1"
   dependencies:
@@ -7113,7 +7097,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9, eslint@npm:^9, eslint@npm:^9.19.0":
+"eslint@npm:^9, eslint@npm:^9.19.0":
   version: 9.19.0
   resolution: "eslint@npm:9.19.0"
   dependencies:
@@ -8974,9 +8958,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"integration-test@workspace:packages/intergration-test":
+"integration-test@workspace:packages/integration-test":
   version: 0.0.0-use.local
-  resolution: "integration-test@workspace:packages/intergration-test"
+  resolution: "integration-test@workspace:packages/integration-test"
   dependencies:
     ncp: "npm:^2.0.0"
     tmp: "npm:^0.2.3"
