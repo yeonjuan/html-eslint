@@ -343,6 +343,19 @@ module.exports = {
         CommentOpen: checkIndent,
         CommentContent(node) {
           indentLevel.indent(node);
+          if (hasTemplate(node)) {
+            node.parts.forEach((part) => {
+              if (part.type !== NodeTypes.Part) {
+                if (part.open) {
+                  checkIndent(part.open);
+                }
+                if (part.close) {
+                  checkIndent(part.close);
+                }
+              }
+            });
+          }
+
           const lineNodes = splitToLineNodes(node);
           lineNodes.forEach((lineNode) => {
             if (lineNode.hasTemplate) {

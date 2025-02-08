@@ -1129,6 +1129,30 @@ id="bar"
           },
         },
       },
+      {
+        code: `
+<!--
+{{
+  content
+}}
+-->
+        `,
+        errors: wrongIndentErrors(2),
+        output: `
+<!--
+    {{
+  content
+    }}
+-->
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "{{": "}}",
+            },
+          },
+        },
+      },
     ],
   };
 }

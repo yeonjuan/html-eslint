@@ -71,7 +71,7 @@ function isOverlapWithTemplates(parts, range) {
 }
 
 /**
- * @param {AttributeKey | AttributeValue | Text} node
+ * @param {AttributeKey | AttributeValue | Text | CommentContent} node
  * @returns {boolean}
  */
 function hasTemplate(node) {
