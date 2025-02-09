@@ -97,10 +97,10 @@
     @apply !bg-gray-200 code2 rounded-[8px];
   }
   .md-heading1 {
-    @apply display1 text-black-900 my-[28px];
+    @apply display1 text-3xl text-black-900 my-[28px];
   }
   .md-heading2 {
-    @apply display3 text-black-900 mb-3 mt-6;
+    @apply display3 text-2xl text-black-900 mb-3 mt-6;
   }
   .mad-heading3 {
     @apply text-lg mb-3 mt-5 md:text-xl scroll-mt-[64px];

@@ -1,68 +1,60 @@
 <div class="flex flex-col w-full text-left justify-center md:text-center items-center">
-  <section class="pt-[24px] md:pt-[150px] pb-[100px] md:pb-[80px] md:max-w-[1200px] flex flex-col items-center">
-    <h1 class="display1 md:text-[60px] md:leading-[68px] md:font-bold">
-      An <span class="text-accent">ESLint</span>
-      <br class="md:hidden">
-      plugin<br>
-      to lint and fix <span class="text-accent">HTML code</span>.
-    </h1>
-    <p class="text-black-900 mb-[24px] md:mb-[60px] mt-[12px] md:mt-[20px]">
-      ESLint is a popular linting tool, but it only supports JavaScript.<br>
-      This plugin allows you to lint HTML files and HTML code in JavaScript Template Literals.
+  <section class="pt-[24px] md:pt-[60px] pb-[80px] md:pb-[80px] md:max-w-[1200px] flex flex-col items-center">
+    <img
+      src="~/src/assets/logo_320x320.png"
+      alt=""
+      width="160"
+      height="160"
+    >
+    <h1 class="display1 text-[40px]">HTML ESLINT</h1>
+    <p class="text-black-900 mb-[24px] text-center text-base md:text-lg md:mb-[50px] mt-[12px] md:mt-[20px]">
+      An ESLint plugin for formatting and linting HTML.
     </p>
-    <ul class="[&>li]:py-1 [&>li]: w-full flex items-center flex-col md:flex-row md:justify-center gap-[12px] md:gap-[20px]">
+    <ul class="[&>li]:py-1 [&>li]: w-full flex items-center justify-center text-sm md:text-base flex-row md:flex-row mt-2 mb-10 gap-[12px] md:gap-[20px]">
       <li>
-        <h2>
-          <a href="~/src/docs/getting-started.html" class="bg-black-900 px-[20px] py-[10px] text-white rounded-[12px]">
-            Getting Started
-          </a>
-        </h2>
+        <a href="~/src/docs/getting-started.html" class="bg-accent border border-accent px-[10px] py-[10px] text-white rounded-[12px]">
+          Get Started
+        </a>
       </li>
       <li>
-        <h2>
-          <a href="~/src/playground.html" class="bg-white border border-gray-400 px-[20px] py-[10px] text-gray-900 rounded-[12px]">
-            Playground
-          </a>
-        </h2>
+        <a href="~/src/playground.html" class="bg-white border border-gray-400 px-[10px] py-[10px] text-gray-900 rounded-[12px]">
+          Playground
+        </a>
       </li>
       <li>
-        <h2>
-          <a href="~/src/docs/rules.html" class="bg-white border border-gray-400 px-[20px] py-[10px] text-gray-900 rounded-[12px]">
-            All Rules
-          </a>
-        </h2>
+        <a href="~/src/docs/rules.html" class="bg-white border border-gray-400 px-[10px] py-[10px] text-gray-900 rounded-[12px]">
+          Rules
+        </a>
       </li>
     </ul>
-    <img
-      src="~/src/assets/example.png"
-      alt=""
-      class="border-[1px] border-gray-300 rounded-[12px] md:rounded-[28px] p-[4px] md:max-w-[1028px] mt-[36px] md:mt-[60px]"
-      width="1028"
-      height="260"
-    >
-    <div class="py-4">
-      <h2 class="py-4 text-[20px]">FAQ</h2>
-      <ul class="my-2 max-w-[600px] text-left">
-        <li>
-          <h3 class="font-semibold">Q: Lint JavaScript inside HTML</h3>
-          <p>
-            A: This ESLint plugin supports linting HTML syntax and does not provide JavaScript syntax linting. To lint JavaScript in HTML, such as inline scripts, you can use <a
-              href="https://github.com/BenoitZugmeyer/eslint-plugin-html"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="underline"
-            >eslint-plugin-html</a>
-          </p>
-        </li>
-      </ul>
+    <div class="flex gap-3 flex-col md:flex-row">
+      <article class="bg-[#f6f6f7] w-full p-4 rounded-md md:text-left">
+        <h2 class="text-base mb-2 md:text-lg">Lint HTML files with ESLint</h2>
+        <p class="body7 text-gray-700 text-sm md:text-base">There are various formatting and linting rules available for HTML code.
+          <a href="~/src/docs/rules.html" class="text-accent underline">See all rules.</a>
+        </p>
+      </article>
+      <article class="bg-[#f6f6f7] w-full p-4 rounded-md md:text-left">
+        <h2 class="text-base mb-2 md:text-lg">Lint HTML code inside JS Template Literals.</h2>
+        <p class="body7 text-gray-700 text-sm md:text-base">Supports linting and formatting HTML code written in JavaScript template literals.
+          <a href="~/src/docs/getting-started.html#lint-html-in-javascript-template-literals" class="text-accent underline">See Lint HTML in JavaScript Template Literals.</a>
+        </p>
+      </article>
+      <article class="bg-[#f6f6f7] w-full p-4 rounded-md md:text-left">
+        <h2 class="text-base mb-2 md:text-lg">Integrate with template engines.</h2>
+        <p class="body7 text-gray-700 text-sm md:text-base">Supports integration with template engines like Handlebars, ERB, and TWIG.
+          <a href="~/src/docs/integrating-template-engine.html" class="text-accent underline">See Integrating Template Engine with HTML ESLint Plugin.</a>
+        </p>
+      </article>
     </div>
-    <p class="text-center text-black-700 body3 mt-[80px]">
-      If you find this project useful, <br>
-      Please support this project with a <a
+    <p class="text-center text-black-700 mt-12">
+      If you find this project useful, <br class="md:hidden">
+      please support it by giving a <a
+        class="text-accent"
         href="https://github.com/yeonjuan/html-eslint"
         target="_blank"
         rel="noreferrer noopener"
-      >Github Star!</a>
+      >Github Star! ⭐</a>
     </p>
   </section>
 </div>
