@@ -11,6 +11,9 @@
  * @typedef { import("../../types").AttributeValue } AttributeValue
  * @typedef { import("../../types").AttributeKey } AttributeKey
  * @typedef { import("../../types").TemplateText } TemplateText
+ * @typedef { import("../../types").OpenTemplate } OpenTemplate
+ * @typedef { import("../../types").CloseTemplate } CloseTemplate
+ * @typedef { import("../../types").AnyPartNode } AnyPartNode
  * @typedef { import("eslint").AST.Range } Range
  * @typedef { import("eslint").AST.SourceLocation } SourceLocation
  * @typedef { import("es-html-parser").AnyToken } AnyToken
@@ -170,6 +173,14 @@ function isScript(node) {
 
 /**
  * @param {AnyNode} node
+ * @returns {node is StyleTag}
+ */
+function isStyle(node) {
+  return node.type === NODE_TYPES.StyleTag;
+}
+
+/**
+ * @param {AnyNode} node
  * @returns {node is Comment}
  */
 function isComment(node) {
@@ -185,7 +196,7 @@ function isText(node) {
 }
 
 /**
- * @param {AnyNode | Line | TemplateText} node
+ * @param {AnyNode | Line | TemplateText | OpenTemplate | CloseTemplate } node
  * @returns {node is Line}
  */
 function isLine(node) {
@@ -253,6 +264,7 @@ module.exports = {
   isText,
   isLine,
   isScript,
+  isStyle,
   isOverlapWithTemplates,
   codeToLines,
   isRangesOverlap,

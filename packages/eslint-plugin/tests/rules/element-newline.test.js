@@ -7,11 +7,23 @@ const templateRuleTester = createRuleTester("espree");
 ruleTester.run("element-newline", rule, {
   valid: [
     {
+      code: "<title>title</title>",
+    },
+    {
       code: `
 <html>
 <body>
 </body>
 </html>
+`,
+    },
+    {
+      code: `
+<div>
+Foo
+Bar
+<div></div>
+</div>
 `,
     },
     {
@@ -215,7 +227,7 @@ foo
           messageId: "expectAfter",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
       ],
     },
@@ -234,7 +246,7 @@ foo
           messageId: "expectAfter",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
       ],
     },
@@ -251,13 +263,13 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
       ],
     },
@@ -275,16 +287,16 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
       ],
     },
@@ -300,10 +312,10 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
       ],
     },
@@ -319,10 +331,10 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
       ],
     },
@@ -341,16 +353,16 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
@@ -373,16 +385,16 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
@@ -410,25 +422,25 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
-        },
-        {
-          messageId: "expectBeforeClose",
-        },
-        {
-          messageId: "expectAfterOpen",
-        },
-        {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
         },
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
+        },
+        {
+          messageId: "expectAfter",
+        },
+        {
+          messageId: "expectAfter",
+        },
+        {
+          messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
@@ -515,7 +527,7 @@ foo
 `,
       errors: [
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
@@ -539,13 +551,13 @@ aaa<strong>bbb</strong><a>ccc</a>
 `,
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
       ],
       options: [
@@ -577,13 +589,13 @@ aaa<strong>bbb</strong><a>ccc</a>
 </div>\`;`,
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
       ],
       options: [
@@ -600,13 +612,13 @@ aaa<strong>bbb</strong><a>ccc</a>
 </div>\`;`,
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
       ],
       options: [

@@ -11,6 +11,8 @@
  * @typedef { import("eslint").AST.Range } Range
  * @typedef { import("eslint").AST.SourceLocation } SourceLocation
  * @typedef { import("../../types").TemplateLiteral } TemplateLiteral
+ * @typedef { import("../../types").OpenTemplate } OpenTemplate
+ * @typedef { import("../../types").CloseTemplate } CloseTemplate
  *
  *
  * @typedef {Object} IndentType
@@ -180,7 +182,7 @@ module.exports = {
       let parentIgnoringChildCount = 0;
 
       /**
-       * @param {AnyNode | Line | TemplateText} node
+       * @param {AnyNode | Line | TemplateText | OpenTemplate | CloseTemplate} node
        * @returns {string}
        */
       function getActualIndent(node) {
@@ -235,7 +237,7 @@ module.exports = {
       }
 
       /**
-       * @param {AnyNode | Line | TemplateText} node
+       * @param {AnyNode | Line | TemplateText | OpenTemplate | CloseTemplate} node
        */
       function checkIndent(node) {
         if (parentIgnoringChildCount > 0) {
@@ -396,7 +398,7 @@ module.exports = {
 };
 
 /**
- * @param {AnyNode | Line | TemplateText} node
+ * @param {AnyNode | Line | TemplateText | OpenTemplate | CloseTemplate} node
  * @param {string} actualIndent
  * @return {{range: Range; loc: SourceLocation}}
  */
