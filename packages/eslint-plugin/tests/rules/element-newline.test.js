@@ -195,6 +195,26 @@ Bar
         },
       ],
     },
+    {
+      code: "<title>{{title}}</title>",
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+    },
+    {
+      code: "<title>{{main}}{{sub}}</title>",
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -213,6 +233,34 @@ Bar
       ],
     },
     {
+      code: `<div><script></script></div>`,
+      output: `<div>
+<script></script>
+</div>`,
+      errors: [
+        {
+          message: "There should be a linebreak after <div>.",
+        },
+        {
+          message: "There should be a linebreak after </script>.",
+        },
+      ],
+    },
+    {
+      code: `<div><style></style></div>`,
+      output: `<div>
+<style></style>
+</div>`,
+      errors: [
+        {
+          message: "There should be a linebreak after <div>.",
+        },
+        {
+          message: "There should be a linebreak after </style>.",
+        },
+      ],
+    },
+    {
       code: `
 <!DOCTYPE html>foo<html></html>
 `,
@@ -227,7 +275,7 @@ foo
           messageId: "expectAfter",
         },
         {
-          messageId: "expectAfter",
+          message: "There should be a linebreak after text.",
         },
       ],
     },
@@ -263,13 +311,15 @@ foo
 
       errors: [
         {
-          messageId: "expectAfter",
+          line: 2,
+          column: 6,
+          message: "There should be a linebreak after <html>.",
         },
         {
-          messageId: "expectAfter",
+          message: "There should be a linebreak after comment.",
         },
         {
-          messageId: "expectAfter",
+          message: "There should be a linebreak after </div>.",
         },
       ],
     },
@@ -331,10 +381,10 @@ foo
 
       errors: [
         {
-          messageId: "expectAfter",
+          message: "There should be a linebreak after <html>.",
         },
         {
-          messageId: "expectAfter",
+          message: "There should be a linebreak after </body>.",
         },
       ],
     },
@@ -512,7 +562,8 @@ foo
       ],
       errors: [
         {
-          messageId: "expectAfter",
+          line: 2,
+          message: "There should be a linebreak after </span>.",
         },
       ],
     },
@@ -563,6 +614,27 @@ aaa<strong>bbb</strong><a>ccc</a>
       options: [
         {
           inline: [`$inline`],
+        },
+      ],
+    },
+    {
+      code: "<title><a>{{main}}{{sub}}</a></title>",
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+      output: `<title>
+<a>{{main}}{{sub}}</a>
+</title>`,
+      errors: [
+        {
+          message: "There should be a linebreak after <title>.",
+        },
+        {
+          message: "There should be a linebreak after </a>.",
         },
       ],
     },

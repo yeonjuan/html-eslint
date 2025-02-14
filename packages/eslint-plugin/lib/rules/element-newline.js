@@ -210,7 +210,7 @@ module.exports = {
         context.report({
           node: current,
           messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
-          data: { name: getName(current) },
+          data: { name: getName(current, { isClose: true }) },
           fix(fixer) {
             return fixer.insertTextAfter(current, `\n`);
           },
@@ -240,7 +240,7 @@ module.exports = {
           context.report({
             node: lastChild,
             messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
-            data: { name: getName(parent) },
+            data: { name: getName(lastChild, { isClose: true }) },
             fix(fixer) {
               return fixer.insertTextAfter(lastChild, `\n`);
             },
@@ -279,10 +279,16 @@ module.exports = {
         return "comment";
       }
       if (isScript(node)) {
+        if (isClose) {
+          return `</script>`;
+        }
         return "<script>";
       }
       if (isStyle(node)) {
-        return "<script>";
+        if (isClose) {
+          return `</style>`;
+        }
+        return "<style>";
       }
       return `<${node.type}>`;
     }
