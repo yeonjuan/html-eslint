@@ -215,6 +215,16 @@ Bar
         },
       },
     },
+    {
+      code: "<title>name:{{title}}</title>",
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -276,6 +286,43 @@ foo
         },
         {
           message: "There should be a linebreak after text.",
+        },
+      ],
+    },
+    {
+      code: `<div>text {{text}} <a></a></div>`,
+      output: `<div>
+text {{text}} 
+<a></a>
+</div>`,
+      errors: [
+        {
+          message: "There should be a linebreak after <div>.",
+        },
+        {
+          message: "There should be a linebreak after text.",
+        },
+        {
+          message: "There should be a linebreak after </a>.",
+        },
+      ],
+    },
+    {
+      code: `<div><div>text {{text}} <a></a></div></div>`,
+      output: `<div>
+<div>text {{text}} <a></a></div>
+</div>`,
+      options: [
+        {
+          inline: ["$inline"],
+        },
+      ],
+      errors: [
+        {
+          message: "There should be a linebreak after <div>.",
+        },
+        {
+          message: "There should be a linebreak after </div>.",
         },
       ],
     },
