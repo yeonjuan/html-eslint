@@ -171,6 +171,13 @@ export interface TemplateLiteral extends estree.TemplateLiteral {
 
 export type TemplateText = Text["parts"][number];
 
+export type OpenTemplate = Exclude<Parser.TemplateNode<any>["open"], undefined>;
+export type CloseTemplate = Exclude<
+  Parser.TemplateNode<any>["close"],
+  undefined
+>;
+export type AnyPartNode = Parser.PartNode<Parser.NodeTypes>;
+
 export type AnyNode =
   | Document
   | Doctype
@@ -203,5 +210,4 @@ export type AnyNode =
   | Text
   | Line
   | TaggedTemplateExpression
-  | TemplateLiteral
-  | Parser.TemplateNode;
+  | TemplateLiteral;

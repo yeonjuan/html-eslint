@@ -7,11 +7,23 @@ const templateRuleTester = createRuleTester("espree");
 ruleTester.run("element-newline", rule, {
   valid: [
     {
+      code: "<title>title</title>",
+    },
+    {
       code: `
 <html>
 <body>
 </body>
 </html>
+`,
+    },
+    {
+      code: `
+<div>
+Foo
+Bar
+<div></div>
+</div>
 `,
     },
     {
@@ -183,6 +195,36 @@ ruleTester.run("element-newline", rule, {
         },
       ],
     },
+    {
+      code: "<title>{{title}}</title>",
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+    },
+    {
+      code: "<title>{{main}}{{sub}}</title>",
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+    },
+    {
+      code: "<title>name:{{title}}</title>",
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -201,6 +243,34 @@ ruleTester.run("element-newline", rule, {
       ],
     },
     {
+      code: `<div><script></script></div>`,
+      output: `<div>
+<script></script>
+</div>`,
+      errors: [
+        {
+          message: "There should be a linebreak after <div>.",
+        },
+        {
+          message: "There should be a linebreak after </script>.",
+        },
+      ],
+    },
+    {
+      code: `<div><style></style></div>`,
+      output: `<div>
+<style></style>
+</div>`,
+      errors: [
+        {
+          message: "There should be a linebreak after <div>.",
+        },
+        {
+          message: "There should be a linebreak after </style>.",
+        },
+      ],
+    },
+    {
       code: `
 <!DOCTYPE html>foo<html></html>
 `,
@@ -215,7 +285,44 @@ foo
           messageId: "expectAfter",
         },
         {
-          messageId: "expectBefore",
+          message: "There should be a linebreak after text.",
+        },
+      ],
+    },
+    {
+      code: `<div>text {{text}} <a></a></div>`,
+      output: `<div>
+text {{text}} 
+<a></a>
+</div>`,
+      errors: [
+        {
+          message: "There should be a linebreak after <div>.",
+        },
+        {
+          message: "There should be a linebreak after text.",
+        },
+        {
+          message: "There should be a linebreak after </a>.",
+        },
+      ],
+    },
+    {
+      code: `<div><div>text {{text}} <a></a></div></div>`,
+      output: `<div>
+<div>text {{text}} <a></a></div>
+</div>`,
+      options: [
+        {
+          inline: ["$inline"],
+        },
+      ],
+      errors: [
+        {
+          message: "There should be a linebreak after <div>.",
+        },
+        {
+          message: "There should be a linebreak after </div>.",
         },
       ],
     },
@@ -234,7 +341,7 @@ foo
           messageId: "expectAfter",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
       ],
     },
@@ -251,13 +358,15 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          line: 2,
+          column: 6,
+          message: "There should be a linebreak after <html>.",
         },
         {
-          messageId: "expectBeforeClose",
+          message: "There should be a linebreak after comment.",
         },
         {
-          messageId: "expectBefore",
+          message: "There should be a linebreak after </div>.",
         },
       ],
     },
@@ -275,16 +384,16 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
       ],
     },
@@ -300,10 +409,10 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
       ],
     },
@@ -319,10 +428,10 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          message: "There should be a linebreak after <html>.",
         },
         {
-          messageId: "expectBeforeClose",
+          message: "There should be a linebreak after </body>.",
         },
       ],
     },
@@ -341,16 +450,16 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
@@ -373,16 +482,16 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
@@ -410,25 +519,25 @@ foo
 
       errors: [
         {
-          messageId: "expectAfterOpen",
-        },
-        {
-          messageId: "expectBeforeClose",
-        },
-        {
-          messageId: "expectAfterOpen",
-        },
-        {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
         },
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
+        },
+        {
+          messageId: "expectAfter",
+        },
+        {
+          messageId: "expectAfter",
+        },
+        {
+          messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
@@ -500,7 +609,8 @@ foo
       ],
       errors: [
         {
-          messageId: "expectAfter",
+          line: 2,
+          message: "There should be a linebreak after </span>.",
         },
       ],
     },
@@ -515,7 +625,7 @@ foo
 `,
       errors: [
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
         {
           messageId: "expectAfter",
@@ -539,18 +649,39 @@ aaa<strong>bbb</strong><a>ccc</a>
 `,
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
       ],
       options: [
         {
           inline: [`$inline`],
+        },
+      ],
+    },
+    {
+      code: "<title><a>{{main}}{{sub}}</a></title>",
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+      output: `<title>
+<a>{{main}}{{sub}}</a>
+</title>`,
+      errors: [
+        {
+          message: "There should be a linebreak after <title>.",
+        },
+        {
+          message: "There should be a linebreak after </a>.",
         },
       ],
     },
@@ -577,13 +708,13 @@ aaa<strong>bbb</strong><a>ccc</a>
 </div>\`;`,
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
       ],
       options: [
@@ -600,13 +731,13 @@ aaa<strong>bbb</strong><a>ccc</a>
 </div>\`;`,
       errors: [
         {
-          messageId: "expectAfterOpen",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBeforeClose",
+          messageId: "expectAfter",
         },
         {
-          messageId: "expectBefore",
+          messageId: "expectAfter",
         },
       ],
       options: [

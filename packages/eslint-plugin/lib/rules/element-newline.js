@@ -6,22 +6,24 @@
  * @typedef { import("../types").ScriptTag } ScriptTag
  * @typedef { import("../types").StyleTag } StyleTag
  * @typedef { import("../types").Text } Text
- * @typedef { Tag | Doctype | ScriptTag | StyleTag | Text } NewlineNode
- * @typedef {{
- *   childFirst: NewlineNode | null;
- *   childLast: NewlineNode | null;
- *   shouldBeNewline: boolean;
- * }} NodeMeta
+ * @typedef { import("../types").AnyNode } AnyNode
+ * @typedef { import("../types").OpenTagEnd } OpenTagEnd
+ * @typedef { import("../types").CloseTag } CloseTag
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { isTag, isComment, isText } = require("./utils/node");
+const {
+  isTag,
+  isComment,
+  isText,
+  splitToLineNodes,
+  isLine,
+  isScript,
+  isStyle,
+} = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const MESSAGE_IDS = {
   EXPECT_NEW_LINE_AFTER: "expectAfter",
-  EXPECT_NEW_LINE_AFTER_OPEN: "expectAfterOpen",
-  EXPECT_NEW_LINE_BEFORE: "expectBefore",
-  EXPECT_NEW_LINE_BEFORE_CLOSE: "expectBeforeClose",
 };
 
 /**
@@ -100,173 +102,193 @@ module.exports = {
     ],
     messages: {
       [MESSAGE_IDS.EXPECT_NEW_LINE_AFTER]:
-        "There should be a linebreak after {{tag}} element.",
-      [MESSAGE_IDS.EXPECT_NEW_LINE_AFTER_OPEN]:
-        "There should be a linebreak after {{tag}} open.",
-      [MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE]:
-        "There should be a linebreak before {{tag}} element.",
-      [MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE_CLOSE]:
-        "There should be a linebreak before {{tag}} close.",
+        "There should be a linebreak after {{name}}.",
     },
   },
 
   create(context) {
     const option = context.options[0] || {};
-    const skipTags = option.skip || [];
+    /**
+     * @type {string[]}
+     */
+    const skipTags = option.skip || ["pre", "code"];
     const inlineTags = optionsOrPresets(option.inline || []);
 
     /**
-     * @param {Array<NewlineNode>} siblings
-     * @returns {NodeMeta} meta
+     * @param {AnyNode[]} children
+     * @returns {Exclude<AnyNode, Text>[]}
      */
-    function checkSiblings(siblings) {
+    function getChildrenToCheck(children) {
       /**
-       * @type {NodeMeta}
+       * @type {Exclude<AnyNode, Text>[]}
        */
-      const meta = {
-        childFirst: null,
-        childLast: null,
-        shouldBeNewline: false,
-      };
+      const childrenToCheck = [];
 
-      const nodesWithContent = [];
-      for (
-        let length = siblings.length, index = 0;
-        index < length;
-        index += 1
-      ) {
-        const node = siblings[index];
-
-        if (isEmptyText(node) === false) {
-          nodesWithContent.push(node);
+      for (const child of children) {
+        if (isText(child)) {
+          const lines = splitToLineNodes(child);
+          childrenToCheck.push(...lines);
+          continue;
         }
+        childrenToCheck.push(child);
       }
-
-      for (
-        let length = nodesWithContent.length, index = 0;
-        index < length;
-        index += 1
-      ) {
-        const node = nodesWithContent[index];
-        const nodeNext = nodesWithContent[index + 1];
-
-        if (meta.childFirst === null) {
-          meta.childFirst = node;
-        }
-
-        meta.childLast = node;
-
-        const nodeShouldBeNewline = shouldBeNewline(node);
-
-        if (isTag(node) && skipTags.includes(node.name) === false) {
-          const nodeMeta = checkSiblings(node.children);
-          const nodeChildShouldBeNewline = nodeMeta.shouldBeNewline;
-
-          if (nodeShouldBeNewline || nodeChildShouldBeNewline) {
-            meta.shouldBeNewline = true;
-          }
-
-          if (
-            nodeShouldBeNewline &&
-            nodeChildShouldBeNewline &&
-            nodeMeta.childFirst &&
-            nodeMeta.childLast
-          ) {
-            if (
-              node.openEnd.loc.end.line === nodeMeta.childFirst.loc.start.line
-            ) {
-              if (isNotNewlineStart(nodeMeta.childFirst)) {
-                context.report({
-                  node: node,
-                  messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER_OPEN,
-                  data: { tag: label(node) },
-                  fix(fixer) {
-                    return fixer.insertTextAfter(node.openEnd, `\n`);
-                  },
-                });
-              }
-            }
-
-            if (
-              node.close &&
-              nodeMeta.childLast.loc.end.line === node.close.loc.start.line
-            ) {
-              if (isNotNewlineEnd(nodeMeta.childLast)) {
-                context.report({
-                  node: node,
-                  messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE_CLOSE,
-                  data: { tag: label(node, { isClose: true }) },
-                  fix(fixer) {
-                    return fixer.insertTextBefore(node.close, `\n`);
-                  },
-                });
-              }
-            }
-          }
-        }
-
-        if (nodeNext && node.loc.end.line === nodeNext.loc.start.line) {
-          if (nodeShouldBeNewline) {
-            if (isNotNewlineStart(nodeNext)) {
-              context.report({
-                node: nodeNext,
-                messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
-                data: { tag: label(node) },
-                fix(fixer) {
-                  return fixer.insertTextAfter(node, `\n`);
-                },
-              });
-            }
-          } else if (shouldBeNewline(nodeNext)) {
-            if (isNotNewlineEnd(node)) {
-              context.report({
-                node: nodeNext,
-                messageId: MESSAGE_IDS.EXPECT_NEW_LINE_BEFORE,
-                data: { tag: label(nodeNext) },
-                fix(fixer) {
-                  return fixer.insertTextBefore(nodeNext, `\n`);
-                },
-              });
-            }
-          }
-        }
-      }
-
-      return meta;
+      return childrenToCheck.filter((child) => !isEmptyText(child));
     }
 
     /**
-     * @param {NewlineNode} node
+     * @param {AnyNode} before
+     * @param {AnyNode} after
+     * @returns {boolean}
+     */
+    function isOnTheSameLine(before, after) {
+      return before.loc.end.line === after.loc.start.line;
+    }
+
+    /**
+     * @param {AnyNode} node
+     * @returns {boolean}
+     */
+    function shouldSkipChildren(node) {
+      if (isTag(node) && skipTags.includes(node.name.toLowerCase())) {
+        return true;
+      }
+      return false;
+    }
+
+    /**
+     * @param {AnyNode} node
+     * @returns {boolean}
+     */
+    function isInline(node) {
+      return (
+        isLine(node) ||
+        (isTag(node) && inlineTags.includes(node.name.toLowerCase()))
+      );
+    }
+
+    /**
+     * @param {AnyNode[]} children
+     * @param {AnyNode} parent
+     * @param {[OpenTagEnd, CloseTag]} [wrapper]
+     */
+    function checkChildren(children, parent, wrapper) {
+      if (shouldSkipChildren(parent)) {
+        return;
+      }
+
+      const childrenToCheck = getChildrenToCheck(children);
+      const firstChild = childrenToCheck[0];
+      if (
+        wrapper &&
+        firstChild &&
+        childrenToCheck.some((child) => !isInline(child))
+      ) {
+        const open = wrapper[0];
+        if (isOnTheSameLine(open, firstChild)) {
+          context.report({
+            node: open,
+            messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
+            data: { name: getName(parent) },
+            fix(fixer) {
+              return fixer.insertTextAfter(open, `\n`);
+            },
+          });
+        }
+      }
+
+      childrenToCheck.forEach((current, index) => {
+        const next = childrenToCheck[index + 1];
+
+        if (
+          !next ||
+          !isOnTheSameLine(current, next) ||
+          (isInline(current) && isInline(next))
+        ) {
+          return;
+        }
+
+        context.report({
+          node: current,
+          messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
+          data: { name: getName(current, { isClose: true }) },
+          fix(fixer) {
+            return fixer.insertTextAfter(current, `\n`);
+          },
+        });
+      });
+
+      childrenToCheck.forEach((child) => {
+        if (isTag(child)) {
+          /**
+           * @type {[OpenTagEnd, CloseTag] | undefined}
+           */
+          const wrapper = child.close
+            ? [child.openEnd, child.close]
+            : undefined;
+          checkChildren(child.children, child, wrapper);
+        }
+      });
+
+      const lastChild = childrenToCheck[childrenToCheck.length - 1];
+      if (
+        wrapper &&
+        lastChild &&
+        childrenToCheck.some((child) => !isInline(child))
+      ) {
+        const close = wrapper[1];
+        if (isOnTheSameLine(close, lastChild)) {
+          context.report({
+            node: lastChild,
+            messageId: MESSAGE_IDS.EXPECT_NEW_LINE_AFTER,
+            data: { name: getName(lastChild, { isClose: true }) },
+            fix(fixer) {
+              return fixer.insertTextAfter(lastChild, `\n`);
+            },
+          });
+        }
+      }
+    }
+
+    /**
+     * @param {AnyNode} node
+     * @returns {boolean}
      */
     function isEmptyText(node) {
-      return node.type === `Text` && node.value.trim().length === 0;
+      return (
+        (isText(node) && node.value.trim().length === 0) ||
+        (isLine(node) && node.value.trim().length === 0)
+      );
     }
 
     /**
-     * @param {NewlineNode} node
-     */
-    function isNotNewlineEnd(node) {
-      return node.type !== `Text` || /(\n|\r\n)\s*$/.test(node.value) === false;
-    }
-
-    /**
-     * @param {NewlineNode} node
-     */
-    function isNotNewlineStart(node) {
-      return node.type !== `Text` || /^(\n|\r\n)/.test(node.value) === false;
-    }
-
-    /**
-     * @param {NewlineNode} node
+     * @param {AnyNode} node
      * @param {{ isClose?: boolean }} options
      */
-    function label(node, options = {}) {
+    function getName(node, options = {}) {
       const isClose = options.isClose || false;
       if (isTag(node)) {
         if (isClose) {
           return `</${node.name}>`;
         }
         return `<${node.name}>`;
+      }
+      if (isLine(node)) {
+        return "text";
+      }
+      if (isComment(node)) {
+        return "comment";
+      }
+      if (isScript(node)) {
+        if (isClose) {
+          return `</script>`;
+        }
+        return "<script>";
+      }
+      if (isStyle(node)) {
+        if (isClose) {
+          return `</style>`;
+        }
+        return "<style>";
       }
       return `<${node.type}>`;
     }
@@ -287,26 +309,9 @@ module.exports = {
       return result;
     }
 
-    /**
-     * @param {NewlineNode} node
-     */
-    function shouldBeNewline(node) {
-      if (isComment(node)) {
-        return /[\n\r]+/.test(node.value.value.trim());
-      }
-      if (isTag(node)) {
-        return inlineTags.includes(node.name.toLowerCase()) === false;
-      }
-      if (isText(node)) {
-        return /[\n\r]+/.test(node.value.trim());
-      }
-      return true;
-    }
-
     return createVisitors(context, {
       Document(node) {
-        // @ts-ignore
-        checkSiblings(node.children);
+        checkChildren(node.children, node);
       },
     });
   },
