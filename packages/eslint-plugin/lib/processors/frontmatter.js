@@ -28,7 +28,7 @@ function indexOfCloseFrontmatter(text) {
  * @returns {number}
  */
 function countLines(text) {
-  return text.split(/[\r|\n|\r\n]/).length;
+  return text.split(/[\r|\n|\r\n]/).length - 1;
 }
 
 /**
@@ -40,14 +40,11 @@ let frontmatterLines = 0;
 /**
  * @type {Processor}
  */
-const frontmatter = {
+module.exports = {
   supportsAutofix: false,
   preprocess(text) {
-    frontmatterCloseIndex = null;
-
     if (hasOpenFrontmatter(text)) {
       frontmatterCloseIndex = indexOfCloseFrontmatter(text);
-
       if (typeof frontmatterCloseIndex === "number") {
         frontmatterLines = countLines(text.slice(0, frontmatterCloseIndex));
         return [text.slice(frontmatterCloseIndex)];
@@ -57,7 +54,6 @@ const frontmatter = {
   },
   postprocess(messagesArray) {
     const messages = messagesArray[0];
-
     if (typeof frontmatterCloseIndex === "number") {
       for (const message of messages) {
         message.line += frontmatterLines;
@@ -66,8 +62,9 @@ const frontmatter = {
         }
       }
     }
-    return messages;
+    frontmatterCloseIndex = null;
+
+    // @ts-ignore
+    return [].concat(...messagesArray);
   },
 };
-
-module.exports = frontmatter;

@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "test": "turbo run test",
-    "test:integration": "turbo run test:integration",
+    "test:integration": "turbo run test:integration --no-cache --force",
     "lint": "turbo run lint",
     "format": "prettier --write .",
     "dev": "turbo run dev",
