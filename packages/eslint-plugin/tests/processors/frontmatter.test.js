@@ -14,6 +14,7 @@ items:
 ---
 <div></div>
 `,
+      processor: frontmatter,
     },
   ],
   invalid: [
@@ -38,6 +39,7 @@ items:
     <div></div>
 </div>
 `,
+      processor: frontmatter,
       errors: [
         {
           messageId: "wrongIndent",

@@ -1,5 +1,4 @@
 const { RuleTester: ESLintRuleTester } = require("eslint");
-const frontmatter = require("../lib/processors/frontmatter");
 
 const FILE_NAME = "test.html";
 
@@ -21,7 +20,7 @@ class RuleTester extends ESLintRuleTester {
   }
 }
 
-module.exports = function createRuleTester(parser, processor) {
+module.exports = function createRuleTester(parser) {
   return new RuleTester({
     languageOptions: !parser
       ? {
@@ -32,6 +31,5 @@ module.exports = function createRuleTester(parser, processor) {
             ecmaVersion: 2015,
           },
         },
-    ...(processor ? { processor } : {}),
   });
 };
