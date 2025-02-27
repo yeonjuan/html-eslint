@@ -54,7 +54,7 @@ const visitorKeys = {
 
 /**
  *
- * @param {AnyNode} node
+ * @param {NAME} node
  * @param {TemplateHTMLVisitor} visitors
  * @param {any} parent
  */

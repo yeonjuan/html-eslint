@@ -26,7 +26,7 @@
   "scripts": {
     "ts": "tsc",
     "lint": "eslint .",
-    "build": "tsc -p ./tsconfig.build.json",
+    "build": "tsc -p ./tsconfig.json",
     "test": "jest --coverage"
   },
   "bugs": {

@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
+    "emitDeclarationOnly": true,
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,

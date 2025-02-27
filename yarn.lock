@@ -1276,6 +1276,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@html-eslint/types@workspace:packages/types":
+  version: 0.0.0-use.local
+  resolution: "@html-eslint/types@workspace:packages/types"
+  dependencies:
+    "@types/estree": "npm:^1.0.6"
+    es-html-parser: "file:../../../es-html-parser"
+    eslint: "npm:^9.19.0"
+    typescript: "npm:^5.7.2"
+  languageName: unknown
+  linkType: soft
+
 "@html-eslint/web-linter@npm:^0.35.0, @html-eslint/web-linter@workspace:packages/web-linter":
   version: 0.0.0-use.local
   resolution: "@html-eslint/web-linter@workspace:packages/web-linter"
@@ -6885,6 +6896,13 @@ __metadata:
   version: 1.3.0
   resolution: "es-errors@npm:1.3.0"
   checksum: 0a61325670072f98d8ae3b914edab3559b6caa980f08054a3b872052640d91da01d38df55df797fcc916389d77fc92b8d5906cf028f4db46d7e3003abecbca85
+  languageName: node
+  linkType: hard
+
+"es-html-parser@file:../../../es-html-parser::locator=%40html-eslint%2Ftypes%40workspace%3Apackages%2Ftypes":
+  version: 0.1.0
+  resolution: "es-html-parser@file:../../../es-html-parser#../../../es-html-parser::hash=8f6ad3&locator=%40html-eslint%2Ftypes%40workspace%3Apackages%2Ftypes"
+  checksum: d14e0d7aa00a2da45f2c544bb9af409302945493487003dde79b3e5dad95cb3a38d08b76fffa0dcde64d6bb631c9fe9fea1885511491f952b7c953973b0acf00
   languageName: node
   linkType: hard
 

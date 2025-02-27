@@ -1,14 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
-  "references": [
-    {
-      "path": "./tsconfig.build.json"
-    }
-  ],
+  "include": ["lib/**/*.js", "package.json"],
   "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": false
+    "types": ["node", "jest", "@html-eslint/types"]
   }
 }
