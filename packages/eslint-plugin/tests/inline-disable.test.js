@@ -6,9 +6,15 @@ function getLinter() {
   });
 
   return {
+    /**
+     * @param {string} code
+     * @param {any} rulesConfig
+     * @returns
+     */
     lint(code, rulesConfig) {
       return linter.verify(code, {
         plugins: {
+          // @ts-ignore
           "@html-eslint": require("@html-eslint/eslint-plugin"),
         },
         languageOptions: {

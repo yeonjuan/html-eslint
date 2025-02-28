@@ -10,7 +10,7 @@ const {
 const rulesRecord = require("@html-eslint/eslint-plugin/lib/rules");
 const prettier = require("prettier");
 
-function generateRulesMarkdown() {
+async function generateRulesMarkdown() {
   const rules = {
     ["Best Practice"]: [],
     SEO: [],
@@ -66,7 +66,7 @@ function generateRulesMarkdown() {
       cwd(),
       "../../docs/rules.md"
     ),
-    prettier.format(
+    await prettier.format(
       markedown,
       {
         parser: "markdown"
@@ -75,6 +75,6 @@ function generateRulesMarkdown() {
   );
 }
 
-module.exports = function generateMarkdowns() {
-  generateRulesMarkdown();
+module.exports = async function generateMarkdowns() {
+  await generateRulesMarkdown();
 };

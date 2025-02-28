@@ -1,10 +1,14 @@
 /**
- * @typedef {import("es-html-parser").AnyNode} AnyNode
  * @typedef {import("./types").TemplateHTMLVisitor} TemplateHTMLVisitor
+ * @typedef {import("./types").TemplateHTMLVisitorKeys} TemplateHTMLVisitorKeys
+ * @typedef {import("es-html-parser").AnyNode} AnyNode
  */
 
 const { NodeTypes } = require("es-html-parser");
 
+/**
+ * @type {TemplateHTMLVisitorKeys}
+ */
 const visitorKeys = {
   [NodeTypes.Document]: ["children"],
   [NodeTypes.Attribute]: ["key", "startWrapper", "endWrapper", "value"],
@@ -50,21 +54,29 @@ const visitorKeys = {
   [NodeTypes.StyleTagContent]: [],
   [NodeTypes.Tag]: ["openStart", "openEnd", "close", "children", "attributes"],
   [NodeTypes.Text]: [],
+  [NodeTypes.Template]: [],
+  [NodeTypes.OpenTemplate]: [],
+  [NodeTypes.CloseTemplate]: [],
+  [NodeTypes.Part]: [],
 };
 
 /**
  *
  * @param {AnyNode} node
  * @param {TemplateHTMLVisitor} visitors
- * @param {any} parent
+ * @param {AnyNode | null} parent
  */
 function traverse(node, visitors, parent) {
+  // @ts-ignore
   const enterVisitor = visitors[node.type];
+  // @ts-ignore
   node.parent = parent;
   enterVisitor && enterVisitor(node);
+
   const nextKeys = visitorKeys[node.type];
 
   nextKeys.forEach((key) => {
+    // @ts-ignore
     const next = node[key];
     if (Array.isArray(next)) {
       next.forEach((n) => traverse(n, visitors, node));
@@ -72,6 +84,7 @@ function traverse(node, visitors, parent) {
       traverse(next, visitors, node);
     }
   });
+  // @ts-ignore
   const exitVisitor = visitors[`${node.type}:exit`];
   exitVisitor && exitVisitor(node);
 }

@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "declaration": true,
+    "noEmit": true,
     "declarationMap": true,
     "esModuleInterop": true,
     "module": "commonjs",
@@ -15,6 +18,8 @@
     "strict": true,
     "target": "es2017",
     "lib": ["es2017"],
-    "paths": {}
+    "paths": {},
+    "types": ["node", "jest"],
+    "resolveJsonModule": true
   }
 }

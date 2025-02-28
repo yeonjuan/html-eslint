@@ -1,6 +1,10 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-extra-spacing-text");
 
+/**
+ * @param  {...number[]} positions
+ * @returns
+ */
 function errorsAt(...positions) {
   return positions.map((input) => {
     const [line, column, length] = input;

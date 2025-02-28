@@ -1,4 +1,8 @@
 const { parse } = require("../lib/template-syntax-parser");
+/**
+ * @typedef {import("eslint").AST.Range} Range
+ * @typedef {import("../lib/types").TemplateSyntaxParserConfig} TemplateSyntaxParserConfig
+ */
 
 const HANDLEBAR = {
   syntax: {
@@ -13,7 +17,10 @@ const ERB = {
 };
 
 describe("basic", () => {
-  test.each([
+  /**
+   * @type {[string, TemplateSyntaxParserConfig, Range[]][]}
+   */
+  const TEST_CASES = [
     ["", HANDLEBAR, []],
     ["<div></div>", HANDLEBAR, []],
     ["{{  ", HANDLEBAR, []],
@@ -42,7 +49,8 @@ describe("basic", () => {
       },
       [[5, 16]],
     ],
-  ])("parse(%s, %o)", (code, config, expected) => {
+  ];
+  test.each(TEST_CASES)("parse(%s, %o)", (code, config, expected) => {
     expect(
       parse(code, config).syntax.map((s) => [s.open[0], s.close[1]])
     ).toStrictEqual(expected);

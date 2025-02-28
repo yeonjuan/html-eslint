@@ -1,16 +1,16 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").Attribute } Attribute
- * @typedef { import("../types").OpenTagEnd } OpenTagEnd
- * @typedef { import("../types").OpenScriptTagEnd } OpenScriptTagEnd
- * @typedef { import("../types").OpenStyleTagEnd } OpenStyleTagEnd
- * @typedef { import("../types").OpenScriptTagStart } OpenScriptTagStart
- * @typedef { import("../types").OpenTagStart } OpenTagStart
- * @typedef { import("../types").OpenStyleTagStart } OpenStyleTagStart
- * @typedef { import("../types").Tag } Tag
- * @typedef { import("../types").StyleTag } StyleTag
- * @typedef { import("../types").ScriptTag } ScriptTag
- * @typedef { import("../types").AnyNode } AnyNode
+ * @typedef { import("@html-eslint/types").Attribute } Attribute
+ * @typedef { import("@html-eslint/types").OpenTagEnd } OpenTagEnd
+ * @typedef { import("@html-eslint/types").OpenScriptTagEnd } OpenScriptTagEnd
+ * @typedef { import("@html-eslint/types").OpenStyleTagEnd } OpenStyleTagEnd
+ * @typedef { import("@html-eslint/types").OpenScriptTagStart } OpenScriptTagStart
+ * @typedef { import("@html-eslint/types").OpenTagStart } OpenTagStart
+ * @typedef { import("@html-eslint/types").OpenStyleTagStart } OpenStyleTagStart
+ * @typedef { import("@html-eslint/types").Tag } Tag
+ * @typedef { import("@html-eslint/types").StyleTag } StyleTag
+ * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
+ * @typedef { import("@html-eslint/types").AnyNode } AnyNode
  */
 
 const { RULE_CATEGORY } = require("../constants");

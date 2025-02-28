@@ -6,10 +6,6 @@
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "ISC",
   "main": "lib/cli.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
   "bin": {
     "html-eslint": "./lib/cli.js"
   },

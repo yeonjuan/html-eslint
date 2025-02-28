@@ -1,10 +1,9 @@
 /**
+ * @typedef {import('eslint').AST.Range} Range
  * @typedef {import("./types").TemplateSyntax} TemplateSyntax
- * @typedef {import("./types").Range} Range
  * @typedef {import("./types").OpenSyntax} OpenSyntax
  * @typedef {import("./types").CloseSyntax} CloseSyntax
  * @typedef {import("./types").TemplateSyntaxParserResult} TemplateSyntaxParserResult
- *
  */
 
 module.exports = class Parser {
@@ -162,7 +161,11 @@ module.exports = class Parser {
    * @returns {(CloseSyntax | OpenSyntax)[]}
    */
   findAllSyntax() {
-    return this.findAllOpenSyntax()
+    /**
+     * @type {(CloseSyntax | OpenSyntax)[]}
+     */
+    const result = this.findAllOpenSyntax();
+    return result
       .concat(this.findAllCloseSyntax())
       .sort((a, b) => a.range[0] - b.range[0]);
   }
@@ -172,7 +175,12 @@ module.exports = class Parser {
    * @returns {string}
    */
   getPossibleCloseValueOf(open) {
-    return this.syntaxPairs.find((syntax) => syntax[0] === open.value)[1];
+    const found = this.syntaxPairs.find((syntax) => syntax[0] === open.value);
+    if (!found) {
+      /* istanbul ignore next */
+      throw new Error("Unexpected open value: " + open);
+    }
+    return found[1];
   }
 
   /**

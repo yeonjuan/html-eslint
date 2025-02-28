@@ -1,14 +1,4 @@
 {
   "extends": "../../tsconfig.base.json",
-  "references": [
-    {
-      "path": "./tsconfig.build.json"
-    }
-  ],
-  "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": false
-  }
+  "include": ["package.json", "lib"]
 }

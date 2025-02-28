@@ -1,5 +1,4 @@
 import type {
-  NodeTypes,
   DocumentNode,
   AttributeNode,
   AttributeKeyNode,
@@ -10,6 +9,7 @@ import type {
   CloseStyleTagNode,
   CloseTagNode,
   CommentContentNode,
+  CommentNode,
   CommentOpenNode,
   CommentCloseNode,
   DoctypeNode,
@@ -31,15 +31,18 @@ import type {
   StyleTagContentNode,
   TagNode,
   TextNode,
-} from "es-html-parser";
-import { Comment } from "estree";
+  AnyNode,
+} from "@html-eslint/types";
+import { NodeTypes } from "es-html-parser";
 
 type PostFix<T, S extends string> = {
   [K in keyof T as `${K & string}${S}`]: T[K];
 };
-export type TemplateHTMLVisitor = BaseVisiter & PostFix<BaseVisiter, ":exit">;
 
-declare const a: TemplateHTMLVisitor;
+export type TemplateHTMLVisitor = BaseVisiter & PostFix<BaseVisiter, ":exit">;
+export type TemplateHTMLVisitorKeys = {
+  [key in NodeTypes]: string[];
+};
 
 type BaseVisiter = Partial<{
   [NodeTypes.Document]: (node: DocumentNode) => void;
@@ -83,3 +86,12 @@ type BaseVisiter = Partial<{
   [NodeTypes.Tag]: (node: TagNode) => void;
   [NodeTypes.Text]: (node: TextNode) => void;
 }>;
+
+type PostFix<T, S extends string> = {
+  [K in keyof T as `${K & string}${S}`]: T[K];
+};
+
+export type TemplateHTMLVisitor = BaseVisiter & PostFix<BaseVisiter, ":exit">;
+export type TemplateHTMLVisitorKeys = {
+  [key in NodeTypes]: string[];
+};

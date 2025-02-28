@@ -1,14 +1,16 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").Tag } Tag
- * @typedef { import("../types").Comment } Comment
- * @typedef { import("../types").Doctype } Doctype
- * @typedef { import("../types").ScriptTag } ScriptTag
- * @typedef { import("../types").StyleTag } StyleTag
- * @typedef { import("../types").Text } Text
- * @typedef { import("../types").AnyNode } AnyNode
- * @typedef { import("../types").OpenTagEnd } OpenTagEnd
- * @typedef { import("../types").CloseTag } CloseTag
+ * @typedef { import("@html-eslint/types").Tag } Tag
+ * @typedef { import("@html-eslint/types").Comment } Comment
+ * @typedef { import("@html-eslint/types").Doctype } Doctype
+ * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
+ * @typedef { import("@html-eslint/types").StyleTag } StyleTag
+ * @typedef { import("@html-eslint/types").Text } Text
+ * @typedef { import("@html-eslint/types").AnyNode } AnyNode
+ * @typedef { import("@html-eslint/types").OpenTagEnd } OpenTagEnd
+ * @typedef { import("@html-eslint/types").CloseTag } CloseTag
+ * @typedef { import("../types").Line } Line
+ * @typedef { AnyNode | Line } AnyNodeOrLine
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -115,12 +117,12 @@ module.exports = {
     const inlineTags = optionsOrPresets(option.inline || []);
 
     /**
-     * @param {AnyNode[]} children
-     * @returns {Exclude<AnyNode, Text>[]}
+     * @param {AnyNodeOrLine[]} children
+     * @returns {Exclude<AnyNodeOrLine, Text>[]}
      */
     function getChildrenToCheck(children) {
       /**
-       * @type {Exclude<AnyNode, Text>[]}
+       * @type {Exclude<AnyNodeOrLine, Text>[]}
        */
       const childrenToCheck = [];
 
@@ -136,8 +138,8 @@ module.exports = {
     }
 
     /**
-     * @param {AnyNode} before
-     * @param {AnyNode} after
+     * @param {AnyNodeOrLine} before
+     * @param {AnyNodeOrLine} after
      * @returns {boolean}
      */
     function isOnTheSameLine(before, after) {
@@ -156,7 +158,7 @@ module.exports = {
     }
 
     /**
-     * @param {AnyNode} node
+     * @param {AnyNodeOrLine} node
      * @returns {boolean}
      */
     function isInline(node) {
@@ -250,7 +252,7 @@ module.exports = {
     }
 
     /**
-     * @param {AnyNode} node
+     * @param {AnyNodeOrLine} node
      * @returns {boolean}
      */
     function isEmptyText(node) {
@@ -261,7 +263,7 @@ module.exports = {
     }
 
     /**
-     * @param {AnyNode} node
+     * @param {AnyNodeOrLine} node
      * @param {{ isClose?: boolean }} options
      */
     function getName(node, options = {}) {

@@ -1,22 +1,37 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/indent");
-
 const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
 
+/**
+ * @typedef {import("eslint").RuleTester.InvalidTestCase} InvalidTestCase
+ * @typedef {import("eslint").RuleTester.ValidTestCase} ValidTestCase
+ */
+
+/**
+ * @param {number} length
+ * @returns
+ */
 function wrongIndentErrors(length) {
   return Array.from({ length }, () => ({
     messageId: "wrongIndent",
   }));
 }
 
+/**
+ *
+ * @param {{ valid: ValidTestCase[]; invalid: InvalidTestCase[];}} tests
+ * @returns
+ */
 function changeLineEndings(tests) {
   tests.valid.forEach((test) => {
     test.code = test.code.replace(/\n/g, "\r\n");
   });
   tests.invalid.forEach((test) => {
     test.code = test.code.replace(/\n/g, "\r\n");
-    test.output = test.output.replace(/\n/g, "\r\n");
+    if (test.output) {
+      test.output = test.output.replace(/\n/g, "\r\n");
+    }
   });
   return tests;
 }

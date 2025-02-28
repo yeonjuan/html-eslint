@@ -2,8 +2,8 @@
  * @typedef {import("../../types").MaybeHTMLSettings} MaybeHTMLSettings
  * @typedef {import("../../types").HTMLSettings} HTMLSettings
  * @typedef {import("../../types").Context} Context
- * @typedef {import("../../types").TaggedTemplateExpression} TaggedTemplateExpression
- * @typedef {import("../../types").TemplateLiteral} TemplateLiteral
+ * @typedef {import("@html-eslint/types").TaggedTemplateExpression} TaggedTemplateExpression
+ * @typedef {import("@html-eslint/types").TemplateLiteral} TemplateLiteral
  */
 
 const { getSourceCode } = require("../utils/source-code");

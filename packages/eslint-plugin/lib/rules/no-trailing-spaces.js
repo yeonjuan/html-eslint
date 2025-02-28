@@ -1,7 +1,7 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").CommentContent } CommentContent
- * @typedef { import("../types").Text } Text
+ * @typedef { import("@html-eslint/types").CommentContent } CommentContent
+ * @typedef { import("@html-eslint/types").Text } Text
  */
 
 const { parse } = require("@html-eslint/template-parser");

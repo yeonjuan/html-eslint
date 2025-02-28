@@ -6,15 +6,15 @@
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "lib/index.js",
-  "types": "types/lib/index.d.ts",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__",
-    "types": "types"
+  "types": "lib/types.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types.d.ts",
+      "default": "./lib/index.js"
+    }
   },
   "files": [
-    "lib",
-    "types"
+    "lib"
   ],
   "publishConfig": {
     "access": "public"
@@ -24,18 +24,15 @@
     "url": "git+https://github.com/yeonjuan/html-eslint.git"
   },
   "scripts": {
-    "ts": "tsc",
+    "ts": "tsc --noEmit",
     "lint": "eslint .",
-    "build": "tsc -p ./tsconfig.build.json && node scripts/post-build.js",
     "test": "jest --coverage"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
-  "engines": {
-    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
-  },
   "devDependencies": {
+    "@html-eslint/types": "^0.35.0",
     "eslint": "^9.19.0",
     "espree": "^10.3.0",
     "globals": "^15.12.0"

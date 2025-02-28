@@ -7,9 +7,7 @@ const {
 const generateHTMLs = require("./generates/htmls");
 const generateMarkdowns = require("./generates/markdowns");
 
-generateMarkdowns();
-
-generateHTMLs(
+generateMarkdowns().then(() => generateHTMLs(
   resolve(
     cwd(),
     "../../docs"
@@ -22,4 +20,6 @@ generateHTMLs(
     cwd(),
     "./src/out"
   )
-);
+));
+
+

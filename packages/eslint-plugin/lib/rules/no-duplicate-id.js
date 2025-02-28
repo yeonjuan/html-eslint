@@ -1,9 +1,9 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").Tag } Tag
- * @typedef { import("../types").StyleTag } StyleTag
- * @typedef { import("../types").ScriptTag } ScriptTag
- * @typedef { import("../types").AttributeValue } AttributeValue
+ * @typedef { import("@html-eslint/types").Tag } Tag
+ * @typedef { import("@html-eslint/types").StyleTag } StyleTag
+ * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
+ * @typedef { import("@html-eslint/types").AttributeValue } AttributeValue
  */
 
 const { parse } = require("@html-eslint/template-parser");

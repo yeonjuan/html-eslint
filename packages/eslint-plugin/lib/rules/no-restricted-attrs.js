@@ -1,9 +1,9 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").StyleTag } StyleTag
- * @typedef { import("../types").Attribute } Attribute
- * @typedef { import("../types").Tag } Tag
- * @typedef { import("../types").ScriptTag } ScriptTag
+ * @typedef { import("@html-eslint/types").StyleTag } StyleTag
+ * @typedef { import("@html-eslint/types").Attribute } Attribute
+ * @typedef { import("@html-eslint/types").Tag } Tag
+ * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
  * @typedef {{tagPatterns: string[], attrPatterns: string[], message?: string}[]} Options
  */
 
@@ -74,8 +74,8 @@ module.exports = {
         node.type === NODE_TYPES.Tag
           ? node.name
           : node.type === NODE_TYPES.ScriptTag
-          ? "script"
-          : "style";
+            ? "script"
+            : "style";
       node.attributes.forEach((attr) => {
         if (!attr.key || !attr.key.value) {
           return;

@@ -21,8 +21,4 @@ packages/**/.yarn
 !.yarn/versions
 .DS_Store
 
-# generated types
-packages/**/types
-!packages/**/lib/types
-
 integration-test-projects/**/*.yarn

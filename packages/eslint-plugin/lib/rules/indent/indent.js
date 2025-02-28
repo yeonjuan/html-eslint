@@ -1,20 +1,20 @@
 /**
  * @typedef { import("../../types").RuleModule } RuleModule
- * @typedef { import("../../types").AnyNode } AnyNode
+ * @typedef { import("@html-eslint/types").AnyNode } AnyNode
  * @typedef { import("../../types").Line } Line
- * @typedef { import("../../types").Tag } Tag
+ * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("../../types").RuleListener } RuleListener
  * @typedef { import("../../types").Context } Context
- * @typedef { import("../../types").TemplateText } TemplateText
+ * @typedef { import("@html-eslint/types").TemplateText } TemplateText
  * @typedef { import("eslint").AST.Token } Token
  * @typedef { import("eslint").SourceCode } SourceCode
  * @typedef { import("eslint").AST.Range } Range
  * @typedef { import("eslint").AST.SourceLocation } SourceLocation
- * @typedef { import("../../types").TemplateLiteral } TemplateLiteral
- * @typedef { import("../../types").OpenTemplate } OpenTemplate
- * @typedef { import("../../types").CloseTemplate } CloseTemplate
+ * @typedef { import("@html-eslint/types").TemplateLiteral } TemplateLiteral
+ * @typedef { import("@html-eslint/types").OpenTemplate } OpenTemplate
+ * @typedef { import("@html-eslint/types").CloseTemplate } CloseTemplate
  *
- *
+ * @typedef {AnyNode | Line} AnyNodeOrLine
  * @typedef {Object} IndentType
  * @property {"tab"} TAB
  * @property {"space"} SPACE
@@ -398,7 +398,7 @@ module.exports = {
 };
 
 /**
- * @param {AnyNode | Line | TemplateText | OpenTemplate | CloseTemplate} node
+ * @param {AnyNodeOrLine | TemplateText | OpenTemplate | CloseTemplate} node
  * @param {string} actualIndent
  * @return {{range: Range; loc: SourceLocation}}
  */
