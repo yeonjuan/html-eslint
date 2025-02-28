@@ -42,5 +42,4 @@ export type TemplateHTMLVisitorKeys = {
 
 type BaseVisiter = {
   [key in NodeTypes]: (node: AnyNode) => void;
-  [`${key in NodeTypes}:exit`]: (node: AnyNode) => void;
 };
