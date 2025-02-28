@@ -177,6 +177,7 @@ module.exports = class Parser {
   getPossibleCloseValueOf(open) {
     const found = this.syntaxPairs.find((syntax) => syntax[0] === open.value);
     if (!found) {
+      /* istanbul ignore next */
       throw new Error("Unexpected open value: " + open);
     }
     return found[1];
