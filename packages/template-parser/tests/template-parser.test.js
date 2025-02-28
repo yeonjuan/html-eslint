@@ -31,6 +31,9 @@ const createSourceCode = (code, ast) =>
     },
   });
 
+/**
+ * @type {any}
+ */
 const visitors = {
   Tag: jest.fn(),
   "Tag:exit": jest.fn(),

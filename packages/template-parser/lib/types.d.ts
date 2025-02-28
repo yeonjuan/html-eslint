@@ -35,6 +35,10 @@ import type {
   AnyNode,
 } from "es-html-parser";
 
+type PostFix<T, S extends string> = {
+  [K in keyof T as `${K & string}${S}`]: T[K];
+};
+
 export type TemplateHTMLVisitor = BaseVisiter & PostFix<BaseVisiter, ":exit">;
 export type TemplateHTMLVisitorKeys = {
   [key in NodeTypes]: string[];

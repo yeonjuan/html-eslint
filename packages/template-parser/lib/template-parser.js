@@ -2,14 +2,14 @@ const esHtmlParser = require("es-html-parser");
 const { traverse } = require("./traverser");
 /**
  * @typedef {import("@html-eslint/types").TemplateLiteral} TemplateLiteral
- * @typedef {import("@html-eslint/types").TemplateVisitor} TemplateVisitor
+ * @typedef {import("./types").TemplateHTMLVisitor} TemplateHTMLVisitor
  * @typedef {import("eslint").SourceCode} SourceCode
  */
 
 /**
  * @param {TemplateLiteral} node
  * @param {SourceCode} sourceCode
- * @param {TemplateVisitor} visitors
+ * @param {TemplateHTMLVisitor} visitors
  */
 function parse(node, sourceCode, visitors) {
   /**
