@@ -1312,6 +1312,7 @@ __metadata:
   resolution: "@html-eslint/parser@workspace:packages/parser"
   dependencies:
     "@html-eslint/template-syntax-parser": "npm:^0.35.0"
+    "@html-eslint/types": "npm:^0.35.0"
     es-html-parser: "npm:0.1.0"
     typescript: "npm:^5.7.2"
   languageName: unknown

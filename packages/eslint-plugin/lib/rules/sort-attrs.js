@@ -1,8 +1,8 @@
 /**
  * @typedef { import("eslint").Rule.RuleFixer } RuleFixer
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").Attribute } Attribute
- * @typedef { import("../types").Text } Text
+ * @typedef { import("@html-eslint/types").Attribute } Attribute
+ * @typedef { import("@html-eslint/types").Text } Text
  */
 
 const { hasTemplate } = require("./utils/node");

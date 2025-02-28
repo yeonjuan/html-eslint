@@ -29,6 +29,7 @@
     "es-html-parser": "0.1.0"
   },
   "devDependencies": {
+    "@html-eslint/types": "^0.35.0",
     "typescript": "^5.7.2"
   }
 }

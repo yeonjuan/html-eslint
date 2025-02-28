@@ -1,9 +1,9 @@
 /**
  * @typedef { import("es-html-parser").AnyToken } AnyToken
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").Document } Document
- * @typedef { import("../types").CommentContent } CommentContent
- * @typedef { import("../types").Text } Text
+ * @typedef { import("@html-eslint/types").Document } Document
+ * @typedef { import("@html-eslint/types").CommentContent } CommentContent
+ * @typedef { import("@html-eslint/types").Text } Text
  */
 
 const { parse } = require("@html-eslint/template-parser");

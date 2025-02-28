@@ -3,11 +3,12 @@
  * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
  * @typedef { import("@html-eslint/types").StyleTag } StyleTag
+ * @typedef { import("@html-eslint/types").AnyNode } AnyNode
  * @typedef { import("../../types").Line } Line
+ * @typedef { import("../../types").BaseNode } BaseNode
  * @typedef { import("@html-eslint/types").Text } Text
  * @typedef { import("@html-eslint/types").CommentContent } CommentContent
  * @typedef { import("@html-eslint/types").Comment } Comment
- * @typedef { import("@html-eslint/types").AnyNode } AnyNode
  * @typedef { import("@html-eslint/types").AttributeValue } AttributeValue
  * @typedef { import("@html-eslint/types").AttributeKey } AttributeKey
  * @typedef { import("@html-eslint/types").TemplateText } TemplateText
@@ -16,7 +17,6 @@
  * @typedef { import("eslint").AST.Range } Range
  * @typedef { import("eslint").AST.SourceLocation } SourceLocation
  * @typedef { import("es-html-parser").AnyToken } AnyToken
-
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -155,7 +155,7 @@ function getLocBetween(before, after) {
 }
 
 /**
- * @param {AnyNode} node
+ * @param {BaseNode} node
  * @returns {node is Tag}
  */
 function isTag(node) {
@@ -163,7 +163,7 @@ function isTag(node) {
 }
 
 /**
- * @param {AnyNode} node
+ * @param {BaseNode} node
  * @returns {node is ScriptTag}
  */
 function isScript(node) {
@@ -171,7 +171,7 @@ function isScript(node) {
 }
 
 /**
- * @param {AnyNode} node
+ * @param {BaseNode} node
  * @returns {node is StyleTag}
  */
 function isStyle(node) {
@@ -179,7 +179,7 @@ function isStyle(node) {
 }
 
 /**
- * @param {AnyNode} node
+ * @param {BaseNode} node
  * @returns {node is Comment}
  */
 function isComment(node) {
@@ -187,7 +187,7 @@ function isComment(node) {
 }
 
 /**
- * @param {AnyNode} node
+ * @param {BaseNode} node
  * @returns {node is Text}
  */
 function isText(node) {
@@ -195,7 +195,7 @@ function isText(node) {
 }
 
 /**
- * @param {AnyNode | Line | TemplateText | OpenTemplate | CloseTemplate } node
+ * @param {BaseNode} node
  * @returns {node is Line}
  */
 function isLine(node) {
@@ -213,7 +213,7 @@ function codeToLines(source) {
 }
 
 /**
- * @param {Exclude<AnyNode, Line>} node
+ * @param {AnyNode} node
  * @param {(node: AnyNode) => boolean} predicate
  * @returns {null | AnyNode}
  */
@@ -223,7 +223,8 @@ function findParent(node, predicate) {
   }
   if (
     node.type === "TaggedTemplateExpression" ||
-    node.type === "TemplateLiteral"
+    node.type === "TemplateLiteral" ||
+    node.type === "TemplateElement"
   ) {
     return null;
   }

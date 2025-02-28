@@ -1,5 +1,5 @@
 /**
- * @typedef {import("../../types").AnyNode} AnyNode
+ * @typedef {import("@html-eslint/types").AnyNode} AnyNode
  * @typedef {{ [key in AnyNode['type']]?: number}} IncLevelOptions
  * @typedef {(node: AnyNode) => number} GetIncreasingLevel
  */

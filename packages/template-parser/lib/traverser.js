@@ -67,6 +67,7 @@ const visitorKeys = {
  * @param {AnyNode | null} parent
  */
 function traverse(node, visitors, parent) {
+  // @ts-ignore
   const enterVisitor = visitors[node.type];
   // @ts-ignore
   node.parent = parent;
@@ -83,6 +84,7 @@ function traverse(node, visitors, parent) {
       traverse(next, visitors, node);
     }
   });
+  // @ts-ignore
   const exitVisitor = visitors[`${node.type}:exit`];
   exitVisitor && exitVisitor(node);
 }

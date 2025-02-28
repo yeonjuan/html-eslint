@@ -14,7 +14,7 @@
  * @typedef { import("@html-eslint/types").OpenTemplate } OpenTemplate
  * @typedef { import("@html-eslint/types").CloseTemplate } CloseTemplate
  *
- *
+ * @typedef {AnyNode | Line} AnyNodeOrLine
  * @typedef {Object} IndentType
  * @property {"tab"} TAB
  * @property {"space"} SPACE
@@ -398,7 +398,7 @@ module.exports = {
 };
 
 /**
- * @param {AnyNode | Line | TemplateText | OpenTemplate | CloseTemplate} node
+ * @param {AnyNodeOrLine | TemplateText | OpenTemplate | CloseTemplate} node
  * @param {string} actualIndent
  * @return {{range: Range; loc: SourceLocation}}
  */

@@ -1,9 +1,9 @@
 /**
  * @typedef { import("../types").RuleModule } RuleModule
- * @typedef { import("../types").CommentContent } CommentContent
- * @typedef { import("../types").Tag } Tag
- * @typedef { import("../types").Comment } Comment
- * @typedef { import("../types").Text } Text
+ * @typedef { import("@html-eslint/types").CommentContent } CommentContent
+ * @typedef { import("@html-eslint/types").Tag } Tag
+ * @typedef { import("@html-eslint/types").Comment } Comment
+ * @typedef { import("@html-eslint/types").Text } Text
  * @typedef { import("../types").Line } Line
  * @typedef { import("eslint").AST.Range } Range
  */

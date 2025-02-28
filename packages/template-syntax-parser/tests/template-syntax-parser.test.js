@@ -1,6 +1,6 @@
 const { parse } = require("../lib/template-syntax-parser");
 /**
- * @typedef {import("@html-eslint/types").Range} Range
+ * @typedef {import("eslint").AST.Range} Range
  * @typedef {import("../lib/types").TemplateSyntaxParserConfig} TemplateSyntaxParserConfig
  */
 

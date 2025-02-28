@@ -1,5 +1,5 @@
 /**
- * @typedef {import('@html-eslint/types').Range} Range
+ * @typedef {import('eslint').AST.Range} Range
  * @typedef {import("./types").TemplateSyntax} TemplateSyntax
  * @typedef {import("./types").OpenSyntax} OpenSyntax
  * @typedef {import("./types").CloseSyntax} CloseSyntax
