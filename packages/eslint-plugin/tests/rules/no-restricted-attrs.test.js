@@ -52,6 +52,40 @@ ruleTester.run("no-restricted-attrs", rule, {
       ],
     },
     {
+      code: `<script id="foo"> </script>`,
+      options: [
+        {
+          tagPatterns: ["script"],
+          attrPatterns: ["id"],
+        },
+      ],
+      errors: [
+        {
+          messageId: "restricted",
+          data: {
+            attr: "id",
+          },
+        },
+      ],
+    },
+    {
+      code: `<style id="foo"> </style>`,
+      options: [
+        {
+          tagPatterns: ["style"],
+          attrPatterns: ["id"],
+        },
+      ],
+      errors: [
+        {
+          messageId: "restricted",
+          data: {
+            attr: "id",
+          },
+        },
+      ],
+    },
+    {
       code: `<div alt="foo"> </div> <img alt="a"/> <custom-element alt="foo"></custom-element>`,
       options: [
         {
