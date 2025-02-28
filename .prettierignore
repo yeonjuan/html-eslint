@@ -4,16 +4,11 @@
 lerna.json
 packages/website/
 packages/web-linter/out
-.next
 dist
 **/dist
 .yarn/releases
 yarn.lock
 .turbo
-
-# generated types
-packages/**/types
-!packages/**/lib/types
 
 packages/eslint-plugin/tests/e2e/**/*.html
 integration-test-projects

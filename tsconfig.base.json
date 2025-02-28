@@ -5,8 +5,8 @@
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "emitDeclarationOnly": true,
     "declaration": true,
+    "noEmit": true,
     "declarationMap": true,
     "esModuleInterop": true,
     "module": "commonjs",
@@ -18,6 +18,8 @@
     "strict": true,
     "target": "es2017",
     "lib": ["es2017"],
-    "paths": {}
+    "paths": {},
+    "types": ["node", "jest"],
+    "resolveJsonModule": true
   }
 }

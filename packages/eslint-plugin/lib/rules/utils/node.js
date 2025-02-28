@@ -1,19 +1,18 @@
 /**
- * @typedef { import("../../types").Attribute } Attribute
- * @typedef { import("../../types").Tag } Tag
- * @typedef { import("../../types").ScriptTag } ScriptTag
- * @typedef { import("../../types").StyleTag } StyleTag
+ * @typedef { import("@html-eslint/types").Attribute } Attribute
+ * @typedef { import("@html-eslint/types").Tag } Tag
+ * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
+ * @typedef { import("@html-eslint/types").StyleTag } StyleTag
  * @typedef { import("../../types").Line } Line
- * @typedef { import("../../types").Text } Text
- * @typedef { import("../../types").CommentContent } CommentContent
- * @typedef { import("../../types").Comment } Comment
- * @typedef { import("../../types").AnyNode } AnyNode
- * @typedef { import("../../types").AttributeValue } AttributeValue
- * @typedef { import("../../types").AttributeKey } AttributeKey
- * @typedef { import("../../types").TemplateText } TemplateText
- * @typedef { import("../../types").OpenTemplate } OpenTemplate
- * @typedef { import("../../types").CloseTemplate } CloseTemplate
- * @typedef { import("../../types").AnyPartNode } AnyPartNode
+ * @typedef { import("@html-eslint/types").Text } Text
+ * @typedef { import("@html-eslint/types").CommentContent } CommentContent
+ * @typedef { import("@html-eslint/types").Comment } Comment
+ * @typedef { import("@html-eslint/types").AnyNode } AnyNode
+ * @typedef { import("@html-eslint/types").AttributeValue } AttributeValue
+ * @typedef { import("@html-eslint/types").AttributeKey } AttributeKey
+ * @typedef { import("@html-eslint/types").TemplateText } TemplateText
+ * @typedef { import("@html-eslint/types").OpenTemplate } OpenTemplate
+ * @typedef { import("@html-eslint/types").CloseTemplate } CloseTemplate
  * @typedef { import("eslint").AST.Range } Range
  * @typedef { import("eslint").AST.SourceLocation } SourceLocation
  * @typedef { import("es-html-parser").AnyToken } AnyToken

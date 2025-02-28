@@ -1,3 +1,6 @@
+/**
+ * @typedef {import("eslint").Linter.Config} Config
+ */
 const eslint = require(`eslint`);
 const fs = require(`fs`);
 const path = require(`path`);
@@ -12,6 +15,7 @@ for (const testDir of testDirs) {
 
   test(`e2e/` + testDir.name, () => {
     const configRules = require(path.join(testPath, `rules.js`));
+
     const config = {
       plugins: {
         "@html-eslint": require("@html-eslint/eslint-plugin"),
@@ -34,11 +38,13 @@ for (const testDir of testDirs) {
     let messages;
     if (shouldHaveErrors) {
       const expected = fs.readFileSync(outputPath, { encoding: `utf8` });
+      // @ts-ignore
       const result = linter.verifyAndFix(source, config);
       messages = result.messages;
       expect(result.output).toEqual(expected);
     } else {
       // If no `fixed.html`, assume the `source.html` should have no errors/warnings
+      // @ts-ignore
       messages = linter.verify(source, config);
     }
     expect(JSON.stringify(messages, null, `\t`)).toEqual(`[]`); // Quick-and-dirty to check for and print any unfixed errors/warnings

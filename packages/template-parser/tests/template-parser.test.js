@@ -3,12 +3,22 @@ const { SourceCode } = require("eslint");
 const templateParser = require("../lib/template-parser");
 const espree = require("espree");
 
+/**
+ * @param {string} code
+ */
 const parseCode = (code) =>
   espree.parse(code, {
     range: true,
     loc: true,
     ecmaVersion: "latest",
   });
+
+/**
+ *
+ * @param {string} code
+ * @param {*} ast
+ * @returns
+ */
 const createSourceCode = (code, ast) =>
   new SourceCode({
     text: code,
@@ -37,6 +47,8 @@ describe("parseTemplate", () => {
   test("simple", () => {
     const code = "`<div></div>`;";
     const ast = parseCode(code);
+
+    // @ts-ignore
     const exp = ast.body[0].expression;
     const sourcecode = createSourceCode(code, ast);
     expect(templateParser.parse(exp, sourcecode, visitors));
@@ -76,6 +88,8 @@ describe("parseTemplate", () => {
     const code = `\`<div>
   </div>\`;`;
     const ast = parseCode(code);
+
+    // @ts-ignore
     const exp = ast.body[0].expression;
     const sourcecode = createSourceCode(code, ast);
     templateParser.parse(exp, sourcecode, visitors);
@@ -97,6 +111,8 @@ describe("parseTemplate", () => {
     \${text}
   </div>\`;`;
     const ast = parseCode(code);
+
+    // @ts-ignore
     const exp = ast.body[0].expression.quasi;
     const sourcecode = createSourceCode(code, ast);
     templateParser.parse(exp, sourcecode, visitors);

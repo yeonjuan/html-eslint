@@ -1,12 +1,13 @@
 /**
- * @typedef {import("./types").AnyHTMLNode} AnyHTMLNode
+ * @typedef {import("es-html-parser").AnyNode} AnyNode
+ * @typedef {import("eslint").AST.Program} Program
  */
 const { visitorKeys } = require("./visitor-keys");
 
 /**
  *
- * @param {AnyHTMLNode} node
- * @param {(arg: AnyHTMLNode) => void} visitor
+ * @param {AnyNode | Program} node
+ * @param {(arg: AnyNode | Program) => void} visitor
  * @returns {void}
  */
 function traverse(node, visitor) {
@@ -15,12 +16,14 @@ function traverse(node, visitor) {
   }
   visitor(node);
   const type = node.type;
+  // @ts-ignore
   const keys = visitorKeys[type];
 
   if (!keys || keys.length <= 0) {
     return;
   }
 
+  // @ts-ignore
   keys.forEach((key) => {
     // @ts-ignore
     const value = node[key];

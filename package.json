@@ -24,6 +24,7 @@
   "author": "yeonjuan",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "cspell": "^8.0.0",
     "eslint": "^9.19.0",
     "eslint-plugin-jest": "^28.11.0",

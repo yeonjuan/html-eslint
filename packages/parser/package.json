@@ -6,15 +6,9 @@
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "lib/index.js",
-  "types": "types/lib/index.d.ts",
-  "directories": {
-    "lib": "lib",
-    "types": "types",
-    "test": "__tests__"
-  },
+  "types": "lib/types.d.ts",
   "files": [
-    "lib",
-    "types"
+    "lib"
   ],
   "publishConfig": {
     "access": "public"
@@ -25,11 +19,7 @@
   },
   "scripts": {
     "test": "jest --coverage --updateSnapshot --passWithNoTests",
-    "ts": "tsc --noEmit",
-    "build": "tsc -p ./tsconfig.build.json"
-  },
-  "engines": {
-    "node": ">=8.10.0"
+    "ts": "tsc --noEmit"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"

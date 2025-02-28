@@ -1,12 +1,11 @@
 {
-  "name": "@html-eslint/template-parser",
+  "name": "@html-eslint/types",
   "version": "0.35.0",
-  "description": "HTML parser for template literals ",
+  "description": "Types for @html-eslint/eslint-plugin",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
-  "main": "lib/index.js",
-  "types": "types/lib/index.d.ts",
+  "types": "lib/index.d.ts",
   "files": [
     "lib"
   ],
@@ -18,22 +17,15 @@
     "url": "git+https://github.com/yeonjuan/html-eslint.git"
   },
   "scripts": {
-    "ts": "tsc --noEmit",
-    "lint": "eslint .",
-    "test": "jest --coverage"
+    "ts": "tsc --noEmit"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
-  "dependencies": {
-    "es-html-parser": "0.1.0"
-  },
   "devDependencies": {
-    "@html-eslint/types": "^0.35.0",
-    "@types/espree": "^10.1.0",
-    "@types/estree": "^0.0.47",
+    "@types/estree": "^1.0.6",
+    "es-html-parser": "0.1.0",
     "eslint": "^9.19.0",
-    "espree": "^10.3.0",
-    "globals": "^15.12.0"
+    "typescript": "^5.7.2"
   }
 }

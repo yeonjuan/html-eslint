@@ -50,7 +50,7 @@ describe("configs", () => {
   test("all recommended rules should be included in the recommended config", () => {
     const recommendedRules = Object.entries(exportedRules)
       .filter(([, rule]) => {
-        return rule.meta.docs.recommended;
+        return rule.meta && rule.meta.docs && rule.meta.docs.recommended;
       })
       .map(([name]) => `@html-eslint/${name}`);
     expect(Object.keys(RECOMMENDED_CONFIG.rules)).toEqual(

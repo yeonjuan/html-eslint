@@ -1,3 +1,6 @@
+import { Range } from "@html-eslint/types";
+export * from "./index";
+
 export type TemplateSyntaxParserConfig = {
   skipRanges?: [number, number][];
   syntax: Record<string, string>;
@@ -23,5 +26,3 @@ export type CloseSyntax = {
 export type TemplateSyntaxParserResult = {
   syntax: TemplateSyntax[];
 };
-
-export type Range = [number, number];

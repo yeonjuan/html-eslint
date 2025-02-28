@@ -1,14 +1,4 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "target": "es2017",
-    "module": "commonjs",
-    "checkJs": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "noImplicitAny": true
-  },
-  "exclude": ["coverage", "tests"]
+  "include": ["lib", "tests"]
 }

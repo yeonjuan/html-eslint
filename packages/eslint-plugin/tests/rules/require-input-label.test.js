@@ -58,6 +58,9 @@ templateRuleTester.run("[template] require-input-label", rule, {
     {
       code: `html\`<input id="foo">\``,
     },
+    {
+      code: `html\`<label>name: <input></label>\``,
+    },
   ],
   invalid: [
     {
