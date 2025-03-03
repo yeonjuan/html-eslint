@@ -1,6 +1,10 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").Tag } Tag
+ *
+ * @typedef {Object} Option
+ * @property {"always" | "never"} [Option.selfClosing]
+ * @property {string[]} [Option.selfClosingCustomPatterns]
+ * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");

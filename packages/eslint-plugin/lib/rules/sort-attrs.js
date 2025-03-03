@@ -1,8 +1,11 @@
 /**
  * @typedef { import("eslint").Rule.RuleFixer } RuleFixer
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").Attribute } Attribute
  * @typedef { import("@html-eslint/types").Text } Text
+ *
+ * @typedef {Object} Option
+ * @property {string[]} [Option.priority]
+ * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { hasTemplate } = require("./utils/node");
@@ -53,7 +56,7 @@ module.exports = {
     /**
      * @type {string[]}
      */
-    const priority = option.priority;
+    const priority = option.priority || [];
 
     /**
      * @param {Attribute} attrA
@@ -165,12 +168,9 @@ module.exports = {
         const first = unsorted[0];
         const last = unsorted[unsorted.length - 1];
         context.report({
-          node: {
-            range: [first.range[0], last.range[1]],
-            loc: {
-              start: first.loc.start,
-              end: last.loc.end,
-            },
+          loc: {
+            start: first.loc.start,
+            end: last.loc.end,
           },
           messageId: MESSAGE_IDS.UNSORTED,
           fix(fixer) {

@@ -1,10 +1,10 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").StyleTag } StyleTag
  * @typedef { import("@html-eslint/types").Attribute } Attribute
  * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
  * @typedef {{attrPatterns: string[], attrValuePatterns: string[], message?: string}[]} Options
+ * @typedef { import("../types").RuleModule<Options> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");

@@ -1,8 +1,11 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("@html-eslint/types").StyleTag } StyleTag
  * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
+ *
+ * @typedef {Object} Option
+ * @property {number} [Option.max]
+ * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -71,7 +74,7 @@ module.exports = {
           node,
           messageId: MESSAGE_IDS.MAX_DEPTH_EXCEEDED,
           data: {
-            needed: maxDepth,
+            needed: `${maxDepth}`,
             found: String(depth),
           },
         });

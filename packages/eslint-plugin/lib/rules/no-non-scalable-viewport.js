@@ -1,5 +1,5 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").RuleModule<[]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");

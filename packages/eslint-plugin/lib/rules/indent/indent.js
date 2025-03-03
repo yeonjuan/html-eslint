@@ -1,10 +1,9 @@
 /**
- * @typedef { import("../../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").AnyNode } AnyNode
  * @typedef { import("../../types").Line } Line
  * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("../../types").RuleListener } RuleListener
- * @typedef { import("../../types").Context } Context
+ * @typedef { import("../../types").Context<any[]> } Context
  * @typedef { import("@html-eslint/types").TemplateText } TemplateText
  * @typedef { import("eslint").AST.Token } Token
  * @typedef { import("eslint").SourceCode } SourceCode
@@ -24,6 +23,13 @@
  * @property {IndentType["TAB"] | IndentType["SPACE"]} indentType
  * @property {number} indentSize
  * @property {string} indentChar
+ *
+ * @typedef {"tab" | number} Option1
+ * @typedef {Object} Option2
+ * @property {number} [Option2.Attribute]
+ * @property {Record<NodeTypes | "TaggedTemplateExpression" | "TemplateLiteral" | "TemplateElement", number>} [Option2.tagChildrenIndent]
+ *
+ * @typedef { import("../../types").RuleModule<[Option1, Option2]> } RuleModule
  */
 
 const { parse } = require("@html-eslint/template-parser");

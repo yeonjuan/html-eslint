@@ -1,5 +1,4 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").Attribute } Attribute
  * @typedef { import("@html-eslint/types").OpenTagEnd } OpenTagEnd
  * @typedef { import("@html-eslint/types").OpenScriptTagEnd } OpenScriptTagEnd
@@ -11,6 +10,13 @@
  * @typedef { import("@html-eslint/types").StyleTag } StyleTag
  * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
  * @typedef { import("@html-eslint/types").AnyNode } AnyNode
+ *
+ * @typedef {Object} Option
+ * @property {boolean} [Option.disallowInAssignment]
+ * @property {boolean} [Option.disallowMissing]
+ * @property {boolean} [Option.disallowTabs]
+ * @property {boolean} [Option.enforceBeforeSelfClose]
+ * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");

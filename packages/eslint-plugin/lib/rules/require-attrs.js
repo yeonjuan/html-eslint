@@ -1,5 +1,4 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
  * @typedef { import("@html-eslint/types").StyleTag } StyleTag
@@ -7,7 +6,10 @@
  * @typedef {Object} Option
  * @property {string} tag
  * @property {string} attr
- * @property {string | undefined} value
+ * @property {string} [value]
+ *
+ * @typedef { import("../types").RuleModule<Option[]> } RuleModule
+ *
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
