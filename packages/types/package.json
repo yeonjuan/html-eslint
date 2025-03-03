@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/estree": "^1.0.6",
-    "es-html-parser": "0.1.0",
+    "es-html-parser": "0.1.1",
     "eslint": "^9.19.0",
     "typescript": "^5.7.2"
   }

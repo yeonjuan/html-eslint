@@ -1,5 +1,5 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").RuleModule<[]> } RuleModule
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");

@@ -16,9 +16,9 @@ module.exports = {
 
 ### Options
 
-- `ogp` (default: ['og:title', 'og:type', 'og:url', 'og:image']): enforce to use specified open graph protocol meta tags
+You can specify an array of ogp names to enforce.
 
-Examples of **incorrect** code for this rule with the default `{ "ogp": ['og:title', 'og:type', 'og:url', 'og:image'] }` options:
+Examples of **incorrect** code for this rule with the default `['og:title', 'og:type', 'og:url', 'og:image']` options:
 
 ```html,incorrect
 <html>

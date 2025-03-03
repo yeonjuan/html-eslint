@@ -1,5 +1,6 @@
 import eslint from "eslint";
 import * as AST from "@html-eslint/types";
+import * as estree from "estree";
 
 type PostFix<T, S extends string> = {
   [K in keyof T as `${K & string}${S}`]: T[K];
@@ -49,7 +50,13 @@ interface ReportDescriptorOptionsBase {
 
   fix?:
     | null
-    | ((fixer: RuleFixer) => null | Fix | IterableIterator<Fix> | Fix[]);
+    | ((
+        fixer: eslint.Rule.RuleFixer
+      ) =>
+        | null
+        | eslint.Rule.Fix
+        | IterableIterator<eslint.Rule.Fix>
+        | eslint.Rule.Fix[]);
 }
 
 type SuggestionDescriptorMessage = { desc: string } | { messageId: string };
@@ -65,19 +72,22 @@ type ReportDescriptor = ReportDescriptorMessage &
   ReportDescriptorOptions;
 type ReportDescriptorMessage = { message: string } | { messageId: string };
 type ReportDescriptorLocation = {
-  node?: BaseNode;
-  loc?: ESLint.AST.SourceLocation;
+  node?: estree.BaseNode;
+  loc?: eslint.AST.SourceLocation;
   line?: number;
   column?: number;
 };
 
-export interface Context extends Omit<ESLint.Rule.RuleContext, "report"> {
+export interface Context<Options extends unknown[]>
+  extends Omit<eslint.Rule.RuleContext, "report"> {
   report(descriptor: ReportDescriptor): void;
+  options: Options;
 }
 
 export type RuleListener = BaseRuleListener &
   PostFix<BaseRuleListener, ":exit">;
 
-export interface RuleModule extends eslint.Rule.RuleModule {
-  create(context: Context): RuleListener;
+export interface RuleModule<Options extends unknown[]> {
+  create(context: Context<Options>): RuleListener;
+  meta: eslint.Rule.RuleMetaData;
 }

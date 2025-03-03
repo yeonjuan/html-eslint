@@ -1,7 +1,7 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("@html-eslint/types").AnyNode } AnyNode
+ * @typedef { import("../types").RuleModule<[]> } RuleModule
  */
 const { RULE_CATEGORY } = require("../constants");
 const { filter } = require("./utils/array");

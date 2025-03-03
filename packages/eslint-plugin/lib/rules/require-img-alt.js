@@ -1,6 +1,10 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").Tag } Tag
+ *
+ * @typedef {Object} Option
+ * @property {string[]} [Option.substitute]
+ *
+ * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -56,12 +60,9 @@ module.exports = {
         }
         if (!hasAltAttrAndValue(node, substitute)) {
           context.report({
-            node: {
-              loc: {
-                start: node.openStart.loc.start,
-                end: node.openEnd.loc.end,
-              },
-              range: [node.openStart.range[0], node.openEnd.range[1]],
+            loc: {
+              start: node.openStart.loc.start,
+              end: node.openEnd.loc.end,
             },
             messageId: MESSAGE_IDS.MISSING_ALT,
           });

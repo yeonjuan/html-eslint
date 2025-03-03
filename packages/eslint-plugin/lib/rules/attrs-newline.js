@@ -1,11 +1,16 @@
 /**
  * @typedef { import("eslint").Rule.RuleFixer } RuleFixer
- * @typedef { import("../types").RuleModule } RuleModule
  *
- * @typedef {Object } MessageId
+ * @typedef {Object} MessageId
  * @property {"closeStyleWrong"} CLOSE_STYLE_WRONG
  * @property {"newlineMissing"} NEWLINE_MISSING
  * @property {"newlineUnexpected"} NEWLINE_UNEXPECTED
+ *
+ * @typedef {Object} Option
+ * @property {"sameline" | "newline"} [option.closeStyle]
+ * @property {number} [options.ifAttrsMoreThan]
+ *
+ * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -58,9 +63,8 @@ module.exports = {
 
   create(context) {
     const options = context.options[0] || {};
-    const attrMin = isNaN(options.ifAttrsMoreThan)
-      ? 2
-      : options.ifAttrsMoreThan;
+    const attrMin =
+      typeof options.ifAttrsMoreThan !== "number" ? 2 : options.ifAttrsMoreThan;
     const closeStyle = options.closeStyle || "newline";
 
     return createVisitors(context, {
@@ -147,7 +151,7 @@ module.exports = {
             return context.report({
               node,
               data: {
-                attrMin,
+                attrMin: `${attrMin}`,
               },
               fix,
               messageId: MESSAGE_ID.NEWLINE_UNEXPECTED,
