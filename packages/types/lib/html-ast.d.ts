@@ -28,6 +28,24 @@ export interface DoctypeClose extends Parser.DoctypeCloseNode {
 
 export interface DoctypeAttribute extends Parser.DoctypeAttributeNode {
   parent: Doctype;
+  startWrapper?: DoctypeAttributeWrapperStart;
+  value?: DoctypeAttributeValue;
+  endWrapper?: DoctypeAttributeWrapperEnd;
+}
+
+export interface DoctypeAttributeValue
+  extends Parser.DoctypeAttributeValueNode {
+  parent: DoctypeAttribute;
+}
+
+export interface DoctypeAttributeWrapperStart
+  extends Parser.DoctypeAttributeWrapperStartNode {
+  parent: DoctypeAttribute;
+}
+
+export interface DoctypeAttributeWrapperEnd
+  extends Parser.DoctypeAttributeWrapperEndNode {
+  parent: DoctypeAttribute;
 }
 
 export interface Comment extends Parser.CommentNode {
@@ -144,10 +162,6 @@ export interface AttributeValueWrapperEnd
   parent: Attribute;
 }
 
-export interface Text extends Parser.TextNode {
-  parent: Document | Tag;
-}
-
 export type TemplateText = Text["parts"][number];
 
 export type OpenTemplate = Parser.OpenTemplateNode;
@@ -159,6 +173,7 @@ export type AnyHTMLNode =
   | DoctypeOpen
   | DoctypeClose
   | DoctypeAttribute
+  | DoctypeAttributeValue
   | Comment
   | CommentOpen
   | CommentClose

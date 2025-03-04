@@ -2,7 +2,7 @@ import * as Parser from "es-html-parser";
 import eslint from "eslint";
 import * as estree from "estree";
 
-interface EstreeNode extends estree.Node {
+interface EstreeNode extends estree.BaseNode {
   type: string;
   loc: eslint.AST.SourceLocation;
   range: eslint.AST.Range;

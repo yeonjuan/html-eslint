@@ -1,11 +1,14 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").CommentContent } CommentContent
  * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("@html-eslint/types").Comment } Comment
  * @typedef { import("@html-eslint/types").Text } Text
  * @typedef { import("../types").Line } Line
  * @typedef { import("eslint").AST.Range } Range
+ *
+ * @typedef {Object} Option
+ * @property {string[]} [Option.skip]
+ * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");

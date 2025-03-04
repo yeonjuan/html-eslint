@@ -1,5 +1,5 @@
 /**
- * @typedef { import("../../types").Context } Context
+ * @typedef { import("../../types").Context<any[]> } Context
  * @typedef { import("../../types").RuleListener } RuleListener
  */
 

@@ -1,5 +1,5 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
+ * @typedef { import("../types").RuleModule<[]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -41,12 +41,9 @@ module.exports = {
         const langAttr = findAttr(node, "lang");
         if (!langAttr) {
           context.report({
-            node: {
-              loc: {
-                start: node.openStart.loc.start,
-                end: node.openEnd.loc.end,
-              },
-              range: [node.openStart.range[0], node.openEnd.range[1]],
+            loc: {
+              start: node.openStart.loc.start,
+              end: node.openEnd.loc.end,
             },
             messageId: MESSAGE_IDS.MISSING,
           });

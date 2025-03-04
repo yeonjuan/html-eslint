@@ -43,7 +43,7 @@
     "@html-eslint/types": "^0.35.0",
     "@types/eslint": "^9.6.1",
     "@types/estree": "^0.0.47",
-    "es-html-parser": "0.1.0",
+    "es-html-parser": "0.1.1",
     "eslint": "^9.21.0",
     "espree": "^10.3.0",
     "typescript": "^5.7.2"

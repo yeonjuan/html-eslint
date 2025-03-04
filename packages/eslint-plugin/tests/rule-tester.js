@@ -1,7 +1,7 @@
 const { RuleTester: ESLintRuleTester } = require("eslint");
 /**
  * @typedef {import("eslint").Linter.Config} Config
- * @typedef { import("../lib/types").RuleModule } RuleModule
+ * @typedef { import("../lib/types").RuleModule<any[]> } RuleModule
  */
 
 const FILE_NAME = "test.html";

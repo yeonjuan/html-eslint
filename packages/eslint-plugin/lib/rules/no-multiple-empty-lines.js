@@ -1,9 +1,12 @@
 /**
  * @typedef { import("es-html-parser").AnyToken } AnyToken
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").Document } Document
  * @typedef { import("@html-eslint/types").CommentContent } CommentContent
  * @typedef { import("@html-eslint/types").Text } Text
+ *
+ * @typedef {Object} Option
+ * @property {number} Option.max
+ * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { parse } = require("@html-eslint/template-parser");
@@ -99,7 +102,7 @@ module.exports = {
               },
               messageId: MESSAGE_IDS.UNEXPECTED,
               data: {
-                max,
+                max: `${max}`,
               },
               fix(fixer) {
                 return fixer.removeRange([start, end]);

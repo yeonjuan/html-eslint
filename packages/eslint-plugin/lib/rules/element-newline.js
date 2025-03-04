@@ -1,5 +1,4 @@
 /**
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("@html-eslint/types").Comment } Comment
  * @typedef { import("@html-eslint/types").Doctype } Doctype
@@ -11,6 +10,12 @@
  * @typedef { import("@html-eslint/types").CloseTag } CloseTag
  * @typedef { import("../types").Line } Line
  * @typedef { AnyNode | Line } AnyNodeOrLine
+ *
+ * @typedef {Object} Option
+ * @property {string[]} [Option.skip]
+ * @property {string[]} [Option.inline]
+ *
+ * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");

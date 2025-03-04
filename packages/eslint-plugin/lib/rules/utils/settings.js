@@ -1,7 +1,7 @@
 /**
  * @typedef {import("../../types").MaybeHTMLSettings} MaybeHTMLSettings
  * @typedef {import("../../types").HTMLSettings} HTMLSettings
- * @typedef {import("../../types").Context} Context
+ * @typedef {import("../../types").Context<any[]>} Context
  * @typedef {import("@html-eslint/types").TaggedTemplateExpression} TaggedTemplateExpression
  * @typedef {import("@html-eslint/types").TemplateLiteral} TemplateLiteral
  */

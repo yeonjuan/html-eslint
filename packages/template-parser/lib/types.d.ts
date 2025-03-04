@@ -1,36 +1,36 @@
 import type {
-  DocumentNode,
-  AttributeNode,
-  AttributeKeyNode,
-  AttributeValueNode,
-  AttributeValueWrapperEndNode,
-  AttributeValueWrapperStartNode,
-  CloseScriptTagNode,
-  CloseStyleTagNode,
-  CloseTagNode,
-  CommentContentNode,
-  CommentNode,
-  CommentOpenNode,
-  CommentCloseNode,
-  DoctypeNode,
-  DoctypeAttributeNode,
-  DoctypeAttributeValueNode,
-  DoctypeAttributeWrapperEndNode,
-  DoctypeAttributeWrapperStartNode,
-  DoctypeOpenNode,
-  DoctypeCloseNode,
-  OpenScriptTagEndNode,
-  OpenScriptTagStartNode,
-  OpenStyleTagEndNode,
-  OpenStyleTagStartNode,
-  OpenTagEndNode,
-  OpenTagStartNode,
-  ScriptTagNode,
-  ScriptTagContentNode,
-  StyleTagNode,
-  StyleTagContentNode,
-  TagNode,
-  TextNode,
+  Document,
+  Attribute,
+  AttributeKey,
+  AttributeValue,
+  AttributeValueWrapperEnd,
+  AttributeValueWrapperStart,
+  CloseScriptTag,
+  CloseStyleTag,
+  CloseTag,
+  CommentContent,
+  Comment,
+  CommentOpen,
+  CommentClose,
+  Doctype,
+  DoctypeAttribute,
+  DoctypeAttributeValue,
+  DoctypeAttributeWrapperEnd,
+  DoctypeAttributeWrapperStart,
+  DoctypeOpen,
+  DoctypeClose,
+  OpenScriptTagEnd,
+  OpenScriptTagStart,
+  OpenStyleTagEnd,
+  OpenStyleTagStart,
+  OpenTagEnd,
+  OpenTagStart,
+  ScriptTag,
+  ScriptTagContent,
+  StyleTag,
+  StyleTagContent,
+  Tag,
+  Text,
   AnyNode,
 } from "@html-eslint/types";
 import { NodeTypes } from "es-html-parser";
@@ -45,53 +45,44 @@ export type TemplateHTMLVisitorKeys = {
 };
 
 type BaseVisiter = Partial<{
-  [NodeTypes.Document]: (node: DocumentNode) => void;
-  [NodeTypes.Attribute]: (node: AttributeNode) => void;
-  [NodeTypes.AttributeKey]: (node: AttributeKeyNode) => void;
-  [NodeTypes.AttributeValue]: (node: AttributeValueNode) => void;
+  [NodeTypes.Document]: (node: Document) => void;
+  [NodeTypes.Attribute]: (node: Attribute) => void;
+  [NodeTypes.AttributeKey]: (node: AttributeKey) => void;
+  [NodeTypes.AttributeValue]: (node: AttributeValue) => void;
   [NodeTypes.AttributeValueWrapperEnd]: (
-    node: AttributeValueWrapperEndNode
+    node: AttributeValueWrapperEnd
   ) => void;
   [NodeTypes.AttributeValueWrapperStart]: (
-    node: AttributeValueWrapperStartNode
+    node: AttributeValueWrapperStart
   ) => void;
-  [NodeTypes.CloseScriptTag]: (node: CloseScriptTagNode) => void;
-  [NodeTypes.CloseStyleTag]: (node: CloseStyleTagNode) => void;
-  [NodeTypes.CloseTag]: (node: CloseTagNode) => void;
+  [NodeTypes.CloseScriptTag]: (node: CloseScriptTag) => void;
+  [NodeTypes.CloseStyleTag]: (node: CloseStyleTag) => void;
+  [NodeTypes.CloseTag]: (node: CloseTag) => void;
   [NodeTypes.Comment]: (node: Comment) => void;
-  [NodeTypes.CommentContent]: (node: CommentContentNode) => void;
-  [NodeTypes.CommentOpen]: (node: CommentOpenNode) => void;
-  [NodeTypes.CommentClose]: (node: CommentCloseNode) => void;
-  [NodeTypes.Doctype]: (node: DoctypeNode) => void;
-  [NodeTypes.DoctypeAttribute]: (node: DoctypeAttributeNode) => void;
-  [NodeTypes.DoctypeAttributeValue]: (node: DoctypeAttributeValueNode) => void;
+  [NodeTypes.CommentContent]: (node: CommentContent) => void;
+  [NodeTypes.CommentOpen]: (node: CommentOpen) => void;
+  [NodeTypes.CommentClose]: (node: CommentClose) => void;
+  [NodeTypes.Doctype]: (node: Doctype) => void;
+  [NodeTypes.DoctypeAttribute]: (node: DoctypeAttribute) => void;
+  [NodeTypes.DoctypeAttributeValue]: (node: DoctypeAttributeValue) => void;
   [NodeTypes.DoctypeAttributeWrapperEnd]: (
-    node: DoctypeAttributeWrapperEndNode
+    node: DoctypeAttributeWrapperEnd
   ) => void;
   [NodeTypes.DoctypeAttributeWrapperStart]: (
-    node: DoctypeAttributeWrapperStartNode
+    node: DoctypeAttributeWrapperStart
   ) => void;
-  [NodeTypes.DoctypeOpen]: (node: DoctypeOpenNode) => void;
-  [NodeTypes.DoctypeClose]: (node: DoctypeCloseNode) => void;
-  [NodeTypes.OpenScriptTagEnd]: (node: OpenScriptTagEndNode) => void;
-  [NodeTypes.OpenScriptTagStart]: (node: OpenScriptTagStartNode) => void;
-  [NodeTypes.OpenStyleTagEnd]: (node: OpenStyleTagEndNode) => void;
-  [NodeTypes.OpenStyleTagStart]: (node: OpenStyleTagStartNode) => void;
-  [NodeTypes.OpenTagEnd]: (node: OpenTagEndNode) => void;
-  [NodeTypes.OpenTagStart]: (node: OpenTagStartNode) => void;
-  [NodeTypes.ScriptTag]: (node: ScriptTagNode) => void;
-  [NodeTypes.ScriptTagContent]: (node: ScriptTagContentNode) => void;
-  [NodeTypes.StyleTag]: (node: StyleTagNode) => void;
-  [NodeTypes.StyleTagContent]: (node: StyleTagContentNode) => void;
-  [NodeTypes.Tag]: (node: TagNode) => void;
-  [NodeTypes.Text]: (node: TextNode) => void;
+  [NodeTypes.DoctypeOpen]: (node: DoctypeOpen) => void;
+  [NodeTypes.DoctypeClose]: (node: DoctypeClose) => void;
+  [NodeTypes.OpenScriptTagEnd]: (node: OpenScriptTagEnd) => void;
+  [NodeTypes.OpenScriptTagStart]: (node: OpenScriptTagStart) => void;
+  [NodeTypes.OpenStyleTagEnd]: (node: OpenStyleTagEnd) => void;
+  [NodeTypes.OpenStyleTagStart]: (node: OpenStyleTagStart) => void;
+  [NodeTypes.OpenTagEnd]: (node: OpenTagEnd) => void;
+  [NodeTypes.OpenTagStart]: (node: OpenTagStart) => void;
+  [NodeTypes.ScriptTag]: (node: ScriptTag) => void;
+  [NodeTypes.ScriptTagContent]: (node: ScriptTagContent) => void;
+  [NodeTypes.StyleTag]: (node: StyleTag) => void;
+  [NodeTypes.StyleTagContent]: (node: StyleTagContent) => void;
+  [NodeTypes.Tag]: (node: Tag) => void;
+  [NodeTypes.Text]: (node: Text) => void;
 }>;
-
-type PostFix<T, S extends string> = {
-  [K in keyof T as `${K & string}${S}`]: T[K];
-};
-
-export type TemplateHTMLVisitor = BaseVisiter & PostFix<BaseVisiter, ":exit">;
-export type TemplateHTMLVisitorKeys = {
-  [key in NodeTypes]: string[];
-};

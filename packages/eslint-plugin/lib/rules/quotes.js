@@ -1,10 +1,12 @@
 /**
  * @typedef { import("eslint").AST.Range } Range
- * @typedef { import("../types").RuleModule } RuleModule
  * @typedef { import("@html-eslint/types").Attribute } Attribute
  * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
  * @typedef { import("@html-eslint/types").StyleTag } StyleTag
+ *
+ * @typedef {"single" | "double"} Option
+ * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");
