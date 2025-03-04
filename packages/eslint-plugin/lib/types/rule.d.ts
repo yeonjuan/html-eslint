@@ -1,6 +1,9 @@
 import eslint from "eslint";
 import * as AST from "@html-eslint/types";
 import * as estree from "estree";
+import { Line } from "./ast";
+
+type AnyNodeAndLine = AST.AnyNode | Line;
 
 type PostFix<T, S extends string> = {
   [K in keyof T as `${K & string}${S}`]: T[K];
@@ -45,18 +48,36 @@ interface BaseRuleListener {
   TemplateLiteral?: (node: AST.TemplateLiteral) => void;
 }
 
+interface RuleFix {
+  range: eslint.AST.Range;
+  text: string;
+}
+
+interface RuleFixer {
+  insertTextAfter(nodeOrToken: AnyNodeAndLine, text: string): RuleFix;
+
+  insertTextAfterRange(range: eslint.AST.Range, text: string): RuleFix;
+
+  insertTextBefore(nodeOrToken: AnyNodeAndLine, text: string): RuleFix;
+
+  insertTextBeforeRange(range: eslint.AST.Range, text: string): RuleFix;
+
+  remove(nodeOrToken: AnyNodeAndLine): RuleFix;
+
+  removeRange(range: eslint.AST.Range): RuleFix;
+
+  replaceText(nodeOrToken: AnyNodeAndLine, text: string): RuleFix;
+
+  replaceTextRange(range: eslint.AST.Range, text: string): RuleFix;
+}
+
+type ReportFixFunction = (
+  fixer: RuleFixer
+) => IterableIterator<RuleFix> | readonly RuleFix[] | RuleFix | null;
+
 interface ReportDescriptorOptionsBase {
   data?: { [key: string]: string };
-
-  fix?:
-    | null
-    | ((
-        fixer: eslint.Rule.RuleFixer
-      ) =>
-        | null
-        | eslint.Rule.Fix
-        | IterableIterator<eslint.Rule.Fix>
-        | eslint.Rule.Fix[]);
+  fix?: null | ReportFixFunction;
 }
 
 type SuggestionDescriptorMessage = { desc: string } | { messageId: string };

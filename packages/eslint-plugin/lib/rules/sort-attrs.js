@@ -1,5 +1,5 @@
 /**
- * @typedef { import("eslint").Rule.RuleFixer } RuleFixer
+ * @typedef { import("../types").RuleFixer } RuleFixer
  * @typedef { import("@html-eslint/types").Attribute } Attribute
  * @typedef { import("@html-eslint/types").Text } Text
  *

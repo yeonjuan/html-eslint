@@ -27,7 +27,7 @@
  * @typedef {"tab" | number} Option1
  * @typedef {Object} Option2
  * @property {number} [Option2.Attribute]
- * @property {Record<NodeTypes | "TaggedTemplateExpression" | "TemplateLiteral" | "TemplateElement", number>} [Option2.tagChildrenIndent]
+ * @property {Record<string, number>} [Option2.tagChildrenIndent]
  *
  * @typedef { import("../../types").RuleModule<[Option1, Option2]> } RuleModule
  */
@@ -153,9 +153,14 @@ module.exports = {
       if (isTag(node)) {
         return getTagIncreasingLevel(node);
       }
-      return typeof indentLevelOptions[node.type] === "number"
-        ? indentLevelOptions[node.type]
-        : 1;
+      const type = node.type;
+      if (type === NodeTypes.Attribute) {
+        const optionIndent = indentLevelOptions[type];
+        if (typeof optionIndent === "number") {
+          return optionIndent;
+        }
+      }
+      return 1;
     }
 
     /**
@@ -258,11 +263,11 @@ module.exports = {
         if (actualIndent !== expectedIndent) {
           const targetNode = getIndentNodeToReport(node, actualIndent);
           context.report({
-            node: targetNode,
+            loc: targetNode.loc,
             messageId: MESSAGE_ID.WRONG_INDENT,
             data: getMessageData(actualIndent, indentLevel.value()),
             fix(fixer) {
-              return fixer.replaceText(targetNode, expectedIndent);
+              return fixer.replaceTextRange(targetNode.range, expectedIndent);
             },
           });
         }

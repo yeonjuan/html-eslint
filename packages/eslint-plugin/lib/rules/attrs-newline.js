@@ -1,5 +1,5 @@
 /**
- * @typedef { import("eslint").Rule.RuleFixer } RuleFixer
+ * @typedef { import("../types").RuleFixer } RuleFixer
  *
  * @typedef {Object} MessageId
  * @property {"closeStyleWrong"} CLOSE_STYLE_WRONG
