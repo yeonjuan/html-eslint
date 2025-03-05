@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/template-parser",
-  "version": "0.35.0",
+  "version": "0.35.1",
   "description": "HTML parser for template literals ",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
@@ -29,7 +29,7 @@
     "es-html-parser": "0.1.1"
   },
   "devDependencies": {
-    "@html-eslint/types": "^0.35.0",
+    "@html-eslint/types": "^0.35.1",
     "@types/espree": "^10.1.0",
     "@types/estree": "^0.0.47",
     "eslint": "^9.19.0",

@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.35.0",
+  "version": "0.35.1",
   "private": true,
   "scripts": {
     "clear:cache": "rimraf ../../parcel-cache",
@@ -12,8 +12,8 @@
     "sitemap": "node ./scripts/sitemap"
   },
   "dependencies": {
-    "@html-eslint/eslint-plugin": "^0.35.0",
-    "@html-eslint/parser": "^0.35.0",
+    "@html-eslint/eslint-plugin": "^0.35.1",
+    "@html-eslint/parser": "^0.35.1",
     "@html-eslint/web-linter": "^0.35.0",
     "@html-kit/html": "^0.0.4",
     "codemirror": "^5.58.3"
