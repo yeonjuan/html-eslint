@@ -31,7 +31,6 @@ import type {
   StyleTagContent,
   Tag,
   Text,
-  AnyNode,
 } from "@html-eslint/types";
 import { NodeTypes } from "es-html-parser";
 

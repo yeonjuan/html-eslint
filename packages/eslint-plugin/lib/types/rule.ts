@@ -53,7 +53,7 @@ interface RuleFix {
   text: string;
 }
 
-interface RuleFixer {
+export interface RuleFixer {
   insertTextAfter(nodeOrToken: AnyNodeAndLine, text: string): RuleFix;
 
   insertTextAfterRange(range: eslint.AST.Range, text: string): RuleFix;

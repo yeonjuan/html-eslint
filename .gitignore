@@ -22,3 +22,7 @@ packages/**/.yarn
 .DS_Store
 
 integration-test-projects/**/*.yarn
+packages/template-syntax-parser/types
+packages/template-parser/types
+packages/parser/types
+packages/eslint-plugin/types
