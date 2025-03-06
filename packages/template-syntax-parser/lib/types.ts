@@ -1,5 +1,4 @@
-import { AST } from "eslint";
-export * from "./index";
+import type { AST } from "eslint";
 
 export type TemplateSyntaxParserConfig = {
   skipRanges?: [number, number][];
