@@ -22,7 +22,7 @@
     "ts": "tsc --noEmit",
     "lint": "eslint .",
     "test": "jest --coverage",
-    "build": "tsc --project tsconfig.build.json"
+    "build": "rimraf types && tsc --project tsconfig.build.json"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"

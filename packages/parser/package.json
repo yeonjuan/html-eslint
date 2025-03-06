@@ -21,7 +21,7 @@
   "scripts": {
     "test": "jest --coverage --updateSnapshot --passWithNoTests",
     "ts": "tsc --noEmit",
-    "build": "tsc --project tsconfig.build.json"
+    "build": "rimraf types && tsc --project tsconfig.build.json"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
