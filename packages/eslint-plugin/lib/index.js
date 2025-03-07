@@ -1,6 +1,7 @@
 const rules = require("./rules");
 const recommended = require("./configs/recommended");
 const parser = require("@html-eslint/parser");
+const frontmatter = require("./processors/frontmatter");
 
 /**
  * @typedef {import("./rules")} AllRules
@@ -14,6 +15,9 @@ const plugin = {
   // @ts-ignore
   configs: {
     recommended,
+  },
+  processors: {
+    frontmatter,
   },
   rules,
 };
