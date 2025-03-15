@@ -1,7 +1,7 @@
 const { parseFrontmatterContent } = require("../lib/frontmatter");
 
 describe("frontmatter", () => {
-  describe("has frontmatter", () => {
+  describe("frontmatter O", () => {
     it("should parse frontmatter with content", () => {
       const result = parseFrontmatterContent(`---
 name: value
@@ -12,7 +12,7 @@ content`);
       expect(result.html).toBe("content");
     });
 
-    it("should parse frontmatter with content (trailing slash)", () => {
+    it("should parse frontmatter with trailing spaces", () => {
       const result = parseFrontmatterContent(`---
 name: value
 ---   
@@ -42,47 +42,19 @@ name: value
     });
   });
 
-  //   it("should parse frontmatter without newline", () => {
-  //     const result = parseFrontmatter(`---
-  // name: value
-  // ---`);
-  //     expect(result.range).toMatchObject([0, 19]);
-  //     expect(result.loc.start.line).toBe(1);
-  //     expect(result.loc.start.column).toBe(0);
-  //     expect(result.loc.end.line).toBe(3);
-  //     expect(result.loc.end.column).toBe(3);
-  //   });
-
-  //   it("should parse frontmatter without newline trailing spaces", () => {
-  //     const result = parseFrontmatter(`---
-  // name: value
-  // ---   `);
-  //     expect(result.range).toMatchObject([0, 19]);
-  //     expect(result.loc.start.line).toBe(1);
-  //     expect(result.loc.start.column).toBe(0);
-  //     expect(result.loc.end.line).toBe(3);
-  //     expect(result.loc.end.column).toBe(3);
-  //   });
-
-  //   it("should parse frontmatter without newline", () => {
-  //     const result = parseFrontmatter("---\r\nname: value\r\n---");
-  //     expect(result.range).toMatchObject([0, 21]);
-  //     expect(result.loc.start.line).toBe(1);
-  //     expect(result.loc.start.column).toBe(0);
-  //     expect(result.loc.end.line).toBe(3);
-  //     expect(result.loc.end.column).toBe(3);
-  //   });
-
-  it("should return null", () => {
-    const result = parseFrontmatterContent(`---
-name: value ---`);
-    expect(result).toBe(null);
-  });
-
-  it("should return null 2", () => {
-    const result = parseFrontmatterContent(`---
-name: value
----trailing`);
-    expect(result).toBe(null);
+  describe("frontmatter X", () => {
+    test.each([
+      [
+        `---
+  name: value ---`,
+      ],
+      [
+        `---
+  name: value
+---trailing`,
+      ],
+    ])("should return null", (code) => {
+      expect(parseFrontmatterContent(code)).toBe(null);
+    });
   });
 });
