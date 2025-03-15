@@ -10,7 +10,7 @@
  * @returns {boolean}
  */
 function startsWithFrontmatter(text) {
-  return /^---[\n|\r\n]/.test(text);
+  return /^[\n|\r\n]*---[\n|\r\n]/.test(text);
 }
 
 /**
