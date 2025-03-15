@@ -413,6 +413,19 @@ function createTests() {
 </html>
         `,
       },
+      {
+        code: `---
+  name: value
+---
+<div>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            frontmatter: true,
+          },
+        },
+      },
     ],
     invalid: [
       {

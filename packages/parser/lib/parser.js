@@ -6,7 +6,7 @@ const { parse, TokenTypes } = require("es-html-parser");
 const { visitorKeys } = require("./visitor-keys");
 const { traverse } = require("./traverse");
 const { NODE_TYPES } = require("./node-types");
-const templateSyntaxParser = require("@html-eslint/template-syntax-parser");
+const { getOptions } = require("./options");
 
 /**
  * @param {string} code
@@ -14,16 +14,8 @@ const templateSyntaxParser = require("@html-eslint/template-syntax-parser");
  * @returns {any}
  */
 module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
-  const options =
-    (parserOptions &&
-      parserOptions.templateEngineSyntax && {
-        templateInfos: templateSyntaxParser.parse(code, {
-          syntax: parserOptions.templateEngineSyntax,
-        }).syntax,
-      }) ||
-    undefined;
-
-  const { ast, tokens } = parse(code, options);
+  const { options, html } = getOptions(code, parserOptions);
+  const { ast, tokens } = parse(html, options);
 
   /**
    * @type {Program}
