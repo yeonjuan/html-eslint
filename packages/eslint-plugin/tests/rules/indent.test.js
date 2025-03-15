@@ -413,6 +413,19 @@ function createTests() {
 </html>
         `,
       },
+      {
+        code: `---
+  name: value
+---
+<div>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            frontmatter: true,
+          },
+        },
+      },
     ],
     invalid: [
       {
@@ -1243,6 +1256,44 @@ id="bar"
             },
           },
         },
+      },
+      {
+        code: `<div>
+<div></div>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            frontmatter: true,
+          },
+        },
+        errors: wrongIndentErrors(1),
+        output: `<div>
+    <div></div>
+</div>
+        `,
+      },
+      {
+        code: `---
+  name: value
+---
+<div>
+<div></div>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            frontmatter: true,
+          },
+        },
+        errors: wrongIndentErrors(1),
+        output: `---
+  name: value
+---
+<div>
+    <div></div>
+</div>
+        `,
       },
     ],
   };

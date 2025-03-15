@@ -3,7 +3,7 @@ const htmlParser = require('@html-eslint/parser');
 
 module.exports = [
     {
-        files: ["**/*.js"],
+        files: ["js/*.js"],
         plugins: {
             html,
         },
@@ -17,7 +17,7 @@ module.exports = [
         }
     },
     {
-        files: ["**/*.html"],
+        files: ["html/*.html"],
         plugins: {
             html
         },
@@ -31,6 +31,21 @@ module.exports = [
             "html/indent": ["error", 2],
             "html/sort-attrs": ["error"],
             "html/quotes": ["error"]
+        }
+    },
+    {
+        files: ["frontmatter/*.html"],
+        plugins: {
+            html
+        },
+        languageOptions: {
+            parser: htmlParser,
+            parserOptions: {
+                frontmatter: true,
+            }
+        },
+        rules: {
+            "html/indent": ["error", 2],
         }
     }
 ];

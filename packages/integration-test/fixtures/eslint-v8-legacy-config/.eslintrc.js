@@ -23,6 +23,17 @@ module.exports = {
                 "@html-eslint/sort-attrs": ["error"],
                 "@html-eslint/quotes": ["error"]
             }
+        },
+        {
+            files: ["**/*.html"],
+            parser: "@html-eslint/parser",
+            parserOptions: {
+                frontmatter: true,
+            },
+            plugins: ["@html-eslint"],
+            rules: {
+                "@html-eslint/indent": ["error", 2],
+            }
         }
     ]
 }

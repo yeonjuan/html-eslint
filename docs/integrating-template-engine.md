@@ -72,3 +72,13 @@ parserOptions: {
   templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.ERB;
 }
 ```
+
+## Skip frontmatter
+
+If you are using frontmatter in html, set the parser options to `"frontmatter": true`, which tells the plugin to ignore the frontmatter part. (default: `false`)
+
+```js
+parserOptions: {
+  frontmatter: true,
+}
+```

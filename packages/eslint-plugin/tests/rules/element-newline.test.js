@@ -225,6 +225,17 @@ Bar
         },
       },
     },
+    {
+      code: `---
+  tag: <div></div><div></div>
+---
+      `,
+      languageOptions: {
+        parserOptions: {
+          frontmatter: true,
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -684,6 +695,31 @@ aaa<strong>bbb</strong><a>ccc</a>
           message: "There should be a linebreak after </a>.",
         },
       ],
+    },
+    {
+      code: `---
+  tag: <div></div><div></div>
+---
+<div></div><div></div>
+      `,
+      errors: [
+        {
+          message: "There should be a linebreak after </div>.",
+          line: 4,
+          column: 1,
+        },
+      ],
+      output: `---
+  tag: <div></div><div></div>
+---
+<div></div>
+<div></div>
+      `,
+      languageOptions: {
+        parserOptions: {
+          frontmatter: true,
+        },
+      },
     },
   ],
 });
