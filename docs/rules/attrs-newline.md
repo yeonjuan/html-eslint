@@ -49,7 +49,7 @@ This rule has an object option:
 
 #### ifAttrsMoreThan
 
-If there are more than this number of attributes, all attributes should be separated by newlines. Either they should _not_ be separated by newlines.
+If there are more than this number of attributes, all attributes should be separated by newlines.
 
 The default is `2`.
 
