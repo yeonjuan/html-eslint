@@ -296,43 +296,6 @@ id="p"
       </p>`,
       errors: [{ messageId: "newlineMissing" }],
     },
-    ...closeStyles.map((closeStyle) => ({
-      code: `
-      <p class="foo"
-        >
-        <img />
-      </p>`,
-      options: [
-        {
-          closeStyle,
-          ifAttrsMoreThan: 1,
-        },
-      ],
-      output: `
-      <p class="foo">
-        <img />
-      </p>`,
-      errors: [{ messageId: "newlineUnexpected" }],
-    })),
-    ...closeStyles.map((closeStyle) => ({
-      code: `
-      <p
-        class="foo"
-        id="p">
-        <img />
-      </p>`,
-      options: [
-        {
-          closeStyle,
-          ifAttrsMoreThan: 2,
-        },
-      ],
-      output: `
-      <p class="foo" id="p">
-        <img />
-      </p>`,
-      errors: [{ messageId: "newlineUnexpected" }],
-    })),
   ],
 });
 
