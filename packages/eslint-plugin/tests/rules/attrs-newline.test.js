@@ -220,6 +220,20 @@ ruleTester.run("attrs-newline", rule, {
         },
       ],
     },
+    {
+      code: `
+      <button
+        type="button"
+        class="app-button"
+        data-property
+      ></button>`,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 3,
+        },
+      ],
+    },
   ],
 
   invalid: [
@@ -326,6 +340,20 @@ templateRuleTester.run("[template] attrs-newline", rule, {
   valid: [
     {
       code: `html\`<div class="foo"></div>\``,
+    },
+    {
+      code: `html\`
+        <button
+          type="button"
+          class="app-button"
+          data-property
+        ></button>
+      \``,
+      options: [
+        {
+          ifAttrsMoreThan: 3,
+        },
+      ],
     },
   ],
   invalid: [
