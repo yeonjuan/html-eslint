@@ -220,6 +220,20 @@ ruleTester.run("attrs-newline", rule, {
         },
       ],
     },
+    {
+      code: `
+      <button
+        type="button"
+        class="app-button"
+        data-property
+      ></button>`,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 3,
+        },
+      ],
+    },
   ],
 
   invalid: [
@@ -282,43 +296,6 @@ id="p"
       </p>`,
       errors: [{ messageId: "newlineMissing" }],
     },
-    ...closeStyles.map((closeStyle) => ({
-      code: `
-      <p class="foo"
-        >
-        <img />
-      </p>`,
-      options: [
-        {
-          closeStyle,
-          ifAttrsMoreThan: 1,
-        },
-      ],
-      output: `
-      <p class="foo">
-        <img />
-      </p>`,
-      errors: [{ messageId: "newlineUnexpected" }],
-    })),
-    ...closeStyles.map((closeStyle) => ({
-      code: `
-      <p
-        class="foo"
-        id="p">
-        <img />
-      </p>`,
-      options: [
-        {
-          closeStyle,
-          ifAttrsMoreThan: 2,
-        },
-      ],
-      output: `
-      <p class="foo" id="p">
-        <img />
-      </p>`,
-      errors: [{ messageId: "newlineUnexpected" }],
-    })),
   ],
 });
 
@@ -326,6 +303,20 @@ templateRuleTester.run("[template] attrs-newline", rule, {
   valid: [
     {
       code: `html\`<div class="foo"></div>\``,
+    },
+    {
+      code: `html\`
+        <button
+          type="button"
+          class="app-button"
+          data-property
+        ></button>
+      \``,
+      options: [
+        {
+          ifAttrsMoreThan: 3,
+        },
+      ],
     },
   ],
   invalid: [
