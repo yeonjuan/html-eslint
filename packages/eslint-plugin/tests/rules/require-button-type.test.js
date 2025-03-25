@@ -26,6 +26,18 @@ ruleTester.run("require-button-type", rule, {
           column: 1,
         },
       ],
+      output: `<button type="submit">Missing type</button>`,
+    },
+    {
+      code: `<button id="foo">Missing type</button>`,
+      errors: [
+        {
+          messageId: "missing",
+          line: 1,
+          column: 1,
+        },
+      ],
+      output: `<button type="submit" id="foo">Missing type</button>`,
     },
     {
       code: `<button type="invalid">Invalid type</button>`,
@@ -34,6 +46,20 @@ ruleTester.run("require-button-type", rule, {
           message: '"invalid" is an invalid value for button type attribute.',
           line: 1,
           column: 9,
+          suggestions: [
+            {
+              messageId: "replaceToSubmit",
+              output: `<button type="submit">Invalid type</button>`,
+            },
+            {
+              messageId: "replaceToButton",
+              output: `<button type="button">Invalid type</button>`,
+            },
+            {
+              messageId: "replaceToReset",
+              output: `<button type="reset">Invalid type</button>`,
+            },
+          ],
         },
       ],
     },
@@ -59,6 +85,7 @@ templateRuleTester.run("[template] require-button-type", rule, {
           column: 6,
         },
       ],
+      output: 'html`<button type="submit">Missing type</button>`',
     },
   ],
 });

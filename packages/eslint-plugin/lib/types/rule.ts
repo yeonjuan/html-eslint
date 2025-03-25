@@ -80,8 +80,8 @@ interface ReportDescriptorOptionsBase {
   fix?: null | ReportFixFunction;
 }
 
-type SuggestionDescriptorMessage = { desc: string } | { messageId: string };
-type SuggestionReportDescriptor = SuggestionDescriptorMessage &
+type SuggestionDescriptorMessage = { messageId: string };
+export type SuggestionReportDescriptor = SuggestionDescriptorMessage &
   ReportDescriptorOptionsBase;
 
 interface ReportDescriptorOptions extends ReportDescriptorOptionsBase {
