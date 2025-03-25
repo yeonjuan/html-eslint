@@ -6,7 +6,6 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
-const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
@@ -46,7 +45,6 @@ module.exports = {
   },
 
   create(context) {
-    const sourceCode = getSourceCode(context);
     /**
      * @param {AttributeValue} node
      * @returns {SuggestionReportDescriptor[]}
