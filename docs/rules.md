@@ -21,7 +21,7 @@
 | [no-target-blank](rules/no-target-blank)                     | Disallow usage of unsafe `target='_blank'`                                                     |      |
 | [prefer-https](rules/prefer-https)                           | Prefer to use HTTPS for embedded resources                                                     |      |
 | [require-attrs](rules/require-attrs)                         | Require specified attributes                                                                   |      |
-| [require-button-type](rules/require-button-type)             | Require use of button element with a valid type attribute.                                     |      |
+| [require-button-type](rules/require-button-type)             | Require use of button element with a valid type attribute.                                     | 🔧   |
 | [require-closing-tags](rules/require-closing-tags)           | Require closing tags.                                                                          | ⭐🔧 |
 | [require-doctype](rules/require-doctype)                     | Require `<!DOCTYPE HTML>` in html,                                                             | ⭐🔧 |
 | [require-explicit-size](rules/require-explicit-size)         | Enforces that some elements (img, iframe) have explicitly defined width and height attributes. |      |
