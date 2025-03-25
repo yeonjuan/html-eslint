@@ -90,9 +90,7 @@ module.exports = {
             data: {
               type: typeAttr.value.value,
             },
-            suggest: typeAttr.value
-              ? getSuggestions(typeAttr.value)
-              : undefined,
+            suggest: getSuggestions(typeAttr.value),
           });
         }
       },

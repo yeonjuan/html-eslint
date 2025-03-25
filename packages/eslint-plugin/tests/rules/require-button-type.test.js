@@ -29,6 +29,17 @@ ruleTester.run("require-button-type", rule, {
       output: `<button type="submit">Missing type</button>`,
     },
     {
+      code: `<button/>`,
+      errors: [
+        {
+          messageId: "missing",
+          line: 1,
+          column: 1,
+        },
+      ],
+      output: `<button type="submit"/>`,
+    },
+    {
       code: `<button id="foo">Missing type</button>`,
       errors: [
         {
