@@ -3,6 +3,8 @@
  * @typedef { import("@html-eslint/types").StyleTag } StyleTag
  * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
  * @typedef { import("../types").RuleModule<[]> } RuleModule
+ * @typedef { import("@html-eslint/types").Attribute } Attribute
+ * @typedef { import("../types").SuggestionReportDescriptor } SuggestionReportDescriptor
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -10,6 +12,7 @@ const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   DUPLICATE_ATTRS: "duplicateAttrs",
+  REMOVE_ATTR: "removeAttr",
 };
 
 /**
@@ -26,14 +29,33 @@ module.exports = {
     },
 
     fixable: null,
+    hasSuggestions: true,
     schema: [],
     messages: {
       [MESSAGE_IDS.DUPLICATE_ATTRS]:
         "The attribute '{{attrName}}' is duplicated.",
+      [MESSAGE_IDS.REMOVE_ATTR]:
+        "Remove this duplicate '{{attrName}}' attribute.",
     },
   },
 
   create(context) {
+    /**
+     * @param {Attribute} node
+     * @returns {SuggestionReportDescriptor[]}
+     */
+    function getSuggestions(node) {
+      return [
+        {
+          messageId: MESSAGE_IDS.REMOVE_ATTR,
+          fix: (fixer) => fixer.removeRange(node.range),
+          data: {
+            attrName: node.key.value,
+          },
+        },
+      ];
+    }
+
     /**
      * @param {Tag | StyleTag | ScriptTag} node
      */
@@ -48,6 +70,7 @@ module.exports = {
                 attrName: attr.key.value,
               },
               messageId: MESSAGE_IDS.DUPLICATE_ATTRS,
+              suggest: getSuggestions(attr),
             });
           } else {
             attrsSet.add(attr.key.value.toLowerCase());
