@@ -10,7 +10,8 @@
     "**/out/**",
     "**/node_modules/**",
     "packages/website/**",
-    "packages/eslint-plugin/types/**"
+    "packages/eslint-plugin/types/**",
+    "packages/eslint-plugin/lib/rules/utils/basline.js"
   ],
   "words": [
     "tseslint",
