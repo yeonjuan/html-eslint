@@ -36,6 +36,15 @@ ruleTester.run("no-duplicate-attrs", rule, {
       errors: [
         {
           message: "The attribute 'foo' is duplicated.",
+          suggestions: [
+            {
+              messageId: "removeAttr",
+              data: {
+                attrName: "foo",
+              },
+              output: `<div foo="foo1" > </div>`,
+            },
+          ],
         },
       ],
     },
@@ -44,6 +53,15 @@ ruleTester.run("no-duplicate-attrs", rule, {
       errors: [
         {
           message: "The attribute 'foo' is duplicated.",
+          suggestions: [
+            {
+              messageId: "removeAttr",
+              data: {
+                attrName: "foo",
+              },
+              output: `<div foo > </div>`,
+            },
+          ],
         },
       ],
     },
@@ -63,6 +81,22 @@ ruleTester.run("no-duplicate-attrs", rule, {
       errors: [
         {
           message: "The attribute 'class' is duplicated.",
+          suggestions: [
+            {
+              messageId: "removeAttr",
+              output: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      class="feather feather-home"
+      
+      >
+      <path d="M3 919"></path>
+      <polyline points="9 22"></polyline>
+    </svg>
+          `
+                .split("\n")
+                .join("\r\n"),
+            },
+          ],
         },
       ],
     },
@@ -76,9 +110,31 @@ ruleTester.run("no-duplicate-attrs", rule, {
       errors: [
         {
           message: "The attribute 'ID' is duplicated.",
+          suggestions: [
+            {
+              messageId: "removeAttr",
+              output: `
+<div id="1"
+     
+     Id="1"
+ ></div>
+      `,
+            },
+          ],
         },
         {
           message: "The attribute 'Id' is duplicated.",
+          suggestions: [
+            {
+              messageId: "removeAttr",
+              output: `
+<div id="1"
+     ID="1"
+     
+ ></div>
+      `,
+            },
+          ],
         },
       ],
     },
@@ -103,6 +159,12 @@ templateRuleTester.run("[template] no-duplicate-attrs", rule, {
       errors: [
         {
           message: "The attribute 'foo' is duplicated.",
+          suggestions: [
+            {
+              messageId: "removeAttr",
+              output: `html\`<div foo="\${id1}" > </div>\`;`,
+            },
+          ],
         },
       ],
     },
@@ -111,6 +173,12 @@ templateRuleTester.run("[template] no-duplicate-attrs", rule, {
       errors: [
         {
           message: "The attribute 'foo' is duplicated.",
+          suggestions: [
+            {
+              messageId: "removeAttr",
+              output: `html\`<div foo > </div>\`;`,
+            },
+          ],
         },
       ],
     },
