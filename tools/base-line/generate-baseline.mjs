@@ -147,7 +147,7 @@ module.exports = {
   BASELINE_FALSE
 }
 `;
-  const jsPath = "./packages/eslint-plugin/lib/rules/utils/basline.js";
+  const jsPath = "./packages/eslint-plugin/lib/rules/utils/baseline.js";
   const config = await prettier.resolveConfig(jsPath);
   fs.writeFileSync(
     jsPath,
