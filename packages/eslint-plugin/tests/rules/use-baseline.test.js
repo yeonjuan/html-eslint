@@ -8,6 +8,18 @@ ruleTester.run("use-baseline", rule, {
     {
       code: `<slot></slot>`,
     },
+    {
+      code: `<div id="foo"></div>`,
+    },
+    {
+      code: `<svg></svg>`,
+    },
+    {
+      code: `<custom-element popovertarget="mypopover"></custom-element>`,
+    },
+    {
+      code: `<meta http-equiv="refresh" content="5">`,
+    },
   ],
   invalid: [
     {
