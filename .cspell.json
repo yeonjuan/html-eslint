@@ -11,7 +11,8 @@
     "**/node_modules/**",
     "packages/website/**",
     "packages/eslint-plugin/types/**",
-    "packages/eslint-plugin/lib/rules/utils/baseline.js"
+    "packages/eslint-plugin/lib/rules/utils/baseline.js",
+    "packages/eslint-plugin/tests/rules/use-baseline.test.js"
   ],
   "words": [
     "tseslint",
