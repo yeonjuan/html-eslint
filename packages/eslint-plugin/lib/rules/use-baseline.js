@@ -11,6 +11,7 @@ const {
   BASELINE_HIGH,
   BASELINE_LOW,
 } = require("./utils/baseline");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   NOT_BASELINE_ELEMENT: "notBaselineElement",
@@ -146,7 +147,7 @@ module.exports = {
       return isSupported(globalEncoded);
     }
 
-    return {
+    return createVisitors(context, {
       Tag(node) {
         const elementName = node.name.toLowerCase();
         if (isCustomElement(elementName)) {
@@ -194,6 +195,6 @@ module.exports = {
           }
         });
       },
-    };
+    });
   },
 };
