@@ -115,18 +115,34 @@ function shortenKey(key) {
   return rest.join(".");
 }
 
+/**
+ * @param {string} shortenKey
+ * @returns {boolean}
+ */
+function shouldIgnore(shortenKey) {
+  return shortenKey.includes("_");
+}
+
 async function generateBaseline() {
   const { elements, globalAttributes } = getFeatureIdAndCompatKeys();
   const elementsStatus = {};
   const globalAttributesStatus = {};
   for (const [featureId, compatKey] of elements) {
     const status = getStatus(featureId, compatKey);
-    elementsStatus[shortenKey(compatKey)] = mapFeatureStatus(status);
+    const key = shortenKey(compatKey);
+    if (shouldIgnore(key)) {
+      continue;
+    }
+    elementsStatus[key] = mapFeatureStatus(status);
   }
 
   for (const [featureId, compatKey] of globalAttributes) {
     const status = getStatus(featureId, compatKey);
-    globalAttributesStatus[shortenKey(compatKey)] = mapFeatureStatus(status);
+    const key = shortenKey(compatKey);
+    if (shouldIgnore(key)) {
+      continue;
+    }
+    globalAttributesStatus[key] = mapFeatureStatus(status);
   }
 
   const js = `
