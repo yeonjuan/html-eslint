@@ -23,5 +23,29 @@ ruleTester.run("use-baseline", rule, {
         },
       ],
     },
+    {
+      code: `<span slot="username">Jane Doe</span>`,
+      errors: [
+        {
+          messageId: "notBaselineAttribute",
+        },
+      ],
+      options: [
+        {
+          available: 2019,
+        },
+      ],
+    },
+    {
+      code: `<button popovertarget="mypopover" popovertargetaction="show"></button>`,
+      errors: [
+        {
+          messageId: "notBaselineAttribute",
+        },
+        {
+          messageId: "notBaselineAttribute",
+        },
+      ],
+    },
   ],
 });
