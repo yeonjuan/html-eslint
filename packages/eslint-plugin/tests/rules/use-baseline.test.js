@@ -14,7 +14,7 @@ ruleTester.run("use-baseline", rule, {
       code: `<slot></slot>`,
       errors: [
         {
-          messageId: "notBaselineElement",
+          message: "Element 'slot' is not a 2001 available baseline feature.",
         },
       ],
       options: [
@@ -27,7 +27,7 @@ ruleTester.run("use-baseline", rule, {
       code: `<span slot="username">Jane Doe</span>`,
       errors: [
         {
-          messageId: "notBaselineAttribute",
+          message: "Attribute 'slot' is not a 2019 available baseline feature.",
         },
       ],
       options: [

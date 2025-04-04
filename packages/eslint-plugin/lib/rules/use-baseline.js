@@ -52,8 +52,10 @@ module.exports = {
     ],
 
     messages: {
-      [MESSAGE_IDS.NOT_BASELINE_ELEMENT]: "TBD",
-      [MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE]: "TBD",
+      [MESSAGE_IDS.NOT_BASELINE_ELEMENT]:
+        "Element '{{element}}' is not a {{availability}} available baseline feature.",
+      [MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE]:
+        "Attribute '{{attr}}' is not a {{availability}} available baseline feature.",
     },
   },
 
@@ -64,6 +66,14 @@ module.exports = {
     const baseYear = typeof available === "number" ? available : null;
     const baseStatus = available === "widely" ? BASELINE_HIGH : BASELINE_LOW;
     const availability = String(available);
+
+    /**
+     * @param {string} element
+     * @returns {boolean}
+     */
+    function isCustomElement(element) {
+      return element.includes("-");
+    }
 
     /**
      * @param {string} encoded
@@ -139,6 +149,10 @@ module.exports = {
     return {
       Tag(node) {
         const elementName = node.name.toLowerCase();
+        if (isCustomElement(elementName)) {
+          return;
+        }
+
         if (!isSupportedElement(elementName)) {
           context.report({
             node: node.openStart,
@@ -156,7 +170,7 @@ module.exports = {
               messageId: MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE,
               data: {
                 element: elementName,
-                key: attribute.key.value,
+                attr: attribute.key.value,
                 availability,
               },
             });
@@ -173,7 +187,7 @@ module.exports = {
               messageId: MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE,
               data: {
                 element: elementName,
-                key: attribute.key.value,
+                attr: `${attribute.key.value}="${attribute.value.value}"`,
                 availability,
               },
             });
