@@ -183,7 +183,7 @@ module.exports = {
             )
           ) {
             context.report({
-              node: attribute.key,
+              node: attribute,
               messageId: MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE,
               data: {
                 element: elementName,
