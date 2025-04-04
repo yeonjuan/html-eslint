@@ -19,12 +19,15 @@
     "check": "yarn test && yarn check:format && yarn check:spell && yarn check:ts",
     "publish:website": "yarn workspace website deploy",
     "prepare": "husky",
-    "new-rule": "node ./tools/add-new-rule.js"
+    "new-rule": "node ./tools/add-new-rule.js",
+    "baseline": "node ./tools/base-line/generate-baseline.mjs"
   },
   "author": "yeonjuan",
   "license": "MIT",
   "devDependencies": {
+    "@mdn/browser-compat-data": "^6.0.2",
     "@types/jest": "^29.5.14",
+    "compute-baseline": "^0.3.1",
     "cspell": "^8.0.0",
     "eslint": "^9.19.0",
     "eslint-plugin-jest": "^28.11.0",

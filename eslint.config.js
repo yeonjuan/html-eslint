@@ -52,4 +52,10 @@ module.exports = [
       },
     },
   },
+  {
+    files: ["tools/**/*.mjs"],
+    languageOptions: {
+      sourceType: "module",
+    },
+  },
 ];

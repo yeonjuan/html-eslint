@@ -1292,7 +1292,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/html-eslint@workspace:."
   dependencies:
+    "@mdn/browser-compat-data": "npm:^6.0.2"
     "@types/jest": "npm:^29.5.14"
+    compute-baseline: "npm:^0.3.1"
     cspell: "npm:^8.0.0"
     eslint: "npm:^9.19.0"
     eslint-plugin-jest: "npm:^28.11.0"
@@ -1776,6 +1778,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@js-temporal/polyfill@npm:^0.4.4":
+  version: 0.4.4
+  resolution: "@js-temporal/polyfill@npm:0.4.4"
+  dependencies:
+    jsbi: "npm:^4.3.0"
+    tslib: "npm:^2.4.1"
+  checksum: 9edd8431f38837235c7dc88c48bfb2235ca13ec24f22848cd3ca7ebfdb169a2cb9654e04a7efca1488d2b67b851d84013f0bfa8dc3df207bd496ad13560ec937
+  languageName: node
+  linkType: hard
+
 "@jsdevtools/ono@npm:^7.1.3":
   version: 7.1.3
   resolution: "@jsdevtools/ono@npm:7.1.3"
@@ -1917,6 +1929,13 @@ __metadata:
   version: 2.8.5
   resolution: "@lmdb/lmdb-win32-x64@npm:2.8.5"
   conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@mdn/browser-compat-data@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "@mdn/browser-compat-data@npm:6.0.2"
+  checksum: 1bc8438044bfdf86d3b590397fc05b481b9741dfc0ea6b7ec1be5983787961203144775834be2186fa0775c4178e7f38e543c66154bc1d4c411bfe1bbe4338e9
   languageName: node
   linkType: hard
 
@@ -5719,6 +5738,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"compare-versions@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "compare-versions@npm:6.1.1"
+  checksum: 415205c7627f9e4f358f571266422980c9fe2d99086be0c9a48008ef7c771f32b0fbe8e97a441ffedc3910872f917a0675fe0fe3c3b6d331cda6d8690be06338
+  languageName: node
+  linkType: hard
+
 "compress-commons@npm:^6.0.2":
   version: 6.0.2
   resolution: "compress-commons@npm:6.0.2"
@@ -5753,6 +5779,18 @@ __metadata:
     safe-buffer: "npm:5.2.1"
     vary: "npm:~1.1.2"
   checksum: 35c9d2d57c86d8107eab5e637f2146fcefec8475a2ff3e162f5eb0982ff856d385fb5d8c9823c3d50e075f2d9304bc622dac3df27bfef0355309c0a5307861c5
+  languageName: node
+  linkType: hard
+
+"compute-baseline@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "compute-baseline@npm:0.3.1"
+  dependencies:
+    "@js-temporal/polyfill": "npm:^0.4.4"
+    compare-versions: "npm:^6.1.1"
+  peerDependencies:
+    "@mdn/browser-compat-data": ^6.0.1
+  checksum: f834004b5c5660739229a0f53a3242587ac92675f3588cee826334b9d5f9da81fb91e5899b1cbbef61e65a8657e98a7f9dcf4f0f7f738311348fc1b516768c47
   languageName: node
   linkType: hard
 
@@ -10130,6 +10168,13 @@ __metadata:
   bin:
     js-yaml: bin/js-yaml.js
   checksum: 6746baaaeac312c4db8e75fa22331d9a04cccb7792d126ed8ce6a0bbcfef0cedaddd0c5098fade53db067c09fe00aa1c957674b4765610a8b06a5a189e46433b
+  languageName: node
+  linkType: hard
+
+"jsbi@npm:^4.3.0":
+  version: 4.3.2
+  resolution: "jsbi@npm:4.3.2"
+  checksum: f8deb4fc1b1828ee9f90b19b778748f23877d63d437a083b4bead36c7b76c8d173b5dbe2a20cc5dc0217be5bde81791b696b104d5a40d7ede5fda34831d9fab6
   languageName: node
   linkType: hard
 
@@ -15155,7 +15200,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.1, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.8.0":
+"tslib@npm:^2.0.1, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.4.1, tslib@npm:^2.8.0":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62
