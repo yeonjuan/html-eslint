@@ -46,6 +46,11 @@ ruleTester.run("use-baseline", rule, {
           messageId: "notBaselineAttribute",
         },
       ],
+      options: [
+        {
+          available: 2019,
+        },
+      ],
     },
   ],
 });

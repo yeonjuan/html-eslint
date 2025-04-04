@@ -107,13 +107,10 @@ module.exports = {
      */
     function isSupportedAttributeKey(element, key) {
       const elementEncoded = elements.get(`${element}.${key}`);
-      if (!elementEncoded) {
-        return true;
+      if (elementEncoded) {
+        return isSupported(elementEncoded);
       }
-      if (isSupported(elementEncoded)) {
-        return true;
-      }
-      const globalEncoded = globalAttributes.get(`${key}`);
+      const globalEncoded = globalAttributes.get(key);
       if (!globalEncoded) {
         return true;
       }
@@ -128,13 +125,11 @@ module.exports = {
      */
     function isSupportedAttributeKeyValue(element, key, value) {
       const elementEncoded = elements.get(`${element}.${key}.${value}`);
-      if (!elementEncoded) {
-        return true;
+
+      if (elementEncoded) {
+        return isSupported(elementEncoded);
       }
-      if (isSupported(elementEncoded)) {
-        return true;
-      }
-      const globalEncoded = globalAttributes.get(`${key}`);
+      const globalEncoded = globalAttributes.get(`${key}.${value}`);
       if (!globalEncoded) {
         return true;
       }
