@@ -94,7 +94,10 @@ module.exports = {
      */
     function isSupportedElement(element) {
       const elementEncoded = elements.get(element);
-      return !!elementEncoded && isSupported(elementEncoded);
+      if (!elementEncoded) {
+        return true;
+      }
+      return isSupported(elementEncoded);
     }
 
     /**
@@ -104,11 +107,17 @@ module.exports = {
      */
     function isSupportedAttributeKey(element, key) {
       const elementEncoded = elements.get(`${element}.${key}`);
-      if (!!elementEncoded && isSupported(elementEncoded)) {
+      if (!elementEncoded) {
+        return true;
+      }
+      if (isSupported(elementEncoded)) {
         return true;
       }
       const globalEncoded = globalAttributes.get(`${key}`);
-      return !!globalEncoded && isSupported(globalEncoded);
+      if (!globalEncoded) {
+        return true;
+      }
+      return isSupported(globalEncoded);
     }
 
     /**
@@ -119,11 +128,17 @@ module.exports = {
      */
     function isSupportedAttributeKeyValue(element, key, value) {
       const elementEncoded = elements.get(`${element}.${key}.${value}`);
-      if (!!elementEncoded && isSupported(elementEncoded)) {
+      if (!elementEncoded) {
+        return true;
+      }
+      if (isSupported(elementEncoded)) {
         return true;
       }
       const globalEncoded = globalAttributes.get(`${key}`);
-      return !!globalEncoded && isSupported(globalEncoded);
+      if (!globalEncoded) {
+        return true;
+      }
+      return isSupported(globalEncoded);
     }
 
     return {
