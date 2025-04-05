@@ -2,6 +2,10 @@
  * @typedef {Object} Option
  * @property {"widely" | "newly" | number} Option.available
  * @typedef { import("../types").RuleModule<[Option]> } RuleModule
+ * @typedef {import("@html-eslint/types").Attribute} Attribute
+ * @typedef {import("@html-eslint/types").Tag} Tag
+ * @typedef {import("@html-eslint/types").ScriptTag} ScriptTag
+ * @typedef {import("@html-eslint/types").StyleTag} StyleTag
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -112,20 +116,28 @@ module.exports = {
     }
 
     /**
+     * @param {string[]} parts
+     * @returns {string}
+     */
+    function toStatusKey(...parts) {
+      return parts.map((part) => part.toLowerCase().trim()).join(".");
+    }
+
+    /**
      * @param {string} element
      * @param {string} key
      * @returns {boolean}
      */
     function isSupportedAttributeKey(element, key) {
-      const elementEncoded = elements.get(`${element}.${key}`);
-      if (elementEncoded) {
-        return isSupported(elementEncoded);
+      const elementStatus = elements.get(toStatusKey(element, key));
+      if (elementStatus) {
+        return isSupported(elementStatus);
       }
-      const globalEncoded = globalAttributes.get(key);
-      if (!globalEncoded) {
+      const globalAttrStatus = globalAttributes.get(toStatusKey(key));
+      if (!globalAttrStatus) {
         return true;
       }
-      return isSupported(globalEncoded);
+      return isSupported(globalAttrStatus);
     }
 
     /**
@@ -135,65 +147,79 @@ module.exports = {
      * @returns {boolean}
      */
     function isSupportedAttributeKeyValue(element, key, value) {
-      const elementEncoded = elements.get(`${element}.${key}.${value}`);
+      const elementStatus = elements.get(toStatusKey(element, key, value));
 
-      if (elementEncoded) {
-        return isSupported(elementEncoded);
+      if (elementStatus) {
+        return isSupported(elementStatus);
       }
-      const globalEncoded = globalAttributes.get(`${key}.${value}`);
-      if (!globalEncoded) {
+      const globalAttrStatus = globalAttributes.get(toStatusKey(key, value));
+      if (!globalAttrStatus) {
         return true;
       }
-      return isSupported(globalEncoded);
+      return isSupported(globalAttrStatus);
     }
 
-    return createVisitors(context, {
-      Tag(node) {
-        const elementName = node.name.toLowerCase();
-        if (isCustomElement(elementName)) {
-          return;
-        }
+    /**
+     * @param {Tag | ScriptTag | StyleTag} node
+     * @param {string} elementName
+     * @param {Attribute[]} attributes
+     */
+    function check(node, elementName, attributes) {
+      if (isCustomElement(elementName)) {
+        return;
+      }
 
-        if (!isSupportedElement(elementName)) {
+      if (!isSupportedElement(elementName)) {
+        context.report({
+          node: node.openStart,
+          messageId: MESSAGE_IDS.NOT_BASELINE_ELEMENT,
+          data: {
+            element: elementName,
+            availability,
+          },
+        });
+      }
+      attributes.forEach((attribute) => {
+        if (!isSupportedAttributeKey(elementName, attribute.key.value)) {
           context.report({
-            node: node.openStart,
-            messageId: MESSAGE_IDS.NOT_BASELINE_ELEMENT,
+            node: attribute.key,
+            messageId: MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE,
             data: {
               element: elementName,
+              attr: attribute.key.value,
+              availability,
+            },
+          });
+        } else if (
+          attribute.value &&
+          !isSupportedAttributeKeyValue(
+            elementName,
+            attribute.key.value,
+            attribute.value.value
+          )
+        ) {
+          context.report({
+            node: attribute,
+            messageId: MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE,
+            data: {
+              element: elementName,
+              attr: `${attribute.key.value}="${attribute.value.value}"`,
               availability,
             },
           });
         }
-        node.attributes.forEach((attribute) => {
-          if (!isSupportedAttributeKey(elementName, attribute.key.value)) {
-            context.report({
-              node: attribute.key,
-              messageId: MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE,
-              data: {
-                element: elementName,
-                attr: attribute.key.value,
-                availability,
-              },
-            });
-          } else if (
-            attribute.value &&
-            !isSupportedAttributeKeyValue(
-              elementName,
-              attribute.key.value,
-              attribute.value.value
-            )
-          ) {
-            context.report({
-              node: attribute,
-              messageId: MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE,
-              data: {
-                element: elementName,
-                attr: `${attribute.key.value}="${attribute.value.value}"`,
-                availability,
-              },
-            });
-          }
-        });
+      });
+    }
+
+    return createVisitors(context, {
+      ScriptTag(node) {
+        check(node, "script", node.attributes);
+      },
+      StyleTag(node) {
+        check(node, "style", node.attributes);
+      },
+      Tag(node) {
+        check(node, node.name, node.attributes);
       },
     });
   },

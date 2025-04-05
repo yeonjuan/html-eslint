@@ -22,6 +22,9 @@ ruleTester.run("use-baseline", rule, {
       code: `<meta http-equiv="refresh" content="5">`,
     },
     {
+      code: `<script type="module"></script>`,
+    },
+    {
       code: `<slot></slot>`,
       options: [
         {
@@ -41,6 +44,22 @@ ruleTester.run("use-baseline", rule, {
   invalid: [
     {
       code: `<slot></slot>`,
+      errors: [
+        {
+          message: "Element 'slot' is not a 2001 available baseline feature.",
+          column: 1,
+          endColumn: 6,
+          line: 1,
+        },
+      ],
+      options: [
+        {
+          available: 2001,
+        },
+      ],
+    },
+    {
+      code: `<SLOT></SLOT>`,
       errors: [
         {
           message: "Element 'slot' is not a 2001 available baseline feature.",
@@ -105,6 +124,60 @@ ruleTester.run("use-baseline", rule, {
           column: 6,
           endColumn: 38,
           line: 1,
+        },
+      ],
+    },
+    {
+      // upper case
+      code: `<div contenteditable="PLAINTEXT-ONLY"></div>`,
+      errors: [
+        {
+          message:
+            "Attribute 'contenteditable=\"PLAINTEXT-ONLY\"' is not a widely available baseline feature.",
+          column: 6,
+          endColumn: 38,
+          line: 1,
+        },
+      ],
+    },
+    {
+      // trailing space
+      code: `<div contenteditable="PLAINTEXT-ONLY "></div>`,
+      errors: [
+        {
+          message:
+            "Attribute 'contenteditable=\"PLAINTEXT-ONLY \"' is not a widely available baseline feature.",
+          column: 6,
+          endColumn: 39,
+          line: 1,
+        },
+      ],
+    },
+    {
+      code: `<script type="module"></script>`,
+      errors: [
+        {
+          message:
+            "Attribute 'type=\"module\"' is not a 2017 available baseline feature.",
+        },
+      ],
+      options: [
+        {
+          available: 2017,
+        },
+      ],
+    },
+    {
+      code: `<style blocking="render"></script>`,
+      errors: [
+        {
+          message:
+            "Attribute 'blocking' is not a widely available baseline feature.",
+        },
+      ],
+      options: [
+        {
+          available: "widely",
         },
       ],
     },
