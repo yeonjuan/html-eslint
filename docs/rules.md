@@ -27,6 +27,7 @@
 | [require-explicit-size](rules/require-explicit-size)         | Enforces that some elements (img, iframe) have explicitly defined width and height attributes. |      |
 | [require-li-container](rules/require-li-container)           | Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.                                            | ⭐   |
 | [require-meta-charset](rules/require-meta-charset)           | Enforce to use `<meta charset="...">` in `<head>`                                              |      |
+| [use-baseline](rules/use-baseline)                           | Enforce the use of baseline features.                                                          | ⭐   |
 
 ## SEO
 

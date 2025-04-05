@@ -21,6 +21,22 @@ ruleTester.run("use-baseline", rule, {
     {
       code: `<meta http-equiv="refresh" content="5">`,
     },
+    {
+      code: `<slot></slot>`,
+      options: [
+        {
+          available: "widely",
+        },
+      ],
+    },
+    {
+      code: `<button popovertarget="mypopover" popovertargetaction="show"></button>`,
+      options: [
+        {
+          available: "newly",
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -64,7 +80,7 @@ ruleTester.run("use-baseline", rule, {
       ],
       options: [
         {
-          available: 2019,
+          available: "widely",
         },
       ],
     },
@@ -104,6 +120,18 @@ templateRuleTester.run("[template] use-baseline", rule, {
   invalid: [
     {
       code: "html`<select size='2'></select>`;",
+      errors: [
+        {
+          message:
+            "Attribute 'size' is not a widely available baseline feature.",
+          column: 14,
+          endColumn: 18,
+          line: 1,
+        },
+      ],
+    },
+    {
+      code: "html`<select size='${1}'></select>`;",
       errors: [
         {
           message:

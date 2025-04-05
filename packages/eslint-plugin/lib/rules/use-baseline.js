@@ -25,7 +25,7 @@ module.exports = {
   meta: {
     type: "code",
     docs: {
-      description: "TBD",
+      description: "Enforce the use of baseline features.",
       recommended: true,
       category: RULE_CATEGORY.BEST_PRACTICE,
     },
