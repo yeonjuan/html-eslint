@@ -391,6 +391,44 @@ function createTests() {
       },
       {
         code: `
+<!DOCTYPE html>
+<html>
+<body>
+</body>
+<script src=""></script>
+</html>
+`,
+        options: [
+          2,
+          {
+            tagChildrenIndent: {
+              html: 0,
+              body: 0,
+            },
+          },
+        ],
+      },
+      {
+        code: `
+<!DOCTYPE html>
+<html>
+<body>
+</body>
+<style></style>
+</html>
+`,
+        options: [
+          2,
+          {
+            tagChildrenIndent: {
+              html: 0,
+              body: 0,
+            },
+          },
+        ],
+      },
+      {
+        code: `
 <style>
 </style>
 <script>
