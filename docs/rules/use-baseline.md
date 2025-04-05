@@ -6,11 +6,12 @@ This rule enforces the use of baseline features.
 
 [Baseline](https://web-platform-dx.github.io/web-features/) is an effort by the [W3C WebDX Community Group](https://www.w3.org/community/webdx/) that provides clear information about which web platform features work across [core browser set](https://web-platform-dx.github.io/web-features/#how-do-features-become-part-of-baseline%3F) today.
 
-Baseline has three stages:
+Baseline features are available across popular browsers. Baseline has two stages:
 
 - **Newly available**: The feature works across the latest devices and browser versions. The feature might not work in older devices or browsers.
 - **Widely available**: The feature is well established and works across many devices and browser versions. It’s been available across browsers for at least 2½ years (30 months).
-- **Limited available**: The feature is not yet available across all browsers.
+
+Prior to being newly available, a feature has **Limited availability** when it's not yet available across all browsers.
 
 ## How to use
 
