@@ -33,6 +33,17 @@ export function toMarker(message) {
   ];
 }
 
+/**
+ * @param {string} str 
+ * @returns {string}
+ */
+export function escapeHTML(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 export const INITIAL_HTML = html`<!DOCTYPE html>
   <html>
     <head>
