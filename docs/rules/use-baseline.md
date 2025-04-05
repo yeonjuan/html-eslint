@@ -43,15 +43,15 @@ This rule has an object option:
 }]
 ```
 
-#### available: `"widely"`
+#### available: "widely"
 
 If `"widely"` is used as an option, this rule allows features that are at the Baseline widely available stage: features that have been available across browsers for at least 30 months.
 
-#### available: `"newly"`
+#### available: "newly"
 
 If `"newly"` is used as an option, this rule allows features that are at the Baseline newly available stage: features that have been supported on all core browsers for less than 30 months.
 
-### available: `number`
+#### available: number
 
 If an integer `number` is used as an option, this rule allows features that became Baseline newly available that year, or earlier. (minimum: 2000)
 
