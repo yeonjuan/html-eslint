@@ -19,7 +19,8 @@ const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   NOT_BASELINE_ELEMENT: "notBaselineElement",
-  NOT_BASELINE_ATTRIBUTE: "notBaselineAttribute",
+  NOT_BASELINE_ELEMENT_ATTRIBUTE: "notBaselineElementAttribute",
+  NOT_BASELINE_GLOBAL_ATTRIBUTE: "notBaselineGlobalAttribute",
 };
 
 /**
@@ -59,7 +60,9 @@ module.exports = {
     messages: {
       [MESSAGE_IDS.NOT_BASELINE_ELEMENT]:
         "Element '{{element}}' is not a {{availability}} available baseline feature.",
-      [MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE]:
+      [MESSAGE_IDS.NOT_BASELINE_ELEMENT_ATTRIBUTE]:
+        "Attribute '{{attr}}' on '{{element}}' is not a {{availability}} available baseline feature.",
+      [MESSAGE_IDS.NOT_BASELINE_GLOBAL_ATTRIBUTE]:
         "Attribute '{{attr}}' is not a {{availability}} available baseline feature.",
     },
   },
@@ -128,11 +131,19 @@ module.exports = {
      * @param {string} key
      * @returns {boolean}
      */
-    function isSupportedAttributeKey(element, key) {
+    function isSupportedElementAttributeKey(element, key) {
       const elementStatus = elements.get(toStatusKey(element, key));
-      if (elementStatus) {
-        return isSupported(elementStatus);
+      if (!elementStatus) {
+        return true;
       }
+      return isSupported(elementStatus);
+    }
+
+    /**
+     * @param {string} key
+     * @returns {boolean}
+     */
+    function isSupportedGlobalAttributeKey(key) {
       const globalAttrStatus = globalAttributes.get(toStatusKey(key));
       if (!globalAttrStatus) {
         return true;
@@ -146,12 +157,20 @@ module.exports = {
      * @param {string} value
      * @returns {boolean}
      */
-    function isSupportedAttributeKeyValue(element, key, value) {
+    function isSupportedElementAttributeKeyValue(element, key, value) {
       const elementStatus = elements.get(toStatusKey(element, key, value));
-
-      if (elementStatus) {
-        return isSupported(elementStatus);
+      if (!elementStatus) {
+        return true;
       }
+      return isSupported(elementStatus);
+    }
+
+    /**
+     * @param {string} key
+     * @param {string} value
+     * @returns {boolean}
+     */
+    function isSupportedGlobalAttributeKeyValue(key, value) {
       const globalAttrStatus = globalAttributes.get(toStatusKey(key, value));
       if (!globalAttrStatus) {
         return true;
@@ -174,39 +193,63 @@ module.exports = {
           node: node.openStart,
           messageId: MESSAGE_IDS.NOT_BASELINE_ELEMENT,
           data: {
-            element: elementName,
+            element: `<${elementName}>`,
             availability,
           },
         });
       }
       attributes.forEach((attribute) => {
-        if (!isSupportedAttributeKey(elementName, attribute.key.value)) {
+        if (!isSupportedElementAttributeKey(elementName, attribute.key.value)) {
           context.report({
             node: attribute.key,
-            messageId: MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE,
+            messageId: MESSAGE_IDS.NOT_BASELINE_ELEMENT_ATTRIBUTE,
             data: {
-              element: elementName,
+              element: `<${elementName}>`,
               attr: attribute.key.value,
               availability,
             },
           });
-        } else if (
-          attribute.value &&
-          !isSupportedAttributeKeyValue(
-            elementName,
-            attribute.key.value,
-            attribute.value.value
-          )
-        ) {
+        } else if (!isSupportedGlobalAttributeKey(attribute.key.value)) {
           context.report({
-            node: attribute,
-            messageId: MESSAGE_IDS.NOT_BASELINE_ATTRIBUTE,
+            node: attribute.key,
+            messageId: MESSAGE_IDS.NOT_BASELINE_GLOBAL_ATTRIBUTE,
             data: {
-              element: elementName,
-              attr: `${attribute.key.value}="${attribute.value.value}"`,
+              attr: attribute.key.value,
               availability,
             },
           });
+        } else if (attribute.value) {
+          if (
+            !isSupportedElementAttributeKeyValue(
+              elementName,
+              attribute.key.value,
+              attribute.value.value
+            )
+          ) {
+            context.report({
+              node: attribute.key,
+              messageId: MESSAGE_IDS.NOT_BASELINE_ELEMENT_ATTRIBUTE,
+              data: {
+                element: `<${elementName}>`,
+                attr: `${attribute.key.value}="${attribute.value.value}"`,
+                availability,
+              },
+            });
+          } else if (
+            !isSupportedGlobalAttributeKeyValue(
+              attribute.key.value,
+              attribute.value.value
+            )
+          ) {
+            context.report({
+              node: attribute,
+              messageId: MESSAGE_IDS.NOT_BASELINE_GLOBAL_ATTRIBUTE,
+              data: {
+                attr: `${attribute.key.value}="${attribute.value.value}"`,
+                availability,
+              },
+            });
+          }
         }
       });
     }

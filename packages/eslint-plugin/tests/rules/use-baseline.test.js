@@ -46,7 +46,7 @@ ruleTester.run("use-baseline", rule, {
       code: `<slot></slot>`,
       errors: [
         {
-          message: "Element 'slot' is not a 2001 available baseline feature.",
+          message: "Element '<slot>' is not a 2001 available baseline feature.",
           column: 1,
           endColumn: 6,
           line: 1,
@@ -62,7 +62,7 @@ ruleTester.run("use-baseline", rule, {
       code: `<SLOT></SLOT>`,
       errors: [
         {
-          message: "Element 'slot' is not a 2001 available baseline feature.",
+          message: "Element '<slot>' is not a 2001 available baseline feature.",
           column: 1,
           endColumn: 6,
           line: 1,
@@ -91,10 +91,10 @@ ruleTester.run("use-baseline", rule, {
       code: `<button popovertarget="mypopover" popovertargetaction="show"></button>`,
       errors: [
         {
-          messageId: "notBaselineAttribute",
+          messageId: "notBaselineElementAttribute",
         },
         {
-          messageId: "notBaselineAttribute",
+          messageId: "notBaselineElementAttribute",
         },
       ],
       options: [
@@ -108,7 +108,7 @@ ruleTester.run("use-baseline", rule, {
       errors: [
         {
           message:
-            "Attribute 'shadowrootmode' is not a widely available baseline feature.",
+            "Attribute 'shadowrootmode' on '<template>' is not a widely available baseline feature.",
           column: 11,
           endColumn: 25,
           line: 1,
@@ -158,7 +158,7 @@ ruleTester.run("use-baseline", rule, {
       errors: [
         {
           message:
-            "Attribute 'type=\"module\"' is not a 2017 available baseline feature.",
+            "Attribute 'type=\"module\"' on '<script>' is not a 2017 available baseline feature.",
         },
       ],
       options: [
@@ -172,7 +172,7 @@ ruleTester.run("use-baseline", rule, {
       errors: [
         {
           message:
-            "Attribute 'blocking' is not a widely available baseline feature.",
+            "Attribute 'blocking' on '<style>' is not a widely available baseline feature.",
         },
       ],
       options: [
@@ -196,7 +196,7 @@ templateRuleTester.run("[template] use-baseline", rule, {
       errors: [
         {
           message:
-            "Attribute 'size' is not a widely available baseline feature.",
+            "Attribute 'size' on '<select>' is not a widely available baseline feature.",
           column: 14,
           endColumn: 18,
           line: 1,
@@ -208,7 +208,7 @@ templateRuleTester.run("[template] use-baseline", rule, {
       errors: [
         {
           message:
-            "Attribute 'size' is not a widely available baseline feature.",
+            "Attribute 'size' on '<select>' is not a widely available baseline feature.",
           column: 14,
           endColumn: 18,
           line: 1,
