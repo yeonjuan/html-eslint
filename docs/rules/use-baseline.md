@@ -24,6 +24,13 @@ module.exports = {
 
 ## Rule Details
 
+This rule warns when it finds any of the following:
+
+- An element that isn't widely available.
+- An attribute that isn't widely available.
+
+The data is provided via the [web-features](https://www.npmjs.com/package/web-features) package.
+
 ### Options
 
 This rule has an object option:
