@@ -121,8 +121,8 @@ ruleTester.run("use-baseline", rule, {
         {
           message:
             "Attribute 'contenteditable=\"plaintext-only\"' is not a widely available baseline feature.",
-          column: 6,
-          endColumn: 38,
+          column: 23,
+          endColumn: 37,
           line: 1,
         },
       ],
@@ -134,8 +134,8 @@ ruleTester.run("use-baseline", rule, {
         {
           message:
             "Attribute 'contenteditable=\"PLAINTEXT-ONLY\"' is not a widely available baseline feature.",
-          column: 6,
-          endColumn: 38,
+          column: 23,
+          endColumn: 37,
           line: 1,
         },
       ],
@@ -147,8 +147,8 @@ ruleTester.run("use-baseline", rule, {
         {
           message:
             "Attribute 'contenteditable=\"PLAINTEXT-ONLY \"' is not a widely available baseline feature.",
-          column: 6,
-          endColumn: 39,
+          column: 23,
+          endColumn: 38,
           line: 1,
         },
       ],
@@ -159,6 +159,8 @@ ruleTester.run("use-baseline", rule, {
         {
           message:
             "Attribute 'type=\"module\"' on '<script>' is not a 2017 available baseline feature.",
+          column: 15,
+          endColumn: 21,
         },
       ],
       options: [
@@ -168,11 +170,13 @@ ruleTester.run("use-baseline", rule, {
       ],
     },
     {
-      code: `<style blocking="render"></script>`,
+      code: `<style blocking="render"></style>`,
       errors: [
         {
           message:
             "Attribute 'blocking' on '<style>' is not a widely available baseline feature.",
+          column: 8,
+          endColumn: 16,
         },
       ],
       options: [
