@@ -227,7 +227,7 @@ module.exports = {
             )
           ) {
             context.report({
-              node: attribute.key,
+              node: attribute.value,
               messageId: MESSAGE_IDS.NOT_BASELINE_ELEMENT_ATTRIBUTE,
               data: {
                 element: `<${elementName}>`,
@@ -242,7 +242,7 @@ module.exports = {
             )
           ) {
             context.report({
-              node: attribute,
+              node: attribute.value,
               messageId: MESSAGE_IDS.NOT_BASELINE_GLOBAL_ATTRIBUTE,
               data: {
                 attr: `${attribute.key.value}="${attribute.value.value}"`,
