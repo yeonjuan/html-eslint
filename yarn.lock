@@ -1305,6 +1305,7 @@ __metadata:
     es-html-parser: "npm:0.2.0"
     eslint: "npm:^9.21.0"
     espree: "npm:^10.3.0"
+    html-standard: "npm:^0.0.3"
     typescript: "npm:^5.7.2"
   languageName: unknown
   linkType: soft
@@ -1320,6 +1321,7 @@ __metadata:
     eslint: "npm:^9.19.0"
     eslint-plugin-jest: "npm:^28.11.0"
     eslint-plugin-n: "npm:^17.15.1"
+    html-standard: "npm:^0.0.2"
     husky: "npm:^9.1.4"
     jest: "npm:^29.7.0"
     lerna: "npm:^8.1.9"
@@ -8815,6 +8817,20 @@ __metadata:
   version: 2.0.2
   resolution: "html-escaper@npm:2.0.2"
   checksum: 208e8a12de1a6569edbb14544f4567e6ce8ecc30b9394fcaa4e7bb1e60c12a7c9a1ed27e31290817157e8626f3a4f29e76c8747030822eb84a6abb15c255f0a0
+  languageName: node
+  linkType: hard
+
+"html-standard@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "html-standard@npm:0.0.2"
+  checksum: 73823c8f664ac499e6415fa15b7f8771f92465ca2d5e98ae006ff79619f9ba4b7a69685ca212d82635c83cd9322811641f986073b7ca0b27ff0ab92484bb4247
+  languageName: node
+  linkType: hard
+
+"html-standard@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "html-standard@npm:0.0.3"
+  checksum: 782dcd5161cb044c18c9239f332cbcae73072c96bcf2336b0dad4f3162f45d47076aaccd679f69276108e3172171bf45a0f5374c876976793ac165e85d62923f
   languageName: node
   linkType: hard
 
