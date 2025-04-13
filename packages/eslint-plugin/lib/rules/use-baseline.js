@@ -179,6 +179,65 @@ module.exports = {
     }
 
     /**
+     *
+     * @param {string} element
+     * @param {string} key
+     * @param {string} value
+     * @returns {string | null}
+     */
+    function getElementAttributeSpecificStatusKey(element, key, value) {
+      const elementName = element.toLowerCase();
+      const attributeKey = key.toLowerCase();
+      const attributeValue = value.toLowerCase();
+
+      // <input type="...">
+      if (elementName === "input" && attributeKey === "type") {
+        return `input.type_${value}`;
+      }
+
+      // <a href="sms:0000..">
+      if (
+        elementName === "a" &&
+        attributeKey === "href" &&
+        attributeValue.trim().startsWith("sms:")
+      ) {
+        return "a.href.href_sms";
+      }
+
+      // <td rowspan="0"> <th rowspan="0">
+      if (
+        (elementName === "td" || elementName === "th") &&
+        attributeKey === "rawspan" &&
+        attributeValue === "0"
+      ) {
+        return `${elementName}.rowspan.rowspan_zero`;
+      }
+      return null;
+    }
+
+    /**
+     * @param {string} element
+     * @param {string} key
+     * @param {string} value
+     * @returns {boolean}
+     */
+    function isSupportedElementSpecificAttributeKeyValue(element, key, value) {
+      const statusKey = getElementAttributeSpecificStatusKey(
+        element,
+        key,
+        value
+      );
+      if (!statusKey) {
+        return true;
+      }
+      const elementStatus = elements.get(statusKey);
+      if (!elementStatus) {
+        return true;
+      }
+      return isSupported(elementStatus);
+    }
+
+    /**
      * @param {Tag | ScriptTag | StyleTag} node
      * @param {string} elementName
      * @param {Attribute[]} attributes
@@ -221,6 +280,11 @@ module.exports = {
         } else if (attribute.value) {
           if (
             !isSupportedElementAttributeKeyValue(
+              elementName,
+              attribute.key.value,
+              attribute.value.value
+            ) ||
+            !isSupportedElementSpecificAttributeKeyValue(
               elementName,
               attribute.key.value,
               attribute.value.value
