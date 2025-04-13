@@ -192,7 +192,7 @@ module.exports = {
 
       // <input type="...">
       if (elementName === "input" && attributeKey === "type") {
-        return `input.type_${value}`;
+        return `input.type_${attributeValue}`;
       }
 
       // <a href="sms:0000..">

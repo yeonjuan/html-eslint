@@ -59,7 +59,7 @@ ruleTester.run("use-baseline", rule, {
       code: `<td rowspan="1"></td>`,
     },
     {
-      code: `<th rowspan="2"></td>`,
+      code: `<th rowspan="2"></th>`,
     },
   ],
   invalid: [
