@@ -44,6 +44,9 @@ ruleTester.run("use-baseline", rule, {
       code: `<input type="number"></input>`,
     },
     {
+      code: `<input type="unknown"></input>`,
+    },
+    {
       code: `<input type="tel"></input>`,
     },
     {
