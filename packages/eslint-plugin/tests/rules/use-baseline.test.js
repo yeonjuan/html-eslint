@@ -40,6 +40,12 @@ ruleTester.run("use-baseline", rule, {
         },
       ],
     },
+    {
+      code: `<input type="number"></input>`,
+    },
+    {
+      code: `<input type="tel"></input>`,
+    },
   ],
   invalid: [
     {
@@ -182,6 +188,17 @@ ruleTester.run("use-baseline", rule, {
       options: [
         {
           available: "widely",
+        },
+      ],
+    },
+    {
+      code: `<input type="week"></input>`,
+      errors: [
+        {
+          message:
+            "Attribute 'type=\"week\"' on '<input>' is not a widely available baseline feature.",
+          column: 14,
+          endColumn: 18,
         },
       ],
     },

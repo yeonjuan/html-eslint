@@ -110,8 +110,16 @@ function mapFeatureStatus(status) {
  * @param {string} key
  * @returns {string}
  */
-function shortenKey(key) {
+function getKey(key) {
   const [, , ...rest] = key.split(".");
+  if (
+    // converts "input.type_xxx" to "input.type.xxx"
+    rest[0] === "input" &&
+    /^type_[a-z]+$/.test(rest[1]) &&
+    rest.length === 2
+  ) {
+    return [rest[0], ...rest[1].split("_")].join(".");
+  }
   return rest.join(".");
 }
 
@@ -129,7 +137,7 @@ async function generateBaseline() {
   const globalAttributesStatus = {};
   for (const [featureId, compatKey] of elements) {
     const status = getStatus(featureId, compatKey);
-    const key = shortenKey(compatKey);
+    const key = getKey(compatKey);
     if (shouldIgnore(key)) {
       continue;
     }
@@ -138,7 +146,7 @@ async function generateBaseline() {
 
   for (const [featureId, compatKey] of globalAttributes) {
     const status = getStatus(featureId, compatKey);
-    const key = shortenKey(compatKey);
+    const key = getKey(compatKey);
     if (shouldIgnore(key)) {
       continue;
     }
