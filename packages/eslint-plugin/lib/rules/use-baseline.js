@@ -207,7 +207,7 @@ module.exports = {
       // <td rowspan="0"> <th rowspan="0">
       if (
         (elementName === "td" || elementName === "th") &&
-        attributeKey === "rawspan" &&
+        attributeKey === "rowspan" &&
         attributeValue === "0"
       ) {
         return `${elementName}.rowspan.rowspan_zero`;
