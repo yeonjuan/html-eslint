@@ -46,6 +46,18 @@ ruleTester.run("use-baseline", rule, {
     {
       code: `<input type="tel"></input>`,
     },
+    {
+      code: `<a href="https://html-eslint.org"></a>`,
+    },
+    {
+      code: `<td></td>`,
+    },
+    {
+      code: `<td rowspan="1"></td>`,
+    },
+    {
+      code: `<th rowspan="2"></td>`,
+    },
   ],
   invalid: [
     {
@@ -199,6 +211,39 @@ ruleTester.run("use-baseline", rule, {
             "Attribute 'type=\"week\"' on '<input>' is not a widely available baseline feature.",
           column: 14,
           endColumn: 18,
+        },
+      ],
+    },
+    {
+      code: `<a href="sms:00000"></a>`,
+      errors: [
+        {
+          message:
+            "Attribute 'href=\"sms:00000\"' on '<a>' is not a widely available baseline feature.",
+          column: 10,
+          endColumn: 19,
+        },
+      ],
+    },
+    {
+      code: `<td rowspan="0"></td>`,
+      errors: [
+        {
+          message:
+            "Attribute 'rowspan=\"0\"' on '<td>' is not a widely available baseline feature.",
+          column: 14,
+          endColumn: 15,
+        },
+      ],
+    },
+    {
+      code: `<th rowspan="0"></th>`,
+      errors: [
+        {
+          message:
+            "Attribute 'rowspan=\"0\"' on '<th>' is not a widely available baseline feature.",
+          column: 14,
+          endColumn: 15,
         },
       ],
     },
