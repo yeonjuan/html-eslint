@@ -46,6 +46,7 @@ const noNestedInteractive = require("./no-nested-interactive");
 const maxElementDepth = require("./max-element-depth");
 const requireExplicitSize = require("./require-explicit-size");
 const useBaseLine = require("./use-baseline");
+const noDuplicateClass = require("./no-duplicate-class");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -98,6 +99,7 @@ module.exports = {
   "max-element-depth": maxElementDepth,
   "require-explicit-size": requireExplicitSize,
   "use-baseline": useBaseLine,
+  "no-duplicate-class": noDuplicateClass,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
