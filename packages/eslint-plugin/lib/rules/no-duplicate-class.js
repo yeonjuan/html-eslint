@@ -10,14 +10,7 @@
  * @property {import("@html-eslint/types").AnyNode['range']} range
  */
 
-const { parse } = require("@html-eslint/template-parser");
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
-const {
-  shouldCheckTaggedTemplateExpression,
-  shouldCheckTemplateLiteral,
-} = require("./utils/settings");
-const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
@@ -47,11 +40,27 @@ module.exports = {
   create(context) {
     /**
      * @param {AttributeValue} value
-     * @returns {string[]}
+     * @returns {{name: string, column: number}[]}
      */
-    function getClasses(value) {
-      const splitted = value.value.split("/s+/");
-      return;
+    function splitClass(value) {
+      /**
+       * @type {{name: string, column: number}[]}
+       */
+      const result = [];
+      const regex = /\S+/g;
+      /**
+       * @type {RegExpExecArray | null}
+       */
+      let match = null;
+
+      while ((match = regex.exec(value.value)) !== null) {
+        result.push({
+          name: match[0],
+          column: value.loc.start.column + match.index,
+        });
+      }
+
+      return result;
     }
 
     return createVisitors(context, {
@@ -62,6 +71,30 @@ module.exports = {
         if (!node.value || !node.value.value) {
           return;
         }
+        const classes = splitClass(node.value).reverse();
+        const classSet = new Set();
+        classes.forEach(({ name, column }) => {
+          if (classSet.has(name)) {
+            context.report({
+              loc: {
+                start: {
+                  line: node.loc.start.line,
+                  column: column,
+                },
+                end: {
+                  line: node.loc.start.line,
+                  column: column + name.length,
+                },
+              },
+              data: {
+                class: name,
+              },
+              messageId: MESSAGE_IDS.DUPLICATE_CLASS,
+            });
+          } else {
+            classSet.add(name);
+          }
+        });
       },
     });
   },

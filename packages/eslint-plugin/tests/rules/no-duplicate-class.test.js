@@ -14,7 +14,7 @@ ruleTester.run("no-duplicate-class", rule, {
   ],
   invalid: [
     {
-      code: `<button class="foo bar"></button>`,
+      code: `<button class="foo foo"></button>`,
       errors: [
         {
           messageId: "duplicateClass",
