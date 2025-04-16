@@ -15,6 +15,7 @@
     "packages/eslint-plugin/tests/rules/use-baseline.test.js"
   ],
   "words": [
+    "foofoo",
     "tseslint",
     "frontmatter",
     "rehype",
