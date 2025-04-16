@@ -115,14 +115,6 @@ function shortenKey(key) {
   return rest.join(".");
 }
 
-/**
- * @param {string} shortenKey
- * @returns {boolean}
- */
-function shouldIgnore(shortenKey) {
-  return shortenKey.includes("_");
-}
-
 async function generateBaseline() {
   const { elements, globalAttributes } = getFeatureIdAndCompatKeys();
   const elementsStatus = {};
@@ -130,18 +122,14 @@ async function generateBaseline() {
   for (const [featureId, compatKey] of elements) {
     const status = getStatus(featureId, compatKey);
     const key = shortenKey(compatKey);
-    if (shouldIgnore(key)) {
-      continue;
-    }
+
     elementsStatus[key] = mapFeatureStatus(status);
   }
 
   for (const [featureId, compatKey] of globalAttributes) {
     const status = getStatus(featureId, compatKey);
     const key = shortenKey(compatKey);
-    if (shouldIgnore(key)) {
-      continue;
-    }
+
     globalAttributesStatus[key] = mapFeatureStatus(status);
   }
 
