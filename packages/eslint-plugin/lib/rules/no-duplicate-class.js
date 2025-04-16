@@ -108,7 +108,7 @@ module.exports = {
                 const hasSpacesAfter =
                   !!after && after.value.trim().length === 0;
                 const hasClassBefore = !!classesAndSpaces[index - 2];
-                const hasClasssAfter = !!classesAndSpaces[index + 2];
+                const hasClassAfter = !!classesAndSpaces[index + 2];
 
                 const startRange = hasSpacesBefore
                   ? attributeValue.range[0] + before.pos
@@ -123,7 +123,7 @@ module.exports = {
 
                 return fixer.replaceTextRange(
                   [startRange, endRange],
-                  hasClassBefore && hasClasssAfter ? " " : ""
+                  hasClassBefore && hasClassAfter ? " " : ""
                 );
               },
             });

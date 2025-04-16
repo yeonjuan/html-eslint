@@ -16,7 +16,10 @@ ruleTester.run("no-duplicate-class", rule, {
       code: `<button class="foo"></button>`,
     },
     {
-      code: `<button class="foo foooo"></button>`,
+      code: `<button class="foo foofoo"></button>`,
+    },
+    {
+      code: `<button id="foo foo"></button>`,
     },
   ],
   invalid: [
