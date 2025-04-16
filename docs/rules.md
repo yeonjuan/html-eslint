@@ -10,6 +10,7 @@
 | Rule                                                         | Description                                                                                    |      |
 | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- | ---- |
 | [no-duplicate-attrs](rules/no-duplicate-attrs)               | Disallow to use duplicate attributes                                                           | ⭐   |
+| [no-duplicate-class](rules/no-duplicate-class)               | Disallow to use duplicate class                                                                | 🔧   |
 | [no-duplicate-id](rules/no-duplicate-id)                     | Disallow to use duplicate id                                                                   | ⭐   |
 | [no-extra-spacing-text](rules/no-extra-spacing-text)         | Disallow unnecessary consecutive spaces                                                        | 🔧   |
 | [no-inline-styles](rules/no-inline-styles)                   | Disallow using inline style                                                                    |      |

@@ -10,6 +10,7 @@
  * @property {import("@html-eslint/types").AnyNode['range']} range
  */
 
+const { NodeTypes } = require("es-html-parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 
@@ -23,14 +24,12 @@ const MESSAGE_IDS = {
 module.exports = {
   meta: {
     type: "code",
-
     docs: {
       description: "Disallow to use duplicate class",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
     },
-
-    fixable: null,
+    fixable: "code",
     schema: [],
     messages: {
       [MESSAGE_IDS.DUPLICATE_CLASS]: "The class '{{class}}' is duplicated.",
@@ -40,14 +39,14 @@ module.exports = {
   create(context) {
     /**
      * @param {AttributeValue} value
-     * @returns {{name: string, column: number}[]}
+     * @returns {{value: string, pos: number}[]}
      */
-    function splitClass(value) {
+    function splitClassAndSpaces(value) {
       /**
-       * @type {{name: string, column: number}[]}
+       * @type {{value: string, pos: number}[]}
        */
       const result = [];
-      const regex = /\S+/g;
+      const regex = /(\s+|\S+)/g;
       /**
        * @type {RegExpExecArray | null}
        */
@@ -55,8 +54,8 @@ module.exports = {
 
       while ((match = regex.exec(value.value)) !== null) {
         result.push({
-          name: match[0],
-          column: value.loc.start.column + match.index,
+          value: match[0],
+          pos: match.index,
         });
       }
 
@@ -68,31 +67,68 @@ module.exports = {
         if (node.key.value.toLowerCase() !== "class") {
           return;
         }
-        if (!node.value || !node.value.value) {
+        const attributeValue = node.value;
+        if (
+          !attributeValue ||
+          !attributeValue.value ||
+          attributeValue.parts.some((part) => part.type === NodeTypes.Template)
+        ) {
           return;
         }
-        const classes = splitClass(node.value).reverse();
+        const classesAndSpaces = splitClassAndSpaces(attributeValue);
         const classSet = new Set();
-        classes.forEach(({ name, column }) => {
-          if (classSet.has(name)) {
+        classesAndSpaces.forEach(({ value, pos }, index) => {
+          const className = value.trim();
+
+          if (className.length && classSet.has(className)) {
             context.report({
               loc: {
                 start: {
-                  line: node.loc.start.line,
-                  column: column,
+                  line: attributeValue.loc.start.line,
+                  column: attributeValue.loc.start.column + pos,
                 },
                 end: {
-                  line: node.loc.start.line,
-                  column: column + name.length,
+                  line: attributeValue.loc.start.line,
+                  column:
+                    attributeValue.loc.start.column + pos + className.length,
                 },
               },
               data: {
-                class: name,
+                class: className,
               },
               messageId: MESSAGE_IDS.DUPLICATE_CLASS,
+              fix(fixer) {
+                if (!node.value) {
+                  return null;
+                }
+                const before = classesAndSpaces[index - 1];
+                const after = classesAndSpaces[index + 1];
+                const hasSpacesBefore =
+                  !!before && before.value.trim().length === 0;
+                const hasSpacesAfter =
+                  !!after && after.value.trim().length === 0;
+                const hasClassBefore = !!classesAndSpaces[index - 2];
+                const hasClasssAfter = !!classesAndSpaces[index + 2];
+
+                const startRange = hasSpacesBefore
+                  ? attributeValue.range[0] + before.pos
+                  : attributeValue.range[0] + pos;
+
+                const endRange = hasSpacesAfter
+                  ? attributeValue.range[0] +
+                    pos +
+                    value.length +
+                    after.value.length
+                  : attributeValue.range[0] + pos + value.length;
+
+                return fixer.replaceTextRange(
+                  [startRange, endRange],
+                  hasClassBefore && hasClasssAfter ? " " : ""
+                );
+              },
             });
           } else {
-            classSet.add(name);
+            classSet.add(className);
           }
         });
       },

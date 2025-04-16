@@ -28,16 +28,15 @@ module.exports = [{
 
     rules: {
         "@html-eslint/indent": ["error", 2],
-
         "@html-eslint/element-newline": ["error", {
             skip: ["pre", "code"],
         }],
-
         "@html-eslint/lowercase": "error",
         "@html-eslint/no-extra-spacing-attrs": "error",
         "@html-eslint/no-multiple-empty-lines": "error",
         "@html-eslint/no-trailing-spaces": "error",
         "@html-eslint/quotes": "error",
+        "@html-eslint/no-duplicate-class": "error",
         "@stylistic/indent": ["error", 2],
         "@stylistic/quote-props": ["error", "as-needed"],
         "@stylistic/curly-newline": ["error", "always"],
@@ -45,10 +44,10 @@ module.exports = [{
         "@stylistic/lines-around-comment": "off",
         "@stylistic/space-before-function-paren": ["error", "never"],
         "@stylistic/function-call-argument-newline": ["error", "consistent"],
-
         "@stylistic/object-curly-newline": ["error", {
             minProperties: 1,
         }],
+   
     },
 }, ...compat.extends("plugin:@html-eslint/recommended").map(config => ({
     ...config,
@@ -76,5 +75,6 @@ module.exports = [{
         "@html-eslint/id-naming-convention": ["error", "kebab-case"],
         "@html-eslint/no-multiple-empty-lines": "error",
         "@html-eslint/no-trailing-spaces": "error",
+        "@html-eslint/no-duplicate-class": "error",
     },
 }];
