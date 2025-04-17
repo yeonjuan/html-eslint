@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/template-syntax-parser",
-  "version": "0.38.0",
+  "version": "0.39.0",
   "description": "Parse template syntax",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
@@ -28,7 +28,7 @@
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "devDependencies": {
-    "@html-eslint/types": "^0.38.0",
+    "@html-eslint/types": "^0.39.0",
     "eslint": "^9.19.0",
     "espree": "^10.3.0",
     "globals": "^15.12.0"
