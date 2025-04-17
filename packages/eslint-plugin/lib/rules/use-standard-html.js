@@ -10,9 +10,10 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { getElementSpec } = require("html-standard");
+const { isTag } = require("./utils/node");
 
 const MESSAGE_IDS = {
-  UNSORTED: "unsorted",
+  DISALLOW_CHILD: "disallowChild",
 };
 
 /**
@@ -43,14 +44,42 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.UNSORTED]: "TBD",
+      [MESSAGE_IDS.DISALLOW_CHILD]: "TBD",
     },
   },
   create(context) {
     return {
       Tag(node) {
         const spec = getElementSpec(node.name);
-        console.log(spec);
+        if (!spec || !spec.contents) {
+          return;
+        }
+
+        node.children.forEach((child) => {
+          if (!spec.contents) {
+            return;
+          }
+          if (!isTag(child)) {
+            return;
+          }
+          const isAllowed = spec.contents.some((model) => {
+            if (
+              model.type === "required" ||
+              model.type === "oneOrMore" ||
+              model.type === "zeroOrMore" ||
+              model.type === "optional"
+            ) {
+              return model.contents.has(child.name.toLowerCase());
+            }
+            return false;
+          });
+          if (!isAllowed) {
+            context.report({
+              node: child,
+              messageId: MESSAGE_IDS.DISALLOW_CHILD,
+            });
+          }
+        });
       },
     };
   },

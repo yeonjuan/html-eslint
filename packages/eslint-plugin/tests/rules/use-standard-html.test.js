@@ -9,5 +9,16 @@ ruleTester.run("use-standard-html", rule, {
       code: `<slot></slot>`,
     },
   ],
-  invalid: [],
+  invalid: [
+    {
+      code: `<html>
+<div></div>
+      </html`,
+      errors: [
+        {
+          messageId: "disallowChild",
+        },
+      ],
+    },
+  ],
 });
