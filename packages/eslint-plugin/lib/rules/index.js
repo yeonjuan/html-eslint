@@ -47,6 +47,7 @@ const maxElementDepth = require("./max-element-depth");
 const requireExplicitSize = require("./require-explicit-size");
 const useBaseLine = require("./use-baseline");
 const noDuplicateClass = require("./no-duplicate-class");
+const useStandardHtml = require("./use-standard-html");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -100,6 +101,7 @@ module.exports = {
   "require-explicit-size": requireExplicitSize,
   "use-baseline": useBaseLine,
   "no-duplicate-class": noDuplicateClass,
+  "use-standard-html": useStandardHtml,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
