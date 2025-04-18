@@ -41,7 +41,7 @@
     "@eslint/plugin-kit": "0.2.8",
     "@html-eslint/template-parser": "^0.40.0",
     "@html-eslint/template-syntax-parser": "^0.40.0",
-    "html-standard": "^0.0.4"
+    "html-standard": "^0.0.5"
   },
   "devDependencies": {
     "@eslint/core": "0.13.0",
