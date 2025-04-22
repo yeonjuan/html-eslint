@@ -192,7 +192,7 @@ function oneOrMore(model, context, state, node) {
     }
   }
 
-  if (count <= 0) {
+  if (count <= 0 && !model.contents.has("#text")) {
     context.report({
       node,
       messageId: MESSAGE_IDS.REQUIRED,
@@ -214,6 +214,10 @@ function optional(model, state) {
   if (!child) {
     state.childIndex++;
     state.contentModelIndex++;
+    return CONTINUE;
+  }
+  if (shouldIgnoreChild(child)) {
+    state.childIndex++;
     return CONTINUE;
   }
   const name = getNodeName(child);

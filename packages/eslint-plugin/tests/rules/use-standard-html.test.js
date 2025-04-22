@@ -32,6 +32,12 @@ ruleTester.run("use-standard-html", rule, {
     {
       code: `<fieldset><legend></legend></fieldset>`,
     },
+    {
+      code: `<fieldset>
+        <!-- comment -->
+        <legend></legend>
+      </fieldset>`,
+    },
   ],
   invalid: [
     // required
@@ -65,7 +71,7 @@ ruleTester.run("use-standard-html", rule, {
       code: `<mark><div></div></mark>`,
       errors: [
         {
-          messageId: "required",
+          messageId: "notAllowed",
         },
       ],
     },
@@ -73,7 +79,7 @@ ruleTester.run("use-standard-html", rule, {
       code: `<fieldset><base></base></fieldset>`,
       errors: [
         {
-          messageId: "required",
+          messageId: "notAllowed",
         },
       ],
     },
