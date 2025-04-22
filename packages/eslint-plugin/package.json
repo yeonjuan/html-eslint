@@ -37,10 +37,12 @@
     "accessibility"
   ],
   "dependencies": {
+    "@eslint/plugin-kit": "0.2.8",
     "@html-eslint/template-parser": "^0.39.0",
     "@html-eslint/template-syntax-parser": "^0.39.0"
   },
   "devDependencies": {
+    "@eslint/core": "0.13.0",
     "@html-eslint/parser": "^0.39.0",
     "@html-eslint/types": "^0.39.0",
     "@types/eslint": "^9.6.1",
