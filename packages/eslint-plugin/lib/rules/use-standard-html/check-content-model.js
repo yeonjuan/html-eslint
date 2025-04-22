@@ -62,6 +62,7 @@ function checkContentModel(context, spec, node, children) {
   };
   let result = CONTINUE;
   while (result && state.contentModels && !!getContentModel(state)) {
+    debugger;
     const contentModel = getContentModel(state);
     if (!contentModel) {
       return;
@@ -80,7 +81,7 @@ function checkContentModel(context, spec, node, children) {
         break;
       }
       case "optional": {
-        result = optional(state);
+        result = optional(contentModel, state);
         break;
       }
       case "either": {
@@ -204,17 +205,22 @@ function oneOrMore(model, context, state, node) {
 }
 
 /**
+ * @param {ContentModel & {type: "optional"}} model
  * @param {State} state
  * @returns {boolean}
  */
-function optional(state) {
+function optional(model, state) {
   let child = getChild(state);
   if (!child) {
     state.childIndex++;
     state.contentModelIndex++;
     return CONTINUE;
   }
-  state.childIndex++;
+  const name = getNodeName(child);
+  if (model.contents.has(name)) {
+    state.childIndex++;
+  }
+
   state.contentModelIndex++;
   return CONTINUE;
 }

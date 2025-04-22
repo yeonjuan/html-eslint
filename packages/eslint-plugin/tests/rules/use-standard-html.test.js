@@ -29,6 +29,9 @@ ruleTester.run("use-standard-html", rule, {
     {
       code: `<mark>text<br/></mark>`,
     },
+    {
+      code: `<fieldset><legend></legend></fieldset>`,
+    },
   ],
   invalid: [
     // required
@@ -60,6 +63,14 @@ ruleTester.run("use-standard-html", rule, {
     // oneOreMore
     {
       code: `<mark><div></div></mark>`,
+      errors: [
+        {
+          messageId: "required",
+        },
+      ],
+    },
+    {
+      code: `<fieldset><base></base></fieldset>`,
       errors: [
         {
           messageId: "required",
