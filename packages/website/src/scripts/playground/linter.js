@@ -1,7 +1,7 @@
 import {
   parseForESLint
 } from "@html-eslint/parser";
-import plugin from "@html-eslint/eslint-plugin";
+import rules from "@html-eslint/eslint-plugin/lib/rules";
 import {
   Linter as WebLinter
 } from "@html-eslint/web-linter";
@@ -33,7 +33,7 @@ import {
  * @returns {RulesModules}
  */
 function allRules() {
-  return Object.entries(plugin.rules).reduce(
+  return Object.entries(rules).reduce(
     (rules, [
       name,
       rule
