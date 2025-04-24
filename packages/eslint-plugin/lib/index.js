@@ -1,6 +1,7 @@
 const rules = require("./rules");
 const recommended = require("./configs/recommended");
 const parser = require("@html-eslint/parser");
+const { HTMLLanguage } = require("./languages/html-language");
 
 /**
  * @typedef {import("./rules")} AllRules
@@ -15,6 +16,9 @@ const plugin = {
   configs: {
     recommended,
   },
+  languages: {
+    html: new HTMLLanguage(),
+  },
   rules,
 };
 
@@ -23,6 +27,7 @@ Object.assign(plugin.configs, {
     plugins: {
       "@html-eslint": plugin,
     },
+
     languageOptions: {
       parser,
     },

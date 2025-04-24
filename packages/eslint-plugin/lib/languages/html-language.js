@@ -2,7 +2,7 @@
  * @typedef {import('@eslint/core').File} File
  */
 const { visitorKeys, parseForESLint } = require("@html-eslint/parser");
-
+const { HTMLSourceCode } = require("./html-source-code");
 class HTMLLanguage {
   constructor() {
     /**
@@ -50,14 +50,21 @@ class HTMLLanguage {
     return {
       ok: true,
       ast: result.ast,
+      comments: result.ast.comments,
     };
   }
 
   /**
-   *
-   * @param {File} file
+   * @param {string} file
+   * @param {any} parseResult
    */
-  createSourceCode(file) {}
+  createSourceCode(file, parseResult) {
+    return new HTMLSourceCode({
+      text: file,
+      ast: parseResult.ast,
+      comments: parseResult.comments,
+    });
+  }
 }
 
 module.exports = {
