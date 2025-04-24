@@ -9,10 +9,7 @@ module.exports = [
         },
         language: 'html/html',
         languageOptions: {
-            parser: htmlParser,
-            parserOptions: {
-                templateEngineSyntax: htmlParser.TEMPLATE_ENGINE_SYNTAX.HANDLEBAR
-            }
+             templateEngineSyntax: htmlParser.TEMPLATE_ENGINE_SYNTAX.HANDLEBAR
         },
         rules: {
             "html/indent": ["error", 2],
