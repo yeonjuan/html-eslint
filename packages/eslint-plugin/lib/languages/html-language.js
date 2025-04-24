@@ -1,8 +1,9 @@
+const { visitorKeys, parseForESLint } = require("@html-eslint/parser");
+const { HTMLSourceCode } = require("./html-source-code");
+
 /**
  * @typedef {import('@eslint/core').File} File
  */
-const { visitorKeys, parseForESLint } = require("@html-eslint/parser");
-const { HTMLSourceCode } = require("./html-source-code");
 class HTMLLanguage {
   constructor() {
     /**
@@ -39,10 +40,12 @@ class HTMLLanguage {
 
   /**
    * @param {File} file
+   * @param {Object} context
+   * @param {import('@html-eslint/parser').ParserOptions} context.languageOptions
    */
-  parse(file) {
+  parse(file, { languageOptions = {} }) {
     const code = /**  @type {string} */ (file.body);
-    const result = parseForESLint(code, {});
+    const result = parseForESLint(code, languageOptions);
     return {
       ok: true,
       ast: result.ast,

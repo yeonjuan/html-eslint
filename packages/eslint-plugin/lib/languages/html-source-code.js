@@ -7,6 +7,7 @@
  *  @typedef {import("../types").BaseNode} BaseNode
  */
 const { TextSourceCodeBase } = require("@eslint/plugin-kit");
+const { SourceCode } = require("eslint");
 const { HTMLTraversalStep, STEP_PHASE } = require("./html-traversal-step");
 const { visitorKeys } = require("@html-eslint/parser");
 
@@ -19,12 +20,15 @@ class HTMLSourceCode extends TextSourceCodeBase {
     /**
      * @property
      */
+    this.eslintSourceCode = new SourceCode(text, ast);
+    /**
+     * @property
+     */
     this.ast = ast;
     /**
      * @property
      */
     this.comments = comments;
-
     this.parentsMap = new Map();
   }
 
@@ -45,7 +49,23 @@ class HTMLSourceCode extends TextSourceCodeBase {
   }
 
   getLines() {
-    return this.text.split("\n");
+    return this.lines;
+  }
+
+  /**
+   * @param {import("@eslint/core").Position} loc
+   * @returns
+   */
+  getIndexFromLoc(loc) {
+    return this.eslintSourceCode.getIndexFromLoc(loc);
+  }
+
+  /**
+   * @param {number} index
+   * @returns {import("@eslint/core").Position}
+   */
+  getLocFromIndex(index) {
+    return this.eslintSourceCode.getLocFromIndex(index);
   }
 
   traverse() {
@@ -61,6 +81,8 @@ class HTMLSourceCode extends TextSourceCodeBase {
      */
     const visit = (node, parent) => {
       this.parentsMap.set(node, parent);
+      // @ts-ignore
+      node.parent = parent;
       steps.push(
         new HTMLTraversalStep({
           target: node,

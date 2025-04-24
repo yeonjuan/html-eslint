@@ -5,6 +5,7 @@ const { RuleTester: ESLintRuleTester } = require("eslint");
  */
 
 const FILE_NAME = "test.html";
+const html = require("../lib/index");
 
 class RuleTester extends ESLintRuleTester {
   /**
@@ -26,10 +27,18 @@ class RuleTester extends ESLintRuleTester {
     super.run(name, rule, {
       valid: tests.valid.map((test) => ({
         ...test,
+        languageOptions:
+          test.languageOptions && test.languageOptions.parserOptions
+            ? test.languageOptions.parserOptions
+            : {},
         filename: FILE_NAME,
       })),
       invalid: tests.invalid.map((test) => ({
         ...test,
+        languageOptions:
+          test.languageOptions && test.languageOptions.parserOptions
+            ? test.languageOptions.parserOptions
+            : {},
         filename: FILE_NAME,
       })),
     });
@@ -40,6 +49,16 @@ class RuleTester extends ESLintRuleTester {
  * @param {"espree"} [parser]
  */
 module.exports = function createRuleTester(parser) {
+  if (!parser) {
+    return new RuleTester({
+      plugins: {
+        // @ts-ignore
+        html: html,
+      },
+      language: "html/html",
+    });
+  }
+
   return new RuleTester({
     languageOptions: !parser
       ? {
