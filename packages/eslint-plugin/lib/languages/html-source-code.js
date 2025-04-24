@@ -44,6 +44,10 @@ class HTMLSourceCode extends TextSourceCodeBase {
     return node.loc;
   }
 
+  getLines() {
+    return this.text.split("\n");
+  }
+
   traverse() {
     /**
      * @type {TraversalStep[]}

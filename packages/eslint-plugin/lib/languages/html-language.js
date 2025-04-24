@@ -41,11 +41,7 @@ class HTMLLanguage {
    * @param {File} file
    */
   parse(file) {
-    /**
-     * @type {string}
-     */
-    // @ts-ignore
-    const code = file.body;
+    const code = /**  @type {string} */ (file.body);
     const result = parseForESLint(code, {});
     return {
       ok: true,
@@ -55,12 +51,12 @@ class HTMLLanguage {
   }
 
   /**
-   * @param {string} file
+   * @param {File} file
    * @param {any} parseResult
    */
   createSourceCode(file, parseResult) {
     return new HTMLSourceCode({
-      text: file,
+      text: /**  @type {string} */ (file.body),
       ast: parseResult.ast,
       comments: parseResult.comments,
     });

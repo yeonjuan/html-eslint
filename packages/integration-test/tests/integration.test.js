@@ -81,6 +81,7 @@ describe("integration tests", () => {
       expect(frontmatterResult[0].fatalErrorCount).toBe(0);
       expect(frontmatterResult[0].messages.length).toBeGreaterThanOrEqual(1);
     }, 20000);
+
     it("should not throw any lint error for valid files", async () => {
       const htmlResult = await runESLint({
         fixtureName: "eslint-v9-flat-config",
@@ -105,6 +106,18 @@ describe("integration tests", () => {
       });
       expect(frontmatterResult[0].fatalErrorCount).toBe(0);
       expect(frontmatterResult[0].messages.length).toBeGreaterThanOrEqual(1);
+    }, 20000);
+  });
+
+  describe.only("eslint-v9-lanugage", () => {
+    it("should not throw any lint error for valid files", async () => {
+      const htmlResult = await runESLint({
+        fixtureName: "eslint-v9-language",
+        eslintVersion: "9",
+        glob: "html/valid.html",
+      });
+      expect(htmlResult[0].fatalErrorCount).toBe(0);
+      expect(htmlResult[0].messages.length).toBe(0);
     }, 20000);
   });
 });
