@@ -109,7 +109,7 @@ describe("integration tests", () => {
     }, 20000);
   });
 
-  describe.only("eslint-v9-lanugage", () => {
+  describe.only("eslint-v9-language", () => {
     it("should not throw any lint error for valid files", async () => {
       const htmlResult = await runESLint({
         fixtureName: "eslint-v9-language",
