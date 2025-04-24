@@ -21,7 +21,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
      */
     this.ast = ast;
     /**
-     * @propetyy
+     * @property
      */
     this.comments = comments;
 
