@@ -89,12 +89,9 @@ async function runESLint({ fixtureName, eslintVersion, glob }) {
   ).catch(() => {});
 
   const result = await readFile(outFile, "utf-8");
-  try {
-    const parsed = JSON.parse(result);
-    return parsed;
-  } catch {
-    console.log(`here:${result}`);
-  }
+
+  const parsed = JSON.parse(result);
+  return parsed;
 }
 
 module.exports = {
