@@ -99,7 +99,7 @@ describe("HTMLLanguage", () => {
     });
   });
   describe("createSourceCode()", () => {
-    it("shoud create a HTMLSourceCode instance", () => {
+    it("should create a HTMLSourceCode instance", () => {
       const file = { body: "<div></div>", path: "test.html" };
       const language = new HTMLLanguage();
       const parsed = language.parse(file);
