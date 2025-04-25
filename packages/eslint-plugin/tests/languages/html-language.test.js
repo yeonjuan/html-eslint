@@ -4,6 +4,19 @@
 
 const { HTMLLanguage } = require("../../lib/languages/html-language");
 
+/**
+ * @param {string} text
+ * @returns {File}
+ */
+const createFile = (text) => {
+  return {
+    body: text,
+    path: "test.html",
+    physicalPath: "test.html",
+    bom: false,
+  };
+};
+
 describe("HTMLLanguage", () => {
   describe("visitorKeys", () => {
     it("should have visitorKeys property", () => {
@@ -21,13 +34,7 @@ describe("HTMLLanguage", () => {
   describe("parse()", () => {
     it("should parse HTML", () => {
       const language = new HTMLLanguage();
-      /** @type {File} */
-      const file = {
-        body: `<div></div>`,
-        path: "test.html",
-        physicalPath: "test.html",
-        bom: false,
-      };
+      const file = createFile(`<div></div>`);
       const result = language.parse(file);
       expect(result.ok).toBe(true);
       expect(result.ast.type).toBe("Program");
@@ -36,18 +43,12 @@ describe("HTMLLanguage", () => {
 
     it("should skip frontmatter", () => {
       const language = new HTMLLanguage();
-      /** @type {File} */
-      const file = {
-        body: `---
+      const file = createFile(`---
 name: value
 ---
 <div>
 </div>
-      `,
-        path: "text.html",
-        physicalPath: "test.html",
-        bom: false,
-      };
+      `);
       const result = language.parse(file, {
         languageOptions: { frontmatter: true },
       });
@@ -57,13 +58,7 @@ name: value
 
     it("should parse template syntax", () => {
       const language = new HTMLLanguage();
-      /** @type {File} */
-      const file = {
-        body: `<div>{{text}}</div>`,
-        path: "text.html",
-        physicalPath: "test.html",
-        bom: false,
-      };
+      const file = createFile(`<div>{{text}}</div>`);
       const result = language.parse(file, {
         languageOptions: {
           templateEngineSyntax: {
@@ -116,15 +111,7 @@ name: value
   });
   describe("createSourceCode()", () => {
     it("should create a HTMLSourceCode instance", () => {
-      /**
-       * @type {File}
-       */
-      const file = {
-        body: "<div></div>",
-        path: "test.html",
-        physicalPath: "test.html",
-        bom: false,
-      };
+      const file = createFile("<div></div>");
       const language = new HTMLLanguage();
       const parsed = language.parse(file);
       const sourceCode = language.createSourceCode(file, parsed);

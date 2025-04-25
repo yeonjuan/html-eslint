@@ -3,7 +3,7 @@
  *  @typedef {import("@eslint/plugin-kit").SourceLocation} SourceLocation
  *  @typedef {import("@eslint/plugin-kit").DirectiveType} DirectiveType
  *  @typedef {import("@eslint/core").TraversalStep} TraversalStep
- *  @typedef {import("@html-eslint/types").Comment} Comment
+ *  @typedef {import("@html-eslint/types").CommentContent} CommentContent
  *  @typedef {import("@html-eslint/types").AnyHTMLNode} AnyHTMLNode
  *  @typedef {import("../types").BaseNode} BaseNode
  */
@@ -23,7 +23,7 @@ const commentParser = new ConfigCommentParser();
 
 class HTMLSourceCode extends TextSourceCodeBase {
   /**
-   * @param {{ast: Program, text: string, comments: Comment[]}} config
+   * @param {{ast: Program, text: string, comments: CommentContent[]}} config
    */
   constructor({ ast, text, comments }) {
     super({ ast, text });
@@ -79,9 +79,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
   }
 
   getInlineConfigNodes() {
-    return this.comments.filter((comment) =>
-      INLINE_CONFIG.test(comment.value.value)
-    );
+    return this.comments.filter((comment) => INLINE_CONFIG.test(comment.value));
   }
 
   getDisableDirectives() {
@@ -95,7 +93,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
     const directives = [];
 
     this.getInlineConfigNodes().forEach((comment) => {
-      const parsed = commentParser.parseDirective(comment.value.value);
+      const parsed = commentParser.parseDirective(comment.value);
       if (!parsed) return;
       const { label, value, justification } = parsed;
       // `eslint-disable-line` directives are not allowed to span multiple lines as it would be confusing to which lines they apply
