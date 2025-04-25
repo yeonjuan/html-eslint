@@ -1,15 +1,25 @@
 /**
  *  @typedef {import("eslint").AST.Program} Program
  *  @typedef {import("@eslint/plugin-kit").SourceLocation} SourceLocation
+ *  @typedef {import("@eslint/plugin-kit").DirectiveType} DirectiveType
  *  @typedef {import("@eslint/core").TraversalStep} TraversalStep
  *  @typedef {import("@html-eslint/types").Comment} Comment
  *  @typedef {import("@html-eslint/types").AnyHTMLNode} AnyHTMLNode
  *  @typedef {import("../types").BaseNode} BaseNode
  */
-const { TextSourceCodeBase } = require("@eslint/plugin-kit");
+const {
+  TextSourceCodeBase,
+  ConfigCommentParser,
+  Directive,
+} = require("@eslint/plugin-kit");
 const { SourceCode } = require("eslint");
 const { HTMLTraversalStep, STEP_PHASE } = require("./html-traversal-step");
 const { visitorKeys } = require("@html-eslint/parser");
+
+const INLINE_CONFIG =
+  /^\s*(?:eslint(?:-enable|-disable(?:(?:-next)?-line)?)?)(?:\s|$)/u;
+
+const commentParser = new ConfigCommentParser();
 
 class HTMLSourceCode extends TextSourceCodeBase {
   /**
@@ -66,6 +76,62 @@ class HTMLSourceCode extends TextSourceCodeBase {
    */
   getLocFromIndex(index) {
     return this.eslintSourceCode.getLocFromIndex(index);
+  }
+
+  getInlineConfigNodes() {
+    return this.comments.filter((comment) =>
+      INLINE_CONFIG.test(comment.value.value)
+    );
+  }
+
+  getDisableDirectives() {
+    /**
+     * @type {{ruleId: null | string, message: string; loc: SourceLocation}[]}
+     */
+    const problems = [];
+    /**
+     * @type {Directive[]}
+     */
+    const directives = [];
+
+    this.getInlineConfigNodes().forEach((comment) => {
+      const parsed = commentParser.parseDirective(comment.value.value);
+      if (!parsed) return;
+      const { label, value, justification } = parsed;
+      // `eslint-disable-line` directives are not allowed to span multiple lines as it would be confusing to which lines they apply
+      if (
+        label === "eslint-disable-line" &&
+        comment.loc.start.line !== comment.loc.end.line
+      ) {
+        const message = `${label} comment should not span multiple lines.`;
+
+        problems.push({
+          ruleId: null,
+          message,
+          loc: comment.loc,
+        });
+        return;
+      }
+
+      switch (label) {
+        case "eslint-disable":
+        case "eslint-enable":
+        case "eslint-disable-next-line":
+        case "eslint-disable-line": {
+          const directiveType = label.slice("eslint-".length);
+          directives.push(
+            new Directive({
+              type: /** @type {DirectiveType} */ (directiveType),
+              node: comment,
+              value,
+              justification,
+            })
+          );
+        }
+      }
+    });
+
+    return { problems, directives };
   }
 
   traverse() {
