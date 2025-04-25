@@ -48,7 +48,7 @@ function getLinter(options) {
 
 describe("inline disable", () => {
   const legacyLinter = getLinter(LEGACY_OPTIONS);
-  const lanugageLinter = getLinter(LANGUAGE_OPTIONS);
+  const languageLinter = getLinter(LANGUAGE_OPTIONS);
 
   it("eslint-disable all rules", () => {
     const code = `
@@ -63,7 +63,7 @@ describe("inline disable", () => {
 
     const legacyResult = legacyLinter.lint(code, rules);
     expect(legacyResult).toHaveLength(0);
-    const languageResult = lanugageLinter.lint(code, rules);
+    const languageResult = languageLinter.lint(code, rules);
     expect(languageResult).toHaveLength(0);
   });
 
@@ -82,7 +82,7 @@ describe("inline disable", () => {
 
     const legacyResult = legacyLinter.lint(code, rules);
     expect(legacyResult).toHaveLength(2);
-    const languageResult = lanugageLinter.lint(code, rules);
+    const languageResult = languageLinter.lint(code, rules);
     expect(languageResult).toHaveLength(2);
   });
 
@@ -96,7 +96,7 @@ describe("inline disable", () => {
     };
     const legacyResult = legacyLinter.lint(code, rule);
     expect(legacyResult).toHaveLength(0);
-    const languageResult = lanugageLinter.lint(code, rule);
+    const languageResult = languageLinter.lint(code, rule);
     expect(languageResult).toHaveLength(0);
   });
   it("eslint-disable-next-line rule", () => {
@@ -109,7 +109,7 @@ describe("inline disable", () => {
     };
     const legacyResult = legacyLinter.lint(code, rule);
     expect(legacyResult).toHaveLength(0);
-    const languageResult = lanugageLinter.lint(code, rule);
+    const languageResult = languageLinter.lint(code, rule);
     expect(languageResult).toHaveLength(0);
   });
 });
