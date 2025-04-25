@@ -3,6 +3,7 @@ const { HTMLSourceCode } = require("./html-source-code");
 
 /**
  * @typedef {import('@eslint/core').File} File
+ * @typedef {import('@html-eslint/parser').ParserOptions} LanguageOptions
  */
 class HTMLLanguage {
   constructor() {
@@ -36,15 +37,38 @@ class HTMLLanguage {
     this.visitorKeys = visitorKeys;
   }
 
-  validateLanguageOptions() {}
+  /**
+   * @param {LanguageOptions} languageOptions
+   */
+  validateLanguageOptions(languageOptions) {
+    if (!languageOptions) {
+      return;
+    }
+    if (
+      "frontmatter" in languageOptions &&
+      typeof languageOptions.frontmatter !== "boolean"
+    ) {
+      throw new TypeError("Expected a boolean value for 'frontmatter' option.");
+    }
+    if (
+      "templateEngineSyntax" in languageOptions &&
+      (typeof languageOptions.templateEngineSyntax !== "object" ||
+        !languageOptions.templateEngineSyntax)
+    ) {
+      throw new TypeError(
+        "Expected an key-value record value for 'templateEngineSyntax' option."
+      );
+    }
+  }
 
   /**
    * @param {File} file
    * @param {Object} context
-   * @param {import('@html-eslint/parser').ParserOptions} context.languageOptions
+   * @param {LanguageOptions} context.languageOptions
    */
-  parse(file, { languageOptions = {} }) {
+  parse(file, context) {
     const code = /**  @type {string} */ (file.body);
+    const languageOptions = (context && context.languageOptions) || {};
     const result = parseForESLint(code, languageOptions);
     return {
       ok: true,
