@@ -1,3 +1,7 @@
+/**
+ * @typedef {import('@eslint/core').File} File
+ */
+
 const { HTMLLanguage } = require("../../lib/languages/html-language");
 
 describe("HTMLLanguage", () => {
@@ -17,10 +21,14 @@ describe("HTMLLanguage", () => {
   describe("parse()", () => {
     it("should parse HTML", () => {
       const language = new HTMLLanguage();
-      const result = language.parse({
+      /** @type {File} */
+      const file = {
         body: `<div></div>`,
         path: "test.html",
-      });
+        physicalPath: "test.html",
+        bom: false,
+      };
+      const result = language.parse(file);
       expect(result.ok).toBe(true);
       expect(result.ast.type).toBe("Program");
       expect(result.ast.body[0].children[0].type).toBe("Tag");
@@ -28,37 +36,41 @@ describe("HTMLLanguage", () => {
 
     it("should skip frontmatter", () => {
       const language = new HTMLLanguage();
-      const result = language.parse(
-        {
-          body: `---
-  name: value
+      /** @type {File} */
+      const file = {
+        body: `---
+name: value
 ---
 <div>
 </div>
-`,
-          path: "text.html",
-        },
-        { languageOptions: { frontmatter: true } }
-      );
+      `,
+        path: "text.html",
+        physicalPath: "test.html",
+        bom: false,
+      };
+      const result = language.parse(file, {
+        languageOptions: { frontmatter: true },
+      });
       expect(result.ok).toBe(true);
       expect(result.ast.body[0].children[0].type).toBe("Tag");
     });
 
     it("should parse template syntax", () => {
       const language = new HTMLLanguage();
-      const result = language.parse(
-        {
-          body: `<div>{{text}}</div>`,
-          path: "text.html",
-        },
-        {
-          languageOptions: {
-            templateEngineSyntax: {
-              "{{": "}}",
-            },
+      /** @type {File} */
+      const file = {
+        body: `<div>{{text}}</div>`,
+        path: "text.html",
+        physicalPath: "test.html",
+        bom: false,
+      };
+      const result = language.parse(file, {
+        languageOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
           },
-        }
-      );
+        },
+      });
       expect(result.ok).toBe(true);
       const part = result.ast.body[0].children[0].children[0].parts[0];
       expect(part.open.type).toBe("OpenTemplate");
@@ -69,7 +81,9 @@ describe("HTMLLanguage", () => {
   describe("validateLanguageOptions()", () => {
     it("should pass", () => {
       const language = new HTMLLanguage();
+      // @ts-ignore
       expect(() => language.validateLanguageOptions()).not.toThrow();
+      // @ts-ignore
       expect(() => language.validateLanguageOptions({})).not.toThrow();
       expect(() =>
         language.validateLanguageOptions({ frontmatter: true })
@@ -87,12 +101,14 @@ describe("HTMLLanguage", () => {
       const language = new HTMLLanguage();
       expect(() =>
         language.validateLanguageOptions({
+          // @ts-ignore
           frontmatter: "true",
         })
       ).toThrow();
 
       expect(() =>
         language.validateLanguageOptions({
+          // @ts-ignore
           templateEngineSyntax: "",
         })
       ).toThrow();
@@ -100,7 +116,15 @@ describe("HTMLLanguage", () => {
   });
   describe("createSourceCode()", () => {
     it("should create a HTMLSourceCode instance", () => {
-      const file = { body: "<div></div>", path: "test.html" };
+      /**
+       * @type {File}
+       */
+      const file = {
+        body: "<div></div>",
+        path: "test.html",
+        physicalPath: "test.html",
+        bom: false,
+      };
       const language = new HTMLLanguage();
       const parsed = language.parse(file);
       const sourceCode = language.createSourceCode(file, parsed);

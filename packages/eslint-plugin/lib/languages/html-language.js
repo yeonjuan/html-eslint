@@ -63,7 +63,7 @@ class HTMLLanguage {
 
   /**
    * @param {File} file
-   * @param {Object} context
+   * @param {Object} [context]
    * @param {LanguageOptions} context.languageOptions
    */
   parse(file, context) {
