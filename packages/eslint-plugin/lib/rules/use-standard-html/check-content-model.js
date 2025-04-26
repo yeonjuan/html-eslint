@@ -183,7 +183,7 @@ function oneOrMore(model, context, state, node) {
       continue;
     }
     const name = getNodeName(child);
-    if (model.contents.has(name)) {
+    if (model.contents.has(name) || model.contents.has("#transparent")) {
       count++;
       state.childIndex++;
     } else {

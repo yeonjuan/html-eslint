@@ -14,6 +14,7 @@
 const { RULE_CATEGORY } = require("../../constants");
 const { getElementSpec } = require("html-standard");
 const { checkContentModel, MESSAGE_IDS } = require("./check-content-model");
+const { isText } = require("../utils/node");
 
 /**
  * @type {RuleModule}
@@ -52,6 +53,13 @@ module.exports = {
       Tag(node) {
         const name = node.name.toLowerCase();
         if (name === "template") {
+          return;
+        }
+        if (
+          node.children.some(
+            (child) => isText(child) && child.parts && !!child.parts.length
+          )
+        ) {
           return;
         }
         const spec = getElementSpec(node.name);

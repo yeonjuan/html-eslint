@@ -50,6 +50,13 @@ ruleTester.run("use-standard-html", rule, {
     {
       code: "<head><style> div {} </style> <script> console.log('hello'); </script></head>",
     },
+    {
+      code: `
+        <a href="https://github.com/yeonjuan/html-eslint">
+          <img src="~/src/assets/github.svg" alt="github">
+        </a>
+      `,
+    },
   ],
   invalid: [
     // required
