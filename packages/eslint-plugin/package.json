@@ -20,6 +20,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
+    "test:legacy": "TEST_ESLINT_LEGACY_CONFIG=true && jest",
     "ts": "tsc --noEmit",
     "lint": "eslint .",
     "build": "rimraf types && tsc  --project tsconfig.build.json"

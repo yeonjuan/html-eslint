@@ -7,6 +7,22 @@ const { RuleTester: ESLintRuleTester } = require("eslint");
 const FILE_NAME = "test.html";
 const html = require("../lib/index");
 
+/**
+ * @param {ESLintRuleTester.InvalidTestCase | ESLintRuleTester.ValidTestCase} test
+ */
+function getLanguageOptions(test) {
+  if (!test.languageOptions) {
+    return {};
+  }
+  if (process.env.TEST_ESLINT_LEGACY_CONFIG) {
+    return test.languageOptions;
+  }
+
+  return test.languageOptions && test.languageOptions.parserOptions
+    ? test.languageOptions.parserOptions
+    : {};
+}
+
 class RuleTester extends ESLintRuleTester {
   /**
    *
@@ -25,20 +41,16 @@ class RuleTester extends ESLintRuleTester {
   run(name, rule, tests) {
     // @ts-ignore
     super.run(name, rule, {
-      valid: tests.valid.map((test) => ({
-        ...test,
-        languageOptions:
-          test.languageOptions && test.languageOptions.parserOptions
-            ? test.languageOptions.parserOptions
-            : {},
-        filename: FILE_NAME,
-      })),
+      valid: tests.valid.map((test) => {
+        return {
+          ...test,
+          languageOptions: getLanguageOptions(test),
+          filename: FILE_NAME,
+        };
+      }),
       invalid: tests.invalid.map((test) => ({
         ...test,
-        languageOptions:
-          test.languageOptions && test.languageOptions.parserOptions
-            ? test.languageOptions.parserOptions
-            : {},
+        languageOptions: getLanguageOptions(test),
         filename: FILE_NAME,
       })),
     });
@@ -49,6 +61,19 @@ class RuleTester extends ESLintRuleTester {
  * @param {"espree"} [parser]
  */
 module.exports = function createRuleTester(parser) {
+  if (process.env.TEST_ESLINT_LEGACY_CONFIG) {
+    return new RuleTester({
+      languageOptions: !parser
+        ? {
+            parser: require("@html-eslint/parser"),
+          }
+        : {
+            parserOptions: {
+              ecmaVersion: 2015,
+            },
+          },
+    });
+  }
   if (!parser) {
     return new RuleTester({
       plugins: {
@@ -58,16 +83,11 @@ module.exports = function createRuleTester(parser) {
       language: "html/html",
     });
   }
-
   return new RuleTester({
-    languageOptions: !parser
-      ? {
-          parser: require("@html-eslint/parser"),
-        }
-      : {
-          parserOptions: {
-            ecmaVersion: 2015,
-          },
-        },
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 2015,
+      },
+    },
   });
 };
