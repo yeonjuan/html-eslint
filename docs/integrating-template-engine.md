@@ -50,6 +50,27 @@ module.exports = [
 ];
 ```
 
+### Language
+
+```js,eslint.config.js
+const html = require("@html-eslint/eslint-plugin");
+
+module.exports = [
+  {
+    files: ["**/*.html"],
+    plugins: {
+      "@html-eslint": html
+    },
+    language: "@html-eslint/html",
+    languageOptions: {
+      templateEngineSyntax: {
+        "{{": "}}"
+      }
+    }
+  },
+];
+```
+
 ## Using Presets
 
 To simplify the setup, the plugin provides built-in presets for common template engines. You can enable these presets by importing them from @html-eslint/parser:
