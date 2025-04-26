@@ -10,7 +10,7 @@ ruleTester.run("no-duplicate-attrs", rule, {
       code: `<div> </div>`,
     },
     {
-      code: `<div foo="foo" </div>`,
+      code: `<div foo="foo"> </div>`,
     },
     {
       code: `<div foo="foo" bar="bar"> </div>`,
@@ -147,7 +147,7 @@ templateRuleTester.run("[template] no-duplicate-attrs", rule, {
       code: `html\`<div> </div>\``,
     },
     {
-      code: `html\`<div foo="foo" </div>\``,
+      code: `html\`<div foo="foo"> </div>\``,
     },
     {
       code: `html\`<div foo="foo" bar="bar"> </div>\``,
