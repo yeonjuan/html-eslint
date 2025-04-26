@@ -7,6 +7,7 @@
 - [Configuration](#configuration)
   - [Flat config](#flat-config)
   - [eslintrc config (.eslintrc.\*)](#eslintrc-config-eslintrc)
+  - [Using ESlint Language](#using-eslint-language)
 - [Lint HTML in JavaScript Template Literal](#lint-html-in-javascript-template-literals)
 - [Editor Configuration](#editor-configuration)
 
@@ -164,6 +165,28 @@ module.exports = {
     },
   ],
 };
+```
+
+### Using ESlint Language
+
+Starting from ESLint v9.7.0, you can use [Language](https://eslint.org/docs/latest/extend/languages).
+
+```js,eslint.config.js
+const html = require("@html-eslint/eslint-plugin");
+
+module.exports = [
+  // your own configurations.
+  {
+    files: ["**/*.html"],
+    plugins: {
+      html,
+    },
+    language: "html/html",
+    rules: {
+      // rules
+    }
+  }
+];
 ```
 
 ## Lint HTML in JavaScript Template Literals
