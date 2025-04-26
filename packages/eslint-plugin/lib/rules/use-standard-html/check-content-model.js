@@ -62,7 +62,6 @@ function checkContentModel(context, spec, node, children) {
   };
   let result = CONTINUE;
   while (result && state.contentModels && !!getContentModel(state)) {
-    debugger;
     const contentModel = getContentModel(state);
     if (!contentModel) {
       return;
@@ -129,7 +128,7 @@ function required(model, context, state, node) {
   }
   context.report({
     node,
-    messageId: MESSAGE_IDS.REQUIRED,
+    messageId: MESSAGE_IDS.NOT_ALLOWED,
   });
   return EXIT;
 }

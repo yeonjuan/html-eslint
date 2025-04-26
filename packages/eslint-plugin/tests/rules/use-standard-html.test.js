@@ -30,6 +30,9 @@ ruleTester.run("use-standard-html", rule, {
       code: `<mark>text<br/></mark>`,
     },
     {
+      code: `<fieldset></fieldset>`,
+    },
+    {
       code: `<fieldset><legend></legend></fieldset>`,
     },
     {
@@ -38,6 +41,15 @@ ruleTester.run("use-standard-html", rule, {
         <legend></legend>
       </fieldset>`,
     },
+    {
+      code: '<template id="template"><p>Smile!</p></template>',
+    },
+    {
+      code: "<custom-element>content</custom-element>",
+    },
+    {
+      code: "<head><style> div {} </style> <script> console.log('hello'); </script></head>",
+    },
   ],
   invalid: [
     // required
@@ -45,7 +57,18 @@ ruleTester.run("use-standard-html", rule, {
       code: `<html><div></div></html>`,
       errors: [
         {
-          messageId: "required",
+          messageId: "notAllowed",
+        },
+      ],
+    },
+    {
+      code: `<html>
+      <!--comment-->
+      <div></div>
+      </html>`,
+      errors: [
+        {
+          messageId: "notAllowed",
         },
       ],
     },
@@ -54,6 +77,14 @@ ruleTester.run("use-standard-html", rule, {
       errors: [
         {
           messageId: "required",
+        },
+      ],
+    },
+    {
+      code: `<html><script></script></html>`,
+      errors: [
+        {
+          messageId: "notAllowed",
         },
       ],
     },
@@ -66,12 +97,42 @@ ruleTester.run("use-standard-html", rule, {
         },
       ],
     },
+    {
+      code: `<menu>
+      <div></div>
+      <!-- comment -->
+      </menu>`,
+      errors: [
+        {
+          messageId: "notAllowed",
+        },
+      ],
+    },
     // oneOreMore
     {
       code: `<mark><div></div></mark>`,
       errors: [
         {
           messageId: "notAllowed",
+        },
+      ],
+    },
+    {
+      code: `<mark>
+      <div></div>
+      </mark>`,
+      errors: [
+        {
+          messageId: "notAllowed",
+        },
+      ],
+    },
+    {
+      code: `<head>
+      </head>`,
+      errors: [
+        {
+          messageId: "required",
         },
       ],
     },
