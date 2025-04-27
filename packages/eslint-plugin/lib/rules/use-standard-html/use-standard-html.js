@@ -41,7 +41,8 @@ module.exports = {
     ],
     messages: {
       [MESSAGE_IDS.REQUIRED]: "required",
-      [MESSAGE_IDS.NOT_ALLOWED]: "not allowed",
+      [MESSAGE_IDS.NOT_ALLOWED]:
+        "Element '{{child}}' not allowed as child of element '{{parent}}'",
     },
   },
   create(context) {

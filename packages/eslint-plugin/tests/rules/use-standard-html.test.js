@@ -76,7 +76,7 @@ ruleTester.run("use-standard-html", rule, {
       code: `<html><div></div></html>`,
       errors: [
         {
-          messageId: "notAllowed",
+          message: `Element 'div' not allowed as child of element 'html'`,
         },
       ],
     },

@@ -17,7 +17,11 @@
 
 const { getElementSpec } = require("html-standard");
 const { isTag } = require("../utils/node");
-const { shouldIgnoreChild, getNodeName } = require("./helpers");
+const {
+  shouldIgnoreChild,
+  getNodeName,
+  getDisplayNodeName,
+} = require("./helpers");
 
 const EXIT = false;
 const CONTINUE = true;
@@ -117,6 +121,10 @@ function checkContentModel(
   if (remain && !contentModel) {
     context.report({
       node: remain,
+      data: {
+        child: getDisplayNodeName(remain),
+        parent: getDisplayNodeName(node),
+      },
       messageId: MESSAGE_IDS.NOT_ALLOWED,
     });
   }
@@ -152,6 +160,10 @@ function required(model, context, state, node) {
   }
   context.report({
     node: node.openStart,
+    data: {
+      child: getDisplayNodeName(child),
+      parent: getDisplayNodeName(node),
+    },
     messageId: MESSAGE_IDS.NOT_ALLOWED,
   });
   return EXIT;

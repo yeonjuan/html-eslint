@@ -38,10 +38,34 @@ function getNodeName(node) {
   if (isComment(node)) {
     return "#comment";
   }
+  return "Unknown";
+}
+
+/**
+ * @param {AnyHTMLNode} node
+ * @returns {string}
+ */
+function getDisplayNodeName(node) {
+  if (isTag(node)) {
+    return node.name;
+  }
+  if (isText(node)) {
+    return "Text";
+  }
+  if (isScript(node)) {
+    return "script";
+  }
+  if (isStyle(node)) {
+    return "style";
+  }
+  if (isComment(node)) {
+    return "Comment";
+  }
   return "#unknown";
 }
 
 module.exports = {
   shouldIgnoreChild,
   getNodeName,
+  getDisplayNodeName,
 };
