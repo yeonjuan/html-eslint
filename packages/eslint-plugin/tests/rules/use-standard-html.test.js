@@ -6,6 +6,18 @@ const ruleTester = createRuleTester();
 ruleTester.run("use-standard-html", rule, {
   valid: [
     {
+      code: `<html>
+      <head><title>TITLE</title></head>
+      <body></body>
+      </html>`,
+    },
+    {
+      code: "<title>TITLE</title>",
+    },
+    {
+      code: "<span>TITLE</span>",
+    },
+    {
       code: `<slot></slot>`,
     },
     {
@@ -140,6 +152,14 @@ ruleTester.run("use-standard-html", rule, {
       errors: [
         {
           messageId: "required",
+        },
+      ],
+    },
+    {
+      code: `<div><style> .foo { } </style></div>`,
+      errors: [
+        {
+          messageId: "notAllowed",
         },
       ],
     },

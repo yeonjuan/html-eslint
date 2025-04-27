@@ -15,6 +15,8 @@
  * @property {AnyHTMLNode[]} children
  */
 
+const { getElementSpec } = require("html-standard");
+const { isTag } = require("../utils/node");
 const { shouldIgnoreChild, getNodeName } = require("./helpers");
 
 const EXIT = false;
@@ -47,10 +49,23 @@ function getContentModel(state) {
 /**
  * @param {Context} context
  * @param {ElementSpec} spec
- * @param {AnyHTMLNode} node
+ * @param {Tag} node
  * @param {AnyHTMLNode[]} children
+ * @param {boolean} allowUnknownChildren
  */
-function checkContentModel(context, spec, node, children) {
+function checkContentModel(
+  context,
+  spec,
+  node,
+  children,
+  allowUnknownChildren
+) {
+  if (
+    allowUnknownChildren &&
+    children.some((child) => isTag(child) && !getElementSpec(child.name))
+  ) {
+    return;
+  }
   /**
    * @type {State}
    */
@@ -66,6 +81,7 @@ function checkContentModel(context, spec, node, children) {
     if (!contentModel) {
       return;
     }
+
     switch (contentModel.type) {
       case "required": {
         result = required(contentModel, context, state, node);
@@ -91,7 +107,12 @@ function checkContentModel(context, spec, node, children) {
       }
     }
   }
-  const remain = getChild(state);
+  let remain = getChild(state);
+  while (remain && shouldIgnoreChild(remain)) {
+    state.childIndex++;
+    remain = getChild(state);
+  }
+
   const contentModel = getContentModel(state);
   if (remain && !contentModel) {
     context.report({
@@ -105,21 +126,24 @@ function checkContentModel(context, spec, node, children) {
  * @param {ContentModel & {type: "required"}} model
  * @param {Context} context
  * @param {State} state
- * @param {AnyHTMLNode} node
+ * @param {Tag} node
  * @returns {boolean}
  */
+
 function required(model, context, state, node) {
   let child = getChild(state);
+  while (child && shouldIgnoreChild(child)) {
+    state.childIndex++;
+    child = getChild(state);
+  }
   if (!child) {
     context.report({
-      node,
+      node: node.openStart,
       messageId: MESSAGE_IDS.REQUIRED,
     });
     return EXIT;
   }
-  if (shouldIgnoreChild(child)) {
-    state.childIndex++;
-  }
+
   const name = getNodeName(child);
   if (model.contents.has(name)) {
     state.childIndex++;
@@ -127,7 +151,7 @@ function required(model, context, state, node) {
     return CONTINUE;
   }
   context.report({
-    node,
+    node: node.openStart,
     messageId: MESSAGE_IDS.NOT_ALLOWED,
   });
   return EXIT;
@@ -166,7 +190,7 @@ function zeroOrMore(model, state) {
  * @param {ContentModel & {type: "oneOrMore"}} model
  * @param {Context} context
  * @param {State} state
- * @param {AnyHTMLNode} node
+ * @param {Tag} node
  * @returns {boolean}
  */
 function oneOrMore(model, context, state, node) {
@@ -193,7 +217,7 @@ function oneOrMore(model, context, state, node) {
 
   if (count <= 0 && !model.contents.has("#text")) {
     context.report({
-      node,
+      node: node.openStart,
       messageId: MESSAGE_IDS.REQUIRED,
     });
     return EXIT;

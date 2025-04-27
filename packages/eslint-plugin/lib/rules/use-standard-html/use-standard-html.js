@@ -7,7 +7,7 @@
  * @typedef {import("../../types").Context<[Option]> } Context
  *
  * @typedef {Object} Option
- * @property {string[]} [Option.priority]
+ * @property {boolean} [Option.allowUnknownChildren]
  * @typedef { import("../../types").RuleModule<[Option]> } RuleModule
  */
 
@@ -33,22 +33,28 @@ module.exports = {
       {
         type: "object",
         properties: {
-          priority: {
-            type: "array",
-            items: {
-              type: "string",
-              uniqueItems: true,
-            },
+          allowUnknownChildren: {
+            type: "boolean",
           },
         },
       },
     ],
     messages: {
-      [MESSAGE_IDS.REQUIRED]: "TBD",
-      [MESSAGE_IDS.NOT_ALLOWED]: "TBD",
+      [MESSAGE_IDS.REQUIRED]: "required",
+      [MESSAGE_IDS.NOT_ALLOWED]: "not allowed",
     },
   },
   create(context) {
+    /**
+     * @type {Option}
+     */
+    const options =
+      context.options && context.options[0]
+        ? context.options[0]
+        : {
+            allowUnknownChildren: true,
+          };
+    const allowUnknownChildren = options.allowUnknownChildren;
     return {
       Tag(node) {
         const name = node.name.toLowerCase();
@@ -67,7 +73,13 @@ module.exports = {
           return;
         }
 
-        checkContentModel(context, spec, node, node.children);
+        checkContentModel(
+          context,
+          spec,
+          node,
+          node.children,
+          allowUnknownChildren === true
+        );
       },
     };
   },
