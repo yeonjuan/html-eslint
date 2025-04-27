@@ -5,19 +5,20 @@
   flex-direction: column;
 }
 
-.burger > div {
+.burger > span {
+  display: block;
   height: 2px;
   transition: 0.2s ease-out;
   z-index: 999;
 }
 
-.menuInput:checked ~ .burger > div:nth-child(1) {
+.menuInput:checked ~ .burger > span:nth-child(1) {
   transform: translateY(6.5px) rotate(45deg);
 }
-.menuInput:checked ~ .burger > div:nth-child(2) {
+.menuInput:checked ~ .burger > span:nth-child(2) {
   opacity: 0;
 }
-.menuInput:checked ~ .burger > div:nth-child(3) {
+.menuInput:checked ~ .burger > span:nth-child(3) {
   transform: translateY(-6.5px) rotate(-45deg);
 }
 </style>
@@ -44,11 +45,11 @@
   <span
     for="menu"
     aria-label="menu button"
-    class="burger flex flex-col justify-between ml-auto h-[21px] w-[21px] px-[1px] py-[3px] [&>div]:h-[2px] [&>div]:w-[18px] [&>div]:bg-black-900 md:hidden hover:cursor-pointer"
+    class="burger flex flex-col justify-between ml-auto h-[21px] w-[21px] px-[1px] py-[3px] [&>span]:h-[2px] [&>span]:w-[18px] [&>span]:bg-black-900 md:hidden hover:cursor-pointer"
   >
-    <div></div>
-    <div></div>
-    <div></div>
+    <span></span>
+    <span></span>
+    <span></span>
   </span>
   <module href="/components/header/nav.html"></module>
 </header>

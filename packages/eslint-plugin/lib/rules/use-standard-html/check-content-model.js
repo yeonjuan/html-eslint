@@ -29,6 +29,7 @@ const CONTINUE = true;
 const MESSAGE_IDS = {
   REQUIRED: "required",
   NOT_ALLOWED: "notAllowed",
+  NOT_ALLOWED_DESCENDANT: "notAllowedDescendant",
 };
 
 /**
@@ -104,6 +105,7 @@ function checkContentModel(
         break;
       }
       case "either": {
+        result = EXIT;
         break;
       }
       default: {
@@ -145,8 +147,15 @@ function required(model, context, state, node) {
     child = getChild(state);
   }
   if (!child) {
+    if (model.contents.has("#text")) {
+      return EXIT;
+    }
     context.report({
       node: node.openStart,
+      data: {
+        parent: getDisplayNodeName(node),
+        child: Array.from(model.contents.keys()).join(","),
+      },
       messageId: MESSAGE_IDS.REQUIRED,
     });
     return EXIT;
@@ -206,6 +215,29 @@ function zeroOrMore(model, state) {
  * @returns {boolean}
  */
 function oneOrMore(model, context, state, node) {
+  if (model.constraints && model.constraints.children) {
+    const childrenConstraints = Array.from(
+      model.constraints.children.entries()
+    );
+    const required = childrenConstraints.filter(
+      ([, value]) => value.required === true
+    );
+    const missings = required.filter(
+      ([name]) => !node.children.some((child) => getNodeName(child) === name)
+    );
+    if (missings.length) {
+      context.report({
+        messageId: MESSAGE_IDS.REQUIRED,
+        data: {
+          parent: getDisplayNodeName(node),
+          child: missings.map(([name]) => name).join(","),
+        },
+        node,
+      });
+      return EXIT;
+    }
+  }
+
   let child = getChild(state);
   if (!child) {
     state.childIndex++;

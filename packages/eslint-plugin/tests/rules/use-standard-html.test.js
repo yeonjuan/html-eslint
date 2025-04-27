@@ -21,7 +21,7 @@ ruleTester.run("use-standard-html", rule, {
       code: `<slot></slot>`,
     },
     {
-      code: `<html><head></head><body></body></html>`,
+      code: `<html><head><title></title></head><body></body></html>`,
     },
     {
       code: `<menu><li></li></menu>`,
@@ -60,7 +60,7 @@ ruleTester.run("use-standard-html", rule, {
       code: "<custom-element>content</custom-element>",
     },
     {
-      code: "<head><style> div {} </style> <script> console.log('hello'); </script></head>",
+      code: "<head><title></title><style> div {} </style> <script> console.log('hello'); </script></head>",
     },
     {
       code: `
@@ -165,6 +165,15 @@ ruleTester.run("use-standard-html", rule, {
     },
     {
       code: `<fieldset><base></base></fieldset>`,
+      errors: [
+        {
+          messageId: "notAllowed",
+        },
+      ],
+    },
+    // constraints
+    {
+      code: `<address><header></header></address>`,
       errors: [
         {
           messageId: "notAllowed",

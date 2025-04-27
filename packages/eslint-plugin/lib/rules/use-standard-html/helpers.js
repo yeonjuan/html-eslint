@@ -24,7 +24,7 @@ function shouldIgnoreChild(child) {
  */
 function getNodeName(node) {
   if (isTag(node)) {
-    return node.name;
+    return node.name.toLowerCase();
   }
   if (isText(node)) {
     return "#text";

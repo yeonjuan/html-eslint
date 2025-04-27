@@ -40,7 +40,8 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.REQUIRED]: "required",
+      [MESSAGE_IDS.REQUIRED]:
+        "Element '{{parent}}' is missing a required instance of child element '{{child}}'",
       [MESSAGE_IDS.NOT_ALLOWED]:
         "Element '{{child}}' not allowed as child of element '{{parent}}'",
     },
