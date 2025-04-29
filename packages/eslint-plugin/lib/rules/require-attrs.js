@@ -2,6 +2,7 @@
  * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
  * @typedef { import("@html-eslint/types").StyleTag } StyleTag
+ * @typedef { import("@html-eslint/types").Attribute } Attribute
  *
  * @typedef {Object} Option
  * @property {string} tag
@@ -9,6 +10,7 @@
  * @property {string} [value]
  *
  * @typedef { import("../types").RuleModule<Option[]> } RuleModule
+ * @typedef { import("../types").ReportFixFunction} ReportFixFunction
  *
  */
 
@@ -33,7 +35,7 @@ module.exports = {
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
     },
-    fixable: null,
+    fixable: "code",
     schema: {
       type: "array",
       items: {
@@ -48,9 +50,9 @@ module.exports = {
       },
     },
     messages: {
-      [MESSAGE_IDS.MISSING]: "Missing '{{attr}}' attributes for '{{tag}}' tag",
+      [MESSAGE_IDS.MISSING]: "Missing '{{attr}}' attribute on '{{tag}}' tag",
       [MESSAGE_IDS.UNEXPECTED]:
-        "Unexpected '{{attr}}' attributes value. '{{expected}}' is expected",
+        "Unexpected '{{attr}}' attribute value. '{{expected}}' is expected",
     },
   },
 
@@ -97,6 +99,15 @@ module.exports = {
               attr: attrName,
               tag: tagName,
             },
+            fix(fixer) {
+              if (!option.value) {
+                return null;
+              }
+              return fixer.insertTextAfter(
+                node.openStart,
+                ` ${attrName}="${option.value}"`
+              );
+            },
           });
         } else if (
           typeof option.value === "string" &&
@@ -108,6 +119,12 @@ module.exports = {
             data: {
               attr: attrName,
               expected: option.value,
+            },
+            fix(fixer) {
+              if (option.value && attr.value) {
+                return fixer.replaceText(attr.value, option.value);
+              }
+              return null;
             },
           });
         }

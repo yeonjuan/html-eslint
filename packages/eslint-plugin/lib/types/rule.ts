@@ -71,7 +71,7 @@ export interface RuleFixer {
   replaceTextRange(range: eslint.AST.Range, text: string): RuleFix;
 }
 
-type ReportFixFunction = (
+export type ReportFixFunction = (
   fixer: RuleFixer
 ) => IterableIterator<RuleFix> | readonly RuleFix[] | RuleFix | null;
 
