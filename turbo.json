@@ -11,6 +11,9 @@
     "test": {
       "dependsOn": ["^build"]
     },
+    "test:legacy": {
+      "dependsOn": ["^build"]
+    },
     "ts": {
       "dependsOn": ["^build"]
     },

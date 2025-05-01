@@ -1,6 +1,32 @@
 const ESLint = require("eslint");
 
-function getLinter() {
+/** @type {any} */
+const LEGACY_OPTIONS = {
+  plugins: {
+    // @ts-ignore
+    "@html-eslint": require("@html-eslint/eslint-plugin"),
+  },
+  languageOptions: {
+    parser: require("@html-eslint/parser"),
+  },
+};
+
+/** @type {any} */
+const LANGUAGE_OPTIONS = {
+  plugins: {
+    // @ts-ignore
+    "@html-eslint": require("@html-eslint/eslint-plugin"),
+  },
+  languageOptions: {
+    parser: require("@html-eslint/parser"),
+  },
+};
+
+/**
+ * @param {any} options
+ * @returns
+ */
+function getLinter(options) {
   const linter = new ESLint.Linter({
     configType: "flat",
   });
@@ -13,13 +39,7 @@ function getLinter() {
      */
     lint(code, rulesConfig) {
       return linter.verify(code, {
-        plugins: {
-          // @ts-ignore
-          "@html-eslint": require("@html-eslint/eslint-plugin"),
-        },
-        languageOptions: {
-          parser: require("@html-eslint/parser"),
-        },
+        ...options,
         rules: rulesConfig,
       });
     },
@@ -27,61 +47,69 @@ function getLinter() {
 }
 
 describe("inline disable", () => {
-  const linter = getLinter();
+  const legacyLinter = getLinter(LEGACY_OPTIONS);
+  const languageLinter = getLinter(LANGUAGE_OPTIONS);
+
   it("eslint-disable all rules", () => {
-    const result = linter.lint(
-      `
-       <!-- eslint-disable -->
-        <div style="foo"></div>
-        <div foo="foo" foo="foo"></div>
-      `,
-      {
-        "@html-eslint/no-inline-styles": "error",
-        "@html-eslint/no-duplicate-attrs": "error",
-      }
-    );
-    expect(result).toHaveLength(0);
+    const code = `
+<!-- eslint-disable -->
+<div style="foo"></div>
+<div foo="foo" foo="foo"></div>
+   `;
+    const rules = {
+      "@html-eslint/no-inline-styles": "error",
+      "@html-eslint/no-duplicate-attrs": "error",
+    };
+
+    const legacyResult = legacyLinter.lint(code, rules);
+    expect(legacyResult).toHaveLength(0);
+    const languageResult = languageLinter.lint(code, rules);
+    expect(languageResult).toHaveLength(0);
   });
 
   it("eslint-disable and enable all rules", () => {
-    const result = linter.lint(
-      `
-       <!-- eslint-disable -->
-       <div style="foo"></div>
-       <!-- eslint-enable -->
-        <div style="foo"></div>
-        <div foo="foo" foo="foo"></div>
-      `,
-      {
-        "@html-eslint/no-inline-styles": "error",
-        "@html-eslint/no-duplicate-attrs": "error",
-      }
-    );
-    expect(result).toHaveLength(2);
+    const code = `
+<!-- eslint-disable -->
+<div style="foo"></div>
+<!-- eslint-enable -->
+<div style="foo"></div>
+<div foo="foo" foo="foo"></div>
+   `;
+    const rules = {
+      "@html-eslint/no-inline-styles": "error",
+      "@html-eslint/no-duplicate-attrs": "error",
+    };
+
+    const legacyResult = legacyLinter.lint(code, rules);
+    expect(legacyResult).toHaveLength(2);
+    const languageResult = languageLinter.lint(code, rules);
+    expect(languageResult).toHaveLength(2);
   });
 
   it("eslint-disable rule", () => {
-    const result = linter.lint(
-      `
-       <!-- eslint-disable @html-eslint/no-inline-styles -->
-        <div style="foo"></div>
-      `,
-      {
-        "@html-eslint/no-inline-styles": "error",
-      }
-    );
-    expect(result).toHaveLength(0);
+    const code = `
+<!-- eslint-disable @html-eslint/no-inline-styles -->
+<div style="foo"></div>
+      `;
+    const rule = {
+      "@html-eslint/no-inline-styles": "error",
+    };
+    const legacyResult = legacyLinter.lint(code, rule);
+    expect(legacyResult).toHaveLength(0);
+    const languageResult = languageLinter.lint(code, rule);
+    expect(languageResult).toHaveLength(0);
   });
   it("eslint-disable-next-line rule", () => {
-    const result = linter.lint(
-      `
-        <!-- eslint-disable-next-line @html-eslint/require-img-alt -->
-        <img src="/some/path"></img>
-      `,
-      {
-        "@html-eslint/require-img-alt": "error",
-      }
-    );
-    expect(result).toHaveLength(0);
+    const code = `
+<!-- eslint-disable-next-line @html-eslint/require-img-alt -->
+<img src="/some/path"></img>
+  `;
+    const rule = {
+      "@html-eslint/require-img-alt": "error",
+    };
+    const legacyResult = legacyLinter.lint(code, rule);
+    expect(legacyResult).toHaveLength(0);
+    const languageResult = languageLinter.lint(code, rule);
+    expect(languageResult).toHaveLength(0);
   });
 });

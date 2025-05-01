@@ -1034,6 +1034,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/core@npm:0.13.0, @eslint/core@npm:^0.13.0":
+  version: 0.13.0
+  resolution: "@eslint/core@npm:0.13.0"
+  dependencies:
+    "@types/json-schema": "npm:^7.0.15"
+  checksum: ba724a7df7ed9dab387481f11d0d0f708180f40be93acce2c21dacca625c5867de3528760c42f1c457ccefe6a669d525ff87b779017eabc0d33479a36300797b
+  languageName: node
+  linkType: hard
+
 "@eslint/core@npm:^0.10.0":
   version: 0.10.0
   resolution: "@eslint/core@npm:0.10.0"
@@ -1135,6 +1144,16 @@ __metadata:
   version: 2.1.6
   resolution: "@eslint/object-schema@npm:2.1.6"
   checksum: b8cdb7edea5bc5f6a96173f8d768d3554a628327af536da2fc6967a93b040f2557114d98dbcdbf389d5a7b290985ad6a9ce5babc547f36fc1fde42e674d11a56
+  languageName: node
+  linkType: hard
+
+"@eslint/plugin-kit@npm:0.2.8":
+  version: 0.2.8
+  resolution: "@eslint/plugin-kit@npm:0.2.8"
+  dependencies:
+    "@eslint/core": "npm:^0.13.0"
+    levn: "npm:^0.4.1"
+  checksum: 554847c8f2b6bfe0e634f317fc43d0b54771eea0015c4f844f75915fdb9e6170c830c004291bad57db949d61771732e459f36ed059f45cf750af223f77357c5c
   languageName: node
   linkType: hard
 
@@ -1275,13 +1294,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
   dependencies:
+    "@eslint/core": "npm:0.13.0"
+    "@eslint/plugin-kit": "npm:0.2.8"
     "@html-eslint/parser": "npm:^0.39.0"
     "@html-eslint/template-parser": "npm:^0.39.0"
     "@html-eslint/template-syntax-parser": "npm:^0.39.0"
     "@html-eslint/types": "npm:^0.39.0"
     "@types/eslint": "npm:^9.6.1"
     "@types/estree": "npm:^0.0.47"
-    es-html-parser: "npm:0.1.1"
+    es-html-parser: "npm:0.2.0"
     eslint: "npm:^9.21.0"
     espree: "npm:^10.3.0"
     typescript: "npm:^5.7.2"
@@ -1316,7 +1337,7 @@ __metadata:
   dependencies:
     "@html-eslint/template-syntax-parser": "npm:^0.39.0"
     "@html-eslint/types": "npm:^0.39.0"
-    es-html-parser: "npm:0.1.1"
+    es-html-parser: "npm:0.2.0"
     typescript: "npm:^5.7.2"
   languageName: unknown
   linkType: soft
@@ -1328,7 +1349,7 @@ __metadata:
     "@html-eslint/types": "npm:^0.39.0"
     "@types/espree": "npm:^10.1.0"
     "@types/estree": "npm:^0.0.47"
-    es-html-parser: "npm:0.1.1"
+    es-html-parser: "npm:0.2.0"
     eslint: "npm:^9.19.0"
     espree: "npm:^10.3.0"
     globals: "npm:^15.12.0"
@@ -1351,7 +1372,7 @@ __metadata:
   resolution: "@html-eslint/types@workspace:packages/types"
   dependencies:
     "@types/estree": "npm:^1.0.6"
-    es-html-parser: "npm:0.1.1"
+    es-html-parser: "npm:0.2.0"
     eslint: "npm:^9.19.0"
     typescript: "npm:^5.7.2"
   languageName: unknown
@@ -7032,10 +7053,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-html-parser@npm:0.1.1":
-  version: 0.1.1
-  resolution: "es-html-parser@npm:0.1.1"
-  checksum: 0bd8afa3293b12766fd0fde3e74bfe842c78275a1954b0c39979d2bfe35db7417808c90327b7b41dd47b51bf24368e88521ec3b44c71c2826ede301cd24d85c0
+"es-html-parser@npm:0.2.0":
+  version: 0.2.0
+  resolution: "es-html-parser@npm:0.2.0"
+  checksum: bda5e1dc9f6297eeea8707d67d36162e567a3bbf2696814c204edb1d30e4641511cde4cf3bd43f649e5a6c4644a07dfaf16b007a3000ecf98e48c324e38937ad
   languageName: node
   linkType: hard
 

@@ -23,6 +23,8 @@ jobs:
         run: yarn lint
       - name: Unit Tests
         run: yarn test
+      - name: Unit Tests (Legacy)
+        run: yarn test:legacy
       - name: Check Spells
         run: yarn check:spell
       - name: Check Format
