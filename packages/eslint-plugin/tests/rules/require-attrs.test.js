@@ -104,6 +104,42 @@ ruleTester.run("require-attrs", rule, {
       ],
     },
     {
+      code: `<img class/>`,
+      options: [
+        {
+          tag: "img",
+          attr: "class",
+          value: "img",
+        },
+      ],
+      output: '<img class="img"/>',
+      errors: [
+        {
+          line: 1,
+          column: 6,
+          message: "Unexpected 'class' attribute value. 'img' is expected",
+        },
+      ],
+    },
+    {
+      code: `<img class id="1"/>`,
+      options: [
+        {
+          tag: "img",
+          attr: "class",
+          value: "img",
+        },
+      ],
+      output: '<img class="img" id="1"/>',
+      errors: [
+        {
+          line: 1,
+          column: 6,
+          message: "Unexpected 'class' attribute value. 'img' is expected",
+        },
+      ],
+    },
+    {
       code: `<svg></svg>`,
       options: [
         {
@@ -184,6 +220,7 @@ ruleTester.run("require-attrs", rule, {
           value: "0 0 100 100",
         },
       ],
+      output: `<svg viewBox="0 0 100 100"></svg>`,
       errors: [
         {
           line: 1,

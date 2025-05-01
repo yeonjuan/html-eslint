@@ -121,8 +121,11 @@ module.exports = {
               expected: option.value,
             },
             fix(fixer) {
-              if (option.value && attr.value) {
-                return fixer.replaceText(attr.value, option.value);
+              if (option.value) {
+                if (attr.value) {
+                  return fixer.replaceText(attr.value, option.value);
+                }
+                return fixer.insertTextAfter(attr.key, `="${option.value}"`);
               }
               return null;
             },
