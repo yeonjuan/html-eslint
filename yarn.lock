@@ -1292,7 +1292,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/html-eslint@workspace:."
   dependencies:
-    "@mdn/browser-compat-data": "npm:^6.0.2"
+    "@mdn/browser-compat-data": "npm:^6.0.10"
     "@types/jest": "npm:^29.5.14"
     compute-baseline: "npm:^0.3.1"
     cspell: "npm:^8.0.0"
@@ -1932,10 +1932,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdn/browser-compat-data@npm:^6.0.2":
-  version: 6.0.2
-  resolution: "@mdn/browser-compat-data@npm:6.0.2"
-  checksum: 1bc8438044bfdf86d3b590397fc05b481b9741dfc0ea6b7ec1be5983787961203144775834be2186fa0775c4178e7f38e543c66154bc1d4c411bfe1bbe4338e9
+"@mdn/browser-compat-data@npm:^6.0.10":
+  version: 6.0.10
+  resolution: "@mdn/browser-compat-data@npm:6.0.10"
+  checksum: 7c6de012a781f8a405d8495b977854329b3a98e65b2eb81b2a753e52f69a9767577ef5bd2502ae7f8efeb7e0bb85ff943795776e8872893761c768e2a0d315e9
   languageName: node
   linkType: hard
 
