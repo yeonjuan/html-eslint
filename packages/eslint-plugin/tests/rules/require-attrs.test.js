@@ -86,6 +86,60 @@ ruleTester.run("require-attrs", rule, {
   ],
   invalid: [
     {
+      code: `<img/>`,
+      options: [
+        {
+          tag: "img",
+          attr: "class",
+          value: "img",
+        },
+      ],
+      output: '<img class="img"/>',
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'class' attribute on 'img' tag",
+        },
+      ],
+    },
+    {
+      code: `<img class/>`,
+      options: [
+        {
+          tag: "img",
+          attr: "class",
+          value: "img",
+        },
+      ],
+      output: '<img class="img"/>',
+      errors: [
+        {
+          line: 1,
+          column: 6,
+          message: "Unexpected 'class' attribute value. 'img' is expected",
+        },
+      ],
+    },
+    {
+      code: `<img class id="1"/>`,
+      options: [
+        {
+          tag: "img",
+          attr: "class",
+          value: "img",
+        },
+      ],
+      output: '<img class="img" id="1"/>',
+      errors: [
+        {
+          line: 1,
+          column: 6,
+          message: "Unexpected 'class' attribute value. 'img' is expected",
+        },
+      ],
+    },
+    {
       code: `<svg></svg>`,
       options: [
         {
@@ -97,7 +151,7 @@ ruleTester.run("require-attrs", rule, {
         {
           line: 1,
           column: 1,
-          message: "Missing 'viewBox' attributes for 'svg' tag",
+          message: "Missing 'viewBox' attribute on 'svg' tag",
         },
       ],
     },
@@ -110,11 +164,30 @@ ruleTester.run("require-attrs", rule, {
           value: "0 0 100 100",
         },
       ],
+      output: `<svg viewBox="0 0 100 100"></svg>`,
       errors: [
         {
           line: 1,
           column: 1,
-          message: "Missing 'viewBox' attributes for 'svg' tag",
+          message: "Missing 'viewBox' attribute on 'svg' tag",
+        },
+      ],
+    },
+    {
+      code: `<svg class="foo"></svg>`,
+      options: [
+        {
+          tag: "svg",
+          attr: "viewBox",
+          value: "0 0 100 100",
+        },
+      ],
+      output: `<svg viewBox="0 0 100 100" class="foo"></svg>`,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'viewBox' attribute on 'svg' tag",
         },
       ],
     },
@@ -127,13 +200,14 @@ ruleTester.run("require-attrs", rule, {
           value: "0 0 100 100",
         },
       ],
+      output: `<svg viewBox="0 0 100 100"></svg>`,
       errors: [
         {
           line: 1,
           column: 6,
           endColumn: 16,
           message:
-            "Unexpected 'viewBox' attributes value. '0 0 100 100' is expected",
+            "Unexpected 'viewBox' attribute value. '0 0 100 100' is expected",
         },
       ],
     },
@@ -146,13 +220,14 @@ ruleTester.run("require-attrs", rule, {
           value: "0 0 100 100",
         },
       ],
+      output: `<svg viewBox="0 0 100 100"></svg>`,
       errors: [
         {
           line: 1,
           column: 6,
           endColumn: 13,
           message:
-            "Unexpected 'viewBox' attributes value. '0 0 100 100' is expected",
+            "Unexpected 'viewBox' attribute value. '0 0 100 100' is expected",
         },
       ],
     },
@@ -168,7 +243,7 @@ ruleTester.run("require-attrs", rule, {
         {
           line: 1,
           column: 1,
-          message: "Missing 'alt' attributes for 'img' tag",
+          message: "Missing 'alt' attribute on 'img' tag",
         },
       ],
     },
@@ -184,7 +259,7 @@ ruleTester.run("require-attrs", rule, {
         {
           line: 1,
           column: 1,
-          message: "Missing 'src' attributes for 'script' tag",
+          message: "Missing 'src' attribute on 'script' tag",
         },
       ],
     },
@@ -197,12 +272,13 @@ ruleTester.run("require-attrs", rule, {
           value: "text/css",
         },
       ],
+      output: `<style type="text/css"></style>`,
       errors: [
         {
           line: 1,
           column: 8,
           endColumn: 22,
-          message: "Unexpected 'type' attributes value. 'text/css' is expected",
+          message: "Unexpected 'type' attribute value. 'text/css' is expected",
         },
       ],
     },
@@ -219,17 +295,18 @@ ruleTester.run("require-attrs", rule, {
           value: "img",
         },
       ],
+      output: `<img class="img"/>`,
       errors: [
         {
           line: 1,
           column: 1,
-          message: "Missing 'alt' attributes for 'img' tag",
+          message: "Missing 'alt' attribute on 'img' tag",
         },
         {
           line: 1,
           column: 6,
           endColumn: 19,
-          message: "Unexpected 'class' attributes value. 'img' is expected",
+          message: "Unexpected 'class' attribute value. 'img' is expected",
         },
       ],
     },
@@ -262,17 +339,18 @@ templateRuleTester.run("[template] require-attrs", rule, {
           value: "img",
         },
       ],
+      output: 'html`<img class="img"/>`',
       errors: [
         {
           line: 1,
           column: 6,
-          message: "Missing 'alt' attributes for 'img' tag",
+          message: "Missing 'alt' attribute on 'img' tag",
         },
         {
           line: 1,
           column: 11,
           endColumn: 24,
-          message: "Unexpected 'class' attributes value. 'img' is expected",
+          message: "Unexpected 'class' attribute value. 'img' is expected",
         },
       ],
     },
