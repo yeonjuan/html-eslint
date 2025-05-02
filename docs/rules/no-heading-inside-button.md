@@ -27,5 +27,5 @@ Examples of **incorrect** code for this rule:
 Examples of **correct** code for this rule:
 
 ```html,correct
-<button><span>Click Me</h1></button>
+<button><span>Click Me</span></button>
 ```
