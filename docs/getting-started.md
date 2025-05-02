@@ -2,7 +2,7 @@
 
 ## Contents
 
-- [Prerequisites](#ㅔrerequisites)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Configuration](#configuration)
   - [Flat config](#flat-config)
