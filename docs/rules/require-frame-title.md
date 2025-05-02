@@ -1,6 +1,6 @@
 # require-frame-title
 
-This rule enforces use of `title` attribute in `<frame>` and `<iframe>`.
+This rule enforces the use of `title` attribute on `<frame>` and `<iframe>`.
 
 ## Why?
 

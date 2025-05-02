@@ -2,7 +2,7 @@
 
 ## Contents
 
-- [Prerequisite](#prerequisite)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Configuration](#configuration)
   - [Flat config](#flat-config)
@@ -11,7 +11,7 @@
 - [Lint HTML in JavaScript Template Literal](#lint-html-in-javascript-template-literals)
 - [Editor Configuration](#editor-configuration)
 
-## Prerequisite
+## Prerequisites
 
 - Node.js: `^12.22.0 || ^14.17.0 || >=16.0.0`.
 - ESLint: `>=6`.
@@ -191,7 +191,7 @@ module.exports = [
 
 ## Lint HTML in JavaScript Template Literals
 
-This plugin provides the ability to lint not only HTML files, but also HTML written in [JavaScript Template Literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
+This plugin allows you to lint not only HTML files but also HTML written in [JavaScript Template Literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
 You can set the [@html-eslint rules](./rules.md) in your settings to lint JavaScript code without any additional configuration.
 
 ```js,eslint.config.js
@@ -210,8 +210,8 @@ export default [
 ];
 ```
 
-Not all Template literals are recognized as HTML.
-There are two ways to get the plugin to recognize them as HTML.
+Not all template literals are recognized as HTML.
+There are two ways to make the plugin recognize them as HTML.
 
 ```js
 // 1. Tagged Templates with a function named `html`
@@ -221,7 +221,7 @@ html` <div style="${style}"></div>`;
 const code = /* html */ `<div style="${style}"></div>`;
 ```
 
-If you want to specify that linting should be done with keywords other than `html`, you can change the settings option.
+If you want to use keywords other than `html` for linting, you can configure the `settings` option.
 
 ```js
  {
@@ -244,7 +244,7 @@ If you want to specify that linting should be done with keywords other than `htm
 
 ### VSCode
 
-To get [vscode-eslint](https://github.com/microsoft/vscode-eslint) support, we need to add the following in vscode settings.
+To enable [vscode-eslint](https://github.com/microsoft/vscode-eslint) support, add the following to your VSCode settings.
 
 ```json,.vscode/settings.json
 {

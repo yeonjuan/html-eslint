@@ -37,8 +37,8 @@ Examples of **correct** code for this rule:
 
 This rule has an object option:
 
-- `"skip"`: skips newline checking for the specified elements` children.
-- `"inline"`: instructs the linter that the specified elements can remain on the same line.
+- `"skip"`: Skips newline checking for the children of the specified elements.
+- `"inline"`: Instructs the linter that the specified elements can remain on the same line.
 
 ```ts
 //...

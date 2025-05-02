@@ -1,6 +1,6 @@
 # no-nested-interactive
 
-This rule disallows interactive elements from being nested
+This rule disallows interactive elements from being nested within other interactive elements.
 
 ## Why?
 

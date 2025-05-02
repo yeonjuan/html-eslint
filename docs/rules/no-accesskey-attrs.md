@@ -1,11 +1,12 @@
 # no-accesskey-attrs
 
-This rule disallows use of `accesskey` attributes.
+This rule disallows the use of the `accesskey` attributes.
 
 ## Why?
 
-`accesskey` attributes allow web developers to assign keyboard shortcuts to elements.
-Inconsistencies between keyboard shortcuts and keyboard commands used by screenreader and keyboard only users create accessibility complications so to avoid complications, access keys should not be used.
+The `accesskey` attribute allows developers to assign keyboard shortcuts to elements.
+However, these shortcuts can conflict with screen readers or keyboard-only navigation, leading to accessibility issues.
+To prevent such problems, the use of `accesskey` is discouraged.
 
 ## How to use
 

@@ -1,6 +1,6 @@
 # no-abstract-roles
 
-This rule disallows use of abstract roles.
+This rule disallows the use of abstract ARIA roles.
 
 ## How to use
 
@@ -14,7 +14,9 @@ module.exports = {
 
 ## Rule Details
 
-This rule disallows the use of abstract roles.
+Abstract roles are part of the ARIA (Accessible Rich Internet Applications) specification, but they are not intended for direct use in HTML. Using these roles has no effect and may lead to accessibility issues.
+
+The following abstract roles are disallowed by this rule:
 
 - Abstract roles
   - command

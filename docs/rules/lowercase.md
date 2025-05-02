@@ -1,6 +1,6 @@
 # lowercase
 
-This rule enforces to use lowercase for tag and attribute names.
+This rule enforces the use of lowercase for tag and attribute names.
 
 ## How to use
 

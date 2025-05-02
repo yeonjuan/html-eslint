@@ -1,6 +1,6 @@
 # no-trailing-spaces
 
-This rule disallows trailing white spaces at the end of lines.
+This rule disallows trailing whitespace at the end of lines.
 
 ## How to use
 

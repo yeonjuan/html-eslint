@@ -26,7 +26,7 @@ For 4-space indentation (default option):
 }
 ```
 
-Or For tabbed indentation:
+Or, for tabbed indentation:
 
 ```json
 {
@@ -61,7 +61,7 @@ If the option is number it means the number of spaces for indentation.
 }
 ```
 
-Examples of **incorrect** code for this rule with the `"2"` option:
+Examples of **incorrect** code for this rule with the `2` option:
 
 <!-- prettier-ignore -->
 ```html,incorrect
@@ -70,7 +70,7 @@ Examples of **incorrect** code for this rule with the `"2"` option:
 </html>
 ```
 
-Examples of **correct** code for this rule with the `"2"` option:
+Examples of **correct** code for this rule with the `2` option:
 
 ```html,correct
 <html>
@@ -80,7 +80,7 @@ Examples of **correct** code for this rule with the `"2"` option:
 
 #### tab
 
-If the option is `"tab"` it means using `tab` for indentation.
+If the option is `"tab"` it enforces tab-based indentation.
 
 ```json
 {
@@ -126,6 +126,6 @@ This rule has an object option:
 }
 ```
 
-- `Attribute` (default: 1): enforces indentation level for attributes. e.g. indent of 2 spaces with `Attribute` set to `2` will indent the attributes with `4` spaces (2 x 2).
+- `Attribute` (default: 1): Specifies the attribute indentation level. e.g. indent of 2 spaces with `Attribute` set to `2` will indent the attributes with `4` spaces (2 x 2).
 
-- `tagChildrenIndent` (default: `{}`): specifies the indent increment of the child tags of the specified tag. e.g. For example, `"tagChildrenIndent": { "html": 0 }` will set the `<html/>` tag children to 0 indent (2 x 0).
+- `tagChildrenIndent` (default: `{}`): Specifies the indent increment of the child tags of the specified tag. e.g. For example, `"tagChildrenIndent": { "html": 0 }` will set the `<html/>` tag children to 0 indent (2 x 0).

@@ -1,13 +1,12 @@
 # no-aria-hidden-body
 
-This rule disallows the use of `aria-hidden` attribute on the `body`.
+This rule disallows the use of the `aria-hidden` attribute on the `body`.
 
 ## Why?
 
-The `aria-hidden` attribute is typically used to hide elements from assistive technologies (such as screen readers) when they are not intended to be perceived by users.
+The `aria-hidden` attribute is used to hide elements from assistive technologies, such as screen readers, when the content should not be exposed to users.
 
-When `aria-hidden`="true" is applied to the `<body>` element, it removes the entire content of the document from the accessibility tree.
-This means that assistive technologies will not perceive any of the content within the `<body>`, making the entire page inaccessible to users who rely on screen readers or other assistive technologies.
+Applying `aria-hidden="true"` to the `<body>` element removes the entire page content from the accessibility tree, effectively making the page inaccessible to users who rely on assistive technologies.
 
 ## How to use
 
@@ -24,8 +23,8 @@ module.exports = {
 Examples of **incorrect** code for this rule:
 
 ```html,incorrect
-<body aria-hidden>
-  <body aria-hidden="true"></body>
+<body aria-hidden="true">
+  <div>Main content</div>
 </body>
 ```
 

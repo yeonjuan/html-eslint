@@ -2,6 +2,11 @@
 
 This rule disallows duplicate `id` attributes.
 
+## Why?
+
+In HTML, the id attribute must be unique within a document.
+Duplicate IDs can break CSS and JavaScript selectors and interfere with accessibility tools.
+
 ## How to use
 
 ```js,.eslintrc.js

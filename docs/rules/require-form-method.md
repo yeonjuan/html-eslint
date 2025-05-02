@@ -1,6 +1,6 @@
 # require-form-method
 
-This rule enforces to use a valid `method` attribute on the `<form>`.
+This rule enforces the use a valid `method` attribute on `<form>` elements.
 
 ## Why?
 

@@ -1,6 +1,6 @@
 # require-explicit-size
 
-This rule enforces that some elements (img, iframe) have explicitly defined width and height attributes.
+This rule enforces that certain elements such as `img` and `iframe`, have explicitly defined width and height attributes.
 
 ## How to use
 
@@ -23,7 +23,7 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
-```html,incorrect
+```html,correct
 <img src="/my-image.png" width="400" height="300">
 <iframe src="/page" width="400" height="300"></iframe>
 ```
@@ -32,11 +32,11 @@ Examples of **correct** code for this rule:
 
 This rule has an object option:
 
-- `"allowClass"`: List of classes to allow even if no size is specified
-- `"allowId"`: List of IDs to allow even if size is not specified
+- `"allowClass"`: An array of class names. If an element has one of these classes, it will be exempt from this rule.
+- `"allowId"`: An array of IDs. If an element has one of these IDs, it will be exempt from this rule.
 
 ```ts
-"@html-eslint/element-newline": ["error", {
+"@html-eslint/require-explicit-size": ["error", {
   "allowClass": string[];
   "allowId": string[];
 }]

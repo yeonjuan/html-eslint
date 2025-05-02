@@ -1,11 +1,11 @@
 # no-duplicate-attrs
 
-Disallow duplicate attributes.
+This rule disallows the use of duplicate attributes.
 
 ## Why?
 
-The HTML specification mandates that attribute names must be unique within a single HTML element.
-Violating this rule results in non-compliance with the standard.
+According to the HTML specification, each attribute name must be unique within a single element.
+Duplicate attributes are invalid and can lead to unexpected behavior in browsers.
 
 ## How to use
 

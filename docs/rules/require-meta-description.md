@@ -1,10 +1,10 @@
 # require-meta-description
 
-This rule enforces to use `<meta name="description" content="...">` tag in `<head></head>`.
+This rule requires a `<meta name="description">` tag within the `<head></head>`.
 
 ## Why?
 
-`<meta name="description" content="...">` tag, is used to provide a concise and accurate summary of a web page's content.
+`<meta name="description" content="...">` tag provides a concise and accurate summary of a web page's content.
 
 - **SEO**:
   - Search engines often use the meta description as a snippet in search results to give users a preview of the content on a page. A well-crafted and relevant meta description can improve click-through rates, as it provides users with a clear idea of what to expect on the page.

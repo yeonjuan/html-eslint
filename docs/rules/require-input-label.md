@@ -4,7 +4,7 @@ This rule enforces the presence of accessible labels for input elements such as 
 
 ## Why?
 
-- Labels improve accessibility for users of assistive technologies by ensuring that form controls are properly described.
+Labels improve accessibility for users of assistive technologies by ensuring that form controls are properly described.
 
 ## How to use
 

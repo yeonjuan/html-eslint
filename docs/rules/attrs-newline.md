@@ -1,6 +1,6 @@
 # attrs-newline
 
-This rule enforces a newline between attributes, when more than a certain number of attributes is present.
+This rule enforces a newline between attributes when more than a certain number of attributes are present.
 
 ## How to use
 

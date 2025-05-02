@@ -1,17 +1,17 @@
 # no-invalid-role
 
-This rule disallows the use of invalid role on elements.
+This rule disallows the use of an invalid ARIA role on elements.
 
 ## Why?
 
-This rule checks for the following two cases
+This rule checks for the following two cases:
 
-1. If a role that doesn't exist in [this list](https://www.w3.org/TR/wai-aria/#roles_categorization) is used
+1. When a role not included in the [official ARIA role list](https://www.w3.org/TR/wai-aria/#roles_categorization) is used.
 
-1. If using `role="presentation"` or `role="none"` on certain HTML tags
+1. When `role="presentation"` or `role="none"` is used on certain HTML elements.
 
    - Certain HTML elements have built-in semantic roles that convey important meaning to assistive technologies (e.g., screen readers). Using `role="presentation"` or `role="none"` removes this meaning, making the content harder to interpret for users relying on assistive tools.
-   - Interactive elements, such as `<button>`, `<a>`, or `<input>`, are inherently focusable and actionable. Using role="presentation" or role="none" on these elements breaks their expected functionality and prevents users from interacting with them effectively.
+   - Interactive elements, such as `<button>`, `<a>`, or `<input>`, are inherently focusable and actionable. Applying `role="presentation"` or `role="none"` to these elements breaks their expected functionality and can make them unusable for assistive technology users.
 
 ## How to use
 

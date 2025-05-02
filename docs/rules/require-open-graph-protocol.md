@@ -1,6 +1,6 @@
 # require-open-graph-protocol
 
-This rule enforces to use specified meta tags for open graph protocol.
+This rule enforces the use of specified meta tags for open graph protocol.
 
 ## How to use
 

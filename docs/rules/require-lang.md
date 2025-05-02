@@ -1,6 +1,6 @@
 # require-lang
 
-This rule enforces `lang` attribute at `<html>` tag.
+This rule enforces the presence of the `lang` attribute on the `<html>` tag.
 
 ## Why?
 

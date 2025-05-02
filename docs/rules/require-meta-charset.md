@@ -1,6 +1,6 @@
 # require-meta-charset
 
-This rule enforces to use `<meta charset="...">` in the `<head>`.
+This rule requires a `<meta charset="...">` tag within the `<head>`.
 
 ## Why?
 

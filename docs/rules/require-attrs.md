@@ -1,6 +1,6 @@
 # require-attrs
 
-This rule enforces the use of tag with specified attributes.
+This rule enforces the use of tags with specified attributes.
 
 ## How to use
 
@@ -22,7 +22,7 @@ module.exports = {
 
 ### Options
 
-This rule takes a array of object which has tag name with attribute name.
+This rule takes an array of objects which has tag name with attribute name.
 
 ```js
 module.exports = {
