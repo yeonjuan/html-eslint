@@ -1,6 +1,6 @@
 # require-doctype
 
-This rule enforces to use `<!DOCTYPE html>` in the document.
+This rule enforces the use of `<!DOCTYPE html>` in the document.
 
 ## How to use
 

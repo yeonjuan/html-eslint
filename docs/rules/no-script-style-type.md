@@ -1,10 +1,10 @@
 # no-script-style-type
 
-This rule disallows the use of `type` attributes for style sheets (unless not using CSS) and scripts (unless not using JavaScript).
+This rule disallows the use of `type` attributes for style sheets (unless not using CSS) and scripts (unless using a different language than CSS/JavaScript).
 
 ## Why?
 
-Specifying below tag's `type` attributes is not necessary as HTML5 implies `text/css` and `text/javascript` as defaults
+Specifying the `type` attributes on the following tags is unnecessary as HTML5 implies `text/css` and `text/javascript` as defaults.
 
 - script - `type="text/javascript"`
 - style, link - `type="text/css"`

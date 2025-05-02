@@ -1,6 +1,6 @@
 # require-img-alt
 
-This rule enforces to use `alt` attribute in `img` tags.
+This rule enforces the use of `alt` attribute in `img` tags.
 
 ## Why?
 

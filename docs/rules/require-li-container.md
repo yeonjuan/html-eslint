@@ -1,6 +1,6 @@
 # require-li-container
 
-This rule enforces `<li>` to be in `<ul>`, `<ol>` or `<menu>`.
+This rule enforces that `<li>` elements must be children of `<ul>`, `<ol>` or `<menu>`.
 
 ## Why?
 

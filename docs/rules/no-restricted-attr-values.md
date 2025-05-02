@@ -1,6 +1,6 @@
 # no-restricted-attr-values
 
-This rule disallows use of specified attribute values.
+This rule disallows the use of specified attribute values.
 
 ## How to use
 
@@ -22,11 +22,11 @@ This rule allows you to specify attribute values that you don't want to use in y
 
 ### Options
 
-This rule takes an array of option objects, where the `attrPatterns` and `attrValuePatterns` are specified.
+This rule takes an array of option objects. Each object can contain the following properties:
 
-- `attrPatterns`: an array of strings representing regular expression pattern, disallows attribute names that match any of the patterns.
-- `attrValuePatterns`: an array of strings representing regular expression pattern, disallows attribute values that match any of the patterns.
-- `message` (optional): a string for custom message.
+- `attrPatterns`: An array of strings, each representing a regular expression pattern. It disallows attribute names that match any of the patterns.
+- `attrValuePatterns`: An array of strings, each representing a regular expression pattern. It disallows attribute values that match any of the patterns.
+- `message` (optional): A custom error message to be shown when the rule is triggered.
 
 ```js
 module.exports = {

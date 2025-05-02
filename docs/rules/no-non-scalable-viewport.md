@@ -1,8 +1,8 @@
 # no-non-scalable-viewport
 
-This rule disallows use of `user-scalable=no` in `<meta name="viewport">`.
+This rule disallows the use of `user-scalable=no` in the `<meta name="viewport">`.
 
-The `user-scalable=no` disables zooming on a page. It makes users with partial vision or low vision hard to read web content.
+The `user-scalable=no` setting disables zooming on a page, which can make it difficult for users with partial or low vision to read the content.
 
 ## How to use
 

@@ -1,6 +1,6 @@
 # sort-attrs
 
-This rule enforces attributes alphabetical sorting.
+This rule enforces alphabetical sorting of attributes.
 
 ## How to use
 
@@ -37,7 +37,7 @@ Examples of **correct** code for this rule:
 
 #### priority
 
-This option allows you to set an array of attributes key names.
+This option allows you to set an array of attributes keyㄴ.
 When `priority` is defined, the specified attributes are sorted to the front with the highest priority.
 
 The default value of `priority` is `["id", "type", "class", "style"]`.
@@ -54,7 +54,7 @@ Examples of **correct** code for this rule with the default options (`{ "priorit
 <button id="foo" type="submit" class="bar" style="background:red"></button>
 ```
 
-You can also set your own priority if then the default priority will be overwritten.
+You can also define your own priority. If set, it will override the default.
 
 Examples of **incorrect** code for this rule with the `{ "priority": ["id", "style"] }` option:
 

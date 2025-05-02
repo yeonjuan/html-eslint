@@ -1,6 +1,6 @@
 # require-title
 
-This rule enforces to use `<title>` tag in `<head>`.
+This rule enforces the use of `<title>` tag in the `<head>`.
 
 ## Why?
 
@@ -23,7 +23,7 @@ module.exports = {
 
 ## Rule Details
 
-This rule enforces `<title>` tag in the `<head>`.
+This rule enforces the use of `<title>` tag in the `<head>`.
 
 Examples of **incorrect** code for this rule:
 

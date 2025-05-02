@@ -1,6 +1,6 @@
 # no-restricted-attrs
 
-This rule disallows use of specified attributes.
+This rule disallows the use of specified attributes.
 
 ## How to use
 
@@ -27,9 +27,9 @@ This rule allows you to specify attributes that you don't want to use in your ap
 
 This rule takes an array of option objects, where the `tagPatterns` and `attrPatterns` are specified.
 
-- `tagPatterns`: an array of strings representing regular expression pattern, disallows tag name that match any of the patterns.
-- `attrPatterns`: an array of strings representing regular expression pattern, disallows attribute name that match any of the patterns.
-- `message` (optional): a string for custom message.
+- `tagPatterns`: An array of strings representing regular expression pattern. It disallows tag name that match any of the patterns.
+- `attrPatterns`: An array of strings representing regular expression pattern. It disallows attribute names that match any of the patterns.
+- `message` (optional): A custom error message to be shown when the rule is triggered.
 
 ```js
 module.exports = {

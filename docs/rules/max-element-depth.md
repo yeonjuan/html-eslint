@@ -1,12 +1,12 @@
 # max-element-depth
 
-This rule enforces element maximum depth.
+This rule enforces a maximum allowed depth for nested HTML elements.
 
 ## Why?
 
-Deeply nested HTML structures can be difficult to read and understand, making the code harder to maintain. A flatter structure is more intuitive for developers, reducing the likelihood of errors and improving collaboration.
+Deeply nested HTML structures are harder to read and understand, making the code more difficult to maintain. Flatter structures are more intuitive for developers, reducing the likelihood of errors and improving team collaboration.
 
-Deep nesting can increase the complexity of rendering for browsers. The browser's layout engine needs to compute styles and positions for all elements, and deeply nested structures can slow down this process, especially on resource-constrained devices.
+Deep nesting also increases rendering complexity for browsers. The browser’s layout engine must compute styles and positions for every element, and excessive nesting can slow this down — especially on resource-constrained devices.
 
 ## How to use
 

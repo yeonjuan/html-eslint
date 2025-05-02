@@ -1,11 +1,11 @@
 # no-obsolete-tags
 
-This rule disallows using obsolete tags in HTML5.
+This rule disallows the use of obsolete tags in HTML5.
 
 ## Why?
 
-The following element list is obsoleted in HTML5.
-It's not encouraged to use these tags.
+The following elements are obsoleted in HTML5.
+These tags are discouraged and should be avoided.
 
 ```plaintext
 applet, acronym, bgsound, dir, frame, frameset, noframes, isindex, keygen, listing, menuitem, nextid, noembed, plaintext, rb, rtc, strike, xmp, basefont, big, blink, center, font, marquee, multicol, nobr, spacer, tt

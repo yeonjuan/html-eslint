@@ -1,6 +1,6 @@
 # no-extra-spacing-attrs
 
-This rule disallows extra spaces around attributes, and/or between the tag start and end
+This rule disallows extra spaces around attributes and between the start or end of a tag.
 
 ## How to use
 
@@ -41,7 +41,7 @@ Examples of **correct** code for this rule:
 
 ## Options
 
-- `enforceBeforeSelfClose` (default: false): enforce one space before self closing (`/>`)
+- `enforceBeforeSelfClose` (default: false): Enforce exactly one space before self closing tag (`/>`)
 
 Examples of **incorrect** code for this rule with the default `{ "enforceBeforeSelfClose": true }` option:
 
@@ -65,7 +65,7 @@ Examples of **correct** code for this rule with the default `{ "enforceBeforeSel
 
 <!-- prettier-ignore-end -->
 
-- `disallowMissing` (default: false): Enforce at least one space between attributes
+- `disallowMissing` (default: false): Requires at least one space between attributes (no missing whitespace).
 
 Example(s) of **incorrect** code for this rule with the `{ "disallowMissing": true }` option:
 
@@ -89,7 +89,7 @@ Example(s) of **correct** code for this rule with the `{ "disallowMissing": true
 
 <!-- prettier-ignore-end -->
 
-- `disallowTabs` (default: false): Enforce using spaces instead of tabs between attributes
+- `disallowTabs` (default: false): Disallows tabs between attributes; enforces the use of spaces instead.
 
 Example(s) of **incorrect** code for this rule with the `{ "disallowTabs": true }` option:
 
@@ -113,7 +113,7 @@ Example(s) of **correct** code for this rule with the `{ "disallowTabs": true }`
 
 <!-- prettier-ignore-end -->
 
-- `disallowInAssignment` (default: false): Disallows spaces around the attribute assignment operator `=`
+- `disallowInAssignment` (default: false): Disallows spaces before or after the `=` in attribute assignments.
 
 Example(s) of **incorrect** code for this rule with the `{ "disallowInAssignment": true }` option:
 

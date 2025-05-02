@@ -1,6 +1,6 @@
 # no-multiple-h1
 
-This rule disallows multiple `<h1>`.
+This rule disallows the use of multiple `<h1>`.
 
 ## How to use
 
@@ -14,7 +14,7 @@ module.exports = {
 
 ## Rule Details
 
-This rule disallows the use of multiple `<h1>` tags.
+This rule disallows the use of multiple `<h1>`.
 
 Examples of **incorrect** code for this rule:
 

@@ -1,10 +1,10 @@
 # no-positive-tabindex
 
-This rule disallows use of positive `tabindex` attribute.
+This rule disallows the use of positive `tabindex` attribute values.
 
 ## Why?
 
-n HTML, the `tabindex` attribute is used to specify the tab order of elements when navigating through a page using the "Tab" key.
+In HTML, the `tabindex` attribute is used to specify the tab order of elements when navigating through a page using the "Tab" key.
 By default, elements are included in the tab order based on their position in the HTML source code. The `tabindex` attribute allows you to modify this order.
 
 It's generally a good practice to let the natural flow of elements in the HTML dictate the tab order whenever possible.

@@ -1,6 +1,6 @@
 # id-naming-convention
 
-This rule enforces consistent naming convention for `id` attribute values.
+This rule enforces a consistent naming convention for `id` attribute values.
 
 ## How to use
 
@@ -14,7 +14,7 @@ module.exports = {
 
 ## Rule Details
 
-This rule supports 4 naming cases. `camelCase`, `snake_case`, `PascalCase`, `kebab-case` (default `snake_case`). It also supports `regex`, which allows you to configure a custom naming convention.
+This rule supports four naming conventions. `camelCase`, `snake_case`, `PascalCase`, `kebab-case` (default `snake_case`). It also supports `regex`, which allows you to define a custom naming convention.
 
 ### Options
 
@@ -22,7 +22,7 @@ This rule supports 4 naming cases. `camelCase`, `snake_case`, `PascalCase`, `keb
 - `"camelCase"`: Enforce camelCase format.
 - `"PascalCase"`: Enforce PascalCase format.
 - `"kebab-case"`: Enforce kebab-case format.
-- `"regex", { "pattern": "^my-regex$", "flags": "i" }`: Enforce a format defined by a custom regex (`flags` option is optional).
+- `"regex", { "pattern": "^my-regex$", "flags": "i" }`: Enforce a format defined by a custom regex. The `flags` option is optional.
 
 #### "snake_case" (default)
 

@@ -1,6 +1,6 @@
 # no-skip-heading-levels
 
-This rule disallows skipping heading levels.
+This rule disallows skipping heading levels in HTML documents, such as jumping from `<h1>` to `<h3>`
 
 ## How to use
 

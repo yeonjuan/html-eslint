@@ -1,6 +1,6 @@
 # prefer-https
 
-This rule enforces to use `HTTPS` for embedded resources (image, media, style sheet and script).
+This rule enforces the use of `HTTPS` for embedded resources (image, media, style sheet and script).
 
 ## Why?
 

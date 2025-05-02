@@ -1,6 +1,6 @@
 # require-button-type
 
-This rule enforces to use of button element with a valid type attribute.(`"button"`, `"submit"`, `"reset"`)
+This rule enforces that `button` elements include a valid `type` attribute: `"button"`, `"submit"`, or `"reset"`
 
 ## How to use
 

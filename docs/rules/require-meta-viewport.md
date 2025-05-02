@@ -1,11 +1,11 @@
 # require-meta-viewport
 
-This rule enforces to use `<meta name="viewport" content="..">` in the `<head>`.
+This rule enforces the use of `<meta name="viewport">` in the `<head>`.
 
 ## Why?
 
 Different browsers and devices may have default viewport settings.
-Explicitly setting the viewport properties using the `<meta name="viewport">` tag ensures a consistent and predictable display across various platforms.
+Including a `<meta name="viewport">` tag ensures a consistent and predictable layout across screen sizes and platforms.
 
 ## How to use
 

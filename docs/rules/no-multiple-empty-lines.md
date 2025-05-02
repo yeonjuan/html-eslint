@@ -1,6 +1,6 @@
 # no-multiple-empty-lines
 
-This rule disallows use of multiple empty lines.
+This rule disallows the use of multiple consecutive empty lines.
 
 ## How to use
 
@@ -14,11 +14,11 @@ module.exports = {
 
 ## Rule Details
 
-This rule disallows the use of empty lines which exceeded the maximum lines allowed.
+This rule disallows consecutive empty lines that exceed the allowed maximum.
 
 ### Options
 
-- `max` (default 2): enforces a maximum number of consecutive empty lines.
+- `max` (default 2): Specifies the maximum number of consecutive empty lines allowed.
 
 Examples of **incorrect** code for this rule with the default `{ "max": 2 }` option:
 

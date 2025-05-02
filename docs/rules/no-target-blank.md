@@ -1,6 +1,6 @@
 # no-target-blank
 
-This rule disallows usage of unsafe `target='_blank'`.
+This rule disallows the use of `target="blank"` without `rel="noreferrer"`.
 
 ## How to use
 

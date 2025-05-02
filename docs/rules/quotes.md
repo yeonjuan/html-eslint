@@ -1,6 +1,6 @@
 # quotes
 
-This rule enforces consistent quoting attributes with double(`"`) or single(`'`)
+This rule enforces enforces consistent use of quotes for attribute values (`'` or `"`).
 
 ## How to use
 
@@ -18,8 +18,8 @@ module.exports = {
 
 This rule has two options
 
-- `"double"` (default): requires the use of double quotes(`"`).
-- `"single"`: requires the use of single quotes(`'`)
+- `"double"` (default): Requires the use of double quotes(`"`).
+- `"single"`: Requires the use of single quotes(`'`)
 
 #### "double"
 
