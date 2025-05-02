@@ -6,7 +6,7 @@ This rule disallows the use of the`aria-hidden` attribute on the `body`.
 
 The `aria-hidden` attribute is used to hide elements from assistive technologies, such as screen readers, when the content should not be exposed to users.
 
-Applying` aria-hidden="true"` to the `<body>` element removes the entire page content from the accessibility tree, effectively making the page inaccessible to users who rely on assistive technologies.
+Applying `aria-hidden="true"` to the `<body>` element removes the entire page content from the accessibility tree, effectively making the page inaccessible to users who rely on assistive technologies.
 
 ## How to use
 
