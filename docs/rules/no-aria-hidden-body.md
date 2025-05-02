@@ -1,6 +1,6 @@
 # no-aria-hidden-body
 
-This rule disallows the use of the`aria-hidden` attribute on the `body`.
+This rule disallows the use of the `aria-hidden` attribute on the `body`.
 
 ## Why?
 
