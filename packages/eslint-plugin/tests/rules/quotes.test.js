@@ -54,6 +54,16 @@ foo">
       code: `<img src='?size=50&amp;default=retro'>`,
       options: ["single"],
     },
+    {
+      code: `<img src={{foo}}>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -157,6 +167,11 @@ templateRuleTester.run("[template] quotes", rule, {
     },
     {
       code: `html\`<div id = "\${foo}">\``,
+    },
+    {
+      code: `
+const handler = () => {};
+html\`<div onclick=\${handler}></div>\``,
     },
   ],
   invalid: [

@@ -9,6 +9,7 @@
  * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
+const { NodeTypes } = require("es-html-parser");
 const { RULE_CATEGORY } = require("../constants");
 const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
@@ -85,6 +86,13 @@ module.exports = {
      */
     function checkQuotes(attr) {
       if (!attr.value || attr.value.value.includes(expectedQuote)) {
+        return;
+      }
+      /**
+       * Allow template expression.
+       * ex: html`<div foo=${foo}></div>`
+       */
+      if (attr.value.parts.some((part) => part.type === NodeTypes.Template)) {
         return;
       }
 
