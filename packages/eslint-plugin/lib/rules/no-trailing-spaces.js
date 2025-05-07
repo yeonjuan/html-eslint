@@ -44,29 +44,32 @@ module.exports = {
     /**
      * @param {string} source
      * @param {string[]} lines
-     * @param {number} rangeOffset
+     * @param {Object} offset
+     * @param {number} offset.range
+     * @param {number} offset.line
+     * @param {number} offset.column
      * @param {((CommentContent | Text)['parts'][number])[]} tokens
      */
-    function check(source, lines, rangeOffset, tokens) {
-      let rangeIndex = rangeOffset;
+    function check(source, lines, offset, tokens) {
       const lineBreaks = source.match(/\r\n|[\r\n\u2028\u2029]/gu);
+
       lines.forEach((line, index) => {
-        const lineNumber = index + 1;
+        const lineNumber = index + offset.line;
         const match = line.match(/[ \t\u00a0\u2000-\u200b\u3000]+$/);
         const lineBreakLength =
           lineBreaks && lineBreaks[index] ? lineBreaks[index].length : 1;
         const lineLength = line.length + lineBreakLength;
-
+        const columnOffset = index === 0 ? offset.column : 0;
         if (match) {
           if (typeof match.index === "number" && match.index > 0) {
             const loc = {
               start: {
                 line: lineNumber,
-                column: match.index,
+                column: match.index + columnOffset,
               },
               end: {
                 line: lineNumber,
-                column: lineLength - lineBreakLength,
+                column: lineLength - lineBreakLength + columnOffset,
               },
             };
             const start = sourceCode.getIndexFromLoc(loc.start);
@@ -80,21 +83,26 @@ module.exports = {
               messageId: MESSAGE_IDS.TRAILING_SPACE,
               loc,
               fix(fixer) {
-                return fixer.removeRange([
-                  rangeIndex + loc.start.column,
-                  rangeIndex + loc.end.column,
-                ]);
+                return fixer.removeRange([start, end]);
               },
             });
           }
         }
-        rangeIndex += lineLength;
       });
     }
 
     return {
       Document() {
-        check(sourceCode.getText(), sourceCode.getLines(), 0, []);
+        check(
+          sourceCode.getText(),
+          sourceCode.getLines(),
+          {
+            range: 0,
+            line: 1,
+            column: 0,
+          },
+          []
+        );
       },
       TaggedTemplateExpression(node) {
         if (shouldCheckTaggedTemplateExpression(node, context)) {
@@ -107,8 +115,11 @@ module.exports = {
           check(
             html,
             lines,
-            // @ts-ignore
-            node.quasi.range[0] + 1,
+            {
+              range: node.quasi.range[0] + 1,
+              line: node.quasi.loc.start.line,
+              column: node.quasi.loc.start.column + 1,
+            },
             getTemplateTokens(tokens)
           );
         }
@@ -120,8 +131,11 @@ module.exports = {
           check(
             html,
             lines,
-            // @ts-ignore
-            node.range[0] + 1,
+            {
+              range: node.range[0] + 1,
+              line: node.loc.start.line,
+              column: node.loc.start.column + 1,
+            },
             getTemplateTokens(tokens)
           );
         }
