@@ -26,6 +26,9 @@ ruleTester.run("no-tailing-spaces", rule, {
       errors: [
         {
           messageId: "trailingSpace",
+          column: 12,
+          endColumn: 14,
+          line: 1,
         },
       ],
     },
@@ -35,6 +38,9 @@ ruleTester.run("no-tailing-spaces", rule, {
       errors: [
         {
           messageId: "trailingSpace",
+          column: 12,
+          endColumn: 14,
+          line: 1,
         },
       ],
     },
@@ -44,6 +50,9 @@ ruleTester.run("no-tailing-spaces", rule, {
       errors: [
         {
           messageId: "trailingSpace",
+          column: 6,
+          endColumn: 8,
+          line: 1,
         },
       ],
     },
@@ -77,6 +86,94 @@ templateRuleTester.run("[template] no-tailing-spaces", rule, {
       })()}
 </div>\``,
     },
+    {
+      code: `html\`<div>
+      \${(() => {
+    
+      })()      }
+</div>\``,
+    },
+    {
+      code: `  
+html\`<div>
+</div>\``,
+    },
   ],
-  invalid: [],
+  invalid: [
+    {
+      code: `  
+html\`<div>  
+</div>\``,
+      output: `  
+html\`<div>
+</div>\``,
+      errors: [
+        {
+          messageId: "trailingSpace",
+        },
+      ],
+    },
+    {
+      code: "html`<div>  \n  text\n  </div>`",
+      output: "html`<div>\n  text\n  </div>`",
+      errors: [
+        {
+          messageId: "trailingSpace",
+          line: 1,
+          column: 11,
+          endColumn: 13,
+        },
+      ],
+    },
+    {
+      code: "html`<div>\n  text\n  </div>   `",
+      output: "html`<div>\n  text\n  </div>`",
+      errors: [
+        {
+          messageId: "trailingSpace",
+          line: 3,
+          column: 9,
+          endColumn: 12,
+        },
+      ],
+    },
+    {
+      code: `html\`<div id=\${foo}   
+>
+text
+</div>\``,
+      output: `html\`<div id=\${foo}
+>
+text
+</div>\``,
+      errors: [
+        {
+          messageId: "trailingSpace",
+          line: 1,
+          column: 20,
+          endColumn: 23,
+        },
+      ],
+    },
+    {
+      code: `
+html\`<div id=\${foo}   
+>
+text
+</div>\``,
+      output: `
+html\`<div id=\${foo}
+>
+text
+</div>\``,
+      errors: [
+        {
+          messageId: "trailingSpace",
+          line: 2,
+          column: 20,
+          endColumn: 23,
+        },
+      ],
+    },
+  ],
 });
