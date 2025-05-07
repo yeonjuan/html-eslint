@@ -253,6 +253,10 @@ module.exports = {
         if (!role) {
           return;
         }
+        /**
+         * Allow template expression.
+         * ex: html`<div role=${role}></div>`
+         */
         if (
           role.value &&
           role.value.parts.some((part) => part.type === NodeTypes.Template)
