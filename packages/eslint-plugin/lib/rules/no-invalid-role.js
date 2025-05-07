@@ -2,6 +2,7 @@
  * @typedef { import("../types").RuleModule<[]> } RuleModule
  */
 
+const { NodeTypes } = require("es-html-parser");
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
@@ -252,6 +253,13 @@ module.exports = {
         if (!role) {
           return;
         }
+        if (
+          role.value &&
+          role.value.parts.some((part) => part.type === NodeTypes.Template)
+        ) {
+          return;
+        }
+
         const roleValue = (
           (role.value && role.value.value) ||
           ""

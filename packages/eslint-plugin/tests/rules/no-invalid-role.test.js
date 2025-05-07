@@ -49,6 +49,11 @@ templateRuleTester.run("[template] no-invalid-role", rule, {
     {
       code: 'html`<div role="grid"></div>`',
     },
+    {
+      code: `
+const role = "grid";
+html\`<div role="\${role}"></div>\``,
+    },
   ],
   invalid: [
     {
