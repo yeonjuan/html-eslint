@@ -88,6 +88,10 @@ module.exports = {
       if (!attr.value || attr.value.value.includes(expectedQuote)) {
         return;
       }
+      /**
+       * Allow template expression.
+       * ex: html`<div foo=${foo}></div>`
+       */
       if (attr.value.parts.some((part) => part.type === NodeTypes.Template)) {
         return;
       }
