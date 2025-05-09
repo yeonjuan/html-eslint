@@ -39,12 +39,12 @@
   ],
   "dependencies": {
     "@eslint/plugin-kit": "0.2.8",
+    "@html-eslint/parser": "^0.40.0",
     "@html-eslint/template-parser": "^0.40.0",
     "@html-eslint/template-syntax-parser": "^0.40.0"
   },
   "devDependencies": {
     "@eslint/core": "0.13.0",
-    "@html-eslint/parser": "^0.40.0",
     "@html-eslint/types": "^0.40.0",
     "@types/eslint": "^9.6.1",
     "@types/estree": "^0.0.47",
