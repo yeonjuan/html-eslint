@@ -1,0 +1,302 @@
+/**
+ * @typedef { import("html-standard").ElementSpec } ElementSpec
+ * @typedef { import("html-standard").ContentModel } ContentModel
+ * @typedef { import("@html-eslint/types").AnyHTMLNode} AnyHTMLNode
+ * @typedef { import("@html-eslint/types").Tag} Tag
+ * @typedef { import("@html-eslint/types").Text} Text
+ *
+ * @typedef { import("./use-standard-html").Option} Option
+ * @typedef { import("../../types").Context<[Option]> } Context
+ *
+ * @typedef {Object} State
+ * @property {number} contentModelIndex
+ * @property {ContentModel[] | null} contentModels
+ * @property {number} childIndex
+ * @property {AnyHTMLNode[]} children
+ */
+
+const { getElementSpec } = require("html-standard");
+const { isTag } = require("../utils/node");
+const {
+  shouldIgnoreChild,
+  getNodeName,
+  getDisplayNodeName,
+} = require("./helpers");
+
+const EXIT = false;
+const CONTINUE = true;
+
+const MESSAGE_IDS = {
+  REQUIRED: "required",
+  NOT_ALLOWED: "notAllowed",
+  NOT_ALLOWED_DESCENDANT: "notAllowedDescendant",
+};
+
+/**
+ * @param {State} state
+ * @returns {AnyHTMLNode | null}
+ */
+function getChild(state) {
+  return state.children[state.childIndex];
+}
+
+/**
+ * @param {State} state
+ * @returns {ContentModel | null}
+ */
+function getContentModel(state) {
+  if (!state.contentModels) {
+    return null;
+  }
+  return state.contentModels[state.contentModelIndex] || null;
+}
+
+/**
+ * @param {Context} context
+ * @param {ElementSpec} spec
+ * @param {Tag} node
+ * @param {AnyHTMLNode[]} children
+ * @param {boolean} allowUnknownChildren
+ */
+function checkContentModel(
+  context,
+  spec,
+  node,
+  children,
+  allowUnknownChildren
+) {
+  if (
+    allowUnknownChildren &&
+    children.some((child) => isTag(child) && !getElementSpec(child.name))
+  ) {
+    return;
+  }
+  /**
+   * @type {State}
+   */
+  const state = {
+    contentModels: spec.contents,
+    contentModelIndex: 0,
+    childIndex: 0,
+    children,
+  };
+  let result = CONTINUE;
+  while (result && state.contentModels && !!getContentModel(state)) {
+    const contentModel = getContentModel(state);
+    if (!contentModel) {
+      return;
+    }
+
+    switch (contentModel.type) {
+      case "required": {
+        result = required(contentModel, context, state, node);
+        break;
+      }
+      case "zeroOrMore": {
+        result = zeroOrMore(contentModel, state);
+        break;
+      }
+      case "oneOrMore": {
+        result = oneOrMore(contentModel, context, state, node);
+        break;
+      }
+      case "optional": {
+        result = optional(contentModel, state);
+        break;
+      }
+      case "either": {
+        result = EXIT;
+        break;
+      }
+      default: {
+        result = EXIT;
+      }
+    }
+  }
+  let remain = getChild(state);
+  while (remain && shouldIgnoreChild(remain)) {
+    state.childIndex++;
+    remain = getChild(state);
+  }
+
+  const contentModel = getContentModel(state);
+  if (remain && !contentModel) {
+    context.report({
+      node: remain,
+      data: {
+        child: getDisplayNodeName(remain),
+        parent: getDisplayNodeName(node),
+      },
+      messageId: MESSAGE_IDS.NOT_ALLOWED,
+    });
+  }
+}
+
+/**
+ * @param {ContentModel & {type: "required"}} model
+ * @param {Context} context
+ * @param {State} state
+ * @param {Tag} node
+ * @returns {boolean}
+ */
+
+function required(model, context, state, node) {
+  let child = getChild(state);
+  while (child && shouldIgnoreChild(child)) {
+    state.childIndex++;
+    child = getChild(state);
+  }
+  if (!child) {
+    if (model.contents.has("#text")) {
+      return EXIT;
+    }
+    context.report({
+      node: node.openStart,
+      data: {
+        parent: getDisplayNodeName(node),
+        child: Array.from(model.contents.keys()).join(","),
+      },
+      messageId: MESSAGE_IDS.REQUIRED,
+    });
+    return EXIT;
+  }
+
+  const name = getNodeName(child);
+  if (model.contents.has(name)) {
+    state.childIndex++;
+    state.contentModelIndex++;
+    return CONTINUE;
+  }
+  context.report({
+    node: node.openStart,
+    data: {
+      child: getDisplayNodeName(child),
+      parent: getDisplayNodeName(node),
+    },
+    messageId: MESSAGE_IDS.NOT_ALLOWED,
+  });
+  return EXIT;
+}
+
+/**
+ * @param {ContentModel & {type: "zeroOrMore"}} model
+ * @param {State} state
+ * @returns {boolean}
+ */
+function zeroOrMore(model, state) {
+  let child = getChild(state);
+  if (!child) {
+    state.childIndex++;
+    state.contentModelIndex++;
+    return CONTINUE;
+  }
+  while ((child = getChild(state))) {
+    if (shouldIgnoreChild(child)) {
+      state.childIndex++;
+      continue;
+    }
+    const name = getNodeName(child);
+    if (model.contents.has(name)) {
+      state.childIndex++;
+    } else {
+      break;
+    }
+  }
+
+  state.contentModelIndex++;
+  return CONTINUE;
+}
+
+/**
+ * @param {ContentModel & {type: "oneOrMore"}} model
+ * @param {Context} context
+ * @param {State} state
+ * @param {Tag} node
+ * @returns {boolean}
+ */
+function oneOrMore(model, context, state, node) {
+  if (model.constraints && model.constraints.children) {
+    const childrenConstraints = Array.from(
+      model.constraints.children.entries()
+    );
+    const required = childrenConstraints.filter(
+      ([, value]) => value.required === true
+    );
+    const missings = required.filter(
+      ([name]) => !node.children.some((child) => getNodeName(child) === name)
+    );
+    if (missings.length) {
+      context.report({
+        messageId: MESSAGE_IDS.REQUIRED,
+        data: {
+          parent: getDisplayNodeName(node),
+          child: missings.map(([name]) => name).join(","),
+        },
+        node,
+      });
+      return EXIT;
+    }
+  }
+
+  let child = getChild(state);
+  if (!child) {
+    state.childIndex++;
+    state.contentModelIndex++;
+    return CONTINUE;
+  }
+  let count = 0;
+  while ((child = getChild(state))) {
+    if (shouldIgnoreChild(child)) {
+      state.childIndex++;
+      continue;
+    }
+    const name = getNodeName(child);
+    if (model.contents.has(name) || model.contents.has("#transparent")) {
+      count++;
+      state.childIndex++;
+    } else {
+      break;
+    }
+  }
+
+  if (count <= 0 && !model.contents.has("#text")) {
+    context.report({
+      node: node.openStart,
+      messageId: MESSAGE_IDS.REQUIRED,
+    });
+    return EXIT;
+  }
+
+  state.contentModelIndex++;
+  return CONTINUE;
+}
+
+/**
+ * @param {ContentModel & {type: "optional"}} model
+ * @param {State} state
+ * @returns {boolean}
+ */
+function optional(model, state) {
+  let child = getChild(state);
+  if (!child) {
+    state.childIndex++;
+    state.contentModelIndex++;
+    return CONTINUE;
+  }
+  if (shouldIgnoreChild(child)) {
+    state.childIndex++;
+    return CONTINUE;
+  }
+  const name = getNodeName(child);
+  if (model.contents.has(name)) {
+    state.childIndex++;
+  }
+
+  state.contentModelIndex++;
+  return CONTINUE;
+}
+
+module.exports = {
+  MESSAGE_IDS,
+  checkContentModel,
+};

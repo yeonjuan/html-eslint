@@ -62,6 +62,7 @@ module.exports = [{
     },
 
     rules: {
+        "@html-eslint/use-standard-html": "error",
         "@html-eslint/indent": ["error", 2],
         "@html-eslint/require-doctype": "off",
         "@html-eslint/no-target-blank": "error",

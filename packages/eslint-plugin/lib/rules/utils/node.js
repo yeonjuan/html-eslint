@@ -196,6 +196,14 @@ function isText(node) {
 
 /**
  * @param {BaseNode} node
+ * @returns {node is Text}
+ */
+function isWhitespacesText(node) {
+  return isText(node) && node.value.trim().length <= 0;
+}
+
+/**
+ * @param {BaseNode} node
  * @returns {node is Line}
  */
 function isLine(node) {
@@ -262,6 +270,7 @@ module.exports = {
   isTag,
   isComment,
   isText,
+  isWhitespacesText,
   isLine,
   isScript,
   isStyle,
