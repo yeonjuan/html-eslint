@@ -1279,7 +1279,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/cli@workspace:packages/cli"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.40.2"
+    "@html-eslint/eslint-plugin": "npm:^0.40.3-alpha.0"
     "@html-eslint/parser": "npm:^0.40.0"
     axios: "npm:^1.6.2"
     chalk: "npm:^4.1.1"
@@ -1290,7 +1290,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin@npm:^0.40.2, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
+"@html-eslint/eslint-plugin@npm:^0.40.3-alpha.0, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
   dependencies:
@@ -15744,7 +15744,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "website@workspace:packages/website"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.40.2"
+    "@html-eslint/eslint-plugin": "npm:^0.40.3-alpha.0"
     "@html-eslint/parser": "npm:^0.40.0"
     "@html-eslint/web-linter": "npm:^0.40.0"
     "@html-kit/html": "npm:^0.0.4"
