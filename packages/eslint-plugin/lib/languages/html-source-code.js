@@ -5,6 +5,7 @@
  *  @typedef {import("@eslint/core").TraversalStep} TraversalStep
  *  @typedef {import("@html-eslint/types").CommentContent} CommentContent
  *  @typedef {import("@html-eslint/types").AnyHTMLNode} AnyHTMLNode
+ *  @typedef {import("@eslint/core").Position} Position
  *  @typedef {import("../types").BaseNode} BaseNode
  */
 const {
@@ -12,9 +13,14 @@ const {
   ConfigCommentParser,
   Directive,
 } = require("@eslint/plugin-kit");
-const { SourceCode } = require("eslint");
 const { HTMLTraversalStep, STEP_PHASE } = require("./html-traversal-step");
 const { visitorKeys } = require("@html-eslint/parser");
+
+const lineBreakPattern = /\r\n|[\r\n\u2028\u2029]/u;
+
+function createGlobalLinebreakMatcher() {
+  return new RegExp(lineBreakPattern.source, "gu");
+}
 
 const INLINE_CONFIG =
   /^\s*(?:eslint(?:-enable|-disable(?:(?:-next)?-line)?)?)(?:\s|$)/u;
@@ -27,10 +33,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
    */
   constructor({ ast, text, comments }) {
     super({ ast, text });
-    /**
-     * @property
-     */
-    this.eslintSourceCode = new SourceCode(text, ast);
+
     /**
      * @property
      */
@@ -40,6 +43,14 @@ class HTMLSourceCode extends TextSourceCodeBase {
      */
     this.comments = comments;
     this.parentsMap = new Map();
+
+    this.lineStartIndices = [0];
+
+    const lineEndingPattern = createGlobalLinebreakMatcher();
+    let match;
+    while ((match = lineEndingPattern.exec(this.text))) {
+      this.lineStartIndices.push(match.index + match[0].length);
+    }
   }
 
   /**
@@ -62,20 +73,88 @@ class HTMLSourceCode extends TextSourceCodeBase {
     return this.lines;
   }
 
+  // Copied from eslint source code
   /**
-   * @param {import("@eslint/core").Position} loc
-   * @returns
+   * @see https://github.com/eslint/eslint/blob/f60f2764971a33e252be13e560dccf21f554dbf1/lib/languages/js/source-code/source-code.js#L745
+   * @param {Position} loc
+   * @returns {number}
    */
   getIndexFromLoc(loc) {
-    return this.eslintSourceCode.getIndexFromLoc(loc);
+    if (
+      typeof loc !== "object" ||
+      typeof loc.line !== "number" ||
+      typeof loc.column !== "number"
+    ) {
+      throw new TypeError(
+        "Expected `loc` to be an object with numeric `line` and `column` properties."
+      );
+    }
+
+    if (loc.line <= 0) {
+      throw new RangeError(
+        `Line number out of range (line ${loc.line} requested). Line numbers should be 1-based.`
+      );
+    }
+
+    if (loc.line > this.lineStartIndices.length) {
+      throw new RangeError(
+        `Line number out of range (line ${loc.line} requested, but only ${this.lineStartIndices.length} lines present).`
+      );
+    }
+
+    const lineStartIndex = this.lineStartIndices[loc.line - 1];
+    const lineEndIndex =
+      loc.line === this.lineStartIndices.length
+        ? this.text.length
+        : this.lineStartIndices[loc.line];
+    const positionIndex = lineStartIndex + loc.column;
+    if (
+      (loc.line === this.lineStartIndices.length &&
+        positionIndex > lineEndIndex) ||
+      (loc.line < this.lineStartIndices.length && positionIndex >= lineEndIndex)
+    ) {
+      throw new RangeError(
+        `Column number out of range (column ${loc.column} requested, but the length of line ${loc.line} is ${lineEndIndex - lineStartIndex}).`
+      );
+    }
+
+    return positionIndex;
   }
 
+  // Copied from eslint source code
   /**
+   * @see https://github.com/eslint/eslint/blob/f60f2764971a33e252be13e560dccf21f554dbf1/lib/languages/js/source-code/source-code.js#L694
    * @param {number} index
-   * @returns {import("@eslint/core").Position}
+   * @returns {Position}
    */
   getLocFromIndex(index) {
-    return this.eslintSourceCode.getLocFromIndex(index);
+    if (typeof index !== "number") {
+      throw new TypeError("Expected `index` to be a number.");
+    }
+
+    if (index < 0 || index > this.text.length) {
+      throw new RangeError(
+        `Index out of range (requested index ${index}, but source text has length ${this.text.length}).`
+      );
+    }
+    if (index === this.text.length) {
+      return {
+        line: this.lines.length,
+        // @ts-ignore
+        column: this.lines.at(-1).length,
+      };
+    }
+
+    const lineNumber =
+      // @ts-ignore
+      index >= this.lineStartIndices.at(-1)
+        ? this.lineStartIndices.length
+        : this.lineStartIndices.findIndex((el) => index < el);
+
+    return {
+      line: lineNumber,
+      column: index - this.lineStartIndices[lineNumber - 1],
+    };
   }
 
   getInlineConfigNodes() {

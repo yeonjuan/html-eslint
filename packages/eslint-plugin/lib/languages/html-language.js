@@ -65,16 +65,24 @@ class HTMLLanguage {
    * @param {File} file
    * @param {Object} [context]
    * @param {LanguageOptions} context.languageOptions
+   * @returns {{ok: true; ast: any; comments: any[]} | {ok: false, errors: unknown[]}}
    */
   parse(file, context) {
     const code = /**  @type {string} */ (file.body);
     const languageOptions = (context && context.languageOptions) || {};
-    const result = parseForESLint(code, languageOptions);
-    return {
-      ok: true,
-      ast: result.ast,
-      comments: result.ast.comments,
-    };
+    try {
+      const result = parseForESLint(code, languageOptions);
+      return {
+        ok: true,
+        ast: result.ast,
+        comments: result.ast.comments,
+      };
+    } catch (e) {
+      return {
+        ok: false,
+        errors: [e],
+      };
+    }
   }
 
   /**
