@@ -37,7 +37,9 @@ describe("HTMLLanguage", () => {
       const file = createFile(`<div></div>`);
       const result = language.parse(file);
       expect(result.ok).toBe(true);
+      // @ts-ignore
       expect(result.ast.type).toBe("Program");
+      // @ts-ignore
       expect(result.ast.body[0].children[0].type).toBe("Tag");
     });
 
@@ -53,6 +55,7 @@ name: value
         languageOptions: { frontmatter: true },
       });
       expect(result.ok).toBe(true);
+      // @ts-ignore
       expect(result.ast.body[0].children[0].type).toBe("Tag");
     });
 
@@ -67,6 +70,7 @@ name: value
         },
       });
       expect(result.ok).toBe(true);
+      // @ts-ignore
       const part = result.ast.body[0].children[0].children[0].parts[0];
       expect(part.open.type).toBe("OpenTemplate");
       expect(part.close.type).toBe("CloseTemplate");

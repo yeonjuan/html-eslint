@@ -27,7 +27,9 @@ const createSourceCode = (text) => {
   const parsed = language.parse(file);
   const sourceCode = new HTMLSourceCode({
     text,
+    // @ts-ignore
     ast: parsed.ast,
+    // @ts-ignore
     comments: parsed.comments,
   });
   return sourceCode;
