@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/eslint-plugin",
-  "version": "0.40.2",
+  "version": "0.40.3",
   "description": "ESLint plugin for html",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
