@@ -32,7 +32,7 @@
     "highlight.js": "^11.9.0",
     "marked": "^9.1.5",
     "marked-highlight": "^2.0.6",
-    "parcel": "^2.10.1",
+    "parcel": "^2.15.0",
     "postcss": "^8.4.19",
     "posthtml-extend": "^0.6.5",
     "posthtml-include": "^1.7.4",
