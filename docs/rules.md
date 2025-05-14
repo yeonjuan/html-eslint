@@ -32,13 +32,13 @@
 
 ## SEO
 
-| Rule                                                             | Description                                            |     |
-| ---------------------------------------------------------------- | ------------------------------------------------------ | --- |
-| [no-multiple-h1](rules/no-multiple-h1)                           | Disallow multiple `<h1></h1>`.                         | ⭐  |
-| [require-lang](rules/require-lang)                               | Require `lang` attribute at `<html>` tag               | ⭐  |
-| [require-meta-description](rules/require-meta-description)       | Require use of `<meta name="description">` in `<head>` |     |
-| [require-open-graph-protocol](rules/require-open-graph-protocol) | Enforce to use `<meta name="viewport">` in `<head>`    |     |
-| [require-title](rules/require-title)                             | Require `<title><title/>` in the `<head><head/>`       | ⭐  |
+| Rule                                                             | Description                                                 |     |
+| ---------------------------------------------------------------- | ----------------------------------------------------------- | --- |
+| [no-multiple-h1](rules/no-multiple-h1)                           | Disallow multiple `<h1></h1>`.                              | ⭐  |
+| [require-lang](rules/require-lang)                               | Require `lang` attribute at `<html>` tag                    | ⭐  |
+| [require-meta-description](rules/require-meta-description)       | Require use of `<meta name="description">` in `<head>`      |     |
+| [require-open-graph-protocol](rules/require-open-graph-protocol) | Enforce to use specified meta tags for open graph protocol. |     |
+| [require-title](rules/require-title)                             | Require `<title><title/>` in the `<head><head/>`            | ⭐  |
 
 ## Accessibility
 
