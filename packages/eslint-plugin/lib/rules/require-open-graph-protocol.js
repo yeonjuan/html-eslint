@@ -42,7 +42,8 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: 'Enforce to use `<meta name="viewport">` in `<head>`',
+      description:
+        "Enforce to use specified meta tags for open graph protocol.",
       category: RULE_CATEGORY.SEO,
       recommended: false,
     },
