@@ -23,6 +23,7 @@ const { RULE_CATEGORY } = require("../constants");
 const { getLocBetween } = require("./utils/node");
 const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   EXTRA_BETWEEN: "unexpectedBetween",
@@ -49,6 +50,7 @@ module.exports = {
       description: "Disallow an extra spacing around attributes",
       category: RULE_CATEGORY.STYLE,
       recommended: true,
+      url: getRuleUrl("no-extra-spacing-attrs"),
     },
 
     fixable: true,

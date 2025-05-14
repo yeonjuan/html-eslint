@@ -8,6 +8,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -24,6 +25,7 @@ module.exports = {
       description: "Disallow use of positive `tabindex`.",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
+      url: getRuleUrl("no-positive-tabindex"),
     },
 
     fixable: null,

@@ -6,6 +6,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -65,6 +66,7 @@ module.exports = {
       description: "Disallows nested interactive elements",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
+      url: getRuleUrl("no-nested-interactive"),
     },
 
     fixable: null,

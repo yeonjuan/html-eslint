@@ -6,6 +6,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { findParent, isTag } = require("./utils/node");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING: "missingLabel",
@@ -27,6 +28,7 @@ module.exports = {
         "Enforces use of label for form elements(`input`, `textarea`, `select`)",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
+      url: getRuleUrl("require-input-label"),
     },
     fixable: null,
     schema: [],

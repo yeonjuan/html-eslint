@@ -15,6 +15,7 @@ const { RULE_CATEGORY } = require("../constants");
 const { isTag, isOverlapWithTemplates } = require("./utils/node");
 const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -31,6 +32,7 @@ module.exports = {
       description: "Disallow unnecessary consecutive spaces",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
+      url: getRuleUrl("no-extra-spacing-text"),
     },
 
     fixable: true,

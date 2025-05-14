@@ -14,6 +14,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 /**
  * @type {MessageId}
@@ -34,6 +35,7 @@ module.exports = {
       description: "Enforce newline between attributes",
       category: RULE_CATEGORY.STYLE,
       recommended: true,
+      url: getRuleUrl("attrs-newline"),
     },
 
     fixable: true,

@@ -4,6 +4,7 @@
 
 const { RULE_CATEGORY, OBSOLETE_TAGS } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const OBSOLETE_TAGS_SET = new Set(OBSOLETE_TAGS);
 
@@ -22,6 +23,7 @@ module.exports = {
       description: "Disallow to use obsolete elements in HTML5",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
+      url: getRuleUrl("no-obsolete-tags"),
     },
 
     fixable: null,

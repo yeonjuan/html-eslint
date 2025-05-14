@@ -4,6 +4,7 @@
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   INVALID: "invalid",
@@ -22,6 +23,7 @@ module.exports = {
       description: "Enforce `<li>` to be in  `<ul>`, `<ol>` or `<menu>`.",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
+      url: getRuleUrl("require-li-container"),
     },
 
     fixable: null,

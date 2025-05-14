@@ -5,6 +5,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -22,6 +23,7 @@ module.exports = {
       description: "Require `lang` attribute at `<html>` tag",
       category: RULE_CATEGORY.SEO,
       recommended: true,
+      url: getRuleUrl("require-lang"),
     },
 
     fixable: null,

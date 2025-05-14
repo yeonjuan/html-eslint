@@ -21,6 +21,7 @@ const {
   isRangesOverlap,
   getTemplateTokens,
 } = require("./utils/node");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -37,6 +38,7 @@ module.exports = {
       description: "Disallow multiple empty lines",
       category: RULE_CATEGORY.STYLE,
       recommended: false,
+      url: getRuleUrl("no-multiple-empty-lines"),
     },
 
     fixable: "whitespace",

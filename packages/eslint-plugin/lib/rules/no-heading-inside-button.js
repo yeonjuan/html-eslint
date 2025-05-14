@@ -5,6 +5,8 @@
 const { RULE_CATEGORY } = require("../constants");
 const { findParent, isTag } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
+
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
@@ -22,6 +24,7 @@ module.exports = {
       description: "Disallows the use of heading elements inside <button>.",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
+      url: getRuleUrl("no-heading-inside-button"),
     },
 
     fixable: null,

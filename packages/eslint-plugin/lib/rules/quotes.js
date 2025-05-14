@@ -13,6 +13,7 @@ const { NodeTypes } = require("es-html-parser");
 const { RULE_CATEGORY } = require("../constants");
 const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -38,6 +39,7 @@ module.exports = {
         "Enforce consistent quoting attributes with double(\") or single(')",
       category: RULE_CATEGORY.STYLE,
       recommended: true,
+      url: getRuleUrl("quotes"),
     },
     fixable: true,
     schema: [

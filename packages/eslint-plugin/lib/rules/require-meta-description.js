@@ -6,6 +6,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { filter } = require("./utils/array");
 const { findAttr, isTag } = require("./utils/node");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -31,6 +32,7 @@ module.exports = {
       description: 'Require use of `<meta name="description">` in `<head>`',
       category: RULE_CATEGORY.SEO,
       recommended: false,
+      url: getRuleUrl("require-meta-description"),
     },
 
     fixable: null,

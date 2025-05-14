@@ -12,6 +12,7 @@ const { hasTemplate } = require("./utils/node");
 const { RULE_CATEGORY } = require("../constants");
 const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   UNSORTED: "unsorted",
@@ -28,6 +29,7 @@ module.exports = {
       description: "Enforce attributes alphabetical sorting",
       category: RULE_CATEGORY.STYLE,
       recommended: false,
+      url: getRuleUrl("sort-attrs"),
     },
     fixable: "code",
     schema: [

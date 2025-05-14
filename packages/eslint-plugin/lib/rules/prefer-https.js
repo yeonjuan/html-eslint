@@ -9,6 +9,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr, isScript } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -74,6 +75,7 @@ module.exports = {
       description: "Prefer to use HTTPS for embedded resources",
       recommended: false,
       category: RULE_CATEGORY.BEST_PRACTICE,
+      url: getRuleUrl("prefer-https"),
     },
     fixable: false,
     schema: [],

@@ -20,6 +20,7 @@ const {
 } = require("./utils/naming");
 const { findAttr, isAttributesEmpty, hasTemplate } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   WRONG: "wrong",
@@ -51,6 +52,7 @@ module.exports = {
       description: "Enforce consistent naming id attributes",
       category: RULE_CATEGORY.STYLE,
       recommended: false,
+      url: getRuleUrl("id-naming-convention"),
     },
 
     fixable: null,

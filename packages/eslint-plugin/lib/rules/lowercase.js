@@ -10,6 +10,7 @@ const { RULE_CATEGORY } = require("../constants");
 const SVG_CAMEL_CASE_ATTRIBUTES = require("../constants/svg-camel-case-attributes");
 const { createVisitors } = require("./utils/visitors");
 const { hasTemplate } = require("./utils/node");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -26,6 +27,7 @@ module.exports = {
       description: "Enforce to use lowercase for tag and attribute names.",
       category: RULE_CATEGORY.STYLE,
       recommended: false,
+      url: getRuleUrl("lowercase"),
     },
 
     fixable: "code",
