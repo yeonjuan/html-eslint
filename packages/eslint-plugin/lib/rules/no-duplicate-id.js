@@ -14,6 +14,7 @@ const {
   shouldCheckTemplateLiteral,
 } = require("./utils/settings");
 const { getSourceCode } = require("./utils/source-code");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   DUPLICATE_ID: "duplicateId",
@@ -30,6 +31,7 @@ module.exports = {
       description: "Disallow to use duplicate id",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
+      url: getRuleUrl("no-duplicate-id"),
     },
 
     fixable: null,

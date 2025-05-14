@@ -5,6 +5,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -21,6 +22,7 @@ module.exports = {
       description: "Disallow usage of unsafe `target='_blank'`",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
+      url: getRuleUrl("no-target-blank"),
     },
 
     fixable: null,

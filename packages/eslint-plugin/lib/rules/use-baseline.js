@@ -16,6 +16,7 @@ const {
   BASELINE_LOW,
 } = require("./utils/baseline");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   NOT_BASELINE_ELEMENT: "notBaselineElement",
@@ -33,6 +34,7 @@ module.exports = {
       description: "Enforce the use of baseline features.",
       recommended: true,
       category: RULE_CATEGORY.BEST_PRACTICE,
+      url: getRuleUrl("use-baseline"),
     },
     fixable: null,
     schema: [

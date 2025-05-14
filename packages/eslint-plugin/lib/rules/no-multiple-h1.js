@@ -4,6 +4,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MULTIPLE_H1: "unexpectedMultiH1",
@@ -20,6 +21,7 @@ module.exports = {
       description: "Disallow multiple `<h1></h1>`.",
       category: RULE_CATEGORY.SEO,
       recommended: true,
+      url: getRuleUrl("no-multiple-h1"),
     },
 
     fixable: null,

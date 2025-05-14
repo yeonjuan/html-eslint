@@ -17,6 +17,7 @@
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -34,6 +35,7 @@ module.exports = {
       description: "Require specified attributes",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
+      url: getRuleUrl("require-attrs"),
     },
     fixable: "code",
     schema: {

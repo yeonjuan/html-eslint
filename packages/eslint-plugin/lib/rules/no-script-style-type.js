@@ -8,6 +8,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   UNNECESSARY: "unnecessary",
@@ -25,6 +26,7 @@ module.exports = {
         "Enforce to omit type attributes for style sheets and scripts",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
+      url: getRuleUrl("no-script-style-type"),
     },
 
     fixable: "code",

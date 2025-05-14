@@ -4,6 +4,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -20,6 +21,7 @@ module.exports = {
       description: "Disallow skipping heading levels",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
+      url: getRuleUrl("no-skip-heading-levels"),
     },
 
     fixable: null,

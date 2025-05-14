@@ -9,6 +9,7 @@
 
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const VOID_ELEMENTS_SET = new Set(VOID_ELEMENTS);
 
@@ -29,6 +30,7 @@ module.exports = {
       description: "Require closing tags.",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
+      url: getRuleUrl("require-closing-tags"),
     },
 
     fixable: true,

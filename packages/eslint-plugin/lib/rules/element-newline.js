@@ -29,6 +29,8 @@ const {
   isStyle,
 } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
+
 const MESSAGE_IDS = {
   EXPECT_NEW_LINE_AFTER: "expectAfter",
 };
@@ -84,6 +86,7 @@ module.exports = {
       description: "Enforce newline between elements.",
       category: RULE_CATEGORY.STYLE,
       recommended: true,
+      url: getRuleUrl("element-newline"),
     },
 
     fixable: true,

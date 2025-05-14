@@ -6,6 +6,8 @@ const { NodeTypes } = require("es-html-parser");
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
+
 const MESSAGE_IDS = {
   INVALID: "invalid",
   INVALID_PRESENTATION: "invalidPresentation",
@@ -235,6 +237,7 @@ module.exports = {
       description: "Disallows use of invalid role.",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
+      url: getRuleUrl("no-invalid-role"),
     },
 
     fixable: null,

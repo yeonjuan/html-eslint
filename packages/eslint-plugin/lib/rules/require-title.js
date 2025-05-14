@@ -8,6 +8,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { find } = require("./utils/array");
 const { isText, isTag } = require("./utils/node");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING_TITLE: "missing",
@@ -41,6 +42,7 @@ module.exports = {
       description: "Require `<title><title/>` in the `<head><head/>`",
       category: RULE_CATEGORY.SEO,
       recommended: true,
+      url: getRuleUrl("require-title"),
     },
 
     fixable: null,

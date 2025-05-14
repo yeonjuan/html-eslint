@@ -9,6 +9,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   DUPLICATE_ATTRS: "duplicateAttrs",
@@ -26,6 +27,7 @@ module.exports = {
       description: "Disallow to use duplicate attributes",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
+      url: getRuleUrl("no-duplicate-attrs"),
     },
 
     fixable: null,

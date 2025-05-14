@@ -9,6 +9,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   RESTRICTED: "restricted",
@@ -25,6 +26,7 @@ module.exports = {
       description: "Disallow specified attributes",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
+      url: getRuleUrl("no-restricted-attr-values"),
     },
 
     fixable: null,

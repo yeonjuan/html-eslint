@@ -7,6 +7,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -29,6 +30,7 @@ module.exports = {
       description: "Require use of button element with a valid type attribute.",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
+      url: getRuleUrl("require-button-type"),
     },
 
     fixable: true,

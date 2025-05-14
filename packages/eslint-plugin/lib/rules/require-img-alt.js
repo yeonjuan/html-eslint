@@ -9,6 +9,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",
@@ -25,6 +26,7 @@ module.exports = {
       description: "Require `alt` attribute at `<img>` tag",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: true,
+      url: getRuleUrl("require-img-alt"),
     },
 
     fixable: null,

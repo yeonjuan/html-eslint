@@ -10,6 +10,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MAX_DEPTH_EXCEEDED: "maxDepthExceeded",
@@ -26,6 +27,7 @@ module.exports = {
       description: "Enforce element maximum depth",
       category: RULE_CATEGORY.STYLE,
       recommended: false,
+      url: getRuleUrl("max-element-depth"),
     },
 
     fixable: null,

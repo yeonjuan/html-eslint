@@ -13,6 +13,7 @@
 const { NodeTypes } = require("es-html-parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   DUPLICATE_CLASS: "duplicateClass",
@@ -28,6 +29,7 @@ module.exports = {
       description: "Disallow to use duplicate class",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
+      url: getRuleUrl("no-duplicate-class"),
     },
     fixable: "code",
     schema: [],

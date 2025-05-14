@@ -4,6 +4,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
@@ -21,6 +22,7 @@ module.exports = {
         'Disallow use of `user-scalable=no` in `<meta name="viewport">`.',
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
+      url: getRuleUrl("no-non-scalable-viewport"),
     },
 
     fixable: null,

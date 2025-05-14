@@ -3,6 +3,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -19,6 +20,7 @@ module.exports = {
       description: "Require `<!DOCTYPE HTML>` in html,",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
+      url: getRuleUrl("require-doctype"),
     },
 
     fixable: true,

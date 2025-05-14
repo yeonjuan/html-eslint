@@ -16,6 +16,7 @@ const {
   shouldCheckTemplateLiteral,
 } = require("./utils/settings");
 const { getSourceCode } = require("./utils/source-code");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   TRAILING_SPACE: "trailingSpace",
@@ -31,6 +32,7 @@ module.exports = {
       description: "Disallow trailing whitespace at the end of lines",
       recommended: false,
       category: RULE_CATEGORY.STYLE,
+      url: getRuleUrl("no-trailing-spaces"),
     },
     fixable: true,
     schema: [],

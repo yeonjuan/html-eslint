@@ -7,6 +7,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { find } = require("./utils/array");
 const { findAttr, isTag } = require("./utils/node");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -40,6 +41,7 @@ module.exports = {
       description: 'Enforce to use `<meta name="viewport">` in `<head>`',
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
+      url: getRuleUrl("require-meta-viewport"),
     },
 
     fixable: null,

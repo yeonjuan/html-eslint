@@ -12,6 +12,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING_HEIGHT: "missingHeight",
@@ -32,6 +33,7 @@ module.exports = {
         "Enforces that some elements (img, iframe) have explicitly defined width and height attributes.",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
+      url: getRuleUrl("require-explicit-size"),
     },
 
     fixable: null,

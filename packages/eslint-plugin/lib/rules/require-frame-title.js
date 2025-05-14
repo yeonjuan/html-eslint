@@ -5,6 +5,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
@@ -22,6 +23,7 @@ module.exports = {
       description: "Require `title` in `<frame>`, `<iframe>`",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
+      url: getRuleUrl("require-frame-title"),
     },
 
     fixable: false,
