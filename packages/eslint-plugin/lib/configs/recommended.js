@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import('eslint').Linter.FlatConfig} */
+const recommended = {
   rules: {
     "@html-eslint/require-lang": "error",
     "@html-eslint/require-img-alt": "error",
@@ -23,3 +24,5 @@ module.exports = {
     "@html-eslint/use-baseline": "error",
   },
 };
+
+module.exports = recommended;

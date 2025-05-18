@@ -50,7 +50,7 @@ const noDuplicateClass = require("./no-duplicate-class");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
-module.exports = {
+const rules = {
   "require-lang": requireLang,
   "require-img-alt": requireImgAlt,
   "require-doctype": requireDoctype,
@@ -103,3 +103,8 @@ module.exports = {
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
+
+module.exports =
+  /** @type {Record<string, import('@eslint/core').RuleDefinition>} */ (
+    /** @type {unknown} */ (rules)
+  );
