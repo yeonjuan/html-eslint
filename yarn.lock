@@ -1034,12 +1034,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/core@npm:0.13.0, @eslint/core@npm:^0.13.0":
-  version: 0.13.0
-  resolution: "@eslint/core@npm:0.13.0"
+"@eslint/core@npm:0.14.0, @eslint/core@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "@eslint/core@npm:0.14.0"
   dependencies:
     "@types/json-schema": "npm:^7.0.15"
-  checksum: ba724a7df7ed9dab387481f11d0d0f708180f40be93acce2c21dacca625c5867de3528760c42f1c457ccefe6a669d525ff87b779017eabc0d33479a36300797b
+  checksum: 259f279445834ba2d2cbcc18e9d43202a4011fde22f29d5fb802181d66e0f6f0bd1f6b4b4b46663451f545d35134498231bd5e656e18d9034a457824b92b7741
   languageName: node
   linkType: hard
 
@@ -1147,13 +1147,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/plugin-kit@npm:0.2.8":
-  version: 0.2.8
-  resolution: "@eslint/plugin-kit@npm:0.2.8"
+"@eslint/plugin-kit@npm:0.3.1":
+  version: 0.3.1
+  resolution: "@eslint/plugin-kit@npm:0.3.1"
   dependencies:
-    "@eslint/core": "npm:^0.13.0"
+    "@eslint/core": "npm:^0.14.0"
     levn: "npm:^0.4.1"
-  checksum: 554847c8f2b6bfe0e634f317fc43d0b54771eea0015c4f844f75915fdb9e6170c830c004291bad57db949d61771732e459f36ed059f45cf750af223f77357c5c
+  checksum: a75f0b5d38430318a551b83e27bee570747eb50beeb76b03f64b0e78c2c27ef3d284cfda3443134df028db3251719bc0850c105f778122f6ad762d5270ec8063
   languageName: node
   linkType: hard
 
@@ -1294,18 +1294,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
   dependencies:
-    "@eslint/core": "npm:0.13.0"
-    "@eslint/plugin-kit": "npm:0.2.8"
+    "@eslint/core": "npm:0.14.0"
+    "@eslint/plugin-kit": "npm:0.3.1"
     "@html-eslint/parser": "npm:^0.40.0"
     "@html-eslint/template-parser": "npm:^0.40.0"
     "@html-eslint/template-syntax-parser": "npm:^0.40.0"
     "@html-eslint/types": "npm:^0.40.0"
-    "@types/eslint": "npm:^9.6.1"
     "@types/estree": "npm:^0.0.47"
     es-html-parser: "npm:0.2.0"
     eslint: "npm:^9.21.0"
     espree: "npm:^10.3.0"
-    typescript: "npm:^5.7.2"
+    typescript: "npm:^5.8.3"
+  peerDependencies:
+    eslint: ^9.7.0
   languageName: unknown
   linkType: soft
 
@@ -1328,7 +1329,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     svgo: "npm:^3"
     turbo: "npm:^2.0.11"
-    typescript: "npm:^5.7.2"
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 
@@ -1339,7 +1340,7 @@ __metadata:
     "@html-eslint/template-syntax-parser": "npm:^0.40.0"
     "@html-eslint/types": "npm:^0.40.0"
     es-html-parser: "npm:0.2.0"
-    typescript: "npm:^5.7.2"
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 
@@ -1375,7 +1376,7 @@ __metadata:
     "@types/estree": "npm:^1.0.6"
     es-html-parser: "npm:0.2.0"
     eslint: "npm:^9.19.0"
-    typescript: "npm:^5.7.2"
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 
@@ -15597,13 +15598,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.7.2":
-  version: 5.7.2
-  resolution: "typescript@npm:5.7.2"
+"typescript@npm:^5.8.3":
+  version: 5.8.3
+  resolution: "typescript@npm:5.8.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: a873118b5201b2ef332127ef5c63fb9d9c155e6fdbe211cbd9d8e65877283797cca76546bad742eea36ed7efbe3424a30376818f79c7318512064e8625d61622
+  checksum: 5f8bb01196e542e64d44db3d16ee0e4063ce4f3e3966df6005f2588e86d91c03e1fb131c2581baf0fb65ee79669eea6e161cd448178986587e9f6844446dbb48
   languageName: node
   linkType: hard
 
@@ -15617,13 +15618,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.7.2#optional!builtin<compat/typescript>":
-  version: 5.7.2
-  resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=e012d7"
+"typescript@patch:typescript@npm%3A^5.8.3#optional!builtin<compat/typescript>":
+  version: 5.8.3
+  resolution: "typescript@patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=e012d7"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: c891ccf04008bc1305ba34053db951f8a4584b4a1bf2f68fd972c4a354df3dc5e62c8bfed4f6ac2d12e5b3b1c49af312c83a651048f818cd5b4949d17baacd79
+  checksum: 92ea03509e06598948559ddcdd8a4ae5a7ab475766d5589f1b796f5731b3d631a4c7ddfb86a3bd44d58d10102b132cd4b4994dda9b63e6273c66d77d6a271dbd
   languageName: node
   linkType: hard
 
