@@ -4,17 +4,17 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - "**"
 jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install Corepack
+        run: npm install -g corepack
       - uses: actions/setup-node@v4
         with:
-          node-version: 18.16.1
+          node-version-file: .nvmrc
       - name: Install
         run: yarn install --immutable
       - name: Build
@@ -32,9 +32,8 @@ jobs:
       - name: Check Types
         run: yarn check:ts
       - name: Code coverage report
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v5
         with:
-          yml: ./codecov.yml
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittest
           name: codecov
@@ -43,9 +42,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install Corepack
+        run: npm install -g corepack
       - uses: actions/setup-node@v4
         with:
-          node-version: 18.16.1
+          node-version-file: .nvmrc
       - name: Install
         run: yarn install --immutable
       - name: Build
