@@ -2,7 +2,7 @@ const { runESLint } = require("../lib/test-utils");
 
 describe("integration tests", () => {
   describe("eslint-v8-legacy-config", () => {
-    it("should throw a lint error for invalid files ", async () => {
+    it("should throw a lint error for invalid files", async () => {
       const htmlResult = await runESLint({
         fixtureName: "eslint-v8-legacy-config",
         glob: "html/invalid.html",
