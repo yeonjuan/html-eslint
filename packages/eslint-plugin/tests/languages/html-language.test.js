@@ -1,5 +1,6 @@
 /**
- * @typedef {import('@eslint/core').File} File
+ * @import { File, OkParseResult } from "@eslint/core";
+ * @import { AST } from "eslint";
  */
 
 const { HTMLLanguage } = require("../../lib/languages/html-language");
@@ -118,7 +119,10 @@ name: value
       const file = createFile("<div></div>");
       const language = new HTMLLanguage();
       const parsed = language.parse(file);
-      const sourceCode = language.createSourceCode(file, parsed);
+      const sourceCode = language.createSourceCode(
+        file,
+        /** @type {OkParseResult<AST.Program>} */ (parsed)
+      );
       expect(sourceCode.constructor.name).toBe("HTMLSourceCode");
       expect(sourceCode.ast.type).toBe("Program");
     });

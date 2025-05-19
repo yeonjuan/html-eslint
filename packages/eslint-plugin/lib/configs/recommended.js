@@ -1,4 +1,4 @@
-/** @type {import('eslint').Linter.FlatConfig} */
+/** @satisfies {import('eslint').Linter.FlatConfig} */
 const recommended = {
   rules: {
     "@html-eslint/require-lang": "error",
