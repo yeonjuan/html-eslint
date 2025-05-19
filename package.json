@@ -11,7 +11,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write .",
     "dev": "turbo run dev",
-    "build": "turbo run build --no-cache --force",
+    "build": "turbo run build",
     "publish": "lerna publish",
     "publish:alpha": "lerna publish --dist-tag alpha",
     "check:ts": "turbo run ts",
@@ -31,7 +31,7 @@
     "@types/jest": "^29.5.14",
     "compute-baseline": "^0.3.1",
     "cspell": "^8.0.0",
-    "eslint": "^9.19.0",
+    "eslint": "^9.27.0",
     "eslint-plugin-jest": "^28.11.0",
     "eslint-plugin-n": "^17.15.1",
     "husky": "^9.1.4",
@@ -41,11 +41,10 @@
     "rimraf": "^6.0.1",
     "svgo": "^3",
     "turbo": "^2.0.11",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.3"
   },
   "engines": {
-    "node": "^12.22.0 || ^14.17.0 || >=16.0.0",
-    "npm": ">=7"
+    "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
   },
   "packageManager": "yarn@4.0.2",
   "workspaces": [

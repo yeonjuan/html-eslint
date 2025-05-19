@@ -11,7 +11,7 @@ const { getOptions } = require("./options");
 /**
  * @param {string} code
  * @param {ParserOptions | undefined} parserOptions
- * @returns {any}
+ * @returns {import('eslint').Linter.ESLintParseResult}
  */
 module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
   const { options, html } = getOptions(code, parserOptions);
@@ -54,6 +54,6 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
   return {
     ast: programNode,
     visitorKeys,
-    scopeManager: null,
+    scopeManager: undefined,
   };
 };

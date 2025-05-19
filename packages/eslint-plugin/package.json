@@ -1,7 +1,8 @@
 {
   "name": "@html-eslint/eslint-plugin",
   "version": "0.40.3",
-  "description": "ESLint plugin for html",
+  "type": "commonjs",
+  "description": "ESLint plugin for HTML",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
@@ -23,7 +24,7 @@
     "test:legacy": "TEST_ESLINT_LEGACY_CONFIG=true && jest",
     "ts": "tsc --noEmit",
     "lint": "eslint .",
-    "build": "rimraf types && tsc  --project tsconfig.build.json"
+    "build": "rimraf types && tsc --project tsconfig.build.json"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
@@ -38,19 +39,24 @@
     "accessibility"
   ],
   "dependencies": {
-    "@eslint/plugin-kit": "0.2.8",
+    "@eslint/plugin-kit": "^0.3.1",
     "@html-eslint/parser": "^0.40.0",
     "@html-eslint/template-parser": "^0.40.0",
     "@html-eslint/template-syntax-parser": "^0.40.0"
   },
+  "peerDependencies": {
+    "eslint": "^8.0.0 || ^9.0.0"
+  },
   "devDependencies": {
-    "@eslint/core": "0.13.0",
+    "@eslint/core": "^0.14.0",
     "@html-eslint/types": "^0.40.0",
-    "@types/eslint": "^9.6.1",
     "@types/estree": "^0.0.47",
     "es-html-parser": "0.2.0",
-    "eslint": "^9.21.0",
+    "eslint": "^9.27.0",
     "espree": "^10.3.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
   }
 }

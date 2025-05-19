@@ -2,8 +2,13 @@ const { visitorKeys, parseForESLint } = require("@html-eslint/parser");
 const { HTMLSourceCode } = require("./html-source-code");
 
 /**
- * @typedef {import('@eslint/core').File} File
- * @typedef {import('@html-eslint/parser').ParserOptions} LanguageOptions
+ * @import { Language, ParseResult, File, FileError, OkParseResult } from "@eslint/core";
+ * @import { ParserOptions } from "@html-eslint/parser";
+ * @import { AST } from "eslint";
+ */
+
+/**
+ * @implements {Language<{ LangOptions: ParserOptions; Code: HTMLSourceCode; RootNode: AST.Program; Node: {}}>}
  */
 class HTMLLanguage {
   constructor() {
@@ -31,14 +36,14 @@ class HTMLLanguage {
     this.nodeTypeKey = "type";
 
     /**
-     * The visitor keys for the CSSTree AST.
+     * The visitor keys for the es-html-parser AST.
      * @type {Record<string, string[]>}
      */
     this.visitorKeys = visitorKeys;
   }
 
   /**
-   * @param {LanguageOptions} languageOptions
+   * @param {ParserOptions} languageOptions
    */
   validateLanguageOptions(languageOptions) {
     if (!languageOptions) {
@@ -64,8 +69,8 @@ class HTMLLanguage {
   /**
    * @param {File} file
    * @param {Object} [context]
-   * @param {LanguageOptions} context.languageOptions
-   * @returns {{ok: true; ast: any; comments: any[]} | {ok: false, errors: unknown[]}}
+   * @param {ParserOptions} context.languageOptions
+   * @returns {ParseResult<AST.Program>}
    */
   parse(file, context) {
     const code = /**  @type {string} */ (file.body);
@@ -80,14 +85,14 @@ class HTMLLanguage {
     } catch (e) {
       return {
         ok: false,
-        errors: [e],
+        errors: [/** @type {FileError} */ (e)],
       };
     }
   }
 
   /**
    * @param {File} file
-   * @param {any} parseResult
+   * @param {OkParseResult<AST.Program>} parseResult
    */
   createSourceCode(file, parseResult) {
     return new HTMLSourceCode({
