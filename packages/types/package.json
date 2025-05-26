@@ -22,10 +22,12 @@
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
-  "devDependencies": {
+  "dependencies": {
     "@types/estree": "^1.0.6",
     "es-html-parser": "0.2.0",
-    "eslint": "^9.19.0",
+    "eslint": "^9.19.0"
+  },
+  "devDependencies": {
     "typescript": "^5.8.3"
   }
 }

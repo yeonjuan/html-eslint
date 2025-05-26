@@ -16,11 +16,10 @@
  * @typedef { import("@html-eslint/types").CloseTemplate } CloseTemplate
  * @typedef { import("eslint").AST.Range } Range
  * @typedef { import("eslint").AST.SourceLocation } SourceLocation
- * @typedef { import("es-html-parser").AnyToken } AnyToken
+ * @typedef { import("@html-eslint/types").AnyToken } AnyToken
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
-const { NodeTypes, TokenTypes } = require("es-html-parser");
 
 /**
  * @param {Tag | ScriptTag | StyleTag} node
@@ -68,7 +67,7 @@ function isRangesOverlap(rangeA, rangeB) {
  */
 function isOverlapWithTemplates(parts, range) {
   return parts
-    .filter((part) => part.type !== NodeTypes.Part)
+    .filter((part) => part.type !== NODE_TYPES.Part)
     .some((part) => isRangesOverlap(part.range, range));
 }
 
@@ -77,7 +76,7 @@ function isOverlapWithTemplates(parts, range) {
  * @returns {boolean}
  */
 function hasTemplate(node) {
-  return node.parts.some((part) => part.type !== NodeTypes.Part);
+  return node.parts.some((part) => part.type !== NODE_TYPES.Part);
 }
 
 /**
@@ -101,7 +100,7 @@ function splitToLineNodes(node) {
   function hasTemplate(range) {
     return parts.some(
       (part) =>
-        part.type !== NodeTypes.Part && isRangesOverlap(part.range, range)
+        part.type !== NODE_TYPES.Part && isRangesOverlap(part.range, range)
     );
   }
 
@@ -248,7 +247,7 @@ function getTemplateTokens(tokens) {
           .map((token) => token["parts"] || [])
       )
       // @ts-ignore
-      .filter((token) => token.type !== TokenTypes.Part)
+      .filter((token) => token.type !== NODE_TYPES.Part)
   );
 }
 

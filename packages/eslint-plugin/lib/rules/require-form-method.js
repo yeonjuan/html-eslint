@@ -2,7 +2,7 @@
  * @typedef { import("../types").RuleModule<[]> } RuleModule
  */
 
-const { NodeTypes } = require("es-html-parser");
+const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
@@ -67,7 +67,7 @@ module.exports = {
 
         if (
           method.value.parts &&
-          method.value.parts.some((part) => part.type !== NodeTypes.Part)
+          method.value.parts.some((part) => part.type !== NODE_TYPES.Part)
         ) {
           return;
         }

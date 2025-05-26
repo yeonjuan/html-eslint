@@ -1,5 +1,5 @@
 /**
- * @typedef { import("es-html-parser").AnyToken } AnyToken
+ * @typedef { import("@html-eslint/types").AnyToken } AnyToken
  * @typedef { import("@html-eslint/types").Document } Document
  * @typedef { import("@html-eslint/types").CommentContent } CommentContent
  * @typedef { import("@html-eslint/types").Text } Text
