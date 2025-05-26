@@ -10,7 +10,7 @@
  * @property {import("@html-eslint/types").AnyNode['range']} range
  */
 
-const { NodeTypes } = require("es-html-parser");
+const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
@@ -73,7 +73,7 @@ module.exports = {
         if (
           !attributeValue ||
           !attributeValue.value ||
-          attributeValue.parts.some((part) => part.type === NodeTypes.Template)
+          attributeValue.parts.some((part) => part.type === NODE_TYPES.Template)
         ) {
           return;
         }

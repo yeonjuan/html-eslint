@@ -1,6 +1,4 @@
 import * as Parser from "es-html-parser";
-import eslint from "eslint";
-import * as estree from "estree";
 
 export interface Document extends Parser.DocumentNode {
   parent: null;

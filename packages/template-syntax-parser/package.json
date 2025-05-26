@@ -30,7 +30,6 @@
   "devDependencies": {
     "@html-eslint/types": "^0.40.0",
     "eslint": "^9.19.0",
-    "espree": "^10.3.0",
     "globals": "^15.12.0"
   }
 }

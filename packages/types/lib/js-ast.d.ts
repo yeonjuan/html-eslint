@@ -1,4 +1,3 @@
-import * as Parser from "es-html-parser";
 import eslint from "eslint";
 import * as estree from "estree";
 

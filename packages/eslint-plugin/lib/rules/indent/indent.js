@@ -35,7 +35,7 @@
  */
 
 const { parse } = require("@html-eslint/template-parser");
-const { NodeTypes } = require("es-html-parser");
+const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../../constants");
 const {
   splitToLineNodes,
@@ -158,7 +158,7 @@ module.exports = {
         return getTagIncreasingLevel(node);
       }
       const type = node.type;
-      if (type === NodeTypes.Attribute) {
+      if (type === NODE_TYPES.Attribute) {
         const optionIndent = indentLevelOptions[type];
         if (typeof optionIndent === "number") {
           return optionIndent;
@@ -329,7 +329,7 @@ module.exports = {
           indentLevel.indent(node);
           if (hasTemplate(node)) {
             node.parts.forEach((part) => {
-              if (part.type !== NodeTypes.Part) {
+              if (part.type !== NODE_TYPES.Part) {
                 if (part.open) {
                   checkIndent(part.open);
                 }
@@ -362,7 +362,7 @@ module.exports = {
           indentLevel.indent(node);
           if (hasTemplate(node)) {
             node.parts.forEach((part) => {
-              if (part.type !== NodeTypes.Part) {
+              if (part.type !== NODE_TYPES.Part) {
                 if (part.open) {
                   checkIndent(part.open);
                 }
