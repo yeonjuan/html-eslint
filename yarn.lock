@@ -1299,7 +1299,6 @@ __metadata:
   dependencies:
     "@html-eslint/types": "npm:^0.40.0"
     eslint: "npm:^9.19.0"
-    espree: "npm:^10.3.0"
     globals: "npm:^15.12.0"
   languageName: unknown
   linkType: soft
