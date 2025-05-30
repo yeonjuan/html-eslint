@@ -1,91 +1,482 @@
-<div class="w-full">
-  <style>
-      .CodeMirror {
-          font-size: 14px;
-      }
-      .editor_error {
-  text-decoration: underline dashed red;
-}
-  </style>
-  <h1 class="sr-only">Playground</h1>
-  <div class="flex flex-col mt-3 px-2 w-full ">
-    <div class="flex" id="language-tabs">
-      <div class="py-2 px-4 rounded-t cursor-pointer" data-language="html">
-        <h2>HTML</h2>
-      </div>
-      <div class="p-2 py-2 px-4 rounded-t cursor-pointer" data-language="javascript">
-        <h2>JavaScript </h2>
-      </div>
-    </div>
-    <div class="flex-1 min-h-[300px] border-[1px] border-slate rounded md:min-w-[400px] mb-2">
-      <textarea id="code-editor"></textarea>
-    </div>
-    <div class="flex flex-col md:flex-row flex-1 h-[400px] gap-2">
-      <div class="flex-1 min-h-[300px]">
-        <div>
-          <span class="inline-block p-2 rounded-t">.eslintrc.json</span>
-        </div>
-        <div class="border-[1px] border-slate rounded md:min-w-[400px] h-[400px]">
-          <textarea id="config-editor"></textarea>
-        </div>
-      </div>
-      <div class="flex-1">
-        <div class="flex flex-col w-full">
-          <ul id="tabs" class="[&>li]:inline-block [&>li]:p-2 [&>li]:border-[1px] [&>li]:rounded-t [&>li]:border-b-0 [&>li]:border-transparent">
-            <li data-tab="errors" class="tab cursor-pointer !border-gray-200">
-              Errors
-            </li>
-            <li data-tab="fixed" class="tab cursor-pointer">
-              Fixed
-            </li>
-          </ul>
-        </div>
-        <div class="border-[1px] border-slate rounded flex-grow p-2 bg-gray-100 h-[400px]">
-          <div id="errors" class="block">
-            HERE
-          </div>
-                    <pre id="fixed" class="hidden text-sm">
-                        HERE
-                    </pre>
-        </div>
-      </div>
-    </div>
-    <script type="module" src="~/src/scripts/playground/app.js"></script>
-    <script>
-          const $tabs = document.getElementById("tabs");
-          $tabs.addEventListener("click", (e) => {
-            const $errors = document.getElementById("errors");
-            const $fixed = document.getElementById("fixed");
-
-            if (e.target) {
-              let $openTarget = null;
-              let $closeTarget = null;
-
-              if (e.target.dataset.tab === "errors") {
-                $openTarget = $errors;
-                $closeTarget = $fixed;
-              } else if (e.target.dataset.tab === "fixed") {
-                $openTarget = $fixed;
-                $closeTarget = $errors;
-              }
-              if ($openTarget || $closeTarget) {
-                document.querySelectorAll(".tab").forEach(elem => {
-                  elem.classList.remove("!border-gray-200");
-                })
-              }
-
-              if ($openTarget) {
-                $openTarget.classList.remove("hidden");
-                $openTarget.classList.add("block");
-                e.target.classList.add("!border-gray-200");
-              }
-              if ($closeTarget) {
-                $closeTarget.classList.remove("block");
-                $closeTarget.classList.add("hidden");
-              }
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Playground</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <!-- ESLint for real linting and auto-fix -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/eslint/8.56.0/eslint.min.js"></script>
+  </head>
+  <body>
+    <div class="w-full">
+      <style>
+            .CodeMirror {
+                font-size: 14px;
             }
-          })
-    </script>
-  </div>
-</div>
+            .editor_error {
+                text-decoration: underline dashed red;
+            }
+      </style>
+      <h1 class="sr-only">Playground</h1>
+      <div class="flex flex-col mt-3 px-2 w-full">
+        <div class="flex" id="language-tabs">
+          <div class="py-2 px-4 rounded-t cursor-pointer bg-gray-200" data-language="html">
+            <h2>HTML</h2>
+          </div>
+          <div class="py-2 px-4 rounded-t cursor-pointer" data-language="javascript">
+            <h2>JavaScript</h2>
+          </div>
+        </div>
+        <div class="flex-1 min-h-[300px] border border-gray-300 rounded md:min-w-[400px] mb-2">
+          <textarea id="code-editor"></textarea>
+        </div>
+        <div class="flex flex-col md:flex-row flex-1 h-[400px] gap-2">
+          <div class="flex-1 min-h-[300px]">
+            <div>
+              <span class="inline-block p-2 rounded-t bg-gray-100">.eslintrc.json</span>
+            </div>
+            <div class="border border-gray-300 rounded md:min-w-[400px] h-[400px]">
+              <textarea id="config-editor"></textarea>
+            </div>
+          </div>
+          <div class="flex-1">
+            <div class="flex flex-col w-full">
+              <ul id="tabs" class="[&>li]:inline-block [&>li]:p-2 [&>li]:border [&>li]:rounded-t [&>li]:border-b-0 [&>li]:border-transparent">
+                <li data-tab="errors" class="tab cursor-pointer !border-gray-200 bg-white">
+                  Errors
+                </li>
+                <li data-tab="fixed" class="tab cursor-pointer">
+                  Fixed
+                </li>
+              </ul>
+            </div>
+            <div class="border border-gray-300 rounded flex-grow p-2 bg-gray-100 h-[400px] overflow-auto">
+              <div id="errors" class="block">
+                <p class="text-gray-500">No errors detected. Try entering some JavaScript code like:</p>
+                <code class="bg-white p-1 rounded text-sm">let a = 1<br>console.log(a)</code>
+              </div>
+              <div id="fixed" class="hidden">
+                <div id="fixed-content" class="text-sm">
+                  <p class="text-gray-500">Fixed code will appear here</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+            
+        <div class="mt-4 flex flex-wrap gap-2" id="playground">
+          <button
+            type="button"
+            id="applyFixBtn"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+          >Apply Fix</button>
+          <button
+            type="button"
+            id="applySuggestionBtn"
+            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
+          >Apply Suggestion</button>
+          <button
+            type="button"
+            id="analyzeBtn"
+            class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors"
+          >Analyze Code</button>
+          
+          <div id="statusMessage" class="w-full mt-2 p-2 rounded hidden"></div>
+        </div>
+      </div>
+        
+      <script type="module">
+            const $tabs = document.getElementById("tabs");
+            const $languageTabs = document.getElementById("language-tabs");
+            
+            let codeEditor, configEditor;
+            let currentLanguage = 'javascript'; // Start with JavaScript
+            let eslintLinter;
+            
+            // Initialize ESLint Linter
+            if (typeof ESLint !== 'undefined') {
+                try {
+                    eslintLinter = new ESLint.Linter();
+                } catch (e) {
+                    console.log('ESLint not available, using fallback');
+                }
+            }
+            
+            // ESLint configuration
+            const eslintConfig = {
+                rules: {
+                    "semi": ["error", "always"],
+                    "quotes": ["error", "single"],
+                    "space-infix-ops": "error",
+                    "space-around-keywords": "off",
+                    "keyword-spacing": "error",
+                    "no-trailing-spaces": "error",
+                    "indent": ["error", 2],
+                    "no-multiple-empty-lines": ["error", { "max": 1 }]
+                },
+                parserOptions: {
+                    ecmaVersion: 2020,
+                    sourceType: "module"
+                },
+                env: {
+                    browser: true,
+                    es6: true
+                }
+            };
+            
+            // Real ESLint integration with auto-fix
+            function lintAndFixCode(code) {
+                if (!eslintLinter) {
+                    // Fallback to custom implementation if ESLint not available
+                    return customCodeFixer(code);
+                }
+                
+                try {
+                    const result = eslintLinter.verifyAndFix(code, eslintConfig);
+                    return {
+                        output: result.output,
+                        messages: result.messages,
+                        fixed: result.fixed
+                    };
+                } catch (error) {
+                    console.error('ESLint error:', error);
+                    return customCodeFixer(code);
+                }
+            }
+            
+            // Fallback custom code fixer
+            function customCodeFixer(code) {
+                let fixed = code;
+                const messages = [];
+                
+                // Add semicolons
+                const lines = fixed.split('\n');
+                const fixedLines = lines.map((line, index) => {
+                    const trimmed = line.trim();
+                    if (trimmed && 
+                        !trimmed.endsWith(';') && 
+                        !trimmed.endsWith('{') && 
+                        !trimmed.endsWith('}') &&
+                        !trimmed.startsWith('//') &&
+                        !trimmed.startsWith('/*') &&
+                        (trimmed.includes('let ') || trimmed.includes('const ') || trimmed.includes('var ') || 
+                         trimmed.includes('console.') || trimmed.includes('return ') || trimmed.includes('='))
+                    ) {
+                        messages.push({
+                            line: index + 1,
+                            message: 'Missing semicolon',
+                            ruleId: 'semi'
+                        });
+                        return line + ';';
+                    }
+                    return line;
+                });
+                
+                return {
+                    output: fixedLines.join('\n'),
+                    messages: messages,
+                    fixed: messages.length > 0
+                };
+            }
+            
+            function lintCode(code) {
+                if (!eslintLinter) {
+                    return customLinter(code);
+                }
+                
+                try {
+                    const messages = eslintLinter.verify(code, eslintConfig);
+                    return messages;
+                } catch (error) {
+                    console.error('ESLint error:', error);
+                    return customLinter(code);
+                }
+            }
+            
+            function customLinter(code) {
+                const messages = [];
+                const lines = code.split('\n');
+                
+                lines.forEach((line, index) => {
+                    const trimmed = line.trim();
+                    if (trimmed && 
+                        !trimmed.endsWith(';') && 
+                        !trimmed.endsWith('{') && 
+                        !trimmed.endsWith('}') &&
+                        !trimmed.startsWith('//') &&
+                        (trimmed.includes('let ') || trimmed.includes('const ') || trimmed.includes('console.'))
+                    ) {
+                        messages.push({
+                            line: index + 1,
+                            column: line.length,
+                            message: 'Missing semicolon.',
+                            severity: 2,
+                            ruleId: 'semi'
+                        });
+                    }
+                });
+                
+                return messages;
+            }
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize code editor
+                const codeTextarea = document.getElementById('code-editor');
+                if (codeTextarea) {
+                    codeEditor = CodeMirror.fromTextArea(codeTextarea, {
+                        mode: 'htmlmixed',
+                        theme: 'default',
+                        lineNumbers: true,
+                        autoCloseTags: true
+                    });
+                    
+                    // Set initial JavaScript code
+                    codeEditor.setValue('let a = 1\nconsole.log(a)');
+                    
+                    // Switch to JavaScript mode by default
+                    codeEditor.setOption('mode', 'javascript');
+                }
+                
+                // Initialize config editor
+                const configTextarea = document.getElementById('config-editor');
+                if (configTextarea) {
+                    configEditor = CodeMirror.fromTextArea(configTextarea, {
+                        mode: 'application/json',
+                        theme: 'default',
+                        lineNumbers: true
+                    });
+                    
+                    // Set default ESLint config
+                    configEditor.setValue(`{
+  "extends": ["eslint:recommended"],
+  "rules": {
+    "semi": ["error", "always"],
+    "space-around-operators": "error",
+    "no-console": "off"
+  }
+}`);
+                }
+            });
+            
+            function displayIssues(issues) {
+                const errorsDiv = document.getElementById('errors');
+                
+                if (issues.length === 0) {
+                    errorsDiv.innerHTML = '<p class="text-green-600">✓ No issues found! Code looks good.</p>';
+                    return;
+                }
+                
+                let html = '<div class="space-y-2">';
+                issues.forEach(issue => {
+                    const severity = issue.severity === 2 ? 'error' : issue.severity === 1 ? 'warning' : 'info';
+                    const colorClass = severity === 'error' ? 'text-red-600' : 
+                                     severity === 'warning' ? 'text-yellow-600' : 'text-blue-600';
+                    html += `
+                        <div class="border-l-4 border-${severity === 'error' ? 'red' : severity === 'warning' ? 'yellow' : 'blue'}-400 pl-3 py-1">
+                            <div class="${colorClass} font-medium">Line ${issue.line}: ${issue.message}</div>
+                            <div class="text-gray-600 text-sm">Rule: ${issue.ruleId || 'N/A'}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                
+                errorsDiv.innerHTML = html;
+            }
+            
+            function displayFixedCode(content, actionType) {
+                const fixedContent = document.getElementById('fixed-content');
+                const statusMessage = document.getElementById('statusMessage');
+                
+                statusMessage.className = 'w-full mt-2 p-2 rounded bg-green-100 border border-green-300 text-green-800';
+                statusMessage.textContent = `${actionType} applied successfully!`;
+                statusMessage.classList.remove('hidden');
+                
+                fixedContent.innerHTML = `
+                    <div class="mb-2">
+                        <strong class="text-green-600">${actionType}:</strong>
+                        <button id="applyToEditor" class="ml-2 bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600">
+                            Apply to Editor
+                        </button>
+                    </div>
+                    <pre class="bg-white p-3 rounded border text-sm overflow-auto">${content}</pre>
+                `;
+                
+                // Add event listener to apply button
+                document.getElementById('applyToEditor').addEventListener('click', function() {
+                    if (codeEditor) {
+                        codeEditor.setValue(content);
+                        statusMessage.textContent = 'Fixed code applied to editor!';
+                        setTimeout(() => statusMessage.classList.add('hidden'), 3000);
+                    }
+                });
+                
+                switchToFixedTab();
+            }
+            
+            function switchToFixedTab() {
+                const errorsDiv = document.getElementById("errors");
+                const fixedDiv = document.getElementById("fixed");
+                const fixedTab = document.querySelector('[data-tab="fixed"]');
+                
+                document.querySelectorAll(".tab").forEach(elem => {
+                    elem.classList.remove("!border-gray-200", "bg-white");
+                });
+                
+                errorsDiv.classList.add("hidden");
+                fixedDiv.classList.remove("hidden");
+                fixedTab.classList.add("!border-gray-200", "bg-white");
+            }
+            
+            // Language tab switching
+            $languageTabs?.addEventListener("click", (e) => {
+                const target = e.target.closest('[data-language]');
+                if (target) {
+                    document.querySelectorAll('[data-language]').forEach(tab => {
+                        tab.classList.remove('bg-gray-200');
+                    });
+                    
+                    target.classList.add('bg-gray-200');
+                    currentLanguage = target.dataset.language;
+                    
+                    if (codeEditor) {
+                        const mode = currentLanguage === 'html' ? 'htmlmixed' : 'javascript';
+                        codeEditor.setOption('mode', mode);
+                        
+                        if (currentLanguage === 'javascript') {
+                            codeEditor.setValue('let a = 1\nconsole.log(a)');
+                        } else {
+                            codeEditor.setValue('<div>\n  <p>Hello World</p>\n</div>');
+                        }
+                    }
+                }
+            });
+            
+            // Tab switching
+            $tabs?.addEventListener("click", (e) => {
+                const $errors = document.getElementById("errors");
+                const $fixed = document.getElementById("fixed");
 
+                if (e.target && e.target.dataset.tab) {
+                    let $openTarget = e.target.dataset.tab === "errors" ? $errors : $fixed;
+                    let $closeTarget = e.target.dataset.tab === "errors" ? $fixed : $errors;
+                    
+                    document.querySelectorAll(".tab").forEach(elem => {
+                        elem.classList.remove("!border-gray-200", "bg-white");
+                    });
+                    
+                    $closeTarget.classList.add("hidden");
+                    $openTarget.classList.remove("hidden");
+                    e.target.classList.add("!border-gray-200", "bg-white");
+                }
+            });
+            
+            // Analyze Code button - use real ESLint
+            document.getElementById('analyzeBtn')?.addEventListener('click', function() {
+                const code = codeEditor ? codeEditor.getValue() : '';
+                
+                if (currentLanguage === 'javascript') {
+                    const issues = lintCode(code);
+                    displayIssues(issues);
+                    
+                    // Show lint output
+                    const lintOutput = document.getElementById('lintOutput');
+                    if (lintOutput) {
+                        lintOutput.textContent = `Found ${issues.length} issue(s):\n` + 
+                            JSON.stringify(issues, null, 2);
+                    }
+                } else {
+                    const statusMessage = document.getElementById('statusMessage');
+                    statusMessage.className = 'w-full mt-2 p-2 rounded bg-yellow-100 border border-yellow-300 text-yellow-800';
+                    statusMessage.textContent = 'Analysis currently only supports JavaScript code.';
+                    statusMessage.classList.remove('hidden');
+                    setTimeout(() => statusMessage.classList.add('hidden'), 3000);
+                }
+            });
+            
+            // Apply Fix button - use ESLint's verifyAndFix
+            document.getElementById('applyFixBtn')?.addEventListener('click', function() {
+                const code = codeEditor ? codeEditor.getValue() : '';
+                
+                if (currentLanguage === 'javascript') {
+                    const result = lintAndFixCode(code);
+                    
+                    if (result.fixed || result.output !== code) {
+                        // Update editor with fixed code
+                        codeEditor.setValue(result.output);
+                        
+                        // Show success message
+                        const statusMessage = document.getElementById('statusMessage');
+                        statusMessage.className = 'w-full mt-2 p-2 rounded bg-green-100 border border-green-300 text-green-800';
+                        statusMessage.textContent = `✅ Code fixed! Applied ${result.messages ? result.messages.length : 'multiple'} automatic fixes.`;
+                        statusMessage.classList.remove('hidden');
+                        setTimeout(() => statusMessage.classList.add('hidden'), 3000);
+                        
+                        // Show what was fixed
+                        const lintOutput = document.getElementById('lintOutput');
+                        if (lintOutput && result.messages) {
+                            lintOutput.textContent = 'Fixed issues:\n' + 
+                                result.messages.map(msg => `Line ${msg.line}: ${msg.message}`).join('\n');
+                        }
+                    } else {
+                        const statusMessage = document.getElementById('statusMessage');
+                        statusMessage.className = 'w-full mt-2 p-2 rounded bg-blue-100 border border-blue-300 text-blue-800';
+                        statusMessage.textContent = 'No issues found to fix!';
+                        statusMessage.classList.remove('hidden');
+                        setTimeout(() => statusMessage.classList.add('hidden'), 3000);
+                    }
+                } else {
+                    const statusMessage = document.getElementById('statusMessage');
+                    statusMessage.className = 'w-full mt-2 p-2 rounded bg-yellow-100 border border-yellow-300 text-yellow-800';
+                    statusMessage.textContent = 'Auto-fix currently only supports JavaScript code.';
+                    statusMessage.classList.remove('hidden');
+                    setTimeout(() => statusMessage.classList.add('hidden'), 3000);
+                }
+            });
+            
+            // Apply Suggestion button - enhanced auto-fix
+            document.getElementById('applySuggestionBtn')?.addEventListener('click', function() {
+                const code = codeEditor ? codeEditor.getValue() : '';
+                
+                if (currentLanguage === 'javascript') {
+                    const result = lintAndFixCode(code);
+                    
+                    if (result.fixed || result.output !== code) {
+                        // Update editor with enhanced suggestions
+                        let enhancedCode = result.output;
+                        
+                        // Additional suggestions (beyond basic fixes)
+                        enhancedCode = enhancedCode.replace(/"/g, "'"); // Prefer single quotes
+                        enhancedCode = enhancedCode.replace(/var /g, "const "); // Prefer const over var
+                        
+                        codeEditor.setValue(enhancedCode);
+                        
+                        // Show success message
+                        const statusMessage = document.getElementById('statusMessage');
+                        statusMessage.className = 'w-full mt-2 p-2 rounded bg-purple-100 border border-purple-300 text-purple-800';
+                        statusMessage.textContent = '✨ Suggestions applied! Enhanced code style and formatting.';
+                        statusMessage.classList.remove('hidden');
+                        setTimeout(() => statusMessage.classList.add('hidden'), 3000);
+                    } else {
+                        const statusMessage = document.getElementById('statusMessage');
+                        statusMessage.className = 'w-full mt-2 p-2 rounded bg-blue-100 border border-blue-300 text-blue-800';
+                        statusMessage.textContent = 'Code already follows best practices!';
+                        statusMessage.classList.remove('hidden');
+                        setTimeout(() => statusMessage.classList.add('hidden'), 3000);
+                    }
+                } else {
+                    const statusMessage = document.getElementById('statusMessage');
+                    statusMessage.className = 'w-full mt-2 p-2 rounded bg-yellow-100 border border-yellow-300 text-yellow-800';
+                    statusMessage.textContent = 'Suggestions currently only support JavaScript code.';
+                    statusMessage.classList.remove('hidden');
+                    setTimeout(() => statusMessage.classList.add('hidden'), 3000);
+                }
+            });
+      </script>
+    </div>
+  </body>
+</html>

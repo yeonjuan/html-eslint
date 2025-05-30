@@ -1,3 +1,4 @@
+
 document.querySelectorAll("[data-nav]").forEach((elem) => {
   if (window.location.pathname.indexOf(elem.dataset.nav) === 0) {
     elem.dataset.navActive.split(" ").forEach((cls) => {
