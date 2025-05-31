@@ -4,6 +4,7 @@ const parser = require("@html-eslint/parser");
 const { HTMLLanguage } = require("./languages/html-language");
 const { name, version } = require("../package.json");
 
+
 /**
  * @import { ESLint } from "eslint";
  */
