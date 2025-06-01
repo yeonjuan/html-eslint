@@ -70,6 +70,7 @@ module.exports = [{
         "@html-eslint/require-meta-description": "error",
         "@html-eslint/no-abstract-roles": "error",
         "@html-eslint/no-aria-hidden-body": "error",
+        "@html-eslint/no-aria-hidden-on-focusable": "error",
         "@html-eslint/no-positive-tabindex": "error",
         "@html-eslint/require-frame-title": "error",
         "@html-eslint/id-naming-convention": ["error", "kebab-case"],
