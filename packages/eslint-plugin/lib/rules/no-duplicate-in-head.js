@@ -163,7 +163,6 @@ module.exports = {
       },
       TaggedTemplateExpression(node) {
         const tagsMap = new Map();
-        let templateInsideHead = false;
         if (shouldCheckTaggedTemplateExpression(node, context)) {
           parse(node.quasi, getSourceCode(context), {
             Tag: createTagVisitor(tagsMap),
