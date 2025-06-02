@@ -70,7 +70,7 @@ module.exports = {
       description: "Disallow duplicate tags in <head>",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
-      url: getRuleUrl("no-duplicate-head-tags"),
+      url: getRuleUrl("no-duplicate-in-head"),
     },
 
     fixable: null,
