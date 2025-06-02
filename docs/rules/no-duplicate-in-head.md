@@ -17,7 +17,7 @@ Certain HTML tags in the `<head>` section should appear only once per document f
 ```js,.eslintrc.js
 module.exports = {
   rules: {
-    "@html-eslint/no-duplicate-head-tags": "error",
+    "@html-eslint/no-duplicate-in-head": "error",
   },
 };
 ```
