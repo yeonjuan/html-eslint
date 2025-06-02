@@ -2,7 +2,7 @@
  * @typedef { import("@html-eslint/types").Tag } Tag
  *
  * @typedef {Object} Option
- * @property {string[]} [Option.substitute]
+ * @property {string[]} [substitute]
  *
  * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
@@ -13,6 +13,7 @@ const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",
+  INSERT_EMPTY: "insertEmptyAlt",
 };
 
 /**
@@ -20,7 +21,7 @@ const MESSAGE_IDS = {
  */
 module.exports = {
   meta: {
-    type: "code",
+    type: "suggestion",
 
     docs: {
       description: "Require `alt` attribute at `<img>` tag",
@@ -30,6 +31,7 @@ module.exports = {
     },
 
     fixable: null,
+    hasSuggestions: true,
     schema: [
       {
         type: "object",
@@ -45,6 +47,7 @@ module.exports = {
     ],
     messages: {
       [MESSAGE_IDS.MISSING_ALT]: "Missing `alt` attribute at `<img>` tag",
+      [MESSAGE_IDS.INSERT_EMPTY]: "Insert empty `alt=\"\"` attribute",
     },
   },
 
@@ -56,10 +59,11 @@ module.exports = {
       [];
 
     return createVisitors(context, {
-      Tag(node) {
+      Tag(/** @type {Tag} */ node) {
         if (node.name !== "img") {
           return;
         }
+
         if (!hasAltAttrAndValue(node, substitute)) {
           context.report({
             loc: {
@@ -67,6 +71,14 @@ module.exports = {
               end: node.openEnd.loc.end,
             },
             messageId: MESSAGE_IDS.MISSING_ALT,
+            suggest: [
+              {
+                messageId: MESSAGE_IDS.INSERT_EMPTY,
+                fix(fixer) {
+                  return fixer.insertTextBefore(node.openEnd, ' alt=""');
+                },
+              },
+            ],
           });
         }
       },
@@ -77,7 +89,6 @@ module.exports = {
 /**
  * @param {Tag} node
  * @param {string[]} substitute
- * @returns
  */
 function hasAltAttrAndValue(node, substitute = []) {
   return node.attributes.some((attr) => {

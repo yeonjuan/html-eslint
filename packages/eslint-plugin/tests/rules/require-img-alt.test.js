@@ -13,12 +13,15 @@ ruleTester.run("require-img-alt", rule, {
     },
     {
       code: `
+<img src="./image.png" alt=""/>
+`,
+    },
+    {
+      code: `
 <img src="./image.png" [alt]="image description"/>
 `,
       options: [
-        {
-          substitute: ["[alt]"],
-        },
+        { substitute: ["[alt]"] },
       ],
     },
     {
@@ -26,9 +29,7 @@ ruleTester.run("require-img-alt", rule, {
 <img src="./image.png" [attr.alt]="image description"/>
 `,
       options: [
-        {
-          substitute: ["[alt]", "[attr.alt]"],
-        },
+        { substitute: ["[alt]", "[attr.alt]"] },
       ],
     },
     {
@@ -55,10 +56,17 @@ ruleTester.run("require-img-alt", rule, {
       code: `
 <img src="./image.png"/>
 `,
-
       errors: [
         {
           messageId: "missingAlt",
+          suggestions: [
+            {
+              messageId: "insertEmptyAlt",
+              output: `
+<img src="./image.png" alt=""/>
+`,
+            },
+          ],
         },
       ],
     },
@@ -70,14 +78,25 @@ ruleTester.run("require-img-alt", rule, {
   </body>
 </html>
 `,
-
       errors: [
         {
           messageId: "missingAlt",
           line: 4,
           column: 5,
-          endColumn: 28,
           endLine: 4,
+          endColumn: 28,
+          suggestions: [
+            {
+              messageId: "insertEmptyAlt",
+              output: `
+<html>
+  <body>
+    <img src="./image.png" alt="">
+  </body>
+</html>
+`,
+            },
+          ],
         },
       ],
     },
@@ -90,42 +109,59 @@ ruleTester.run("require-img-alt", rule, {
 </html>
 `,
       options: [
-        {
-          substitute: ["[alt]"],
-        },
+        { substitute: ["[alt]"] },
       ],
       errors: [
         {
           messageId: "missingAlt",
           line: 4,
           column: 5,
-          endColumn: 28,
           endLine: 4,
+          endColumn: 28,
+          suggestions: [
+            {
+              messageId: "insertEmptyAlt",
+              output: `
+<html>
+  <body>
+    <img src="./image.png" alt="">
+  </body>
+</html>
+`,
+            },
+          ],
         },
       ],
     },
   ],
 });
 
+
 templateRuleTester.run("[template] require-img-alt", rule, {
   valid: [
     {
-      code: `html\`<img src="./image.png" alt="image description"/>\``,
+      code: `html` + "`<img src=\"./image.png\" alt=\"image description\"/>`",
     },
     {
-      code: `html\`<img src="./image.png" alt="\${alt}"/>\``,
+      code: `html` + "`<img src=\"./image.png\" alt=\"${alt}\"/>`",
     },
   ],
   invalid: [
     {
-      code: `html\`<img src="./image.png"/>\``,
+      code: `html` + "`<img src=\"./image.png\"/>`",
       errors: [
         {
           messageId: "missingAlt",
           line: 1,
           column: 6,
-          endColumn: 30,
           endLine: 1,
+          endColumn: 30,
+          suggestions: [
+            {
+              messageId: "insertEmptyAlt",
+              output: `html` + "`<img src=\"./image.png\" alt=\"\"/>`",
+            },
+          ],
         },
       ],
     },
