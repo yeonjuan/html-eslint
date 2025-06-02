@@ -29,7 +29,9 @@ function hasCharset(node) {
   if (!node.attributes || node.attributes.length <= 0) {
     return false;
   }
-  return node.attributes.some(attr => attr.key && attr.key.value === "charset");
+  return node.attributes.some(
+    (attr) => attr.key && attr.key.value === "charset"
+  );
 }
 
 /**
@@ -56,7 +58,12 @@ function isCanonicalLink(node) {
   }
   const relAttr = findAttr(node, "rel");
   const hrefAttr = findAttr(node, "href");
-  return !!(relAttr && relAttr.value && relAttr.value.value === "canonical" && hrefAttr);
+  return !!(
+    relAttr &&
+    relAttr.value &&
+    relAttr.value.value === "canonical" &&
+    hrefAttr
+  );
 }
 
 /**

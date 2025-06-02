@@ -102,7 +102,7 @@ const rules = {
   "require-explicit-size": requireExplicitSize,
   "use-baseline": useBaseLine,
   "no-duplicate-class": noDuplicateClass,
-   "no-duplicate-in-head": noDuplicateInHead,
+  "no-duplicate-in-head": noDuplicateInHead,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };

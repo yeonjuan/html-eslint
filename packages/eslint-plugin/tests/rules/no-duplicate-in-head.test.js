@@ -152,8 +152,16 @@ ruleTester.run("no-duplicate-head-tags", rule, {
         { messageId: "duplicateTag", data: { tag: "title" }, line: 4 },
         { messageId: "duplicateTag", data: { tag: "base" }, line: 6 },
         { messageId: "duplicateTag", data: { tag: "meta[charset]" }, line: 8 },
-        { messageId: "duplicateTag", data: { tag: "meta[name=viewport]" }, line: 10 },
-        { messageId: "duplicateTag", data: { tag: "link[rel=canonical]" }, line: 12 },
+        {
+          messageId: "duplicateTag",
+          data: { tag: "meta[name=viewport]" },
+          line: 10,
+        },
+        {
+          messageId: "duplicateTag",
+          data: { tag: "link[rel=canonical]" },
+          line: 12,
+        },
       ],
     },
     // Test with multiple duplicates of the same tag
