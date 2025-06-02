@@ -82,7 +82,7 @@ module.exports = {
 
   create(context) {
     const htmlTagsMap = new Map();
-    let insideHead = false;
+    let headCount = 0;
 
     /**
      * @param {Map<string, Tag[]>} map
@@ -95,16 +95,11 @@ module.exports = {
         const tagName = node.name.toLowerCase();
 
         if (tagName === "head") {
-          insideHead = true;
+          headCount++;
           return;
         }
 
-        if (tagName === "/head") {
-          insideHead = false;
-          return;
-        }
-
-        if (!insideHead) return;
+        if (headCount === 0) return;
 
         let trackingKey = null;
 
@@ -158,6 +153,12 @@ module.exports = {
 
     return {
       Tag: createTagVisitor(htmlTagsMap),
+      "Tag:exit"(node) {
+        const tagName = node.name.toLowerCase();
+        if (tagName === "head") {
+          headCount--;
+        }
+      },
       "Document:exit"() {
         report(htmlTagsMap);
       },
@@ -167,19 +168,17 @@ module.exports = {
           parse(node.quasi, getSourceCode(context), {
             Tag: createTagVisitor(tagsMap),
           });
+          report(tagsMap);
         }
-        report(tagsMap);
       },
-    TemplateLiteral(node) {
-   const tagsMap = new Map();
-  if (shouldCheckTemplateLiteral(node, context)) {
-     parse(node, getSourceCode(context), {
-       Tag: createTagVisitor(tagsMap),
-     });
-   }
-   report(tagsMap);
- },
-        report(tagsMap);
+      TemplateLiteral(node) {
+        const tagsMap = new Map();
+        if (shouldCheckTemplateLiteral(node, context)) {
+          parse(node, getSourceCode(context), {
+            Tag: createTagVisitor(tagsMap),
+          });
+          report(tagsMap);
+        }
       },
     };
   },
