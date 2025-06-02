@@ -48,6 +48,38 @@ ruleTester.run("no-duplicate-head-tags", rule, {
         </head>
       `,
     },
+    // Test cases for empty attributes (covers lines 30, 44, 57)
+    {
+      filename: "test.html",
+      code: `
+        <head>
+          <meta>
+          <link>
+          <title>Valid Title</title>
+        </head>
+      `,
+    },
+    // Test cases for tags with no attributes array
+    {
+      filename: "test.html",
+      code: `
+        <head>
+          <meta />
+          <link />
+          <title>Valid Title</title>
+        </head>
+      `,
+    },
+    // Test case for link without href (should not be tracked as canonical)
+    {
+      filename: "test.html",
+      code: `
+        <head>
+          <link rel="canonical" />
+          <link rel="canonical" />
+        </head>
+      `,
+    },
   ],
 
   invalid: [
@@ -204,6 +236,16 @@ templateRuleTester.run("[template] no-duplicate-head-tags", rule, {
         </head>\`
       `,
     },
+    // Test template literal with empty attributes
+    {
+      code: `
+        html\`<head>
+          <meta>
+          <link>
+          <title>Valid Title</title>
+        </head>\`
+      `,
+    },
   ],
   invalid: [
     {
@@ -247,6 +289,41 @@ templateRuleTester.run("[template] no-duplicate-head-tags", rule, {
       errors: [
         { messageId: "duplicateTag", data: { tag: "base" }, line: 4 },
         { messageId: "duplicateTag", data: { tag: "base" }, line: 5 },
+      ],
+    },
+  ],
+});
+
+// template literal tests to cover the uncovered lines
+const basicRuleTester = createRuleTester();
+
+basicRuleTester.run("[basic-template] no-duplicate-head-tags", rule, {
+  valid: [
+    // Test basic template literal (covers line 184)
+    {
+      code: `
+        const template = \`<head>
+          <title>Single Title</title>
+          <meta charset="UTF-8" />
+        </head>\`;
+      `,
+    },
+  ],
+  invalid: [
+    // Test basic template literal with duplicates (covers line 187)
+    {
+      code: `
+        const template = \`<head>
+          <title>First Title</title>
+          <title>Second Title</title>
+        </head>\`;
+      `,
+      errors: [
+        {
+          messageId: "duplicateTag",
+          data: { tag: "title" },
+          line: 4,
+        },
       ],
     },
   ],
