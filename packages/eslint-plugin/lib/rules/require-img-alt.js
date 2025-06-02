@@ -47,7 +47,7 @@ module.exports = {
     ],
     messages: {
       [MESSAGE_IDS.MISSING_ALT]: "Missing `alt` attribute at `<img>` tag",
-      [MESSAGE_IDS.INSERT_EMPTY]: "Insert empty `alt=\"\"` attribute",
+      [MESSAGE_IDS.INSERT_EMPTY]: 'Insert empty `alt=""` attribute',
     },
   },
 
@@ -59,7 +59,7 @@ module.exports = {
       [];
 
     return createVisitors(context, {
-      Tag(/** @type {Tag} */ node) {
+      Tag(node) {
         if (node.name !== "img") {
           return;
         }
