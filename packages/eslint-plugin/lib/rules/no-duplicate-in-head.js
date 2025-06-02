@@ -170,14 +170,15 @@ module.exports = {
         }
         report(tagsMap);
       },
-      TemplateLiteral(node) {
-        const tagsMap = new Map();
-        let templateInsideHead = false;
-        if (shouldCheckTemplateLiteral(node, context)) {
-          parse(node, getSourceCode(context), {
-            Tag: createTagVisitor(tagsMap),
-          });
-        }
+    TemplateLiteral(node) {
+   const tagsMap = new Map();
+  if (shouldCheckTemplateLiteral(node, context)) {
+     parse(node, getSourceCode(context), {
+       Tag: createTagVisitor(tagsMap),
+     });
+   }
+   report(tagsMap);
+ },
         report(tagsMap);
       },
     };
