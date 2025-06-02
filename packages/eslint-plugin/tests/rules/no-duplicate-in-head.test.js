@@ -1,10 +1,3 @@
-// @ts-nocheck
-/**
- * @fileoverview Tests for no-duplicate-head-tags rule
- */
-
-"use strict";
-
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-duplicate-in-head");
 
