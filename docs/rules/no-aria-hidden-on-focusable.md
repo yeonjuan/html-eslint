@@ -25,6 +25,7 @@ module.exports = {
 ## Rule Details
 
 This rule considers an element focusable if any of these conditions are met:
+
 - It has a `tabindex` attribute with a value other than `-1`
 - It has a `contenteditable` attribute that is empty, `"true"`, or `"plaintext-only"`
 - It is one of the inherently focusable elements (like `button`, `input`, etc.)
