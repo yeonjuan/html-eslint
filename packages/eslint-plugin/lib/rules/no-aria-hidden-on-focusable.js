@@ -24,7 +24,7 @@ const FOCUSABLE_ELEMENTS = new Set([
   "details",
   "embed",
   "iframe",
-  "summary", 
+  "summary",
 ]);
 
 /**
@@ -57,10 +57,12 @@ module.exports = {
      */
     function isFocusable(node) {
       const tagName = node.name.toLowerCase();
-      
+
       const contentEditableAttr = findAttr(node, "contenteditable");
       if (contentEditableAttr) {
-        const value = contentEditableAttr.value ? contentEditableAttr.value.value.toLowerCase() : "";     
+        const value = contentEditableAttr.value
+          ? contentEditableAttr.value.value.toLowerCase()
+          : "";
         if (value === "" || value === "true" || value === "plaintext-only") {
           return true;
         }
