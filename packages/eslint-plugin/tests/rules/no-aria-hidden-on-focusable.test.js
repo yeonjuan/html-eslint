@@ -24,6 +24,9 @@ ruleTester.run("no-aria-hidden-on-focusable", rule, {
     {
       code: `<div aria-hidden="true"><a href="#"></a></div>`,
     },
+    {
+      code: `<div aria-hidden="true" contenteditable="false"></div>`,
+    },
   ],
   invalid: [
     {
@@ -66,6 +69,46 @@ ruleTester.run("no-aria-hidden-on-focusable", rule, {
         },
       ],
     },
+    {
+      code: `<div aria-hidden="true" contenteditable></div>`,
+      errors: [
+        {
+          message: 'Unexpected aria-hidden="true" on focusable element.',
+        },
+      ],
+    },
+    {
+      code: `<div aria-hidden="true" contenteditable=""></div>`,
+      errors: [
+        {
+          message: 'Unexpected aria-hidden="true" on focusable element.',
+        },
+      ],
+    },
+    {
+      code: `<div aria-hidden="true" contenteditable="true"></div>`,
+      errors: [
+        {
+          message: 'Unexpected aria-hidden="true" on focusable element.',
+        },
+      ],
+    },
+    {
+      code: `<div aria-hidden="true" contenteditable="plaintext-only"></div>`,
+      errors: [
+        {
+          message: 'Unexpected aria-hidden="true" on focusable element.',
+        },
+      ],
+    },
+    {
+      code: `<summary aria-hidden="true"></summary>`,
+      errors: [
+        {
+          message: 'Unexpected aria-hidden="true" on focusable element.',
+        },
+      ],
+    },
   ],
 });
 
@@ -77,10 +120,29 @@ templateRuleTester.run("[template] no-aria-hidden-on-focusable", rule, {
     {
       code: `html\`<button aria-hidden="true" tabindex="-1"></button>\``,
     },
+    {
+      code: `html\`<div aria-hidden="true" contenteditable="false"></div>\``,
+    },
   ],
   invalid: [
     {
       code: `html\`<button aria-hidden="true"></button>\``,
+      errors: [
+        {
+          message: 'Unexpected aria-hidden="true" on focusable element.',
+        },
+      ],
+    },
+    {
+      code: `html\`<div aria-hidden="true" contenteditable></div>\``,
+      errors: [
+        {
+          message: 'Unexpected aria-hidden="true" on focusable element.',
+        },
+      ],
+    },
+    {
+      code: `html\`<summary aria-hidden="true"></summary>\``,
       errors: [
         {
           message: 'Unexpected aria-hidden="true" on focusable element.',

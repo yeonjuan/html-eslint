@@ -24,6 +24,13 @@ module.exports = {
 
 ## Rule Details
 
+This rule considers an element focusable if any of these conditions are met:
+- It has a `tabindex` attribute with a value other than `-1`
+- It has a `contenteditable` attribute that is empty, `"true"`, or `"plaintext-only"`
+- It is one of the inherently focusable elements (like `button`, `input`, etc.)
+- It is an `<a>` element with an `href` attribute
+- It is an `<audio>` or `<video>` element with a `controls` attribute
+
 Examples of **incorrect** code for this rule:
 
 ```html,incorrect
@@ -32,6 +39,9 @@ Examples of **incorrect** code for this rule:
 <a href="/" aria-hidden="true"></a>
 <button aria-hidden="true"></button>
 <textarea aria-hidden="true"></textarea>
+<div aria-hidden="true" contenteditable></div>
+<div aria-hidden="true" contenteditable="true"></div>
+<summary aria-hidden="true"></summary>
 ```
 
 Examples of **correct** code for this rule:
@@ -43,6 +53,7 @@ Examples of **correct** code for this rule:
 <button aria-hidden="true" tabindex="-1"></button>
 <a href="/"></a>
 <div aria-hidden="true"><a href="#"></a></div>
+<div aria-hidden="true" contenteditable="false"></div>
 ```
 
 ## Resources
