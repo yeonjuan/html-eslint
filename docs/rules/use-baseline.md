@@ -9,7 +9,7 @@ This rule enforces the use of baseline features.
 Baseline features are available across popular browsers. Baseline has two stages:
 
 - **Newly available**: The feature works across the latest devices and browser versions. The feature might not work in older devices or browsers.
-- **Widely available**: The feature is well established and works across many devices and browser versions. It’s been available across browsers for at least 2½ years (30 months).
+- **Widely available**: The feature is well established and works across many devices and browser versions. It's been available across browsers for at least 2½ years (30 months).
 
 Prior to being newly available, a feature has **Limited availability** when it's not yet available across all browsers.
 
@@ -59,3 +59,4 @@ If an integer `number` is used as an option, this rule allows features that beca
 
 - [W3C WebDX Community Group - Baseline](https://web-platform-dx.github.io/web-features/)
 - [web.dev - Baseline](https://web.dev/baseline)
+- [Chrome Developers Blog - Baseline features availability in developer tools](https://developer.chrome.com/blog/web-at-io25#7_baseline_features_availability_is_now_in_your_familiar_tools_vs_code_eslint_and_more)
