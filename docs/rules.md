@@ -42,21 +42,22 @@
 
 ## Accessibility
 
-| Rule                                                       | Description                                                            |     |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------- | --- |
-| [no-abstract-roles](rules/no-abstract-roles)               | Disallow to use of abstract roles                                      |     |
-| [no-accesskey-attrs](rules/no-accesskey-attrs)             | Disallow to use of accesskey attribute                                 |     |
-| [no-aria-hidden-body](rules/no-aria-hidden-body)           | Disallow to use aria-hidden attributes on the `body` element.          |     |
-| [no-heading-inside-button](rules/no-heading-inside-button) | Disallows the use of heading elements inside <button>.                 |     |
-| [no-invalid-role](rules/no-invalid-role)                   | Disallows use of invalid role.                                         |     |
-| [no-non-scalable-viewport](rules/no-non-scalable-viewport) | Disallow use of `user-scalable=no` in `<meta name="viewport">`.        |     |
-| [no-positive-tabindex](rules/no-positive-tabindex)         | Disallow use of positive `tabindex`.                                   |     |
-| [no-skip-heading-levels](rules/no-skip-heading-levels)     | Disallow skipping heading levels                                       |     |
-| [require-form-method](rules/require-form-method)           | Require `method` attribute in `<form>`                                 |     |
-| [require-frame-title](rules/require-frame-title)           | Require `title` in `<frame>`, `<iframe>`                               |     |
-| [require-img-alt](rules/require-img-alt)                   | Require `alt` attribute at `<img>` tag                                 | ⭐  |
-| [require-input-label](rules/require-input-label)           | Enforces use of label for form elements(`input`, `textarea`, `select`) |     |
-| [require-meta-viewport](rules/require-meta-viewport)       | Enforce to use `<meta name="viewport">` in `<head>`                    |     |
+| Rule                                                             | Description                                                            |     |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------------- | --- |
+| [no-abstract-roles](rules/no-abstract-roles)                     | Disallow to use of abstract roles                                      |     |
+| [no-accesskey-attrs](rules/no-accesskey-attrs)                   | Disallow to use of accesskey attribute                                 |     |
+| [no-aria-hidden-body](rules/no-aria-hidden-body)                 | Disallow to use aria-hidden attributes on the `body` element.          |     |
+| [no-aria-hidden-on-focusable](rules/no-aria-hidden-on-focusable) | Disallow aria-hidden="true" on focusable elements                      |     |
+| [no-heading-inside-button](rules/no-heading-inside-button)       | Disallows the use of heading elements inside <button>.                 |     |
+| [no-invalid-role](rules/no-invalid-role)                         | Disallows use of invalid role.                                         |     |
+| [no-non-scalable-viewport](rules/no-non-scalable-viewport)       | Disallow use of `user-scalable=no` in `<meta name="viewport">`.        |     |
+| [no-positive-tabindex](rules/no-positive-tabindex)               | Disallow use of positive `tabindex`.                                   |     |
+| [no-skip-heading-levels](rules/no-skip-heading-levels)           | Disallow skipping heading levels                                       |     |
+| [require-form-method](rules/require-form-method)                 | Require `method` attribute in `<form>`                                 |     |
+| [require-frame-title](rules/require-frame-title)                 | Require `title` in `<frame>`, `<iframe>`                               |     |
+| [require-img-alt](rules/require-img-alt)                         | Require `alt` attribute at `<img>` tag                                 | ⭐  |
+| [require-input-label](rules/require-input-label)                 | Enforces use of label for form elements(`input`, `textarea`, `select`) |     |
+| [require-meta-viewport](rules/require-meta-viewport)             | Enforce to use `<meta name="viewport">` in `<head>`                    |     |
 
 ## Style
 

@@ -27,6 +27,7 @@ const noDuplicateAttrs = require("./no-duplicate-attrs");
 const noAbstractRoles = require("./no-abstract-roles");
 const requireButtonType = require("./require-button-type");
 const noAriaHiddenBody = require("./no-aria-hidden-body");
+const noAriaHiddenOnFocusable = require("./no-aria-hidden-on-focusable");
 const noMultipleEmptyLines = require("./no-multiple-empty-lines");
 const noAccesskeyAttrs = require("./no-accesskey-attrs");
 const noRestrictedAttrs = require("./no-restricted-attrs");
@@ -81,6 +82,7 @@ const rules = {
   "no-abstract-roles": noAbstractRoles,
   "require-button-type": requireButtonType,
   "no-aria-hidden-body": noAriaHiddenBody,
+  "no-aria-hidden-on-focusable": noAriaHiddenOnFocusable,
   "no-multiple-empty-lines": noMultipleEmptyLines,
   "no-accesskey-attrs": noAccesskeyAttrs,
   "no-restricted-attrs": noRestrictedAttrs,
