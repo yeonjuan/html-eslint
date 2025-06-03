@@ -34,7 +34,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Disallow aria-hidden=\"true\" on focusable elements",
+      description: 'Disallow aria-hidden="true" on focusable elements',
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
       url: getRuleUrl("no-aria-hidden-on-focusable"),
@@ -43,19 +43,20 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "Unexpected aria-hidden=\"true\" on focusable element.",
+      [MESSAGE_IDS.UNEXPECTED]:
+        'Unexpected aria-hidden="true" on focusable element.',
     },
   },
 
   create(context) {
     /**
      * Checks if an element is focusable
-     * @param {Tag} node 
+     * @param {Tag} node
      * @returns {boolean}
      */
     function isFocusable(node) {
       const tagName = node.name.toLowerCase();
-      
+
       // Check for tabindex attribute
       const tabIndexAttr = findAttr(node, "tabindex");
       if (tabIndexAttr && tabIndexAttr.value) {
@@ -103,4 +104,4 @@ module.exports = {
       },
     });
   },
-}; 
+};

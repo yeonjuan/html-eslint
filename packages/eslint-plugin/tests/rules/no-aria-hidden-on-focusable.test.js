@@ -30,7 +30,7 @@ ruleTester.run("no-aria-hidden-on-focusable", rule, {
       code: `<div aria-hidden="true" tabindex="0"></div>`,
       errors: [
         {
-          message: "Unexpected aria-hidden=\"true\" on focusable element.",
+          message: 'Unexpected aria-hidden="true" on focusable element.',
         },
       ],
     },
@@ -38,7 +38,7 @@ ruleTester.run("no-aria-hidden-on-focusable", rule, {
       code: `<input aria-hidden="true">`,
       errors: [
         {
-          message: "Unexpected aria-hidden=\"true\" on focusable element.",
+          message: 'Unexpected aria-hidden="true" on focusable element.',
         },
       ],
     },
@@ -46,7 +46,7 @@ ruleTester.run("no-aria-hidden-on-focusable", rule, {
       code: `<a href="/" aria-hidden="true"></a>`,
       errors: [
         {
-          message: "Unexpected aria-hidden=\"true\" on focusable element.",
+          message: 'Unexpected aria-hidden="true" on focusable element.',
         },
       ],
     },
@@ -54,7 +54,7 @@ ruleTester.run("no-aria-hidden-on-focusable", rule, {
       code: `<button aria-hidden="true"></button>`,
       errors: [
         {
-          message: "Unexpected aria-hidden=\"true\" on focusable element.",
+          message: 'Unexpected aria-hidden="true" on focusable element.',
         },
       ],
     },
@@ -62,7 +62,7 @@ ruleTester.run("no-aria-hidden-on-focusable", rule, {
       code: `<textarea aria-hidden="true"></textarea>`,
       errors: [
         {
-          message: "Unexpected aria-hidden=\"true\" on focusable element.",
+          message: 'Unexpected aria-hidden="true" on focusable element.',
         },
       ],
     },
@@ -83,9 +83,9 @@ templateRuleTester.run("[template] no-aria-hidden-on-focusable", rule, {
       code: `html\`<button aria-hidden="true"></button>\``,
       errors: [
         {
-          message: "Unexpected aria-hidden=\"true\" on focusable element.",
+          message: 'Unexpected aria-hidden="true" on focusable element.',
         },
       ],
     },
   ],
-}); 
+});
