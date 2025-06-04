@@ -13,7 +13,8 @@ const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",
-  INSERT_EMPTY: "insertEmptyAlt",
+  EMPTY_ALT: "emptyAlt",
+  INSERT_ALT: "insertAlt",
 };
 
 /**
@@ -24,7 +25,7 @@ module.exports = {
     type: "suggestion",
 
     docs: {
-      description: "Require `alt` attribute at `<img>` tag",
+      description: "Require `alt` attribute with non-empty value at `<img>` tag",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: true,
       url: getRuleUrl("require-img-alt"),
@@ -47,7 +48,8 @@ module.exports = {
     ],
     messages: {
       [MESSAGE_IDS.MISSING_ALT]: "Missing `alt` attribute at `<img>` tag",
-      [MESSAGE_IDS.INSERT_EMPTY]: 'Insert empty `alt=""` attribute',
+      [MESSAGE_IDS.EMPTY_ALT]: "Empty `alt` attribute at `<img>` tag",
+      [MESSAGE_IDS.INSERT_ALT]: 'Insert `alt="..."` attribute with description',
     },
   },
 
@@ -64,22 +66,68 @@ module.exports = {
           return;
         }
 
-        if (!hasAltAttrAndValue(node, substitute)) {
-          context.report({
-            loc: {
-              start: node.openStart.loc.start,
-              end: node.openEnd.loc.end,
-            },
-            messageId: MESSAGE_IDS.MISSING_ALT,
-            suggest: [
-              {
-                messageId: MESSAGE_IDS.INSERT_EMPTY,
-                fix(fixer) {
-                  return fixer.insertTextBefore(node.openEnd, ' alt=""');
-                },
+        const altResult = hasValidAltOrSubstitute(node, substitute);
+        const hasSubstituteOption = substitute.length > 0;
+        
+        if (!altResult.hasAnyAlt) {
+          if (hasSubstituteOption) {
+            context.report({
+              loc: {
+                start: node.openStart.loc.start,
+                end: node.openEnd.loc.end,
               },
-            ],
-          });
+              messageId: MESSAGE_IDS.MISSING_ALT,
+            });
+          } else {
+            context.report({
+              loc: {
+                start: node.openStart.loc.start,
+                end: node.openEnd.loc.end,
+              },
+              messageId: MESSAGE_IDS.MISSING_ALT,
+              suggest: [
+                {
+                  messageId: MESSAGE_IDS.INSERT_ALT,
+                  fix(fixer) {
+                    return fixer.insertTextBefore(node.openEnd, ' alt="..."');
+                  },
+                },
+              ],
+            });
+          }
+        } else if (altResult.hasEmptyAlt) {
+          if (hasSubstituteOption) {
+            context.report({
+              loc: {
+                start: node.openStart.loc.start,
+                end: node.openEnd.loc.end,
+              },
+              messageId: MESSAGE_IDS.EMPTY_ALT,
+            });
+          } else {
+            context.report({
+              loc: {
+                start: node.openStart.loc.start,
+                end: node.openEnd.loc.end,
+              },
+              messageId: MESSAGE_IDS.EMPTY_ALT,
+              suggest: [
+                {
+                  messageId: MESSAGE_IDS.INSERT_ALT,
+                  fix(fixer) {
+                    const emptyAltAttr = node.attributes.find(attr => 
+                      attr.key && attr.key.value === "alt" && 
+                      (!attr.value || !attr.value.value || attr.value.value.trim() === "")
+                    );
+                    if (emptyAltAttr && emptyAltAttr.value) {
+                      return fixer.replaceText(emptyAltAttr.value, '...');
+                    }
+                    return null;
+                  },
+                },
+              ],
+            });
+          }
         }
       },
     });
@@ -89,15 +137,34 @@ module.exports = {
 /**
  * @param {Tag} node
  * @param {string[]} substitute
+ * @returns {{hasAnyAlt: boolean, hasEmptyAlt: boolean}}
  */
-function hasAltAttrAndValue(node, substitute = []) {
-  return node.attributes.some((attr) => {
-    if (attr.key && attr.value) {
-      return (
-        (attr.key.value === "alt" || substitute.includes(attr.key.value)) &&
-        typeof attr.value.value === "string"
-      );
+function hasValidAltOrSubstitute(node, substitute = []) {
+  let hasAnyAlt = false;
+  let hasEmptyAlt = false;
+  let hasValidContent = false;
+
+  for (const attr of node.attributes) {
+    if (attr.key && attr.key.value) {
+      const isAltAttr = attr.key.value === "alt";
+      const isSubstituteAttr = substitute.includes(attr.key.value);
+      
+      if (isAltAttr || isSubstituteAttr) {
+        hasAnyAlt = true;
+        
+        if (attr.value && 
+            typeof attr.value.value === "string" && 
+            attr.value.value.trim() !== "") {
+          hasValidContent = true;
+        } else if (isAltAttr) {
+          hasEmptyAlt = true;
+        }
+      }
     }
-    return false;
-  });
+  }
+
+  return {
+    hasAnyAlt,
+    hasEmptyAlt: hasEmptyAlt && !hasValidContent,
+  };
 }
