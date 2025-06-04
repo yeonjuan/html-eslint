@@ -26,12 +26,7 @@ const MESSAGE_IDS = {
  * @returns {boolean}
  */
 function hasCharset(node) {
-  if (!node.attributes || node.attributes.length <= 0) {
-    return false;
-  }
-  return node.attributes.some(
-    (attr) => attr.key && attr.key.value === "charset"
-  );
+  return !!findAttr(node, "charset");
 }
 
 /**
@@ -40,9 +35,6 @@ function hasCharset(node) {
  * @returns {boolean}
  */
 function isViewport(node) {
-  if (!node.attributes || node.attributes.length <= 0) {
-    return false;
-  }
   const nameAttr = findAttr(node, "name");
   return !!(nameAttr && nameAttr.value && nameAttr.value.value === "viewport");
 }
@@ -53,9 +45,6 @@ function isViewport(node) {
  * @returns {boolean}
  */
 function isCanonicalLink(node) {
-  if (!node.attributes || node.attributes.length <= 0) {
-    return false;
-  }
   const relAttr = findAttr(node, "rel");
   const hrefAttr = findAttr(node, "href");
   return !!(
@@ -93,49 +82,70 @@ module.exports = {
 
     /**
      * @param {Map<string, Tag[]>} map
+     * @param {{count: number}|null} headCountRef
      */
-    function createTagVisitor(map) {
-      /**
-       * @param {Tag} node
-       */
-      return function (node) {
-        const tagName = node.name.toLowerCase();
+    function createTagVisitor(map, headCountRef = null) {
+      return {
+        /**
+         * @param {Tag} node
+         */
+        Tag(node) {
+          const tagName = node.name.toLowerCase();
 
-        if (tagName === "head") {
-          headCount++;
-          return;
-        }
-
-        if (headCount === 0) return;
-
-        let trackingKey = null;
-
-        // Track <title> and <base>
-        if (["title", "base"].includes(tagName)) {
-          trackingKey = tagName;
-        }
-
-        // Track <meta charset> and <meta name=viewport>
-        if (tagName === "meta") {
-          if (hasCharset(node)) {
-            trackingKey = "meta[charset]";
-          } else if (isViewport(node)) {
-            trackingKey = "meta[name=viewport]";
+          if (tagName === "head") {
+            if (headCountRef !== null) {
+              headCountRef.count++;
+            } else {
+              headCount++;
+            }
+            return;
           }
-        }
 
-        // Track <link rel=canonical>
-        if (tagName === "link" && isCanonicalLink(node)) {
-          trackingKey = "link[rel=canonical]";
-        }
+          const currentHeadCount = headCountRef !== null ? headCountRef.count : headCount;
+          if (currentHeadCount === 0) return;
 
-        if (trackingKey) {
-          if (!map.has(trackingKey)) {
-            map.set(trackingKey, []);
+          let trackingKey = null;
+
+          // Track <title> and <base>
+          if (["title", "base"].includes(tagName)) {
+            trackingKey = tagName;
           }
-          const nodes = map.get(trackingKey);
-          if (nodes) {
-            nodes.push(node);
+
+          // Track <meta charset> and <meta name=viewport>
+          if (tagName === "meta") {
+            if (hasCharset(node)) {
+              trackingKey = "meta[charset]";
+            } else if (isViewport(node)) {
+              trackingKey = "meta[name=viewport]";
+            }
+          }
+
+          // Track <link rel=canonical>
+          if (tagName === "link" && isCanonicalLink(node)) {
+            trackingKey = "link[rel=canonical]";
+          }
+
+          if (trackingKey) {
+            if (!map.has(trackingKey)) {
+              map.set(trackingKey, []);
+            }
+            const nodes = map.get(trackingKey);
+            if (nodes) {
+              nodes.push(node);
+            }
+          }
+        },
+        /**
+         * @param {Tag} node
+         */
+        "Tag:exit"(node) {
+          const tagName = node.name.toLowerCase();
+          if (tagName === "head") {
+            if (headCountRef !== null) {
+              headCountRef.count--;
+            } else {
+              headCount--;
+            }
           }
         }
       };
@@ -158,31 +168,34 @@ module.exports = {
       });
     }
 
+    const htmlVisitor = createTagVisitor(htmlTagsMap);
+
     return {
-      Tag: createTagVisitor(htmlTagsMap),
-      "Tag:exit"(node) {
-        const tagName = node.name.toLowerCase();
-        if (tagName === "head") {
-          headCount--;
-        }
-      },
+      Tag: htmlVisitor.Tag,
+      "Tag:exit": htmlVisitor["Tag:exit"],
       "Document:exit"() {
         report(htmlTagsMap);
       },
       TaggedTemplateExpression(node) {
         const tagsMap = new Map();
+        const headCountRef = { count: 0 };
         if (shouldCheckTaggedTemplateExpression(node, context)) {
+          const templateVisitor = createTagVisitor(tagsMap, headCountRef);
           parse(node.quasi, getSourceCode(context), {
-            Tag: createTagVisitor(tagsMap),
+            Tag: templateVisitor.Tag,
+            "Tag:exit": templateVisitor["Tag:exit"],
           });
           report(tagsMap);
         }
       },
       TemplateLiteral(node) {
         const tagsMap = new Map();
+        const headCountRef = { count: 0 };
         if (shouldCheckTemplateLiteral(node, context)) {
+          const templateVisitor = createTagVisitor(tagsMap, headCountRef);
           parse(node, getSourceCode(context), {
-            Tag: createTagVisitor(tagsMap),
+            Tag: templateVisitor.Tag,
+            "Tag:exit": templateVisitor["Tag:exit"],
           });
           report(tagsMap);
         }
