@@ -13,6 +13,7 @@ const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",
+  EMPTY_ALT: "emptyAlt",
   INSERT_ALT: "insertAlt",
 };
 
@@ -24,7 +25,8 @@ module.exports = {
     type: "suggestion",
 
     docs: {
-      description: "Require `alt` attribute at `<img>` tag",
+      description:
+        "Require `alt` attribute at `<img>` tag",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: true,
       url: getRuleUrl("require-img-alt"),
@@ -46,8 +48,9 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.MISSING_ALT]: 'Insert `alt=""` attribute with description',
-      [MESSAGE_IDS.INSERT_ALT]: 'Insert `alt=""` attribute with description',
+      [MESSAGE_IDS.MISSING_ALT]: "Missing `alt` attribute at `<img>` tag",
+      [MESSAGE_IDS.EMPTY_ALT]: "Empty `alt` attribute at `<img>` tag",
+      [MESSAGE_IDS.INSERT_ALT]: 'Insert `alt=""` at `<img>` tag',
     },
   },
 
@@ -111,7 +114,5 @@ function hasValidAltOrSubstitute(node, substitute) {
     }
   }
 
-  return {
-    hasAnyAlt,
-  };
+  return { hasAnyAlt };
 }
