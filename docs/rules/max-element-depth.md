@@ -27,7 +27,7 @@ This rule has an object option:
 - `"max"`: Maximum element depth to allow.
 
 ```ts
-"@html-eslint/element-newline": ["error", {
+"@html-eslint/max-element-depth": ["error", {
   "max": number
 }]
 ```
