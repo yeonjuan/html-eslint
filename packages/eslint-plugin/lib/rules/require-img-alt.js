@@ -13,7 +13,6 @@ const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",
-  EMPTY_ALT: "emptyAlt",
   INSERT_ALT: "insertAlt",
 };
 
@@ -49,7 +48,6 @@ module.exports = {
     ],
     messages: {
       [MESSAGE_IDS.MISSING_ALT]: "Missing `alt` attribute at `<img>` tag",
-      [MESSAGE_IDS.EMPTY_ALT]: "Empty `alt` attribute at `<img>` tag",
       [MESSAGE_IDS.INSERT_ALT]: 'Insert `alt=""` attribute with description',
     },
   },
@@ -97,11 +95,10 @@ module.exports = {
 /**
  * @param {Tag} node
  * @param {string[]} substitute
- * @returns {{hasAnyAlt: boolean, hasValidContent: boolean}}
+ * @returns {{hasAnyAlt: boolean}}
  */
 function hasValidAltOrSubstitute(node, substitute) {
   let hasAnyAlt = false;
-  let hasValidContent = false;
 
   for (const attr of node.attributes) {
     if (attr.key && attr.key.value) {
@@ -110,20 +107,12 @@ function hasValidAltOrSubstitute(node, substitute) {
 
       if (isAltAttr || isSubstituteAttr) {
         hasAnyAlt = true;
-
-        if (
-          attr.value &&
-          typeof attr.value.value === "string" &&
-          attr.value.value.trim() !== ""
-        ) {
-          hasValidContent = true;
-        }
+        break;
       }
     }
   }
 
   return {
     hasAnyAlt,
-    hasValidContent,
   };
 }
