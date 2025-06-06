@@ -21,38 +21,39 @@ const MESSAGE_IDS = {
 };
 
 /**
- * Check if a tag has a charset attribute.
+ * Returns a formatted string representing a tag's key detail.
+ * E.g., meta[charset=UTF-8], meta[name=viewport], link[rel=canonical]
  * @param {Tag} node
- * @returns {boolean}
+ * @returns {string | null}
  */
-function hasCharset(node) {
-  return !!findAttr(node, "charset");
-}
+function getTrackingKey(node) {
+  const tagName = node.name.toLowerCase();
 
-/**
- * Check if a tag has a name attribute equal to "viewport".
- * @param {Tag} node
- * @returns {boolean}
- */
-function isViewport(node) {
-  const nameAttr = findAttr(node, "name");
-  return !!(nameAttr && nameAttr.value && nameAttr.value.value === "viewport");
-}
+  if (["title", "base"].includes(tagName)) {
+    return tagName;
+  }
 
-/**
- * Check if a link tag has rel="canonical".
- * @param {Tag} node
- * @returns {boolean}
- */
-function isCanonicalLink(node) {
-  const relAttr = findAttr(node, "rel");
-  const hrefAttr = findAttr(node, "href");
-  return !!(
-    relAttr &&
-    relAttr.value &&
-    relAttr.value.value === "canonical" &&
-    hrefAttr
-  );
+  if (tagName === "meta") {
+    const charsetAttr = findAttr(node, "charset");
+    if (charsetAttr) {
+      return "meta[charset]";
+    }
+
+    const nameAttr = findAttr(node, "name");
+    if (nameAttr && nameAttr.value?.value === "viewport") {
+      return "meta[name=viewport]";
+    }
+  }
+
+  if (tagName === "link") {
+    const relAttr = findAttr(node, "rel");
+    const hrefAttr = findAttr(node, "href");
+    if (relAttr && relAttr.value?.value === "canonical" && hrefAttr) {
+      return "link[rel=canonical]";
+    }
+  }
+
+  return null;
 }
 
 /**
@@ -61,14 +62,12 @@ function isCanonicalLink(node) {
 module.exports = {
   meta: {
     type: "code",
-
     docs: {
       description: "Disallow duplicate tags in `<head>`",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
       url: getRuleUrl("no-duplicate-in-head"),
     },
-
     fixable: null,
     schema: [],
     messages: {
@@ -101,40 +100,23 @@ module.exports = {
             return;
           }
 
-          const currentHeadCount = headCountRef !== null ? headCountRef.count : headCount;
+          const currentHeadCount =
+            headCountRef !== null ? headCountRef.count : headCount;
           if (currentHeadCount === 0) return;
 
-          let trackingKey = null;
+          const trackingKey = getTrackingKey(node);
+          if (typeof trackingKey !== "string") return;
 
-          // Track <title> and <base>
-          if (["title", "base"].includes(tagName)) {
-            trackingKey = tagName;
+          if (!map.has(trackingKey)) {
+            map.set(trackingKey, []);
           }
 
-          // Track <meta charset> and <meta name=viewport>
-          if (tagName === "meta") {
-            if (hasCharset(node)) {
-              trackingKey = "meta[charset]";
-            } else if (isViewport(node)) {
-              trackingKey = "meta[name=viewport]";
-            }
-          }
-
-          // Track <link rel=canonical>
-          if (tagName === "link" && isCanonicalLink(node)) {
-            trackingKey = "link[rel=canonical]";
-          }
-
-          if (trackingKey) {
-            if (!map.has(trackingKey)) {
-              map.set(trackingKey, []);
-            }
-            const nodes = map.get(trackingKey);
-            if (nodes) {
-              nodes.push(node);
-            }
+          const nodes = map.get(trackingKey);
+          if (nodes) {
+            nodes.push(node);
           }
         },
+
         /**
          * @param {Tag} node
          */
@@ -147,7 +129,7 @@ module.exports = {
               headCount--;
             }
           }
-        }
+        },
       };
     }
 
@@ -155,12 +137,12 @@ module.exports = {
      * @param {Map<string, Tag[]>} map
      */
     function report(map) {
-      map.forEach((tags, tagName) => {
+      map.forEach((tags, tagKey) => {
         if (Array.isArray(tags) && tags.length > 1) {
           tags.slice(1).forEach((tag) => {
             context.report({
               node: tag,
-              data: { tag: tagName },
+              data: { tag: tagKey },
               messageId: MESSAGE_IDS.DUPLICATE_TAG,
             });
           });
@@ -173,12 +155,15 @@ module.exports = {
     return {
       Tag: htmlVisitor.Tag,
       "Tag:exit": htmlVisitor["Tag:exit"],
+
       "Document:exit"() {
         report(htmlTagsMap);
       },
+
       TaggedTemplateExpression(node) {
         const tagsMap = new Map();
         const headCountRef = { count: 0 };
+
         if (shouldCheckTaggedTemplateExpression(node, context)) {
           const templateVisitor = createTagVisitor(tagsMap, headCountRef);
           parse(node.quasi, getSourceCode(context), {
@@ -188,9 +173,11 @@ module.exports = {
           report(tagsMap);
         }
       },
+
       TemplateLiteral(node) {
         const tagsMap = new Map();
         const headCountRef = { count: 0 };
+
         if (shouldCheckTemplateLiteral(node, context)) {
           const templateVisitor = createTagVisitor(tagsMap, headCountRef);
           parse(node, getSourceCode(context), {

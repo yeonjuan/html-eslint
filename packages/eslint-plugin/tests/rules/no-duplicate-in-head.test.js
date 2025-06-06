@@ -180,7 +180,7 @@ basicRuleTester.run("[basic-template] no-duplicate-in-head", rule, {
   invalid: [
     {
       code: `
-        const template = \`
+        const template = html\`
           <html>
             <head>
               <title>Test</title>
