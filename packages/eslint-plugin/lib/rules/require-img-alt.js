@@ -24,8 +24,7 @@ module.exports = {
     type: "suggestion",
 
     docs: {
-      description:
-        "Require `alt` attribute with non-empty value at `<img>` tag",
+      description: "Require `alt` attribute at `<img>` tag",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: true,
       url: getRuleUrl("require-img-alt"),
@@ -47,7 +46,7 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.MISSING_ALT]: "Missing `alt` attribute at `<img>` tag",
+      [MESSAGE_IDS.MISSING_ALT]: 'Insert `alt=""` attribute with description',
       [MESSAGE_IDS.INSERT_ALT]: 'Insert `alt=""` attribute with description',
     },
   },
