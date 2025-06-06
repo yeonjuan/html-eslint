@@ -22,6 +22,7 @@ const recommended = {
     "@html-eslint/require-closing-tags": "error",
     "@html-eslint/no-duplicate-attrs": "error",
     "@html-eslint/use-baseline": "error",
+    "@html-eslint/no-duplicate-in-head": "error",
   },
 };
 
