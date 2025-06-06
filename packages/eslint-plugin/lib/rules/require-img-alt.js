@@ -71,68 +71,23 @@ module.exports = {
         const hasSubstituteOption = substitute.length > 0;
 
         if (!altResult.hasAnyAlt) {
-          if (hasSubstituteOption) {
-            context.report({
-              loc: {
-                start: node.openStart.loc.start,
-                end: node.openEnd.loc.end,
-              },
-              messageId: MESSAGE_IDS.MISSING_ALT,
-            });
-          } else {
-            context.report({
-              loc: {
-                start: node.openStart.loc.start,
-                end: node.openEnd.loc.end,
-              },
-              messageId: MESSAGE_IDS.MISSING_ALT,
-              suggest: [
-                {
-                  messageId: MESSAGE_IDS.INSERT_ALT,
-                  fix(fixer) {
-                    return fixer.insertTextBefore(node.openEnd, ' alt=""');
+          context.report({
+            loc: {
+              start: node.openStart.loc.start,
+              end: node.openEnd.loc.end,
+            },
+            messageId: MESSAGE_IDS.MISSING_ALT,
+            suggest: hasSubstituteOption
+              ? null
+              : [
+                  {
+                    messageId: MESSAGE_IDS.INSERT_ALT,
+                    fix(fixer) {
+                      return fixer.insertTextBefore(node.openEnd, ' alt=""');
+                    },
                   },
-                },
-              ],
-            });
-          }
-        } else if (altResult.hasEmptyAlt && !altResult.hasValidContent) {
-          if (hasSubstituteOption) {
-            context.report({
-              loc: {
-                start: node.openStart.loc.start,
-                end: node.openEnd.loc.end,
-              },
-              messageId: MESSAGE_IDS.EMPTY_ALT,
-            });
-          } else {
-            context.report({
-              loc: {
-                start: node.openStart.loc.start,
-                end: node.openEnd.loc.end,
-              },
-              messageId: MESSAGE_IDS.EMPTY_ALT,
-              suggest: [
-                {
-                  messageId: MESSAGE_IDS.INSERT_ALT,
-                  fix(fixer) {
-                    const emptyAltAttr = node.attributes.find(
-                      (attr) =>
-                        attr.key &&
-                        attr.key.value === "alt" &&
-                        (!attr.value ||
-                          !attr.value.value ||
-                          attr.value.value.trim() === "")
-                    );
-                    if (emptyAltAttr && emptyAltAttr.value) {
-                      return fixer.replaceText(emptyAltAttr.value, '""');
-                    }
-                    return null;
-                  },
-                },
-              ],
-            });
-          }
+                ],
+          });
         }
       },
     });
@@ -142,11 +97,10 @@ module.exports = {
 /**
  * @param {Tag} node
  * @param {string[]} substitute
- * @returns {{hasAnyAlt: boolean, hasEmptyAlt: boolean, hasValidContent: boolean}}
+ * @returns {{hasAnyAlt: boolean, hasValidContent: boolean}}
  */
-function hasValidAltOrSubstitute(node, substitute = []) {
+function hasValidAltOrSubstitute(node, substitute) {
   let hasAnyAlt = false;
-  let hasEmptyAlt = false;
   let hasValidContent = false;
 
   for (const attr of node.attributes) {
@@ -163,8 +117,6 @@ function hasValidAltOrSubstitute(node, substitute = []) {
           attr.value.value.trim() !== ""
         ) {
           hasValidContent = true;
-        } else if (isAltAttr && attr.value !== null) {
-          hasEmptyAlt = false;
         }
       }
     }
@@ -172,7 +124,6 @@ function hasValidAltOrSubstitute(node, substitute = []) {
 
   return {
     hasAnyAlt,
-    hasEmptyAlt,
     hasValidContent,
   };
 }
