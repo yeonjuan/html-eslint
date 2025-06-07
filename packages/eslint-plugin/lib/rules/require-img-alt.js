@@ -2,7 +2,7 @@
  * @typedef { import("@html-eslint/types").Tag } Tag
  *
  * @typedef {Object} Option
- * @property {string[]} [Option.substitute]
+ * @property {string[]} [substitute]
  *
  * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
@@ -13,6 +13,7 @@ const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
   MISSING_ALT: "missingAlt",
+  INSERT_ALT: "insertAlt",
 };
 
 /**
@@ -20,7 +21,7 @@ const MESSAGE_IDS = {
  */
 module.exports = {
   meta: {
-    type: "code",
+    type: "suggestion",
 
     docs: {
       description: "Require `alt` attribute at `<img>` tag",
@@ -30,6 +31,7 @@ module.exports = {
     },
 
     fixable: null,
+    hasSuggestions: true,
     schema: [
       {
         type: "object",
@@ -45,6 +47,7 @@ module.exports = {
     ],
     messages: {
       [MESSAGE_IDS.MISSING_ALT]: "Missing `alt` attribute at `<img>` tag",
+      [MESSAGE_IDS.INSERT_ALT]: 'Insert `alt=""` at `<img>` tag',
     },
   },
 
@@ -60,13 +63,27 @@ module.exports = {
         if (node.name !== "img") {
           return;
         }
-        if (!hasAltAttrAndValue(node, substitute)) {
+
+        const hasAlt = hasValidAltOrSubstitute(node, substitute);
+        const hasSubstituteOption = substitute.length > 0;
+
+        if (!hasAlt) {
           context.report({
             loc: {
               start: node.openStart.loc.start,
               end: node.openEnd.loc.end,
             },
             messageId: MESSAGE_IDS.MISSING_ALT,
+            suggest: hasSubstituteOption
+              ? null
+              : [
+                  {
+                    messageId: MESSAGE_IDS.INSERT_ALT,
+                    fix(fixer) {
+                      return fixer.insertTextBefore(node.openEnd, ' alt=""');
+                    },
+                  },
+                ],
           });
         }
       },
@@ -77,16 +94,22 @@ module.exports = {
 /**
  * @param {Tag} node
  * @param {string[]} substitute
- * @returns
+ * @returns {boolean}
  */
-function hasAltAttrAndValue(node, substitute = []) {
-  return node.attributes.some((attr) => {
-    if (attr.key && attr.value) {
-      return (
-        (attr.key.value === "alt" || substitute.includes(attr.key.value)) &&
-        typeof attr.value.value === "string"
-      );
+function hasValidAltOrSubstitute(node, substitute) {
+  let hasAnyAlt = false;
+
+  for (const attr of node.attributes) {
+    if (attr.key && attr.key.value) {
+      const isAltAttr = attr.key.value === "alt";
+      const isSubstituteAttr = substitute.includes(attr.key.value);
+
+      if (isAltAttr || isSubstituteAttr) {
+        hasAnyAlt = true;
+        break;
+      }
     }
-    return false;
-  });
+  }
+
+  return hasAnyAlt;
 }
