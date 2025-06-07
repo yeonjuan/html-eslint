@@ -1,5 +1,7 @@
 /**
  * @typedef { import("../types").RuleModule<[]> } RuleModule
+ * @typedef { import("@html-eslint/types").Tag } Tag
+ * @typedef { import("@html-eslint/types").Text } Text
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -15,7 +17,7 @@ const MESSAGE_IDS = {
 const HEADING_NAMES = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
 
 /**
- * @param {any} node
+ * @param {Tag} node
  */
 function isAriaHidden(node) {
   const ariaHiddenAttr = findAttr(node, "aria-hidden");
@@ -23,7 +25,7 @@ function isAriaHidden(node) {
 }
 
 /**
- * @param {any} node
+ * @param {Tag} node
  * @returns {string}
  */
 function getHeadingText(node) {
@@ -45,23 +47,19 @@ function getHeadingText(node) {
  */
 function isRoleHeading(node) {
   const roleAttr = findAttr(node, "role");
-  const ariaLevel = findAttr(node, "aria-level");
   return (
     !!roleAttr &&
     !!roleAttr.value &&
-    roleAttr.value.value === "heading" &&
-    !!ariaLevel &&
-    !!ariaLevel.value &&
-    !!ariaLevel.value.value
+    roleAttr.value.value === "heading"
   );
 }
 
 /**
- * @param {any} node
+ * @param {Text | Tag} node
  * @returns {string}
  */
 function getAllText(node) {
-  if (!node.children) return "";
+  if (!isTag(node) || !node.children) return "";
   let text = "";
   for (const child of node.children) {
     if (isText(child)) {
@@ -74,11 +72,11 @@ function getAllText(node) {
 }
 
 /**
- * @param {any} node
+ * @param {Text | Tag} node
  * @returns {string}
  */
 function getAccessibleText(node) {
-  if (!node.children) return "";
+  if (!isTag(node) || !node.children) return "";
   let text = "";
   for (const child of node.children) {
     if (isText(child)) {
@@ -112,7 +110,7 @@ module.exports = {
   create(context) {
     return createVisitors(context, {
       Tag(node) {
-        const tagName = node.name && node.name.toLowerCase();
+        const tagName = node.name.toLowerCase();
         const isHeadingTag = HEADING_NAMES.has(tagName);
         const isRoleHeadingEl = isRoleHeading(node);
         if (!isHeadingTag && !isRoleHeadingEl) return;
