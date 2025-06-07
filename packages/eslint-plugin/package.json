@@ -54,7 +54,6 @@
     "es-html-parser": "0.2.0",
     "eslint": "^9.27.0",
     "espree": "^10.3.0",
-    "jest": "^29.7.0",
     "typescript": "^5.8.3"
   },
   "engines": {
