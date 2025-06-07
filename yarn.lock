@@ -1242,7 +1242,6 @@ __metadata:
     es-html-parser: "npm:0.2.0"
     eslint: "npm:^9.27.0"
     espree: "npm:^10.3.0"
-    jest: "npm:^29.7.0"
     typescript: "npm:^5.8.3"
   peerDependencies:
     eslint: ^8.0.0 || ^9.0.0
@@ -1264,6 +1263,7 @@ __metadata:
     eslint-plugin-jest: "npm:^28.11.0"
     eslint-plugin-n: "npm:^17.15.1"
     husky: "npm:^9.1.4"
+    jest: "npm:^29.7.0"
     prettier: "npm:^3.5.2"
     rimraf: "npm:^6.0.1"
     svgo: "npm:^3"
