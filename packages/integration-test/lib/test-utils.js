@@ -32,7 +32,7 @@ async function makePackageJson({ fixtureName, eslintVersion, dir }) {
     name: fixtureName,
     private: true,
     version: "0.0.2",
-    packageManager: "yarn@4.0.2",
+    packageManager: "yarn@4.9.1",
     devDependencies: {
       eslint: eslintVersion,
       "@html-eslint/eslint-plugin": packageFileVersion("eslint-plugin"),
@@ -78,6 +78,8 @@ async function runESLint({ fixtureName, eslintVersion, glob }) {
 
   await execFile("yarn", ["install", "--no-immutable"], {
     cwd: dir,
+  }).catch((e) => {
+    console.error(e);
   });
   const outFile = await tmpFile();
   await execFile(
