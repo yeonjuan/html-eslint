@@ -78,6 +78,8 @@ async function runESLint({ fixtureName, eslintVersion, glob }) {
 
   await execFile("yarn", ["install", "--no-immutable"], {
     cwd: dir,
+  }).catch((e) => {
+    console.error(e);
   });
   const outFile = await tmpFile();
   await execFile(
