@@ -25,8 +25,7 @@ module.exports = {
     type: "suggestion",
 
     docs: {
-      description:
-        "Require `alt` attribute at `<img>` tag",
+      description: "Require `alt` attribute at `<img>` tag",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: true,
       url: getRuleUrl("require-img-alt"),
@@ -67,10 +66,10 @@ module.exports = {
           return;
         }
 
-        const altResult = hasValidAltOrSubstitute(node, substitute);
+        const hasAlt = hasValidAltOrSubstitute(node, substitute);
         const hasSubstituteOption = substitute.length > 0;
 
-        if (!altResult.hasAnyAlt) {
+        if (!hasAlt) {
           context.report({
             loc: {
               start: node.openStart.loc.start,
@@ -97,7 +96,7 @@ module.exports = {
 /**
  * @param {Tag} node
  * @param {string[]} substitute
- * @returns {{hasAnyAlt: boolean}}
+ * @returns {boolean}}
  */
 function hasValidAltOrSubstitute(node, substitute) {
   let hasAnyAlt = false;
@@ -114,5 +113,5 @@ function hasValidAltOrSubstitute(node, substitute) {
     }
   }
 
-  return { hasAnyAlt };
+  return hasAnyAlt;
 }
