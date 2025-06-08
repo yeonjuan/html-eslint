@@ -56,7 +56,7 @@ module.exports = {
         const entity = match[0];
         const entityName = match[1];
 
-        // Check named entities (e.g.,  )
+        // Check named entities
         if (!entityName.startsWith("#")) {
           const fullEntity = `&${entityName};`;
           if (!Object.prototype.hasOwnProperty.call(entities, fullEntity)) {
@@ -67,13 +67,13 @@ module.exports = {
             });
           }
         }
-        // Check numeric entities (e.g.,   or  )
+        // Check numeric entities
         else {
           const isHex = entityName.startsWith("x");
           const numStr = isHex ? entityName.slice(2) : entityName.slice(1);
           const num = isHex ? parseInt(numStr, 16) : parseInt(numStr, 10);
 
-          // If the number is not a valid integer (e.g., "zzzz"), report an error
+          // If the number is not a valid integer, report an error
           if (isNaN(num)) {
             context.report({
               node,
