@@ -89,7 +89,7 @@ module.exports = {
             return codepoints.length === 1 && codepoints[0] === num;
           });
 
-          if (!entityKey && (num < 0 || num > 0x10FFFF)) {
+          if (!entityKey && (num < 0 || num > 0x10ffff)) {
             context.report({
               node,
               messageId: MESSAGE_IDS.INVALID_ENTITY,
