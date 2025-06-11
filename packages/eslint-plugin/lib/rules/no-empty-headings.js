@@ -25,23 +25,6 @@ function isAriaHidden(node) {
 }
 
 /**
- * @param {Tag} node
- * @returns {string}
- */
-function getHeadingText(node) {
-  if (!node.children) return "";
-  let text = "";
-  for (const child of node.children) {
-    if (isText(child)) {
-      text += child.value.trim();
-    } else if (isTag(child) && !isAriaHidden(child)) {
-      text += getHeadingText(child);
-    }
-  }
-  return text;
-}
-
-/**
  * @param {any} node
  * @returns {boolean}
  */
