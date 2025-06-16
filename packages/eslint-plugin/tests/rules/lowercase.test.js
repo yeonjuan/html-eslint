@@ -45,6 +45,14 @@ ruleTester.run("lowercase", rule, {
     </svg>`,
     },
     {
+      code: `<svg viewBox="0 0 100 100">
+  <clipPath id="myClip">
+    <circle cx="40" cy="35" r="35" />
+  </clipPath>
+</svg>
+`,
+    },
+    {
       code: "<div {{ID}}></div>",
       languageOptions: {
         parserOptions: {
@@ -107,6 +115,15 @@ ruleTester.run("lowercase", rule, {
       errors: [
         {
           message: "'STYLE' is not in lowercase.",
+        },
+      ],
+    },
+    {
+      code: `<SVG></SVG>`,
+      output: `<svg></svg>`,
+      errors: [
+        {
+          message: "'SVG' is not in lowercase.",
         },
       ],
     },
