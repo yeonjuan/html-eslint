@@ -21,7 +21,11 @@ const HEADING_NAMES = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
  */
 function isAriaHidden(node) {
   const ariaHiddenAttr = findAttr(node, "aria-hidden");
-  return ariaHiddenAttr && ariaHiddenAttr.value && ariaHiddenAttr.value.value === "true";
+  return (
+    ariaHiddenAttr &&
+    ariaHiddenAttr.value &&
+    ariaHiddenAttr.value.value === "true"
+  );
 }
 
 /**
@@ -30,11 +34,7 @@ function isAriaHidden(node) {
  */
 function isRoleHeading(node) {
   const roleAttr = findAttr(node, "role");
-  return (
-    !!roleAttr &&
-    !!roleAttr.value &&
-    roleAttr.value.value === "heading"
-  );
+  return !!roleAttr && !!roleAttr.value && roleAttr.value.value === "heading";
 }
 
 /**
@@ -42,7 +42,7 @@ function isRoleHeading(node) {
  * @returns {string}
  */
 function getAllText(node) {
-  if (!isTag(node) || !node.children) return "";
+  if (!isTag(node) || !node.children.length) return "";
   let text = "";
   for (const child of node.children) {
     if (isText(child)) {
@@ -59,7 +59,7 @@ function getAllText(node) {
  * @returns {string}
  */
 function getAccessibleText(node) {
-  if (!isTag(node) || !node.children) return "";
+  if (!isTag(node) || !node.children.length) return "";
   let text = "";
   for (const child of node.children) {
     if (isText(child)) {
@@ -87,7 +87,8 @@ module.exports = {
     schema: [],
     messages: {
       [MESSAGE_IDS.EMPTY_HEADING]: "Headings must not be empty.",
-      [MESSAGE_IDS.INACCESSIBLE_HEADING]: "Heading text is inaccessible to assistive technology.",
+      [MESSAGE_IDS.INACCESSIBLE_HEADING]:
+        "Heading text is inaccessible to assistive technology.",
     },
   },
   create(context) {
@@ -97,7 +98,7 @@ module.exports = {
         const isHeadingTag = HEADING_NAMES.has(tagName);
         const isRoleHeadingEl = isRoleHeading(node);
         if (!isHeadingTag && !isRoleHeadingEl) return;
-        
+
         // Gather all text (including aria-hidden)
         const allText = getAllText(node);
         if (!allText) {

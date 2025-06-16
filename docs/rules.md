@@ -48,6 +48,7 @@
 | [no-accesskey-attrs](rules/no-accesskey-attrs)                   | Disallow to use of accesskey attribute                                 |     |
 | [no-aria-hidden-body](rules/no-aria-hidden-body)                 | Disallow to use aria-hidden attributes on the `body` element.          |     |
 | [no-aria-hidden-on-focusable](rules/no-aria-hidden-on-focusable) | Disallow aria-hidden="true" on focusable elements                      |     |
+| [no-empty-headings](rules/no-empty-headings)                     | Disallow empty or inaccessible headings.                               |     |
 | [no-heading-inside-button](rules/no-heading-inside-button)       | Disallows the use of heading elements inside <button>.                 |     |
 | [no-invalid-role](rules/no-invalid-role)                         | Disallows use of invalid role.                                         |     |
 | [no-non-scalable-viewport](rules/no-non-scalable-viewport)       | Disallow use of `user-scalable=no` in `<meta name="viewport">`.        |     |

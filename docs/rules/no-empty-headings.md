@@ -1,6 +1,6 @@
 # no-empty-headings
 
-This rule enforces that all heading elements (h1–h6) and elements with `role="heading"` and `aria-level` must have accessible text content.
+This rule enforces that all heading elements (h1–h6) and elements with `role="heading"` must have accessible text content.
 
 ### Why?
 
@@ -39,4 +39,5 @@ Headings that are empty or whose text is only present in elements with `aria-hid
 ```
 
 ### Resources
+
 - [ember-template-lint: no-empty-headings](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-empty-headings.md)
