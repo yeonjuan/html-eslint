@@ -29,7 +29,7 @@ function isAriaHidden(node) {
 }
 
 /**
- * @param {any} node
+ * @param {Tag} node
  * @returns {boolean}
  */
 function isRoleHeading(node) {
