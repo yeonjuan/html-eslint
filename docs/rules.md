@@ -9,10 +9,10 @@
 
 | Rule                                                         | Description                                                                                    |      |
 | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- | ---- |
+| [max-element-depth](rules/max-element-depth)                 | Enforce element maximum depth                                                                  |      |
 | [no-duplicate-attrs](rules/no-duplicate-attrs)               | Disallow to use duplicate attributes                                                           | ⭐   |
 | [no-duplicate-class](rules/no-duplicate-class)               | Disallow to use duplicate class                                                                | 🔧   |
 | [no-duplicate-id](rules/no-duplicate-id)                     | Disallow to use duplicate id                                                                   | ⭐   |
-| [no-extra-spacing-text](rules/no-extra-spacing-text)         | Disallow unnecessary consecutive spaces                                                        | 🔧   |
 | [no-inline-styles](rules/no-inline-styles)                   | Disallow using inline style                                                                    |      |
 | [no-nested-interactive](rules/no-nested-interactive)         | Disallows nested interactive elements                                                          |      |
 | [no-obsolete-tags](rules/no-obsolete-tags)                   | Disallow to use obsolete elements in HTML5                                                     | ⭐   |
@@ -69,8 +69,8 @@
 | [id-naming-convention](rules/id-naming-convention)       | Enforce consistent naming id attributes                           |      |
 | [indent](rules/indent)                                   | Enforce consistent indentation                                    | ⭐🔧 |
 | [lowercase](rules/lowercase)                             | Enforce to use lowercase for tag and attribute names.             | 🔧   |
-| [max-element-depth](rules/max-element-depth)             | Enforce element maximum depth                                     |      |
 | [no-extra-spacing-attrs](rules/no-extra-spacing-attrs)   | Disallow an extra spacing around attributes                       | ⭐🔧 |
+| [no-extra-spacing-text](rules/no-extra-spacing-text)     | Disallow unnecessary consecutive spaces                           | 🔧   |
 | [no-multiple-empty-lines](rules/no-multiple-empty-lines) | Disallow multiple empty lines                                     | 🔧   |
 | [no-trailing-spaces](rules/no-trailing-spaces)           | Disallow trailing whitespace at the end of lines                  | 🔧   |
 | [quotes](rules/quotes)                                   | Enforce consistent quoting attributes with double(") or single(') | ⭐🔧 |
