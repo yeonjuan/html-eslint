@@ -30,7 +30,7 @@ module.exports = {
 
     docs: {
       description: "Disallow unnecessary consecutive spaces",
-      category: RULE_CATEGORY.BEST_PRACTICE,
+      category: RULE_CATEGORY.STYLE,
       recommended: false,
       url: getRuleUrl("no-extra-spacing-text"),
     },

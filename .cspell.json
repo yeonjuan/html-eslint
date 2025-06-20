@@ -55,6 +55,8 @@
     "spinbutton",
     "treegrid",
     "contentinfo",
-    "smashingmagazine"
+    "smashingmagazine",
+    "contenteditable",
+    "nbsb"
   ]
 }

@@ -27,6 +27,7 @@ const noDuplicateAttrs = require("./no-duplicate-attrs");
 const noAbstractRoles = require("./no-abstract-roles");
 const requireButtonType = require("./require-button-type");
 const noAriaHiddenBody = require("./no-aria-hidden-body");
+const noAriaHiddenOnFocusable = require("./no-aria-hidden-on-focusable");
 const noMultipleEmptyLines = require("./no-multiple-empty-lines");
 const noAccesskeyAttrs = require("./no-accesskey-attrs");
 const noRestrictedAttrs = require("./no-restricted-attrs");
@@ -47,8 +48,9 @@ const maxElementDepth = require("./max-element-depth");
 const requireExplicitSize = require("./require-explicit-size");
 const useBaseLine = require("./use-baseline");
 const noDuplicateClass = require("./no-duplicate-class");
+const noEmptyHeadings = require("./no-empty-headings");
+const noInvalidEntity = require("./no-invalid-entity");
 const noDuplicateInHead = require("./no-duplicate-in-head");
-
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -83,6 +85,7 @@ const rules = {
   "no-abstract-roles": noAbstractRoles,
   "require-button-type": requireButtonType,
   "no-aria-hidden-body": noAriaHiddenBody,
+  "no-aria-hidden-on-focusable": noAriaHiddenOnFocusable,
   "no-multiple-empty-lines": noMultipleEmptyLines,
   "no-accesskey-attrs": noAccesskeyAttrs,
   "no-restricted-attrs": noRestrictedAttrs,
@@ -102,6 +105,8 @@ const rules = {
   "require-explicit-size": requireExplicitSize,
   "use-baseline": useBaseLine,
   "no-duplicate-class": noDuplicateClass,
+  "no-empty-headings": noEmptyHeadings,
+  "no-invalid-entity": noInvalidEntity,
   "no-duplicate-in-head": noDuplicateInHead,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
