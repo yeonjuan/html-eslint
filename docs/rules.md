@@ -13,6 +13,7 @@
 | [no-duplicate-attrs](rules/no-duplicate-attrs)               | Disallow to use duplicate attributes                                                           | ⭐   |
 | [no-duplicate-class](rules/no-duplicate-class)               | Disallow to use duplicate class                                                                | 🔧   |
 | [no-duplicate-id](rules/no-duplicate-id)                     | Disallow to use duplicate id                                                                   | ⭐   |
+| [no-duplicate-in-head](rules/no-duplicate-in-head)           | Disallow duplicate tags in `<head>`                                                            |      |
 | [no-inline-styles](rules/no-inline-styles)                   | Disallow using inline style                                                                    |      |
 | [no-invalid-entity](rules/no-invalid-entity)                 | Disallows the use of invalid HTML entities                                                     |      |
 | [no-nested-interactive](rules/no-nested-interactive)         | Disallows nested interactive elements                                                          |      |

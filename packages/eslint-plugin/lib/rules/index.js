@@ -50,6 +50,7 @@ const useBaseLine = require("./use-baseline");
 const noDuplicateClass = require("./no-duplicate-class");
 const noEmptyHeadings = require("./no-empty-headings");
 const noInvalidEntity = require("./no-invalid-entity");
+const noDuplicateInHead = require("./no-duplicate-in-head");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -106,6 +107,7 @@ const rules = {
   "no-duplicate-class": noDuplicateClass,
   "no-empty-headings": noEmptyHeadings,
   "no-invalid-entity": noInvalidEntity,
+  "no-duplicate-in-head": noDuplicateInHead,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
