@@ -1,4 +1,4 @@
-# no-duplicate-head-tags
+# no-duplicate-in-head
 
 This rule disallows duplicate tags in the `<head>` section that should be unique.
 

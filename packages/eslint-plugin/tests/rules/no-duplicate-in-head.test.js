@@ -137,6 +137,17 @@ templateRuleTester.run("[template] no-duplicate-in-head", rule, {
         \`;
       `,
     },
+    {
+      code: `
+        const template = /* html */\`
+          <html>
+            <head>
+              <title>Test</title>
+            </head>
+          </html>
+        \`;
+      `,
+    },
   ],
   invalid: [
     {
@@ -157,30 +168,9 @@ templateRuleTester.run("[template] no-duplicate-in-head", rule, {
         },
       ],
     },
-  ],
-});
-
-// Basic template literal tests to cover the uncovered lines
-const basicRuleTester = createRuleTester("espree");
-
-basicRuleTester.run("[basic-template] no-duplicate-in-head", rule, {
-  valid: [
     {
       code: `
-        const template = \`
-          <html>
-            <head>
-              <title>Test</title>
-            </head>
-          </html>
-        \`;
-      `,
-    },
-  ],
-  invalid: [
-    {
-      code: `
-        const template = html\`
+        const template = /* html */\`
           <html>
             <head>
               <title>Test</title>

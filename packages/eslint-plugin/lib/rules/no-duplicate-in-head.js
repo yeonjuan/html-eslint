@@ -170,11 +170,8 @@ module.exports = {
         const headCountRef = { count: 0 };
 
         if (shouldCheckTaggedTemplateExpression(node, context)) {
-          const templateVisitor = createTagVisitor(tagsMap, headCountRef);
-          parse(node.quasi, getSourceCode(context), {
-            Tag: templateVisitor.Tag,
-            "Tag:exit": templateVisitor["Tag:exit"],
-          });
+          const visitor = createTagVisitor(tagsMap, headCountRef);
+          parse(node.quasi, getSourceCode(context), visitor);
           report(tagsMap);
         }
       },
@@ -184,11 +181,8 @@ module.exports = {
         const headCountRef = { count: 0 };
 
         if (shouldCheckTemplateLiteral(node, context)) {
-          const templateVisitor = createTagVisitor(tagsMap, headCountRef);
-          parse(node, getSourceCode(context), {
-            Tag: templateVisitor.Tag,
-            "Tag:exit": templateVisitor["Tag:exit"],
-          });
+          const visitor = createTagVisitor(tagsMap, headCountRef);
+          parse(node, getSourceCode(context), visitor);
           report(tagsMap);
         }
       },
