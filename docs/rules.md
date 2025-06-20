@@ -9,10 +9,10 @@
 
 | Rule                                                         | Description                                                                                    |      |
 | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- | ---- |
+| [max-element-depth](rules/max-element-depth)                 | Enforce element maximum depth                                                                  |      |
 | [no-duplicate-attrs](rules/no-duplicate-attrs)               | Disallow to use duplicate attributes                                                           | ⭐   |
 | [no-duplicate-class](rules/no-duplicate-class)               | Disallow to use duplicate class                                                                | 🔧   |
 | [no-duplicate-id](rules/no-duplicate-id)                     | Disallow to use duplicate id                                                                   | ⭐   |
-| [no-extra-spacing-text](rules/no-extra-spacing-text)         | Disallow unnecessary consecutive spaces                                                        | 🔧   |
 | [no-inline-styles](rules/no-inline-styles)                   | Disallow using inline style                                                                    |      |
 | [no-nested-interactive](rules/no-nested-interactive)         | Disallows nested interactive elements                                                          |      |
 | [no-obsolete-tags](rules/no-obsolete-tags)                   | Disallow to use obsolete elements in HTML5                                                     | ⭐   |
@@ -48,6 +48,7 @@
 | [no-accesskey-attrs](rules/no-accesskey-attrs)                   | Disallow to use of accesskey attribute                                 |     |
 | [no-aria-hidden-body](rules/no-aria-hidden-body)                 | Disallow to use aria-hidden attributes on the `body` element.          |     |
 | [no-aria-hidden-on-focusable](rules/no-aria-hidden-on-focusable) | Disallow aria-hidden="true" on focusable elements                      |     |
+| [no-empty-headings](rules/no-empty-headings)                     | Disallow empty or inaccessible headings.                               |     |
 | [no-heading-inside-button](rules/no-heading-inside-button)       | Disallows the use of heading elements inside <button>.                 |     |
 | [no-invalid-role](rules/no-invalid-role)                         | Disallows use of invalid role.                                         |     |
 | [no-non-scalable-viewport](rules/no-non-scalable-viewport)       | Disallow use of `user-scalable=no` in `<meta name="viewport">`.        |     |
@@ -68,8 +69,8 @@
 | [id-naming-convention](rules/id-naming-convention)       | Enforce consistent naming id attributes                           |      |
 | [indent](rules/indent)                                   | Enforce consistent indentation                                    | ⭐🔧 |
 | [lowercase](rules/lowercase)                             | Enforce to use lowercase for tag and attribute names.             | 🔧   |
-| [max-element-depth](rules/max-element-depth)             | Enforce element maximum depth                                     |      |
 | [no-extra-spacing-attrs](rules/no-extra-spacing-attrs)   | Disallow an extra spacing around attributes                       | ⭐🔧 |
+| [no-extra-spacing-text](rules/no-extra-spacing-text)     | Disallow unnecessary consecutive spaces                           | 🔧   |
 | [no-multiple-empty-lines](rules/no-multiple-empty-lines) | Disallow multiple empty lines                                     | 🔧   |
 | [no-trailing-spaces](rules/no-trailing-spaces)           | Disallow trailing whitespace at the end of lines                  | 🔧   |
 | [quotes](rules/quotes)                                   | Enforce consistent quoting attributes with double(") or single(') | ⭐🔧 |

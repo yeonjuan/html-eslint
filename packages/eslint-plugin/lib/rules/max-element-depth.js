@@ -25,7 +25,7 @@ module.exports = {
 
     docs: {
       description: "Enforce element maximum depth",
-      category: RULE_CATEGORY.STYLE,
+      category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
       url: getRuleUrl("max-element-depth"),
     },

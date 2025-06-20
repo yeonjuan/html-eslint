@@ -5,11 +5,10 @@
  * @typedef { import("../types").RuleModule<[]> } RuleModule
  */
 
-const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const SVG_CAMEL_CASE_ATTRIBUTES = require("../constants/svg-camel-case-attributes");
 const { createVisitors } = require("./utils/visitors");
-const { hasTemplate } = require("./utils/node");
+const { hasTemplate, isScript, isStyle } = require("./utils/node");
 const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
@@ -67,8 +66,8 @@ module.exports = {
      * @param {Tag | StyleTag | ScriptTag} node
      */
     function nameOf(node) {
-      if (node.type === NODE_TYPES.ScriptTag) return "script";
-      if (node.type === NODE_TYPES.StyleTag) return "style";
+      if (isScript(node)) return "script";
+      if (isStyle(node)) return "style";
       return node.name;
     }
 
@@ -77,7 +76,11 @@ module.exports = {
      */
     function check(node) {
       const raw = node.openStart.value.slice(1);
-      if (nameOf(node) !== raw) {
+      const name = nameOf(node);
+      if (
+        name !== raw &&
+        (svgStack.length === 0 || name.toLowerCase() === "svg")
+      ) {
         context.report({
           node: node.openStart,
           messageId: MESSAGE_IDS.UNEXPECTED,
