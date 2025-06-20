@@ -6,7 +6,8 @@ const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-invalid-entity", rule, {
   valid: [
-    { code: "<p>&lt; &gt; &amp; &nbsp;</p>" }, // Valid entities
+    { code: "<p>&lt; &gt; &amp; &nbsp;</p>" },
+    { code: "<p>&#xD55C;</p>" },
   ],
   invalid: [
     {
@@ -20,6 +21,10 @@ ruleTester.run("no-invalid-entity", rule, {
     {
       code: "<p>&#zzzz;</p>", // Invalid numeric entity
       errors: [{ message: "Invalid HTML entity '&#zzzz;' used." }],
+    },
+    {
+      code: "<p>&#x110000;</p>",
+      errors: [{ message: "Invalid HTML entity '&#x110000;' used." }],
     },
   ],
 });

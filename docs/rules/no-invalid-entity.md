@@ -1,6 +1,6 @@
 # no-invalid-entity
 
-Disallow Use of Invalid HTML Entities
+Disallow use of invalid HTML entities.
 
 ## Rule Details
 

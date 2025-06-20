@@ -1,6 +1,7 @@
 /**
  * @typedef { import("../types").RuleModule<[]> } RuleModule
  * @typedef { import("../types").SuggestionReportDescriptor } SuggestionReportDescriptor
+ * @typedef { import("@html-eslint/types").Text} Text
  */
 
 // Define the type for entities.json
@@ -43,7 +44,7 @@ module.exports = {
 
   create(context) {
     /**
-     * @param {any} node
+     * @param {Text} node
      */
     function check(node) {
       const text = node.value;
@@ -69,7 +70,7 @@ module.exports = {
         }
         // Check numeric entities
         else {
-          const isHex = entityName.startsWith("x");
+          const isHex = entityName[1] === "x";
           const numStr = isHex ? entityName.slice(2) : entityName.slice(1);
           const num = isHex ? parseInt(numStr, 16) : parseInt(numStr, 10);
 
