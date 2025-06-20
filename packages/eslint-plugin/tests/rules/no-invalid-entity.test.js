@@ -30,6 +30,11 @@ ruleTester.run("no-invalid-entity", rule, {
 });
 
 templateRuleTester.run("[template] no-invalid-entity", rule, {
-  valid: [],
-  invalid: [],
+  valid: [{ code: `html\`<p>&lt; &gt; &amp; &nbsp;</p>\`` }],
+  invalid: [
+    {
+      code: "html`<p>&nbsb;</p>`",
+      errors: [{ message: "Invalid HTML entity '&nbsb;' used." }],
+    },
+  ],
 });
