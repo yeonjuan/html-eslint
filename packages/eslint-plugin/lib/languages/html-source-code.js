@@ -1,13 +1,11 @@
 /**
- *  @typedef {import("eslint").AST.Program} Program
- *  @typedef {import("@eslint/plugin-kit").SourceLocation} SourceLocation
- *  @typedef {import("@eslint/plugin-kit").DirectiveType} DirectiveType
- *  @typedef {import("@eslint/core").TraversalStep} TraversalStep
- *  @typedef {import("@html-eslint/types").CommentContent} CommentContent
- *  @typedef {import("@html-eslint/types").AnyHTMLNode} AnyHTMLNode
- *  @typedef {import("@eslint/core").Position} Position
- *  @typedef {import("../types").BaseNode} BaseNode
+ * @import {AST} from 'eslint';
+ * @import {SourceLocation, DirectiveType} from '@eslint/plugin-kit';
+ * @import {TraversalStep, Position} from '@eslint/core';
+ * @import {CommentContent, AnyHTMLNode} from '@html-eslint/types';
+ * @import {BaseNode} from '../types';
  */
+
 const {
   TextSourceCodeBase,
   ConfigCommentParser,
@@ -29,7 +27,7 @@ const commentParser = new ConfigCommentParser();
 
 class HTMLSourceCode extends TextSourceCodeBase {
   /**
-   * @param {{ast: Program, text: string, comments: CommentContent[]}} config
+   * @param {{ast: AST.Program, text: string, comments: CommentContent[]}} config
    */
   constructor({ ast, text, comments }) {
     super({ ast, text });
@@ -219,8 +217,8 @@ class HTMLSourceCode extends TextSourceCodeBase {
 
     /**
      *
-     * @param {AnyHTMLNode | Program} node
-     * @param {AnyHTMLNode | Program | null} parent
+     * @param {AnyHTMLNode | AST.Program} node
+     * @param {AnyHTMLNode | AST.Program | null} parent
      */
     const visit = (node, parent) => {
       this.parentsMap.set(node, parent);

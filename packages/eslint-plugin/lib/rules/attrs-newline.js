@@ -1,5 +1,5 @@
 /**
- * @typedef { import("../types").RuleFixer } RuleFixer
+ * @import {RuleFixer, RuleModule} from '../types';
  *
  * @typedef {Object} MessageId
  * @property {"closeStyleWrong"} CLOSE_STYLE_WRONG
@@ -7,9 +7,7 @@
  *
  * @typedef {Object} Option
  * @property {"sameline" | "newline"} [option.closeStyle]
- * @property {number} [options.ifAttrsMoreThan]
- *
- * @typedef { import("../types").RuleModule<[Option]> } RuleModule
+ * @property {number} [options.ifAttrsMoreThan] *
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -25,7 +23,7 @@ const MESSAGE_ID = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option]>}
  */
 module.exports = {
   meta: {
