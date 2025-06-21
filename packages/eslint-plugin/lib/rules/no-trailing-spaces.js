@@ -1,7 +1,6 @@
 /**
  * @import {RuleModule} from "../types";
- * @typedef { import("@html-eslint/types").CommentContent } CommentContent
- * @typedef { import("@html-eslint/types").Text } Text
+ * @import {CommentContent, Text} from "@html-eslint/types";
  */
 
 const { parse } = require("@html-eslint/template-parser");
@@ -23,7 +22,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {
