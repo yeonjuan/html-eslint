@@ -1,6 +1,6 @@
 /**
  * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("../types").RuleModule<[]> } RuleModule
+ * @import {RuleModule} from "../types";
  */
 
 const { RULE_CATEGORY } = require("../constants");

@@ -1,5 +1,5 @@
 /**
- * @typedef { import("../types").RuleModule<[]> } RuleModule
+ * @import {RuleModule} from "../types";
  * @typedef { import("@html-eslint/types").Tag } Tag
  * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
  * @typedef { import("@html-eslint/types").Attribute } Attribute

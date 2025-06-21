@@ -1,12 +1,9 @@
 /**
- * @typedef { import("@html-eslint/types").AnyToken } AnyToken
- * @typedef { import("@html-eslint/types").Document } Document
- * @typedef { import("@html-eslint/types").CommentContent } CommentContent
- * @typedef { import("@html-eslint/types").Text } Text
+ * @import {CommentContent, Text} from "@html-eslint/types";
+ * @import {RuleModule} from "../types";
  *
  * @typedef {Object} Option
  * @property {number} Option.max
- * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { parse } = require("@html-eslint/template-parser");
@@ -28,7 +25,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option]>}
  */
 module.exports = {
   meta: {

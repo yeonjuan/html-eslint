@@ -1,5 +1,5 @@
 /**
- * @typedef { import("../types").RuleModule<[]> } RuleModule
+ * @import {RuleModule} from "../types";
  * @typedef { import("@html-eslint/types").AttributeValue } AttributeValue
  * @typedef { import("../types").SuggestionReportDescriptor } SuggestionReportDescriptor
  */

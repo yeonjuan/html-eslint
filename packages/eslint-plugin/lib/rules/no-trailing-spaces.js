@@ -1,5 +1,5 @@
 /**
- * @typedef { import("../types").RuleModule<[]> } RuleModule
+ * @import {RuleModule} from "../types";
  * @typedef { import("@html-eslint/types").CommentContent } CommentContent
  * @typedef { import("@html-eslint/types").Text } Text
  */

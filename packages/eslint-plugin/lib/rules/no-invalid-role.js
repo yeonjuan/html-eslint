@@ -1,5 +1,5 @@
 /**
- * @typedef { import("../types").RuleModule<[]> } RuleModule
+ * @import {RuleModule} from "../types";
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -227,7 +227,7 @@ const ELEMENTS_DISALLOWING_PRESENTATION_OR_NONE_ROLE = new Set([
 ]);
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

@@ -1,8 +1,9 @@
-const { RuleTester: ESLintRuleTester } = require("eslint");
 /**
- * @typedef {import("eslint").Linter.Config} Config
- * @typedef { import("../lib/types").RuleModule<any[]> } RuleModule
+ * @import {Linter} from "eslint";
+ * @import {RuleModule} from "../lib/types";
  */
+
+const { RuleTester: ESLintRuleTester } = require("eslint");
 
 const FILE_NAME = "test.html";
 const html = require("../lib/index");
@@ -26,7 +27,7 @@ function getLanguageOptions(test) {
 class RuleTester extends ESLintRuleTester {
   /**
    *
-   * @param {Config} options
+   * @param {Linter.Config} options
    */
   constructor(options) {
     super(options);
@@ -34,7 +35,7 @@ class RuleTester extends ESLintRuleTester {
 
   /**
    * @param {string} name
-   * @param {RuleModule} rule
+   * @param {RuleModule<unknown[]>} rule
    * @param {{ valid: ESLintRuleTester.ValidTestCase[]; invalid: ESLintRuleTester.InvalidTestCase[];}} tests
    */
   // @ts-ignore
