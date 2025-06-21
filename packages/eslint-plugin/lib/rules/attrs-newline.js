@@ -1,5 +1,5 @@
 /**
- * @import {RuleFixer, RuleModule} from '../types';
+ * @import { RuleFixer, RuleModule } from '../types';
  *
  * @typedef {Object} MessageId
  * @property {"closeStyleWrong"} CLOSE_STYLE_WRONG

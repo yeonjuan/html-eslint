@@ -1,14 +1,11 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
- * @typedef { import("@html-eslint/types").StyleTag } StyleTag
+ * @import {Tag, ScriptTag, StyleTag} from "@html-eslint/types";
+ * @import {RuleModule} from "../types";
  *
  * @typedef {"camelCase" | "snake_case" | "PascalCase" | "kebab-case" | "regex"} Option1
  * @typedef {Object} Option2
  * @property {string} pattern
  * @property {string} [flags]
- *
- * @typedef { import("../types").RuleModule<[Option1, Option2]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -42,7 +39,7 @@ const CONVENTION_CHECKERS = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option1, Option2]>}
  */
 module.exports = {
   meta: {
