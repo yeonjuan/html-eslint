@@ -7,7 +7,7 @@
  *
  * @typedef {Object} Option
  * @property {"sameline" | "newline"} [option.closeStyle]
- * @property {number} [options.ifAttrsMoreThan] *
+ * @property {number} [options.ifAttrsMoreThan]
  */
 
 const { RULE_CATEGORY } = require("../constants");
