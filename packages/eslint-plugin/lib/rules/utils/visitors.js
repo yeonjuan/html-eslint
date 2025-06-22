@@ -30,7 +30,7 @@ function createTemplateVisitors(context, visitors) {
 }
 
 /**
- * @param {Context} context
+ * @param {Context<any[]>} context
  * @param {RuleListener} visitors
  * @param {any} [templateVisitors]
  * @returns {RuleListener}

@@ -30,7 +30,7 @@ function isNonEmptyText(node) {
 }
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

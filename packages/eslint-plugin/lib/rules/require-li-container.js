@@ -13,7 +13,7 @@ const MESSAGE_IDS = {
 const VALID_CONTAINERS = ["ul", "ol", "menu"];
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {
