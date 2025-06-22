@@ -1,9 +1,9 @@
 /**
- * @typedef {import("./types").ParserOptions} ParserOptions
- * @typedef {import("@html-eslint/template-syntax-parser").TemplateSyntax} TemplateSyntax
- * @typedef {import("es-html-parser")} ESHtmlParser
- *
+ * @import ESHtmlParser from "es-html-parser";
+ * @import {ParserOptions} from "./types"
+ * @import {TemplateSyntax} from "@html-eslint/template-syntax-parser";
  */
+
 const templateSyntaxParser = require("@html-eslint/template-syntax-parser");
 const { parseFrontmatterContent } = require("./frontmatter");
 /**

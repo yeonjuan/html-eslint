@@ -1,6 +1,5 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").AnyNode } AnyNode
+ * @import {Tag, AnyNode} from "@html-eslint/types";
  * @import {RuleModule} from "../types";
  */
 const { RULE_CATEGORY } = require("../constants");
@@ -22,7 +21,7 @@ function isMetaTagNode(node) {
 }
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

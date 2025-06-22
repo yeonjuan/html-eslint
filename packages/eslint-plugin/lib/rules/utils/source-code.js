@@ -1,9 +1,9 @@
 /**
- * @typedef {import("../../types").Context<any[]>} Context
+ * @import {Context} from "../../types";
  */
 
 /**
- * @param {Context} context
+ * @param {Context<any[]>} context
  */
 function getSourceCode(context) {
   return context.sourceCode || context.getSourceCode();

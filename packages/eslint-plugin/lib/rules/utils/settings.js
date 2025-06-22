@@ -1,9 +1,6 @@
 /**
- * @typedef {import("../../types").MaybeHTMLSettings} MaybeHTMLSettings
- * @typedef {import("../../types").HTMLSettings} HTMLSettings
- * @typedef {import("../../types").Context<any[]>} Context
- * @typedef {import("@html-eslint/types").TaggedTemplateExpression} TaggedTemplateExpression
- * @typedef {import("@html-eslint/types").TemplateLiteral} TemplateLiteral
+ * @import {MaybeHTMLSettings, HTMLSettings, Context} from "../../types";
+ * @import {TaggedTemplateExpression, TemplateLiteral} from "@html-eslint/types";
  */
 
 const { getSourceCode } = require("../utils/source-code");
@@ -53,7 +50,7 @@ function getSettings(settings) {
 
 /**
  * @param {TaggedTemplateExpression} node
- * @param {Context} context
+ * @param {Context<any[]>} context
  * @returns {boolean}
  */
 function shouldCheckTaggedTemplateExpression(node, context) {
@@ -68,7 +65,7 @@ function shouldCheckTaggedTemplateExpression(node, context) {
 /**
  *
  * @param {TemplateLiteral} node
- * @param {Context} context
+ * @param {Context<any[]>} context
  * @returns {boolean}
  */
 function shouldCheckTemplateLiteral(node, context) {

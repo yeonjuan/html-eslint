@@ -1,7 +1,6 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").AnyNode } AnyNode
  * @import {RuleModule} from "../types";
+ * @import {Tag, AnyNode} from "@html-eslint/types";
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -23,7 +22,7 @@ function isMetaCharset(node) {
 }
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

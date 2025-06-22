@@ -1,5 +1,5 @@
 /**
- * @typedef {import('@eslint/core').File} File
+ * @import {File} from "@eslint/core";
  */
 
 const { HTMLLanguage } = require("../../lib/languages/html-language");

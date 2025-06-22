@@ -1,6 +1,5 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").AnyNode } AnyNode
+ * @import {Tag, AnyNode} from "@html-eslint/types";
  *
  * @typedef {string[]} Option
  *
