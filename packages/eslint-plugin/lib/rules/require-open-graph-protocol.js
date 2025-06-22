@@ -1,9 +1,7 @@
 /**
  * @import {Tag, AnyNode} from "@html-eslint/types";
- *
+ * @import {RuleModule} from "../types";
  * @typedef {string[]} Option
- *
- * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -35,7 +33,7 @@ function normalize(properties) {
 }
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option]>}
  */
 module.exports = {
   meta: {

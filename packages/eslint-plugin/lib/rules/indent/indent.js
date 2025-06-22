@@ -1,19 +1,7 @@
 /**
- * @typedef { import("@html-eslint/types").AnyNode } AnyNode
- * @typedef { import("../../types").Line } Line
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("../../types").RuleListener } RuleListener
- * @typedef { import("../../types").Context<any[]> } Context
- * @typedef { import("@html-eslint/types").TemplateText } TemplateText
- * @typedef { import("eslint").AST.Token } Token
- * @typedef { import("eslint").SourceCode } SourceCode
- * @typedef { import("eslint").AST.Range } Range
- * @typedef { import("eslint").AST.SourceLocation } SourceLocation
- * @typedef { import("@html-eslint/types").TemplateLiteral } TemplateLiteral
- * @typedef { import("@html-eslint/types").OpenTemplate } OpenTemplate
- * @typedef { import("@html-eslint/types").CloseTemplate } CloseTemplate
- * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
- * @typedef { import("@html-eslint/types").StyleTag } StyleTag
+ * @import {AnyNode, Tag, TemplateText, TemplateLiteral, OpenTemplate, CloseTemplate, ScriptTag, StyleTag} from "@html-eslint/types";
+ * @import {Line, RuleListener, Context, RuleModule} from "../../types";
+ * @import {AST} from "eslint";
  *
  * @typedef {AnyNode | Line} AnyNodeOrLine
  * @typedef {Object} IndentType
@@ -30,8 +18,6 @@
  * @typedef {Object} Option2
  * @property {number} [Option2.Attribute]
  * @property {Record<string, number>} [Option2.tagChildrenIndent]
- *
- * @typedef { import("../../types").RuleModule<[Option1, Option2]> } RuleModule
  */
 
 const { parse } = require("@html-eslint/template-parser");
@@ -66,7 +52,7 @@ const INDENT_TYPES = {
 const IGNORING_NODES = ["pre", "xmp"];
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option1, Option2]>}
  */
 module.exports = {
   meta: {
@@ -415,7 +401,7 @@ module.exports = {
 /**
  * @param {AnyNodeOrLine | TemplateText | OpenTemplate | CloseTemplate} node
  * @param {string} actualIndent
- * @return {{range: Range; loc: SourceLocation}}
+ * @return {{range: AST.Range; loc: AST.SourceLocation}}
  */
 function getIndentNodeToReport(node, actualIndent) {
   let rangeStart = node.range[0];
@@ -448,7 +434,7 @@ function countLeftPadding(str) {
 }
 
 /**
- * @param {Context} context
+ * @param {Context<any[]>} context
  * @return {IndentOptionInfo}
  */
 function getIndentOptionInfo(context) {

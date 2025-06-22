@@ -1,7 +1,5 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").Text } Text
- * @typedef { import("@html-eslint/types").AnyNode } AnyNode
+ * @import {Tag, Text, AnyNode} from "@html-eslint/types";
  * @import {RuleModule} from "../types";
  */
 
