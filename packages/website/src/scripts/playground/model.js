@@ -1,3 +1,10 @@
+/**
+ * @import eslint from "eslint";
+ * @import {Language} from "./language";
+ * @import {RulesRecord, ParserOptions} from "./linter";
+ * @typedef {"lint" | "changeLanguage"} EventType
+ */
+
 import {
   INITAIL_CONFIG,
   INITIAL_HTML,
@@ -10,14 +17,6 @@ import {
 import {
   Linter
 } from "./linter";
-
-/**
- * @typedef {import("eslint").Linter.LintMessage} LintMessage
- * @typedef {"lint" | "changeLanguage"} EventType
- * @typedef {import("./language").Language} Language
- * @typedef {import("./linter").RulesRecord} RulesRecord
- * @typedef {import("./linter").ParserOptions} ParserOptions
- */
 
 export class Model {
   constructor() {
@@ -53,7 +52,7 @@ export class Model {
 
     /**
      * @member
-     * @type {LintMessage[]}
+     * @type {eslint.Linter.LintMessage[]}
      */
     this.messages = [];
 

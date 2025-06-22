@@ -1,7 +1,7 @@
 const { parse } = require("../lib/template-syntax-parser");
 /**
- * @typedef {import("eslint").AST.Range} Range
- * @typedef {import("../lib/types").TemplateSyntaxParserConfig} TemplateSyntaxParserConfig
+ * @import {AST} from "eslint";
+ * @import {TemplateSyntaxParserConfig} from "../lib/types";
  */
 
 const HANDLEBAR = {
@@ -18,7 +18,7 @@ const ERB = {
 
 describe("basic", () => {
   /**
-   * @type {[string, TemplateSyntaxParserConfig, Range[]][]}
+   * @type {[string, TemplateSyntaxParserConfig, AST.Range[]][]}
    */
   const TEST_CASES = [
     ["", HANDLEBAR, []],

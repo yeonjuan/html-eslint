@@ -1,5 +1,5 @@
 /**
- * @typedef {import("./types").TemplateSyntaxParserConfig} TemplateSyntaxParserConfig
+ * @import {TemplateSyntaxParserConfig} from "./types";
  */
 
 const Parser = require("./parser");

@@ -1,9 +1,6 @@
 /**
+ * @import {Tag, ScriptTag, Attribute, AttributeValue} from "@html-eslint/types";
  * @import {RuleModule} from "../types";
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
- * @typedef { import("@html-eslint/types").Attribute } Attribute
- * @typedef { import("@html-eslint/types").AttributeValue } AttributeValue
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -66,7 +63,7 @@ function getResourceAttributeValue(node) {
 }
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

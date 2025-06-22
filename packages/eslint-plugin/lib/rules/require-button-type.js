@@ -1,7 +1,6 @@
 /**
- * @import {RuleModule} from "../types";
- * @typedef { import("@html-eslint/types").AttributeValue } AttributeValue
- * @typedef { import("../types").SuggestionReportDescriptor } SuggestionReportDescriptor
+ * @import {RuleModule, SuggestionReportDescriptor} from "../types";
+ * @import {AttributeValue} from "@html-eslint/types";
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -20,7 +19,7 @@ const MESSAGE_IDS = {
 const VALID_BUTTON_TYPES_SET = new Set(["submit", "button", "reset"]);
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

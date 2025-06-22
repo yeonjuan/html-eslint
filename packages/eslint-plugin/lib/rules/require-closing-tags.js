@@ -1,10 +1,10 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
+ * @import {Tag} from "@html-eslint/types";
+ * @import {RuleModule} from "../types";
  *
  * @typedef {Object} Option
  * @property {"always" | "never"} [Option.selfClosing]
  * @property {string[]} [Option.selfClosingCustomPatterns]
- * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
@@ -20,7 +20,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option]>}
  */
 module.exports = {
   meta: {

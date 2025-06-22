@@ -1,7 +1,6 @@
 /**
- * @typedef {import("./types").TemplateHTMLVisitor} TemplateHTMLVisitor
- * @typedef {import("./types").TemplateHTMLVisitorKeys} TemplateHTMLVisitorKeys
- * @typedef {import("es-html-parser").AnyNode} AnyNode
+ * @import {AnyNode} from "es-html-parser";
+ * @import {TemplateHTMLVisitor, TemplateHTMLVisitorKeys} from "./types";
  */
 
 const { NodeTypes } = require("es-html-parser");

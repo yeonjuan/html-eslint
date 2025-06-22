@@ -10,15 +10,11 @@ import {
 } from "./language";
 
 /**
- * @typedef {import("eslint").Linter} ESLinter;
- * @typedef {import("eslint").Rule.RuleModule } RuleModule
- * @typedef {import("eslint").Linter.RulesRecord} RulesRecord
- * @typedef {import('eslint').Linter.LintMessage} LintMessage
- * @typedef {import('eslint').Linter.LintMessage} LintMessage
- * @typedef {Object.<string, RuleModule>} RulesModules
+ * @import eslint from "eslint";
+ * @typedef {Object.<string, eslint.Rule.RuleModule>} RulesModules
  *
  * @callback OnChangeHadnler
- * @param {{ messages: LintMessage[], output: string }}
+ * @param {{ messages: eslint.Linter.LintMessage[], output: string }}
  * @returns {void}
  *
  * @callback OnErrorHhandler
@@ -55,7 +51,7 @@ export class Linter {
     });
 
     /**
-     * @type {RulesRecord}
+     * @type {eslint.Linter.RulesRecord}
      */
     this._rules = {
       "@html-eslint/indent": "error"
@@ -107,7 +103,7 @@ export class Linter {
    * @param {string} code
    * @param {Language} language
    * @param {boolean?} fix
-   * @returns {{messages: LintMessage[], output: string, fatalMessage?: LintMessage}}
+   * @returns {{messages: eslint.Linter.LintMessage[], output: string, fatalMessage?:  eslint.Linter.LintMessage}}
    */
   lint(code, language, fix = false) {
     try {

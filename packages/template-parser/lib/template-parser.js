@@ -1,10 +1,11 @@
+/**
+ * @import {TemplateLiteral} from "@html-eslint/types"
+ * @import {SourceCode} from "eslint";
+ * @import {TemplateHTMLVisitor} from "./types";
+ */
+
 const esHtmlParser = require("es-html-parser");
 const { traverse } = require("./traverser");
-/**
- * @typedef {import("@html-eslint/types").TemplateLiteral} TemplateLiteral
- * @typedef {import("./types").TemplateHTMLVisitor} TemplateHTMLVisitor
- * @typedef {import("eslint").SourceCode} SourceCode
- */
 
 /**
  * @param {TemplateLiteral} node

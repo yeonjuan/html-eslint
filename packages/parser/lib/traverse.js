@@ -1,13 +1,13 @@
 /**
- * @typedef {import("es-html-parser").AnyNode} AnyNode
- * @typedef {import("eslint").AST.Program} Program
+ * @import {AnyNode} from "es-html-parser";
+ * @import {AST} from "eslint";
  */
 const { visitorKeys } = require("./visitor-keys");
 
 /**
  *
- * @param {AnyNode | Program} node
- * @param {(arg: AnyNode | Program) => void} visitor
+ * @param {AnyNode | AST.Program} node
+ * @param {(arg: AnyNode | AST.Program) => void} visitor
  * @returns {void}
  */
 function traverse(node, visitor) {
