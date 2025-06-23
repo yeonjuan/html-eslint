@@ -1,7 +1,6 @@
 /**
- * @typedef { import("../types").RuleModule<[]> } RuleModule
- * @typedef { import("../types").SuggestionReportDescriptor } SuggestionReportDescriptor
- * @typedef { import("@html-eslint/types").Text} Text
+ * @import {RuleModule} from "../types";
+ * @import {Text} from "@html-eslint/types";
  */
 
 // Define the type for entities.json
@@ -23,7 +22,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

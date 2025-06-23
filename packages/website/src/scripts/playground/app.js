@@ -1,5 +1,5 @@
 /**
- * @typedef {import("codemirror").Editor} Editor
+ * @import {Editor} from "codemirror";
  */
 import {
   Model

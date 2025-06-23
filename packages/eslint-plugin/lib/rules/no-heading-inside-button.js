@@ -1,5 +1,5 @@
 /**
- * @typedef { import("../types").RuleModule<[]> } RuleModule
+ * @import {RuleModule} from "../types";
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -14,7 +14,7 @@ const MESSAGE_IDS = {
 const HEADING_NAMES = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

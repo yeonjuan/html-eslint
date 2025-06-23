@@ -1,7 +1,6 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").AnyNode } AnyNode
- * @typedef { import("../types").RuleModule<[]> } RuleModule
+ * @import {Tag, AnyNode} from "@html-eslint/types";
+ * @import {RuleModule} from "../types";
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -31,7 +30,7 @@ function isMetaViewport(node) {
 }
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

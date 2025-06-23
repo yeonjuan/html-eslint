@@ -1,11 +1,9 @@
 /**
- * @typedef { import("../types").RuleFixer } RuleFixer
- * @typedef { import("@html-eslint/types").Attribute } Attribute
- * @typedef { import("@html-eslint/types").Text } Text
+ * @import {Attribute} from "@html-eslint/types";
+ * @import {RuleFixer, RuleModule} from "../types";
  *
  * @typedef {Object} Option
  * @property {string[]} [Option.priority]
- * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { hasTemplate } = require("./utils/node");
@@ -19,7 +17,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option]>}
  */
 module.exports = {
   meta: {

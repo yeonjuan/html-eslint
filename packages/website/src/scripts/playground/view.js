@@ -1,3 +1,8 @@
+/**
+ * @import {LintMessage} from "./linter";
+ * @import {Editor} from "codemirror";
+ */
+
 import "codemirror/lib/codemirror.css";
 import "codemirror/mode/htmlmixed/htmlmixed.js";
 import "codemirror/mode/javascript/javascript.js";
@@ -9,11 +14,6 @@ import {
 import {
   html
 } from "@html-kit/html";
-
-/**
- * @typedef {import("./linter").LintMessage} LintMessage
- * @typedef {import("codemirror").Editor} Editor
- */
 
 export class View {
   constructor() {

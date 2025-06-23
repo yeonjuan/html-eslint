@@ -1,16 +1,11 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
- * @typedef { import("@html-eslint/types").StyleTag } StyleTag
- * @typedef { import("@html-eslint/types").Attribute } Attribute
+ * @import {Tag, ScriptTag, StyleTag, Attribute} from "@html-eslint/types";
+ * @import {RuleModule, ReportFixFunction} from "../types";
  *
  * @typedef {Object} Option
  * @property {string} tag
  * @property {string} attr
  * @property {string} [value]
- *
- * @typedef { import("../types").RuleModule<Option[]> } RuleModule
- * @typedef { import("../types").ReportFixFunction} ReportFixFunction
  *
  */
 
@@ -25,7 +20,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<Option[]>}
  */
 module.exports = {
   meta: {

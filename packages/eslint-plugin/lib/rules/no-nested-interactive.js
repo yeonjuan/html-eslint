@@ -1,6 +1,6 @@
 /**
- * @typedef { import("../types").RuleModule<[]> } RuleModule
- * @typedef { import("@html-eslint/types").Tag } Tag
+ * @import {Tag} from "@html-eslint/types";
+ * @import {RuleModule} from "../types";
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -56,7 +56,7 @@ function isInteractive(tag) {
 }
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

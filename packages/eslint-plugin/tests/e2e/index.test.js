@@ -1,6 +1,3 @@
-/**
- * @typedef {import("eslint").Linter.Config} Config
- */
 const eslint = require(`eslint`);
 const fs = require(`fs`);
 const path = require(`path`);

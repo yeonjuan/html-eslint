@@ -1,9 +1,6 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").StyleTag } StyleTag
- * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
- * @typedef { import("@html-eslint/types").AttributeValue } AttributeValue
- * @typedef { import("../types").RuleModule<[]> } RuleModule
+ * @import {Tag, AttributeValue} from "@html-eslint/types";
+ * @import {RuleModule} from "../types";
  */
 
 const { parse } = require("@html-eslint/template-parser");
@@ -21,7 +18,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

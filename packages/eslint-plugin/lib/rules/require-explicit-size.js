@@ -1,12 +1,9 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").AnyNode } AnyNode
+ * @import {RuleModule} from "../types";
  *
  * @typedef {Object} Option
  * @property {string[]} [Option.allowClass]
  * @property {string[]} [Option.allowId]
- * @typedef { import("../types").RuleModule<[Option]> } RuleModule
- *
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -22,7 +19,7 @@ const MESSAGE_IDS = {
 const TARGET_ELEMENTS = ["img", "iframe"];
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option]>}
  */
 module.exports = {
   meta: {

@@ -1,5 +1,5 @@
 /**
- * @typedef { import("../types").RuleModule<[]> } RuleModule
+ * @import {RuleModule} from "../types";
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -17,7 +17,7 @@ const MESSAGE_IDS = {
 const ALLOWED_METHODS = new Set(["GET", "POST", "DIALOG"]);
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[]>}
  */
 module.exports = {
   meta: {

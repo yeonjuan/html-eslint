@@ -1,7 +1,8 @@
 /**
- *  @typedef {import("eslint").AST.Program} Program
- * @typedef {import('@html-eslint/types').AnyHTMLNode} AnyHTMLNode
+ * @import {AST} from 'eslint';
+ * @import {AnyHTMLNode} from '@html-eslint/types';
  */
+
 const { VisitNodeStep } = require("@eslint/plugin-kit");
 
 const STEP_PHASE = {
@@ -18,7 +19,7 @@ const STEP_PHASE = {
 class HTMLTraversalStep extends VisitNodeStep {
   /**
    * @param {Object} options
-   * @param {AnyHTMLNode | Program} options.target
+   * @param {AnyHTMLNode | AST.Program} options.target
    * @param {1|2} options.phase
    * @param {Array<any>} options.args
    */

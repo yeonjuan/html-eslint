@@ -1,11 +1,8 @@
 /**
- * @typedef { import("@html-eslint/types").StyleTag } StyleTag
- * @typedef { import("@html-eslint/types").Attribute } Attribute
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
+ * @import {StyleTag, Attribute, Tag, ScriptTag} from "@html-eslint/types";
+ * @import {RuleModule} from "../types";
  * @typedef {{tagPatterns: string[], attrPatterns: string[], message?: string}[]} Options
  *
- * @typedef { import("../types").RuleModule<Options> } RuleModule
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -18,7 +15,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<Options>}
  */
 module.exports = {
   meta: {

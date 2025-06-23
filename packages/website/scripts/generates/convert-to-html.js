@@ -1,5 +1,5 @@
 /**
- * @typedef {import("marked").Marked} Marked
+ * @import {Marked} from "marked";
  */
 const fs = require("fs");
 const path = require("path");

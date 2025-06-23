@@ -1,21 +1,10 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").Comment } Comment
- * @typedef { import("@html-eslint/types").Doctype } Doctype
- * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
- * @typedef { import("@html-eslint/types").StyleTag } StyleTag
- * @typedef { import("@html-eslint/types").Text } Text
- * @typedef { import("@html-eslint/types").AnyNode } AnyNode
- * @typedef { import("@html-eslint/types").OpenTagEnd } OpenTagEnd
- * @typedef { import("@html-eslint/types").CloseTag } CloseTag
- * @typedef { import("../types").Line } Line
+ * @import { Text, AnyNode, OpenTagEnd, CloseTag } from '@html-eslint/types';
+ * @import { Line, RuleModule } from '../types';
  * @typedef { AnyNode | Line } AnyNodeOrLine
- *
  * @typedef {Object} Option
  * @property {string[]} [Option.skip]
  * @property {string[]} [Option.inline]
- *
- * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -76,7 +65,7 @@ wbr
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option]>}
  */
 module.exports = {
   meta: {

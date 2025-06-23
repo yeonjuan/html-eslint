@@ -1,11 +1,9 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").StyleTag } StyleTag
- * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
+ * @import {Tag, StyleTag, ScriptTag} from "@html-eslint/types";
+ * @import {RuleModule} from "../types";
  *
  * @typedef {Object} Option
  * @property {number} [Option.max]
- * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -17,7 +15,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option]>}
  */
 module.exports = {
   meta: {

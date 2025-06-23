@@ -1,16 +1,13 @@
 /**
- * @typedef {import('eslint').AST.Range} Range
- * @typedef {import("./types").TemplateSyntax} TemplateSyntax
- * @typedef {import("./types").OpenSyntax} OpenSyntax
- * @typedef {import("./types").CloseSyntax} CloseSyntax
- * @typedef {import("./types").TemplateSyntaxParserResult} TemplateSyntaxParserResult
+ * @import {AST} from "eslint";
+ * @import {TemplateSyntax, OpenSyntax, CloseSyntax, TemplateSyntaxParserResult} from "./types";
  */
 
 module.exports = class Parser {
   /**
    * @param {string} code
    * @param {[string, string][]} syntaxPairs
-   * @param {Range[]} skipRanges
+   * @param {AST.Range[]} skipRanges
    */
   constructor(code, syntaxPairs, skipRanges) {
     /**
@@ -22,7 +19,7 @@ module.exports = class Parser {
      */
     this.syntaxPairs = syntaxPairs || [];
     /**
-     * @type {Range[]}
+     * @type {AST.Range[]}
      */
     this.skipRanges = skipRanges;
     /**
@@ -38,7 +35,7 @@ module.exports = class Parser {
   /**
    * @private
    * @param {number} index
-   * @returns {Range | undefined}
+   * @returns {AST.Range | undefined}
    */
   findSkipRange(index) {
     return this.skipRanges.find(

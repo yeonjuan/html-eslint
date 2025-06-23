@@ -1,6 +1,5 @@
 /**
- * @typedef { import("../../types").Context<any[]> } Context
- * @typedef { import("../../types").RuleListener } RuleListener
+ * @import {Context, RuleListener} from "../../types";
  */
 
 const {
@@ -11,7 +10,7 @@ const { parse } = require("@html-eslint/template-parser");
 const { getSourceCode } = require("./source-code");
 
 /**
- * @param {Context} context
+ * @param {Context<any[]>} context
  * @param {any} visitors
  * @returns {RuleListener}
  */
@@ -31,7 +30,7 @@ function createTemplateVisitors(context, visitors) {
 }
 
 /**
- * @param {Context} context
+ * @param {Context<any[]>} context
  * @param {RuleListener} visitors
  * @param {any} [templateVisitors]
  * @returns {RuleListener}

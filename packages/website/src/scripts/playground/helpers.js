@@ -1,6 +1,6 @@
 /**
- * @typedef {import('eslint').Linter.LintMessage} LintMessage
- * @typedef {import("codemirror").Position} Position
+ * @import {Position} from "codemirror";
+ * @import eslint from "eslint";
  */
 import {
   html
@@ -15,7 +15,7 @@ function toMarkerPos(pos) {
 }
 
 /**
- * @param {LintMessage} message
+ * @param {eslint.Linter.LintMessage} message
  * @returns {[Position, Position]}
  */
 export function toMarker(message) {

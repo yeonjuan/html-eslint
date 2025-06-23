@@ -1,10 +1,9 @@
 /**
- * @typedef { import("@html-eslint/types").Tag } Tag
+ * @import {Tag} from "@html-eslint/types";
+ * @import {RuleModule} from "../types";
  *
  * @typedef {Object} Option
  * @property {string[]} [substitute]
- *
- * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -17,7 +16,7 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option]>}
  */
 module.exports = {
   meta: {

@@ -1,12 +1,9 @@
 /**
- * @typedef { import("eslint").AST.Range } Range
- * @typedef { import("@html-eslint/types").Attribute } Attribute
- * @typedef { import("@html-eslint/types").Tag } Tag
- * @typedef { import("@html-eslint/types").ScriptTag } ScriptTag
- * @typedef { import("@html-eslint/types").StyleTag } StyleTag
+ * @import {AST} from "eslint";
+ * @import {Attribute, Tag, ScriptTag, StyleTag} from "@html-eslint/types";
+ * @import {RuleModule} from "../types";
  *
  * @typedef {"single" | "double"} Option
- * @typedef { import("../types").RuleModule<[Option]> } RuleModule
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -28,7 +25,7 @@ const QUOTES_STYLES = {
 const QUOTES_CODES = [`"`, `'`];
 
 /**
- * @type {RuleModule}
+ * @type {RuleModule<[Option]>}
  */
 module.exports = {
   meta: {
@@ -65,7 +62,7 @@ module.exports = {
     const sourceCode = getSourceCode(context);
 
     /**
-     * @param {Range} range
+     * @param {AST.Range} range
      * @returns {string}
      */
     function getCodeIn(range) {

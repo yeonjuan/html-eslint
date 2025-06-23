@@ -1,12 +1,11 @@
+/**
+ * @import {RuleTester} from "eslint";
+ */
+
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/indent");
 const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
-
-/**
- * @typedef {import("eslint").RuleTester.InvalidTestCase} InvalidTestCase
- * @typedef {import("eslint").RuleTester.ValidTestCase} ValidTestCase
- */
 
 /**
  * @param {number} length
@@ -20,7 +19,7 @@ function wrongIndentErrors(length) {
 
 /**
  *
- * @param {{ valid: ValidTestCase[]; invalid: InvalidTestCase[];}} tests
+ * @param {{ valid: RuleTester.ValidTestCase[]; invalid: RuleTester.InvalidTestCase[];}} tests
  * @returns
  */
 function changeLineEndings(tests) {

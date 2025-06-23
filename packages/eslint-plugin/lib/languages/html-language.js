@@ -1,11 +1,11 @@
-const { visitorKeys, parseForESLint } = require("@html-eslint/parser");
-const { HTMLSourceCode } = require("./html-source-code");
-
 /**
  * @import { Language, ParseResult, File, FileError, OkParseResult } from "@eslint/core";
  * @import { ParserOptions } from "@html-eslint/parser";
  * @import { AST } from "eslint";
  */
+
+const { visitorKeys, parseForESLint } = require("@html-eslint/parser");
+const { HTMLSourceCode } = require("./html-source-code");
 
 /**
  * @implements {Language<{ LangOptions: ParserOptions; Code: HTMLSourceCode; RootNode: AST.Program; Node: {}}>}

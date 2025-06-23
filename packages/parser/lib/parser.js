@@ -1,6 +1,6 @@
 /**
- * @typedef {import("./types").ParserOptions} ParserOptions
- * @typedef {import("eslint").AST.Program} Program
+ * @import {ParserOptions} from "./types";
+ * @import {AST} from "eslint";
  */
 const { parse, TokenTypes } = require("es-html-parser");
 const { visitorKeys } = require("./visitor-keys");
@@ -18,7 +18,7 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
   const { ast, tokens } = parse(html, options);
 
   /**
-   * @type {Program}
+   * @type {AST.Program}
    */
   const programNode = {
     type: "Program",
