@@ -68,6 +68,7 @@
 | -------------------------------------------------------- | ----------------------------------------------------------------- | ---- |
 | [attrs-newline](rules/attrs-newline)                     | Enforce newline between attributes                                | ⭐🔧 |
 | [element-newline](rules/element-newline)                 | Enforce newline between elements.                                 | ⭐🔧 |
+| [group-attrs](rules/group-attrs)                         | Enforce grouping and ordering of related attributes               | 🔧   |
 | [id-naming-convention](rules/id-naming-convention)       | Enforce consistent naming id attributes                           |      |
 | [indent](rules/indent)                                   | Enforce consistent indentation                                    | ⭐🔧 |
 | [lowercase](rules/lowercase)                             | Enforce to use lowercase for tag and attribute names.             | 🔧   |
