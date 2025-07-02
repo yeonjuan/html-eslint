@@ -23,10 +23,57 @@ const MESSAGE_IDS = {
  */
 const DEFAULT_GROUPS = [
   ["min", "max"],
+  ["low", "high"],
+  ["src", "srcset", "alt"],
+  ["cols", "rows"],
+  ["type", "name", "value"],
+  ["shadowrootclonable", "shadowrootdelegatesfocus", "shadowrootmode"],
+  ["formaction", "formmethod", "formtarget"],
   ["minlength", "maxlength"],
+  ["aria-valuemin", "aria-valuenow", "aria-valuemax", "aria-valuetext"],
+  ["aria-rowindex", "aria-colindex"],
+  ["aria-rowspan", "aria-colspan"],
+  ["aria-rowcount", "aria-colcount"],
   ["width", "height"],
-  ["aria-labelledby", "aria-describedby"],
-  ["data-min", "data-max"],
+  ["aria-label", "aria-labelledby", "aria-describedby"],
+  ["aria-expanded", "aria-haspopup"],
+  // Group remaining ARIA attributes
+  [
+    "role",
+    "aria-activedescendant",
+    "aria-atomic",
+    "aria-autocomplete",
+    "aria-busy",
+    "aria-checked",
+    "aria-controls",
+    "aria-current",
+    "aria-details",
+    "aria-disabled",
+    "aria-dropeffect",
+    "aria-errormessage",
+    "aria-flowto",
+    "aria-grabbed",
+    "aria-hidden",
+    "aria-invalid",
+    "aria-keyshortcuts",
+    "aria-level",
+    "aria-live",
+    "aria-modal",
+    "aria-multiline",
+    "aria-multiselectable",
+    "aria-orientation",
+    "aria-owns",
+    "aria-placeholder",
+    "aria-posinset",
+    "aria-pressed",
+    "aria-readonly",
+    "aria-relevant",
+    "aria-required",
+    "aria-roledescription",
+    "aria-selected",
+    "aria-setsize",
+    "aria-sort",
+  ],
   ["left", "top", "right", "bottom"],
 ];
 
@@ -64,7 +111,7 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.NOT_GROUPED]: 
+      [MESSAGE_IDS.NOT_GROUPED]:
         "Related attributes should be grouped together: {{attrs}} (found separated by: {{separator}})",
       [MESSAGE_IDS.WRONG_ORDER]:
         "Related attributes should be in the correct order: {{attrs}} (expected order: {{expectedOrder}})",
@@ -88,7 +135,7 @@ module.exports = {
         const foundAttrs = [];
         /** @type {number[]} */
         const indices = [];
-        
+
         // Find which attributes from this group are present
         for (let i = 0; i < attributes.length; i++) {
           const attr = attributes[i];
@@ -97,17 +144,17 @@ module.exports = {
             indices.push(i);
           }
         }
-        
+
         // If we have multiple attributes from this group, check violations
         if (foundAttrs.length > 1) {
           const firstIndex = indices[0];
           const lastIndex = indices[indices.length - 1];
-          
+
           // Check if indices are consecutive
-          const isConsecutive = indices.every((index, i) => 
-            i === 0 || index === indices[i - 1] + 1
+          const isConsecutive = indices.every(
+            (index, i) => i === 0 || index === indices[i - 1] + 1
           );
-          
+
           if (!isConsecutive) {
             // Grouping violation: attributes are not together
             const separatorAttrs = [];
@@ -116,7 +163,7 @@ module.exports = {
                 separatorAttrs.push(attributes[i].key.value);
               }
             }
-            
+
             context.report({
               loc: {
                 start: attributes[firstIndex].loc.start,
@@ -128,15 +175,25 @@ module.exports = {
                 separator: separatorAttrs.join(", "),
               },
               fix(fixer) {
-                return fixAttributeOrder(fixer, attributes, indices, group, foundAttrs);
+                return fixAttributeOrder(
+                  fixer,
+                  attributes,
+                  indices,
+                  group,
+                  foundAttrs
+                );
               },
             });
             return; // Only report one violation at a time
           } else {
             // Check ordering violation: attributes are together but in wrong order
-            const expectedOrder = group.filter(attr => foundAttrs.includes(attr));
-            const isCorrectOrder = foundAttrs.every((attr, i) => attr === expectedOrder[i]);
-            
+            const expectedOrder = group.filter((attr) =>
+              foundAttrs.includes(attr)
+            );
+            const isCorrectOrder = foundAttrs.every(
+              (attr, i) => attr === expectedOrder[i]
+            );
+
             if (!isCorrectOrder) {
               context.report({
                 loc: {
@@ -149,7 +206,13 @@ module.exports = {
                   expectedOrder: expectedOrder.join(", "),
                 },
                 fix(fixer) {
-                  return fixAttributeOrder(fixer, attributes, indices, group, foundAttrs);
+                  return fixAttributeOrder(
+                    fixer,
+                    attributes,
+                    indices,
+                    group,
+                    foundAttrs
+                  );
                 },
               });
               return; // Only report one violation at a time
@@ -170,47 +233,47 @@ module.exports = {
     function fixAttributeOrder(fixer, attributes, indices, group, foundAttrs) {
       const sourceCode = getSourceCode(context);
       const source = sourceCode.getText();
-      
+
       // Get the attributes that need to be reordered
-      const attrsToReorder = indices.map(i => attributes[i]);
-      
+      const attrsToReorder = indices.map((i) => attributes[i]);
+
       // Sort them according to the group order
-      const expectedOrder = group.filter(attr => foundAttrs.includes(attr));
+      const expectedOrder = group.filter((attr) => foundAttrs.includes(attr));
       attrsToReorder.sort((a, b) => {
         const aIndex = expectedOrder.indexOf(a.key.value);
         const bIndex = expectedOrder.indexOf(b.key.value);
         return aIndex - bIndex;
       });
-      
-             // Create a fixed version of all attributes by building the new arrangement
-       const fixed = [];
-       let groupInserted = false;
-       const targetInsertIndex = Math.min(...indices); // Insert grouped attrs at position of first occurrence
-       
-       for (let i = 0; i < attributes.length; i++) {
-         if (i === targetInsertIndex && !groupInserted) {
-           // Insert the grouped/reordered attributes at the position of first occurrence
-           fixed.push(...attrsToReorder);
-           groupInserted = true;
-         } else if (!indices.includes(i)) {
-           // Only add non-grouped attributes
-           fixed.push(attributes[i]);
-         }
-         // Skip attributes that are part of the group (they're already inserted above)
-       }
-      
+
+      // Create a fixed version of all attributes by building the new arrangement
+      const fixed = [];
+      let groupInserted = false;
+      const targetInsertIndex = Math.min(...indices); // Insert grouped attrs at position of first occurrence
+
+      for (let i = 0; i < attributes.length; i++) {
+        if (i === targetInsertIndex && !groupInserted) {
+          // Insert the grouped/reordered attributes at the position of first occurrence
+          fixed.push(...attrsToReorder);
+          groupInserted = true;
+        } else if (!indices.includes(i)) {
+          // Only add non-grouped attributes
+          fixed.push(attributes[i]);
+        }
+        // Skip attributes that are part of the group (they're already inserted above)
+      }
+
       // Build the replacement text
       let result = "";
       for (let i = 0; i < fixed.length; i++) {
         const attr = fixed[i];
         result += source.slice(attr.range[0], attr.range[1]);
-        
+
         // Add spacing between attributes
         if (i < fixed.length - 1) {
           result += " ";
         }
       }
-      
+
       return fixer.replaceTextRange(
         [attributes[0].range[0], attributes[attributes.length - 1].range[1]],
         result

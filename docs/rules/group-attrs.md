@@ -22,10 +22,10 @@ Examples of **incorrect** code for this rule:
 
 ```html
 <!-- min and max are separated by type -->
-<input min="5" type="text" max="10">
+<input min="5" type="text" max="10" />
 
 <!-- width and height are separated by src and alt -->
-<img width="100" src="image.jpg" height="200" alt="Image">
+<img width="100" src="image.jpg" height="200" alt="Image" />
 
 <!-- minlength and maxlength are separated by placeholder -->
 <textarea minlength="10" placeholder="Enter text" maxlength="100"></textarea>
@@ -44,10 +44,10 @@ Examples of **correct** code for this rule:
 
 ```html
 <!-- Related attributes are grouped together -->
-<input min="5" max="10" type="text">
+<input min="5" max="10" type="text" />
 
 <!-- Related attributes are grouped together -->
-<img width="100" height="200" src="image.jpg" alt="Image">
+<img width="100" height="200" src="image.jpg" alt="Image" />
 
 <!-- Related attributes are grouped together -->
 <textarea minlength="10" maxlength="100" placeholder="Enter text"></textarea>
@@ -62,10 +62,10 @@ Examples of **correct** code for this rule:
 <div left="0" top="10" right="100" width="100" height="50"></div>
 
 <!-- Only one attribute from a group (no violation) -->
-<input min="5" type="text">
+<input min="5" type="text" />
 
 <!-- No related attributes present -->
-<input type="text" name="example">
+<input type="text" name="example" />
 ```
 
 ### Options
@@ -88,12 +88,12 @@ Default:
 ```js
 [
   ["min", "max"],
-  ["minlength", "maxlength"], 
+  ["minlength", "maxlength"],
   ["width", "height"],
   ["aria-labelledby", "aria-describedby"],
   ["data-min", "data-max"],
-  ["left", "top", "right", "bottom"]
-]
+  ["left", "top", "right", "bottom"],
+];
 ```
 
 Defines arrays of attribute names that should be grouped together when present.
