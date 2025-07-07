@@ -96,7 +96,7 @@ Default:
 ];
 ```
 
-Defines arrays of attribute names that should be grouped together when present.
+Defines arrays of attribute names that should be grouped together when present. Regex patterns are supported, and if an attribute matches multiple patterns, it will only be affected by the first matching pattern.
 
 Example configuration:
 
@@ -108,7 +108,7 @@ module.exports = {
       {
         groups: [
           ["min", "max"],
-          ["data-start", "data-end"],
+          ["/^data-/"],
           ["x", "y"],
           ["left", "top", "right", "bottom"]
         ]
@@ -138,6 +138,85 @@ With this configuration:
 
 <!-- ✅ Correct: partial group together -->
 <div left="0" top="10" right="100" width="100"></div>
+```
+
+#### Regex Groups and Alphabetical Sorting
+
+If a group is defined as a single regex pattern (for example, ["/^data-/"]), then all attributes matching that pattern will be grouped together and sorted alphabetically. This is useful for grouping and ordering dynamic or custom attributes, such as all `data-*` or `aria-*` attributes.
+
+Example configuration:
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/group-attrs": [
+      "error",
+      {
+        groups: [
+          ["/^data-/"], // All data-* attributes, sorted alphabetically
+          ["/^aria-/"], // All aria-* attributes, sorted alphabetically
+        ]
+      }
+    ],
+  },
+};
+```
+
+With this configuration:
+
+```html
+<!-- ❌ Incorrect: data-y comes before data-x alphabetically -->
+<input data-y="2" data-x="1">
+
+<!-- ✅ Correct: data-x comes before data-y alphabetically -->
+<input data-x="1" data-y="2">
+
+<!-- ❌ Incorrect: aria-label comes before aria-describedby alphabetically -->
+<div aria-label="test" aria-describedby="desc"></div>
+
+<!-- ✅ Correct: aria-describedby comes before aria-label alphabetically -->
+<div aria-describedby="desc" aria-label="test"></div>
+```
+
+#### Multiple Items in a Group
+
+If a group contains multiple items (for example, ["type", "/^data-/"]), the set of attributes matching each regex will not be sorted alphabetically.
+
+Example configuration:
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/group-attrs": [
+      "error",
+      {
+        groups: [
+          ["type", "/^data-/"], // 'type' first, then all data-* attributes (not alphabetically sorted)
+          ["/^aria-/", "/^aria-/"] // group all aria-* attributes, without sorting
+        ]
+      }
+    ],
+  },
+};
+```
+
+With this configuration:
+
+```html
+<!-- ❌ Incorrect: data-x comes before type -->
+<input data-x="1" type="text" data-y="2">
+
+<!-- ✅ Correct: type comes before data-x and data-y -->
+<input type="text" data-x="1" data-y="2">
+
+<!-- ✅ Correct: type comes before data-y and data-x -->
+<input type="text" data-y="2" data-x="1">
+
+<!-- ✅ Correct: aria-describedby comes before aria-label -->
+<div aria-describedby="desc" aria-label="test"></div>
+
+<!-- ✅ Correct: aria-label comes before aria-describedby -->
+<div aria-label="test" aria-describedby="desc"></div>
 ```
 
 ## When Not To Use It

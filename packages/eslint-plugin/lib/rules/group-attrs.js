@@ -3,7 +3,7 @@
  * @import {RuleModule} from "../types";
  *
  * @typedef {Object} Option
- * @property {string[][]} [Option.groups] - Array of attribute groups that should be kept together and in order
+ * @property {(string[]|string[])[]} [Option.groups] - Array of attribute groups that should be kept together and in order. Each group can contain strings or regex patterns as strings (e.g., "/^data-/")
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -22,60 +22,68 @@ const MESSAGE_IDS = {
  * they should be placed next to each other in the specified order.
  */
 const DEFAULT_GROUPS = [
+  ["type", "name", "value"],
+  ["width", "height"],
   ["min", "max"],
   ["low", "high"],
   ["src", "srcset", "alt"],
   ["cols", "rows"],
-  ["type", "name", "value"],
   ["shadowrootclonable", "shadowrootdelegatesfocus", "shadowrootmode"],
   ["formaction", "formmethod", "formtarget"],
   ["minlength", "maxlength"],
+  ["left", "top", "right", "bottom"],
+  // Group ARIA attributes
   ["aria-valuemin", "aria-valuenow", "aria-valuemax", "aria-valuetext"],
   ["aria-rowindex", "aria-colindex"],
   ["aria-rowspan", "aria-colspan"],
   ["aria-rowcount", "aria-colcount"],
-  ["width", "height"],
   ["aria-label", "aria-labelledby", "aria-describedby"],
   ["aria-expanded", "aria-haspopup"],
-  // Group remaining ARIA attributes
-  [
-    "role",
-    "aria-activedescendant",
-    "aria-atomic",
-    "aria-autocomplete",
-    "aria-busy",
-    "aria-checked",
-    "aria-controls",
-    "aria-current",
-    "aria-details",
-    "aria-disabled",
-    "aria-dropeffect",
-    "aria-errormessage",
-    "aria-flowto",
-    "aria-grabbed",
-    "aria-hidden",
-    "aria-invalid",
-    "aria-keyshortcuts",
-    "aria-level",
-    "aria-live",
-    "aria-modal",
-    "aria-multiline",
-    "aria-multiselectable",
-    "aria-orientation",
-    "aria-owns",
-    "aria-placeholder",
-    "aria-posinset",
-    "aria-pressed",
-    "aria-readonly",
-    "aria-relevant",
-    "aria-required",
-    "aria-roledescription",
-    "aria-selected",
-    "aria-setsize",
-    "aria-sort",
-  ],
-  ["left", "top", "right", "bottom"],
+  // Remaining ARIA attributes aren't sorted, but are grouped together
+  ["role", "/^aria-/"],
 ];
+
+/**
+ * Check if an attribute matches a group pattern
+ * @param {string} attrName - The attribute name to check
+ * @param {string} pattern - The pattern to match against (can be a string or regex pattern like "/^data-/")
+ * @returns {boolean} - True if the attribute matches the pattern
+ */
+function matchesPattern(attrName, pattern) {
+  if (typeof pattern === "string") {
+    // Check if it's a regex pattern (starts and ends with /)
+    if (pattern.startsWith("/") && pattern.endsWith("/")) {
+      try {
+        const regex = new RegExp(pattern.slice(1, -1));
+        return regex.test(attrName);
+      } catch (e) { // eslint-disable-line no-unused-vars
+        // If regex is invalid, fall back to exact string match
+        return attrName === pattern;
+      }
+    }
+    // Exact string match
+    return attrName === pattern;
+  }
+  return false;
+}
+
+/**
+ * Find which group an attribute belongs to
+ * @param {string} attrName - The attribute name
+ * @param {string[][]} groups - The groups to check
+ * @returns {number} - The index of the first matching group, or -1 if no match
+ */
+function findAttributeGroup(attrName, groups) {
+  for (let i = 0; i < groups.length; i++) {
+    const group = groups[i];
+    for (const pattern of group) {
+      if (matchesPattern(attrName, pattern)) {
+        return i;
+      }
+    }
+  }
+  return -1;
+}
 
 /**
  * @type {RuleModule<[Option]>}
@@ -101,9 +109,9 @@ module.exports = {
             items: {
               type: "array",
               items: {
-                type: "string",
+                type: "string"
               },
-              minItems: 2,
+              minItems: 1,
             },
           },
         },
@@ -130,49 +138,133 @@ module.exports = {
         return;
       }
 
-      for (const group of groups) {
-        /** @type {string[]} */
-        const foundAttrs = [];
-        /** @type {number[]} */
-        const indices = [];
+      // Map each attribute to its group index (first match wins)
+      /** @type {Map<number, {attrName: string, index: number, groupIndex: number}[]>} */
+      const groupMap = new Map();
 
-        // Find which attributes from this group are present
-        for (let i = 0; i < attributes.length; i++) {
-          const attr = attributes[i];
-          if (group.includes(attr.key.value)) {
-            foundAttrs.push(attr.key.value);
-            indices.push(i);
+      for (let i = 0; i < attributes.length; i++) {
+        const attr = attributes[i];
+        const attrName = attr.key.value;
+        const groupIndex = findAttributeGroup(attrName, groups);
+        
+        if (groupIndex !== -1) {
+          if (!groupMap.has(groupIndex)) {
+            groupMap.set(groupIndex, []);
+          }
+          const groupList = groupMap.get(groupIndex);
+          if (groupList) {
+            groupList.push({
+              attrName,
+              index: i,
+              groupIndex
+            });
           }
         }
+      }
 
-        // If we have multiple attributes from this group, check violations
-        if (foundAttrs.length > 1) {
-          const firstIndex = indices[0];
-          const lastIndex = indices[indices.length - 1];
+      // Check each group for violations
+      for (const [groupIndex, attrInfos] of groupMap) {
+        if (attrInfos.length <= 1) {
+          continue;
+        }
 
-          // Check if indices are consecutive
-          const isConsecutive = indices.every(
-            (index, i) => i === 0 || index === indices[i - 1] + 1
-          );
+        const group = groups[groupIndex];
+        const indices = attrInfos.map(info => info.index);
+        const foundAttrs = attrInfos.map(info => info.attrName);
 
-          if (!isConsecutive) {
-            // Grouping violation: attributes are not together
-            const separatorAttrs = [];
-            for (let i = firstIndex + 1; i < lastIndex; i++) {
-              if (!indices.includes(i)) {
-                separatorAttrs.push(attributes[i].key.value);
+        const firstIndex = Math.min(...indices);
+        const lastIndex = Math.max(...indices);
+
+        // Check if indices are consecutive
+        const sortedIndices = [...indices].sort((a, b) => a - b);
+        const isConsecutive = sortedIndices.every(
+          (index, i) => i === 0 || index === sortedIndices[i - 1] + 1
+        );
+
+        if (!isConsecutive) {
+          // Grouping violation: attributes are not together
+          const separatorAttrs = [];
+          for (let i = firstIndex + 1; i < lastIndex; i++) {
+            if (!indices.includes(i)) {
+              separatorAttrs.push(attributes[i].key.value);
+            }
+          }
+
+          context.report({
+            loc: {
+              start: attributes[firstIndex].loc.start,
+              end: attributes[lastIndex].loc.end,
+            },
+            messageId: MESSAGE_IDS.NOT_GROUPED,
+            data: {
+              attrs: foundAttrs.join(", "),
+              separator: separatorAttrs.join(", "),
+            },
+            fix(fixer) {
+              return fixAttributeOrder(
+                fixer,
+                attributes,
+                indices,
+                group,
+                foundAttrs
+              );
+            },
+          });
+          return; // Only report one violation at a time
+        } else {
+          // Check ordering violation: attributes are together but in wrong order
+          const isRegexGroup = group.length === 1 && 
+            typeof group[0] === "string" && 
+            group[0].startsWith("/") && 
+            group[0].endsWith("/");
+          
+          let isCorrectOrder;
+          /** @type {string[]} */
+          let expectedOrder;
+          
+          if (isRegexGroup) {
+            // For regex groups, sort alphabetically
+            expectedOrder = [...foundAttrs].sort();
+            isCorrectOrder = foundAttrs.every((attr, i) => attr === expectedOrder[i]);
+          } else {
+            // For string groups, follow the defined order
+            expectedOrder = group.filter((pattern) => {
+              return foundAttrs.some(attr => matchesPattern(attr, pattern));
+            });
+            
+            // Create a mapping of expected positions
+            const expectedPositions = new Map();
+            let position = 0;
+            for (const pattern of expectedOrder) {
+              for (const attr of foundAttrs) {
+                if (matchesPattern(attr, pattern) && !expectedPositions.has(attr)) {
+                  expectedPositions.set(attr, position++);
+                }
               }
             }
 
+            isCorrectOrder = foundAttrs.every(
+              (attr, i) => {
+                const expectedPos = expectedPositions.get(attr);
+                return expectedPos === i;
+              }
+            );
+          }
+
+          if (!isCorrectOrder) {
             context.report({
               loc: {
                 start: attributes[firstIndex].loc.start,
                 end: attributes[lastIndex].loc.end,
               },
-              messageId: MESSAGE_IDS.NOT_GROUPED,
+              messageId: MESSAGE_IDS.WRONG_ORDER,
               data: {
                 attrs: foundAttrs.join(", "),
-                separator: separatorAttrs.join(", "),
+                expectedOrder: isRegexGroup ? expectedOrder.join(", ") : foundAttrs.sort((a, b) => {
+                  const aIndex = expectedOrder.findIndex(pattern => matchesPattern(a, pattern));
+                  const bIndex = expectedOrder.findIndex(pattern => matchesPattern(b, pattern));
+                  return aIndex - bIndex;
+                }).join(", "),
               },
               fix(fixer) {
                 return fixAttributeOrder(
@@ -185,38 +277,6 @@ module.exports = {
               },
             });
             return; // Only report one violation at a time
-          } else {
-            // Check ordering violation: attributes are together but in wrong order
-            const expectedOrder = group.filter((attr) =>
-              foundAttrs.includes(attr)
-            );
-            const isCorrectOrder = foundAttrs.every(
-              (attr, i) => attr === expectedOrder[i]
-            );
-
-            if (!isCorrectOrder) {
-              context.report({
-                loc: {
-                  start: attributes[firstIndex].loc.start,
-                  end: attributes[lastIndex].loc.end,
-                },
-                messageId: MESSAGE_IDS.WRONG_ORDER,
-                data: {
-                  attrs: foundAttrs.join(", "),
-                  expectedOrder: expectedOrder.join(", "),
-                },
-                fix(fixer) {
-                  return fixAttributeOrder(
-                    fixer,
-                    attributes,
-                    indices,
-                    group,
-                    foundAttrs
-                  );
-                },
-              });
-              return; // Only report one violation at a time
-            }
           }
         }
       }
@@ -238,12 +298,25 @@ module.exports = {
       const attrsToReorder = indices.map((i) => attributes[i]);
 
       // Sort them according to the group order
-      const expectedOrder = group.filter((attr) => foundAttrs.includes(attr));
-      attrsToReorder.sort((a, b) => {
-        const aIndex = expectedOrder.indexOf(a.key.value);
-        const bIndex = expectedOrder.indexOf(b.key.value);
-        return aIndex - bIndex;
-      });
+      const isRegexGroup = group.length === 1 && 
+        typeof group[0] === "string" && 
+        group[0].startsWith("/") && 
+        group[0].endsWith("/");
+      
+      if (isRegexGroup) {
+        // For regex groups, sort alphabetically
+        attrsToReorder.sort((a, b) => a.key.value.localeCompare(b.key.value));
+      } else {
+        // For string groups, follow the defined order
+        const expectedOrder = group.filter((pattern) => {
+          return foundAttrs.some(attr => matchesPattern(attr, pattern));
+        });
+        attrsToReorder.sort((a, b) => {
+          const aIndex = expectedOrder.findIndex(pattern => matchesPattern(a.key.value, pattern));
+          const bIndex = expectedOrder.findIndex(pattern => matchesPattern(b.key.value, pattern));
+          return aIndex - bIndex;
+        });
+      }
 
       // Create a fixed version of all attributes by building the new arrangement
       const fixed = [];

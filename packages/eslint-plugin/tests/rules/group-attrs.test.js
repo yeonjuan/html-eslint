@@ -62,6 +62,72 @@ ruleTester.run("group-attrs", rule, {
     {
       code: '<input type="text">',
     },
+
+    // Regex groups - valid cases (alphabetically sorted)
+    {
+      code: '<input data-x="1" data-y="2">',
+      options: [{ groups: [["/^data-/"]] }],
+    },
+    {
+      code: '<div aria-describedby="desc" aria-label="test">',
+      options: [{ groups: [["/^aria-/"]] }],
+    },
+    {
+      code: '<input data-min="5" data-max="10">',
+      options: [{ groups: [["/^data-min$/", "/^data-max$/"]] }],
+    },
+    {
+      code: '<div class="test" id="example" style="color: red">',
+      options: [{ groups: [["class", "id", "style"]] }],
+    },
+
+    // First match precedence - data-x matches first group, aria-x matches second
+    {
+      code: '<input data-x="1" data-y="2">',
+      options: [{ 
+        groups: [
+          ["data-x", "data-y"],
+          ["data-y", "data-x"]
+        ] 
+      }],
+    },
+    {
+      code: '<input data-y="2" data-x="1">',
+      options: [{ 
+        groups: [
+          ["data-y", "data-x"],
+          ["data-x", "data-y"]
+        ] 
+      }],
+    },
+
+    // Mixed string and regex patterns
+    {
+      code: '<input type="text" data-x="1" data-y="2">',
+      options: [{ 
+        groups: [
+          ["type", "/^data-/"]
+        ] 
+      }],
+    },
+    // Order doesn't matter within data-*
+    {
+      code: '<input type="text" data-y="2" data-x="1">',
+      options: [{ 
+        groups: [
+          ["type", "/^data-/"]
+        ] 
+      }],
+    },
+    // Order doesn't matter within data-*
+    {
+      code: '<input type="text" data-x="2" data-y="1">',
+      options: [{ 
+        groups: [
+          ["type", "/^data-/"]
+        ] 
+      }],
+    },
   ],
   invalid: [
     // Basic min/max separation
@@ -194,12 +260,12 @@ ruleTester.run("group-attrs", rule, {
         {
           messageId: "notGrouped",
           data: {
-            attrs: "width, height",
-            separator: "top",
+            attrs: "left, top, right",
+            separator: "width, height",
           },
         },
       ],
-      output: '<div left="0" width="100" height="50" top="10" right="100">',
+      output: '<div left="0" top="10" right="100" width="100" height="50">',
     },
 
     // Multiple violations - only first one will be reported/fixed
@@ -217,7 +283,114 @@ ruleTester.run("group-attrs", rule, {
       output:
         '<input min="5" max="10" type="text" width="100" class="test" height="200">',
     },
+
+    // Regex groups - invalid cases (not grouped)
+    {
+      code: '<input data-x="1" type="text" data-y="2">',
+      options: [{ groups: [["/^data-/"]] }],
+      errors: [
+        {
+          messageId: "notGrouped",
+          data: {
+            attrs: "data-x, data-y",
+            separator: "type",
+          },
+        },
+      ],
+      output: '<input data-x="1" data-y="2" type="text">',
+    },
+
+    // Regex groups - wrong alphabetical order
+    {
+      code: '<input data-y="2" data-x="1">',
+      options: [{ groups: [["/^data-/"]] }],
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            attrs: "data-y, data-x",
+            expectedOrder: "data-x, data-y",
+          },
+        },
+      ],
+      output: '<input data-x="1" data-y="2">',
+    },
+
+    // Regex groups - multiple attributes in wrong alphabetical order
+    {
+      code: '<div data-start="1" data-end="10" data-step="2">',
+      options: [{ groups: [["/^data-/"]] }],
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            attrs: "data-start, data-end, data-step",
+            expectedOrder: "data-end, data-start, data-step",
+          },
+        },
+      ],
+      output: '<div data-end="10" data-start="1" data-step="2">',
+    },
+
+    // Regex groups - aria attributes in wrong alphabetical order
+    {
+      code: '<div aria-label="test" aria-describedby="desc">',
+      options: [{ groups: [["/^aria-/"]] }],
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            attrs: "aria-label, aria-describedby",
+            expectedOrder: "aria-describedby, aria-label",
+          },
+        },
+      ],
+      output: '<div aria-describedby="desc" aria-label="test">',
+    },
+
+
+    // Mixed string and regex patterns - invalid
+    {
+      code: '<input type="text" class="test" data-x="1">',
+      options: [{ 
+        groups: [
+          ["type", "/^data-/"]
+        ] 
+      }],
+      errors: [
+        {
+          messageId: "notGrouped",
+          data: {
+            attrs: "type, data-x",
+            separator: "class",
+          },
+        },
+      ],
+      output: '<input type="text" data-x="1" class="test">',
+    },
+    // Mixed string and regex patterns - wrong order within group
+    {
+      code: '<input data-x="1" type="text" data-y="2">',
+      options: [{ 
+        groups: [
+          ["type", "/^data-/"]
+        ] 
+      }],
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            attrs: "data-x, type, data-y",
+            expectedOrder: "type, data-x, data-y",
+          },
+        },
+      ],
+      output: '<input type="text" data-x="1" data-y="2">',
+    },
   ],
+
+ 
+
 });
 
 templateRuleTester.run("[template] group-attrs", rule, {
@@ -227,6 +400,11 @@ templateRuleTester.run("[template] group-attrs", rule, {
     },
     {
       code: 'html`<div width="100" height="200">`',
+    },
+    // Regex groups in templates (alphabetically sorted)
+    {
+      code: 'html`<input data-x="\\${x}" data-y="\\${y}">`',
+      options: [{ groups: [["/^data-/"]] }],
     },
   ],
   invalid: [
@@ -242,6 +420,21 @@ templateRuleTester.run("[template] group-attrs", rule, {
         },
       ],
       output: 'html`<input min="\\${min}" max="\\${max}" type="text">`',
+    },
+    // Regex groups in templates - invalid
+    {
+      code: 'html`<input data-x="\\${x}" type="text" data-y="\\${y}">`',
+      options: [{ groups: [["/^data-/"]] }],
+      errors: [
+        {
+          messageId: "notGrouped",
+          data: {
+            attrs: "data-x, data-y",
+            separator: "type",
+          },
+        },
+      ],
+      output: 'html`<input data-x="\\${x}" data-y="\\${y}" type="text">`',
     },
   ],
 });
