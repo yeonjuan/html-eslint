@@ -308,13 +308,5 @@ If you're using this plugin along with [eslint-plugin-jsx-a11y](https://www.npmj
 
 - 🔧 **Fully supported** - Rule is supported, and has an auto-fix
 - ⭐ **Supported** - Rule is supported but doesn't have an auto-fix  
-- 🟡 **Partial support** - Similar but not identical functionality
 - ❌ **Not supported** - No equivalent rule
 - ⚠️ **Warning** - Rule is deprecated in eslint-plugin-jsx-a11y
-
-### Notes
-
-- Many jsx-a11y rules are specific to React/JSX and don't have direct HTML equivalents
-- Some accessibility rules in this plugin are more comprehensive than their jsx-a11y counterparts
-- Rules marked as "Partial support" may cover similar concepts but with different implementation approaches
-- For React/JSX specific accessibility rules, you may still need to use eslint-plugin-jsx-a11y alongside this plugin
