@@ -94,7 +94,7 @@ Examples of **correct** code for this rule with the `"single"` and `enforceTempl
 
 <!-- prettier-ignore -->
 ```js,correct
-html`<div id="${value}"></div>`;
+html`<div id='${value}'></div>`;
 ```
 
 <!-- prettier-ignore-end -->
