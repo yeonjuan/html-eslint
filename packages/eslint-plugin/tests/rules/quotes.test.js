@@ -184,5 +184,25 @@ html\`<div onclick=\${handler}></div>\``,
         },
       ],
     },
+    {
+      code: `html\`<div id = \${foo}>\``,
+      output: `html\`<div id = "\${foo}">\``,
+      options: ["double", { enforceTemplatedAttrValue: true }],
+      errors: [
+        {
+          messageId: "missing",
+        },
+      ],
+    },
+    {
+      code: `html\`<div id = '\${foo}'>\``,
+      output: `html\`<div id = "\${foo}">\``,
+      options: ["double", { enforceTemplatedAttrValue: true }],
+      errors: [
+        {
+          messageId: "unexpected",
+        },
+      ],
+    },
   ],
 });

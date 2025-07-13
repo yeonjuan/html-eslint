@@ -1,6 +1,6 @@
 # quotes
 
-This rule enforces enforces consistent use of quotes for attribute values (`'` or `"`).
+This rule enforces consistent use of quotes for attribute values (`'` or `"`).
 
 ## How to use
 
@@ -16,10 +16,14 @@ module.exports = {
 
 ### Options
 
-This rule has two options
+This rule accepts the following options
 
-- `"double"` (default): Requires the use of double quotes(`"`).
-- `"single"`: Requires the use of single quotes(`'`)
+1. Quote style (string):
+   - "double" (default): Enforces the use of double quotes (`"`).
+   - "single": Enforces the use of single quotes (`'`).
+2. `enforceTemplatedAttrValue` (boolean):
+   - false (default): Does not enforce quote style inside template expressions.
+   - true: Enforces quote style inside templated attribute values.
 
 #### "double"
 
@@ -30,12 +34,33 @@ Examples of **incorrect** code for this rule with the default `"double"` option:
 <div id='foo'></div>
 ```
 
+<!-- prettier-ignore-end -->
+
 Examples of **correct** code for this rule with the default `"double"` option:
 
 ```html,correct
 <div id="foo"></div>
 <div id='containing "double" quotes'></div>
 ```
+
+Examples of **incorrect** code for this rule with the `"double"` and `enforceTemplatedAttrValue: true`:
+
+<!-- prettier-ignore -->
+```js,incorrect
+html`<div id=${value}></div>`;
+html`<div id='${value}'></div>`;
+```
+
+<!-- prettier-ignore-end -->
+
+Examples of **correct** code for this rule with the `"double"` and `enforceTemplatedAttrValue: true`:
+
+<!-- prettier-ignore -->
+```js,correct
+html`<div id="${value}"></div>`;
+```
+
+<!-- prettier-ignore-end -->
 
 #### "single"
 
@@ -52,6 +77,27 @@ Examples of **correct** code for this rule with the default `"single"` option:
 <div id='foo'></div>
 <div id="containing 'single' quotes"></div>
 ```
+
+<!-- prettier-ignore-end -->
+
+Examples of **incorrect** code for this rule with the `"single"` and `enforceTemplatedAttrValue: true`:
+
+<!-- prettier-ignore -->
+```js,incorrect
+html`<div id=${value}></div>`;
+html`<div id="${value}"></div>`;
+```
+
+<!-- prettier-ignore-end -->
+
+Examples of **correct** code for this rule with the `"single"` and `enforceTemplatedAttrValue: true`:
+
+<!-- prettier-ignore -->
+```js,correct
+html`<div id="${value}"></div>`;
+```
+
+<!-- prettier-ignore-end -->
 
 ## Further Reading
 
