@@ -52,6 +52,7 @@ module.exports = {
             type: "string",
           },
         },
+        additionalProperties: false,
       },
     },
     messages: {

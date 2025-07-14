@@ -60,6 +60,7 @@ module.exports = {
             type: "boolean",
           },
         },
+        additionalProperties: false,
       },
     ],
     messages: {
