@@ -97,6 +97,7 @@ module.exports = {
             },
           },
         },
+        additionalProperties: false,
       },
     ],
     messages: {

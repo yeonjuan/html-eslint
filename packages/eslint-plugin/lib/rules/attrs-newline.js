@@ -48,6 +48,7 @@ module.exports = {
             type: "integer",
           },
         },
+        additionalProperties: false,
       },
     ],
     messages: {
