@@ -173,6 +173,14 @@ templateRuleTester.run("[template] quotes", rule, {
 const handler = () => {};
 html\`<div onclick=\${handler}></div>\``,
     },
+    {
+      code: `html\`<div id = "\${foo}">\``,
+      options: ["double", { enforceTemplatedAttrValue: true }],
+    },
+    {
+      code: `html\`<div id = '\${foo}'>\``,
+      options: ["single", { enforceTemplatedAttrValue: true }],
+    },
   ],
   invalid: [
     {
@@ -181,6 +189,36 @@ html\`<div onclick=\${handler}></div>\``,
       errors: [
         {
           messageId: "unexpected",
+        },
+      ],
+    },
+    {
+      code: `html\`<div id = \${foo}>\``,
+      output: `html\`<div id = "\${foo}">\``,
+      options: ["double", { enforceTemplatedAttrValue: true }],
+      errors: [
+        {
+          messageId: "missing",
+        },
+      ],
+    },
+    {
+      code: `html\`<div id = '\${foo}'>\``,
+      output: `html\`<div id = "\${foo}">\``,
+      options: ["double", { enforceTemplatedAttrValue: true }],
+      errors: [
+        {
+          messageId: "unexpected",
+        },
+      ],
+    },
+    {
+      code: `html\`<div id = prefix_\${foo}>\``,
+      output: `html\`<div id = 'prefix_\${foo}'>\``,
+      options: ["single", { enforceTemplatedAttrValue: true }],
+      errors: [
+        {
+          messageId: "missing",
         },
       ],
     },

@@ -3,7 +3,8 @@
  * @import {Attribute, Tag, ScriptTag, StyleTag} from "@html-eslint/types";
  * @import {RuleModule} from "../types";
  *
- * @typedef {"single" | "double"} Option
+ * @typedef {"single" | "double"} SingleOrQuoteOption
+ * @typedef {{enforceTemplatedAttrValue: boolean}} ObjectOption
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -25,7 +26,7 @@ const QUOTES_STYLES = {
 const QUOTES_CODES = [`"`, `'`];
 
 /**
- * @type {RuleModule<[Option]>}
+ * @type {RuleModule<[SingleOrQuoteOption, ObjectOption]>}
  */
 module.exports = {
   meta: {
@@ -43,6 +44,16 @@ module.exports = {
       {
         enum: [QUOTES_STYLES.SINGLE, QUOTES_STYLES.DOUBLE],
       },
+      {
+        type: "object",
+        properties: {
+          enforceTemplatedAttrValue: {
+            type: "boolean",
+            default: false,
+          },
+        },
+        additionalProperties: false,
+      },
     ],
     messages: {
       [MESSAGE_IDS.UNEXPECTED]:
@@ -58,6 +69,10 @@ module.exports = {
         ? context.options[0]
         : QUOTES_STYLES.DOUBLE;
     const expectedQuote = SELECTED_STYLE === QUOTES_STYLES.DOUBLE ? `"` : `'`;
+    const enforceTemplatedAttrValue =
+      context.options &&
+      context.options[1] &&
+      context.options[1].enforceTemplatedAttrValue;
 
     const sourceCode = getSourceCode(context);
 
@@ -91,7 +106,10 @@ module.exports = {
        * Allow template expression.
        * ex: html`<div foo=${foo}></div>`
        */
-      if (attr.value.parts.some((part) => part.type === NODE_TYPES.Template)) {
+      if (
+        !enforceTemplatedAttrValue &&
+        attr.value.parts.some((part) => part.type === NODE_TYPES.Template)
+      ) {
         return;
       }
 
