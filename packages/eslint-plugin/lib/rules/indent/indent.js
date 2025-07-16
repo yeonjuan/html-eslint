@@ -20,7 +20,8 @@
  * @property {Record<string, number>} [Option2.tagChildrenIndent]
  */
 
-const { parse } = require("@html-eslint/template-parser");
+const { getCachedParseResult } = require("../utils/template-cache");
+const { traverse } = require("@html-eslint/template-parser/lib/traverser");
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../../constants");
 const {
@@ -386,13 +387,18 @@ module.exports = {
       TaggedTemplateExpression(node) {
         if (shouldCheckTaggedTemplateExpression(node, context)) {
           const base = getTemplateLiteralBaseIndentLevel(node.quasi);
-          parse(node.quasi, getSourceCode(context), createIndentVisitor(base));
+          const { ast } = getCachedParseResult(
+            node.quasi,
+            getSourceCode(context)
+          );
+          traverse(ast, createIndentVisitor(base), null);
         }
       },
       TemplateLiteral(node) {
         if (shouldCheckTemplateLiteral(node, context)) {
           const base = getTemplateLiteralBaseIndentLevel(node);
-          parse(node, getSourceCode(context), createIndentVisitor(base));
+          const { ast } = getCachedParseResult(node, getSourceCode(context));
+          traverse(ast, createIndentVisitor(base), null);
         }
       },
     };
