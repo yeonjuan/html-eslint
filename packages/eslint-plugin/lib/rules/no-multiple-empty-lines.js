@@ -6,7 +6,7 @@
  * @property {number} Option.max
  */
 
-const { parse } = require("@html-eslint/template-parser");
+const { getCachedParseResult } = require("./utils/template-cache");
 const { RULE_CATEGORY } = require("../constants");
 const {
   shouldCheckTaggedTemplateExpression,
@@ -117,10 +117,9 @@ module.exports = {
       },
       TaggedTemplateExpression(node) {
         if (shouldCheckTaggedTemplateExpression(node, context)) {
-          const { html, tokens } = parse(
+          const { html, tokens } = getCachedParseResult(
             node.quasi,
-            getSourceCode(context),
-            {}
+            getSourceCode(context)
           );
           const lines = codeToLines(html);
           check(
@@ -133,7 +132,10 @@ module.exports = {
       },
       TemplateLiteral(node) {
         if (shouldCheckTemplateLiteral(node, context)) {
-          const { html, tokens } = parse(node, getSourceCode(context), {});
+          const { html, tokens } = getCachedParseResult(
+            node,
+            getSourceCode(context)
+          );
           const lines = codeToLines(html);
           check(
             lines,
