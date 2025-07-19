@@ -10,9 +10,9 @@ const { traverse } = require("./traverser");
 /**
  * @param {TemplateLiteral} node
  * @param {SourceCode} sourceCode
- * @param {TemplateHTMLVisitor} visitors
+ * @param {TemplateHTMLVisitor} [visitor]
  */
-function parse(node, sourceCode, visitors) {
+function parse(node, sourceCode, visitor) {
   /**
    * @type {string[]}
    */
@@ -67,7 +67,9 @@ function parse(node, sourceCode, visitors) {
       },
     },
   });
-  traverse(ast, visitors, null);
+  if (visitor) {
+    traverse(ast, visitor, null);
+  }
   return { ast, html, tokens };
 }
 
