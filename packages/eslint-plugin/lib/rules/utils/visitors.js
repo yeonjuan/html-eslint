@@ -6,8 +6,7 @@ const {
   shouldCheckTaggedTemplateExpression,
   shouldCheckTemplateLiteral,
 } = require("./settings");
-const { getCachedParseResult } = require("./template-cache");
-const { traverse } = require("@html-eslint/template-parser/lib/traverser");
+const { parseTemplateLiteral } = require("./template-literal");
 const { getSourceCode } = require("./source-code");
 
 /**
@@ -19,17 +18,12 @@ function createTemplateVisitors(context, visitors) {
   return {
     TaggedTemplateExpression(node) {
       if (shouldCheckTaggedTemplateExpression(node, context)) {
-        const { ast } = getCachedParseResult(
-          node.quasi,
-          getSourceCode(context)
-        );
-        traverse(ast, visitors, null);
+        parseTemplateLiteral(node.quasi, getSourceCode(context), visitors);
       }
     },
     TemplateLiteral(node) {
       if (shouldCheckTemplateLiteral(node, context)) {
-        const { ast } = getCachedParseResult(node, getSourceCode(context));
-        traverse(ast, visitors, null);
+        parseTemplateLiteral(node, getSourceCode(context), visitors);
       }
     },
   };

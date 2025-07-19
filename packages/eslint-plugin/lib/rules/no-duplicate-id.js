@@ -3,8 +3,7 @@
  * @import {RuleModule} from "../types";
  */
 
-const { getCachedParseResult } = require("./utils/template-cache");
-const { traverse } = require("@html-eslint/template-parser/lib/traverser");
+const { parseTemplateLiteral } = require("./utils/template-literal");
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const {
@@ -91,31 +90,18 @@ module.exports = {
       TaggedTemplateExpression(node) {
         const idAttrsMap = new Map();
         if (shouldCheckTaggedTemplateExpression(node, context)) {
-          const { ast } = getCachedParseResult(
-            node.quasi,
-            getSourceCode(context)
-          );
-          traverse(
-            ast,
-            {
-              Tag: createTagVisitor(idAttrsMap),
-            },
-            null
-          );
+          parseTemplateLiteral(node.quasi, getSourceCode(context), {
+            Tag: createTagVisitor(idAttrsMap),
+          });
         }
         report(idAttrsMap);
       },
       TemplateLiteral(node) {
         const idAttrsMap = new Map();
         if (shouldCheckTemplateLiteral(node, context)) {
-          const { ast } = getCachedParseResult(node, getSourceCode(context));
-          traverse(
-            ast,
-            {
-              Tag: createTagVisitor(idAttrsMap),
-            },
-            null
-          );
+          parseTemplateLiteral(node, getSourceCode(context), {
+            Tag: createTagVisitor(idAttrsMap),
+          });
         }
         report(idAttrsMap);
       },

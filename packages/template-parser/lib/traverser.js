@@ -63,9 +63,10 @@ const visitorKeys = {
  *
  * @param {AnyNode} node
  * @param {TemplateHTMLVisitor} visitors
- * @param {AnyNode | null} parent
+ * @param {AnyNode | null} [parent]
  */
 function traverse(node, visitors, parent) {
+  parent = parent || null;
   // @ts-ignore
   const enterVisitor = visitors[node.type];
   // @ts-ignore

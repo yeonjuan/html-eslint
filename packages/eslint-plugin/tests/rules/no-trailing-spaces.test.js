@@ -98,6 +98,11 @@ templateRuleTester.run("[template] no-tailing-spaces", rule, {
 html\`<div>
 </div>\``,
     },
+    {
+      code: `  
+/* html */\`<div>
+</div>\``,
+    },
   ],
   invalid: [
     {
@@ -172,6 +177,26 @@ text
           line: 2,
           column: 20,
           endColumn: 23,
+        },
+      ],
+    },
+    {
+      code: `
+/* html */\`<div id=\${foo}   
+>
+text
+</div>\``,
+      output: `
+/* html */\`<div id=\${foo}
+>
+text
+</div>\``,
+      errors: [
+        {
+          messageId: "trailingSpace",
+          line: 2,
+          column: 26,
+          endColumn: 29,
         },
       ],
     },

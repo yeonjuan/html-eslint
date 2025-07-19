@@ -6,7 +6,7 @@
  * @property {number} Option.max
  */
 
-const { getCachedParseResult } = require("./utils/template-cache");
+const { parseTemplateLiteral } = require("./utils/template-literal");
 const { RULE_CATEGORY } = require("../constants");
 const {
   shouldCheckTaggedTemplateExpression,
@@ -117,7 +117,7 @@ module.exports = {
       },
       TaggedTemplateExpression(node) {
         if (shouldCheckTaggedTemplateExpression(node, context)) {
-          const { html, tokens } = getCachedParseResult(
+          const { html, tokens } = parseTemplateLiteral(
             node.quasi,
             getSourceCode(context)
           );
@@ -132,7 +132,7 @@ module.exports = {
       },
       TemplateLiteral(node) {
         if (shouldCheckTemplateLiteral(node, context)) {
-          const { html, tokens } = getCachedParseResult(
+          const { html, tokens } = parseTemplateLiteral(
             node,
             getSourceCode(context)
           );

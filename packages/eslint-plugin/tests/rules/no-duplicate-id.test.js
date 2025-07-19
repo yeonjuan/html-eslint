@@ -72,6 +72,14 @@ html\`<html>
 </html>\`
 `,
     },
+    {
+      code: `const code = /* html */\`<html>
+<body>
+  <div id = "foo"></div>
+  <div id = "bar"></div>
+</body>
+</html>\``,
+    },
   ],
   invalid: [
     {
@@ -98,6 +106,27 @@ html\`<html>
     {
       code: `
 html\`<html>
+<body>
+  <div id = "\${foo}"></div>
+  <a id = "\${foo}"></div>
+</body>
+</html>\`
+`,
+
+      errors: [
+        {
+          messageId: "duplicateId",
+          line: 4,
+        },
+        {
+          messageId: "duplicateId",
+          line: 5,
+        },
+      ],
+    },
+    {
+      code: `
+/* html */\`<html>
 <body>
   <div id = "\${foo}"></div>
   <a id = "\${foo}"></div>
