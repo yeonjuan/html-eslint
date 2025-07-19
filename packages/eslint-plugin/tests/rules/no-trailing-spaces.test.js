@@ -187,7 +187,7 @@ text
 text
 </div>\``,
       output: `
-html\`<div id=\${foo}
+/* html */\`<div id=\${foo}
 >
 text
 </div>\``,
@@ -195,8 +195,8 @@ text
         {
           messageId: "trailingSpace",
           line: 2,
-          column: 20,
-          endColumn: 23,
+          column: 26,
+          endColumn: 29,
         },
       ],
     },
