@@ -62,9 +62,6 @@ module.exports = {
       if (Array.isArray(node.attributes)) {
         const attrsSet = new Set();
         node.attributes.forEach((attr) => {
-          if (!attr.key) {
-            return;
-          }
           if (hasTemplate(attr.key)) {
             return;
           }
