@@ -29,6 +29,14 @@ ruleTester.run("no-duplicate-attrs", rule, {
         .split("\n")
         .join("\r\n"),
     },
+    {
+      code: `
+      <input
+    {{#aria_label}}aria-label="{{aria_label}}"{{/aria_label}}
+    {{^aria_label}}aria-labelledby="pl-big-o-input-{{uuid}}-label"{{/aria_label}}
+/>
+      `,
+    },
   ],
   invalid: [
     {
