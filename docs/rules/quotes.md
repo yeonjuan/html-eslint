@@ -16,14 +16,14 @@ module.exports = {
 
 ### Options
 
-This rule accepts the following options
+This rule has two options, a string option and an object option.
 
-1. Quote style (string):
-   - "double" (default): Enforces the use of double quotes (`"`).
-   - "single": Enforces the use of single quotes (`'`).
-2. `enforceTemplatedAttrValue` (boolean):
-   - false (default): Does not enforce quote style inside template expressions.
-   - true: Enforces quote style inside templated attribute values.
+1. String option (quote style):
+   - `"double"` (default) enforces the use of double quotes (`"`)
+   - `"single"` enforces the use of single quotes (`'`)
+2. Object option:
+   - `"enforceTemplatedAttrValue": false` (default) does not enforce quote style inside template expressions
+   - `"enforceTemplatedAttrValue": true` enforces quote style inside templated attribute values, which also means bare templated attributes are disallowed
 
 #### "double"
 
