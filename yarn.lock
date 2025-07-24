@@ -1235,7 +1235,7 @@ __metadata:
     "@html-eslint/template-syntax-parser": "npm:^0.43.0"
     "@html-eslint/types": "npm:^0.43.0"
     "@types/estree": "npm:^0.0.47"
-    es-html-parser: "npm:0.2.0"
+    es-html-parser: "file:../../../es-html-parser"
     eslint: "npm:^9.27.0"
     espree: "npm:^10.3.0"
     typescript: "npm:^5.8.3"
@@ -1274,7 +1274,7 @@ __metadata:
   dependencies:
     "@html-eslint/template-syntax-parser": "npm:^0.43.0"
     "@html-eslint/types": "npm:^0.43.0"
-    es-html-parser: "npm:0.2.0"
+    es-html-parser: "file:../../../es-html-parser"
     typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
@@ -1286,7 +1286,7 @@ __metadata:
     "@html-eslint/types": "npm:^0.43.0"
     "@types/espree": "npm:^10.1.0"
     "@types/estree": "npm:^0.0.47"
-    es-html-parser: "npm:0.2.0"
+    es-html-parser: "file:../../../es-html-parser"
     eslint: "npm:^9.19.0"
     espree: "npm:^10.3.0"
     globals: "npm:^15.12.0"
@@ -1308,7 +1308,7 @@ __metadata:
   resolution: "@html-eslint/types@workspace:packages/types"
   dependencies:
     "@types/estree": "npm:^1.0.6"
-    es-html-parser: "npm:0.2.0"
+    es-html-parser: "file:../../../es-html-parser"
     eslint: "npm:^9.19.0"
     typescript: "npm:^5.8.3"
   languageName: unknown
@@ -7173,10 +7173,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-html-parser@npm:0.2.0":
+"es-html-parser@file:../../../es-html-parser::locator=%40html-eslint%2Feslint-plugin%40workspace%3Apackages%2Feslint-plugin":
   version: 0.2.0
-  resolution: "es-html-parser@npm:0.2.0"
-  checksum: 10c0/bda5e1dc9f6297eeea8707d67d36162e567a3bbf2696814c204edb1d30e4641511cde4cf3bd43f649e5a6c4644a07dfaf16b007a3000ecf98e48c324e38937ad
+  resolution: "es-html-parser@file:../../../es-html-parser#../../../es-html-parser::hash=f38a49&locator=%40html-eslint%2Feslint-plugin%40workspace%3Apackages%2Feslint-plugin"
+  checksum: 10c0/82bcbfba4b45d67d4697b01885a24a08f114d1734f5a76cc7b65a521ed82b29fefcff17e99d04dc321e6b49b49a93608988ad1c540b360734c1b55ba15dcf5b3
+  languageName: node
+  linkType: hard
+
+"es-html-parser@file:../../../es-html-parser::locator=%40html-eslint%2Fparser%40workspace%3Apackages%2Fparser":
+  version: 0.2.0
+  resolution: "es-html-parser@file:../../../es-html-parser#../../../es-html-parser::hash=f38a49&locator=%40html-eslint%2Fparser%40workspace%3Apackages%2Fparser"
+  checksum: 10c0/82bcbfba4b45d67d4697b01885a24a08f114d1734f5a76cc7b65a521ed82b29fefcff17e99d04dc321e6b49b49a93608988ad1c540b360734c1b55ba15dcf5b3
+  languageName: node
+  linkType: hard
+
+"es-html-parser@file:../../../es-html-parser::locator=%40html-eslint%2Ftemplate-parser%40workspace%3Apackages%2Ftemplate-parser":
+  version: 0.2.0
+  resolution: "es-html-parser@file:../../../es-html-parser#../../../es-html-parser::hash=f38a49&locator=%40html-eslint%2Ftemplate-parser%40workspace%3Apackages%2Ftemplate-parser"
+  checksum: 10c0/82bcbfba4b45d67d4697b01885a24a08f114d1734f5a76cc7b65a521ed82b29fefcff17e99d04dc321e6b49b49a93608988ad1c540b360734c1b55ba15dcf5b3
+  languageName: node
+  linkType: hard
+
+"es-html-parser@file:../../../es-html-parser::locator=%40html-eslint%2Ftypes%40workspace%3Apackages%2Ftypes":
+  version: 0.2.0
+  resolution: "es-html-parser@file:../../../es-html-parser#../../../es-html-parser::hash=f38a49&locator=%40html-eslint%2Ftypes%40workspace%3Apackages%2Ftypes"
+  checksum: 10c0/82bcbfba4b45d67d4697b01885a24a08f114d1734f5a76cc7b65a521ed82b29fefcff17e99d04dc321e6b49b49a93608988ad1c540b360734c1b55ba15dcf5b3
   languageName: node
   linkType: hard
 

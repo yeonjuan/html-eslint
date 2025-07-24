@@ -28,7 +28,7 @@
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "dependencies": {
-    "es-html-parser": "0.2.0"
+    "es-html-parser": "file:../../../es-html-parser"
   },
   "devDependencies": {
     "@html-eslint/types": "^0.43.0",
