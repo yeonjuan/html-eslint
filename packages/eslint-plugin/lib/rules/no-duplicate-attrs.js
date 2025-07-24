@@ -6,6 +6,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
+const { hasTemplate } = require("./utils/node");
 
 const MESSAGE_IDS = {
   DUPLICATE_ATTRS: "duplicateAttrs",
@@ -61,7 +62,10 @@ module.exports = {
       if (Array.isArray(node.attributes)) {
         const attrsSet = new Set();
         node.attributes.forEach((attr) => {
-          if (attr.key && attrsSet.has(attr.key.value.toLowerCase())) {
+          if (hasTemplate(attr.key)) {
+            return;
+          }
+          if (attrsSet.has(attr.key.value.toLowerCase())) {
             context.report({
               node: attr,
               data: {

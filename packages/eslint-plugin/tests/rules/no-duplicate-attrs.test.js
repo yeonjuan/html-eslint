@@ -29,6 +29,21 @@ ruleTester.run("no-duplicate-attrs", rule, {
         .split("\n")
         .join("\r\n"),
     },
+    {
+      code: `
+      <input
+    {{#aria_label}}aria-label="{{aria_label}}"{{/aria_label}}
+    {{^aria_label}}aria-labelledby="pl-big-o-input-{{uuid}}-label"{{/aria_label}}
+/>
+      `,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -133,6 +148,30 @@ ruleTester.run("no-duplicate-attrs", rule, {
      
  ></div>
       `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `<div foo foo {{aa}} {{aa}}> </div>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+      errors: [
+        {
+          message: "The attribute 'foo' is duplicated.",
+          suggestions: [
+            {
+              messageId: "removeAttr",
+              data: {
+                attrName: "foo",
+              },
+              output: `<div foo  {{aa}} {{aa}}> </div>`,
             },
           ],
         },
