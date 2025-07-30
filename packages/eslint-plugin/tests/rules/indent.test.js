@@ -463,6 +463,32 @@ function createTests() {
           },
         },
       },
+      {
+        code: `
+<markdown>
+# Hello, world!
+
+\`\`\`cpp{4-6,9}
+#include <iostream>
+
+class Example {
+    Example() {
+        std::cout << "Hello, world!" << std::endl;
+    }
+
+    Example(std::string name) {
+        std::cout << "Hello, " << name << std::endl;
+    }
+};
+\`\`\`
+</markdown>
+      `,
+        languageOptions: {
+          parserOptions: {
+            rawContentTags: ["markdown"],
+          },
+        },
+      },
     ],
     invalid: [
       {

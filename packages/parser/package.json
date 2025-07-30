@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@html-eslint/template-syntax-parser": "^0.43.0",
-    "es-html-parser": "0.2.0"
+    "es-html-parser": "0.3.0"
   },
   "devDependencies": {
     "@html-eslint/types": "^0.43.0",

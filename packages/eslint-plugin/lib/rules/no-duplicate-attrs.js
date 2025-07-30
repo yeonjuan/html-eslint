@@ -3,7 +3,7 @@
  * @import {RuleModule, SuggestionReportDescriptor} from "../types";
  */
 
-const { RULE_CATEGORY } = require("../constants");
+const { RULE_CATEGORY, } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 const { hasTemplate } = require("./utils/node");

@@ -57,6 +57,7 @@ const visitorKeys = {
   [NodeTypes.OpenTemplate]: [],
   [NodeTypes.CloseTemplate]: [],
   [NodeTypes.Part]: [],
+  [NodeTypes.RawContent]: [],
 };
 
 /**
