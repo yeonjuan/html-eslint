@@ -149,8 +149,13 @@ module.exports = {
      * @returns {boolean}
      */
     function shouldSkipChildren(node) {
-      if (isTag(node) && skipTags.includes(node.name.toLowerCase())) {
-        return true;
+      if (isTag(node)) {
+        if (skipTags.includes(node.name.toLowerCase())) {
+          return true;
+        }
+        if (node.children.some((child) => child.type === "RawContent")) {
+          return true;
+        }
       }
       return false;
     }

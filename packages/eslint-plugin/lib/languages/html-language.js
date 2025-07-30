@@ -64,6 +64,15 @@ class HTMLLanguage {
         "Expected an key-value record value for 'templateEngineSyntax' option."
       );
     }
+    if (
+      "rawContentTags" in languageOptions &&
+      (!Array.isArray(languageOptions.rawContentTags) ||
+        !languageOptions.rawContentTags.every((tag) => typeof tag === "string"))
+    ) {
+      throw new TypeError(
+        "Expected an array of strings for 'rawContentTags' option."
+      );
+    }
   }
 
   /**

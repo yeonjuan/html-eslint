@@ -66,11 +66,21 @@ function getOptions(code, parserOptions) {
     }
   }
 
-  if (templateInfos || tokenAdapter) {
+  /**
+   * @type {string[] | undefined}
+   */
+  let rawContentTags;
+
+  if (parserOptions.rawContentTags) {
+    rawContentTags = parserOptions.rawContentTags;
+  }
+
+  if (templateInfos || tokenAdapter || rawContentTags) {
     return {
       options: {
         templateInfos,
         tokenAdapter,
+        rawContentTags,
       },
       html,
     };

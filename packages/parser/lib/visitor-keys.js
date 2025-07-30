@@ -46,6 +46,7 @@ const visitorKeys = {
   [NODE_TYPES.StyleTagContent]: [],
   [NODE_TYPES.Tag]: ["openStart", "openEnd", "close", "children", "attributes"],
   [NODE_TYPES.Text]: [],
+  [NODE_TYPES.RawContent]: [],
 };
 
 module.exports = {

@@ -1235,7 +1235,7 @@ __metadata:
     "@html-eslint/template-syntax-parser": "npm:^0.43.0"
     "@html-eslint/types": "npm:^0.43.0"
     "@types/estree": "npm:^0.0.47"
-    es-html-parser: "npm:0.2.0"
+    es-html-parser: "npm:0.3.0"
     eslint: "npm:^9.27.0"
     espree: "npm:^10.3.0"
     typescript: "npm:^5.8.3"
@@ -1274,7 +1274,7 @@ __metadata:
   dependencies:
     "@html-eslint/template-syntax-parser": "npm:^0.43.0"
     "@html-eslint/types": "npm:^0.43.0"
-    es-html-parser: "npm:0.2.0"
+    es-html-parser: "npm:0.3.0"
     typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
@@ -1286,7 +1286,7 @@ __metadata:
     "@html-eslint/types": "npm:^0.43.0"
     "@types/espree": "npm:^10.1.0"
     "@types/estree": "npm:^0.0.47"
-    es-html-parser: "npm:0.2.0"
+    es-html-parser: "npm:0.3.0"
     eslint: "npm:^9.19.0"
     espree: "npm:^10.3.0"
     globals: "npm:^15.12.0"
@@ -1308,7 +1308,7 @@ __metadata:
   resolution: "@html-eslint/types@workspace:packages/types"
   dependencies:
     "@types/estree": "npm:^1.0.6"
-    es-html-parser: "npm:0.2.0"
+    es-html-parser: "npm:0.3.0"
     eslint: "npm:^9.19.0"
     typescript: "npm:^5.8.3"
   languageName: unknown
@@ -7173,10 +7173,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-html-parser@npm:0.2.0":
-  version: 0.2.0
-  resolution: "es-html-parser@npm:0.2.0"
-  checksum: 10c0/bda5e1dc9f6297eeea8707d67d36162e567a3bbf2696814c204edb1d30e4641511cde4cf3bd43f649e5a6c4644a07dfaf16b007a3000ecf98e48c324e38937ad
+"es-html-parser@npm:0.3.0":
+  version: 0.3.0
+  resolution: "es-html-parser@npm:0.3.0"
+  checksum: 10c0/033c9c58b8d0895f92d02ed7d2e3c4fca0b3dc3552ff2c1edfd8f03d35c09f0f86e0ab5699e3332a37d0dde4b58cbe9265c87097a062d604ee76c64047a8bd79
   languageName: node
   linkType: hard
 

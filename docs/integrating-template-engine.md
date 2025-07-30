@@ -103,3 +103,25 @@ parserOptions: {
   frontmatter: true,
 }
 ```
+
+## rawContentTags
+
+The `rawContentTags` option allows you to specify a list of tag names whose child content should be treated as raw text, rather than being parsed as HTML syntax. This is useful when working with custom components or templating systems where the content inside certain tags may contain characters like `<` or `>` that should not be interpreted as HTML.
+
+### Example
+
+```js
+languageOptions: {
+  rawContentTags: ["markdown"],
+}
+```
+
+In this example, the content inside <markdown> tags will be treated as raw text:
+
+```html
+<markdown>
+  const foo = <></>
+</markdown>
+```
+
+Without rawContentTags, the parser may interpret `<></>` as invalid HTML syntax. With `rawContentTags: ["markdown"]`, the entire content inside `<markdown>` is preserved as plain text.

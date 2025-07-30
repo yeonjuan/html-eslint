@@ -13,11 +13,6 @@ const DEFAULT_SETTINGS = {
 };
 
 /**
- * @type {HTMLSettings | null}
- */
-let cachedSettings = null;
-
-/**
  * @param {{ html?: MaybeHTMLSettings }} settings
  * @returns {HTMLSettings}
  */
@@ -36,16 +31,12 @@ function getSettings(settings) {
       settings.html.templateLiterals.comments) ||
     DEFAULT_SETTINGS.templateLiterals.comments;
 
-  if (cachedSettings) {
-    return cachedSettings;
-  }
-  cachedSettings = {
+  return {
     templateLiterals: {
       tags: tags.map((tag) => new RegExp(tag, "u")),
       comments: comments.map((comment) => new RegExp(comment, "u")),
     },
   };
-  return cachedSettings;
 }
 
 /**
