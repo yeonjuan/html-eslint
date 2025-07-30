@@ -95,6 +95,9 @@ name: value
           },
         })
       ).not.toThrow();
+      expect(() =>
+        language.validateLanguageOptions({ rawContentTags: ["markdown"] })
+      ).not.toThrow();
     });
 
     it("should throw error when invalid option provided", () => {
@@ -110,6 +113,13 @@ name: value
         language.validateLanguageOptions({
           // @ts-ignore
           templateEngineSyntax: "",
+        })
+      ).toThrow();
+
+      expect(() =>
+        language.validateLanguageOptions({
+          // @ts-ignore
+          rawContentTags: "",
         })
       ).toThrow();
     });
