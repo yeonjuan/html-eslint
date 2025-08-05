@@ -43,6 +43,7 @@ export class View {
     );
 
     this.$languageTabs = document.getElementById("language-tabs");
+    this.$errors = document.getElementById("errors");
   }
 
   /**
@@ -72,12 +73,10 @@ export class View {
    * @param {LintMessage[]} messages
    */
   renderErrors(messages) {
-    const $errors = document.getElementById("errors");
-
     const children = messages.
       map((message) => this.lintMessageHTML(message));
 
-    $errors.innerHTML = html`<ul class="text-sm">
+    this.$errors.innerHTML = html`<ul class="text-sm flex flex-col gap-2">
         ${children}
       </ul>`;
 
@@ -106,7 +105,7 @@ export class View {
    * @param {LintMessage} message
    */
   lintMessageHTML({
-    line, column, message, ruleId, fatal
+    line, column, message, ruleId, fatal, fix, suggestions
   }) {
     if (fatal) {
       console.error(message);
@@ -114,14 +113,21 @@ export class View {
           ${line}:${column} - ${message}
         </li>`;
     }
-
-    return html`<li class="bg-red-100 text-red-800 px-2 py-1 my-1 rounded">
-        ${line}:${column} - ${escapeHTML(message)}(
-        <a href="/docs/rules/${ruleId.replace(
-          "@html-eslint/",
-          ""
-        )}">${ruleId}</a>
-        )
+    const rule = ruleId.replace(
+      "@html-eslint/",
+      ""
+    )
+    return html`<li class="bg-red-100 text-red-800 px-2 rounded flex items-center">
+        <span class="my-4">
+          <span>${line}:${column} - ${escapeHTML(message)}</span>
+          <a href="/docs/rules/${rule}" class="ml-1 hover:underline">(${rule})</a>
+        </span>
+        <div class="ml-auto mr-0 my-2">
+          ${fix? html`<button class="bg-accent text-white px-4 py-1 rounded hover:opacity-80 w-max">apply fix</button>`: ""}
+          ${suggestions && suggestions.length > 0 ? html`
+            <button class="bg-accent text-white px-4 py-1 rounded hover:opacity-80 w-max">apply suggestion</button>
+          ` : ""}
+        </div>
       </li>`;
   }
 }

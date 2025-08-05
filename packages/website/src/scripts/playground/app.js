@@ -20,6 +20,10 @@ class App {
       "changeLanguage",
       () => this.handleLanguageChange()
     );
+    this.model.on(
+      "autofixed",
+      () => this.view.codeEditor.setValue(this.model.getCode())
+    );
     this.view.codeEditor.on(
       "change",
       (editor) => this.handleCodeChange(editor)
@@ -37,6 +41,19 @@ class App {
         this.model.setLanguage($tab.dataset.language);
       }
     );
+    this.view.$errors.addEventListener('click', (event) => {
+      const $button = event.target.closest("button");
+      if ($button) {
+        const $li = $button.closest("li");
+        const index = Array.from($li.parentNode.children).indexOf($li);
+        const message = this.model.messages[index];
+        if ($button.textContent.includes("fix")) {
+          this.model.applyFix(message);
+        } else if ($button.textContent.includes("suggestion")) {
+          this.model.applySuggestion(message);
+        }
+      }
+    });
   }
 
   start() {
