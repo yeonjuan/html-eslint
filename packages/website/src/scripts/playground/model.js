@@ -174,7 +174,7 @@ export class Model {
         code.slice(end);
       this.setCode(fixed);
       this.lint();
-      this.notify('autofixed')
+      this.notify('autofixed');
     }
   }
   
@@ -190,7 +190,7 @@ export class Model {
         const fixed = code.slice(0, start) +
           suggestion.fix.text +
           code.slice(end);
-        this.setCode(fixed);  
+        this.setCode(fixed);
         this.lint();
         this.notify('autofixed');
       }

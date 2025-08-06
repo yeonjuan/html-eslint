@@ -123,7 +123,7 @@ export class View {
           <a href="/docs/rules/${rule}" class="ml-1 hover:underline">(${rule})</a>
         </span>
         <div class="ml-auto mr-0 my-2">
-          ${fix? html`<button class="bg-accent text-white px-4 py-1 rounded hover:opacity-80 w-max">apply fix</button>`: ""}
+          ${fix ? html`<button class="bg-accent text-white px-4 py-1 rounded hover:opacity-80 w-max">apply fix</button>` : ""}
           ${suggestions && suggestions.length > 0 ? html`
             <button class="bg-accent text-white px-4 py-1 rounded hover:opacity-80 w-max">apply suggestion</button>
           ` : ""}
