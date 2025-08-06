@@ -2,7 +2,7 @@
  * @import eslint from "eslint";
  * @import {Language} from "./language";
  * @import {RulesRecord, ParserOptions} from "./linter";
- * @typedef {"lint" | "changeLanguage"} EventType
+ * @typedef {"lint" | "changeLanguage" | "autofixed"} EventType
  */
 
 import {
@@ -74,7 +74,8 @@ export class Model {
      */
     this.observers = {
       lint: new Set(),
-      changeLanguage: new Set()
+      changeLanguage: new Set(),
+      autofixed: new Set()
     };
   }
 
@@ -157,6 +158,44 @@ export class Model {
     this.observers[type].forEach((observer) => observer());
   }
 
+  /**
+   *
+   * @param {LintMessage} message
+   */
+  applyFix(message) {
+    const {
+      fix
+    } = message;
+    if (fix) {
+      const code = this.getCode();
+      const [start, end] = fix.range;
+      const fixed = code.slice(0, start) +
+        fix.text +
+        code.slice(end);
+      this.setCode(fixed);
+      this.lint();
+      this.notify('autofixed');
+    }
+  }
+  
+  applySuggestion(message) {
+    const {
+      suggestions 
+    } = message;
+    if (suggestions && suggestions.length > 0) {
+      const suggestion = suggestions[0];
+      if (suggestion.fix) {
+        const code = this.getCode();
+        const [start, end] = suggestion.fix.range;
+        const fixed = code.slice(0, start) +
+          suggestion.fix.text +
+          code.slice(end);
+        this.setCode(fixed);
+        this.lint();
+        this.notify('autofixed');
+      }
+    }
+  }
   /**
    * @returns {string}
    */
