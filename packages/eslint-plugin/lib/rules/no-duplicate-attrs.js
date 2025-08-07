@@ -21,7 +21,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Disallow to use duplicate attributes",
+      description: "Disallow duplicate attributes",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
       url: getRuleUrl("no-duplicate-attrs"),

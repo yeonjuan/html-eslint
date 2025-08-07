@@ -46,7 +46,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Enforce consistent naming id attributes",
+      description: "Enforce consistent naming of id attributes",
       category: RULE_CATEGORY.STYLE,
       recommended: false,
       url: getRuleUrl("id-naming-convention"),

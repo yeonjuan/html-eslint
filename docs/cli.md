@@ -48,7 +48,7 @@ $ html-eslint https://www.example.com
 
 - `--check-style`
 
-  Enable `Style` rules in configuration. By default, All rules with the category `Style` are ignored.
+  Enable `Style` rules in configuration. By default, all rules with the category `Style` are ignored.
 
   ```
   $ html-eslint https://www.example.com --check-style

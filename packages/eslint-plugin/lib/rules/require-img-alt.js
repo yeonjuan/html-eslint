@@ -23,7 +23,7 @@ module.exports = {
     type: "suggestion",
 
     docs: {
-      description: "Require `alt` attribute at `<img>` tag",
+      description: "Require `alt` attribute on `<img>` tag",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: true,
       url: getRuleUrl("require-img-alt"),

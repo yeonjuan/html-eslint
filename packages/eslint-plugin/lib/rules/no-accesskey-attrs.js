@@ -20,7 +20,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Disallow to use of accesskey attribute",
+      description: "Disallow use of accesskey attribute",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
       url: getRuleUrl("no-accesskey-attrs"),

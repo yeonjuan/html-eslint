@@ -21,8 +21,8 @@ module.exports = {
 };
 ```
 
-The screen reader uses `alt` attributes in `img` tag for describing the image.
-And the `alt` value is displayed if fails to load the image.
+Screen readers use `alt` attributes in `img` tags for describing images.
+The `alt` value is displayed if the image fails to load.
 So the `img` tag should contain the `alt` attribute for those who cannot see images.
 
 ## Rule Details

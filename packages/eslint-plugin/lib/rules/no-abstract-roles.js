@@ -35,7 +35,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Disallow to use of abstract roles",
+      description: "Disallow use of abstract roles",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
       url: getRuleUrl("no-abstract-roles"),

@@ -9,27 +9,27 @@
 
 | Rule                                                         | Description                                                                                    |      |
 | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- | ---- |
-| [max-element-depth](rules/max-element-depth)                 | Enforce element maximum depth                                                                  |      |
-| [no-duplicate-attrs](rules/no-duplicate-attrs)               | Disallow to use duplicate attributes                                                           | ⭐   |
-| [no-duplicate-class](rules/no-duplicate-class)               | Disallow to use duplicate class                                                                | 🔧   |
-| [no-duplicate-id](rules/no-duplicate-id)                     | Disallow to use duplicate id                                                                   | ⭐   |
+| [max-element-depth](rules/max-element-depth)                 | Enforce maximum element depth                                                                  |      |
+| [no-duplicate-attrs](rules/no-duplicate-attrs)               | Disallow duplicate attributes                                                                  | ⭐   |
+| [no-duplicate-class](rules/no-duplicate-class)               | Disallow duplicate class names                                                                 | 🔧   |
+| [no-duplicate-id](rules/no-duplicate-id)                     | Disallow duplicate id attributes                                                               | ⭐   |
 | [no-duplicate-in-head](rules/no-duplicate-in-head)           | Disallow duplicate tags in `<head>`                                                            |      |
 | [no-inline-styles](rules/no-inline-styles)                   | Disallow using inline style                                                                    |      |
 | [no-invalid-entity](rules/no-invalid-entity)                 | Disallows the use of invalid HTML entities                                                     |      |
 | [no-nested-interactive](rules/no-nested-interactive)         | Disallows nested interactive elements                                                          |      |
-| [no-obsolete-tags](rules/no-obsolete-tags)                   | Disallow to use obsolete elements in HTML5                                                     | ⭐   |
+| [no-obsolete-tags](rules/no-obsolete-tags)                   | Disallow use of obsolete elements in HTML5                                                     | ⭐   |
 | [no-restricted-attr-values](rules/no-restricted-attr-values) | Disallow specified attributes                                                                  |      |
 | [no-restricted-attrs](rules/no-restricted-attrs)             | Disallow specified attributes                                                                  |      |
 | [no-script-style-type](rules/no-script-style-type)           | Enforce to omit type attributes for style sheets and scripts                                   | 🔧   |
 | [no-target-blank](rules/no-target-blank)                     | Disallow usage of unsafe `target='_blank'`                                                     |      |
 | [prefer-https](rules/prefer-https)                           | Prefer to use HTTPS for embedded resources                                                     |      |
 | [require-attrs](rules/require-attrs)                         | Require specified attributes                                                                   | 🔧   |
-| [require-button-type](rules/require-button-type)             | Require use of button element with a valid type attribute.                                     | 🔧   |
+| [require-button-type](rules/require-button-type)             | Require use of the button element with a valid type attribute.                                 | 🔧   |
 | [require-closing-tags](rules/require-closing-tags)           | Require closing tags.                                                                          | ⭐🔧 |
-| [require-doctype](rules/require-doctype)                     | Require `<!DOCTYPE HTML>` in html,                                                             | ⭐🔧 |
+| [require-doctype](rules/require-doctype)                     | Require `<!DOCTYPE HTML>` in HTML                                                              | ⭐🔧 |
 | [require-explicit-size](rules/require-explicit-size)         | Enforces that some elements (img, iframe) have explicitly defined width and height attributes. |      |
 | [require-li-container](rules/require-li-container)           | Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.                                            | ⭐   |
-| [require-meta-charset](rules/require-meta-charset)           | Enforce to use `<meta charset="...">` in `<head>`                                              |      |
+| [require-meta-charset](rules/require-meta-charset)           | Enforce use of `<meta charset="...">` in `<head>`                                              |      |
 | [use-baseline](rules/use-baseline)                           | Enforce the use of baseline features.                                                          | ⭐   |
 
 ## SEO
@@ -37,18 +37,18 @@
 | Rule                                                             | Description                                                 |     |
 | ---------------------------------------------------------------- | ----------------------------------------------------------- | --- |
 | [no-multiple-h1](rules/no-multiple-h1)                           | Disallow multiple `<h1></h1>`.                              | ⭐  |
-| [require-lang](rules/require-lang)                               | Require `lang` attribute at `<html>` tag                    | ⭐  |
+| [require-lang](rules/require-lang)                               | Require `lang` attribute on `<html>` tag                    | ⭐  |
 | [require-meta-description](rules/require-meta-description)       | Require use of `<meta name="description">` in `<head>`      |     |
-| [require-open-graph-protocol](rules/require-open-graph-protocol) | Enforce to use specified meta tags for open graph protocol. |     |
-| [require-title](rules/require-title)                             | Require `<title><title/>` in the `<head><head/>`            | ⭐  |
+| [require-open-graph-protocol](rules/require-open-graph-protocol) | Enforce use of specified meta tags for open graph protocol. |     |
+| [require-title](rules/require-title)                             | Require `<title>` in the `<head>`                           | ⭐  |
 
 ## Accessibility
 
 | Rule                                                             | Description                                                            |     |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------------- | --- |
-| [no-abstract-roles](rules/no-abstract-roles)                     | Disallow to use of abstract roles                                      |     |
-| [no-accesskey-attrs](rules/no-accesskey-attrs)                   | Disallow to use of accesskey attribute                                 |     |
-| [no-aria-hidden-body](rules/no-aria-hidden-body)                 | Disallow to use aria-hidden attributes on the `body` element.          |     |
+| [no-abstract-roles](rules/no-abstract-roles)                     | Disallow use of abstract roles                                         |     |
+| [no-accesskey-attrs](rules/no-accesskey-attrs)                   | Disallow use of accesskey attribute                                    |     |
+| [no-aria-hidden-body](rules/no-aria-hidden-body)                 | Disallow use of aria-hidden attributes on the `body` element.          |     |
 | [no-aria-hidden-on-focusable](rules/no-aria-hidden-on-focusable) | Disallow aria-hidden="true" on focusable elements                      |     |
 | [no-empty-headings](rules/no-empty-headings)                     | Disallow empty or inaccessible headings.                               |     |
 | [no-heading-inside-button](rules/no-heading-inside-button)       | Disallows the use of heading elements inside <button>.                 |     |
@@ -58,9 +58,9 @@
 | [no-skip-heading-levels](rules/no-skip-heading-levels)           | Disallow skipping heading levels                                       |     |
 | [require-form-method](rules/require-form-method)                 | Require `method` attribute in `<form>`                                 |     |
 | [require-frame-title](rules/require-frame-title)                 | Require `title` in `<frame>`, `<iframe>`                               |     |
-| [require-img-alt](rules/require-img-alt)                         | Require `alt` attribute at `<img>` tag                                 | ⭐  |
+| [require-img-alt](rules/require-img-alt)                         | Require `alt` attribute on `<img>` tag                                 | ⭐  |
 | [require-input-label](rules/require-input-label)                 | Enforces use of label for form elements(`input`, `textarea`, `select`) |     |
-| [require-meta-viewport](rules/require-meta-viewport)             | Enforce to use `<meta name="viewport">` in `<head>`                    |     |
+| [require-meta-viewport](rules/require-meta-viewport)             | Enforce use of `<meta name="viewport">` in `<head>`                    |     |
 
 ## Style
 
@@ -68,10 +68,10 @@
 | -------------------------------------------------------- | ----------------------------------------------------------------- | ---- |
 | [attrs-newline](rules/attrs-newline)                     | Enforce newline between attributes                                | ⭐🔧 |
 | [element-newline](rules/element-newline)                 | Enforce newline between elements.                                 | ⭐🔧 |
-| [id-naming-convention](rules/id-naming-convention)       | Enforce consistent naming id attributes                           |      |
+| [id-naming-convention](rules/id-naming-convention)       | Enforce consistent naming of id attributes                        |      |
 | [indent](rules/indent)                                   | Enforce consistent indentation                                    | ⭐🔧 |
-| [lowercase](rules/lowercase)                             | Enforce to use lowercase for tag and attribute names.             | 🔧   |
-| [no-extra-spacing-attrs](rules/no-extra-spacing-attrs)   | Disallow an extra spacing around attributes                       | ⭐🔧 |
+| [lowercase](rules/lowercase)                             | Enforce use of lowercase for tag and attribute names.             | 🔧   |
+| [no-extra-spacing-attrs](rules/no-extra-spacing-attrs)   | Disallow extra spacing around attributes                          | ⭐🔧 |
 | [no-extra-spacing-text](rules/no-extra-spacing-text)     | Disallow unnecessary consecutive spaces                           | 🔧   |
 | [no-multiple-empty-lines](rules/no-multiple-empty-lines) | Disallow multiple empty lines                                     | 🔧   |
 | [no-trailing-spaces](rules/no-trailing-spaces)           | Disallow trailing whitespace at the end of lines                  | 🔧   |

@@ -37,7 +37,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: 'Enforce to use `<meta name="viewport">` in `<head>`',
+      description: 'Enforce use of `<meta name="viewport">` in `<head>`',
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
       url: getRuleUrl("require-meta-viewport"),

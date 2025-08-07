@@ -41,7 +41,7 @@ module.exports = {
 
     docs: {
       description:
-        "Enforce to use specified meta tags for open graph protocol.",
+        "Enforce use of specified meta tags for open graph protocol.",
       category: RULE_CATEGORY.SEO,
       recommended: false,
       url: getRuleUrl("require-open-graph-protocol"),

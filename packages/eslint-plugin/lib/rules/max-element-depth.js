@@ -22,7 +22,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Enforce element maximum depth",
+      description: "Enforce maximum element depth",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
       url: getRuleUrl("max-element-depth"),
