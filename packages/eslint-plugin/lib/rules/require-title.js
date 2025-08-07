@@ -37,7 +37,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Require `<title><title/>` in the `<head><head/>`",
+      description: "Require `<title>` in the `<head>`",
       category: RULE_CATEGORY.SEO,
       recommended: true,
       url: getRuleUrl("require-title"),

@@ -23,7 +23,7 @@ module.exports = {
   meta: {
     type: "code",
     docs: {
-      description: "Disallow to use duplicate class",
+      description: "Disallow duplicate class names",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
       url: getRuleUrl("no-duplicate-class"),

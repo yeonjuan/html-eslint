@@ -20,7 +20,7 @@ module.exports = {
 
     docs: {
       description:
-        "Disallow to use aria-hidden attributes on the `body` element.",
+        "Disallow use of aria-hidden attributes on the `body` element.",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
       url: getRuleUrl("no-aria-hidden-body"),

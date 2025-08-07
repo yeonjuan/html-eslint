@@ -20,7 +20,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Enforce `<li>` to be in  `<ul>`, `<ol>` or `<menu>`.",
+      description: "Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
       url: getRuleUrl("require-li-container"),

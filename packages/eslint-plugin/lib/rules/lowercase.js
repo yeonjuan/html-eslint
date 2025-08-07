@@ -21,7 +21,7 @@ module.exports = {
     type: "suggestion",
 
     docs: {
-      description: "Enforce to use lowercase for tag and attribute names.",
+      description: "Enforce use of lowercase for tag and attribute names.",
       category: RULE_CATEGORY.STYLE,
       recommended: false,
       url: getRuleUrl("lowercase"),

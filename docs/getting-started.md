@@ -199,13 +199,15 @@ import eslintHTML from "@html-eslint/eslint-plugin";
 export default [
   // You can use the @html-eslint rules in your ESLint configuration for JS!
   // This is used to lint HTML written inside Template Literal.
-  plugins: {
-    "@html-eslint": eslintHTML
-  },
-  rules: {
-    // Specifies the @html-eslint rules to apply to Template Literal.
-    "@html-eslint/no-inline-styles": 1,
-    "@html-eslint/indent": 1,
+  {
+    plugins: {
+      "@html-eslint": eslintHTML
+    },
+    rules: {
+      // Specifies the @html-eslint rules to apply to Template Literal.
+      "@html-eslint/no-inline-styles": 1,
+      "@html-eslint/indent": 1,
+    }
   }
 ];
 ```

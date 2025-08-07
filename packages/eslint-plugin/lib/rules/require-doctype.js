@@ -17,7 +17,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Require `<!DOCTYPE HTML>` in html,",
+      description: "Require `<!DOCTYPE HTML>` in HTML",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
       url: getRuleUrl("require-doctype"),

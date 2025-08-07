@@ -36,7 +36,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Disallow an extra spacing around attributes",
+      description: "Disallow extra spacing around attributes",
       category: RULE_CATEGORY.STYLE,
       recommended: true,
       url: getRuleUrl("no-extra-spacing-attrs"),

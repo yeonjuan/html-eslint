@@ -20,7 +20,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Disallow to use obsolete elements in HTML5",
+      description: "Disallow use of obsolete elements in HTML5",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
       url: getRuleUrl("no-obsolete-tags"),

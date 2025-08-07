@@ -29,7 +29,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: 'Enforce to use `<meta charset="...">` in `<head>`',
+      description: 'Enforce use of `<meta charset="...">` in `<head>`',
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
       url: getRuleUrl("require-meta-charset"),

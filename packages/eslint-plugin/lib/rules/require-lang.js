@@ -20,7 +20,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Require `lang` attribute at `<html>` tag",
+      description: "Require `lang` attribute on `<html>` tag",
       category: RULE_CATEGORY.SEO,
       recommended: true,
       url: getRuleUrl("require-lang"),
