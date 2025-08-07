@@ -1,27 +1,36 @@
 /**
- * @import {Tag} from "@html-eslint/types"
  * @import {RuleModule} from "../types";
- * @typedef {{ tag: string; }} Checker
+ * @import {Tag} from "@html-eslint/types"
+ * @typedef {{ tag: string; attr: string; when: (node: Tag) => boolean; message: string; }} Checker
  */
 
-const MESSAGE_IDS = {
-  UNEXPECTED: "unexpected",
-};
-
+/**
+ * @param {Tag} node
+ * @param {string} attrName
+ * @returns {string | undefined}
+ */
 function getAttrValue(node, attrName) {
   const attr = node.attributes.find(
-    (a) => a.type === "Attribute" && a.key.name === attrName
+    (a) => a.type === "Attribute" && a.key.value === attrName
   );
-  if (!attr || !attr.value || attr.value.type !== "Text") return undefined;
+  if (!attr || !attr.value) return undefined;
   return attr.value.value;
 }
 
+/**
+ * @param {Tag} node
+ * @param {string} attrName
+ * @returns {boolean}
+ */
 function hasAttr(node, attrName) {
   return node.attributes.some(
-    (a) => a.type === "Attribute" && a.key.name === attrName
+    (a) => a.type === "Attribute" && a.key.value === attrName
   );
 }
 
+/**
+ * @type {Checker[]}
+ */
 const checkers = [
   {
     tag: "input",
@@ -88,7 +97,8 @@ module.exports = {
   name: "no-ineffective-attrs",
   meta: {
     docs: {
-      description: "Disallow HTML attributes that have no effect in context",
+      description:
+        "Disallow HTML attributes that have no effect in their context",
       category: "Possible Errors",
       recommended: false,
     },
@@ -99,17 +109,46 @@ module.exports = {
     type: "problem",
   },
   defaultOptions: [],
+  /**
+   * @param {any} context
+   */
   create(context) {
     return {
+      /**
+       * @param {Tag} node
+       */
       Tag(node) {
-        for (const check of checks) {
-          if (node.tagName !== check.tag) continue;
+        for (const check of checkers) {
+          if (node.name !== check.tag) continue;
 
           for (const attr of node.attributes) {
             if (attr.type !== "Attribute") continue;
-            if (attr.key.name !== check.attr) continue;
+            if (attr.key.value !== check.attr) continue;
 
-            if (check.when(node, attr)) {
+            if (check.when(node)) {
+              context.report({
+                loc: attr.loc,
+                messageId: "ineffective",
+                data: {
+                  message: check.message,
+                },
+              });
+            }
+          }
+        }
+      },
+      /**
+       * @param {any} node
+       */
+      ScriptTag(node) {
+        for (const check of checkers) {
+          if (check.tag !== "script") continue;
+
+          for (const attr of node.attributes) {
+            if (attr.type !== "Attribute") continue;
+            if (attr.key.value !== check.attr) continue;
+
+            if (check.when(node)) {
               context.report({
                 loc: attr.loc,
                 messageId: "ineffective",
