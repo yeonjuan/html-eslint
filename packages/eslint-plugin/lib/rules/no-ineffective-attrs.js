@@ -4,6 +4,8 @@
  * @typedef {{ tag: string; attr: string; when: (node: Tag) => boolean; message: string; }} Checker
  */
 
+const { RULE_CATEGORY } = require("../constants");
+
 /**
  * @param {Tag} node
  * @param {string} attrName
@@ -99,7 +101,7 @@ module.exports = {
     docs: {
       description:
         "Disallow HTML attributes that have no effect in their context",
-      category: "Possible Errors",
+      category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
     },
     messages: {
