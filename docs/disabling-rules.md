@@ -1,8 +1,8 @@
 # Disabling Rules
 
-## Disable rules with inline comments.
+## Disable rules with inline comments
 
-To disable rule in a file, use HTML comments (`<!-- ... -->`) in the following format:
+To disable a rule in a file, use HTML comments (`<!-- ... -->`) in the following format:
 
 Disable all rules in an entire file:
 

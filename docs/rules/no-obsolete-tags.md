@@ -4,7 +4,7 @@ This rule disallows the use of obsolete tags in HTML5.
 
 ## Why?
 
-The following elements are obsoleted in HTML5.
+The following elements are obsolete in HTML5.
 These tags are discouraged and should be avoided.
 
 ```plaintext
@@ -23,7 +23,7 @@ module.exports = {
 
 ## Rule Details
 
-This rule disallow using obsolete tags.
+This rule disallows using obsolete tags.
 
 Examples of **incorrect** code for this rule:
 

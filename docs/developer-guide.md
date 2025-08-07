@@ -4,7 +4,7 @@ Thank you for taking the time to contribute to our project. Your efforts are gre
 
 ## Proposing a New Rule
 
-To add a new rule, please follow these step:
+To add a new rule, please follow these steps:
 
 - [Create a new issue on GitHub](https://github.com/yeonjuan/html-eslint/issues/new?template=Blank+issue) to discuss the new rule being added.
 - Generate the scaffolding for the new rule with the `yarn run new-rule <rule-name>` command. This command will generate the documentation for the rule, the implementation code, and the test code.

@@ -1,6 +1,6 @@
 # require-closing-tags
 
-This rule enforces closing tag.
+This rule enforces closing tags.
 
 ## How to use
 
@@ -95,14 +95,14 @@ Examples of **correct** code for the `{ "selfClosingCustomPatterns": ["-"] }` op
 
 #### selfClosingCustomPatterns: []
 
-Examples of **incorrect** code for the `{ "allowSelfClosingCustom": [] }` option:
+Examples of **incorrect** code for the `{ "selfClosingCustomPatterns": [] }` option:
 
 <!-- prettier-ignore -->
 ```html,incorrect
 <custom-tag />
 ```
 
-Examples of **correct** code for the `{ "allowSelfClosingCustom": [] }` option:
+Examples of **correct** code for the `{ "selfClosingCustomPatterns": [] }` option:
 
 <!-- prettier-ignore -->
 ```html,correct

@@ -7,7 +7,7 @@
 - [Configuration](#configuration)
   - [Flat config](#flat-config)
   - [eslintrc config (.eslintrc.\*)](#eslintrc-config-eslintrc)
-  - [Using ESlint Language](#using-eslint-language)
+  - [Using ESLint Language](#using-eslint-language)
 - [Lint HTML in JavaScript Template Literal](#lint-html-in-javascript-template-literals)
 - [Editor Configuration](#editor-configuration)
 
@@ -167,7 +167,7 @@ module.exports = {
 };
 ```
 
-### Using ESlint Language
+### Using ESLint Language
 
 Starting from ESLint v9.7.0, you can use [Language](https://eslint.org/docs/latest/extend/languages).
 
@@ -199,10 +199,10 @@ import eslintHTML from "@html-eslint/eslint-plugin";
 export default [
   // You can use the @html-eslint rules in your ESLint configuration for JS!
   // This is used to lint HTML written inside Template Literal.
-  "plugins": {
+  plugins: {
     "@html-eslint": eslintHTML
   },
-  "rules": {
+  rules: {
     // Specifies the @html-eslint rules to apply to Template Literal.
     "@html-eslint/no-inline-styles": 1,
     "@html-eslint/indent": 1,
@@ -225,7 +225,7 @@ If you want to use keywords other than `html` for linting, you can configure the
 
 ```js
  {
-    "plugins": {
+    plugins: {
       "@html-eslint": eslintHTML
     },
     settings: {
