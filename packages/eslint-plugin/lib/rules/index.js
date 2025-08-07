@@ -51,6 +51,7 @@ const noDuplicateClass = require("./no-duplicate-class");
 const noEmptyHeadings = require("./no-empty-headings");
 const noInvalidEntity = require("./no-invalid-entity");
 const noDuplicateInHead = require("./no-duplicate-in-head");
+const noIneffectiveAttrs = require("./no-ineffective-attrs");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -108,6 +109,7 @@ const rules = {
   "no-empty-headings": noEmptyHeadings,
   "no-invalid-entity": noInvalidEntity,
   "no-duplicate-in-head": noDuplicateInHead,
+  "no-ineffective-attrs": noIneffectiveAttrs,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
