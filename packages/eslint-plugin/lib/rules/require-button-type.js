@@ -26,7 +26,8 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Require use of the button element with a valid type attribute.",
+      description:
+        "Require use of the button element with a valid type attribute.",
       category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
       url: getRuleUrl("require-button-type"),
