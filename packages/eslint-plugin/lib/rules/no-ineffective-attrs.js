@@ -1,7 +1,7 @@
 /**
  * @import {RuleModule} from "../types";
  * @import {Tag} from "@html-eslint/types"
- * @typedef {{ tag: string; attr: string; when: (node: Tag) => boolean; message: string; }} Checker
+ * @typedef {{ attr: string; when: (node: Tag) => boolean; message: string; }} AttributeChecker
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -21,72 +21,68 @@ function getAttrValue(node, attrName) {
 }
 
 /**
- * @type {Checker[]}
+ * @type {Record<string, AttributeChecker[]>}
  */
-const checkers = [
-  {
-    tag: "input",
-    attr: "multiple",
-    when: (node) => {
-      const type = getAttrValue(node, "type") || "text";
-      return [
-        "text",
-        "password",
-        "radio",
-        "checkbox",
-        "image",
-        "hidden",
-        "reset",
-        "button",
-      ].includes(type);
+const checkersByTag = {
+  input: [
+    {
+      attr: "multiple",
+      when: (node) => {
+        const type = getAttrValue(node, "type") || "text";
+        return [
+          "text",
+          "password",
+          "radio",
+          "checkbox",
+          "image",
+          "hidden",
+          "reset",
+          "button",
+        ].includes(type);
+      },
+      message: 'The "multiple" attribute has no effect on this input type.',
     },
-    message: 'The "multiple" attribute has no effect on this input type.',
-  },
-  {
-    tag: "input",
-    attr: "accept",
-    when: (node) => {
-      const type = getAttrValue(node, "type") || "text";
-      return type !== "file";
+    {
+      attr: "accept",
+      when: (node) => {
+        const type = getAttrValue(node, "type") || "text";
+        return type !== "file";
+      },
+      message:
+        'The "accept" attribute has no effect unless input type is "file".',
     },
-    message:
-      'The "accept" attribute has no effect unless input type is "file".',
-  },
-  {
-    tag: "script",
-    attr: "defer",
-    when: (node) => !hasAttr(node, "src"),
-    message: 'The "defer" attribute has no effect on inline scripts.',
-  },
-  {
-    tag: "script",
-    attr: "async",
-    when: (node) => !hasAttr(node, "src"),
-    message: 'The "async" attribute has no effect on inline scripts.',
-  },
-  {
-    tag: "textarea",
-    attr: "value",
-    when: () => true,
-    message:
-      'The "value" attribute has no effect on <textarea>. Use its content instead.',
-  },
-  {
-    tag: "a",
-    attr: "download",
-    when: (node) => !hasAttr(node, "href"),
-    message: 'The "download" attribute has no effect without an "href".',
-  },
-  {
-    tag: "form",
-    attr: "enctype",
-    when: (node) => {
-      const method = (getAttrValue(node, "method") || "get").toLowerCase();
-      return method !== "post";
+  ],
+  script: [
+    {
+      attr: "defer",
+      when: (node) => !hasAttr(node, "src"),
+      message: 'The "defer" attribute has no effect on inline scripts.',
     },
-    message: 'The "enctype" attribute is only relevant when method is "post".',
-  },
-];
+    {
+      attr: "async",
+      when: (node) => !hasAttr(node, "src"),
+      message: 'The "async" attribute has no effect on inline scripts.',
+    },
+  ],
+  a: [
+    {
+      attr: "download",
+      when: (node) => !hasAttr(node, "href"),
+      message: 'The "download" attribute has no effect without an "href".',
+    },
+  ],
+  form: [
+    {
+      attr: "enctype",
+      when: (node) => {
+        const method = (getAttrValue(node, "method") || "get").toLowerCase();
+        return method !== "post";
+      },
+      message:
+        'The "enctype" attribute is only relevant when method is "post".',
+    },
+  ],
+};
 
 /**
  * @type {RuleModule<[]>}
@@ -116,9 +112,10 @@ module.exports = {
        * @param {Tag} node
        */
       Tag(node) {
-        for (const check of checkers) {
-          if (node.name !== check.tag) continue;
+        const tagCheckers = checkersByTag[node.name];
+        if (!tagCheckers) return;
 
+        for (const check of tagCheckers) {
           for (const attr of node.attributes) {
             if (attr.type !== "Attribute") continue;
             if (attr.key.value !== check.attr) continue;
@@ -139,9 +136,10 @@ module.exports = {
        * @param {any} node
        */
       ScriptTag(node) {
-        for (const check of checkers) {
-          if (check.tag !== "script") continue;
+        const scriptCheckers = checkersByTag.script;
+        if (!scriptCheckers) return;
 
+        for (const check of scriptCheckers) {
           for (const attr of node.attributes) {
             if (attr.type !== "Attribute") continue;
             if (attr.key.value !== check.attr) continue;

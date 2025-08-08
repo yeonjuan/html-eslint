@@ -26,15 +26,10 @@ ruleTester.run("no-ineffective-attrs", rule, {
     {
       code: '<script src="script.js" defer></script>',
     },
-    
+
     // Valid script with src and async
     {
       code: '<script src="script.js" async></script>',
-    },
-
-    // Valid textarea without value attribute
-    {
-      code: "<textarea>content</textarea>",
     },
 
     // Valid anchor with href and download
@@ -107,19 +102,6 @@ ruleTester.run("no-ineffective-attrs", rule, {
           messageId: "ineffective",
           data: {
             message: 'The "async" attribute has no effect on inline scripts.',
-          },
-        },
-      ],
-    },
-    // Invalid value on textarea
-    {
-      code: '<textarea value="text">content</textarea>',
-      errors: [
-        {
-          messageId: "ineffective",
-          data: {
-            message:
-              'The "value" attribute has no effect on <textarea>. Use its content instead.',
           },
         },
       ],
