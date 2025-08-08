@@ -18,6 +18,17 @@ function findAttr(node, key) {
 }
 
 /**
+ * @param {Tag} node
+ * @param {string} attrName
+ * @returns {boolean}
+ */
+function hasAttr(node, attrName) {
+  return node.attributes.some(
+    (a) => a.type === "Attribute" && a.key.value === attrName
+  );
+}
+
+/**
  * Checks whether a node's attributes is empty or not.
  * @param {Tag | ScriptTag | StyleTag} node
  * @returns {boolean}
@@ -254,4 +265,5 @@ module.exports = {
   isRangesOverlap,
   getTemplateTokens,
   hasTemplate,
+  hasAttr,
 };

@@ -5,6 +5,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
+const { hasAttr } = require("./utils/node");
 
 /**
  * @param {Tag} node
@@ -17,17 +18,6 @@ function getAttrValue(node, attrName) {
   );
   if (!attr || !attr.value) return undefined;
   return attr.value.value;
-}
-
-/**
- * @param {Tag} node
- * @param {string} attrName
- * @returns {boolean}
- */
-function hasAttr(node, attrName) {
-  return node.attributes.some(
-    (a) => a.type === "Attribute" && a.key.value === attrName
-  );
 }
 
 /**
@@ -67,6 +57,12 @@ const checkers = [
     attr: "defer",
     when: (node) => !hasAttr(node, "src"),
     message: 'The "defer" attribute has no effect on inline scripts.',
+  },
+  {
+    tag: "script",
+    attr: "async",
+    when: (node) => !hasAttr(node, "src"),
+    message: 'The "async" attribute has no effect on inline scripts.',
   },
   {
     tag: "textarea",
