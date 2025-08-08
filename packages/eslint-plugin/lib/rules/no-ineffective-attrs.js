@@ -1,14 +1,15 @@
 /**
  * @import {RuleModule} from "../types";
- * @import {Tag} from "@html-eslint/types"
- * @typedef {{ attr: string; when: (node: Tag) => boolean; message: string; }} AttributeChecker
+ * @import {Tag, ScriptTag} from "@html-eslint/types"
+ * @typedef {{ attr: string; when: (node: Tag | ScriptTag) => boolean; message: string; }} AttributeChecker
  */
 
 const { RULE_CATEGORY } = require("../constants");
 const { hasAttr } = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
 
 /**
- * @param {Tag} node
+ * @param {Tag | ScriptTag} node
  * @param {string} attrName
  * @returns {string | undefined}
  */
@@ -71,17 +72,6 @@ const checkersByTag = {
       message: 'The "download" attribute has no effect without an "href".',
     },
   ],
-  form: [
-    {
-      attr: "enctype",
-      when: (node) => {
-        const method = (getAttrValue(node, "method") || "get").toLowerCase();
-        return method !== "post";
-      },
-      message:
-        'The "enctype" attribute is only relevant when method is "post".',
-    },
-  ],
 };
 
 /**
@@ -107,7 +97,7 @@ module.exports = {
    * @param {any} context
    */
   create(context) {
-    return {
+    return createVisitors(context, {
       /**
        * @param {Tag} node
        */
@@ -133,7 +123,7 @@ module.exports = {
         }
       },
       /**
-       * @param {any} node
+       * @param {ScriptTag} node
        */
       ScriptTag(node) {
         const scriptCheckers = checkersByTag.script;
@@ -156,6 +146,6 @@ module.exports = {
           }
         }
       },
-    };
+    });
   },
 };

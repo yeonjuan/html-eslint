@@ -36,11 +36,6 @@ ruleTester.run("no-ineffective-attrs", rule, {
     {
       code: '<a href="file.pdf" download>Download</a>',
     },
-
-    // Valid form with POST method and enctype
-    {
-      code: '<form method="post" enctype="multipart/form-data"></form>',
-    },
   ],
   invalid: [
     // Invalid multiple on text input
@@ -119,36 +114,27 @@ ruleTester.run("no-ineffective-attrs", rule, {
         },
       ],
     },
-    // Invalid enctype on GET form
+  ],
+});
+
+templateRuleTester.run("[template] no-ineffective-attrs", rule, {
+  valid: [
     {
-      code: '<form method="get" enctype="multipart/form-data"></form>',
-      errors: [
-        {
-          messageId: "ineffective",
-          data: {
-            message:
-              'The "enctype" attribute is only relevant when method is "post".',
-          },
-        },
-      ],
+      code: `html\`<input type="email" multiple>\``,
     },
-    // Invalid enctype on default method form
+  ],
+  invalid: [
     {
-      code: '<form enctype="multipart/form-data"></form>',
+      code: 'html`<input type="text" multiple>`',
       errors: [
         {
           messageId: "ineffective",
           data: {
             message:
-              'The "enctype" attribute is only relevant when method is "post".',
+              'The "multiple" attribute has no effect on this input type.',
           },
         },
       ],
     },
   ],
-});
-
-templateRuleTester.run("[template] no-ineffective-attrs", rule, {
-  valid: [],
-  invalid: [],
 });

@@ -18,7 +18,7 @@ function findAttr(node, key) {
 }
 
 /**
- * @param {Tag} node
+ * @param {Tag | ScriptTag} node
  * @param {string} attrName
  * @returns {boolean}
  */
