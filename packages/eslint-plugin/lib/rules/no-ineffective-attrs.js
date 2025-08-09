@@ -115,9 +115,6 @@ module.exports = {
     type: "problem",
   },
   defaultOptions: [],
-  /**
-   * @param {any} context
-   */
   create(context) {
     return createVisitors(context, {
       /**
