@@ -59,6 +59,9 @@
     "contenteditable",
     "nbsb",
     "endl",
-    "cout"
+    "cout",
+    "nodownload",
+    "nofullscreen",
+    "controlslist"
   ]
 }
