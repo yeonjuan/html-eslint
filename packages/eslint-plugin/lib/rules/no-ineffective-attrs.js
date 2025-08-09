@@ -52,6 +52,14 @@ const checkersByTag = {
       message:
         'The "accept" attribute has no effect unless input type is "file".',
     },
+    {
+      attr: "readonly",
+      when: (node) => {
+        const type = getAttrValue(node, "type") || "text";
+        return ["checkbox", "radio", "file", "range", "color"].includes(type);
+      },
+      message: 'The "readonly" attribute has no effect on this input type.',
+    },
   ],
   script: [
     {

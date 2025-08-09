@@ -22,6 +22,16 @@ ruleTester.run("no-ineffective-attrs", rule, {
       code: '<input type="file" accept=".jpg,.png">',
     },
 
+    // Valid text input with readonly
+    {
+      code: '<input type="text" readonly>',
+    },
+
+    // Valid password input with readonly
+    {
+      code: '<input type="password" readonly>',
+    },
+
     // Valid script with src and defer
     {
       code: '<script src="script.js" defer></script>',
@@ -150,6 +160,71 @@ ruleTester.run("no-ineffective-attrs", rule, {
         },
       ],
     },
+    // Invalid readonly on checkbox input
+    {
+      code: '<input type="checkbox" readonly>',
+      errors: [
+        {
+          messageId: "ineffective",
+          data: {
+            message:
+              'The "readonly" attribute has no effect on this input type.',
+          },
+        },
+      ],
+    },
+    // Invalid readonly on radio input
+    {
+      code: '<input type="radio" readonly>',
+      errors: [
+        {
+          messageId: "ineffective",
+          data: {
+            message:
+              'The "readonly" attribute has no effect on this input type.',
+          },
+        },
+      ],
+    },
+    // Invalid readonly on file input
+    {
+      code: '<input type="file" readonly>',
+      errors: [
+        {
+          messageId: "ineffective",
+          data: {
+            message:
+              'The "readonly" attribute has no effect on this input type.',
+          },
+        },
+      ],
+    },
+    // Invalid readonly on range input
+    {
+      code: '<input type="range" readonly>',
+      errors: [
+        {
+          messageId: "ineffective",
+          data: {
+            message:
+              'The "readonly" attribute has no effect on this input type.',
+          },
+        },
+      ],
+    },
+    // Invalid readonly on color input
+    {
+      code: '<input type="color" readonly>',
+      errors: [
+        {
+          messageId: "ineffective",
+          data: {
+            message:
+              'The "readonly" attribute has no effect on this input type.',
+          },
+        },
+      ],
+    },
   ],
 });
 
@@ -169,6 +244,16 @@ templateRuleTester.run("[template] no-ineffective-attrs", rule, {
     // Valid file input with accept
     {
       code: `html\`<input type="file" accept=".jpg,.png">\``,
+    },
+
+    // Valid text input with readonly
+    {
+      code: `html\`<input type="text" readonly>\``,
+    },
+
+    // Valid password input with readonly
+    {
+      code: `html\`<input type="password" readonly>\``,
     },
 
     // Valid script with src and defer
@@ -295,6 +380,71 @@ templateRuleTester.run("[template] no-ineffective-attrs", rule, {
           data: {
             message:
               'The "controlslist" attribute has no effect without "controls".',
+          },
+        },
+      ],
+    },
+    // Invalid readonly on checkbox input
+    {
+      code: `html\`<input type="checkbox" readonly>\``,
+      errors: [
+        {
+          messageId: "ineffective",
+          data: {
+            message:
+              'The "readonly" attribute has no effect on this input type.',
+          },
+        },
+      ],
+    },
+    // Invalid readonly on radio input
+    {
+      code: `html\`<input type="radio" readonly>\``,
+      errors: [
+        {
+          messageId: "ineffective",
+          data: {
+            message:
+              'The "readonly" attribute has no effect on this input type.',
+          },
+        },
+      ],
+    },
+    // Invalid readonly on file input
+    {
+      code: `html\`<input type="file" readonly>\``,
+      errors: [
+        {
+          messageId: "ineffective",
+          data: {
+            message:
+              'The "readonly" attribute has no effect on this input type.',
+          },
+        },
+      ],
+    },
+    // Invalid readonly on range input
+    {
+      code: `html\`<input type="range" readonly>\``,
+      errors: [
+        {
+          messageId: "ineffective",
+          data: {
+            message:
+              'The "readonly" attribute has no effect on this input type.',
+          },
+        },
+      ],
+    },
+    // Invalid readonly on color input
+    {
+      code: `html\`<input type="color" readonly>\``,
+      errors: [
+        {
+          messageId: "ineffective",
+          data: {
+            message:
+              'The "readonly" attribute has no effect on this input type.',
           },
         },
       ],
