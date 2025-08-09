@@ -6,6 +6,7 @@
  * @property {string} tag
  * @property {string} attr
  * @property {string} [value]
+ * @property {string} [message]
  *
  */
 
@@ -17,6 +18,7 @@ const { getRuleUrl } = require("./utils/rule");
 const MESSAGE_IDS = {
   MISSING: "missing",
   UNEXPECTED: "unexpected",
+  CUSTOM: "custom",
 };
 
 /**
@@ -41,6 +43,7 @@ module.exports = {
           tag: { type: "string" },
           attr: { type: "string" },
           value: { type: "string" },
+          message: { type: "string" },
         },
         required: ["tag", "attr"],
         additionalProperties: false,
@@ -59,7 +62,7 @@ module.exports = {
      */
     const options = context.options || [];
     /**
-     * @type {Map<string, { tag: string, attr: string, value?: string}[]>}
+     * @type {Map<string, { tag: string, attr: string, value?: string, message?: string}[]>}
      */
     const tagOptionsMap = new Map();
 
@@ -90,7 +93,9 @@ module.exports = {
         );
         if (!attr) {
           context.report({
-            messageId: MESSAGE_IDS.MISSING,
+            ...(option.message
+              ? { message: option.message }
+              : { messageId: MESSAGE_IDS.MISSING }),
             node,
             data: {
               attr: attrName,
@@ -111,7 +116,9 @@ module.exports = {
           (!attr.value || attr.value.value !== option.value)
         ) {
           context.report({
-            messageId: MESSAGE_IDS.UNEXPECTED,
+            ...(option.message
+              ? { message: option.message }
+              : { messageId: MESSAGE_IDS.UNEXPECTED }),
             node: attr,
             data: {
               attr: attrName,
