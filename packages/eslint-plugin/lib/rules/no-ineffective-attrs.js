@@ -72,6 +72,20 @@ const checkersByTag = {
       message: 'The "download" attribute has no effect without an "href".',
     },
   ],
+  audio: [
+    {
+      attr: "controlslist",
+      when: (node) => !hasAttr(node, "controls"),
+      message: 'The "controlslist" attribute has no effect without "controls".',
+    },
+  ],
+  video: [
+    {
+      attr: "controlslist",
+      when: (node) => !hasAttr(node, "controls"),
+      message: 'The "controlslist" attribute has no effect without "controls".',
+    },
+  ],
 };
 
 /**

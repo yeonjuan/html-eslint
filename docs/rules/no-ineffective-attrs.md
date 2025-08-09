@@ -28,16 +28,8 @@ Examples of **incorrect** code for this rule:
   console.log("hello");
 </script>
 
-<!-- value attribute has no effect on textarea -->
-<textarea value="default">actual content</textarea>
-
 <!-- download needs href to work -->
 <a download="file.pdf">Download</a>
-
-<!-- enctype only applies to POST forms -->
-<form method="get" enctype="multipart/form-data">
-  <input type="text" name="query" />
-</form>
 ```
 
 Examples of **correct** code for this rule:
@@ -52,14 +44,6 @@ Examples of **correct** code for this rule:
 <!-- defer works with external scripts -->
 <script defer src="script.js"></script>
 
-<!-- textarea uses content, not value attribute -->
-<textarea>default content</textarea>
-
 <!-- download works when href is present -->
 <a href="file.pdf" download="file.pdf">Download</a>
-
-<!-- enctype applies to POST forms -->
-<form method="post" enctype="multipart/form-data">
-  <input type="file" name="upload" />
-</form>
 ```
