@@ -14,6 +14,7 @@
 | [no-duplicate-class](rules/no-duplicate-class)               | Disallow duplicate class names                                                                 | 🔧   |
 | [no-duplicate-id](rules/no-duplicate-id)                     | Disallow duplicate id attributes                                                               | ⭐   |
 | [no-duplicate-in-head](rules/no-duplicate-in-head)           | Disallow duplicate tags in `<head>`                                                            |      |
+| [no-ineffective-attrs](rules/no-ineffective-attrs)           | Disallow HTML attributes that have no effect in their context                                  |      |
 | [no-inline-styles](rules/no-inline-styles)                   | Disallow using inline style                                                                    |      |
 | [no-invalid-entity](rules/no-invalid-entity)                 | Disallows the use of invalid HTML entities                                                     |      |
 | [no-nested-interactive](rules/no-nested-interactive)         | Disallows nested interactive elements                                                          |      |

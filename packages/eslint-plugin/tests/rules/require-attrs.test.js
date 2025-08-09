@@ -310,6 +310,44 @@ ruleTester.run("require-attrs", rule, {
         },
       ],
     },
+    // Test custom message option
+    {
+      code: `<img/>`,
+      options: [
+        {
+          tag: "img",
+          attr: "alt",
+          message: "Image must have alt text for accessibility",
+        },
+      ],
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Image must have alt text for accessibility",
+        },
+      ],
+    },
+    {
+      code: `<svg viewBox="wrong"></svg>`,
+      options: [
+        {
+          tag: "svg",
+          attr: "viewBox",
+          value: "0 0 100 100",
+          message: "SVG viewBox must be '0 0 100 100'",
+        },
+      ],
+      output: `<svg viewBox="0 0 100 100"></svg>`,
+      errors: [
+        {
+          line: 1,
+          column: 6,
+          endColumn: 21,
+          message: "SVG viewBox must be '0 0 100 100'",
+        },
+      ],
+    },
   ],
 });
 
@@ -351,6 +389,24 @@ templateRuleTester.run("[template] require-attrs", rule, {
           column: 11,
           endColumn: 24,
           message: "Unexpected 'class' attribute value. 'img' is expected",
+        },
+      ],
+    },
+    // Test custom message option in template
+    {
+      code: "html`<div></div>`",
+      options: [
+        {
+          tag: "div",
+          attr: "role",
+          message: "Div elements should have a role attribute",
+        },
+      ],
+      errors: [
+        {
+          line: 1,
+          column: 6,
+          message: "Div elements should have a role attribute",
         },
       ],
     },
