@@ -5,7 +5,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { hasAttr } = require("./utils/node");
+const { hasAttr, hasTemplate, findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 
 /**
@@ -19,6 +19,17 @@ function getAttrValue(node, attrName) {
   );
   if (!attr || !attr.value) return undefined;
   return attr.value.value;
+}
+
+/**
+ * @param {Tag | ScriptTag} node
+ * @param {string} attrName
+ * @returns {boolean}
+ */
+function isTemplateValueAttr(node, attrName) {
+  const attr = findAttr(node, attrName);
+  if (!attr || !attr.value) return false;
+  return hasTemplate(attr.value);
 }
 
 /**
@@ -46,6 +57,9 @@ const checkersByTag = {
     {
       attr: "accept",
       when: (node) => {
+        if (isTemplateValueAttr(node, "type")) {
+          return false;
+        }
         const type = getAttrValue(node, "type") || "text";
         return type !== "file";
       },

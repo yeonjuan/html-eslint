@@ -245,10 +245,16 @@ templateRuleTester.run("[template] no-ineffective-attrs", rule, {
     {
       code: `html\`<input type="file" accept=".jpg,.png">\``,
     },
+    {
+      code: `html\`<input type="\${type}" accept=".jpg,.png">\``,
+    },
 
     // Valid text input with readonly
     {
       code: `html\`<input type="text" readonly>\``,
+    },
+    {
+      code: `html\`<input type="\${type}" readonly>\``,
     },
 
     // Valid password input with readonly
