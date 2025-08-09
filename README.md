@@ -27,6 +27,11 @@
   <img src="https://img.shields.io/npm/l/@html-eslint/eslint-plugin?color=success" alt="License" />
 </p>
 
+<p align="center">
+If you’d like to support html-eslint, please consider starring it on GitHub or making a donation! <br>
+<a href="https://www.buymeacoffee.com/yeonjuan93p" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 144px !important;" ></a>
+</p>
+
 ## Table of Contents
 
 1. [Getting Started](https://html-eslint.org/docs/getting-started)
