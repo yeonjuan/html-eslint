@@ -18,7 +18,6 @@ const { getRuleUrl } = require("./utils/rule");
 const MESSAGE_IDS = {
   MISSING: "missing",
   UNEXPECTED: "unexpected",
-  CUSTOM: "custom",
 };
 
 /**
