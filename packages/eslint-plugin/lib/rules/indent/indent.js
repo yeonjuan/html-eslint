@@ -1,5 +1,5 @@
 /**
- * @import {AnyNode, Tag, TemplateText, TemplateLiteral, OpenTemplate, CloseTemplate, ScriptTag, StyleTag} from "@html-eslint/types";
+ * @import {AnyNode, Tag, TemplateText, TemplateLiteral, OpenTemplate, CloseTemplate, ScriptTag, StyleTag, Text} from "@html-eslint/types";
  * @import {Line, RuleListener, Context, RuleModule} from "../../types";
  * @import {AST} from "eslint";
  *
@@ -30,6 +30,7 @@ const {
   hasTemplate,
   isScript,
   isStyle,
+  isText,
 } = require("../utils/node");
 const {
   shouldCheckTaggedTemplateExpression,
@@ -112,7 +113,7 @@ module.exports = {
     const { indentType, indentSize, indentChar } = getIndentOptionInfo(context);
 
     /**
-     * @param {Tag | ScriptTag | StyleTag} node
+     * @param {Tag | ScriptTag | StyleTag | Text} node
      * @return {number}
      */
     function getTagIncreasingLevel(node) {
@@ -141,7 +142,7 @@ module.exports = {
       if (isLine(node)) {
         return 1;
       }
-      if (isTag(node) || isScript(node) || isStyle(node)) {
+      if (isTag(node) || isScript(node) || isStyle(node) || isText(node)) {
         return getTagIncreasingLevel(node);
       }
       const type = node.type;
