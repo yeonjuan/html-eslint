@@ -66,6 +66,19 @@ ruleTester.run("sort-attrs", rule, {
       ],
     },
     {
+      code: '<div id="foo" data-test="value" data-custom="attr" aria-label="test" aria-describedby="desc" class="button" onclick="foo"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "data-.*" },
+            { pattern: "aria-.*" },
+            "class",
+          ],
+        },
+      ],
+    },
+    {
       code: `
 <button id="nice"
   <% if current_user.admin? %>
@@ -364,6 +377,40 @@ ruleTester.run("sort-attrs", rule, {
       ],
       errors: [{ messageId: "unsorted" }],
     },
+    // Multiple patterns invalid tests
+    {
+      code: '<div aria-label="test" data-custom="attr" id="foo" ng-click="handler" class="button" data-test="value" aria-describedby="desc" onclick="foo"></div>',
+      output:
+        '<div id="foo" data-custom="attr" data-test="value" aria-label="test" aria-describedby="desc" class="button" ng-click="handler" onclick="foo"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "data-.*" },
+            { pattern: "aria-.*" },
+            "class",
+          ],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<input v-model="value" type="text" data-id="123" aria-required="true" id="input" v-if="show" aria-label="Input" data-name="test"></input>',
+      output:
+        '<input id="input" data-id="123" data-name="test" aria-required="true" aria-label="Input" v-model="value" v-if="show" type="text"></input>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "data-.*" },
+            { pattern: "aria-.*" },
+            { pattern: "v-.*" },
+            "type",
+          ],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
   ],
 });
 
@@ -377,6 +424,19 @@ templateRuleTester.run("[template] sort-attrs", rule, {
       options: [
         {
           priority: ["id", { pattern: "data-.*" }, "style"],
+        },
+      ],
+    },
+    {
+      code: 'html`<div id="foo" data-test="value" data-custom="attr" aria-label="test" aria-describedby="desc" class="button" onclick="foo"></div>`',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "data-.*" },
+            { pattern: "aria-.*" },
+            "class",
+          ],
         },
       ],
     },
