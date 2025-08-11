@@ -40,6 +40,31 @@ ruleTester.run("sort-attrs", rule, {
         },
       },
     },
+    // Pattern tests
+    {
+      code: '<div id="foo" data-test="value" data-custom="attr" style="color:red" onclick="foo"></div>',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }, "style"],
+        },
+      ],
+    },
+    {
+      code: '<input id="foo" aria-label="test" aria-describedby="desc" type="text" value="test" />',
+      options: [
+        {
+          priority: ["id", { pattern: "aria-.*" }, "type"],
+        },
+      ],
+    },
+    {
+      code: '<button id="btn" ng-click="handler" ng-if="visible" class="button" type="submit"></button>',
+      options: [
+        {
+          priority: ["id", { pattern: "ng-.*" }, "class", "type"],
+        },
+      ],
+    },
     {
       code: `
 <button id="nice"
@@ -272,6 +297,73 @@ ruleTester.run("sort-attrs", rule, {
         },
       ],
     },
+    // Pattern invalid tests
+    {
+      code: '<div style="color:red" data-test="value" id="foo" onclick="foo"></div>',
+      output:
+        '<div id="foo" data-test="value" style="color:red" onclick="foo"></div>',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }, "style"],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<div data-custom="attr" data-test="value" id="foo" style="color:red" onclick="foo"></div>',
+      output:
+        '<div id="foo" data-custom="attr" data-test="value" style="color:red" onclick="foo"></div>',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }, "style"],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<input type="text" aria-describedby="desc" id="foo" aria-label="test" value="test" />',
+      output:
+        '<input id="foo" aria-describedby="desc" aria-label="test" type="text" value="test" />',
+      options: [
+        {
+          priority: ["id", { pattern: "aria-.*" }, "type"],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<button class="button" ng-if="visible" id="btn" ng-click="handler" type="submit"></button>',
+      output:
+        '<button id="btn" ng-if="visible" ng-click="handler" class="button" type="submit"></button>',
+      options: [
+        {
+          priority: ["id", { pattern: "ng-.*" }, "class", "type"],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<div v-model="data" v-if="show" id="container" v-on:click="handler" class="wrapper"></div>',
+      output:
+        '<div id="container" v-model="data" v-if="show" v-on:click="handler" class="wrapper"></div>',
+      options: [
+        {
+          priority: ["id", { pattern: "v-.*" }],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<div data-value="2" custom="test" data-id="1" id="foo" data-name="bar"></div>',
+      output:
+        '<div id="foo" data-value="2" data-id="1" data-name="bar" custom="test"></div>',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
   ],
 });
 
@@ -279,6 +371,14 @@ templateRuleTester.run("[template] sort-attrs", rule, {
   valid: [
     {
       code: 'html`<input id="foo" type="checkbox" autocomplete="bar" checked />`',
+    },
+    {
+      code: 'html`<div id="foo" data-test="value" data-custom="attr" style="color:red" onclick="foo"></div>`',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }, "style"],
+        },
+      ],
     },
   ],
   invalid: [
@@ -345,6 +445,17 @@ templateRuleTester.run("[template] sort-attrs", rule, {
           messageId: "unsorted",
         },
       ],
+    },
+    {
+      code: 'html`<div style="color:red" data-test="value" id="foo" onclick="foo"></div>`',
+      output:
+        'html`<div id="foo" data-test="value" style="color:red" onclick="foo"></div>`',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }, "style"],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
     },
   ],
 });

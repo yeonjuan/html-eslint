@@ -3,7 +3,7 @@
  * @import {RuleFixer, RuleModule} from "../types";
  *
  * @typedef {Object} Option
- * @property {string[]} [Option.priority]
+ * @property {Array<string | {pattern: string}>} [Option.priority]
  */
 
 const { hasTemplate } = require("./utils/node");
@@ -37,9 +37,23 @@ module.exports = {
           priority: {
             type: "array",
             items: {
-              type: "string",
-              uniqueItems: true,
+              oneOf: [
+                {
+                  type: "string",
+                },
+                {
+                  type: "object",
+                  properties: {
+                    pattern: {
+                      type: "string",
+                    },
+                  },
+                  required: ["pattern"],
+                  additionalProperties: false,
+                },
+              ],
             },
+            uniqueItems: true,
           },
         },
         additionalProperties: false,
@@ -55,9 +69,42 @@ module.exports = {
       priority: ["id", "type", "class", "style"],
     };
     /**
-     * @type {string[]}
+     * @type {Array<string | {pattern: string}>}
      */
     const priority = option.priority || [];
+
+    /**
+     * @param {string} attrName
+     * @param {string | {pattern: string}} priorityItem
+     * @returns {boolean}
+     */
+    function matchesPriority(attrName, priorityItem) {
+      if (typeof priorityItem === "string") {
+        return attrName === priorityItem;
+      }
+      if (
+        priorityItem &&
+        typeof priorityItem === "object" &&
+        priorityItem.pattern
+      ) {
+        const regex = new RegExp(priorityItem.pattern, "u");
+        return regex.test(attrName);
+      }
+      return false;
+    }
+
+    /**
+     * @param {string} attrName
+     * @returns {number}
+     */
+    function getPriorityIndex(attrName) {
+      for (let i = 0; i < priority.length; i++) {
+        if (matchesPriority(attrName, priority[i])) {
+          return i;
+        }
+      }
+      return -1;
+    }
 
     /**
      * @param {Attribute} attrA
@@ -68,8 +115,8 @@ module.exports = {
       const keyA = attrA.key.value;
       const keyB = attrB.key.value;
 
-      const keyAReservedValue = priority.indexOf(keyA);
-      const keyBReservedValue = priority.indexOf(keyB);
+      const keyAReservedValue = getPriorityIndex(keyA);
+      const keyBReservedValue = getPriorityIndex(keyB);
       if (keyAReservedValue >= 0 && keyBReservedValue >= 0) {
         return keyAReservedValue - keyBReservedValue;
       } else if (keyAReservedValue >= 0) {
