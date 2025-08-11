@@ -44,6 +44,8 @@ This rule has an object option:
 "@html-eslint/attrs-newline": ["error", {
   "closeStyle": "sameline" | "newline", // Default `"newline"`
   "ifAttrsMoreThan": number, // Default `2`
+  "skip": string[], // Default `[]`
+  "inline": string[], // Default `[]`
 }]
 ```
 
@@ -88,3 +90,47 @@ How the open tag's closing bracket `>` should be spaced:
     data-custom
     id="img" />
   ```
+
+#### skip
+
+Tags to skip when applying this rule.
+
+The default is `[]` (empty array).
+
+Examples of **correct** code for `"skip": ["img", "input"]`
+
+<!-- prettier-ignore -->
+```html
+<img class="foo" data-custom id="img" />
+<input type="text" placeholder="Enter text" name="example" />
+<p
+  class="foo"
+  data-custom
+  id="p"
+>
+  Content
+</p>
+```
+
+#### inline
+
+Tags to treat as inline elements and skip when applying this rule. Supports preset values like `$inline` for common inline HTML elements.
+
+The default is `[]` (empty array).
+
+Examples of **correct** code for `"inline": ["$inline"]`
+
+<!-- prettier-ignore -->
+```html
+<span class="foo" data-custom id="span">Inline content</span>
+<a href="#" class="link" target="_blank">Link text</a>
+<div
+  class="foo"
+  data-custom
+  id="div"
+>
+  Block content
+</div>
+```
+
+The `$inline` preset includes common inline HTML elements: `a`, `abbr`, `b`, `bdi`, `bdo`, `br`, `cite`, `code`, `data`, `dfn`, `em`, `i`, `kbd`, `mark`, `q`, `rp`, `rt`, `ruby`, `s`, `samp`, `small`, `span`, `strong`, `sub`, `sup`, `time`, `u`, `var`, `wbr`.
