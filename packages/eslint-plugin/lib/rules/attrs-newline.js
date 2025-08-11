@@ -156,7 +156,7 @@ module.exports = {
     return createVisitors(context, {
       Tag(node) {
         if (shouldSkip(node)) return;
-        
+
         const shouldBeMultiline = node.attributes.length > attrMin;
         if (!shouldBeMultiline) return;
 
