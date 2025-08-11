@@ -489,6 +489,36 @@ class Example {
           },
         },
       },
+      {
+        code: `
+<div>
+text
+</div>
+        `,
+        options: [
+          2,
+          {
+            tagChildrenIndent: {
+              div: 0,
+            },
+          },
+        ],
+      },
+      {
+        code: `
+<div>
+        text
+</div>
+        `,
+        options: [
+          2,
+          {
+            tagChildrenIndent: {
+              div: 4,
+            },
+          },
+        ],
+      },
     ],
     invalid: [
       {
@@ -1170,6 +1200,27 @@ id="bar"
       },
       {
         code: `
+<div>
+  text
+</div>
+        `,
+        output: `
+<div>
+text
+</div>
+        `,
+        errors: wrongIndentErrors(1),
+        options: [
+          2,
+          {
+            tagChildrenIndent: {
+              div: 0,
+            },
+          },
+        ],
+      },
+      {
+        code: `
 <style>
    </style>
 <script>
@@ -1433,6 +1484,23 @@ const code = html\`
         {
           tagChildrenIndent: {
             html: 0,
+          },
+        },
+      ],
+    },
+    {
+      code: `html\`
+  <span>
+    <div>
+    text
+    </div>
+  </span>
+      \``,
+      options: [
+        2,
+        {
+          tagChildrenIndent: {
+            div: 0,
           },
         },
       ],
