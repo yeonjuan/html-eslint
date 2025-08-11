@@ -40,6 +40,44 @@ ruleTester.run("sort-attrs", rule, {
         },
       },
     },
+    // Pattern tests
+    {
+      code: '<div id="foo" data-test="value" data-custom="attr" style="color:red" onclick="foo"></div>',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }, "style"],
+        },
+      ],
+    },
+    {
+      code: '<input id="foo" aria-label="test" aria-describedby="desc" type="text" value="test" />',
+      options: [
+        {
+          priority: ["id", { pattern: "aria-.*" }, "type"],
+        },
+      ],
+    },
+    {
+      code: '<button id="btn" ng-click="handler" ng-if="visible" class="button" type="submit"></button>',
+      options: [
+        {
+          priority: ["id", { pattern: "ng-.*" }, "class", "type"],
+        },
+      ],
+    },
+    {
+      code: '<div id="foo" data-test="value" data-custom="attr" aria-label="test" aria-describedby="desc" class="button" onclick="foo"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "data-.*" },
+            { pattern: "aria-.*" },
+            "class",
+          ],
+        },
+      ],
+    },
     {
       code: `
 <button id="nice"
@@ -272,6 +310,107 @@ ruleTester.run("sort-attrs", rule, {
         },
       ],
     },
+    // Pattern invalid tests
+    {
+      code: '<div style="color:red" data-test="value" id="foo" onclick="foo"></div>',
+      output:
+        '<div id="foo" data-test="value" style="color:red" onclick="foo"></div>',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }, "style"],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<div data-custom="attr" data-test="value" id="foo" style="color:red" onclick="foo"></div>',
+      output:
+        '<div id="foo" data-custom="attr" data-test="value" style="color:red" onclick="foo"></div>',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }, "style"],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<input type="text" aria-describedby="desc" id="foo" aria-label="test" value="test" />',
+      output:
+        '<input id="foo" aria-describedby="desc" aria-label="test" type="text" value="test" />',
+      options: [
+        {
+          priority: ["id", { pattern: "aria-.*" }, "type"],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<button class="button" ng-if="visible" id="btn" ng-click="handler" type="submit"></button>',
+      output:
+        '<button id="btn" ng-if="visible" ng-click="handler" class="button" type="submit"></button>',
+      options: [
+        {
+          priority: ["id", { pattern: "ng-.*" }, "class", "type"],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<div v-model="data" v-if="show" id="container" v-on:click="handler" class="wrapper"></div>',
+      output:
+        '<div id="container" v-model="data" v-if="show" v-on:click="handler" class="wrapper"></div>',
+      options: [
+        {
+          priority: ["id", { pattern: "v-.*" }],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<div data-value="2" custom="test" data-id="1" id="foo" data-name="bar"></div>',
+      output:
+        '<div id="foo" data-value="2" data-id="1" data-name="bar" custom="test"></div>',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    // Multiple patterns invalid tests
+    {
+      code: '<div aria-label="test" data-custom="attr" id="foo" ng-click="handler" class="button" data-test="value" aria-describedby="desc" onclick="foo"></div>',
+      output:
+        '<div id="foo" data-custom="attr" data-test="value" aria-label="test" aria-describedby="desc" class="button" ng-click="handler" onclick="foo"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "data-.*" },
+            { pattern: "aria-.*" },
+            "class",
+          ],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
+    {
+      code: '<input v-model="value" type="text" data-id="123" aria-required="true" id="input" v-if="show" aria-label="Input" data-name="test"></input>',
+      output:
+        '<input id="input" data-id="123" data-name="test" aria-required="true" aria-label="Input" v-model="value" v-if="show" type="text"></input>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "data-.*" },
+            { pattern: "aria-.*" },
+            { pattern: "v-.*" },
+            "type",
+          ],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
+    },
   ],
 });
 
@@ -279,6 +418,27 @@ templateRuleTester.run("[template] sort-attrs", rule, {
   valid: [
     {
       code: 'html`<input id="foo" type="checkbox" autocomplete="bar" checked />`',
+    },
+    {
+      code: 'html`<div id="foo" data-test="value" data-custom="attr" style="color:red" onclick="foo"></div>`',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }, "style"],
+        },
+      ],
+    },
+    {
+      code: 'html`<div id="foo" data-test="value" data-custom="attr" aria-label="test" aria-describedby="desc" class="button" onclick="foo"></div>`',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "data-.*" },
+            { pattern: "aria-.*" },
+            "class",
+          ],
+        },
+      ],
     },
   ],
   invalid: [
@@ -345,6 +505,17 @@ templateRuleTester.run("[template] sort-attrs", rule, {
           messageId: "unsorted",
         },
       ],
+    },
+    {
+      code: 'html`<div style="color:red" data-test="value" id="foo" onclick="foo"></div>`',
+      output:
+        'html`<div id="foo" data-test="value" style="color:red" onclick="foo"></div>`',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*" }, "style"],
+        },
+      ],
+      errors: [{ messageId: "unsorted" }],
     },
   ],
 });

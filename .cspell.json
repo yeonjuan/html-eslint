@@ -62,6 +62,7 @@
     "cout",
     "nodownload",
     "nofullscreen",
-    "controlslist"
+    "controlslist",
+    "describedby"
   ]
 }
