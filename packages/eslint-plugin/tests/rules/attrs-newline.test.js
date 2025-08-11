@@ -234,6 +234,58 @@ ruleTester.run("attrs-newline", rule, {
         },
       ],
     },
+    // skip option tests
+    {
+      code: `<pre class="code" data-lang="js">content</pre>`,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 0,
+          skip: ["pre"],
+        },
+      ],
+    },
+    {
+      code: `<code class="highlight" data-theme="dark">snippet</code>`,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 0,
+          skip: ["code"],
+        },
+      ],
+    },
+    // inline option tests
+    {
+      code: `<span class="highlight" data-role="marker">text</span>`,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 0,
+          inline: ["span"],
+        },
+      ],
+    },
+    {
+      code: `<em class="emphasis" title="important">text</em>`,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 0,
+          inline: ["$inline"],
+        },
+      ],
+    },
+    {
+      code: `<strong class="bold" id="title">heading</strong>`,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 0,
+          inline: ["$inline"],
+        },
+      ],
+    },
   ],
 
   invalid: [
@@ -294,6 +346,21 @@ id="p"
 >
         <img />
       </p>`,
+      errors: [{ messageId: "newlineMissing" }],
+    },
+    // Test case that would normally trigger error but skipped tags don't
+    {
+      code: `<div class="container" id="main">content</div>`,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 0,
+        },
+      ],
+      output: `<div
+class="container"
+id="main"
+>content</div>`,
       errors: [{ messageId: "newlineMissing" }],
     },
   ],

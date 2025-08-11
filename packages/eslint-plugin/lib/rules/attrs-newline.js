@@ -8,11 +8,14 @@
  * @typedef {Object} Option
  * @property {"sameline" | "newline"} [option.closeStyle]
  * @property {number} [options.ifAttrsMoreThan]
+ * @property {string[]} [Option.skip]
+ * @property {string[]} [Option.inline]
  */
 
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
+const { isTag } = require("./utils/node");
 
 /**
  * @type {MessageId}
@@ -20,6 +23,46 @@ const { getRuleUrl } = require("./utils/rule");
 const MESSAGE_ID = {
   CLOSE_STYLE_WRONG: "closeStyleWrong",
   NEWLINE_MISSING: "newlineMissing",
+};
+
+/**
+ * @type {Object.<string, Array<string>>}
+ */
+const PRESETS = {
+  // From https://developer.mozilla.org/en-US/docs/Web/HTML/Element#inline_text_semantics
+  $inline: `
+a
+abbr
+b
+bdi
+bdo
+br
+cite
+code
+data
+dfn
+em
+i
+kbd
+mark
+q
+rp
+rt
+ruby
+s
+samp
+small
+span
+strong
+sub
+sup
+time
+u
+var
+wbr
+  `
+    .trim()
+    .split(`\n`),
 };
 
 /**
@@ -47,6 +90,18 @@ module.exports = {
           ifAttrsMoreThan: {
             type: "integer",
           },
+          inline: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+          skip: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
         },
         additionalProperties: false,
       },
@@ -63,9 +118,45 @@ module.exports = {
     const attrMin =
       typeof options.ifAttrsMoreThan !== "number" ? 2 : options.ifAttrsMoreThan;
     const closeStyle = options.closeStyle || "newline";
+    const skipTags = options.skip || [];
+    const inlineTags = optionsOrPresets(options.inline || []);
+
+    /**
+     * @param {Array<string>} options
+     */
+    function optionsOrPresets(options) {
+      const result = [];
+      for (const option of options) {
+        if (option in PRESETS) {
+          const preset = PRESETS[option];
+          result.push(...preset);
+        } else {
+          result.push(option);
+        }
+      }
+      return result;
+    }
+
+    /**
+     * @param {any} node
+     * @returns {boolean}
+     */
+    function shouldSkip(node) {
+      if (isTag(node)) {
+        if (skipTags.includes(node.name.toLowerCase())) {
+          return true;
+        }
+        if (inlineTags.includes(node.name.toLowerCase())) {
+          return true;
+        }
+      }
+      return false;
+    }
 
     return createVisitors(context, {
       Tag(node) {
+        if (shouldSkip(node)) return;
+        
         const shouldBeMultiline = node.attributes.length > attrMin;
         if (!shouldBeMultiline) return;
 
