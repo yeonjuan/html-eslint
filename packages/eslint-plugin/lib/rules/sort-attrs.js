@@ -69,13 +69,21 @@ module.exports = {
       priority: ["id", "type", "class", "style"],
     };
     /**
-     * @type {Array<string | {pattern: string}>}
+     * @type {Array<string | {pattern: string, regex: RegExp}>}
      */
-    const priority = option.priority || [];
+    const priority = (option.priority || []).map((item) => {
+      if (item && typeof item === "object" && "pattern" in item) {
+        return {
+          ...item,
+          regex: new RegExp(item.pattern, "u"),
+        };
+      }
+      return item;
+    });
 
     /**
      * @param {string} attrName
-     * @param {string | {pattern: string}} priorityItem
+     * @param {string | {pattern: string, regex: RegExp}} priorityItem
      * @returns {boolean}
      */
     function matchesPriority(attrName, priorityItem) {
@@ -85,10 +93,9 @@ module.exports = {
       if (
         priorityItem &&
         typeof priorityItem === "object" &&
-        priorityItem.pattern
+        priorityItem.regex
       ) {
-        const regex = new RegExp(priorityItem.pattern, "u");
-        return regex.test(attrName);
+        return priorityItem.regex.test(attrName);
       }
       return false;
     }
