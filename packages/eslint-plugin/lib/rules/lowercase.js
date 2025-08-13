@@ -1,5 +1,10 @@
 /**
- * @import {Tag, StyleTag, ScriptTag} from "@html-eslint/types";
+ * @import {
+ *   Tag,
+ *   StyleTag,
+ *   ScriptTag,
+ *   Doctype,
+ * } from "@html-eslint/types";
  * @import {RuleModule} from "../types";
  */
 
@@ -128,6 +133,48 @@ module.exports = {
       }
     }
 
+    /**
+     * @param {Doctype} doctype
+     */
+    function checkDoctype(doctype) {
+      if (doctype.open.value !== doctype.open.value.toLowerCase()) {
+        context.report({
+          node: doctype.open,
+          messageId: MESSAGE_IDS.UNEXPECTED,
+          data: {
+            name: doctype.open.value.slice(1),
+          },
+          fix(fixer) {
+            return fixer.replaceTextRange(doctype.open.range, "<!doctype");
+          },
+        });
+      }
+      if (doctype.attributes && doctype.attributes.length) {
+        doctype.attributes.forEach((attribute) => {
+          if (
+            attribute.value &&
+            attribute.value.value !== attribute.value.value.toLowerCase()
+          ) {
+            context.report({
+              node: attribute.value,
+              messageId: MESSAGE_IDS.UNEXPECTED,
+              data: {
+                name: attribute.value.value,
+              },
+              fix(fixer) {
+                return fixer.replaceText(
+                  // @ts-ignore
+                  attribute.value,
+                  // @ts-ignore
+                  attribute.value.value.toLowerCase()
+                );
+              },
+            });
+          }
+        });
+      }
+    }
+
     return createVisitors(context, {
       Tag(node) {
         if (node.name.toLocaleLowerCase() === "svg") {
@@ -142,6 +189,7 @@ module.exports = {
       },
       StyleTag: check,
       ScriptTag: check,
+      Doctype: checkDoctype,
     });
   },
 };
