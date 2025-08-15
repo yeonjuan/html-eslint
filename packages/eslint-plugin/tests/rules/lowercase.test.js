@@ -53,6 +53,9 @@ ruleTester.run("lowercase", rule, {
 `,
     },
     {
+      code: `<!doctype html>`,
+    },
+    {
       code: "<div {{ID}}></div>",
       languageOptions: {
         parserOptions: {
@@ -124,6 +127,24 @@ ruleTester.run("lowercase", rule, {
       errors: [
         {
           message: "'SVG' is not in lowercase.",
+        },
+      ],
+    },
+    {
+      code: `<!DOCTYPE html>`,
+      output: `<!doctype html>`,
+      errors: [
+        {
+          message: "'!DOCTYPE' is not in lowercase.",
+        },
+      ],
+    },
+    {
+      code: `<!doctype HTML>`,
+      output: `<!doctype html>`,
+      errors: [
+        {
+          message: "'HTML' is not in lowercase.",
         },
       ],
     },
