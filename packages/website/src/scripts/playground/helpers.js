@@ -44,7 +44,7 @@ export function escapeHTML(str) {
     .replace(/>/g, "&gt;");
 }
 
-export const INITIAL_HTML = html`<!DOCTYPE html>
+export const INITIAL_HTML = html`<!doctype html>
   <html>
     <head>
     </head>
