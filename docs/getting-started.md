@@ -5,10 +5,8 @@
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Configuration](#configuration)
-  - [Flat config](#flat-config)
-  - [eslintrc config (.eslintrc.\*)](#eslintrc-config-eslintrc)
-  - [Using ESLint Language](#using-eslint-language)
 - [Lint HTML in JavaScript Template Literal](#lint-html-in-javascript-template-literals)
+- [Legacy Configuration](#legacy-configuration)
 - [Editor Configuration](#editor-configuration)
 
 ## Prerequisites
