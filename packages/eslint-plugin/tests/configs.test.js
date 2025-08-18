@@ -5,7 +5,7 @@ const exportedRules = require("../lib/rules");
 const RULES_DIR = path.resolve(__dirname, "../lib/rules");
 const RULE_TESTS_DIR = path.resolve(__dirname, "./rules");
 const RULE_DOCS_DIR = path.resolve(__dirname, "../../../docs/rules");
-const RECOMMENDED_CONFIG = require("../lib/configs/recommended");
+const { recommendedLegacyRules } = require("../lib/configs/recommended");
 
 describe("rules", () => {
   const exportedRuleNames = Object.keys(exportedRules);
@@ -53,7 +53,7 @@ describe("configs", () => {
         return rule.meta && rule.meta.docs && rule.meta.docs.recommended;
       })
       .map(([name]) => `@html-eslint/${name}`);
-    expect(Object.keys(RECOMMENDED_CONFIG.rules)).toEqual(
+    expect(Object.keys(recommendedLegacyRules)).toEqual(
       expect.arrayContaining(recommendedRules)
     );
   });
