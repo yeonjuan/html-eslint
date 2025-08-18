@@ -84,7 +84,7 @@ export default defineConfig([
 ]);
 ```
 
-## Legacy Configuratuion
+## Legacy Configuration
 
 If you are using ESLint version 8 or below, you can configure it as follows.
 
