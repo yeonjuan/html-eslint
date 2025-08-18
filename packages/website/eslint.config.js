@@ -49,7 +49,7 @@ module.exports = [{
         }],
    
     },
-}, ...compat.extends("plugin:@html-eslint/recommended").map(config => ({
+}, ...compat.extends("plugin:@html-eslint/recommended-legacy").map(config => ({
     ...config,
     files: ["**/*.html"],
 })), {

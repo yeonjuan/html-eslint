@@ -32,128 +32,63 @@ yarn add -D eslint @html-eslint/parser @html-eslint/eslint-plugin
 
 ## Configuration
 
-### Flat config
-
-If you are using the ESLint [Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), see examples below.
-
-#### Minimal configuration
+Update your configuration file:
 
 ```js,eslint.config.js
+import { defineConfig } from "eslint/config";
 import html from "@html-eslint/eslint-plugin";
 
-export default [
-  // your own configurations.
-  {
-    // recommended configuration included in the plugin
-    ...html.configs["flat/recommended"],
-    files: ["**/*.html"],
-  },
-];
+export default defineConfig([
+    // lint html files
+    {
+        files: ["**/*.html"],
+        plugins: {
+            html,
+        },
+        // When using the recommended rules
+        extends: ["html/recommended"],
+        language: "html/html",
+        rules: {
+            "html/no-duplicate-class": "error",
+        }
+    }
+]);
 ```
 
-or if using `require(..);`
+## Lint HTML code inside JavaScript Template Literals
 
-```js,eslint.config.js
-const html = require("@html-eslint/eslint-plugin");
+In addition to standalone HTML files, html-eslint also supports linting HTML inside JavaScript and TypeScript template literals, such as:
 
-module.exports = [
-  // your own configurations.
-  {
-    // recommended configuration included in the plugin
-    ... html.configs["flat/recommended"],
-    files: ["**/*.html"],
-  },
-];
+```js
+html`<div class="box">${content}</div>`;
+// or
+const code = /* html */ `<img class="image" src=${src}/>`;
 ```
 
-#### Recommended rules with some customization
+To enable this, you don’t need to set a language. Just apply html-eslint rules to your JavaScript or TypeScript files, and the plugin will detect and lint HTML within template literals.
 
 ```js,eslint.config.js
+import { defineConfig } from "eslint/config";
 import html from "@html-eslint/eslint-plugin";
 
-export default [
-  // your own configurations.
-  {
-    // recommended configuration included in the plugin
-    ...html.configs["flat/recommended"],
-    files: ["**/*.html"],
-    rules: {
-      ...html.configs["flat/recommended"].rules, // Must be defined. If not, all recommended rules will be lost
-      "@html-eslint/indent": "error",
+export default defineConfig([
+    {
+        files: ["**/*.js", "**/*.ts"],
+        plugins: {
+            html,
+        },
+        rules: {
+            "html/require-img-alt": "error",
+        },
     },
-  },
-];
+]);
 ```
 
-or if using `require(..);`
+## Legacy Configuratuion
 
-```js,eslint.config.js
-const html = require("@html-eslint/eslint-plugin");
+If you are using ESLint version 8 or below, you can configure it as follows.
 
-module.exports = [
-  // your own configurations.
-  {
-    // recommended configuration included in the plugin
-    ...html.configs["flat/recommended"],
-    files: ["**/*.html"],
-    rules: {
-      ...html.configs["flat/recommended"].rules, // Must be defined. If not, all recommended rules will be lost
-      "@html-eslint/indent": "error",
-    },
-  },
-];
-```
-
-#### Explicit plugin and parser configuration
-
-```js,eslint.config.js
-import html from "@html-eslint/eslint-plugin";
-import htmlParser from "@html-eslint/parser";
-
-export default [
-  // your own configurations.
-  {
-    // recommended configuration included in the plugin
-    ...html.configs["flat/recommended"],
-    files: ["**/*.html"],
-    plugins: {
-      "@html-eslint": html,
-    },
-    languageOptions: {
-      parser: htmlParser,
-    },
-  },
-];
-```
-
-or if using `require(..);`
-
-```js,eslint.config.js
-const html = require("@html-eslint/eslint-plugin");
-const htmlParser = require("@html-eslint/parser");
-
-module.exports = [
-  // your own configurations.
-  {
-    // recommended configuration included in the plugin
-    ...html.configs["flat/recommended"],
-    files: ["**/*.html"],
-    plugins: {
-      "@html-eslint": html,
-    },
-    languageOptions: {
-      parser: htmlParser,
-    },
-  },
-];
-```
-
-### eslintrc config (.eslintrc.\*)
-
-Populate it with the following on your `.eslintrc.js`. If it does not exist create a `.eslintrc.js` config file in the root of your project.
-We can apply [HTML-ESLint plugin rules](rules) to only HTML files(`*.html`) by using `overrides` in `.eslintrc.js`. (see [ESLint Configuration](https://eslint.org/docs/user-guide/configuring#configuration-based-on-glob-patterns))
-
-```js,.eslintrc.js
+```js,eslintrc.js
 module.exports = {
   //...
   plugins: ["@html-eslint"],
@@ -161,85 +96,10 @@ module.exports = {
     {
       files: ["*.html"],
       parser: "@html-eslint/parser",
-      extends: ["plugin:@html-eslint/recommended"],
+      extends: ["plugin:@html-eslint/recommended-legacy"],
     },
   ],
 };
-```
-
-### Using ESLint Language
-
-Starting from ESLint v9.7.0, you can use [Language](https://eslint.org/docs/latest/extend/languages).
-
-```js,eslint.config.js
-const html = require("@html-eslint/eslint-plugin");
-
-module.exports = [
-  // your own configurations.
-  {
-    files: ["**/*.html"],
-    plugins: {
-      html,
-    },
-    language: "html/html",
-    rules: {
-      // rules
-    }
-  }
-];
-```
-
-## Lint HTML in JavaScript Template Literals
-
-This plugin allows you to lint not only HTML files but also HTML written in [JavaScript Template Literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
-You can set the [@html-eslint rules](./rules.md) in your settings to lint JavaScript code without any additional configuration.
-
-```js,eslint.config.js
-import eslintHTML from "@html-eslint/eslint-plugin";
-export default [
-  // You can use the @html-eslint rules in your ESLint configuration for JS!
-  // This is used to lint HTML written inside Template Literal.
-  {
-    plugins: {
-      "@html-eslint": eslintHTML
-    },
-    rules: {
-      // Specifies the @html-eslint rules to apply to Template Literal.
-      "@html-eslint/no-inline-styles": 1,
-      "@html-eslint/indent": 1,
-    }
-  }
-];
-```
-
-Not all template literals are recognized as HTML.
-There are two ways to make the plugin recognize them as HTML.
-
-```js
-// 1. Tagged Templates with a function named `html`
-html` <div style="${style}"></div>`;
-
-// 2. Template Literal after a html comment (/* html */)
-const code = /* html */ `<div style="${style}"></div>`;
-```
-
-If you want to use keywords other than `html` for linting, you can configure the `settings` option.
-
-```js
- {
-    plugins: {
-      "@html-eslint": eslintHTML
-    },
-    settings: {
-        html: {
-          templateLiterals: {
-               // default options
-               tags: ["^html$"],
-               comments: ["^\\s*html\\s*$"],
-          }
-        }
-    },
-}
 ```
 
 ## Editor Configuration
