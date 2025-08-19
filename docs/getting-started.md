@@ -104,7 +104,7 @@ module.exports = {
 
 ### VSCode
 
-To enable [vscode-eslint](https://github.com/microsoft/vscode-eslint) support support in VSCode, add the following to your VSCode settings.
+To enable [vscode-eslint](https://github.com/microsoft/vscode-eslint) support in VSCode, add the following to your VSCode settings.
 
 ```json,.vscode/settings.json
 {

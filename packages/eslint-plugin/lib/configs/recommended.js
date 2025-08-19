@@ -26,11 +26,11 @@ const recommendedRules = {
 
 const recommendedLegacyRules = Object.entries(recommendedRules).reduce(
   (acc, [key, value]) => {
-    // @ts-ignore
     acc[key.replace("html/", "@html-eslint/")] = value;
     return acc;
   },
-  {}
+  /** @type {Record<string, typeof recommendedRules[keyof typeof recommendedRules]>} */
+  ({})
 );
 
 module.exports = {
