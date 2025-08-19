@@ -5,7 +5,7 @@
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Lint HTML in JavaScript Template Literal](#lint-html-in-javascript-template-literals)
+- [Lint HTML in JavaScript Template Literals](#lint-html-in-javascript-template-literals)
 - [Legacy Configuration](#legacy-configuration)
 - [Editor Configuration](#editor-configuration)
 
@@ -84,7 +84,7 @@ export default defineConfig([
 
 ## Legacy Configuration
 
-If you are using ESLint version 8 or below, you can configure it as follows.
+If you are using ESLint version v8 or earlier, you can configure it as follows.
 
 ```js,eslintrc.js
 module.exports = {
@@ -104,7 +104,7 @@ module.exports = {
 
 ### VSCode
 
-To enable [vscode-eslint](https://github.com/microsoft/vscode-eslint) support, add the following to your VSCode settings.
+To enable [vscode-eslint](https://github.com/microsoft/vscode-eslint) support support in VSCode, add the following to your VSCode settings.
 
 ```json,.vscode/settings.json
 {
