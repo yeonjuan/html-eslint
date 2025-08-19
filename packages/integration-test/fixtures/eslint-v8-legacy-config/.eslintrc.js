@@ -31,6 +31,7 @@ module.exports = {
                 frontmatter: true,
             },
             plugins: ["@html-eslint"],
+            extends: ["plugin:@html-eslint/recommended-legacy"],
             rules: {
                 "@html-eslint/indent": ["error", 2],
             }

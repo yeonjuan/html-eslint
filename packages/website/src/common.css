@@ -64,13 +64,13 @@
     letter-spacing: -0.5%;
   }
   .code1 {
-    font-family: "DM Mono", monospace;
+    font-family:"Roboto Mono", monospace;
     font-weight: 500;
     font-size: 15px;
     line-height: 24px;
   }
   .code2 {
-    font-family: "DM Mono", monospace;
+    font-family: "Roboto Mono", monospace;
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
@@ -145,6 +145,6 @@
 
 @layer base {
   html {
-    font-family: "Inter", sans-serif;
+    font-family: "Open Sans", sans-serif;
   }
 }

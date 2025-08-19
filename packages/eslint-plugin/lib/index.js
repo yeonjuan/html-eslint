@@ -1,6 +1,8 @@
 const rules = require("./rules");
-const recommended = require("./configs/recommended");
-const parser = require("@html-eslint/parser");
+const {
+  recommendedRules,
+  recommendedLegacyRules,
+} = require("./configs/recommended");
 const { HTMLLanguage } = require("./languages/html-language");
 const { name, version } = require("../package.json");
 
@@ -16,27 +18,24 @@ const plugin = {
     name,
     version,
   },
-  configs: {
-    recommended,
-
-    "flat/recommended": {
-      plugins: {
-        /** @type {ESLint.Plugin} */
-        get "@html-eslint"() {
-          return plugin;
-        },
-      },
-
-      languageOptions: {
-        parser,
-      },
-      rules: recommended.rules,
-    },
-  },
   languages: {
     html: new HTMLLanguage(),
   },
   rules,
+  configs: {
+    recommended: {
+      rules: recommendedRules,
+      plugins: {},
+    },
+    ["recommended-legacy"]: {
+      rules: recommendedLegacyRules,
+    },
+  },
 };
+
+{
+  // @ts-ignore
+  plugin.configs.recommended.plugins.html = plugin;
+}
 
 module.exports = plugin;

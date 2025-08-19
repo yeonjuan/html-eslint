@@ -1,29 +1,39 @@
-/** @satisfies {import('eslint').Linter.FlatConfig} */
-const recommended = {
-  rules: {
-    "@html-eslint/require-lang": "error",
-    "@html-eslint/require-img-alt": "error",
-    "@html-eslint/require-doctype": "error",
-    "@html-eslint/require-title": "error",
-    "@html-eslint/no-multiple-h1": "error",
-    "@html-eslint/no-extra-spacing-attrs": "error",
-    "@html-eslint/attrs-newline": "error",
-    "@html-eslint/element-newline": [
-      "error",
-      {
-        inline: [`$inline`],
-      },
-    ],
-    "@html-eslint/no-duplicate-id": "error",
-    "@html-eslint/indent": "error",
-    "@html-eslint/require-li-container": "error",
-    "@html-eslint/quotes": "error",
-    "@html-eslint/no-obsolete-tags": "error",
-    "@html-eslint/require-closing-tags": "error",
-    "@html-eslint/no-duplicate-attrs": "error",
-    "@html-eslint/use-baseline": "error",
-    "@html-eslint/no-duplicate-in-head": "error",
-  },
+/** @satisfies {import('eslint').Linter.Config['rules']} */
+const recommendedRules = {
+  "html/require-lang": "error",
+  "html/require-img-alt": "error",
+  "html/require-doctype": "error",
+  "html/require-title": "error",
+  "html/no-multiple-h1": "error",
+  "html/no-extra-spacing-attrs": "error",
+  "html/attrs-newline": "error",
+  "html/element-newline": [
+    "error",
+    {
+      inline: [`$inline`],
+    },
+  ],
+  "html/no-duplicate-id": "error",
+  "html/indent": "error",
+  "html/require-li-container": "error",
+  "html/quotes": "error",
+  "html/no-obsolete-tags": "error",
+  "html/require-closing-tags": "error",
+  "html/no-duplicate-attrs": "error",
+  "html/use-baseline": "error",
+  "html/no-duplicate-in-head": "error",
 };
 
-module.exports = recommended;
+const recommendedLegacyRules = Object.entries(recommendedRules).reduce(
+  (acc, [key, value]) => {
+    acc[key.replace("html/", "@html-eslint/")] = value;
+    return acc;
+  },
+  /** @type {Record<string, typeof recommendedRules[keyof typeof recommendedRules]>} */
+  ({})
+);
+
+module.exports = {
+  recommendedRules,
+  recommendedLegacyRules,
+};
