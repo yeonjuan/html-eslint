@@ -24,7 +24,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description: "Enforce attributes alphabetical sorting",
+      description: "Enforce priority and alphabetical sorting of attributes",
       category: RULE_CATEGORY.STYLE,
       recommended: false,
       url: getRuleUrl("sort-attrs"),
@@ -60,7 +60,7 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.UNSORTED]: "Attributes should be sorted alphabetically",
+      [MESSAGE_IDS.UNSORTED]: "Attributes should be sorted by priority and alphabetically",
     },
   },
   create(context) {
