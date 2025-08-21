@@ -1,6 +1,6 @@
 # sort-attrs
 
-This rule enforces alphabetical sorting of attributes.
+This rule enforces priority-based and alphabetical sorting of attributes.
 
 ## How to use
 
