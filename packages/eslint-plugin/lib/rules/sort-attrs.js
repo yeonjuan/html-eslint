@@ -60,7 +60,8 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.UNSORTED]: "Attributes should be sorted by priority and alphabetically",
+      [MESSAGE_IDS.UNSORTED]:
+        "Attributes should be sorted by priority and alphabetically",
     },
   },
   create(context) {
