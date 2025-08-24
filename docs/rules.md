@@ -77,4 +77,4 @@
 | [no-multiple-empty-lines](rules/no-multiple-empty-lines) | Disallow multiple empty lines                                     | 🔧   |
 | [no-trailing-spaces](rules/no-trailing-spaces)           | Disallow trailing whitespace at the end of lines                  | 🔧   |
 | [quotes](rules/quotes)                                   | Enforce consistent quoting attributes with double(") or single(') | ⭐🔧 |
-| [sort-attrs](rules/sort-attrs)                           | Enforce attributes alphabetical sorting                           | 🔧   |
+| [sort-attrs](rules/sort-attrs)                           | Enforce priority and alphabetical sorting of attributes           | 🔧   |
