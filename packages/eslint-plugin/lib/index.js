@@ -30,9 +30,6 @@ const plugin = {
     ["recommended-legacy"]: {
       rules: recommendedLegacyRules,
     },
-    /**
-     * @deprecated
-     */
     "flat/recommended": {
       plugins: {
         /** @type {ESLint.Plugin} */
