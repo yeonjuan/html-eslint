@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/eslint-plugin",
-  "version": "0.46.0",
+  "version": "0.46.1",
   "type": "commonjs",
   "description": "ESLint plugin for HTML",
   "author": "yeonjuan",
