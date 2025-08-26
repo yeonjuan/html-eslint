@@ -5,7 +5,7 @@ const {
 } = require("./configs/recommended");
 const { HTMLLanguage } = require("./languages/html-language");
 const { name, version } = require("../package.json");
-
+const parser = require("@html-eslint/parser");
 /**
  * @import { ESLint } from "eslint";
  */
@@ -28,6 +28,18 @@ const plugin = {
       plugins: {},
     },
     ["recommended-legacy"]: {
+      rules: recommendedLegacyRules,
+    },
+    "flat/recommended": {
+      plugins: {
+        /** @type {ESLint.Plugin} */
+        get "@html-eslint"() {
+          return plugin;
+        },
+      },
+      languageOptions: {
+        parser,
+      },
       rules: recommendedLegacyRules,
     },
   },
