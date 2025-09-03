@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/template-syntax-parser",
-  "version": "0.46.0",
+  "version": "0.46.2",
   "description": "Parse template syntax",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",

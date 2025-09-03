@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/parser",
-  "version": "0.46.0",
+  "version": "0.46.2",
   "description": "Parser for @html-eslint/eslint-plugin",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
@@ -27,7 +27,7 @@
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "dependencies": {
-    "@html-eslint/template-syntax-parser": "^0.46.0",
+    "@html-eslint/template-syntax-parser": "^0.46.2",
     "@html-eslint/types": "^0.46.0",
     "es-html-parser": "0.3.0"
   },
