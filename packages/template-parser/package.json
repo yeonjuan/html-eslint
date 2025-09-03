@@ -28,10 +28,10 @@
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "dependencies": {
+    "@html-eslint/types": "^0.46.0",
     "es-html-parser": "0.3.0"
   },
   "devDependencies": {
-    "@html-eslint/types": "^0.46.0",
     "@types/espree": "^10.1.0",
     "@types/estree": "^0.0.47",
     "eslint": "^9.19.0",

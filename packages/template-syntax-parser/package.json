@@ -27,8 +27,10 @@
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
+  "dependencies": {
+    "@html-eslint/types": "^0.46.0"
+  },
   "devDependencies": {
-    "@html-eslint/types": "^0.46.0",
     "eslint": "^9.19.0",
     "globals": "^15.12.0"
   }

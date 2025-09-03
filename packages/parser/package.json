@@ -28,10 +28,10 @@
   },
   "dependencies": {
     "@html-eslint/template-syntax-parser": "^0.46.0",
+    "@html-eslint/types": "^0.46.0",
     "es-html-parser": "0.3.0"
   },
   "devDependencies": {
-    "@html-eslint/types": "^0.46.0",
     "typescript": "^5.8.3"
   }
 }
