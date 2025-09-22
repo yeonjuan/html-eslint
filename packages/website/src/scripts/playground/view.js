@@ -24,6 +24,10 @@ const HTML_ESLINT_RULES = Object.keys(rules).map(rule => `@html-eslint/${rule}`)
 const HTML_REG = /"@html-eslint\//;
 const RULES_REG = /"rules"[\s\S]*?"@html-eslint\//;
 
+// ESLint severity values for autocomplete
+const ESLINT_SEVERITIES = ["error", "warn", "off"];
+const RULES_VALUE_REG = /"@html-eslint\/[^"]*":\s*/;
+
 export class View {
   constructor() {
     /**
@@ -84,22 +88,38 @@ export class View {
     const textBefore = line.substring(0, cur.ch);
 
     // Check if we're in a context where rule names should be suggested
-    const ruleContext = HTML_REG.test(textBefore) ||
-                       RULES_REG.test(cm.getValue().substring(0, cm.indexFromPos(cur)));
-    if (!ruleContext) {
+    const ruleNameContext = HTML_REG.test(textBefore) ||
+                           RULES_REG.test(cm.getValue().substring(0, cm.indexFromPos(cur)));
+
+    const ruleValueContext = RULES_VALUE_REG.test(textBefore);
+
+    if (!ruleNameContext && !ruleValueContext) {
       return null;
     }
 
-
-    // Extract the current word being typed
+    let suggestions = [];
     const word = token.string.replace(/^["']|["']$/g, '');
-    // Filter rules based on what's being typed
-    const suggestions = HTML_ESLINT_RULES
-      .filter(rule => rule.includes(word.toLowerCase()))
-      .map(rule => ({
-        text: `"${rule}"`,
-        displayText: rule
-      }));
+
+    if (ruleValueContext) {
+      // Provide ESLint severity suggestions
+      suggestions = ESLINT_SEVERITIES
+        .filter(severity => {
+          const severityStr = severity.toString();
+          return severityStr.toLowerCase().includes(word.toLowerCase());
+        })
+        .map(severity => ({
+          text: typeof severity === 'string' ? `"${severity}"` : severity.toString(),
+          displayText: severity.toString()
+        }));
+    } else if (ruleNameContext) {
+      // Provide rule name suggestions
+      suggestions = HTML_ESLINT_RULES
+        .filter(rule => rule.includes(word.toLowerCase()))
+        .map(rule => ({
+          text: `"${rule}"`,
+          displayText: rule
+        }));
+    }
 
     if (suggestions.length === 0) {
       return null;
