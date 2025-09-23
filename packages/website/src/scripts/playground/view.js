@@ -6,6 +6,9 @@
 import "codemirror/lib/codemirror.css";
 import "codemirror/mode/htmlmixed/htmlmixed.js";
 import "codemirror/mode/javascript/javascript.js";
+import "codemirror/addon/hint/show-hint.js";
+import "codemirror/addon/hint/show-hint.css";
+import rules from "@html-eslint/eslint-plugin/lib/rules";
 import CodeMirror from "codemirror";
 import {
   toMarker,
@@ -14,6 +17,16 @@ import {
 import {
   html
 } from "@html-kit/html";
+
+// HTML ESLint rules for autocomplete
+const HTML_ESLINT_RULES = Object.keys(rules).map(rule => `@html-eslint/${rule}`);
+
+const HTML_REG = /"@html-eslint\//;
+const RULES_REG = /"rules"[\s\S]*?"@html-eslint\//;
+
+// ESLint severity values for autocomplete
+const ESLINT_SEVERITIES = ["error", "warn", "off"];
+const RULES_VALUE_REG = /"@html-eslint\/[^"]*":\s*/;
 
 export class View {
   constructor() {
@@ -38,12 +51,85 @@ export class View {
       document.getElementById("config-editor"),
       {
         mode: "application/json",
-        lineNumbers: false
+        lineNumbers: false,
+        extraKeys: {
+          "Ctrl-Space": "autocomplete"
+        },
+        hintOptions: {
+          hint: this.getHtmlEslintHints.bind(this)
+        }
       }
     );
+    this.configEditor.on('inputRead', (cm, change) => {
+      if (change.text[0].match(/[\w$.]/)) {
+        this.configEditor.showHint({
+          completeSingle: false
+        });
+      }
+    });
 
     this.$languageTabs = document.getElementById("language-tabs");
     this.$errors = document.getElementById("errors");
+  }
+
+  /**
+   * Custom hint function for HTML ESLint rules
+   * @param {CodeMirror.Editor} cm
+   * @returns {Object|null}
+   */
+  getHtmlEslintHints(cm) {
+    const cur = cm.getCursor();
+    const token = cm.getTokenAt(cur);
+    const start = token.start;
+    const end = cur.ch;
+    const line = cm.getLine(cur.line);
+
+    // Get the text before cursor
+    const textBefore = line.substring(0, cur.ch);
+
+    // Check if we're in a context where rule names should be suggested
+    const ruleNameContext = HTML_REG.test(textBefore) ||
+                           RULES_REG.test(cm.getValue().substring(0, cm.indexFromPos(cur)));
+
+    const ruleValueContext = RULES_VALUE_REG.test(textBefore);
+
+    if (!ruleNameContext && !ruleValueContext) {
+      return null;
+    }
+
+    let suggestions = [];
+    const word = token.string.replace(/^["']|["']$/g, '');
+
+    if (ruleValueContext) {
+      // Provide ESLint severity suggestions
+      suggestions = ESLINT_SEVERITIES
+        .filter(severity => {
+          const severityStr = severity.toString();
+          return severityStr.toLowerCase().includes(word.toLowerCase());
+        })
+        .map(severity => ({
+          text: typeof severity === 'string' ? `"${severity}"` : severity.toString(),
+          displayText: severity.toString()
+        }));
+    } else if (ruleNameContext) {
+      // Provide rule name suggestions
+      suggestions = HTML_ESLINT_RULES
+        .filter(rule => rule.includes(word.toLowerCase()))
+        .map(rule => ({
+          text: `"${rule}"`,
+          displayText: rule
+        }));
+    }
+
+    if (suggestions.length === 0) {
+      return null;
+    }
+
+    return {
+      list: suggestions,
+      from: CodeMirror.Pos(cur.line, start),
+      to: CodeMirror.Pos(cur.line, end)
+    };
   }
 
   /**
