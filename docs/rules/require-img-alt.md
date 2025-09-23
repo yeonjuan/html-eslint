@@ -33,15 +33,15 @@ Examples of **incorrect** code for this rule:
 
 ```html,incorrect
 <img src="image.png" />
-
-<img src="image.png" alt="" />
-<!-- empty value -->
 ```
 
 Examples of **correct** code for this rule:
 
 ```html,correct
 <img src="image.png" alt="some description" />
+
+<img src="image.png" alt="" />
+<!-- empty value for decorative image -->
 ```
 
 ### Options
