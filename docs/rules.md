@@ -21,6 +21,7 @@
 | [no-obsolete-tags](rules/no-obsolete-tags)                   | Disallow use of obsolete elements in HTML5                                                     | ⭐   |
 | [no-restricted-attr-values](rules/no-restricted-attr-values) | Disallow specified attributes                                                                  |      |
 | [no-restricted-attrs](rules/no-restricted-attrs)             | Disallow specified attributes                                                                  |      |
+| [no-restricted-tags](rules/no-restricted-tags)               | Disallow specified tags                                                                        |      |
 | [no-script-style-type](rules/no-script-style-type)           | Enforce to omit type attributes for style sheets and scripts                                   | 🔧   |
 | [no-target-blank](rules/no-target-blank)                     | Disallow usage of unsafe `target='_blank'`                                                     |      |
 | [prefer-https](rules/prefer-https)                           | Prefer to use HTTPS for embedded resources                                                     |      |
