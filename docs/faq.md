@@ -1,5 +1,11 @@
 # FAQs
 
+## How to use HTML ESLint with other plugins like eslint-plugin-html?
+
+When using HTML ESLint alongside other plugins that process HTML files (such as `eslint-plugin-html` for linting JavaScript inside HTML), you need to use separate configuration files. This is because different parsers and processing approaches conflict when applied to the same files.
+
+See the [Using HTML ESLint with Other Plugins](./using-with-other-plugins.md) guide for detailed instructions and examples.
+
 ## Problem when using typescript-eslint typed linting.
 
 ```

@@ -63,6 +63,8 @@
     "nodownload",
     "nofullscreen",
     "controlslist",
-    "describedby"
+    "describedby",
+    "eslinthtml",
+    "eslintjs"
   ]
 }
