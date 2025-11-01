@@ -31,7 +31,7 @@ This rule takes an array of option objects. Each object can contain the followin
 ```js
 module.exports = {
   rules: {
-    "@html-eslint/no-restricted-attrs": [
+    "@html-eslint/no-restricted-attr-values": [
       "error",
       {
         attrPatterns: ["class", "alt"],
