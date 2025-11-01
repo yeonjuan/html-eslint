@@ -35,13 +35,13 @@ export default [
   {
     files: ["**/*.html"],
     plugins: {
-      "@html-eslint": html,
+      html,
     },
     extends: ["html/recommended"],
     language: "html/html",
     rules: {
       // Customize HTML linting rules
-      "@html-eslint/indent": ["error", 2],
+      "html/indent": ["error", 2],
     },
   },
 ];
@@ -141,13 +141,13 @@ export default [
   {
     files: ["**/*.html"],
     plugins: {
-      "@html-eslint": html,
+      html,
     },
     extends: ["html/recommended"],
     language: "html/html",
     rules: {
-      "@html-eslint/require-doctype": "error",
-      "@html-eslint/no-duplicate-id": "error",
+      "html/require-doctype": "error",
+      "html/no-duplicate-id": "error",
     },
   },
 ];
