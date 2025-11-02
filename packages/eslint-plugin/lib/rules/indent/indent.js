@@ -17,6 +17,7 @@
  * @typedef {"tab" | number} Option1
  * @typedef {Object} Option2
  * @property {number} [Option2.Attribute]
+ * @property {boolean} [Option2.skipTemplateStartIndent]
  * @property {Record<string, number>} [Option2.tagChildrenIndent]
  */
 
@@ -85,6 +86,15 @@ module.exports = {
             type: "integer",
             minimum: 1,
             default: 1,
+          },
+          // When true, ignore the leading indentation from the JS code
+          // that appears before the template literal start (e.g. code on
+          // the same line as the opening backtick). This prevents the
+          // JS line's indentation from increasing the base indent level
+          // of the template content.
+          skipTemplateStartIndent: {
+            type: "boolean",
+            default: false,
           },
           tagChildrenIndent: {
             default: {},
@@ -164,8 +174,18 @@ module.exports = {
       // @ts-ignore
       const lineIndex = node.loc.start.line - 1;
       const line = lines[lineIndex];
+      // If configured to skip the starting indent of the JS code that
+      // appears before the template literal start (e.g. `let x = /*html*/ \``),
+      // then count left padding from the template literal's start column
+      // rather than the whole line. This effectively ignores the leading
+      // JS indentation for base calculation.
+      const startColumn = node.loc.start.column;
+      const relevant =
+        indentLevelOptions && indentLevelOptions.skipTemplateStartIndent
+          ? line.slice(startColumn)
+          : line;
 
-      const spaceCount = countLeftPadding(line);
+      const spaceCount = countLeftPadding(relevant);
       if (indentType === "space") {
         return Math.floor(spaceCount / indentSize) + 1;
       } else {

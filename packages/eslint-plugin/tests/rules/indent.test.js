@@ -1648,6 +1648,55 @@ class Component extends LitElement {
 }
       `,
       output: `
+
+class Component extends LitElement {
+  render() {
+    return html\`
+      <p>content</p>
+    \`;
+  }
+}
+      `,
+      errors: wrongIndentErrors(1),
+    },
+    // Tests for skipTemplateStartIndent option
+    {
+      code: `
+let html = /*html*/ \`
+<div>yeah</div>
+\`
+      `,
+      output: `
+let html = /*html*/ \`
+  <div>yeah</div>
+\`
+      `,
+      options: [2],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+let html = /*html*/ \`
+<div>yeah</div>
+\`
+      `,
+      options: [2, { skipTemplateStartIndent: true }],
+      errors: [],
+    },
+    {
+      code: `
+const obj = {
+  nested: {
+    html: /*html*/ \`
+<div>yeah</div>
+    \`
+  }
+}`,
+      options: [2, { skipTemplateStartIndent: true }],
+      errors: [],
+    },
+    {
+      code: `
 class Component extends LitElement {
   render() {
     return html\`

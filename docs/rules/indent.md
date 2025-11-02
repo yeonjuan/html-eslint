@@ -34,6 +34,34 @@ Or, for tabbed indentation:
 }
 ```
 
+Object option for template literals:
+
+```json
+{
+  "@html-eslint/indent": ["error", 2, {
+    "skipTemplateStartIndent": true  // Skip starting indent from JS code
+  }]
+}
+```
+
+### skipTemplateStartIndent
+
+When enabled, this option ignores the leading indentation from the JS code that appears before the template literal start (e.g. code on the same line as the opening backtick). This prevents the JS line's indentation from increasing the base indent level of the template content.
+
+Example with `skipTemplateStartIndent: false` (default):
+```js
+const html = /*html*/ `
+      <div>yeah</div>  // indented based on JS code's indentation
+`;
+```
+
+Example with `skipTemplateStartIndent: true`:
+```js
+const html = /*html*/ `
+<div>yeah</div>  // no extra indent from JS code
+`;
+```
+
 Examples of **incorrect** code for this rule with the default option:
 
 ```html,incorrect
