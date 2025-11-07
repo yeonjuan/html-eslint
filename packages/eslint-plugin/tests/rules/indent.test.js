@@ -519,6 +519,22 @@ text
           },
         ],
       },
+      {
+        code: `
+<div>
+  text
+  <!--
+comment
+  -->
+</div>
+        `,
+        options: [
+          2,
+          {
+            ignoreCommentContent: true,
+          },
+        ],
+      },
     ],
     invalid: [
       {
