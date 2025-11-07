@@ -18,7 +18,7 @@
  * @typedef {Object} Option2
  * @property {number} [Option2.Attribute]
  * @property {Record<string, number>} [Option2.tagChildrenIndent]
- * @property {boolean} [Option2.ignoreCommentContent]
+ * @property {boolean} [Option2.ignoreComment]
  */
 
 const { parseTemplateLiteral } = require("../utils/template-literal");
@@ -98,7 +98,7 @@ module.exports = {
             },
             additionalProperties: false,
           },
-          ignoreCommentContent: {
+          ignoreComment: {
             type: "boolean",
             default: false,
           },
@@ -115,8 +115,7 @@ module.exports = {
     const sourceCode = getSourceCode(context);
     const indentLevelOptions = (context.options && context.options[1]) || {};
     const lines = sourceCode.getLines();
-    const ignoreCommentContent =
-      indentLevelOptions.ignoreCommentContent === true;
+    const ignoreComment = indentLevelOptions.ignoreComment === true;
     const { indentType, indentSize, indentChar } = getIndentOptionInfo(context);
 
     /**
@@ -275,6 +274,48 @@ module.exports = {
       /**
        * @type {RuleListener}
        */
+      const commentVisitor = {
+        Comment(node) {
+          indentLevel.indent(node);
+        },
+        CommentOpen: checkIndent,
+        CommentContent(node) {
+          indentLevel.indent(node);
+          if (hasTemplate(node)) {
+            node.parts.forEach((part) => {
+              if (part.type !== NODE_TYPES.Part) {
+                if (part.open) {
+                  checkIndent(part.open);
+                }
+                if (part.close) {
+                  checkIndent(part.close);
+                }
+              }
+            });
+          }
+
+          const lineNodes = splitToLineNodes(node);
+          lineNodes.forEach((lineNode) => {
+            if (lineNode.hasTemplate) {
+              return;
+            }
+            if (lineNode.value.trim().length) {
+              checkIndent(lineNode);
+            }
+          });
+        },
+        CommentClose: checkIndent,
+        "Comment:exit"(node) {
+          indentLevel.dedent(node);
+        },
+        "CommentContent:exit"(node) {
+          indentLevel.dedent(node);
+        },
+      };
+
+      /**
+       * @type {RuleListener}
+       */
       const visitor = {
         Tag(node) {
           if (IGNORING_NODES.includes(node.name)) {
@@ -349,48 +390,7 @@ module.exports = {
         "Text:exit"(node) {
           indentLevel.dedent(node);
         },
-        Comment(node) {
-          indentLevel.indent(node);
-        },
-        CommentOpen: checkIndent,
-        CommentContent(node) {
-          if (ignoreCommentContent) {
-            return;
-          }
-          indentLevel.indent(node);
-          if (hasTemplate(node)) {
-            node.parts.forEach((part) => {
-              if (part.type !== NODE_TYPES.Part) {
-                if (part.open) {
-                  checkIndent(part.open);
-                }
-                if (part.close) {
-                  checkIndent(part.close);
-                }
-              }
-            });
-          }
-
-          const lineNodes = splitToLineNodes(node);
-          lineNodes.forEach((lineNode) => {
-            if (lineNode.hasTemplate) {
-              return;
-            }
-            if (lineNode.value.trim().length) {
-              checkIndent(lineNode);
-            }
-          });
-        },
-        CommentClose: checkIndent,
-        "Comment:exit"(node) {
-          indentLevel.dedent(node);
-        },
-        "CommentContent:exit"(node) {
-          if (ignoreCommentContent) {
-            return;
-          }
-          indentLevel.dedent(node);
-        },
+        ...(ignoreComment ? {} : commentVisitor),
       };
       return visitor;
     }

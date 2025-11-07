@@ -130,4 +130,4 @@ This rule has an object option:
 
 - `tagChildrenIndent` (default: `{}`): Specifies the indent increment of the child tags of the specified tag. e.g. For example, `"tagChildrenIndent": { "html": 0 }` will set the `<html/>` tag children to 0 indent (2 x 0).
 
-- `ignoreCommentContent` (default: `false`): When set to `true`, the indentation of comment content will not be checked. This is useful when you want to allow free-form indentation inside HTML comments.
+- `ignoreCommentContent` (default: `false`): When set to `true`, the indentation of comment will not be checked. This is useful when you want to allow free-form indentation inside HTML comments.

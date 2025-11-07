@@ -532,7 +532,24 @@ comment
         options: [
           2,
           {
-            ignoreCommentContent: true,
+            ignoreComment: true,
+          },
+        ],
+      },
+      {
+        code: `
+<div>
+  text
+<!--
+comment
+<div></div>
+-->
+</div>
+        `,
+        options: [
+          2,
+          {
+            ignoreComment: true,
           },
         ],
       },
@@ -1448,7 +1465,7 @@ comment
         options: [
           2,
           {
-            ignoreCommentContent: false,
+            ignoreComment: false,
           },
         ],
         errors: wrongIndentErrors(2),
