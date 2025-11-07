@@ -18,7 +18,7 @@
  * @typedef {Object} Option2
  * @property {number} [Option2.Attribute]
  * @property {Record<string, number>} [Option2.tagChildrenIndent]
- * @property {boolean} [Options2.ignoreCommentContent]
+ * @property {boolean} [Option2.ignoreCommentContent]
  */
 
 const { parseTemplateLiteral } = require("../utils/template-literal");
