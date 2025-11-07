@@ -129,3 +129,5 @@ This rule has an object option:
 - `Attribute` (default: 1): Specifies the attribute indentation level. e.g. indent of 2 spaces with `Attribute` set to `2` will indent the attributes with `4` spaces (2 x 2).
 
 - `tagChildrenIndent` (default: `{}`): Specifies the indent increment of the child tags of the specified tag. e.g. For example, `"tagChildrenIndent": { "html": 0 }` will set the `<html/>` tag children to 0 indent (2 x 0).
+
+- `ignoreComment` (default: `false`): When set to `true`, the indentation of HTML comments (including opening `<!--`, closing `-->`, and content) will not be checked. This is useful when you want to allow free-form indentation for comments.

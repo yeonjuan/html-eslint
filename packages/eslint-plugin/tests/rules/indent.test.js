@@ -519,6 +519,40 @@ text
           },
         ],
       },
+      {
+        code: `
+<div>
+  text
+  <!--
+comment
+<div></div>
+  -->
+</div>
+        `,
+        options: [
+          2,
+          {
+            ignoreComment: true,
+          },
+        ],
+      },
+      {
+        code: `
+<div>
+  text
+<!--
+comment
+<div></div>
+-->
+</div>
+        `,
+        options: [
+          2,
+          {
+            ignoreComment: true,
+          },
+        ],
+      },
     ],
     invalid: [
       {
@@ -1408,6 +1442,33 @@ text
     <div></div>
 </div>
         `,
+      },
+      {
+        code: `
+<div>
+  text
+  <!--
+comment
+<div></div>
+  -->
+</div>
+        `,
+        output: `
+<div>
+  text
+  <!--
+    comment
+    <div></div>
+  -->
+</div>
+        `,
+        options: [
+          2,
+          {
+            ignoreComment: false,
+          },
+        ],
+        errors: wrongIndentErrors(2),
       },
     ],
   };
