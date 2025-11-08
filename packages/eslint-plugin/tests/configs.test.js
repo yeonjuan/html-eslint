@@ -66,6 +66,8 @@ describe("configs", () => {
     expect(Object.keys(allRules)).toEqual(
       expect.arrayContaining(allExportedRules)
     );
-    expect(allExportedRules).toEqual(expect.arrayContaining(Object.keys(allRules)));
+    expect(allExportedRules).toEqual(
+      expect.arrayContaining(Object.keys(allRules))
+    );
   });
 });
