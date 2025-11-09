@@ -39,6 +39,7 @@ If you’d like to support html-eslint, please consider starring it on GitHub or
    - [Configuration](https://html-eslint.org/docs/getting-started#configuration)
    - [Editor Configuration](https://html-eslint.org/docs/getting-started#editor-configuration)
    - [Integrating Template Engine](https://html-eslint.org/docs/integrating-template-engine)
+   - [Using with Other Plugins](https://html-eslint.org/docs/using-with-other-plugins)
 1. [Rules](https://html-eslint.org/docs/rules)
 1. [Playground](https://html-eslint.org/playground)
 1. [Developer Guide](https://html-eslint.org/developer-guide.md)
@@ -47,6 +48,8 @@ If you’d like to support html-eslint, please consider starring it on GitHub or
 ## Lint JavaScript inside HTML
 
 This ESLint plugin supports linting HTML syntax and does not provide JavaScript syntax linting. To lint JavaScript in HTML, such as inline scripts, you can use [eslint-plugin-html](https://github.com/BenoitZugmeyer/eslint-plugin-html).
+
+For detailed instructions on how to configure HTML ESLint alongside eslint-plugin-html, see the [Using with Other Plugins](https://html-eslint.org/docs/using-with-other-plugins) guide.
 
 ## License
 
