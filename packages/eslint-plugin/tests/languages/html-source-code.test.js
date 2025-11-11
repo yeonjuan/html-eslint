@@ -2,8 +2,6 @@
  * @import {File} from "@eslint/core";
  */
 
-import { SourceCode } from "eslint";
-
 const { HTMLLanguage } = require("../../lib/languages/html-language");
 const {
   createHTMLSourceCode,
