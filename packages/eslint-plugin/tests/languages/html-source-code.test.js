@@ -2,6 +2,8 @@
  * @import {File} from "@eslint/core";
  */
 
+import { SourceCode } from "eslint";
+
 const { HTMLLanguage } = require("../../lib/languages/html-language");
 const {
   createHTMLSourceCode,
@@ -34,8 +36,20 @@ const createSourceCode = (text) => {
     // @ts-ignore
     comments: parsed.comments,
   });
+
   return sourceCode;
 };
+
+/**
+ * @template T
+ * @param {T | null | undefined} value
+ * @returns {asserts value is T}
+ */
+function nonNullish(value) {
+  if (value === undefined && value === null) {
+    throw new TypeError("Value must not be null or undefined");
+  }
+}
 
 describe("HTMLSourceCode", () => {
   const code = `<!-- eslint-disable -->
@@ -47,6 +61,7 @@ describe("HTMLSourceCode", () => {
   describe("getInlineConfigNodes()", () => {
     it("should return inline config nodes", () => {
       const sourceCode = createSourceCode(code);
+      nonNullish(sourceCode.getInlineConfigNodes);
       expect(sourceCode.getInlineConfigNodes().length).toBe(5);
     });
   });
@@ -54,6 +69,8 @@ describe("HTMLSourceCode", () => {
   describe("getDisableDirectives", () => {
     it("should return directives", () => {
       const sourceCode = createSourceCode(code);
+      nonNullish(sourceCode.getDisableDirectives);
+
       expect(sourceCode.getDisableDirectives().directives.length).toBe(5);
       expect(sourceCode.getDisableDirectives().problems.length).toBe(0);
     });
@@ -64,6 +81,8 @@ describe("HTMLSourceCode", () => {
 -->
         `;
       const sourceCode = createSourceCode(code);
+
+      nonNullish(sourceCode.getDisableDirectives);
       expect(sourceCode.getDisableDirectives().problems.length).toBe(1);
     });
   });
