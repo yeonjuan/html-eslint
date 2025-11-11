@@ -4,6 +4,7 @@
  * @import {TraversalStep, SourceCode} from '@eslint/core';
  * @import {CommentContent, AnyHTMLNode} from '@html-eslint/types';
  * @import {BaseNode} from '../types';
+ *
  */
 const {
   TextSourceCodeBase,
@@ -184,7 +185,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
 }
 /**
  * @param {{ast: AST.Program, text: string, comments: CommentContent[]}} config
- * @returns {SourceCode}
+ * @returns {TextSourceCodeBase<any>}
  */
 function createHTMLSourceCode(config) {
   return new HTMLSourceCode(config);
