@@ -59,7 +59,6 @@ describe("HTMLSourceCode", () => {
   describe("getInlineConfigNodes()", () => {
     it("should return inline config nodes", () => {
       const sourceCode = createSourceCode(code);
-      nonNullish(sourceCode.getInlineConfigNodes);
       expect(sourceCode.getInlineConfigNodes().length).toBe(5);
     });
   });
@@ -80,7 +79,6 @@ describe("HTMLSourceCode", () => {
         `;
       const sourceCode = createSourceCode(code);
 
-      nonNullish(sourceCode.getDisableDirectives);
       expect(sourceCode.getDisableDirectives().problems.length).toBe(1);
     });
   });

@@ -185,7 +185,10 @@ class HTMLSourceCode extends TextSourceCodeBase {
 }
 /**
  * @param {{ast: AST.Program, text: string, comments: CommentContent[]}} config
- * @returns {TextSourceCodeBase<any>}
+ * @returns {TextSourceCodeBase<any> & {
+ *   getDisableDirectives(): { problems: {ruleId: null | string, message: string; loc: SourceLocation}[]; directives: Directive[]}
+ *   getInlineConfigNodes(): CommentContent[]
+ * }}
  */
 function createHTMLSourceCode(config) {
   return new HTMLSourceCode(config);
