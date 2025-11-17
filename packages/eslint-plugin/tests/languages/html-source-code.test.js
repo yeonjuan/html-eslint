@@ -38,17 +38,6 @@ const createSourceCode = (text) => {
   return sourceCode;
 };
 
-/**
- * @template T
- * @param {T | null | undefined} value
- * @returns {asserts value is T}
- */
-function nonNullish(value) {
-  if (value === undefined && value === null) {
-    throw new TypeError("Value must not be null or undefined");
-  }
-}
-
 describe("HTMLSourceCode", () => {
   const code = `<!-- eslint-disable -->
 <!-- eslint-disable @html-eslint/no-duplicate-attrs -->
@@ -66,7 +55,6 @@ describe("HTMLSourceCode", () => {
   describe("getDisableDirectives", () => {
     it("should return directives", () => {
       const sourceCode = createSourceCode(code);
-      nonNullish(sourceCode.getDisableDirectives);
 
       expect(sourceCode.getDisableDirectives().directives.length).toBe(5);
       expect(sourceCode.getDisableDirectives().problems.length).toBe(0);
