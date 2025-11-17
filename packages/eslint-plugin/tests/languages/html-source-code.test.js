@@ -3,7 +3,9 @@
  */
 
 const { HTMLLanguage } = require("../../lib/languages/html-language");
-const { HTMLSourceCode } = require("../../lib/languages/html-source-code");
+const {
+  createHTMLSourceCode,
+} = require("../../lib/languages/html-source-code");
 
 /**
  * @param {string} text
@@ -25,13 +27,14 @@ const createSourceCode = (text) => {
   const language = new HTMLLanguage();
   const file = createFile(text);
   const parsed = language.parse(file);
-  const sourceCode = new HTMLSourceCode({
+  const sourceCode = createHTMLSourceCode({
     text,
     // @ts-ignore
     ast: parsed.ast,
     // @ts-ignore
     comments: parsed.comments,
   });
+
   return sourceCode;
 };
 
@@ -52,6 +55,7 @@ describe("HTMLSourceCode", () => {
   describe("getDisableDirectives", () => {
     it("should return directives", () => {
       const sourceCode = createSourceCode(code);
+
       expect(sourceCode.getDisableDirectives().directives.length).toBe(5);
       expect(sourceCode.getDisableDirectives().problems.length).toBe(0);
     });
@@ -62,6 +66,7 @@ describe("HTMLSourceCode", () => {
 -->
         `;
       const sourceCode = createSourceCode(code);
+
       expect(sourceCode.getDisableDirectives().problems.length).toBe(1);
     });
   });
