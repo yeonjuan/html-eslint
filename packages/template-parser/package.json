@@ -34,7 +34,7 @@
   "devDependencies": {
     "@types/espree": "^10.1.0",
     "@types/estree": "^0.0.47",
-    "eslint": "^9.19.0",
+    "eslint": "^9.39.1",
     "espree": "^10.3.0",
     "globals": "^15.12.0"
   }

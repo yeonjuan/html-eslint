@@ -27,7 +27,7 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "18.0.9",
     "autoprefixer": "^10.4.13",
-    "eslint": "^9.19.0",
+    "eslint": "^9.39.1",
     "firebase-tools": "^14.3.1",
     "highlight.js": "^11.9.0",
     "marked": "^9.1.5",
