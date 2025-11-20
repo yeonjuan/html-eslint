@@ -11,7 +11,7 @@ const parser = require("@html-eslint/parser");
  */
 
 /**
- * @satisfies {ESLint.Plugin}
+ * @type {ESLint.Plugin}
  */
 const plugin = {
   meta: {
