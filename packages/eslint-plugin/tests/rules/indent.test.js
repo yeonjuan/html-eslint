@@ -1619,6 +1619,15 @@ const code = html\`
         },
       ],
     },
+    {
+      code: `html\`\`;`,
+      options: [
+        2,
+        {
+          templateIndentBase: "first",
+        },
+      ],
+    },
   ],
   invalid: [
     {

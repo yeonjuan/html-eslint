@@ -19,7 +19,7 @@
  * @property {number} [Option2.Attribute]
  * @property {Record<string, number>} [Option2.tagChildrenIndent]
  * @property {boolean} [Option2.ignoreComment]
- * @property {"first"} [Option2.templateIndentBase]
+ * @property {"first" | "templateTag"} [Option2.templateIndentBase]
  */
 
 const { parseTemplateLiteral } = require("../utils/template-literal");
