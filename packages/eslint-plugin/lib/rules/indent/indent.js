@@ -105,7 +105,8 @@ module.exports = {
           },
           templateIndentBase: {
             type: "string",
-            enum: ["first"],
+            enum: ["first", "templateTag"],
+            default: "templateTag",
           },
         },
         additionalProperties: false,
@@ -291,10 +292,6 @@ module.exports = {
         }
         const actualIndent = getActualIndent(node);
         const expectedIndent = getExpectedIndent();
-        console.log(
-          "expected indent",
-          `"${expectedIndent}" ${expectedIndent.length}`
-        );
 
         if (actualIndent.trim().length) {
           return;
@@ -454,7 +451,6 @@ module.exports = {
         if (shouldCheckTemplateLiteral(node, context)) {
           const base = getTemplateLiteralBaseIndentLevel(node);
           const baseSpaces = getAutoBaseSpaces(node);
-          console.log("baseSpaces", baseSpaces);
           parseTemplateLiteral(
             node,
             getSourceCode(context),
