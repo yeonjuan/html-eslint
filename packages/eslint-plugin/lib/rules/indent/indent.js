@@ -439,7 +439,6 @@ module.exports = {
         if (shouldCheckTaggedTemplateExpression(node, context)) {
           const base = getTemplateLiteralBaseIndentLevel(node.quasi);
           const baseSpaces = getAutoBaseSpaces(node.quasi);
-          console.log("baseSpaces", baseSpaces);
           parseTemplateLiteral(
             node.quasi,
             getSourceCode(context),
