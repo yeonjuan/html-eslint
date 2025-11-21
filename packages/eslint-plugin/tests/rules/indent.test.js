@@ -1990,5 +1990,23 @@ const code = html\`
       options: [4, { templateIndentBase: "first" }],
       errors: wrongIndentErrors(1),
     },
+    {
+      code: `
+const code = html\`
+\t\t\t<div
+id="\${bar}">
+\t\t\t</div>
+<span></span>\`;
+    `,
+      output: `
+const code = html\`
+\t\t\t<div
+\t\t\t\tid="\${bar}">
+\t\t\t</div>
+\t\t\t<span></span>\`;
+    `,
+      options: ["tab", { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(2),
+    },
   ],
 });
