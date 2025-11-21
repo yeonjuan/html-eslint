@@ -1566,6 +1566,30 @@ const code = html\`
         },
       ],
     },
+    {
+      code: `html\`
+       <span>test</span>
+      \``,
+      options: [
+        2,
+        {
+          templateIndentBase: "first",
+        },
+      ],
+    },
+    {
+      code: `html\`
+       <div>
+         <span>test</span>
+       </div>
+      \``,
+      options: [
+        2,
+        {
+          templateIndentBase: "first",
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -1894,6 +1918,40 @@ class Component extends LitElement {
 }
       `,
       options: ["tab", { Attribute: 2, tagChildrenIndent: { span: 2 } }],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+const code = html\`
+ <div>
+     id="\${bar}">
+</div>\`;
+    `,
+      output: `
+const code = html\`
+ <div>
+     id="\${bar}">
+ </div>\`;
+    `,
+      only: true,
+      options: [4, { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+const code = html\`
+                      <div
+                      id="\${bar}">
+                      </div>\`;
+    `,
+      output: `
+const code = html\`
+                      <div
+                          id="\${bar}">
+                      </div>\`;
+    `,
+      only: true,
+      options: [4, { templateIndentBase: "first" }],
       errors: wrongIndentErrors(1),
     },
   ],
