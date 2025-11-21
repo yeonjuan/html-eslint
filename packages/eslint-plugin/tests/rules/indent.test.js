@@ -1962,7 +1962,6 @@ const code = html\`
      id="\${bar}">
  </div>\`;
     `,
-      only: true,
       options: [4, { templateIndentBase: "first" }],
       errors: wrongIndentErrors(1),
     },
@@ -1979,7 +1978,6 @@ const code = html\`
                           id="\${bar}">
                       </div>\`;
     `,
-      only: true,
       options: [4, { templateIndentBase: "first" }],
       errors: wrongIndentErrors(1),
     },
