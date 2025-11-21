@@ -1470,6 +1470,23 @@ comment
         ],
         errors: wrongIndentErrors(2),
       },
+      {
+        code: `
+<div>
+ </div>
+        `,
+        output: `
+<div>
+</div>
+        `,
+        options: [
+          2,
+          {
+            templateIndentBase: "first",
+          },
+        ],
+        errors: wrongIndentErrors(1),
+      },
     ],
   };
 }
@@ -1582,6 +1599,18 @@ const code = html\`
        <div>
          <span>test</span>
        </div>
+      \``,
+      options: [
+        2,
+        {
+          templateIndentBase: "first",
+        },
+      ],
+    },
+    {
+      code: `html\`<div>
+  </div>
+  <div>a</div>
       \``,
       options: [
         2,
