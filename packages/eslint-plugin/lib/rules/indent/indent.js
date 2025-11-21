@@ -178,9 +178,9 @@ module.exports = {
       }
       const startLineIndex = node.loc.start.line;
       const endLineIndex = node.loc.end.line - 1;
-      const templLines = lines.slice(startLineIndex, endLineIndex);
-      for (let i = 0; i < templLines.length; i++) {
-        const line = templLines[i];
+      const templateLines = lines.slice(startLineIndex, endLineIndex);
+      for (let i = 0; i < templateLines.length; i++) {
+        const line = templateLines[i];
         if (line.trim()) {
           return countLeftPadding(line);
         }
