@@ -131,3 +131,7 @@ This rule has an object option:
 - `tagChildrenIndent` (default: `{}`): Specifies the indent increment of the child tags of the specified tag. e.g. For example, `"tagChildrenIndent": { "html": 0 }` will set the `<html/>` tag children to 0 indent (2 x 0).
 
 - `ignoreComment` (default: `false`): When set to `true`, the indentation of HTML comments (including opening `<!--`, closing `-->`, and content) will not be checked. This is useful when you want to allow free-form indentation for comments.
+
+- `templateIndentBase` (default: `"templateTag"`): Controls the indentation base for HTML in template literals.
+  - `"templateTag"`: Uses the indentation of the template tag (e.g., `html\`...\``) as the base indentation.
+  - `"first"`: Uses the first element of the template literal as the base indentation (elements on the same line as the template tag are ignored).
