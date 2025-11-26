@@ -1,5 +1,5 @@
 /**
- * @import {Tag} from "@html-eslint/types";
+ * @import {ScriptTag, StyleTag, Tag} from "@html-eslint/types";
  * @import {RuleModule} from "../types";
  *
  * @typedef {Object} Option
@@ -10,6 +10,7 @@
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
+const { NODE_TYPES } = require("@html-eslint/parser");
 
 const VOID_ELEMENTS_SET = new Set(VOID_ELEMENTS);
 
@@ -76,14 +77,20 @@ module.exports = {
     );
 
     /**
-     * @param {Tag} node
+     * @param {Tag | ScriptTag | StyleTag} node
      */
-    function checkClosingTag(node) {
+    function checkClosing(node) {
+      const name =
+        node.type === NODE_TYPES.Tag
+          ? node.name
+          : node.type === NODE_TYPES.ScriptTag
+            ? "script"
+            : "style";
       if (!node.close) {
         context.report({
           node: node,
           data: {
-            tag: node.name,
+            tag: name,
           },
           messageId: MESSAGE_IDS.MISSING,
         });
@@ -151,7 +158,7 @@ module.exports = {
         if (node.selfClosing || canSelfClose) {
           checkVoidElement(node, shouldSelfClose, canSelfClose);
         } else if (node.openEnd.value !== "/>") {
-          checkClosingTag(node);
+          checkClosing(node);
         }
         if (["svg", "math"].includes(node.name)) foreignContext.push(node.name);
       },
@@ -161,6 +168,16 @@ module.exports = {
       "Tag:exit"(node) {
         if (node.name === foreignContext[foreignContext.length - 1]) {
           foreignContext.pop();
+        }
+      },
+      ScriptTag(node) {
+        if (!node.close) {
+          checkClosing(node);
+        }
+      },
+      StyleTag(node) {
+        if (!node.close) {
+          checkClosing(node);
         }
       },
     });
