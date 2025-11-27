@@ -10,7 +10,7 @@
 const { RULE_CATEGORY, VOID_ELEMENTS } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-const { NODE_TYPES } = require("@html-eslint/parser");
+const { getNameOf } = require("./utils/node");
 
 const VOID_ELEMENTS_SET = new Set(VOID_ELEMENTS);
 
@@ -80,12 +80,7 @@ module.exports = {
      * @param {Tag | ScriptTag | StyleTag} node
      */
     function checkClosing(node) {
-      const name =
-        node.type === NODE_TYPES.Tag
-          ? node.name
-          : node.type === NODE_TYPES.ScriptTag
-            ? "script"
-            : "style";
+      const name = getNameOf(node);
       if (!node.close) {
         context.report({
           node: node,
