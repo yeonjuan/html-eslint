@@ -15,6 +15,9 @@ ruleTester.run("no-empty-headings", rule, {
     {
       code: '<h2><span aria-hidden="true">Hidden</span><span>Visible</span></h2>',
     },
+    {
+      code: `<h1><img src="./img.svg" alt="Images description" /></h1>`,
+    },
   ],
   invalid: [
     {
@@ -48,6 +51,10 @@ ruleTester.run("no-empty-headings", rule, {
     {
       code: `<h4>
 </h4>`,
+      errors: [{ messageId: "emptyHeading" }],
+    },
+    {
+      code: `<h4><img src="./image.svg" /></h4>`,
       errors: [{ messageId: "emptyHeading" }],
     },
   ],
