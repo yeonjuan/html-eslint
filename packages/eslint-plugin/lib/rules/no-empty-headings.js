@@ -37,17 +37,32 @@ function isRoleHeading(node) {
 }
 
 /**
+ * @param {Tag} node
+ * @returns {string}
+ */
+function getAltText(node) {
+  if (node.name.toLowerCase() === "img") {
+    const altAttr = findAttr(node, "alt");
+    if (altAttr && altAttr.value && altAttr.value.value) {
+      return altAttr.value.value;
+    }
+  }
+  return "";
+}
+
+/**
  * @param {Text | Tag} node
  * @returns {string}
  */
 function getAllText(node) {
-  if (!isTag(node) || !node.children.length) return "";
+  if (!isTag(node)) return "";
+
   let text = "";
   for (const child of node.children) {
     if (isText(child)) {
       text += child.value.trim();
     } else if (isTag(child)) {
-      text += getAllText(child);
+      text += getAllText(child) || getAltText(child);
     }
   }
   return text;
@@ -64,7 +79,7 @@ function getAccessibleText(node) {
     if (isText(child)) {
       text += child.value.trim();
     } else if (isTag(child) && !isAriaHidden(child)) {
-      text += getAccessibleText(child);
+      text += getAccessibleText(child) || getAltText(child);
     }
   }
   return text;
