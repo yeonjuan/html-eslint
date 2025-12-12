@@ -201,7 +201,6 @@ module.exports = class Parser {
     
     if (syntax.type === "open") {
       const top = this.syntaxStack[this.syntaxStack.length - 1];
-      console.log("open top", top);
       if (!top) {
         this.syntaxStack.push(syntax);
         return;
