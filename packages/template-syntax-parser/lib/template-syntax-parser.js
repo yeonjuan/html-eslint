@@ -12,7 +12,7 @@ function normalizeSyntaxOptions(syntax) {
   if (Array.isArray(syntax)) {
     return syntax;
   }
-  return (Object.entries(syntax) || []).map(([open, close]) => ({
+  return Object.entries(syntax).map(([open, close]) => ({
     open,
     close,
   }));
