@@ -1,12 +1,12 @@
 /**
  * @import {AST} from "eslint";
- * @import {TemplateSyntax, OpenSyntax, CloseSyntax, TemplateSyntaxParserResult} from "./types";
+ * @import {TemplateSyntax, OpenSyntax, CloseSyntax, TemplateSyntaxParserResult, SyntaxConfigItem} from "./types";
  */
 
 module.exports = class Parser {
   /**
    * @param {string} code
-   * @param {[string, string][]} syntaxPairs
+   * @param {SyntaxConfigItem[]} syntaxPairs
    * @param {AST.Range[]} skipRanges
    */
   constructor(code, syntaxPairs, skipRanges) {
@@ -15,7 +15,7 @@ module.exports = class Parser {
      */
     this.code = code;
     /**
-     * @type {[string, string][]}
+     * @type {SyntaxConfigItem[]}
      */
     this.syntaxPairs = syntaxPairs || [];
     /**
@@ -68,18 +68,25 @@ module.exports = class Parser {
      */
     let value = null;
     let rangeStart = Infinity;
+    /**
+     * @type {boolean | undefined}
+     */
+    let isComment = undefined;
     for (let i = 0; i < this.syntaxPairs.length; i++) {
-      const [open] = this.syntaxPairs[i];
+      const syntax = this.syntaxPairs[i];
+      const open = syntax.open;
       const openIndex = this.indexOf(open, position);
       if (openIndex >= 0 && openIndex < rangeStart) {
         value = open;
         rangeStart = openIndex;
+        isComment = syntax.isComment;
       }
     }
     if (!value) return null;
     return {
       type: "open",
       value,
+      isComment,
       range: [rangeStart, rangeStart + value.length],
     };
   }
@@ -94,18 +101,25 @@ module.exports = class Parser {
      */
     let value = null;
     let rangeStart = Infinity;
+    /**
+     * @type {boolean | undefined}
+     */
+    let isComment = undefined;
     for (let i = 0; i < this.syntaxPairs.length; i++) {
-      const [, close] = this.syntaxPairs[i];
+      const syntax = this.syntaxPairs[i];
+      const close = syntax.close;
       const closeIndex = this.indexOf(close, position);
       if (closeIndex >= 0 && closeIndex < rangeStart) {
         value = close;
         rangeStart = closeIndex;
+        isComment = syntax.isComment;
       }
     }
     if (!value) return null;
     return {
       type: "close",
       value,
+      isComment,
       range: [rangeStart, rangeStart + value.length],
     };
   }
@@ -172,34 +186,46 @@ module.exports = class Parser {
    * @returns {string}
    */
   getPossibleCloseValueOf(open) {
-    const found = this.syntaxPairs.find((syntax) => syntax[0] === open.value);
+    const found = this.syntaxPairs.find((syntax) => syntax.open === open.value);
     if (!found) {
       /* istanbul ignore next */
       throw new Error("Unexpected open value: " + open);
     }
-    return found[1];
+    return found.close;
   }
 
   /**
    * @param {CloseSyntax | OpenSyntax} syntax
    */
   eatSyntax(syntax) {
+    console.log("eat syntax", syntax);
     if (syntax.type === "open") {
-      const top = this.syntaxStack.pop();
+      const top = this.syntaxStack[this.syntaxStack.length - 1];
+      console.log("open top", top);
       if (!top) {
         this.syntaxStack.push(syntax);
-      } else {
-        throw new Error(
-          `Expecting "${this.getPossibleCloseValueOf(top)}", but found "${
-            syntax.value
-          }" at (${syntax.range[0]}, ${syntax.range[1]}).`
-        );
+        return;
       }
+      if (top.isComment) {
+        return;
+      }
+
+      throw new Error(
+        `Expecting "${this.getPossibleCloseValueOf(top)}", but found "${
+          syntax.value
+        }" at (${syntax.range[0]}, ${syntax.range[1]}).`
+      );
     } else if (syntax.type === "close") {
-      const top = this.syntaxStack.pop();
+      const top = this.syntaxStack[this.syntaxStack.length - 1];
+
       if (!top) {
         return;
-      } else if (this.getPossibleCloseValueOf(top) === syntax.value) {
+      }
+      if (top.isComment && !syntax.isComment) {
+        return;
+      }
+      this.syntaxStack.pop();
+      if (this.getPossibleCloseValueOf(top) === syntax.value) {
         this.result.push({
           open: [top.range[0], top.range[0] + top.value.length],
           close: [syntax.range[1] - syntax.value.length, syntax.range[1]],

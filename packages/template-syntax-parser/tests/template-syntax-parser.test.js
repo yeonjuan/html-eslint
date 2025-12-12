@@ -15,6 +15,23 @@ const ERB = {
     "<%": " %>",
   },
 };
+const TWIG = {
+  syntax: [
+    {
+      open: "{{",
+      close: "}}",
+    },
+    {
+      open: "{%",
+      close: "%}",
+    },
+    {
+      open: "{#",
+      close: "#}",
+      isComment: true,
+    },
+  ],
+};
 
 describe("basic", () => {
   /**
@@ -48,6 +65,13 @@ describe("basic", () => {
         skipRanges: [[8, 13]],
       },
       [[5, 16]],
+    ],
+    [
+      "{#<div>{{a}}</div>#}",
+      {
+        syntax: TWIG.syntax,
+      },
+      [[0, 20]],
     ],
   ];
   test.each(TEST_CASES)("parse(%s, %o)", (code, config, expected) => {

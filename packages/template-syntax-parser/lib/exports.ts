@@ -5,4 +5,6 @@ export {
   OpenSyntax,
   CloseSyntax,
   TemplateSyntaxParserResult,
+  SyntaxConfig,
+  SyntaxConfigItem,
 } from "./types";
