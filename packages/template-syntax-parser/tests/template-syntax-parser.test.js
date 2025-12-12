@@ -73,6 +73,16 @@ describe("basic", () => {
       },
       [[0, 20]],
     ],
+    [
+      "<div>{{aa}}{# bb {{ cc }} #}</div>",
+      {
+        syntax: TWIG.syntax,
+      },
+      [
+        [5, 11],
+        [11, 28],
+      ],
+    ],
   ];
   test.each(TEST_CASES)("parse(%s, %o)", (code, config, expected) => {
     expect(

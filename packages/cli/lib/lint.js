@@ -33,7 +33,6 @@ module.exports = function lint(code, config, checkStyle = false) {
         allRules[key].meta.docs &&
         allRules[key].meta.docs.category === "Style"
       ) {
-        console.log(key, "disabled");
         eslintConfig.rules[key] = "off";
       }
     });
