@@ -198,7 +198,6 @@ module.exports = class Parser {
    * @param {CloseSyntax | OpenSyntax} syntax
    */
   eatSyntax(syntax) {
-    
     if (syntax.type === "open") {
       const top = this.syntaxStack[this.syntaxStack.length - 1];
       if (!top) {
