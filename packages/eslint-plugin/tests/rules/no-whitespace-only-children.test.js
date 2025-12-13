@@ -6,6 +6,10 @@ const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-whitespace-only-children", rule, {
   valid: [
+    // No close
+    {
+      code: "<img />",
+    },
     // No children
     {
       code: "<div></div>",
