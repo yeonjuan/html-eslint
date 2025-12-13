@@ -137,6 +137,10 @@ templateRuleTester.run("[template] no-whitespace-only-children", rule, {
       code: "html`<span>${message}</span>`",
       options: [{ tagPatterns: ["^span$"] }],
     },
+    {
+      code: `html\`<span>\${" "}</span>\``,
+      options: [{ tagPatterns: ["^span$"] }],
+    },
   ],
   invalid: [
     {

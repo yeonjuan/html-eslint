@@ -14,7 +14,6 @@ const MESSAGE_IDS = {
 
 /**
  * @param {Tag} node
- * @returns {boolean}
  */
 function hasOnlyWhitespaceChildren(node) {
   if (!node.children || node.children.length === 0) {
@@ -26,14 +25,16 @@ function hasOnlyWhitespaceChildren(node) {
   }
 
   for (const child of node.children) {
-    if (isTag(child)) {
-      return false;
+    if (isComment(child)) {
+      continue;
     }
     if (isText(child)) {
       // Check if text contains any non-whitespace characters
       if (child.value && child.value.trim().length > 0) {
         return false;
       }
+    } else {
+      return false;
     }
   }
 
