@@ -84,14 +84,16 @@ module.exports = {
         if (!node.close) {
           return;
         }
+        if (tagPatterns.length <= 0) {
+          return;
+        }
+
         const tagName = node.name.toLowerCase();
 
         // If tagPatterns is specified, check if tag name matches any pattern
-        if (tagPatterns.length > 0) {
-          const matches = tagPatterns.some((pattern) => pattern.test(tagName));
-          if (!matches) {
-            return;
-          }
+        const matches = tagPatterns.some((pattern) => pattern.test(tagName));
+        if (!matches) {
+          return;
         }
 
         if (hasOnlyWhitespaceChildren(node)) {

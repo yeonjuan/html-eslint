@@ -41,48 +41,12 @@ ruleTester.run("no-whitespace-only-children", rule, {
       code: "<custom-component><!-- comment --></custom-component>",
       options: [{ tagPatterns: ["^custom-component$"] }],
     },
+    {
+      code: "<my-component> </my-component>",
+      options: [{ tagPatterns: ["^custom-component$"] }],
+    },
   ],
   invalid: [
-    // Only whitespace (spaces)
-    {
-      code: "<div>   </div>",
-      output: "<div></div>",
-      errors: [
-        {
-          messageId: "whitespaceOnlyChildren",
-        },
-      ],
-    },
-    // Only whitespace (newlines)
-    {
-      code: "<div>\n\n</div>",
-      output: "<div></div>",
-      errors: [
-        {
-          messageId: "whitespaceOnlyChildren",
-        },
-      ],
-    },
-    // Only whitespace (tabs)
-    {
-      code: "<div>\t\t</div>",
-      output: "<div></div>",
-      errors: [
-        {
-          messageId: "whitespaceOnlyChildren",
-        },
-      ],
-    },
-    // Mixed whitespace
-    {
-      code: "<div>  \n\t  </div>",
-      output: "<div></div>",
-      errors: [
-        {
-          messageId: "whitespaceOnlyChildren",
-        },
-      ],
-    },
     // With tagPatterns option - matching tag with whitespace
     {
       code: "<span>  \n  </span>",
@@ -135,9 +99,6 @@ ruleTester.run("no-whitespace-only-children", rule, {
 templateRuleTester.run("[template] no-whitespace-only-children", rule, {
   valid: [
     {
-      code: "html`<div>Hello</div>`",
-    },
-    {
       code: "html`<span>${message}</span>`",
       options: [{ tagPatterns: ["^span$"] }],
     },
@@ -145,17 +106,11 @@ templateRuleTester.run("[template] no-whitespace-only-children", rule, {
       code: `html\`<span>\${" "}</span>\``,
       options: [{ tagPatterns: ["^span$"] }],
     },
+    {
+      code: `html\`<span> </span>\``,
+    },
   ],
   invalid: [
-    {
-      code: "html`<div>  </div>`",
-      output: "html`<div></div>`",
-      errors: [
-        {
-          messageId: "whitespaceOnlyChildren",
-        },
-      ],
-    },
     {
       code: "html`<span>\n</span>`",
       options: [{ tagPatterns: ["^span$"] }],
