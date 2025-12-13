@@ -53,6 +53,7 @@ const noInvalidEntity = require("./no-invalid-entity");
 const noDuplicateInHead = require("./no-duplicate-in-head");
 const noIneffectiveAttrs = require("./no-ineffective-attrs");
 const noRestrictedTags = require("./no-restricted-tags");
+const noWhitespaceOnlyChildren = require("./no-whitespace-only-children");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -112,6 +113,7 @@ const rules = {
   "no-duplicate-in-head": noDuplicateInHead,
   "no-ineffective-attrs": noIneffectiveAttrs,
   "no-restricted-tags": noRestrictedTags,
+  "no-whitespace-only-children": noWhitespaceOnlyChildren,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };

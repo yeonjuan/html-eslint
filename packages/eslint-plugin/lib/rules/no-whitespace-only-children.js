@@ -1,0 +1,110 @@
+/**
+ * @import {Tag, Text} from "@html-eslint/types";
+ * @import {RuleModule} from "../types";
+ */
+
+const { RULE_CATEGORY } = require("../constants");
+const { isTag, isText, isComment, getLocBetween } = require("./utils/node");
+const { createVisitors } = require("./utils/visitors");
+const { getRuleUrl } = require("./utils/rule");
+
+const MESSAGE_IDS = {
+  WHITESPACE_ONLY_CHILDREN: "whitespaceOnlyChildren",
+};
+
+/**
+ * @param {Tag} node
+ * @returns {boolean}
+ */
+function hasOnlyWhitespaceChildren(node) {
+  if (!node.children || node.children.length === 0) {
+    return false;
+  }
+
+  if (node.children.every((child) => isComment(child))) {
+    return false;
+  }
+
+  for (const child of node.children) {
+    if (isTag(child)) {
+      return false;
+    }
+    if (isText(child)) {
+      // Check if text contains any non-whitespace characters
+      if (child.value && child.value.trim().length > 0) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+/**
+ * @type {RuleModule<[{tagPatterns?: string[]}]>}
+ */
+module.exports = {
+  meta: {
+    type: "code",
+    docs: {
+      description: "Disallow tags with only whitespace children.",
+      recommended: false,
+      category: RULE_CATEGORY.BEST_PRACTICE,
+      url: getRuleUrl("no-whitespace-only-children"),
+    },
+    fixable: "whitespace",
+    schema: [
+      {
+        type: "object",
+        properties: {
+          tagPatterns: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
+    messages: {
+      [MESSAGE_IDS.WHITESPACE_ONLY_CHILDREN]:
+        "Tag should not have only whitespace children.",
+    },
+  },
+  create(context) {
+    const options = context.options[0] || {};
+    const tagPatterns = (options.tagPatterns || []).map(
+      (pattern) => new RegExp(pattern, "u")
+    );
+
+    return createVisitors(context, {
+      Tag(node) {
+        const tagName = node.name.toLowerCase();
+
+        // If tagPatterns is specified, check if tag name matches any pattern
+        if (tagPatterns.length > 0) {
+          const matches = tagPatterns.some((pattern) => pattern.test(tagName));
+          if (!matches) {
+            return;
+          }
+        }
+
+        if (hasOnlyWhitespaceChildren(node)) {
+          const first = node.children[0];
+          const last = node.children[node.children.length - 1];
+          const loc = getLocBetween(first, last);
+          context.report({
+            loc,
+            messageId: MESSAGE_IDS.WHITESPACE_ONLY_CHILDREN,
+            fix(fixer) {
+              return node.children
+                .filter((child) => isText(child))
+                .map((child) => fixer.removeRange(child.range));
+            },
+          });
+        }
+      },
+    });
+  },
+};
