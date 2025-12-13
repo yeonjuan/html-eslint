@@ -1,4 +1,4 @@
-# Using HTML ESLint with Other Plugins
+# Using HTML ESLint with Other HTML-processing Plugins
 
 ## Overview
 
