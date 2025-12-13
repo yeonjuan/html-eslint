@@ -119,6 +119,8 @@ ruleTester.run("no-whitespace-only-children", rule, {
       options: [{ tagPatterns: ["^custom-component$"] }],
       errors: [
         {
+          column: 19,
+          endColumn: 37,
           messageId: "whitespaceOnlyChildren",
         },
       ],

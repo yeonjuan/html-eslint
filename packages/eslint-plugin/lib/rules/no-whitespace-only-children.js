@@ -80,6 +80,9 @@ module.exports = {
 
     return createVisitors(context, {
       Tag(node) {
+        if (!node.close) {
+          return;
+        }
         const tagName = node.name.toLowerCase();
 
         // If tagPatterns is specified, check if tag name matches any pattern
@@ -91,9 +94,7 @@ module.exports = {
         }
 
         if (hasOnlyWhitespaceChildren(node)) {
-          const first = node.children[0];
-          const last = node.children[node.children.length - 1];
-          const loc = getLocBetween(first, last);
+          const loc = getLocBetween(node.openEnd, node.close);
           context.report({
             loc,
             messageId: MESSAGE_IDS.WHITESPACE_ONLY_CHILDREN,
