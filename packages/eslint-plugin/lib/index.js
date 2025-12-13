@@ -3,6 +3,7 @@ const {
   recommendedRules,
   recommendedLegacyRules,
 } = require("./configs/recommended");
+const { allRules } = require("./configs/all");
 const { HTMLLanguage } = require("./languages/html-language");
 const { name, version } = require("../package.json");
 const parser = require("@html-eslint/parser");
@@ -11,7 +12,7 @@ const parser = require("@html-eslint/parser");
  */
 
 /**
- * @satisfies {ESLint.Plugin}
+ * @type {ESLint.Plugin}
  */
 const plugin = {
   meta: {
@@ -41,6 +42,18 @@ const plugin = {
         parser,
       },
       rules: recommendedLegacyRules,
+    },
+    "flat/all": {
+      plugins: {
+        /** @type {ESLint.Plugin} */
+        get "@html-eslint"() {
+          return plugin;
+        },
+      },
+      languageOptions: {
+        parser,
+      },
+      rules: allRules,
     },
   },
 };

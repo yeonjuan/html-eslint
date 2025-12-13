@@ -18,6 +18,8 @@
  * @typedef {Object} Option2
  * @property {number} [Option2.Attribute]
  * @property {Record<string, number>} [Option2.tagChildrenIndent]
+ * @property {boolean} [Option2.ignoreComment]
+ * @property {"first" | "templateTag"} [Option2.templateIndentBase]
  */
 
 const { parseTemplateLiteral } = require("../utils/template-literal");
@@ -97,6 +99,15 @@ module.exports = {
             },
             additionalProperties: false,
           },
+          ignoreComment: {
+            type: "boolean",
+            default: false,
+          },
+          templateIndentBase: {
+            type: "string",
+            enum: ["first", "templateTag"],
+            default: "templateTag",
+          },
         },
         additionalProperties: false,
       },
@@ -110,6 +121,8 @@ module.exports = {
     const sourceCode = getSourceCode(context);
     const indentLevelOptions = (context.options && context.options[1]) || {};
     const lines = sourceCode.getLines();
+    const ignoreComment = indentLevelOptions.ignoreComment === true;
+    const autoBaseIndent = indentLevelOptions.templateIndentBase === "first";
     const { indentType, indentSize, indentChar } = getIndentOptionInfo(context);
 
     /**
@@ -156,11 +169,34 @@ module.exports = {
     }
 
     /**
+     * @param {TemplateLiteral} node
+     * @returns {number}
+     */
+    function getAutoBaseSpaces(node) {
+      if (!autoBaseIndent) {
+        return 0;
+      }
+      const startLineIndex = node.loc.start.line;
+      const endLineIndex = node.loc.end.line - 1;
+      const templateLines = lines.slice(startLineIndex, endLineIndex);
+      for (let i = 0; i < templateLines.length; i++) {
+        const line = templateLines[i];
+        if (line.trim()) {
+          return countLeftPadding(line);
+        }
+      }
+      return 0;
+    }
+
+    /**
      *
      * @param {TemplateLiteral} node
      * @returns {number}
      */
     function getTemplateLiteralBaseIndentLevel(node) {
+      if (autoBaseIndent) {
+        return 0;
+      }
       // @ts-ignore
       const lineIndex = node.loc.start.line - 1;
       const line = lines[lineIndex];
@@ -175,8 +211,9 @@ module.exports = {
 
     /**
      * @param {number} baseLevel
+     * @param {number} baseSpaces
      */
-    function createIndentVisitor(baseLevel) {
+    function createIndentVisitor(baseLevel, baseSpaces) {
       const indentLevel = new IndentLevel({
         getIncreasingLevel,
       });
@@ -204,7 +241,14 @@ module.exports = {
        * @returns {string}
        */
       function getExpectedIndent() {
-        return indentChar.repeat(indentLevel.value());
+        let base = "";
+        if (indentType === "space") {
+          base = " ".repeat(baseSpaces);
+        } else {
+          base = indentChar.repeat(baseSpaces);
+        }
+
+        return base + indentChar.repeat(indentLevel.value());
       }
 
       /**
@@ -264,6 +308,48 @@ module.exports = {
           });
         }
       }
+
+      /**
+       * @type {RuleListener}
+       */
+      const commentVisitor = {
+        Comment(node) {
+          indentLevel.indent(node);
+        },
+        CommentOpen: checkIndent,
+        CommentContent(node) {
+          indentLevel.indent(node);
+          if (hasTemplate(node)) {
+            node.parts.forEach((part) => {
+              if (part.type !== NODE_TYPES.Part) {
+                if (part.open) {
+                  checkIndent(part.open);
+                }
+                if (part.close) {
+                  checkIndent(part.close);
+                }
+              }
+            });
+          }
+
+          const lineNodes = splitToLineNodes(node);
+          lineNodes.forEach((lineNode) => {
+            if (lineNode.hasTemplate) {
+              return;
+            }
+            if (lineNode.value.trim().length) {
+              checkIndent(lineNode);
+            }
+          });
+        },
+        CommentClose: checkIndent,
+        "Comment:exit"(node) {
+          indentLevel.dedent(node);
+        },
+        "CommentContent:exit"(node) {
+          indentLevel.dedent(node);
+        },
+      };
 
       /**
        * @type {RuleListener}
@@ -342,65 +428,32 @@ module.exports = {
         "Text:exit"(node) {
           indentLevel.dedent(node);
         },
-        Comment(node) {
-          indentLevel.indent(node);
-        },
-        CommentOpen: checkIndent,
-        CommentContent(node) {
-          indentLevel.indent(node);
-          if (hasTemplate(node)) {
-            node.parts.forEach((part) => {
-              if (part.type !== NODE_TYPES.Part) {
-                if (part.open) {
-                  checkIndent(part.open);
-                }
-                if (part.close) {
-                  checkIndent(part.close);
-                }
-              }
-            });
-          }
-
-          const lineNodes = splitToLineNodes(node);
-          lineNodes.forEach((lineNode) => {
-            if (lineNode.hasTemplate) {
-              return;
-            }
-            if (lineNode.value.trim().length) {
-              checkIndent(lineNode);
-            }
-          });
-        },
-        CommentClose: checkIndent,
-        "Comment:exit"(node) {
-          indentLevel.dedent(node);
-        },
-        "CommentContent:exit"(node) {
-          indentLevel.dedent(node);
-        },
+        ...(ignoreComment ? {} : commentVisitor),
       };
       return visitor;
     }
 
     return {
-      ...createIndentVisitor(0),
+      ...createIndentVisitor(0, 0),
       TaggedTemplateExpression(node) {
         if (shouldCheckTaggedTemplateExpression(node, context)) {
           const base = getTemplateLiteralBaseIndentLevel(node.quasi);
+          const baseSpaces = getAutoBaseSpaces(node.quasi);
           parseTemplateLiteral(
             node.quasi,
             getSourceCode(context),
-            createIndentVisitor(base)
+            createIndentVisitor(base, baseSpaces)
           );
         }
       },
       TemplateLiteral(node) {
         if (shouldCheckTemplateLiteral(node, context)) {
           const base = getTemplateLiteralBaseIndentLevel(node);
+          const baseSpaces = getAutoBaseSpaces(node);
           parseTemplateLiteral(
             node,
             getSourceCode(context),
-            createIndentVisitor(base)
+            createIndentVisitor(base, baseSpaces)
           );
         }
       },

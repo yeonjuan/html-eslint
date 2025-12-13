@@ -13,6 +13,12 @@ ruleTester.run("require-closing-tags", rule, {
       code: `<img>`,
     },
     {
+      code: `<script></script>`,
+    },
+    {
+      code: `<style></style>`,
+    },
+    {
       code: `<img/>`,
       options: [
         {
@@ -214,6 +220,14 @@ ruleTester.run("require-closing-tags", rule, {
           messageId: "unexpected",
         },
       ],
+    },
+    {
+      code: `<script>`,
+      errors: [{ messageId: "missing" }],
+    },
+    {
+      code: `<style>`,
+      errors: [{ messageId: "missing" }],
     },
   ],
 });

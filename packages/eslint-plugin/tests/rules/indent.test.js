@@ -519,6 +519,40 @@ text
           },
         ],
       },
+      {
+        code: `
+<div>
+  text
+  <!--
+comment
+<div></div>
+  -->
+</div>
+        `,
+        options: [
+          2,
+          {
+            ignoreComment: true,
+          },
+        ],
+      },
+      {
+        code: `
+<div>
+  text
+<!--
+comment
+<div></div>
+-->
+</div>
+        `,
+        options: [
+          2,
+          {
+            ignoreComment: true,
+          },
+        ],
+      },
     ],
     invalid: [
       {
@@ -1409,6 +1443,50 @@ text
 </div>
         `,
       },
+      {
+        code: `
+<div>
+  text
+  <!--
+comment
+<div></div>
+  -->
+</div>
+        `,
+        output: `
+<div>
+  text
+  <!--
+    comment
+    <div></div>
+  -->
+</div>
+        `,
+        options: [
+          2,
+          {
+            ignoreComment: false,
+          },
+        ],
+        errors: wrongIndentErrors(2),
+      },
+      {
+        code: `
+<div>
+ </div>
+        `,
+        output: `
+<div>
+</div>
+        `,
+        options: [
+          2,
+          {
+            templateIndentBase: "first",
+          },
+        ],
+        errors: wrongIndentErrors(1),
+      },
     ],
   };
 }
@@ -1502,6 +1580,51 @@ const code = html\`
           tagChildrenIndent: {
             div: 0,
           },
+        },
+      ],
+    },
+    {
+      code: `html\`
+       <span>test</span>
+      \``,
+      options: [
+        2,
+        {
+          templateIndentBase: "first",
+        },
+      ],
+    },
+    {
+      code: `html\`
+       <div>
+         <span>test</span>
+       </div>
+      \``,
+      options: [
+        2,
+        {
+          templateIndentBase: "first",
+        },
+      ],
+    },
+    {
+      code: `html\`<div>
+  </div>
+  <div>a</div>
+      \``,
+      options: [
+        2,
+        {
+          templateIndentBase: "first",
+        },
+      ],
+    },
+    {
+      code: `html\`\`;`,
+      options: [
+        2,
+        {
+          templateIndentBase: "first",
         },
       ],
     },
@@ -1834,6 +1957,56 @@ class Component extends LitElement {
       `,
       options: ["tab", { Attribute: 2, tagChildrenIndent: { span: 2 } }],
       errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+const code = html\`
+ <div>
+     id="\${bar}">
+</div>\`;
+    `,
+      output: `
+const code = html\`
+ <div>
+     id="\${bar}">
+ </div>\`;
+    `,
+      options: [4, { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+const code = html\`
+                      <div
+                      id="\${bar}">
+                      </div>\`;
+    `,
+      output: `
+const code = html\`
+                      <div
+                          id="\${bar}">
+                      </div>\`;
+    `,
+      options: [4, { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+const code = html\`
+\t\t\t<div
+id="\${bar}">
+\t\t\t</div>
+<span></span>\`;
+    `,
+      output: `
+const code = html\`
+\t\t\t<div
+\t\t\t\tid="\${bar}">
+\t\t\t</div>
+\t\t\t<span></span>\`;
+    `,
+      options: ["tab", { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(2),
     },
   ],
 });

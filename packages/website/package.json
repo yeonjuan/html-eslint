@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.47.0",
+  "version": "0.50.0",
   "private": true,
   "scripts": {
     "clear:cache": "rimraf ../../parcel-cache",
@@ -12,9 +12,9 @@
     "sitemap": "node ./scripts/sitemap"
   },
   "dependencies": {
-    "@html-eslint/eslint-plugin": "^0.47.0",
-    "@html-eslint/parser": "^0.47.0",
-    "@html-eslint/web-linter": "^0.47.0",
+    "@html-eslint/eslint-plugin": "^0.50.0",
+    "@html-eslint/parser": "^0.50.0",
+    "@html-eslint/web-linter": "^0.50.0",
     "@html-kit/html": "^0.0.4",
     "codemirror": "^5.58.3"
   },
@@ -27,8 +27,8 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "18.0.9",
     "autoprefixer": "^10.4.13",
-    "eslint": "^9.19.0",
-    "firebase-tools": "^14.3.1",
+    "eslint": "^9.39.1",
+    "firebase-tools": "^14.25.1",
     "highlight.js": "^11.9.0",
     "marked": "^9.1.5",
     "marked-highlight": "^2.0.6",

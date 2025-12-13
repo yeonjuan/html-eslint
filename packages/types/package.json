@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/types",
-  "version": "0.47.0",
+  "version": "0.50.0",
   "description": "Types for @html-eslint/eslint-plugin",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@types/estree": "^1.0.6",
     "es-html-parser": "0.3.1",
-    "eslint": "^9.19.0"
+    "eslint": "^9.39.1"
   },
   "devDependencies": {
     "typescript": "^5.8.3"

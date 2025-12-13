@@ -5,10 +5,10 @@
  */
 
 const { visitorKeys, parseForESLint } = require("@html-eslint/parser");
-const { HTMLSourceCode } = require("./html-source-code");
+const { createHTMLSourceCode } = require("./html-source-code");
 
 /**
- * @implements {Language<{ LangOptions: ParserOptions; Code: HTMLSourceCode; RootNode: AST.Program; Node: {}}>}
+ * @implements {Language<{ LangOptions: ParserOptions; Code: ReturnType<typeof createHTMLSourceCode>; RootNode: AST.Program; Node: {}}>}
  */
 class HTMLLanguage {
   constructor() {
@@ -104,7 +104,7 @@ class HTMLLanguage {
    * @param {OkParseResult<AST.Program>} parseResult
    */
   createSourceCode(file, parseResult) {
-    return new HTMLSourceCode({
+    return createHTMLSourceCode({
       text: /**  @type {string} */ (file.body),
       ast: parseResult.ast,
       comments: parseResult.comments,

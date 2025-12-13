@@ -247,6 +247,20 @@ function getTemplateTokens(tokens) {
   );
 }
 
+/**
+ * @param {Tag | ScriptTag | StyleTag} node
+ * @returns {string}
+ */
+function getNameOf(node) {
+  if (isScript(node)) {
+    return "script";
+  }
+  if (isStyle(node)) {
+    return "style";
+  }
+  return node.name;
+}
+
 module.exports = {
   findAttr,
   isAttributesEmpty,
@@ -266,4 +280,5 @@ module.exports = {
   getTemplateTokens,
   hasTemplate,
   hasAttr,
+  getNameOf,
 };
