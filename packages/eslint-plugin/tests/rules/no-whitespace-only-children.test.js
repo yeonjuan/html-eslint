@@ -34,7 +34,7 @@ ruleTester.run("no-whitespace-only-children", rule, {
     },
     // Allow comment only
     {
-      code: "<custom-component><!-- comment -></custom-component>",
+      code: "<custom-component><!-- comment --></custom-component>",
       options: [{ tagPatterns: ["^custom-component$"] }],
     },
   ],
