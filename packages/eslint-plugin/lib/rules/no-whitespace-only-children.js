@@ -4,7 +4,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { isTag, isText, isComment, getLocBetween } = require("./utils/node");
+const { isText, isComment, getLocBetween } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
