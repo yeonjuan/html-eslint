@@ -26,7 +26,7 @@ This limitation is due to how ESLint's parser system works and is not specific t
 
 #### Step 1: Create a Configuration for HTML ESLint
 
-Create `eslinthtml.config.mjs` for HTML syntax linting:
+Create `eslint-html.config.mjs` for HTML syntax linting:
 
 ```js
 import html from "@html-eslint/eslint-plugin";
@@ -49,7 +49,7 @@ export default [
 
 #### Step 2: Create a Configuration for JavaScript in HTML
 
-Create `eslintjs.config.mjs` for JavaScript linting within HTML:
+Create `eslint.config.mjs` for JavaScript linting within HTML:
 
 ```js
 import js from "@eslint/js";
@@ -77,10 +77,10 @@ Run ESLint separately with each configuration file:
 
 ```bash
 # Lint HTML syntax
-npx eslint --config eslinthtml.config.mjs "**/*.html"
+npx eslint --config eslint-html.config.mjs "**/*.html"
 
 # Lint JavaScript in HTML
-npx eslint --config eslintjs.config.mjs "**/*.html"
+npx eslint --config eslint.config.mjs "**/*.html"
 ```
 
 ### Using npm Scripts
@@ -90,8 +90,8 @@ You can simplify this workflow by adding scripts to your `package.json`:
 ```json
 {
   "scripts": {
-    "lint:html": "eslint --config eslinthtml.config.mjs \"**/*.html\"",
-    "lint:js-in-html": "eslint --config eslintjs.config.mjs \"**/*.html\"",
+    "lint:html": "eslint --config eslint-html.config.mjs \"**/*.html\"",
+    "lint:js-in-html": "eslint --config eslint.config.mjs \"**/*.html\"",
     "lint": "npm run lint:html && npm run lint:js-in-html"
   }
 }
@@ -132,7 +132,7 @@ npm install --save-dev eslint @html-eslint/eslint-plugin @html-eslint/parser esl
 </html>
 ```
 
-### HTML ESLint Configuration (`eslinthtml.config.mjs`)
+### HTML ESLint Configuration (`eslint-html.config.mjs`)
 
 ```js
 import html from "@html-eslint/eslint-plugin";
@@ -153,7 +153,7 @@ export default [
 ];
 ```
 
-### JavaScript in HTML Configuration (`eslintjs.config.mjs`)
+### JavaScript in HTML Configuration (`eslint.config.mjs`)
 
 ```js
 import js from "@eslint/js";
@@ -179,8 +179,8 @@ export default [
 ```json
 {
   "scripts": {
-    "lint:html": "eslint --config eslinthtml.config.mjs \"**/*.html\"",
-    "lint:js": "eslint --config eslintjs.config.mjs \"**/*.html\"",
+    "lint:html": "eslint --config eslint-html.config.mjs \"**/*.html\"",
+    "lint:js": "eslint --config eslint.config.mjs \"**/*.html\"",
     "lint": "npm run lint:html && npm run lint:js"
   }
 }
@@ -209,10 +209,10 @@ When integrating with CI/CD, run both linting commands:
 ```yaml
 # Example GitHub Actions workflow
 - name: Lint HTML syntax
-  run: npx eslint --config eslinthtml.config.mjs "**/*.html"
+  run: npx eslint --config eslint-html.config.mjs "**/*.html"
 
 - name: Lint JavaScript in HTML
-  run: npx eslint --config eslintjs.config.mjs "**/*.html"
+  run: npx eslint --config eslint.config.mjs "**/*.html"
 ```
 
 ## Troubleshooting

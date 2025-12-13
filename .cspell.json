@@ -64,7 +64,7 @@
     "nofullscreen",
     "controlslist",
     "describedby",
-    "eslinthtml",
+    "eslint-html",
     "eslintjs"
   ]
 }
