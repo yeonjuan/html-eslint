@@ -7,11 +7,10 @@ This rule disallows tags that contain only whitespace characters (spaces, tabs, 
 This rule is particularly useful when working with web components like Lit, where slots use fallback content. If a user accidentally adds whitespace (such as a newline) between tags, it can unintentionally override the default slot content, leading to unexpected behavior.
 
 For example, in Lit components:
+
 ```html
 <!-- ❌ This will override the default slot content with whitespace -->
-<my-component>
-
-</my-component>
+<my-component> </my-component>
 
 <!-- ✅ This will use the default slot content -->
 <my-component></my-component>
