@@ -1,5 +1,7 @@
+import { SyntaxConfig } from "@html-eslint/template-syntax-parser";
+
 export type ParserOptions = {
-  templateEngineSyntax?: Record<string, string>;
+  templateEngineSyntax?: SyntaxConfig;
   frontmatter?: boolean;
   rawContentTags?: string[];
 };
