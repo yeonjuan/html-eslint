@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/web-linter",
-  "version": "0.50.0",
+  "version": "0.51.0",
   "description": "",
   "private": true,
   "main": "out/output.js",
