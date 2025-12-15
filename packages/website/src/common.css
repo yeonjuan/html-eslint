@@ -4,32 +4,28 @@
 
 @layer components {
   .display1 {
-    font-family: "DM Sans", sans-serif;
     font-weight: 700;
     font-size: 40px;
     line-height: 48px;
   }
   .display3 {
-    font-family: "DM Sans", sans-serif;
     font-weight: 600;
     font-size: 28px;
     line-height: 36px;
   }
   .display4 {
-    font-family: "DM Sans", sans-serif;
     font-weight: 600;
     font-size: 24px;
     line-height: 32px;
   }
   .display4 {
-    font-family: "DM Sans", sans-serif;
     font-weight: 700;
     font-size: 20px;
     line-height: 28px;
   }
   .title4 {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 24px;
   }
   .title5 {
@@ -55,7 +51,7 @@
   .body5 {
     font-weight: 400;
     font-size: 14px;
-    line-height: 20px;
+    line-height: 24px;
   }
   .body8 {
     line-height: 16px;
@@ -64,8 +60,9 @@
     letter-spacing: -0.5%;
   }
   .code1 {
-    font-family:"Roboto Mono", monospace;
-    font-weight: 500;
+    font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
     font-size: 15px;
     line-height: 24px;
   }
@@ -82,10 +79,10 @@
     @apply my-[12px];
   }
   .md-p {
-    @apply body3 text-black-700 py-[6px];
+    @apply body3 text-black-700 py-[6px] leading-[2];
   }
   .md-codespan {
-    @apply code1 text-black-700 bg-gray-200 border-[1px] border-gray-300 rounded-[6px] py-[2px] px-[8px];
+    @apply code1 text-black-700 bg-gray-200 border-[1px] border-gray-300 rounded-[6px] py-[1px] px-1;
   }
   .md-code-wrapper {
     @apply mt-[12px] mb-[22px];
@@ -102,14 +99,14 @@
   .md-heading2 {
     @apply display3 text-2xl text-black-900 mb-3 mt-6;
   }
-  .mad-heading3 {
-    @apply text-lg mb-3 mt-5 md:text-xl scroll-mt-[64px];
+  .md-heading3 {
+    @apply  mb-2 mt-5 scroll-mt-[64px] title4;
   }
   .md-heading4 {
-    @apply my-2 block scroll-mt-[64px];
+    @apply mb-2 mt-12 title4 scroll-mt-[64px];
   }
   .md-wrapper {
-    @apply w-full pb-6 max-w-[1200px] md:pl-[40px] md:pr-[40px];
+    @apply w-full pb-6 max-w-screen-lg md:pl-[40px] md:pr-[40px] m-auto;
   }
   .md-code-filename {
     @apply flex bg-gray-300 text-black-700 code2 px-[20px] py-[12px] rounded-t-[8px];
@@ -127,7 +124,7 @@
     @apply scroll-mt-[76px];
   }
   .md-a {
-    @apply body2 text-accent hover:underline;
+    @apply body3 text-accent hover:underline;
   }
   .md-table-wrapper {
     @apply overflow-x-auto;
@@ -145,6 +142,6 @@
 
 @layer base {
   html {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Google Sans", sans-serif;
   }
 }
