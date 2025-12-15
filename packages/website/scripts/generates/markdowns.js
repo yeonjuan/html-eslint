@@ -36,9 +36,10 @@ async function generateRulesMarkdown() {
   const pushRuleItem = ({
     ruleId, rule
   }) => {
-    let meta = "";
-    if (rule.meta.docs.recommended) meta += "⭐";
-    if (rule.meta.fixable) meta += "🔧";
+    const emojis = []
+    if (rule.meta.docs.recommended) emojis.push("⭐")
+    if (rule.meta.fixable) emojis.push("🔧");
+    const meta = emojis.join(" ")
     lines.push(`| [${ruleId}](rules/${ruleId}) | ${rule.meta.docs.description} | ${meta} |`);
   };
 

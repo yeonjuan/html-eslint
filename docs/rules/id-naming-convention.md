@@ -66,7 +66,7 @@ Examples of **correct** code for this rule with the `"PascalCase"` option:
 <div id="FooBar"></div>
 ```
 
-### "kebab-case"
+#### "kebab-case"
 
 Examples of **incorrect** code for this rule with the `"kebab-case"` option:
 
@@ -80,7 +80,7 @@ Examples of **correct** code for this rule with the `"kebab-case"` option:
 <div id="foo-bar"></div>
 ```
 
-### "regex"
+#### "regex"
 
 Examples of **incorrect** code for this rule with the `"regex"` option below:
 
