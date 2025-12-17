@@ -1,7 +1,10 @@
 /**
- * @import {Tag, StyleTag, ScriptTag} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
- *
+ * @import {
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  * @typedef {Object} Option
  * @property {number} [Option.max]
  */
@@ -14,9 +17,7 @@ const MESSAGE_IDS = {
   MAX_DEPTH_EXCEEDED: "maxDepthExceeded",
 };
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -63,10 +64,7 @@ module.exports = {
       depth = 0;
     }
 
-    /**
-     *
-     * @param {Tag | ScriptTag | StyleTag} node
-     */
+    /** @param {Tag | ScriptTag | StyleTag} node */
     function increaseDepth(node) {
       depth++;
       if (depth > maxDepth) {

@@ -70,6 +70,7 @@
 | Rule                                                     | Description                                                       |       |
 | -------------------------------------------------------- | ----------------------------------------------------------------- | ----- |
 | [attrs-newline](rules/attrs-newline)                     | Enforce newline between attributes                                | ⭐ 🔧 |
+| [class-spacing](rules/class-spacing)                     | Disallow extra spacing in class attribute values                  | 🔧    |
 | [element-newline](rules/element-newline)                 | Enforce newline between elements.                                 | ⭐ 🔧 |
 | [id-naming-convention](rules/id-naming-convention)       | Enforce consistent naming of id attributes                        |       |
 | [indent](rules/indent)                                   | Enforce consistent indentation                                    | ⭐ 🔧 |

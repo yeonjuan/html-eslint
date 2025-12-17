@@ -1,6 +1,9 @@
 /**
- * @import {Tag, AnyNode} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   AnyNode,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  * @typedef {string[]} Option
  */
 
@@ -32,9 +35,7 @@ function normalize(properties) {
   });
 }
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -65,9 +66,7 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @type {string[]}
-     */
+    /** @type {string[]} */
     const requiredProperties = normalize(
       (context.options && context.options[0]) || DEFAULT_REQUIRED_PROPERTIES
     );

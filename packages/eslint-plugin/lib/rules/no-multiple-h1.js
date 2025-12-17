@@ -1,6 +1,6 @@
 /**
- * @import {Tag} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {Tag} from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -10,9 +10,7 @@ const MESSAGE_IDS = {
   MULTIPLE_H1: "unexpectedMultiH1",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -32,9 +30,7 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @type {Tag[]}
-     */
+    /** @type {Tag[]} */
     const h1s = [];
 
     return {

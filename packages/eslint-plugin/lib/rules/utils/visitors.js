@@ -1,5 +1,8 @@
 /**
- * @import {Context, RuleListener} from "../../types";
+ * @import {
+ *   Context,
+ *   RuleListener
+ * } from "../../types"
  */
 
 const {

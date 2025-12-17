@@ -1,4 +1,4 @@
-/** @satisfies {import('eslint').Linter.Config['rules']} */
+/** @satisfies {import("eslint").Linter.Config["rules"]} */
 const recommendedRules = {
   "html/require-lang": "error",
   "html/require-img-alt": "error",
@@ -30,7 +30,12 @@ const recommendedLegacyRules = Object.entries(recommendedRules).reduce(
     acc[key.replace("html/", "@html-eslint/")] = value;
     return acc;
   },
-  /** @type {Record<string, typeof recommendedRules[keyof typeof recommendedRules]>} */
+  /**
+   * @type {Record<
+   *   string,
+   *   (typeof recommendedRules)[keyof typeof recommendedRules]
+   * >}
+   */
   ({})
 );
 

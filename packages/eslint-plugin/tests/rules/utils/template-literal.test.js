@@ -4,9 +4,7 @@ const {
   parseTemplateLiteral,
 } = require("../../../lib/rules/utils/template-literal");
 
-/**
- * @param {string} code
- */
+/** @param {string} code */
 const parseCode = (code) => {
   const parsed = parse(code, {
     range: true,

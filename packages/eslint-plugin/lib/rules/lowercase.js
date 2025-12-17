@@ -1,11 +1,11 @@
 /**
  * @import {
- *   Tag,
- *   StyleTag,
- *   ScriptTag,
  *   Doctype,
- * } from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -18,9 +18,7 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "suggestion",
@@ -41,14 +39,10 @@ module.exports = {
 
   create(context) {
     const allowedAttrKeySet = new Set(SVG_CAMEL_CASE_ATTRIBUTES);
-    /**
-     * @type {Tag[]}
-     */
+    /** @type {Tag[]} */
     const svgStack = [];
 
-    /**
-     * @param {Tag} node
-     */
+    /** @param {Tag} node */
     function enterSvg(node) {
       svgStack.push(node);
     }
@@ -65,18 +59,14 @@ module.exports = {
       return !!svgStack.length && allowedAttrKeySet.has(key);
     }
 
-    /**
-     * @param {Tag | StyleTag | ScriptTag} node
-     */
+    /** @param {Tag | StyleTag | ScriptTag} node */
     function nameOf(node) {
       if (isScript(node)) return "script";
       if (isStyle(node)) return "style";
       return node.name;
     }
 
-    /**
-     * @param {Tag | StyleTag | ScriptTag} node
-     */
+    /** @param {Tag | StyleTag | ScriptTag} node */
     function check(node) {
       const raw = node.openStart.value.slice(1);
       const name = nameOf(node);
@@ -133,9 +123,7 @@ module.exports = {
       }
     }
 
-    /**
-     * @param {Doctype} doctype
-     */
+    /** @param {Doctype} doctype */
     function checkDoctype(doctype) {
       if (doctype.open.value !== doctype.open.value.toLowerCase()) {
         context.report({

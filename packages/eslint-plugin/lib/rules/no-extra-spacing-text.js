@@ -1,6 +1,11 @@
 /**
- * @import {CommentContent, Tag, Comment, Text} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   Comment,
+ *   CommentContent,
+ *   Tag,
+ *   Text
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  * @typedef {Object} Option
  * @property {string[]} [Option.skip]
  */
@@ -15,9 +20,7 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -52,14 +55,10 @@ module.exports = {
 
   create(context) {
     const options = context.options[0] || {};
-    /**
-     * @type {string[]}
-     */
+    /** @type {string[]} */
     const skipTags = options.skip || [];
     const sourceCode = getSourceCode(context);
-    /**
-     * @type {Tag[]}
-     */
+    /** @type {Tag[]} */
     const tagStack = [];
 
     /**
@@ -80,9 +79,7 @@ module.exports = {
       return false;
     }
 
-    /**
-     * @param {CommentContent | Text} node
-     */
+    /** @param {CommentContent | Text} node */
     function stripConsecutiveSpaces(node) {
       const text = node.value;
       const matcher = /(^|[^\n \t])([ \t]+\n|\t[\t ]*|[ \t]{2,})/g;

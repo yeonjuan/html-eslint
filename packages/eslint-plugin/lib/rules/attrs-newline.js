@@ -1,6 +1,8 @@
 /**
- * @import { RuleFixer, RuleModule } from '../types';
- *
+ * @import {
+ *   RuleFixer,
+ *   RuleModule
+ * } from "../types"
  * @typedef {Object} MessageId
  * @property {"closeStyleWrong"} CLOSE_STYLE_WRONG
  * @property {"newlineMissing"} NEWLINE_MISSING
@@ -14,17 +16,13 @@ const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
-/**
- * @type {MessageId}
- */
+/** @type {MessageId} */
 const MESSAGE_ID = {
   CLOSE_STYLE_WRONG: "closeStyleWrong",
   NEWLINE_MISSING: "newlineMissing",
 };
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -70,7 +68,9 @@ module.exports = {
         if (!shouldBeMultiline) return;
 
         /**
-         * This doesn't do any indentation, so the result will look silly. Indentation should be covered by the `indent` rule
+         * This doesn't do any indentation, so the result will look silly.
+         * Indentation should be covered by the `indent` rule
+         *
          * @param {RuleFixer} fixer
          */
         function fix(fixer) {

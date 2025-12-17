@@ -1,6 +1,7 @@
 /**
- * @import {AnyNode} from "@html-eslint/types";
- * @typedef {{ [key in AnyNode['type']]?: number}} IncLevelOptions
+ * @import {AnyNode} from "@html-eslint/types"
+ * @typedef {{ [key in AnyNode["type"]]?: number }} IncLevelOptions
+ *
  * @typedef {(node: AnyNode) => number} GetIncreasingLevel
  */
 
@@ -11,48 +12,40 @@ class IndentLevel {
    */
   constructor(config) {
     /**
-     * @member
      * @private
+     * @member
      * @type {number}
      */
     this.level = -1;
     /**
-     * @member
      * @private
+     * @member
      * @type {number}
      */
     this.baseLevel = 0;
     /**
-     * @member
      * @private
+     * @member
      */
     this.getInc = config.getIncreasingLevel;
   }
 
-  /**
-   * @returns {number}
-   */
+  /** @returns {number} */
   value() {
     return this.level + this.baseLevel;
   }
 
-  /**
-   * @param {AnyNode} node
-   */
+  /** @param {AnyNode} node */
   indent(node) {
     this.level += this.getInc(node);
   }
 
-  /**
-   * @param {AnyNode} node
-   */
+  /** @param {AnyNode} node */
   dedent(node) {
     this.level -= this.getInc(node);
   }
 
-  /**
-   * @param {number} base
-   */
+  /** @param {number} base */
   setBase(base) {
     this.baseLevel = base;
   }

@@ -1,6 +1,4 @@
-/**
- * @import {RuleModule} from "../types";
- */
+/** @import {RuleModule} from "../types" */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
@@ -226,9 +224,7 @@ const ELEMENTS_DISALLOWING_PRESENTATION_OR_NONE_ROLE = new Set([
   "wbr",
 ]);
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -256,10 +252,7 @@ module.exports = {
         if (!role) {
           return;
         }
-        /**
-         * Allow template expression.
-         * ex: html`<div role=${role}></div>`
-         */
+        /** Allow template expression. ex: html`<div role=${role}></div>` */
         if (
           role.value &&
           role.value.parts.some((part) => part.type === NODE_TYPES.Template)

@@ -1,7 +1,7 @@
 const { parse } = require("../lib/template-syntax-parser");
 /**
- * @import {AST} from "eslint";
- * @import {TemplateSyntaxParserConfig} from "../lib/types";
+ * @import {AST} from "eslint"
+ * @import {TemplateSyntaxParserConfig} from "../lib/types"
  */
 
 const HANDLEBAR = {
@@ -34,9 +34,7 @@ const TWIG = {
 };
 
 describe("basic", () => {
-  /**
-   * @type {[string, TemplateSyntaxParserConfig, AST.Range[]][]}
-   */
+  /** @type {[string, TemplateSyntaxParserConfig, AST.Range[]][]} */
   const TEST_CASES = [
     ["", HANDLEBAR, []],
     ["<div></div>", HANDLEBAR, []],

@@ -55,6 +55,7 @@ const noIneffectiveAttrs = require("./no-ineffective-attrs");
 const noRestrictedTags = require("./no-restricted-tags");
 const noWhitespaceOnlyChildren = require("./no-whitespace-only-children");
 const noObsoleteAttrs = require("./no-obsolete-attrs");
+const classSpacing = require("./class-spacing");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -116,11 +117,12 @@ const rules = {
   "no-restricted-tags": noRestrictedTags,
   "no-whitespace-only-children": noWhitespaceOnlyChildren,
   "no-obsolete-attrs": noObsoleteAttrs,
+  "class-spacing": classSpacing,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
 
 module.exports =
-  /** @type {Record<string, import('@eslint/core').RuleDefinition>} */ (
+  /** @type {Record<string, import("@eslint/core").RuleDefinition>} */ (
     /** @type {unknown} */ (rules)
   );

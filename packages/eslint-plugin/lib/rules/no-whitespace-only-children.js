@@ -1,6 +1,9 @@
 /**
- * @import {Tag, Text} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   Tag,
+ *   Text
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -12,9 +15,7 @@ const MESSAGE_IDS = {
   WHITESPACE_ONLY_CHILDREN: "whitespaceOnlyChildren",
 };
 
-/**
- * @param {Tag} node
- */
+/** @param {Tag} node */
 function hasOnlyWhitespaceChildren(node) {
   if (!node.children || node.children.length === 0) {
     return false;
@@ -41,9 +42,7 @@ function hasOnlyWhitespaceChildren(node) {
   return true;
 }
 
-/**
- * @type {RuleModule<[{tagPatterns?: string[]}]>}
- */
+/** @type {RuleModule<[{ tagPatterns?: string[] }]>} */
 module.exports = {
   meta: {
     type: "code",

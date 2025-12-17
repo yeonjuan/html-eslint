@@ -1,7 +1,7 @@
 /**
- * @import ESHtmlParser from "es-html-parser";
+ * @import {TemplateSyntax} from "@html-eslint/template-syntax-parser"
+ * @import ESHtmlParser from "es-html-parser"
  * @import {ParserOptions} from "./types"
- * @import {TemplateSyntax} from "@html-eslint/template-syntax-parser";
  */
 
 const templateSyntaxParser = require("@html-eslint/template-syntax-parser");
@@ -9,7 +9,7 @@ const { parseFrontmatterContent } = require("./frontmatter");
 /**
  * @param {string} code
  * @param {ParserOptions | undefined} parserOptions
- * @returns {{options: Parameters<ESHtmlParser['parse']>[1], html: string}}
+ * @returns {{ options: Parameters<ESHtmlParser["parse"]>[1]; html: string }}
  */
 function getOptions(code, parserOptions) {
   let html = code;
@@ -19,9 +19,7 @@ function getOptions(code, parserOptions) {
       html,
     };
   }
-  /**
-   * @type {TemplateSyntax[] | undefined}
-   */
+  /** @type {TemplateSyntax[] | undefined} */
   let templateInfos = undefined;
   if (parserOptions.templateEngineSyntax) {
     templateInfos = templateSyntaxParser.parse(code, {
@@ -29,9 +27,7 @@ function getOptions(code, parserOptions) {
     }).syntax;
   }
 
-  /**
-   * @type {any}
-   */
+  /** @type {any} */
   let tokenAdapter = undefined;
   if (parserOptions.frontmatter) {
     const result = parseFrontmatterContent(code);
@@ -39,9 +35,7 @@ function getOptions(code, parserOptions) {
       html = result.html;
       const lineOffset = result.line - 1;
       tokenAdapter = {
-        /**
-         * @param {any} token
-         */
+        /** @param {any} token */
         finalizeLocation(token) {
           const startLine = token.loc.start.line + lineOffset;
           const endLine = token.loc.end.line + lineOffset;
@@ -56,9 +50,7 @@ function getOptions(code, parserOptions) {
             },
           };
         },
-        /**
-         * @param {any} token
-         */
+        /** @param {any} token */
         finalizeRange(token) {
           return [token.range[0] + result.index, token.range[1] + result.index];
         },
@@ -66,9 +58,7 @@ function getOptions(code, parserOptions) {
     }
   }
 
-  /**
-   * @type {string[] | undefined}
-   */
+  /** @type {string[] | undefined} */
   let rawContentTags;
 
   if (parserOptions.rawContentTags) {

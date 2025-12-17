@@ -1,10 +1,6 @@
-/**
- * @import {Context} from "../../types";
- */
+/** @import {Context} from "../../types" */
 
-/**
- * @param {Context<any[]>} context
- */
+/** @param {Context<any[]>} context */
 function getSourceCode(context) {
   return context.sourceCode || context.getSourceCode();
 }

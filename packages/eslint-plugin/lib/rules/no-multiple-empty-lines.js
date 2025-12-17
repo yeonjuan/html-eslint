@@ -1,7 +1,9 @@
 /**
- * @import {CommentContent, Text} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
- *
+ * @import {
+ *   CommentContent,
+ *   Text
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  * @typedef {Object} Option
  * @property {number} Option.max
  */
@@ -24,9 +26,7 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -64,7 +64,7 @@ module.exports = {
     /**
      * @param {string[]} lines
      * @param {number} lineOffset
-     * @param {((CommentContent | Text)['parts'][number])[]} tokens
+     * @param {(CommentContent | Text)["parts"][number][]} tokens
      */
     function check(lines, lineOffset, tokens) {
       /** @type {number[]} */

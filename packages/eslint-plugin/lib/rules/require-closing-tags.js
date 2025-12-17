@@ -1,7 +1,10 @@
 /**
- * @import {ScriptTag, StyleTag, Tag} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
- *
+ * @import {
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  * @typedef {Object} Option
  * @property {"always" | "never"} [Option.selfClosing]
  * @property {string[]} [Option.selfClosingCustomPatterns]
@@ -20,9 +23,7 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -76,9 +77,7 @@ module.exports = {
       (i) => new RegExp(i)
     );
 
-    /**
-     * @param {Tag | ScriptTag | StyleTag} node
-     */
+    /** @param {Tag | ScriptTag | StyleTag} node */
     function checkClosing(node) {
       const name = getNameOf(node);
       if (!node.close) {
@@ -157,9 +156,7 @@ module.exports = {
         }
         if (["svg", "math"].includes(node.name)) foreignContext.push(node.name);
       },
-      /**
-       * @param {Tag} node
-       */
+      /** @param {Tag} node */
       "Tag:exit"(node) {
         if (node.name === foreignContext[foreignContext.length - 1]) {
           foreignContext.pop();
