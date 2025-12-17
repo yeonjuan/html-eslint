@@ -11,6 +11,7 @@
  *   | "kebab-case"
  *   | "regex"} Option1
  *
+ *
  * @typedef {Object} Option2
  * @property {string} pattern
  * @property {string} [flags]
