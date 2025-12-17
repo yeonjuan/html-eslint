@@ -1,6 +1,12 @@
 /**
- * @import {AST} from "eslint";
- * @import {TemplateSyntax, OpenSyntax, CloseSyntax, TemplateSyntaxParserResult, SyntaxConfigItem} from "./types";
+ * @import {AST} from "eslint"
+ * @import {
+ *   CloseSyntax,
+ *   OpenSyntax,
+ *   SyntaxConfigItem,
+ *   TemplateSyntax,
+ *   TemplateSyntaxParserResult
+ * } from "./types"
  */
 
 module.exports = class Parser {
@@ -10,25 +16,15 @@ module.exports = class Parser {
    * @param {AST.Range[]} skipRanges
    */
   constructor(code, syntaxPairs, skipRanges) {
-    /**
-     * @type {string}
-     */
+    /** @type {string} */
     this.code = code;
-    /**
-     * @type {SyntaxConfigItem[]}
-     */
+    /** @type {SyntaxConfigItem[]} */
     this.syntaxPairs = syntaxPairs || [];
-    /**
-     * @type {AST.Range[]}
-     */
+    /** @type {AST.Range[]} */
     this.skipRanges = skipRanges;
-    /**
-     * @type {OpenSyntax[]}
-     */
+    /** @type {OpenSyntax[]} */
     this.syntaxStack = [];
-    /**
-     * @type {TemplateSyntax[]}
-     */
+    /** @type {TemplateSyntax[]} */
     this.result = [];
   }
 
@@ -63,14 +59,10 @@ module.exports = class Parser {
    * @returns {OpenSyntax | null}
    */
   findOpenSyntax(position) {
-    /**
-     * @type {string | null}
-     */
+    /** @type {string | null} */
     let value = null;
     let rangeStart = Infinity;
-    /**
-     * @type {boolean | undefined}
-     */
+    /** @type {boolean | undefined} */
     let isComment = undefined;
     for (let i = 0; i < this.syntaxPairs.length; i++) {
       const syntax = this.syntaxPairs[i];
@@ -96,14 +88,10 @@ module.exports = class Parser {
    * @returns {CloseSyntax | null}
    */
   findCloseSyntax(position) {
-    /**
-     * @type {string | null}
-     */
+    /** @type {string | null} */
     let value = null;
     let rangeStart = Infinity;
-    /**
-     * @type {boolean | undefined}
-     */
+    /** @type {boolean | undefined} */
     let isComment = undefined;
     for (let i = 0; i < this.syntaxPairs.length; i++) {
       const syntax = this.syntaxPairs[i];
@@ -124,13 +112,9 @@ module.exports = class Parser {
     };
   }
 
-  /**
-   * @returns {OpenSyntax[]}
-   */
+  /** @returns {OpenSyntax[]} */
   findAllOpenSyntax() {
-    /**
-     * @type {OpenSyntax[]}
-     */
+    /** @type {OpenSyntax[]} */
     const result = [];
     let position = 0;
 
@@ -146,13 +130,9 @@ module.exports = class Parser {
     return result;
   }
 
-  /**
-   * @returns {CloseSyntax[]}
-   */
+  /** @returns {CloseSyntax[]} */
   findAllCloseSyntax() {
-    /**
-     * @type {CloseSyntax[]}
-     */
+    /** @type {CloseSyntax[]} */
     const result = [];
     let position = 0;
 
@@ -168,13 +148,9 @@ module.exports = class Parser {
     return result;
   }
 
-  /**
-   * @returns {(CloseSyntax | OpenSyntax)[]}
-   */
+  /** @returns {(CloseSyntax | OpenSyntax)[]} */
   findAllSyntax() {
-    /**
-     * @type {(CloseSyntax | OpenSyntax)[]}
-     */
+    /** @type {(CloseSyntax | OpenSyntax)[]} */
     const result = this.findAllOpenSyntax();
     return result
       .concat(this.findAllCloseSyntax())
@@ -194,9 +170,7 @@ module.exports = class Parser {
     return found.close;
   }
 
-  /**
-   * @param {CloseSyntax | OpenSyntax} syntax
-   */
+  /** @param {CloseSyntax | OpenSyntax} syntax */
   eatSyntax(syntax) {
     if (syntax.type === "open") {
       const top = this.syntaxStack[this.syntaxStack.length - 1];
@@ -232,9 +206,7 @@ module.exports = class Parser {
     }
   }
 
-  /**
-   * @returns {TemplateSyntaxParserResult}
-   */
+  /** @returns {TemplateSyntaxParserResult} */
   parse() {
     for (const syntax of this.findAllSyntax()) {
       this.eatSyntax(syntax);

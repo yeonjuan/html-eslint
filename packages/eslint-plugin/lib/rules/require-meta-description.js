@@ -1,6 +1,9 @@
 /**
- * @import {Tag, AnyNode} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   AnyNode,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 const { RULE_CATEGORY } = require("../constants");
 const { filter } = require("./utils/array");
@@ -20,9 +23,7 @@ function isMetaTagNode(node) {
   return isTag(node) && node.name === "meta";
 }
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",

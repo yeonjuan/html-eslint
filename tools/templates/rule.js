@@ -1,12 +1,8 @@
-/**
- * @import {RuleModule} from "../types";
- */
+/** @import {RuleModule} from "../types" */
 
 const { RULE_CATEGORY } = require("../constants");
 
-/**
- * @type {RuleModule}
- */
+/** @type {RuleModule} */
 module.exports = {
   meta: {
     type: "code",

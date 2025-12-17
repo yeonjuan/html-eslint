@@ -1,8 +1,16 @@
 /**
- * @import {Tag, ScriptTag, StyleTag} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
+ * @typedef {"camelCase"
+ *   | "snake_case"
+ *   | "PascalCase"
+ *   | "kebab-case"
+ *   | "regex"} Option1
  *
- * @typedef {"camelCase" | "snake_case" | "PascalCase" | "kebab-case" | "regex"} Option1
  * @typedef {Object} Option2
  * @property {string} pattern
  * @property {string} [flags]
@@ -38,9 +46,7 @@ const CONVENTION_CHECKERS = {
   [CONVENTIONS.KEBAB_CASE]: isKebabCase,
 };
 
-/**
- * @type {RuleModule<[Option1, Option2]>}
- */
+/** @type {RuleModule<[Option1, Option2]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -87,9 +93,7 @@ module.exports = {
             ).test(name)
         : CONVENTION_CHECKERS[convention];
 
-    /**
-     * @param {Tag | ScriptTag | StyleTag} node
-     */
+    /** @param {Tag | ScriptTag | StyleTag} node */
     function check(node) {
       if (isAttributesEmpty(node)) {
         return;
@@ -112,9 +116,7 @@ module.exports = {
       }
     }
 
-    /**
-     * @param {Tag | ScriptTag | StyleTag} node
-     */
+    /** @param {Tag | ScriptTag | StyleTag} node */
     function checkInTemplate(node) {
       if (isAttributesEmpty(node)) {
         return;

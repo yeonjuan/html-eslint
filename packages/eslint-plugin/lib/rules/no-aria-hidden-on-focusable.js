@@ -1,6 +1,6 @@
 /**
- * @import {Tag} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {Tag} from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -27,9 +27,7 @@ const FOCUSABLE_ELEMENTS = new Set([
   "summary",
 ]);
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -52,6 +50,7 @@ module.exports = {
   create(context) {
     /**
      * Checks if an element is focusable
+     *
      * @param {Tag} node
      * @returns {boolean}
      */

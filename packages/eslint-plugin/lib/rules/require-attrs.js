@@ -1,13 +1,19 @@
 /**
- * @import {Tag, ScriptTag, StyleTag, Attribute} from "@html-eslint/types";
- * @import {RuleModule, ReportFixFunction} from "../types";
- *
+ * @import {
+ *   Attribute,
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {
+ *   ReportFixFunction,
+ *   RuleModule
+ * } from "../types"
  * @typedef {Object} Option
  * @property {string} tag
  * @property {string} attr
  * @property {string} [value]
  * @property {string} [message]
- *
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -20,9 +26,7 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @type {RuleModule<Option[]>}
- */
+/** @type {RuleModule<Option[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -56,12 +60,13 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @type {Option[]}
-     */
+    /** @type {Option[]} */
     const options = context.options || [];
     /**
-     * @type {Map<string, { tag: string, attr: string, value?: string, message?: string}[]>}
+     * @type {Map<
+     *   string,
+     *   { tag: string; attr: string; value?: string; message?: string }[]
+     * >}
      */
     const tagOptionsMap = new Map();
 
@@ -137,9 +142,7 @@ module.exports = {
       });
     }
 
-    /**
-     * @param {StyleTag | ScriptTag} node
-     */
+    /** @param {StyleTag | ScriptTag} node */
     function checkStyleOrScript(node) {
       const tagName = node.type === NODE_TYPES.StyleTag ? "style" : "script";
       if (!tagOptionsMap.has(tagName)) {
@@ -148,9 +151,7 @@ module.exports = {
       check(node, tagName);
     }
 
-    /**
-     * @param {Tag} node
-     */
+    /** @param {Tag} node */
     function checkTag(node) {
       const tagName = node.name.toLowerCase();
       if (!tagOptionsMap.has(tagName)) {

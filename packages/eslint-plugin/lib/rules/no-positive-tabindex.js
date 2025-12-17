@@ -1,6 +1,10 @@
 /**
- * @import {Tag, StyleTag,ScriptTag } from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -12,9 +16,7 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -34,9 +36,7 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @param {Tag | StyleTag | ScriptTag} node
-     */
+    /** @param {Tag | StyleTag | ScriptTag} node */
     function check(node) {
       const tabIndexAttr = findAttr(node, "tabindex");
       if (

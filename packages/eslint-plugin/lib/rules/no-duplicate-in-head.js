@@ -1,6 +1,6 @@
 /**
- * @import {Tag} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {Tag} from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { parseTemplateLiteral } = require("./utils/template-literal");
@@ -18,8 +18,9 @@ const MESSAGE_IDS = {
 };
 
 /**
- * Returns a formatted string representing a tag's key detail.
- * E.g., meta[charset=UTF-8], meta[name=viewport], link[rel=canonical]
+ * Returns a formatted string representing a tag's key detail. E.g.,
+ * meta[charset=UTF-8], meta[name=viewport], link[rel=canonical]
+ *
  * @param {Tag} node
  * @returns {string | null}
  */
@@ -58,9 +59,7 @@ function getTrackingKey(node) {
   return null;
 }
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -83,13 +82,11 @@ module.exports = {
 
     /**
      * @param {Map<string, Tag[]>} map
-     * @param {{count: number}|null} headCountRef
+     * @param {{ count: number } | null} headCountRef
      */
     function createTagVisitor(map, headCountRef = null) {
       return {
-        /**
-         * @param {Tag} node
-         */
+        /** @param {Tag} node */
         Tag(node) {
           const tagName = node.name.toLowerCase();
 
@@ -119,9 +116,7 @@ module.exports = {
           }
         },
 
-        /**
-         * @param {Tag} node
-         */
+        /** @param {Tag} node */
         "Tag:exit"(node) {
           const tagName = node.name.toLowerCase();
           if (tagName === "head") {
@@ -135,9 +130,7 @@ module.exports = {
       };
     }
 
-    /**
-     * @param {Map<string, Tag[]>} map
-     */
+    /** @param {Map<string, Tag[]>} map */
     function report(map) {
       map.forEach((tags, tagKey) => {
         if (Array.isArray(tags) && tags.length > 1) {

@@ -1,50 +1,58 @@
 /**
- * @import { Language, ParseResult, File, FileError, OkParseResult } from "@eslint/core";
- * @import { ParserOptions } from "@html-eslint/parser";
- * @import { AST } from "eslint";
+ * @import {
+ *   File,
+ *   FileError,
+ *   Language,
+ *   OkParseResult,
+ *   ParseResult
+ * } from "@eslint/core"
+ * @import {ParserOptions} from "@html-eslint/parser"
+ * @import {AST} from "eslint"
  */
 
 const { visitorKeys, parseForESLint } = require("@html-eslint/parser");
 const { createHTMLSourceCode } = require("./html-source-code");
 
 /**
- * @implements {Language<{ LangOptions: ParserOptions; Code: ReturnType<typeof createHTMLSourceCode>; RootNode: AST.Program; Node: {}}>}
+ * @implements {Language<{
+ *   LangOptions: ParserOptions;
+ *   Code: ReturnType<typeof createHTMLSourceCode>;
+ *   RootNode: AST.Program;
+ *   Node: {};
+ * }>}
  */
 class HTMLLanguage {
   constructor() {
     /**
-     * @property
      * @type {"text"}
+     * @property
      */
     this.fileType = "text";
 
     /**
+     * @type {0 | 1}
      * @property
-     * @type {0|1}
      */
     this.lineStart = 1;
 
     /**
+     * @type {0 | 1}
      * @property
-     * @type {0|1}
      */
     this.columnStart = 0;
 
-    /**
-     * @type {string}
-     */
+    /** @type {string} */
     this.nodeTypeKey = "type";
 
     /**
      * The visitor keys for the es-html-parser AST.
+     *
      * @type {Record<string, string[]>}
      */
     this.visitorKeys = visitorKeys;
   }
 
-  /**
-   * @param {ParserOptions} languageOptions
-   */
+  /** @param {ParserOptions} languageOptions */
   validateLanguageOptions(languageOptions) {
     if (!languageOptions) {
       return;
@@ -82,7 +90,7 @@ class HTMLLanguage {
    * @returns {ParseResult<AST.Program>}
    */
   parse(file, context) {
-    const code = /**  @type {string} */ (file.body);
+    const code = /** @type {string} */ (file.body);
     const languageOptions = (context && context.languageOptions) || {};
     try {
       const result = parseForESLint(code, languageOptions);
@@ -105,7 +113,7 @@ class HTMLLanguage {
    */
   createSourceCode(file, parseResult) {
     return createHTMLSourceCode({
-      text: /**  @type {string} */ (file.body),
+      text: /** @type {string} */ (file.body),
       ast: parseResult.ast,
       comments: parseResult.comments,
     });

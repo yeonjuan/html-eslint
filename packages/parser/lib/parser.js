@@ -1,6 +1,6 @@
 /**
- * @import {ParserOptions} from "./types";
- * @import {AST} from "eslint";
+ * @import {AST} from "eslint"
+ * @import {ParserOptions} from "./types"
  */
 const { parse, TokenTypes } = require("es-html-parser");
 const { visitorKeys } = require("./visitor-keys");
@@ -11,15 +11,13 @@ const { getOptions } = require("./options");
 /**
  * @param {string} code
  * @param {ParserOptions | undefined} parserOptions
- * @returns {import('eslint').Linter.ESLintParseResult}
+ * @returns {import("eslint").Linter.ESLintParseResult}
  */
 module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
   const { options, html } = getOptions(code, parserOptions);
   const { ast, tokens } = parse(html, options);
 
-  /**
-   * @type {AST.Program}
-   */
+  /** @type {AST.Program} */
   const programNode = {
     type: "Program",
     // @ts-ignore
@@ -33,9 +31,6 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
         token.type !== TokenTypes.CommentOpen &&
         token.type !== TokenTypes.CommentClose
     ),
-    /**
-     *
-     */
     comments: [],
   };
 

@@ -1,6 +1,6 @@
 /**
- * @import {Tag} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {Tag} from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -13,9 +13,9 @@ const MESSAGE_IDS = {
 };
 
 /**
- * @see https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2
  * @param {Tag} tag
  * @returns {boolean}
+ * @see https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2
  */
 function isInteractive(tag) {
   const tagName = tag.name.toLowerCase();
@@ -55,9 +55,7 @@ function isInteractive(tag) {
   }
 }
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -78,9 +76,7 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @type {Tag[]}
-     */
+    /** @type {Tag[]} */
     let interactiveStack = [];
 
     return createVisitors(context, {

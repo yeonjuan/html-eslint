@@ -1,6 +1,9 @@
 /**
- * @import {Tag, AttributeValue} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   AttributeValue,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { parseTemplateLiteral } = require("./utils/template-literal");
@@ -17,9 +20,7 @@ const MESSAGE_IDS = {
   DUPLICATE_ID: "duplicateId",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -40,13 +41,9 @@ module.exports = {
 
   create(context) {
     const htmlIdAttrsMap = new Map();
-    /**
-     * @param {Map<string, AttributeValue[]>} map
-     */
+    /** @param {Map<string, AttributeValue[]>} map */
     function createTagVisitor(map) {
-      /**
-       * @param {Tag} node
-       */
+      /** @param {Tag} node */
       return function (node) {
         if (!node.attributes || node.attributes.length <= 0) {
           return;
@@ -64,10 +61,7 @@ module.exports = {
       };
     }
 
-    /**
-     *
-     * @param {Map<string, AttributeValue[]>} map
-     */
+    /** @param {Map<string, AttributeValue[]>} map */
     function report(map) {
       map.forEach((attrs) => {
         if (Array.isArray(attrs) && attrs.length > 1) {

@@ -1,6 +1,4 @@
-/**
- * This file is auto-generated. (yarn run baseline)
- */
+/** This file is auto-generated. (yarn run baseline) */
 const BASELINE_HIGH = 10;
 const BASELINE_LOW = 5;
 const BASELINE_FALSE = 0;

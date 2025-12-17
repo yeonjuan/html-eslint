@@ -119,6 +119,6 @@ const rules = {
 };
 
 module.exports =
-  /** @type {Record<string, import('@eslint/core').RuleDefinition>} */ (
+  /** @type {Record<string, import("@eslint/core").RuleDefinition>} */ (
     /** @type {unknown} */ (rules)
   );
