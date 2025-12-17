@@ -1,6 +1,4 @@
-/**
- * @import {RuleModule} from "../types";
- */
+/** @import {RuleModule} from "../types" */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
@@ -15,9 +13,7 @@ const MESSAGE_IDS = {
 
 const CLASS_BETWEEN_EXTRA_SPACES_REGEX = /\s{2,}/;
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "layout",
@@ -58,7 +54,10 @@ module.exports = {
         const classValue = attributeValue.value;
         const trimmedValue = classValue.trim();
 
-        if (classValue === trimmedValue && !CLASS_BETWEEN_EXTRA_SPACES_REGEX.test(classValue)) {
+        if (
+          classValue === trimmedValue &&
+          !CLASS_BETWEEN_EXTRA_SPACES_REGEX.test(classValue)
+        ) {
           return;
         }
 
@@ -97,8 +96,7 @@ module.exports = {
               start: {
                 line: attributeValue.loc.start.line,
                 column:
-                  attributeValue.loc.start.column +
-                  classValue.trimEnd().length,
+                  attributeValue.loc.start.column + classValue.trimEnd().length,
               },
               end: {
                 line: attributeValue.loc.start.line,

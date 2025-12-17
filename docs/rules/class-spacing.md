@@ -17,6 +17,7 @@ module.exports = {
 ## Rule Details
 
 This rule disallows the following:
+
 - Leading spaces at the start of class attribute values
 - Trailing spaces at the end of class attribute values
 - Multiple consecutive spaces between class names
