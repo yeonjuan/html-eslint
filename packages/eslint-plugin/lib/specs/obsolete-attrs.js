@@ -1,17 +1,15 @@
 /**
  * @typedef {Object} ObsoleteAttrConfig
- * @property {string[]} elements - List of HTML elements where this attribute is obsolete. Use "*" for all elements.
- * @property {string} suggestion - Suggestion for what to use instead of this obsolete attribute.
+ * @property {string[]} elements - List of HTML elements where this attribute is
+ *   obsolete. Use "*" for all elements.
+ * @property {string} suggestion - Suggestion for what to use instead of this
+ *   obsolete attribute.
  */
 
-/**
- * @typedef {Record<string, ObsoleteAttrConfig[]>} ObsoleteAttrs
- */
+/** @typedef {Record<string, ObsoleteAttrConfig[]>} ObsoleteAttrs */
 
 // https://html.spec.whatwg.org/dev/obsolete.html#non-conforming-features
-/**
- * @type {ObsoleteAttrs}
- */
+/** @type {ObsoleteAttrs} */
 module.exports = {
   charset: [
     {

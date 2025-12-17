@@ -1,6 +1,10 @@
 /**
- * @import {Tag, StyleTag, ScriptTag} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -13,9 +17,7 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -36,9 +38,7 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @param {Tag | ScriptTag | StyleTag} node
-     */
+    /** @param {Tag | ScriptTag | StyleTag} node */
     function checkObsoleteAttrs(node) {
       const tagName = getNameOf(node);
       // Check each attribute on the element

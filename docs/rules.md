@@ -18,6 +18,7 @@
 | [no-inline-styles](rules/no-inline-styles)                       | Disallow using inline style                                                                    |       |
 | [no-invalid-entity](rules/no-invalid-entity)                     | Disallows the use of invalid HTML entities                                                     |       |
 | [no-nested-interactive](rules/no-nested-interactive)             | Disallows nested interactive elements                                                          |       |
+| [no-obsolete-attrs](rules/no-obsolete-attrs)                     | Disallow use of obsolete attributes in HTML5                                                   | ⭐    |
 | [no-obsolete-tags](rules/no-obsolete-tags)                       | Disallow use of obsolete elements in HTML5                                                     | ⭐    |
 | [no-restricted-attr-values](rules/no-restricted-attr-values)     | Disallow specified attributes                                                                  |       |
 | [no-restricted-attrs](rules/no-restricted-attrs)                 | Disallow specified attributes                                                                  |       |
