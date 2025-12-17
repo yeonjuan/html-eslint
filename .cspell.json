@@ -12,7 +12,10 @@
     "packages/website/**",
     "packages/eslint-plugin/types/**",
     "packages/eslint-plugin/lib/rules/utils/baseline.js",
-    "packages/eslint-plugin/tests/rules/use-baseline.test.js"
+    "packages/eslint-plugin/tests/rules/use-baseline.test.js",
+    "packages/eslint-plugin/lib/specs/obsolete-attrs.js",
+    "packages/eslint-plugin/tests/rules/no-obsolete-attrs.test.js",
+    "docs/rules/no-obsolete-attrs.md"
   ],
   "words": [
     "foofoo",

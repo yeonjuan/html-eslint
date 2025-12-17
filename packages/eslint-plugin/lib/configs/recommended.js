@@ -18,6 +18,7 @@ const recommendedRules = {
   "html/require-li-container": "error",
   "html/quotes": "error",
   "html/no-obsolete-tags": "error",
+  "html/no-obsolete-attrs": "error",
   "html/require-closing-tags": "error",
   "html/no-duplicate-attrs": "error",
   "html/use-baseline": "error",
