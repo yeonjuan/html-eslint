@@ -1,10 +1,18 @@
 /**
- * @import {AST} from 'eslint';
- * @import {SourceLocation, DirectiveType} from '@eslint/plugin-kit';
- * @import {TraversalStep, SourceCode} from '@eslint/core';
- * @import {CommentContent, AnyHTMLNode} from '@html-eslint/types';
- * @import {BaseNode} from '../types';
- *
+ * @import {
+ *   SourceCode,
+ *   TraversalStep
+ * } from "@eslint/core"
+ * @import {
+ *   DirectiveType,
+ *   SourceLocation
+ * } from "@eslint/plugin-kit"
+ * @import {
+ *   AnyHTMLNode,
+ *   CommentContent
+ * } from "@html-eslint/types"
+ * @import {AST} from "eslint"
+ * @import {BaseNode} from "../types"
  */
 const {
   TextSourceCodeBase,
@@ -26,19 +34,13 @@ const INLINE_CONFIG =
 const commentParser = new ConfigCommentParser();
 
 class HTMLSourceCode extends TextSourceCodeBase {
-  /**
-   * @param {{ast: AST.Program, text: string, comments: CommentContent[]}} config
-   */
+  /** @param {{ ast: AST.Program; text: string; comments: CommentContent[] }} config */
   constructor({ ast, text, comments }) {
     super({ ast, text });
 
-    /**
-     * @property
-     */
+    /** @property */
     this.ast = ast;
-    /**
-     * @property
-     */
+    /** @property */
     this.comments = comments;
     this.parentsMap = new Map();
 
@@ -77,12 +79,14 @@ class HTMLSourceCode extends TextSourceCodeBase {
 
   getDisableDirectives() {
     /**
-     * @type {{ruleId: null | string, message: string; loc: SourceLocation}[]}
+     * @type {{
+     *   ruleId: null | string;
+     *   message: string;
+     *   loc: SourceLocation;
+     * }[]}
      */
     const problems = [];
-    /**
-     * @type {Directive[]}
-     */
+    /** @type {Directive[]} */
     const directives = [];
 
     this.getInlineConfigNodes().forEach((comment) => {
@@ -126,13 +130,10 @@ class HTMLSourceCode extends TextSourceCodeBase {
   }
 
   traverse() {
-    /**
-     * @type {TraversalStep[]}
-     */
+    /** @type {TraversalStep[]} */
     const steps = [];
 
     /**
-     *
      * @param {AnyHTMLNode | AST.Program} node
      * @param {AnyHTMLNode | AST.Program | null} parent
      */
@@ -184,10 +185,17 @@ class HTMLSourceCode extends TextSourceCodeBase {
   }
 }
 /**
- * @param {{ast: AST.Program, text: string, comments: CommentContent[]}} config
+ * @param {{ ast: AST.Program; text: string; comments: CommentContent[] }} config
  * @returns {TextSourceCodeBase<any> & {
- *   getDisableDirectives(): { problems: {ruleId: null | string, message: string; loc: SourceLocation}[]; directives: Directive[]}
- *   getInlineConfigNodes(): CommentContent[]
+ *   getDisableDirectives(): {
+ *     problems: {
+ *       ruleId: null | string;
+ *       message: string;
+ *       loc: SourceLocation;
+ *     }[];
+ *     directives: Directive[];
+ *   };
+ *   getInlineConfigNodes(): CommentContent[];
  * }}
  */
 function createHTMLSourceCode(config) {

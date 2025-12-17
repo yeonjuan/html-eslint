@@ -1,6 +1,6 @@
 /**
- * @import {RuleModule} from "../types";
- * @import {Tag} from "@html-eslint/types";
+ * @import {Tag} from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -10,9 +10,7 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -33,9 +31,7 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @type {{node: Tag; level: number}[]}
-     */
+    /** @type {{ node: Tag; level: number }[]} */
     const headings = [];
 
     return {

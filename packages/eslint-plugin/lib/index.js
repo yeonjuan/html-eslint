@@ -7,13 +7,9 @@ const { allRules } = require("./configs/all");
 const { HTMLLanguage } = require("./languages/html-language");
 const { name, version } = require("../package.json");
 const parser = require("@html-eslint/parser");
-/**
- * @import { ESLint } from "eslint";
- */
+/** @import {ESLint} from "eslint" */
 
-/**
- * @type {ESLint.Plugin}
- */
+/** @type {ESLint.Plugin} */
 const plugin = {
   meta: {
     name,

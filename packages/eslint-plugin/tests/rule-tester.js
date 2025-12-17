@@ -1,6 +1,6 @@
 /**
- * @import {Linter} from "eslint";
- * @import {RuleModule} from "../lib/types";
+ * @import {Linter} from "eslint"
+ * @import {RuleModule} from "../lib/types"
  */
 
 const { RuleTester: ESLintRuleTester } = require("eslint");
@@ -9,7 +9,8 @@ const FILE_NAME = "test.html";
 const html = require("../lib/index");
 
 /**
- * @param {ESLintRuleTester.InvalidTestCase | ESLintRuleTester.ValidTestCase} test
+ * @param {ESLintRuleTester.InvalidTestCase
+ *   | ESLintRuleTester.ValidTestCase} test
  */
 function getLanguageOptions(test) {
   if (!test.languageOptions) {
@@ -25,10 +26,7 @@ function getLanguageOptions(test) {
 }
 
 class RuleTester extends ESLintRuleTester {
-  /**
-   *
-   * @param {Linter.Config} options
-   */
+  /** @param {Linter.Config} options */
   constructor(options) {
     super(options);
   }
@@ -36,7 +34,10 @@ class RuleTester extends ESLintRuleTester {
   /**
    * @param {string} name
    * @param {RuleModule<unknown[]>} rule
-   * @param {{ valid: ESLintRuleTester.ValidTestCase[]; invalid: ESLintRuleTester.InvalidTestCase[];}} tests
+   * @param {{
+   *   valid: ESLintRuleTester.ValidTestCase[];
+   *   invalid: ESLintRuleTester.InvalidTestCase[];
+   * }} tests
    */
   // @ts-ignore
   run(name, rule, tests) {
@@ -58,9 +59,7 @@ class RuleTester extends ESLintRuleTester {
   }
 }
 
-/**
- * @param {"espree"} [parser]
- */
+/** @param {"espree"} [parser] */
 module.exports = function createRuleTester(parser) {
   if (process.env.TEST_ESLINT_LEGACY_CONFIG) {
     return new RuleTester({

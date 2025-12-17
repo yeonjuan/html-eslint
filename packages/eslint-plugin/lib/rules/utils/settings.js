@@ -1,6 +1,13 @@
 /**
- * @import {MaybeHTMLSettings, HTMLSettings, Context} from "../../types";
- * @import {TaggedTemplateExpression, TemplateLiteral} from "@html-eslint/types";
+ * @import {
+ *   TaggedTemplateExpression,
+ *   TemplateLiteral
+ * } from "@html-eslint/types"
+ * @import {
+ *   Context,
+ *   HTMLSettings,
+ *   MaybeHTMLSettings
+ * } from "../../types"
  */
 
 const { getSourceCode } = require("../utils/source-code");
@@ -54,7 +61,6 @@ function shouldCheckTaggedTemplateExpression(node, context) {
 }
 
 /**
- *
  * @param {TemplateLiteral} node
  * @param {Context<any[]>} context
  * @returns {boolean}

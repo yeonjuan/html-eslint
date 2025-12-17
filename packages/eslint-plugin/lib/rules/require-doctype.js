@@ -1,6 +1,4 @@
-/**
- * @import {RuleModule} from "../types";
- */
+/** @import {RuleModule} from "../types" */
 
 const { RULE_CATEGORY } = require("../constants");
 const { getRuleUrl } = require("./utils/rule");
@@ -9,9 +7,7 @@ const MESSAGE_IDS = {
   MISSING: "missing",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",

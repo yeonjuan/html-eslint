@@ -1,6 +1,9 @@
 /**
- * @import {Tag, Text} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   Tag,
+ *   Text
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -15,9 +18,7 @@ const MESSAGE_IDS = {
 
 const HEADING_NAMES = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
 
-/**
- * @param {Tag} node
- */
+/** @param {Tag} node */
 function isAriaHidden(node) {
   const ariaHiddenAttr = findAttr(node, "aria-hidden");
   return (
@@ -85,9 +86,7 @@ function getAccessibleText(node) {
   return text;
 }
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",

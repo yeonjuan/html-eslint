@@ -56,7 +56,7 @@ async function makePackageJson({ fixtureName, eslintVersion, dir }) {
  * @param {Object} params
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
- * @returns {Promise<{dir: string}>}
+ * @returns {Promise<{ dir: string }>}
  */
 async function setup({ fixtureName, eslintVersion }) {
   const dir = await tmpDir();

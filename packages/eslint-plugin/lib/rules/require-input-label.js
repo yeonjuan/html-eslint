@@ -1,6 +1,6 @@
 /**
- * @import {RuleModule} from "../types";
- * @import {Tag} from "@html-eslint/types";
+ * @import {Tag} from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -16,9 +16,7 @@ const INPUT_TAGS = new Set(["input", "textarea", "select"]);
 
 const LABEL_ATTRIBUTES = new Set(["id", "aria-labelledby", "aria-label"]);
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",

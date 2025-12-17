@@ -1,6 +1,5 @@
 /**
- * @import {RuleModule} from "../types";
- *
+ * @import {RuleModule} from "../types"
  * @typedef {Object} Option
  * @property {string[]} [Option.allowClass]
  * @property {string[]} [Option.allowId]
@@ -18,9 +17,7 @@ const MESSAGE_IDS = {
 
 const TARGET_ELEMENTS = ["img", "iframe"];
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "code",

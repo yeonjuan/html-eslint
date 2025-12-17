@@ -1,6 +1,6 @@
 /**
- * @import {RuleModule} from "../types";
- * @import {Text} from "@html-eslint/types";
+ * @import {Text} from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 // Define the type for entities.json
@@ -21,9 +21,7 @@ const MESSAGE_IDS = {
   INVALID_ENTITY: "invalidEntity",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -42,9 +40,7 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @param {Text} node
-     */
+    /** @param {Text} node */
     function check(node) {
       const text = node.value;
 

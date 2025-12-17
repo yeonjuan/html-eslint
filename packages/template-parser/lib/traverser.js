@@ -1,13 +1,14 @@
 /**
- * @import {AnyNode} from "es-html-parser";
- * @import {TemplateHTMLVisitor, TemplateHTMLVisitorKeys} from "./types";
+ * @import {AnyNode} from "es-html-parser"
+ * @import {
+ *   TemplateHTMLVisitor,
+ *   TemplateHTMLVisitorKeys
+ * } from "./types"
  */
 
 const { NodeTypes } = require("es-html-parser");
 
-/**
- * @type {TemplateHTMLVisitorKeys}
- */
+/** @type {TemplateHTMLVisitorKeys} */
 const visitorKeys = {
   [NodeTypes.Document]: ["children"],
   [NodeTypes.Attribute]: ["key", "startWrapper", "endWrapper", "value"],
@@ -61,7 +62,6 @@ const visitorKeys = {
 };
 
 /**
- *
  * @param {AnyNode} node
  * @param {TemplateHTMLVisitor} visitors
  * @param {AnyNode | null} [parent]

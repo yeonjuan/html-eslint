@@ -1,7 +1,16 @@
 /**
- * @import { Text, AnyNode, OpenTagEnd, CloseTag } from '@html-eslint/types';
- * @import { Line, RuleModule } from '../types';
- * @typedef { AnyNode | Line } AnyNodeOrLine
+ * @import {
+ *   AnyNode,
+ *   CloseTag,
+ *   OpenTagEnd,
+ *   Text
+ * } from "@html-eslint/types"
+ * @import {
+ *   Line,
+ *   RuleModule
+ * } from "../types"
+ * @typedef {AnyNode | Line} AnyNodeOrLine
+ *
  * @typedef {Object} Option
  * @property {string[]} [Option.skip]
  * @property {string[]} [Option.inline]
@@ -24,9 +33,7 @@ const MESSAGE_IDS = {
   EXPECT_NEW_LINE_AFTER: "expectAfter",
 };
 
-/**
- * @type {Object.<string, Array<string>>}
- */
+/** @type {Object<string, string[]>} */
 const PRESETS = {
   // From https://developer.mozilla.org/en-US/docs/Web/HTML/Element#inline_text_semantics
   $inline: `
@@ -64,9 +71,7 @@ wbr
     .split(`\n`),
 };
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -108,9 +113,7 @@ module.exports = {
 
   create(context) {
     const option = context.options[0] || {};
-    /**
-     * @type {string[]}
-     */
+    /** @type {string[]} */
     const skipTags = option.skip || ["pre", "code"];
     const inlineTags = optionsOrPresets(option.inline || []);
 
@@ -119,9 +122,7 @@ module.exports = {
      * @returns {Exclude<AnyNodeOrLine, Text>[]}
      */
     function getChildrenToCheck(children) {
-      /**
-       * @type {Exclude<AnyNodeOrLine, Text>[]}
-       */
+      /** @type {Exclude<AnyNodeOrLine, Text>[]} */
       const childrenToCheck = [];
 
       for (const child of children) {
@@ -224,9 +225,7 @@ module.exports = {
 
       childrenToCheck.forEach((child) => {
         if (isTag(child)) {
-          /**
-           * @type {[OpenTagEnd, CloseTag] | undefined}
-           */
+          /** @type {[OpenTagEnd, CloseTag] | undefined} */
           const wrapper = child.close
             ? [child.openEnd, child.close]
             : undefined;
@@ -298,9 +297,7 @@ module.exports = {
       return `<${node.type}>`;
     }
 
-    /**
-     * @param {Array<string>} options
-     */
+    /** @param {string[]} options */
     function optionsOrPresets(options) {
       const result = [];
       for (const option of options) {

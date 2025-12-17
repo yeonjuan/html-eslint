@@ -1,10 +1,15 @@
 /**
- * @import {AST} from "eslint";
- * @import {Attribute, Tag, ScriptTag, StyleTag} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
- *
+ * @import {
+ *   Attribute,
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {AST} from "eslint"
+ * @import {RuleModule} from "../types"
  * @typedef {"single" | "double"} SingleOrQuoteOption
- * @typedef {{enforceTemplatedAttrValue: boolean}} ObjectOption
+ *
+ * @typedef {{ enforceTemplatedAttrValue: boolean }} ObjectOption
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -25,9 +30,7 @@ const QUOTES_STYLES = {
 
 const QUOTES_CODES = [`"`, `'`];
 
-/**
- * @type {RuleModule<[SingleOrQuoteOption, ObjectOption]>}
- */
+/** @type {RuleModule<[SingleOrQuoteOption, ObjectOption]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -85,7 +88,6 @@ module.exports = {
     }
 
     /**
-     *
      * @param {Attribute} attr
      * @returns {[string, string]}
      */
@@ -102,10 +104,7 @@ module.exports = {
       if (!attr.value || attr.value.value.includes(expectedQuote)) {
         return;
       }
-      /**
-       * Allow template expression.
-       * ex: html`<div foo=${foo}></div>`
-       */
+      /** Allow template expression. ex: html`<div foo=${foo}></div>` */
       if (
         !enforceTemplatedAttrValue &&
         attr.value.parts.some((part) => part.type === NODE_TYPES.Template)
@@ -160,9 +159,7 @@ module.exports = {
         });
       }
     }
-    /**
-     * @param {Tag | ScriptTag | StyleTag} node
-     */
+    /** @param {Tag | ScriptTag | StyleTag} node */
     function check(node) {
       node.attributes.forEach((attr) => checkQuotes(attr));
     }

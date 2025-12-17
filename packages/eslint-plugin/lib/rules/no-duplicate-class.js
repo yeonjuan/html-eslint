@@ -1,10 +1,10 @@
 /**
- * @import {AttributeValue} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {AttributeValue} from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  * @typedef {Object} ClassInfo
  * @property {string} name
- * @property {import("@html-eslint/types").AnyNode['loc']} loc
- * @property {import("@html-eslint/types").AnyNode['range']} range
+ * @property {import("@html-eslint/types").AnyNode["loc"]} loc
+ * @property {import("@html-eslint/types").AnyNode["range"]} range
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -16,9 +16,7 @@ const MESSAGE_IDS = {
   DUPLICATE_CLASS: "duplicateClass",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -38,17 +36,13 @@ module.exports = {
   create(context) {
     /**
      * @param {AttributeValue} value
-     * @returns {{value: string, pos: number}[]}
+     * @returns {{ value: string; pos: number }[]}
      */
     function splitClassAndSpaces(value) {
-      /**
-       * @type {{value: string, pos: number}[]}
-       */
+      /** @type {{ value: string; pos: number }[]} */
       const result = [];
       const regex = /(\s+|\S+)/g;
-      /**
-       * @type {RegExpExecArray | null}
-       */
+      /** @type {RegExpExecArray | null} */
       let match = null;
 
       while ((match = regex.exec(value.value)) !== null) {

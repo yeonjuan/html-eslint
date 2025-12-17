@@ -1,7 +1,16 @@
 /**
- * @import {StyleTag, Attribute, Tag, ScriptTag } from "@html-eslint/types";
- * @import {RuleModule} from "../types";
- * @typedef {{attrPatterns: string[], attrValuePatterns: string[], message?: string}[]} Options
+ * @import {
+ *   Attribute,
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
+ * @typedef {{
+ *   attrPatterns: string[];
+ *   attrValuePatterns: string[];
+ *   message?: string;
+ * }[]} Options
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -12,9 +21,7 @@ const MESSAGE_IDS = {
   RESTRICTED: "restricted",
 };
 
-/**
- * @type {RuleModule<Options>}
- */
+/** @type {RuleModule<Options>} */
 module.exports = {
   meta: {
     type: "code",
@@ -60,14 +67,10 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @type {Options}
-     */
+    /** @type {Options} */
     const options = context.options;
     const checkers = options.map((option) => new PatternChecker(option));
-    /**
-     * @param {Tag | StyleTag | ScriptTag} node
-     */
+    /** @param {Tag | StyleTag | ScriptTag} node */
     function check(node) {
       node.attributes.forEach((attr) => {
         if (
@@ -88,9 +91,7 @@ module.exports = {
           return;
         }
 
-        /**
-         * @type {{node: Attribute, message: string, messageId?: string}}
-         */
+        /** @type {{ node: Attribute; message: string; messageId?: string }} */
         const result = {
           node: attr,
           message: "",
@@ -120,9 +121,7 @@ module.exports = {
 };
 
 class PatternChecker {
-  /**
-   * @param {Options[number]} option
-   */
+  /** @param {Options[number]} option */
   constructor(option) {
     this.option = option;
     this.attrRegExps = option.attrPatterns.map(
@@ -147,9 +146,7 @@ class PatternChecker {
     return result;
   }
 
-  /**
-   * @returns {string}
-   */
+  /** @returns {string} */
   getMessage() {
     return this.message || "";
   }

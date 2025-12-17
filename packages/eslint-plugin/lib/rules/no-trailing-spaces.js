@@ -1,6 +1,9 @@
 /**
- * @import {RuleModule} from "../types";
- * @import {CommentContent, Text} from "@html-eslint/types";
+ * @import {
+ *   CommentContent,
+ *   Text
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { parseTemplateLiteral } = require("./utils/template-literal");
@@ -21,9 +24,7 @@ const MESSAGE_IDS = {
   TRAILING_SPACE: "trailingSpace",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "layout",
@@ -49,7 +50,7 @@ module.exports = {
      * @param {number} offset.range
      * @param {number} offset.line
      * @param {number} offset.column
-     * @param {((CommentContent | Text)['parts'][number])[]} tokens
+     * @param {(CommentContent | Text)["parts"][number][]} tokens
      */
     function check(source, lines, offset, tokens) {
       const lineBreaks = source.match(/\r\n|[\r\n\u2028\u2029]/gu);

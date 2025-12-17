@@ -1,6 +1,15 @@
 /**
- * @import {Attribute, OpenScriptTagStart, OpenTagStart, OpenStyleTagStart, Tag, StyleTag, ScriptTag, AnyNode} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   AnyNode,
+ *   Attribute,
+ *   OpenScriptTagStart,
+ *   OpenStyleTagStart,
+ *   OpenTagStart,
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  * @typedef {Object} Option
  * @property {boolean} [Option.disallowInAssignment]
  * @property {boolean} [Option.disallowMissing]
@@ -28,9 +37,7 @@ const MESSAGE_IDS = {
   EXTRA_TAB_BETWEEN: "unexpectedTabBetween",
 };
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -93,9 +100,7 @@ module.exports = {
 
     const sourceCode = getSourceCode(context).text;
 
-    /**
-     * @param {Attribute[]} attrs
-     */
+    /** @param {Attribute[]} attrs */
     function checkExtraSpacesBetweenAttrs(attrs) {
       attrs.forEach((current, index, attrs) => {
         if (index >= attrs.length - 1) {

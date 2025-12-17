@@ -1,7 +1,22 @@
 /**
- * @import {Attribute, Tag, ScriptTag, StyleTag, AnyNode, Text, CommentContent, Comment, AttributeValue, AttributeKey, AnyToken} from "@html-eslint/types";
- * @import {Line, BaseNode} from "../../types";
- * @import {AST} from "eslint";
+ * @import {
+ *   AnyNode,
+ *   AnyToken,
+ *   Attribute,
+ *   AttributeKey,
+ *   AttributeValue,
+ *   Comment,
+ *   CommentContent,
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag,
+ *   Text
+ * } from "@html-eslint/types"
+ * @import {AST} from "eslint"
+ * @import {
+ *   BaseNode,
+ *   Line
+ * } from "../../types"
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
@@ -30,6 +45,7 @@ function hasAttr(node, attrName) {
 
 /**
  * Checks whether a node's attributes is empty or not.
+ *
  * @param {Tag | ScriptTag | StyleTag} node
  * @returns {boolean}
  */
@@ -39,15 +55,16 @@ function isAttributesEmpty(node) {
 
 /**
  * Checks whether a node's all tokens are on the same line or not.
+ *
  * @param {AnyNode} node A node to check
- * @returns {boolean} `true` if a node's tokens are on the same line, otherwise `false`.
+ * @returns {boolean} `true` if a node's tokens are on the same line, otherwise
+ *   `false`.
  */
 function isNodeTokensOnSameLine(node) {
   return node.loc.start.line === node.loc.end.line;
 }
 
 /**
- *
  * @param {AST.Range} rangeA
  * @param {AST.Range} rangeB
  * @returns {boolean}
@@ -57,7 +74,7 @@ function isRangesOverlap(rangeA, rangeB) {
 }
 
 /**
- * @param {(Text | CommentContent)['parts']} parts
+ * @param {(Text | CommentContent)["parts"]} parts
  * @param {AST.Range} range
  * @returns {boolean}
  */
@@ -76,7 +93,6 @@ function hasTemplate(node) {
 }
 
 /**
- *
  * @param {Text | CommentContent} node
  * @returns {Line[]}
  */
@@ -84,15 +100,10 @@ function splitToLineNodes(node) {
   let start = node.range[0];
   let line = node.loc.start.line;
   const startCol = node.loc.start.column;
-  /**
-   * @type {Line[]}
-   */
+  /** @type {Line[]} */
   const lineNodes = [];
   const parts = node.parts || [];
-  /**
-   *
-   * @param {AST.Range} range
-   */
+  /** @param {AST.Range} range */
   function hasTemplate(range) {
     return parts.some(
       (part) =>
@@ -102,9 +113,7 @@ function splitToLineNodes(node) {
 
   node.value.split("\n").forEach((value, index) => {
     const columnStart = index === 0 ? startCol : 0;
-    /**
-     * @type {AST.Range}
-     */
+    /** @type {AST.Range} */
     const range = [start, start + value.length];
     const loc = {
       start: {
@@ -116,9 +125,7 @@ function splitToLineNodes(node) {
         column: columnStart + value.length,
       },
     };
-    /**
-     * @type {Line}
-     */
+    /** @type {Line} */
     const lineNode = {
       type: "Line",
       value,
@@ -138,9 +145,10 @@ function splitToLineNodes(node) {
 
 /**
  * Get location between two nodes.
- * @param {{loc: AST.SourceLocation}} before A node placed in before
- * @param {{loc: AST.SourceLocation}} after A node placed in after
- * @returns {AST.SourceLocation} location between two nodes.
+ *
+ * @param {{ loc: AST.SourceLocation }} before A node placed in before
+ * @param {{ loc: AST.SourceLocation }} after A node placed in after
+ * @returns {AST.SourceLocation} Location between two nodes.
  */
 function getLocBetween(before, after) {
   return {
@@ -230,9 +238,8 @@ function findParent(node, predicate) {
 }
 
 /**
- *
  * @param {AnyToken[]} tokens
- * @returns {((CommentContent | Text)['parts'][number])[]}
+ * @returns {(CommentContent | Text)["parts"][number][]}
  */
 function getTemplateTokens(tokens) {
   return (

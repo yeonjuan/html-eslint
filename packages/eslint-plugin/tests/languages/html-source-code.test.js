@@ -1,6 +1,4 @@
-/**
- * @import {File} from "@eslint/core";
- */
+/** @import {File} from "@eslint/core" */
 
 const { HTMLLanguage } = require("../../lib/languages/html-language");
 const {
@@ -20,9 +18,7 @@ const createFile = (text) => {
   };
 };
 
-/**
- * @param {string} text
- */
+/** @param {string} text */
 const createSourceCode = (text) => {
   const language = new HTMLLanguage();
   const file = createFile(text);
