@@ -1,7 +1,6 @@
 /**
- * @import {Tag} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
- *
+ * @import {Tag} from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  * @typedef {Object} Option
  * @property {string[]} [substitute]
  */
@@ -15,9 +14,7 @@ const MESSAGE_IDS = {
   INSERT_ALT: "insertAlt",
 };
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "suggestion",

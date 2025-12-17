@@ -1,7 +1,7 @@
 /**
  * @import {TemplateLiteral} from "@html-eslint/types"
- * @import {SourceCode} from "eslint";
- * @import {TemplateHTMLVisitor} from "./types";
+ * @import {SourceCode} from "eslint"
+ * @import {TemplateHTMLVisitor} from "./types"
  */
 
 const esHtmlParser = require("es-html-parser");
@@ -13,17 +13,13 @@ const { traverse } = require("./traverser");
  * @param {TemplateHTMLVisitor} [visitor]
  */
 function parse(node, sourceCode, visitor) {
-  /**
-   * @type {string[]}
-   */
+  /** @type {string[]} */
   const htmlParts = [];
   const quasis = node.quasis;
   const rangeOffset = node.range[0] + 1;
   const lineOffset = node.loc.start.line - 1;
   const expressions = node.expressions;
-  /**
-   * @type {{open: [number, number]; close: [number, number]}[]}
-   */
+  /** @type {{ open: [number, number]; close: [number, number] }[]} */
   const templateInfos = [];
   quasis.forEach((element, index) => {
     htmlParts.push(element.value.raw);

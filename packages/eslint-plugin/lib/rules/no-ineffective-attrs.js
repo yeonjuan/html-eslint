@@ -1,7 +1,14 @@
 /**
- * @import {RuleModule} from "../types";
- * @import {Tag, ScriptTag} from "@html-eslint/types"
- * @typedef {{ attr: string; when: (node: Tag | ScriptTag) => boolean; message: string; }} AttributeChecker
+ * @import {
+ *   ScriptTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
+ * @typedef {{
+ *   attr: string;
+ *   when: (node: Tag | ScriptTag) => boolean;
+ *   message: string;
+ * }} AttributeChecker
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -32,9 +39,7 @@ function isTemplateValueAttr(node, attrName) {
   return hasTemplate(attr.value);
 }
 
-/**
- * @type {Record<string, AttributeChecker[]>}
- */
+/** @type {Record<string, AttributeChecker[]>} */
 const checkersByTag = {
   input: [
     {
@@ -110,9 +115,7 @@ const checkersByTag = {
   ],
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   name: "no-ineffective-attrs",
   meta: {
@@ -131,9 +134,7 @@ module.exports = {
   defaultOptions: [],
   create(context) {
     return createVisitors(context, {
-      /**
-       * @param {Tag} node
-       */
+      /** @param {Tag} node */
       Tag(node) {
         const tagCheckers = checkersByTag[node.name];
         if (!tagCheckers) return;
@@ -155,9 +156,7 @@ module.exports = {
           }
         }
       },
-      /**
-       * @param {ScriptTag} node
-       */
+      /** @param {ScriptTag} node */
       ScriptTag(node) {
         const scriptCheckers = checkersByTag.script;
         if (!scriptCheckers) return;

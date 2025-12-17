@@ -1,6 +1,4 @@
-/**
- * @import {RuleModule} from "../types";
- */
+/** @import {RuleModule} from "../types" */
 
 const { RULE_CATEGORY, OBSOLETE_TAGS } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
@@ -12,9 +10,7 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",

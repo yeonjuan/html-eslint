@@ -3,9 +3,7 @@ const { SourceCode } = require("eslint");
 const templateParser = require("../lib/template-parser");
 const espree = require("espree");
 
-/**
- * @param {string} code
- */
+/** @param {string} code */
 const parseCode = (code) =>
   espree.parse(code, {
     range: true,
@@ -14,9 +12,8 @@ const parseCode = (code) =>
   });
 
 /**
- *
  * @param {string} code
- * @param {*} ast
+ * @param {any} ast
  * @returns
  */
 const createSourceCode = (code, ast) =>
@@ -31,9 +28,7 @@ const createSourceCode = (code, ast) =>
     },
   });
 
-/**
- * @type {any}
- */
+/** @type {any} */
 const visitors = {
   Tag: jest.fn(),
   "Tag:exit": jest.fn(),

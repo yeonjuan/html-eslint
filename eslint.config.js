@@ -19,6 +19,7 @@ module.exports = [
       "**/out",
       "**/integration-test-projects",
       "**/coverage",
+      "prettier.config.mjs",
     ],
   },
   ...compat.extends("eslint:recommended"),

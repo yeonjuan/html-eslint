@@ -1,20 +1,38 @@
 /**
- * @import {AnyNode, Tag, TemplateText, TemplateLiteral, OpenTemplate, CloseTemplate, ScriptTag, StyleTag, Text} from "@html-eslint/types";
- * @import {Line, RuleListener, Context, RuleModule} from "../../types";
- * @import {AST} from "eslint";
- *
+ * @import {
+ *   AnyNode,
+ *   CloseTemplate,
+ *   OpenTemplate,
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag,
+ *   TemplateLiteral,
+ *   TemplateText,
+ *   Text
+ * } from "@html-eslint/types"
+ * @import {AST} from "eslint"
+ * @import {
+ *   Context,
+ *   Line,
+ *   RuleListener,
+ *   RuleModule
+ * } from "../../types"
  * @typedef {AnyNode | Line} AnyNodeOrLine
+ *
  * @typedef {Object} IndentType
  * @property {"tab"} TAB
  * @property {"space"} SPACE
+ *
  * @typedef {Object} MessageId
  * @property {"wrongIndent"} WRONG_INDENT
+ *
  * @typedef {Object} IndentOptionInfo
  * @property {IndentType["TAB"] | IndentType["SPACE"]} indentType
  * @property {number} indentSize
  * @property {string} indentChar
  *
  * @typedef {"tab" | number} Option1
+ *
  * @typedef {Object} Option2
  * @property {number} [Option2.Attribute]
  * @property {Record<string, number>} [Option2.tagChildrenIndent]
@@ -54,9 +72,7 @@ const INDENT_TYPES = {
 
 const IGNORING_NODES = ["pre", "xmp"];
 
-/**
- * @type {RuleModule<[Option1, Option2]>}
- */
+/** @type {RuleModule<[Option1, Option2]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -127,7 +143,7 @@ module.exports = {
 
     /**
      * @param {Tag | ScriptTag | StyleTag | Text} node
-     * @return {number}
+     * @returns {number}
      */
     function getTagIncreasingLevel(node) {
       if (
@@ -149,7 +165,7 @@ module.exports = {
 
     /**
      * @param {AnyNode} node
-     * @return {number}
+     * @returns {number}
      */
     function getIncreasingLevel(node) {
       if (isLine(node)) {
@@ -189,7 +205,6 @@ module.exports = {
     }
 
     /**
-     *
      * @param {TemplateLiteral} node
      * @returns {number}
      */
@@ -222,7 +237,11 @@ module.exports = {
       let parentIgnoringChildCount = 0;
 
       /**
-       * @param {AnyNode | Line | TemplateText | OpenTemplate | CloseTemplate} node
+       * @param {AnyNode
+       *   | Line
+       *   | TemplateText
+       *   | OpenTemplate
+       *   | CloseTemplate} node
        * @returns {string}
        */
       function getActualIndent(node) {
@@ -237,9 +256,7 @@ module.exports = {
         return line.slice(0, column);
       }
 
-      /**
-       * @returns {string}
-       */
+      /** @returns {string} */
       function getExpectedIndent() {
         let base = "";
         if (indentType === "space") {
@@ -284,7 +301,11 @@ module.exports = {
       }
 
       /**
-       * @param {AnyNode | Line | TemplateText | OpenTemplate | CloseTemplate} node
+       * @param {AnyNode
+       *   | Line
+       *   | TemplateText
+       *   | OpenTemplate
+       *   | CloseTemplate} node
        */
       function checkIndent(node) {
         if (parentIgnoringChildCount > 0) {
@@ -309,9 +330,7 @@ module.exports = {
         }
       }
 
-      /**
-       * @type {RuleListener}
-       */
+      /** @type {RuleListener} */
       const commentVisitor = {
         Comment(node) {
           indentLevel.indent(node);
@@ -351,9 +370,7 @@ module.exports = {
         },
       };
 
-      /**
-       * @type {RuleListener}
-       */
+      /** @type {RuleListener} */
       const visitor = {
         Tag(node) {
           if (IGNORING_NODES.includes(node.name)) {
@@ -464,7 +481,7 @@ module.exports = {
 /**
  * @param {AnyNodeOrLine | TemplateText | OpenTemplate | CloseTemplate} node
  * @param {string} actualIndent
- * @return {{range: AST.Range; loc: AST.SourceLocation}}
+ * @returns {{ range: AST.Range; loc: AST.SourceLocation }}
  */
 function getIndentNodeToReport(node, actualIndent) {
   let rangeStart = node.range[0];
@@ -498,13 +515,11 @@ function countLeftPadding(str) {
 
 /**
  * @param {Context<any[]>} context
- * @return {IndentOptionInfo}
+ * @returns {IndentOptionInfo}
  */
 function getIndentOptionInfo(context) {
   const options = context.options;
-  /**
-   * @type {IndentType['SPACE'] | IndentType['TAB']}
-   */
+  /** @type {IndentType["SPACE"] | IndentType["TAB"]} */
   let indentType = INDENT_TYPES.SPACE;
   let indentSize = 4;
   if (options.length) {

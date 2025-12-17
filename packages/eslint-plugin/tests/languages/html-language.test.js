@@ -1,6 +1,9 @@
 /**
- * @import { File, OkParseResult } from "@eslint/core";
- * @import { AST } from "eslint";
+ * @import {
+ *   File,
+ *   OkParseResult
+ * } from "@eslint/core"
+ * @import {AST} from "eslint"
  */
 
 const { HTMLLanguage } = require("../../lib/languages/html-language");

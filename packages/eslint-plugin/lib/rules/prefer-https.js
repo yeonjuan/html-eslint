@@ -1,6 +1,11 @@
 /**
- * @import {Tag, ScriptTag, Attribute, AttributeValue} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   Attribute,
+ *   AttributeValue,
+ *   ScriptTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -12,9 +17,7 @@ const MESSAGE_IDS = {
   UNEXPECTED: "unexpected",
 };
 
-/**
- * @param {string} url
- */
+/** @param {string} url */
 function getProtocol(url) {
   try {
     return new URL(url).protocol;
@@ -29,9 +32,7 @@ function getProtocol(url) {
  * @returns {AttributeValue | undefined}
  */
 function getResourceAttributeValue(node) {
-  /**
-   * @type {Attribute | undefined}
-   */
+  /** @type {Attribute | undefined} */
   let attribute;
   if (isScript(node)) {
     attribute = findAttr(node, "src");
@@ -62,9 +63,7 @@ function getResourceAttributeValue(node) {
   return undefined;
 }
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -82,9 +81,7 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @param {Tag | ScriptTag} node
-     */
+    /** @param {Tag | ScriptTag} node */
     function check(node) {
       const attributeValue = getResourceAttributeValue(node);
       if (attributeValue && !attributeValue.parts.length) {

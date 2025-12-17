@@ -1,6 +1,10 @@
 /**
- * @import {Tag, Text, AnyNode} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   AnyNode,
+ *   Tag,
+ *   Text
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -29,9 +33,7 @@ function isNonEmptyText(node) {
   return isText(node) && node.value.trim().length > 0;
 }
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",

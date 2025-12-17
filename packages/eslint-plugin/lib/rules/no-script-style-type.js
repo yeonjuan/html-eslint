@@ -1,6 +1,10 @@
 /**
- * @import {RuleModule} from "../types";
- * @import {StyleTag, Tag, ScriptTag} from "@html-eslint/types";
+ * @import {
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -12,9 +16,7 @@ const MESSAGE_IDS = {
   UNNECESSARY: "unnecessary",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -36,7 +38,6 @@ module.exports = {
 
   create(context) {
     /**
-     *
      * @param {ScriptTag | Tag | StyleTag} node
      * @param {string} unnecessaryValue
      */

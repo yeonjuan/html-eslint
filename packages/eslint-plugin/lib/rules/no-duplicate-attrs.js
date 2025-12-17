@@ -1,6 +1,14 @@
 /**
- * @import {Tag, StyleTag, ScriptTag, Attribute} from "@html-eslint/types";
- * @import {RuleModule, SuggestionReportDescriptor} from "../types";
+ * @import {
+ *   Attribute,
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {
+ *   RuleModule,
+ *   SuggestionReportDescriptor
+ * } from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -13,9 +21,7 @@ const MESSAGE_IDS = {
   REMOVE_ATTR: "removeAttr",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -55,9 +61,7 @@ module.exports = {
       ];
     }
 
-    /**
-     * @param {Tag | StyleTag | ScriptTag} node
-     */
+    /** @param {Tag | StyleTag | ScriptTag} node */
     function check(node) {
       if (Array.isArray(node.attributes)) {
         const attrsSet = new Set();

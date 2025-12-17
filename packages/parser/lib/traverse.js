@@ -1,11 +1,10 @@
 /**
- * @import {AnyNode} from "es-html-parser";
- * @import {AST} from "eslint";
+ * @import {AnyNode} from "es-html-parser"
+ * @import {AST} from "eslint"
  */
 const { visitorKeys } = require("./visitor-keys");
 
 /**
- *
  * @param {AnyNode | AST.Program} node
  * @param {(arg: AnyNode | AST.Program) => void} visitor
  * @returns {void}

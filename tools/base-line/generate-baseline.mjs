@@ -14,8 +14,10 @@ const baselineIds = new Map([
 
 /**
  * Checks whether the given entry object has a __compat.tags property.
+ *
  * @param {Object} entry The object to check
- * @returns {boolean} Returns true if the entry has a __compat object with a non-falsy 'tags' property, otherwise false.
+ * @returns {boolean} Returns true if the entry has a __compat object with a
+ *   non-falsy 'tags' property, otherwise false.
  */
 function hasCompatTags(entry) {
   return (
@@ -27,12 +29,16 @@ function hasCompatTags(entry) {
 }
 
 /**
- * Recursively traverses BCD (Browser Compatibility Data) and visits entries that have `__compat.tags`
- * including a `web-features:` tag. For each such entry, calls the `visit` callback with the extracted feature ID
- * and the compatibility key path.
+ * Recursively traverses BCD (Browser Compatibility Data) and visits entries
+ * that have `__compat.tags` including a `web-features:` tag. For each such
+ * entry, calls the `visit` callback with the extracted feature ID and the
+ * compatibility key path.
+ *
  * @param {Object} bcdData The BCD data object to traverse.
- * @param {string[]} parents  An array of parent keys representing the current path in the object hierarchy.
- * @param {(featureId: string, compatKey: string) => void} visit A callback function invoked for each matching entry.
+ * @param {string[]} parents An array of parent keys representing the current
+ *   path in the object hierarchy.
+ * @param {(featureId: string, compatKey: string) => void} visit A callback
+ *   function invoked for each matching entry.
  */
 function traverseCompat(bcdData, parents, visit) {
   Object.entries(bcdData).forEach(([id, entry]) => {
@@ -51,14 +57,10 @@ function traverseCompat(bcdData, parents, visit) {
 }
 
 function getFeatureIdAndCompatKeys() {
-  /**
-   * @type {[string, string][]}
-   */
+  /** @type {[string, string][]} */
   const elements = [];
 
-  /**
-   * @type {[string, string][]}
-   */
+  /** @type {[string, string][]} */
   const globalAttributes = [];
 
   traverseCompat(
@@ -80,9 +82,10 @@ function getFeatureIdAndCompatKeys() {
 
 /**
  * Encodes baseline status
- * @param {string} status baseline status
- * @param {number} year year
- * @returns {string} encoded status
+ *
+ * @param {string} status Baseline status
+ * @param {number} year Year
+ * @returns {string} Encoded status
  */
 function encodeBaselineStatus(status, year) {
   return `${status}:${year || ""}`;
@@ -107,6 +110,7 @@ function mapFeatureStatus(status) {
 
 /**
  * Shorten the given key ("html.element.a" -> "a")
+ *
  * @param {string} key
  * @returns {string}
  */

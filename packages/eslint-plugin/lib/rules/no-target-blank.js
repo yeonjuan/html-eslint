@@ -1,6 +1,4 @@
-/**
- * @import {RuleModule} from "../types";
- */
+/** @import {RuleModule} from "../types" */
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
@@ -11,9 +9,7 @@ const MESSAGE_IDS = {
   MISSING: "missing",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -35,6 +31,7 @@ module.exports = {
   create(context) {
     /**
      * Checks whether a link is an external link or not.
+     *
      * @param {string} link A link to check
      * @returns {boolean}
      */

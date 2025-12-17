@@ -1,6 +1,4 @@
-/**
- * @import {RuleModule} from "../types";
- */
+/** @import {RuleModule} from "../types" */
 
 const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
@@ -11,9 +9,7 @@ const MESSAGE_IDS = {
   INLINE_STYLE: "unexpectedInlineStyle",
 };
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",

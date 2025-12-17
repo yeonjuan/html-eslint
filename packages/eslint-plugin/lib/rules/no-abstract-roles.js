@@ -1,6 +1,10 @@
 /**
- * @import {Tag, StyleTag, ScriptTag} from "@html-eslint/types";
- * @import {RuleModule} from "../types";
+ * @import {
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -27,9 +31,7 @@ const ABSTRACT_ROLE_SET = new Set([
   "window",
 ]);
 
-/**
- * @type {RuleModule<[]>}
- */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -49,9 +51,7 @@ module.exports = {
   },
 
   create(context) {
-    /**
-     * @param {Tag | ScriptTag | StyleTag} node
-     */
+    /** @param {Tag | ScriptTag | StyleTag} node */
     function check(node) {
       const roleAttr = findAttr(node, "role");
       if (

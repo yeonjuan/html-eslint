@@ -1,6 +1,11 @@
 /**
- * @import {RuleModule} from "../types";
- * @import {Attribute, Tag, ScriptTag, StyleTag} from "@html-eslint/types";
+ * @import {
+ *   Attribute,
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
  * @typedef {Object} Option
  * @property {"widely" | "newly" | number} Option.available
  */
@@ -21,9 +26,7 @@ const MESSAGE_IDS = {
   NOT_BASELINE_GLOBAL_ATTRIBUTE: "notBaselineGlobalAttribute",
 };
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -178,7 +181,6 @@ module.exports = {
     }
 
     /**
-     *
      * @param {string} element
      * @param {string} key
      * @param {string} value

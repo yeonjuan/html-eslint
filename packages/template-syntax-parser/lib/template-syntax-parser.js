@@ -1,5 +1,9 @@
 /**
- * @import {SyntaxConfig, SyntaxConfigItem, TemplateSyntaxParserConfig} from "./types";
+ * @import {
+ *   SyntaxConfig,
+ *   SyntaxConfigItem,
+ *   TemplateSyntaxParserConfig
+ * } from "./types"
  */
 
 const Parser = require("./parser");

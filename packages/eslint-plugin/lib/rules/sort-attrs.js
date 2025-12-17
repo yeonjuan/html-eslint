@@ -1,9 +1,11 @@
 /**
- * @import {Attribute} from "@html-eslint/types";
- * @import {RuleFixer, RuleModule} from "../types";
- *
+ * @import {Attribute} from "@html-eslint/types"
+ * @import {
+ *   RuleFixer,
+ *   RuleModule
+ * } from "../types"
  * @typedef {Object} Option
- * @property {Array<string | {pattern: string}>} [Option.priority]
+ * @property {(string | { pattern: string })[]} [Option.priority]
  */
 
 const { hasTemplate } = require("./utils/node");
@@ -16,9 +18,7 @@ const MESSAGE_IDS = {
   UNSORTED: "unsorted",
 };
 
-/**
- * @type {RuleModule<[Option]>}
- */
+/** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -69,9 +69,7 @@ module.exports = {
     const option = context.options[0] || {
       priority: ["id", "type", "class", "style"],
     };
-    /**
-     * @type {Array<string | {pattern: string, regex: RegExp}>}
-     */
+    /** @type {(string | { pattern: string; regex: RegExp })[]} */
     const priority = (option.priority || []).map((item) => {
       if (item && typeof item === "object" && "pattern" in item) {
         return {
@@ -84,7 +82,7 @@ module.exports = {
 
     /**
      * @param {string} attrName
-     * @param {string | {pattern: string, regex: RegExp}} priorityItem
+     * @param {string | { pattern: string; regex: RegExp }} priorityItem
      * @returns {boolean}
      */
     function matchesPriority(attrName, priorityItem) {
@@ -117,7 +115,7 @@ module.exports = {
     /**
      * @param {Attribute} attrA
      * @param {Attribute} attrB
-     * @return {number}
+     * @returns {number}
      */
     function compare(attrA, attrB) {
       const keyA = attrA.key.value;
@@ -185,12 +183,10 @@ module.exports = {
 
     /**
      * @param {Attribute[]} attributes
-     * @return {Attribute[][]}
+     * @returns {Attribute[][]}
      */
     function groupAttributes(attributes) {
-      /**
-       * @type {Attribute[][]}
-       */
+      /** @type {Attribute[][]} */
       const attributesList = [];
       let index = 0;
 
@@ -207,9 +203,7 @@ module.exports = {
       return attributesList;
     }
 
-    /**
-     * @param {Attribute[]} unsorted
-     */
+    /** @param {Attribute[]} unsorted */
     function checkSorting(unsorted) {
       if (unsorted.length <= 1) {
         return;

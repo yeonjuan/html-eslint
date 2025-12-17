@@ -1,9 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-/**
- * @param {string[]} argv
- */
+/** @param {string[]} argv */
 function addNewRule(argv) {
   const ruleName = getRuleName(argv);
   const docPath = path.resolve(__dirname, "../docs/rules", `${ruleName}.md`);
