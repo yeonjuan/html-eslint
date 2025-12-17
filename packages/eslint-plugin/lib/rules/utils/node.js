@@ -258,7 +258,7 @@ function getNameOf(node) {
   if (isStyle(node)) {
     return "style";
   }
-  return node.name;
+  return node.name.toLowerCase();
 }
 
 module.exports = {

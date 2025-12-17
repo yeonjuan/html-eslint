@@ -54,6 +54,7 @@ const noDuplicateInHead = require("./no-duplicate-in-head");
 const noIneffectiveAttrs = require("./no-ineffective-attrs");
 const noRestrictedTags = require("./no-restricted-tags");
 const noWhitespaceOnlyChildren = require("./no-whitespace-only-children");
+const noObsoleteAttrs = require("./no-obsolete-attrs");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -114,6 +115,7 @@ const rules = {
   "no-ineffective-attrs": noIneffectiveAttrs,
   "no-restricted-tags": noRestrictedTags,
   "no-whitespace-only-children": noWhitespaceOnlyChildren,
+  "no-obsolete-attrs": noObsoleteAttrs,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
