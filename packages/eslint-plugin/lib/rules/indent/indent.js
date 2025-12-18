@@ -47,7 +47,6 @@ const {
   splitToLineNodes,
   isLine,
   isTag,
-  hasTemplate,
   isScript,
   isStyle,
   isText,
