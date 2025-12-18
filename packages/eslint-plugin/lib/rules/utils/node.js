@@ -5,8 +5,10 @@
  *   Attribute,
  *   AttributeKey,
  *   AttributeValue,
+ *   CloseTemplate,
  *   Comment,
  *   CommentContent,
+ *   OpenTemplate,
  *   ScriptTag,
  *   StyleTag,
  *   Tag,
@@ -103,12 +105,22 @@ function splitToLineNodes(node) {
   /** @type {Line[]} */
   const lineNodes = [];
   const parts = node.parts || [];
-  /** @param {AST.Range} range */
-  function hasTemplate(range) {
-    return parts.some(
-      (part) =>
-        part.type !== NODE_TYPES.Part && isRangesOverlap(part.range, range)
-    );
+
+  /**
+   * @param {AST.Range} range
+   * @returns {boolean}
+   */
+  function isWitinTemplate(range) {
+    for (const part of parts) {
+      if (
+        part.type === NODE_TYPES.Template &&
+        part.range[0] <= range[0] &&
+        range[1] <= part.range[1]
+      ) {
+        return true;
+      }
+    }
+    return false;
   }
 
   node.value.split("\n").forEach((value, index) => {
@@ -131,7 +143,7 @@ function splitToLineNodes(node) {
       value,
       range,
       loc,
-      hasTemplate: hasTemplate(range),
+      withinTemplate: isWitinTemplate(range),
     };
 
     start += value.length + 1;

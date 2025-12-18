@@ -353,7 +353,7 @@ module.exports = {
 
           const lineNodes = splitToLineNodes(node);
           lineNodes.forEach((lineNode) => {
-            if (lineNode.hasTemplate) {
+            if (lineNode.withinTemplate) {
               return;
             }
             if (lineNode.value.trim().length) {
@@ -434,7 +434,7 @@ module.exports = {
           const lineNodes = splitToLineNodes(node);
 
           lineNodes.forEach((lineNode) => {
-            if (lineNode.hasTemplate) {
+            if (lineNode.withinTemplate) {
               return;
             }
             if (lineNode.value.trim().length) {

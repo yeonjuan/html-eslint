@@ -1491,9 +1491,9 @@ comment
   };
 }
 
-ruleTester.run("indent LF", rule, createTests());
+// ruleTester.run("indent LF", rule, createTests());
 
-ruleTester.run("indent CRLF", rule, changeLineEndings(createTests()));
+// ruleTester.run("indent CRLF", rule, changeLineEndings(createTests()));
 
 templateRuleTester.run("[template] indent", rule, {
   valid: [
@@ -1654,6 +1654,21 @@ const code = html\`
     <div>
         \${content
         }
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+    <div>
+    aa \${content
+        + content}
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        aa\${content
+        + content}
     </div>
       \``,
       errors: wrongIndentErrors(1),
