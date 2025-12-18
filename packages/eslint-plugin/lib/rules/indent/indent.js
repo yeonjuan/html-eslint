@@ -338,22 +338,13 @@ module.exports = {
         CommentOpen: checkIndent,
         CommentContent(node) {
           indentLevel.indent(node);
-          if (hasTemplate(node)) {
-            node.parts.forEach((part) => {
-              if (part.type !== NODE_TYPES.Part) {
-                if (part.open) {
-                  checkIndent(part.open);
-                }
-                if (part.close) {
-                  checkIndent(part.close);
-                }
-              }
-            });
-          }
-
           const lineNodes = splitToLineNodes(node);
           lineNodes.forEach((lineNode) => {
-            if (lineNode.withinTemplate) {
+            if (
+              lineNode.isOverlapTemplate &&
+              !lineNode.hasCloseTemplate &&
+              !lineNode.hasOpenTemplate
+            ) {
               return;
             }
             if (lineNode.value.trim().length) {
@@ -418,23 +409,13 @@ module.exports = {
         },
         Text(node) {
           indentLevel.indent(node);
-          if (hasTemplate(node)) {
-            node.parts.forEach((part) => {
-              if (part.type !== NODE_TYPES.Part) {
-                if (part.open) {
-                  checkIndent(part.open);
-                }
-                if (part.close) {
-                  checkIndent(part.close);
-                }
-              }
-            });
-          }
-
           const lineNodes = splitToLineNodes(node);
-
           lineNodes.forEach((lineNode) => {
-            if (lineNode.withinTemplate) {
+            if (
+              lineNode.isOverlapTemplate &&
+              !lineNode.hasCloseTemplate &&
+              !lineNode.hasOpenTemplate
+            ) {
               return;
             }
             if (lineNode.value.trim().length) {

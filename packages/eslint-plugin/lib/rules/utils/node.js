@@ -108,19 +108,34 @@ function splitToLineNodes(node) {
 
   /**
    * @param {AST.Range} range
-   * @returns {boolean}
+   * @returns {{
+   *   isOverlapTemplate: boolean;
+   *   hasOpenTemplate: boolean;
+   *   hasCloseTemplate: boolean;
+   * }}
    */
-  function isWitinTemplate(range) {
+  function getTemplateInfo(range) {
+    let isOverlapTemplate = false;
+    let hasOpenTemplate = false;
+    let hasCloseTemplate = false;
     for (const part of parts) {
-      if (
-        part.type === NODE_TYPES.Template &&
-        part.range[0] <= range[0] &&
-        range[1] <= part.range[1]
-      ) {
-        return true;
+      if (part.type === NODE_TYPES.Template) {
+        if (isRangesOverlap(part.range, range)) {
+          isOverlapTemplate = true;
+        }
+        if (part.open && isRangesOverlap(part.open.range, range)) {
+          hasOpenTemplate = true;
+        }
+        if (part.close && isRangesOverlap(part.close.range, range)) {
+          hasCloseTemplate = true;
+        }
       }
     }
-    return false;
+    return {
+      isOverlapTemplate,
+      hasCloseTemplate,
+      hasOpenTemplate,
+    };
   }
 
   node.value.split("\n").forEach((value, index) => {
@@ -143,7 +158,7 @@ function splitToLineNodes(node) {
       value,
       range,
       loc,
-      withinTemplate: isWitinTemplate(range),
+      ...getTemplateInfo(range),
     };
 
     start += value.length + 1;
