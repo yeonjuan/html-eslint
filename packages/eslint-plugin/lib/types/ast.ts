@@ -7,7 +7,9 @@ import eslint from "eslint";
 export interface Line extends BaseNode {
   type: "Line";
   value: string;
-  hasTemplate: boolean;
+  isOverlapTemplate: boolean;
+  hasOpenTemplate: boolean;
+  hasCloseTemplate: boolean;
 }
 
 export interface BaseNode {

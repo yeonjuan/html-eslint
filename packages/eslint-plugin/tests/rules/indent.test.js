@@ -1508,34 +1508,6 @@ templateRuleTester.run("[template] indent", rule, {
       \``,
     },
     {
-      code: `html\`
-    <div>
-        \${
-    content}
-    </div>
-      \``,
-    },
-    // Ignore indentation in template expressions
-    {
-      code: `html\`
-    <div>
-        \${items.map((item) => {
-return "<div></div>"
-})}
-    </div>
-      \``,
-    },
-    {
-      code: `html\`
-    <!-- \${\`
-    foo
-    bar
-    baz
-    \`}
-    -->
-      \``,
-    },
-    {
       code: `
   class Component extends LitElement {
     render() {
@@ -1633,6 +1605,39 @@ const code = html\`
     {
       code: `html\`
     <div>
+        \${
+    content}
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        \${
+        content}
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+    // Ignore indentation in template expressions
+    {
+      code: `html\`
+    <div>
+        \${items.map((item) => {
+return "<div></div>"
+})}
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        \${items.map((item) => {
+return "<div></div>"
+        })}
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+    <div>
 \${content}
     </div>
       \``,
@@ -1653,6 +1658,38 @@ const code = html\`
       output: `html\`
     <div>
         \${content
+        }
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+    <div>
+    content \${expression
+        + expression}
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        content \${expression
+        + expression}
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+    <div>
+        \${expression
++ expression
+    }
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        \${expression
++ expression
         }
     </div>
       \``,
@@ -1847,7 +1884,7 @@ class Component extends LitElement {
           [],
           item => html\`
             <p>content</p>
-          \`)}
+      \`)}
       \${
         repeat(
             [],
@@ -1860,7 +1897,7 @@ class Component extends LitElement {
 }
       `,
       options: [2],
-      errors: wrongIndentErrors(1),
+      errors: wrongIndentErrors(2),
     },
     {
       code: `
@@ -2007,6 +2044,25 @@ const code = html\`
     `,
       options: ["tab", { templateIndentBase: "first" }],
       errors: wrongIndentErrors(2),
+    },
+    {
+      code: `html\`
+    <!-- \${\`
+    foo
+    bar
+    baz
+    \`}
+    -->
+      \``,
+      output: `html\`
+    <!-- \${\`
+    foo
+    bar
+    baz
+        \`}
+    -->
+      \``,
+      errors: wrongIndentErrors(1),
     },
   ],
 });
