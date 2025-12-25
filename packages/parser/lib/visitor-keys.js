@@ -1,4 +1,5 @@
 const { NODE_TYPES } = require("./node-types");
+const { cssVisitorKeys } = require("./css-visitor-keys");
 
 const visitorKeys = {
   Program: ["body"],
@@ -43,10 +44,11 @@ const visitorKeys = {
     "close",
     "value",
   ],
-  [NODE_TYPES.StyleTagContent]: [],
+  [NODE_TYPES.StyleTagContent]: ["cssNode"],
   [NODE_TYPES.Tag]: ["openStart", "openEnd", "close", "children", "attributes"],
   [NODE_TYPES.Text]: [],
   [NODE_TYPES.RawContent]: [],
+  ...cssVisitorKeys,
 };
 
 module.exports = {
