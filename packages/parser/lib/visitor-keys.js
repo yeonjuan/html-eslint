@@ -44,7 +44,7 @@ const visitorKeys = {
     "close",
     "value",
   ],
-  [NODE_TYPES.StyleTagContent]: ["cssNode"],
+  [NODE_TYPES.StyleTagContent]: ["stylesheet"],
   [NODE_TYPES.Tag]: ["openStart", "openEnd", "close", "children", "attributes"],
   [NODE_TYPES.Text]: [],
   [NODE_TYPES.RawContent]: [],

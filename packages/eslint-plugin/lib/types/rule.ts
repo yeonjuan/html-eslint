@@ -47,6 +47,7 @@ interface BaseRuleListener {
   TaggedTemplateExpression?: (node: AST.TaggedTemplateExpression) => void;
   TemplateLiteral?: (node: AST.TemplateLiteral) => void;
   StyleSheet?: (node: AST.StyleSheet) => void;
+  Selector?: (node: AST.Selector) => void;
 }
 
 interface RuleFix {

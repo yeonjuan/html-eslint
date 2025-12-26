@@ -374,10 +374,9 @@ module.exports = {
         "ScriptTag:exit"(node) {
           indentLevel.dedent(node);
         },
-        StyleTagContent(node) {
-          console.log(node.stylesheet);
+        Selector(node) {
+          console.log(node);
         },
-
         OpenScriptTagStart: checkIndent,
         OpenScriptTagEnd: checkIndent,
         CloseScriptTag: checkIndent,
