@@ -7,7 +7,7 @@ const { visitorKeys } = require("./visitor-keys");
 const { traverse } = require("./traverse");
 const { NODE_TYPES } = require("./node-types");
 const { getOptions } = require("./options");
-
+const { parse: parseCSS, walk } = require("css-tree");
 /**
  * @param {string} code
  * @param {ParserOptions | undefined} parserOptions
@@ -43,6 +43,21 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
         loc: node.loc,
         value: node.value,
       });
+    }
+    if (node.type === NODE_TYPES.StyleTagContent) {
+      const cssNode = parseCSS(node.value, {
+        context: "stylesheet",
+        offset: node.range[0],
+        positions: true,
+      });
+      walk(cssNode, {
+        // @ts-ignore
+        enter(node) {
+          node.range = [node.loc.start.offset, node.loc.end.offset];
+        },
+      });
+      // @ts-ignore
+      node.cssNode = cssNode;
     }
   });
 

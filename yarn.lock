@@ -1352,6 +1352,7 @@ __metadata:
   dependencies:
     "@html-eslint/template-syntax-parser": "npm:^0.52.0"
     "@html-eslint/types": "npm:^0.52.0"
+    "@types/css-tree": "npm:^2.3.11"
     css-tree: "npm:^3.1.0"
     es-html-parser: "npm:0.3.1"
     typescript: "npm:^5.8.3"
