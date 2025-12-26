@@ -46,6 +46,7 @@ interface BaseRuleListener {
   DoctypeAttributeWrapperEnd?: (node: AST.DoctypeAttributeWrapperEnd) => void;
   TaggedTemplateExpression?: (node: AST.TaggedTemplateExpression) => void;
   TemplateLiteral?: (node: AST.TemplateLiteral) => void;
+  StyleSheet?: (node: AST.StyleSheet) => void;
 }
 
 interface RuleFix {

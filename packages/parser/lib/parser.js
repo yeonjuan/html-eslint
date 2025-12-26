@@ -49,6 +49,7 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
         context: "stylesheet",
         offset: node.range[0],
         positions: true,
+        line: node.loc.start.line,
       });
       walk(cssNode, {
         // @ts-ignore
@@ -57,7 +58,7 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
         },
       });
       // @ts-ignore
-      node.cssNode = cssNode;
+      node.stylesheet = cssNode;
     }
   });
 
