@@ -46,8 +46,11 @@ interface BaseRuleListener {
   DoctypeAttributeWrapperEnd?: (node: AST.DoctypeAttributeWrapperEnd) => void;
   TaggedTemplateExpression?: (node: AST.TaggedTemplateExpression) => void;
   TemplateLiteral?: (node: AST.TemplateLiteral) => void;
-  StyleSheet?: (node: AST.StyleSheet) => void;
-  Selector?: (node: AST.Selector) => void;
+  CssStyleSheet?: (node: AST.CssStyleSheet) => void;
+  CssSelector?: (node: AST.CssSelector) => void;
+  CssSelectorList?: (node: AST.CssSelectorList) => void;
+  CssBlock?: (node: AST.CssBlock) => void;
+  CssDeclaration?: (node: AST.CssDeclaration) => void;
 }
 
 interface RuleFix {

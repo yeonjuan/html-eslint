@@ -4,10 +4,10 @@
  */
 const { parse, TokenTypes } = require("es-html-parser");
 const { visitorKeys } = require("./visitor-keys");
-const { traverse } = require("./traverse");
+const { traverse, traverseCss } = require("./traverse");
 const { NODE_TYPES } = require("./node-types");
 const { getOptions } = require("./options");
-const { parse: parseCSS, walk, toPlainObject } = require("css-tree");
+const { parse: parseCSS, toPlainObject } = require("css-tree");
 /**
  * @param {string} code
  * @param {ParserOptions | undefined} parserOptions
@@ -45,20 +45,25 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
       });
     }
     if (node.type === NODE_TYPES.StyleTagContent) {
-      const cssNode = parseCSS(node.value, {
-        context: "stylesheet",
-        offset: node.range[0],
-        positions: true,
-        line: node.loc.start.line,
-      });
-      walk(cssNode, {
-        // @ts-ignore
-        enter(node) {
+      const cssNode = toPlainObject(
+        parseCSS(node.value, {
+          context: "stylesheet",
+          offset: node.range[0],
+          positions: true,
+          line: node.loc.start.line,
+        })
+      );
+
+      traverseCss(cssNode, (node) => {
+        node.type = `Css${node.type}`;
+        if (node.loc) {
           node.range = [node.loc.start.offset, node.loc.end.offset];
-        },
+          node.loc.start.column -= 1;
+          node.loc.end.column -= 1;
+        }
       });
       // @ts-ignore
-      node.stylesheet = toPlainObject(cssNode);
+      node.stylesheet = cssNode;
     }
   });
 

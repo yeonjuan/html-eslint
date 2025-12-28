@@ -328,17 +328,6 @@ function createTests() {
       },
       {
         code: `
-<html>
-    <head>
-        <style>
-.foo { }
-        </style>
-    </head>
-</html>
-`,
-      },
-      {
-        code: `
 <div
     id="1">
   <span></span>

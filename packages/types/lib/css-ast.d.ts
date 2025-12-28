@@ -1,20 +1,53 @@
 import CSSTree, { CssLocation, List } from "css-tree";
 
-type ToESTree<Node extends CSSTree.CssNodeCommon> = Node & {
+type ToESTree<Node extends CSSTree.CssNodeCommon> = Omit<
+  Node,
+  "type" | "children"
+> & {
   range: [number, number];
   loc: CssLocation;
 };
 
-export type AnyCssNode = StyleSheet | SelectorList | Selector;
+export type AnyCssNode =
+  | CssStyleSheet
+  | CssSelectorList
+  | CssSelector
+  | CssBlock
+  | CssDeclaration
+  | CssCombinator;
 
-export type StyleSheet = ToESTree<CSSTree.StyleSheetPlain> & {
+export type CssStyleSheet = ToESTree<CSSTree.StyleSheetPlain> & {
+  parent?: AnyCssNode;
+  type: "CssStyleSheet";
   children: List<AnyCssNode>;
 };
 
-export type SelectorList = ToESTree<CSSTree.SelectorListPlain> & {
+export type CssSelectorList = ToESTree<CSSTree.SelectorListPlain> & {
+  parent?: AnyCssNode;
+  type: "CssSelectorList";
   children: List<AnyCssNode>;
 };
 
-export type Selector = ToESTree<CSSTree.SelectorPlain> & {
+export type CssSelector = ToESTree<CSSTree.SelectorPlain> & {
+  parent?: AnyCssNode;
+  type: "CssSelector";
   children: List<AnyCssNode>;
+};
+
+export type CssBlock = ToESTree<CSSTree.Block> & {
+  parent?: AnyCssNode;
+  type: "CssBlock";
+  children: List<AnyCssNode>;
+};
+
+export type CssDeclaration = ToESTree<CSSTree.Declaration> & {
+  parent?: AnyCssNode;
+  type: "CssDeclaration";
+  children: List<AnyCssNode>;
+};
+
+export type CssCombinator = ToESTree<CSSTree.Combinator> & {
+  parent?: AnyCssNode;
+  type: "CssCombinator";
+  loc?: CssLocation | null;
 };
