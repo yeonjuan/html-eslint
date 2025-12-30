@@ -77,8 +77,12 @@ module.exports = {
           let expected = node.openStart.value;
           for (const attr of node.attributes) {
             expected += `\n${attr.key.value}`;
-            if (attr.startWrapper && attr.value && attr.endWrapper) {
-              expected += `=${attr.startWrapper.value}${attr.value.value}${attr.endWrapper.value}`;
+            if (attr.value) {
+              const startWrapper = attr.startWrapper
+                ? attr.startWrapper.value
+                : "";
+              const endWrapper = attr.endWrapper ? attr.endWrapper.value : "";
+              expected += `=${startWrapper}${attr.value.value}${endWrapper}`;
             }
           }
 

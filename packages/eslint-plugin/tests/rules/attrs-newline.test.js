@@ -373,5 +373,20 @@ style="background:red;"
       ],
       errors: [{ messageId: "newlineMissing" }],
     },
+    {
+      code: `html\`
+    <div a b foo=\${"true"}>
+    </div>
+\``,
+      output: `html\`
+    <div
+a
+b
+foo=\${"true"}
+>
+    </div>
+\``,
+      errors: [{ messageId: "newlineMissing" }],
+    },
   ],
 });
