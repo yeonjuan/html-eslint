@@ -1,4 +1,5 @@
 import * as Parser from "es-html-parser";
+import { AnyCssNode, CssStyleSheet } from "./css-ast";
 
 export interface Document extends Parser.DocumentNode {
   parent: null;
@@ -108,6 +109,7 @@ export interface CloseScriptTag extends Parser.CloseScriptTagNode {
 
 export interface ScriptTagContent extends Parser.ScriptTagContentNode {
   parent: ScriptTag;
+  stylesheet?: AnyCssNode;
 }
 
 export interface StyleTag extends Parser.StyleTagNode {
@@ -132,6 +134,7 @@ export interface CloseStyleTag extends Parser.CloseStyleTagNode {
 
 export interface StyleTagContent extends Parser.StyleTagContentNode {
   parent: StyleTag;
+  stylesheet?: CssStyleSheet;
 }
 
 export interface Attribute extends Parser.AttributeNode {

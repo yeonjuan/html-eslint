@@ -2,6 +2,7 @@
  * @import {
  *   AnyNode,
  *   CloseTemplate,
+ *   CssSelector,
  *   OpenTemplate,
  *   ScriptTag,
  *   StyleTag,
@@ -240,7 +241,8 @@ module.exports = {
        *   | Line
        *   | TemplateText
        *   | OpenTemplate
-       *   | CloseTemplate} node
+       *   | CloseTemplate
+       *   | CssSelector} node
        * @returns {string}
        */
       function getActualIndent(node) {
@@ -304,7 +306,8 @@ module.exports = {
        *   | Line
        *   | TemplateText
        *   | OpenTemplate
-       *   | CloseTemplate} node
+       *   | CloseTemplate
+       *   | CssSelector} node
        */
       function checkIndent(node) {
         if (parentIgnoringChildCount > 0) {
@@ -426,6 +429,29 @@ module.exports = {
           indentLevel.dedent(node);
         },
         ...(ignoreComment ? {} : commentVisitor),
+        // CSS
+        StyleTagContent(node) {
+          indentLevel.indent(node);
+        },
+        "StyleTagContent:exit"(node) {
+          indentLevel.dedent(node);
+        },
+        CssSelector(node) {
+          node.children.forEach((child) => {
+            if (child.loc) {
+              checkIndent(child);
+            }
+          });
+        },
+        CssBlock(node) {
+          indentLevel.indent(node);
+        },
+        "CssBlock:exit"(node) {
+          indentLevel.dedent(node);
+        },
+        CssDeclaration(node) {
+          checkIndent(node);
+        },
       };
       return visitor;
     }
@@ -459,7 +485,11 @@ module.exports = {
 };
 
 /**
- * @param {AnyNodeOrLine | TemplateText | OpenTemplate | CloseTemplate} node
+ * @param {AnyNodeOrLine
+ *   | TemplateText
+ *   | OpenTemplate
+ *   | CloseTemplate
+ *   | CssSelector} node
  * @param {string} actualIndent
  * @returns {{ range: AST.Range; loc: AST.SourceLocation }}
  */

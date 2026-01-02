@@ -23,11 +23,13 @@
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "dependencies": {
+    "@types/css-tree": "^2.3.11",
     "@types/estree": "^1.0.6",
     "es-html-parser": "0.3.1",
     "eslint": "^9.39.1"
   },
   "devDependencies": {
+    "css-tree": "^3.1.0",
     "typescript": "^5.8.3"
   }
 }
