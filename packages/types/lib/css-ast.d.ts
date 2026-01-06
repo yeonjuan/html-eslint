@@ -37,7 +37,7 @@ export type CssSelector = ToESTree<CSSTree.SelectorPlain> & {
 export type CssBlock = ToESTree<CSSTree.Block> & {
   parent?: AnyCssNode;
   type: "CssBlock";
-  children: List<AnyCssNode>;
+  children: AnyCssNode[];
 };
 
 export type CssDeclaration = ToESTree<CSSTree.Declaration> & {

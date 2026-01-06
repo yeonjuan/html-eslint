@@ -429,31 +429,6 @@ module.exports = {
           indentLevel.dedent(node);
         },
         ...(ignoreComment ? {} : commentVisitor),
-        // CSS
-        StyleTagContent(node) {
-          indentLevel.indent(node);
-        },
-        "StyleTagContent:exit"(node) {
-          indentLevel.dedent(node);
-        },
-        CssSelector(node) {
-          node.children.forEach((child) => {
-            if (child.loc) {
-              debugger;
-              console.log("selector", child);
-              checkIndent(child);
-            }
-          });
-        },
-        CssBlock(node) {
-          indentLevel.indent(node);
-        },
-        "CssBlock:exit"(node) {
-          indentLevel.dedent(node);
-        },
-        CssDeclaration(node) {
-          checkIndent(node);
-        },
       };
       return visitor;
     }
