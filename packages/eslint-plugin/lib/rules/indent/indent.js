@@ -439,6 +439,8 @@ module.exports = {
         CssSelector(node) {
           node.children.forEach((child) => {
             if (child.loc) {
+              debugger;
+              console.log("selector", child);
               checkIndent(child);
             }
           });

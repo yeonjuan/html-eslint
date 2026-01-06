@@ -14,12 +14,11 @@ const { visitorKeys, parseForESLint } = require("@html-eslint/parser");
 const { createHTMLSourceCode } = require("./html-source-code");
 
 /**
- * @implements {Language<{
- *   LangOptions: ParserOptions;
- *   Code: ReturnType<typeof createHTMLSourceCode>;
- *   RootNode: AST.Program;
- *   Node: {};
- * }>}
+ * @typedef {Language<{ LangOptions: ParserOptions; Code: ReturnType<typeof createHTMLSourceCode>; RootNode: AST.Program; Node: {};}>} HTMLLanguageType
+ */
+
+/**
+ * @implements {HTMLLanguageType}
  */
 class HTMLLanguage {
   constructor() {
@@ -121,5 +120,5 @@ class HTMLLanguage {
 }
 
 module.exports = {
-  HTMLLanguage,
+  HTMLLanguage: /** @type {new () => HTMLLanguageType} */ (HTMLLanguage),
 };
