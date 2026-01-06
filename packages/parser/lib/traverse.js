@@ -1,5 +1,5 @@
 /**
- * @import {CssNodePlain} from "@eslint/css-tree"
+ * @import {CssNodePlain} from "css-tree"
  * @import {AnyNode} from "es-html-parser"
  * @import {AST} from "eslint"
  */

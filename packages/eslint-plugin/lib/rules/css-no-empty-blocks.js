@@ -1,6 +1,9 @@
 /** @import {RuleModule} from "../types" */
 
 const { RULE_CATEGORY } = require("../constants");
+const MESSAGE_IDS = {
+  EMPTY_BLOCK: "emptyBlock",
+};
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -12,7 +15,7 @@ module.exports = {
       category: RULE_CATEGORY.BEST_PRACTICE,
     },
     messages: {
-      emptyBlock: "Unexpected empty block found.",
+      [MESSAGE_IDS.EMPTY_BLOCK]: "Unexpected empty block found.",
     },
   },
   fixable: null,
@@ -23,7 +26,7 @@ module.exports = {
         if (node.children.length === 0) {
           context.report({
             loc: node.loc,
-            messageId: "emptyBlock",
+            messageId: MESSAGE_IDS.EMPTY_BLOCK,
           });
         }
       },
