@@ -7,7 +7,6 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/css-no-empty-blocks");
 
 const ruleTester = createRuleTester();
-const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("css-no-empty-blocks", rule, {
   valid: [
@@ -110,9 +109,4 @@ ruleTester.run("css-no-empty-blocks", rule, {
       ],
     },
   ],
-});
-
-templateRuleTester.run("[template] css-no-empty-blocks", rule, {
-  valid: [],
-  invalid: [],
 });
