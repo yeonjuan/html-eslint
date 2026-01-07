@@ -22,7 +22,7 @@ const createFile = (text) => {
 const createSourceCode = (text) => {
   const language = new HTMLLanguage();
   const file = createFile(text);
-  const parsed = language.parse(file);
+  const parsed = language.parse(file, { languageOptions: {} });
   const sourceCode = createHTMLSourceCode({
     text,
     // @ts-ignore

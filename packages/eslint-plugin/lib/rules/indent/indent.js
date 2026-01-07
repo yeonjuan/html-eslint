@@ -2,7 +2,6 @@
  * @import {
  *   AnyNode,
  *   CloseTemplate,
- *   CssSelector,
  *   OpenTemplate,
  *   ScriptTag,
  *   StyleTag,
@@ -237,12 +236,7 @@ module.exports = {
       let parentIgnoringChildCount = 0;
 
       /**
-       * @param {AnyNode
-       *   | Line
-       *   | TemplateText
-       *   | OpenTemplate
-       *   | CloseTemplate
-       *   | CssSelector} node
+       * @param {AnyNode | Line | TemplateText | OpenTemplate} node
        * @returns {string}
        */
       function getActualIndent(node) {
@@ -301,14 +295,7 @@ module.exports = {
         };
       }
 
-      /**
-       * @param {AnyNode
-       *   | Line
-       *   | TemplateText
-       *   | OpenTemplate
-       *   | CloseTemplate
-       *   | CssSelector} node
-       */
+      /** @param {AnyNode | Line | TemplateText | OpenTemplate} node */
       function checkIndent(node) {
         if (parentIgnoringChildCount > 0) {
           return;
@@ -462,11 +449,7 @@ module.exports = {
 };
 
 /**
- * @param {AnyNodeOrLine
- *   | TemplateText
- *   | OpenTemplate
- *   | CloseTemplate
- *   | CssSelector} node
+ * @param {AnyNodeOrLine | TemplateText | OpenTemplate | CloseTemplate} node
  * @param {string} actualIndent
  * @returns {{ range: AST.Range; loc: AST.SourceLocation }}
  */
