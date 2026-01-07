@@ -48,7 +48,7 @@ ruleTester.run("css-no-empty-blocks", rule, {
           line: 1,
           column: 10,
           endLine: 2,
-          endColumn: 3,
+          endColumn: 2,
         },
       ],
     },
@@ -60,7 +60,21 @@ ruleTester.run("css-no-empty-blocks", rule, {
           line: 1,
           column: 10,
           endLine: 2,
-          endColumn: 4,
+          endColumn: 3,
+        },
+      ],
+    },
+    {
+      code: `<style>
+ a { }
+</style>`,
+      errors: [
+        {
+          messageId: "emptyBlock",
+          line: 2,
+          column: 4,
+          endLine: 2,
+          endColumn: 7,
         },
       ],
     },
@@ -89,9 +103,9 @@ ruleTester.run("css-no-empty-blocks", rule, {
         {
           messageId: "emptyBlock",
           line: 3,
-          column: 4,
+          column: 3,
           endLine: 3,
-          endColumn: 7,
+          endColumn: 6,
         },
       ],
     },

@@ -52,13 +52,16 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
           offset: node.range[0],
           positions: true,
           line: node.loc.start.line,
-          column: node.loc.start.column,
+          // css-tree uses 1-base column.
+          column: node.loc.start.column + 1,
         })
       );
       traverseCss(cssNode, (node) => {
         node.type = `Css${node.type}`;
         if (node.loc) {
           node.range = [node.loc.start.offset, node.loc.end.offset];
+          node.loc.start.column -= 1;
+          node.loc.end.column -= 1;
         }
       });
       // @ts-ignore

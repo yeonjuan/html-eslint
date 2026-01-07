@@ -10,7 +10,7 @@ module.exports = {
   meta: {
     type: "code",
     docs: {
-      description: "FILL ME",
+      description: "Disallows empty CSS blocks in `<style>` tags.",
       recommended: false,
       category: RULE_CATEGORY.BEST_PRACTICE,
     },

@@ -78,6 +78,7 @@ module.exports = [{
         "@html-eslint/no-trailing-spaces": "error",
         "@html-eslint/no-duplicate-class": "error",
         "@html-eslint/class-spacing": "error",
-        "@html-eslint/no-obsolete-attrs": "error"
+        "@html-eslint/no-obsolete-attrs": "error",
+        "@html-eslint/css-no-empty-blocks": "error"
     },
 }];
