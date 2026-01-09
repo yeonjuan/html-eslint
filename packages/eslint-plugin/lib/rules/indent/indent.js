@@ -236,11 +236,7 @@ module.exports = {
       let parentIgnoringChildCount = 0;
 
       /**
-       * @param {AnyNode
-       *   | Line
-       *   | TemplateText
-       *   | OpenTemplate
-       *   | CloseTemplate} node
+       * @param {AnyNode | Line | TemplateText | OpenTemplate} node
        * @returns {string}
        */
       function getActualIndent(node) {
@@ -299,13 +295,7 @@ module.exports = {
         };
       }
 
-      /**
-       * @param {AnyNode
-       *   | Line
-       *   | TemplateText
-       *   | OpenTemplate
-       *   | CloseTemplate} node
-       */
+      /** @param {AnyNode | Line | TemplateText | OpenTemplate} node */
       function checkIndent(node) {
         if (parentIgnoringChildCount > 0) {
           return;

@@ -56,6 +56,7 @@ const noRestrictedTags = require("./no-restricted-tags");
 const noWhitespaceOnlyChildren = require("./no-whitespace-only-children");
 const noObsoleteAttrs = require("./no-obsolete-attrs");
 const classSpacing = require("./class-spacing");
+const cssNoEmptyBlocks = require("./css-no-empty-blocks");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -118,6 +119,7 @@ const rules = {
   "no-whitespace-only-children": noWhitespaceOnlyChildren,
   "no-obsolete-attrs": noObsoleteAttrs,
   "class-spacing": classSpacing,
+  "css-no-empty-blocks": cssNoEmptyBlocks,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };

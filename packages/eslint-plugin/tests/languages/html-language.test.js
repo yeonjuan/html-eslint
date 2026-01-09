@@ -25,6 +25,7 @@ describe("HTMLLanguage", () => {
   describe("visitorKeys", () => {
     it("should have visitorKeys property", () => {
       const language = new HTMLLanguage();
+      // @ts-ignore
       expect(language.visitorKeys["Tag"]).toMatchObject([
         "openStart",
         "openEnd",
@@ -39,7 +40,9 @@ describe("HTMLLanguage", () => {
     it("should parse HTML", () => {
       const language = new HTMLLanguage();
       const file = createFile(`<div></div>`);
-      const result = language.parse(file);
+      const result = language.parse(file, {
+        languageOptions: {},
+      });
       expect(result.ok).toBe(true);
       // @ts-ignore
       expect(result.ast.type).toBe("Program");
@@ -131,10 +134,11 @@ name: value
     it("should create a HTMLSourceCode instance", () => {
       const file = createFile("<div></div>");
       const language = new HTMLLanguage();
-      const parsed = language.parse(file);
+      const parsed = language.parse(file, { languageOptions: {} });
       const sourceCode = language.createSourceCode(
         file,
-        /** @type {OkParseResult<AST.Program>} */ (parsed)
+        /** @type {OkParseResult<AST.Program>} */ (parsed),
+        { languageOptions: {} }
       );
       expect(sourceCode.constructor.name).toBe("HTMLSourceCode");
       expect(sourceCode.ast.type).toBe("Program");
