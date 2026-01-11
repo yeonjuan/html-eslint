@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext", 
+    "rootDir": "./", 
+    "strict": true,
+    "esModuleInterop": true, 
+    "skipLibCheck": true,
+    "lib": ["ESNext"],
+    "noEmit": true
+  },
+  "include": ["**/*"],
+  "exclude": ["node_modules"] 
+}

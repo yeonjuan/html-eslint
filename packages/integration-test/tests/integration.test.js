@@ -1,4 +1,4 @@
-const { runESLint } = require("../lib/test-utils");
+const { runESLint, runTypecheck } = require("../lib/test-utils");
 
 describe("integration tests", () => {
   describe("eslint-v8-legacy-config", () => {
@@ -119,5 +119,16 @@ describe("integration tests", () => {
       expect(htmlResult[0].fatalErrorCount).toBe(0);
       expect(htmlResult[0].messages.length).toBe(0);
     }, 20000);
+  });
+
+  describe("eslint-v9-typescript", () => {
+    it("should not throw any type error", async () => {
+      const result = await runTypecheck({
+        fixtureName: "eslint-v9-typescript",
+        eslintVersion: "9",
+        fileName: "eslint.config.ts",
+      });
+      expect(result).toBe(undefined);
+    });
   });
 });
