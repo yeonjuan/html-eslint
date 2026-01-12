@@ -139,7 +139,8 @@ module.exports = {
     const ignoreComment = indentLevelOptions.ignoreComment === true;
     const autoBaseIndent = indentLevelOptions.templateIndentBase === "first";
     const { indentType, indentSize, indentChar } = getIndentOptionInfo(context);
-
+    /** @type {number[]} */
+    const visitedTextLines = [];
     /**
      * @param {Tag | ScriptTag | StyleTag | Text} node
      * @returns {number}
@@ -302,7 +303,6 @@ module.exports = {
         }
         const actualIndent = getActualIndent(node);
         const expectedIndent = getExpectedIndent();
-
         if (actualIndent.trim().length) {
           return;
         }
@@ -400,6 +400,9 @@ module.exports = {
           indentLevel.indent(node);
           const lineNodes = splitToLineNodes(node);
           lineNodes.forEach((lineNode) => {
+            if (visitedTextLines.includes(lineNode.loc.start.line)) {
+              return;
+            }
             if (
               lineNode.isOverlapTemplate &&
               !lineNode.hasCloseTemplate &&
@@ -408,6 +411,7 @@ module.exports = {
               return;
             }
             if (lineNode.value.trim().length) {
+              visitedTextLines.push(lineNode.loc.start.line);
               checkIndent(lineNode);
             }
           });
@@ -422,7 +426,7 @@ module.exports = {
 
     return {
       ...createIndentVisitor(0, 0),
-      TaggedTemplateExpression(node) {
+      "TaggedTemplateExpression:exit"(node) {
         if (shouldCheckTaggedTemplateExpression(node, context)) {
           const base = getTemplateLiteralBaseIndentLevel(node.quasi);
           const baseSpaces = getAutoBaseSpaces(node.quasi);
@@ -433,7 +437,7 @@ module.exports = {
           );
         }
       },
-      TemplateLiteral(node) {
+      "TemplateLiteral:exit"(node) {
         if (shouldCheckTemplateLiteral(node, context)) {
           const base = getTemplateLiteralBaseIndentLevel(node);
           const baseSpaces = getAutoBaseSpaces(node);
