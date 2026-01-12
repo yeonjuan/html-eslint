@@ -121,14 +121,21 @@ describe("integration tests", () => {
     }, 20000);
   });
 
-  describe("eslint-v9-typescript", () => {
+  describe("typescript", () => {
     it("should not throw any type error", async () => {
-      const result = await runTypecheck({
-        fixtureName: "eslint-v9-typescript",
-        eslintVersion: "9",
+      const result927 = await runTypecheck({
+        fixtureName: "typescript",
+        eslintVersion: "9.27.0",
         fileName: "eslint.config.ts",
       });
-      expect(result).toBe(undefined);
+      expect(result927).toBe(undefined);
+
+      const result9392 = await runTypecheck({
+        fixtureName: "typescript",
+        eslintVersion: "9.39.2",
+        fileName: "eslint.config.ts",
+      });
+      expect(result9392).toBe(undefined);
     });
   });
 });
