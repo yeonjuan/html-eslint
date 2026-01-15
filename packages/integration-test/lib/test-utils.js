@@ -26,17 +26,27 @@ function packageFileVersion(name) {
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
  * @param {string} params.dir
+ * @param {boolean} [params.ts]
+ * @param {Record<string, string>} [params.scripts]
  */
-async function makePackageJson({ fixtureName, eslintVersion, dir }) {
+async function makePackageJson({
+  fixtureName,
+  eslintVersion,
+  dir,
+  ts,
+  scripts,
+}) {
   const packageJson = {
     name: fixtureName,
     private: true,
     version: "0.0.2",
     packageManager: "yarn@4.9.1",
+    scripts,
     devDependencies: {
       eslint: eslintVersion,
       "@html-eslint/eslint-plugin": packageFileVersion("eslint-plugin"),
       "@html-eslint/parser": packageFileVersion("parser"),
+      typescript: ts ? "5.9.3" : undefined,
     },
     resolutions: {
       "@html-eslint/template-parser": packageFileVersion("template-parser"),
@@ -56,14 +66,15 @@ async function makePackageJson({ fixtureName, eslintVersion, dir }) {
  * @param {Object} params
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
+ * @param {Record<string, string>} [params.scripts]
  * @returns {Promise<{ dir: string }>}
  */
-async function setup({ fixtureName, eslintVersion }) {
+async function setup({ fixtureName, eslintVersion, scripts }) {
   const dir = await tmpDir();
   const fixturePath = path.join(__dirname, "../fixtures/", fixtureName);
 
   await copyDir(fixturePath, dir);
-  await makePackageJson({ fixtureName, eslintVersion, dir });
+  await makePackageJson({ fixtureName, eslintVersion, dir, scripts });
   return { dir };
 }
 
@@ -96,6 +107,36 @@ async function runESLint({ fixtureName, eslintVersion, glob }) {
   return parsed;
 }
 
+/**
+ * @param {Object} params
+ * @param {string} params.fixtureName
+ * @param {string} params.eslintVersion
+ * @param {string} params.fileName
+ */
+async function runTypecheck({ fixtureName, eslintVersion }) {
+  let error;
+  const { dir } = await setup({
+    fixtureName,
+    eslintVersion,
+    scripts: {
+      ts: `tsc -p ./tsconfig.json`,
+    },
+  });
+  await execFile("yarn", ["install", "--no-immutable"], {
+    cwd: dir,
+  }).catch((e) => {
+    console.error(e);
+  });
+  await execFile("yarn", ["run", "ts"], {
+    cwd: dir,
+  }).catch((e) => {
+    console.error(e);
+    error = e;
+  });
+  return error;
+}
+
 module.exports = {
   runESLint,
+  runTypecheck,
 };

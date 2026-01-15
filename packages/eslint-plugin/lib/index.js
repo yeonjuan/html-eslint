@@ -9,7 +9,6 @@ const { name, version } = require("../package.json");
 const parser = require("@html-eslint/parser");
 /** @import {ESLint} from "eslint" */
 
-/** @type {ESLint.Plugin} */
 const plugin = {
   meta: {
     name,
