@@ -1589,6 +1589,18 @@ const code = html\`
         },
       ],
     },
+    {
+      code: `
+      function foo() {
+    return html\`
+        \${when(
+          true,
+          () => html\`
+            <b>ok</b>\`)}
+    \`;
+ }
+      `,
+    },
   ],
   invalid: [
     {
