@@ -95,7 +95,7 @@ const elements = new Map([
   ["col.align", "0:"],
   ["col.char", "0:"],
   ["col.charoff", "0:"],
-  ["col.span", "0:"],
+  ["col.span", "10:2015"],
   ["col.valign", "0:"],
   ["col.width", "0:"],
   ["colgroup", "10:2015"],
