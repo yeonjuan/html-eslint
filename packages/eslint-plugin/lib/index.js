@@ -25,7 +25,7 @@ const plugin = {
     },
     all: {
       rules: allRules,
-      plugin: {},
+      plugins: {},
     },
     ["recommended-legacy"]: {
       rules: recommendedLegacyRules,
