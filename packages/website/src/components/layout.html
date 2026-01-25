@@ -3,50 +3,56 @@
     version: locals.version
   }
 </script>
-<!-- eslint-disable @html-eslint/require-title -->
-<!DOCTYPE html>
-<html lang="en" class="light">
+<!-- eslint-disable html/require-title -->
+<!doctype html>
+<html class="light" lang="en">
   <head>
     <block name="meta">
       <title>html-eslint</title>
     </block>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ESLint plugin for linting HTML. Find and fix problems in your HTML code">
-    <meta property="og:title" content="ESLint plugin for linting HTML.">
-    <meta property="og:description" content="Find and fix problems in your HTML code">
-    <meta property="og:image" content="~/src/assets/logo_506x253.png">
-    <meta property="og:locale" content="en">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ESLint plugin for linting HTML.">
-    <meta name="twitter:description" content="Find and fix problems in your HTML code">
-    <meta name="twitter:image"content="~/src/assets/logo_506x253.png">
-    <link rel="icon" href="~/src/assets/logo_48x48.svg">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ESLint plugin for linting HTML. Find and fix problems in your HTML code" name="description">
+    <meta content="website" property="og:type">
+    <meta content="https://html-eslint.org" property="og:url">
+    <meta content="html-eslint" property="og:site_name">
+    <meta content="ESLint plugin for linting HTML." property="og:title">
+    <meta content="Find and fix problems in your HTML code" property="og:description">
+    <meta content="~/src/assets/logo_506x253.png" property="og:image">
+    <meta content="506" property="og:image:width">
+    <meta content="253" property="og:image:height">
+    <meta content="image/png" property="og:image:type">
+    <meta content="en" property="og:locale">
+    <meta content="summary_large_image" name="twitter:card">
+    <meta content="ESLint plugin for linting HTML." name="twitter:title">
+    <meta content="Find and fix problems in your HTML code" name="twitter:description">
+    <meta content="~/src/assets/logo_506x253.png" name="twitter:image">
+    <link href="~/src/assets/logo_48x48.svg" rel="icon">
     <link
-      rel="icon"
+      type="image/png"
       href="~/src/assets/logo_32x32.png"
-      sizes="32x32"
-      type="image/png"
-    >
-    <link
       rel="icon"
-      href="~/src/assets/logo_16x16.png"
-      sizes="16x16"
-      type="image/png"
+      sizes="32x32"
     >
     <link
-      rel="apple-touch-icon"
+      type="image/png"
+      href="~/src/assets/logo_16x16.png"
+      rel="icon"
+      sizes="16x16"
+    >
+    <link
       href="~/src/assets/logo_180x180.png"
+      rel="apple-touch-icon"
       sizes="180x180"
     >
     <link href="~/src/common.css" rel="stylesheet">
     <block name="head"></block>
-    <link rel="stylesheet" href="~/src/highlight.scss">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="~/src/highlight.scss" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
     <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
       crossorigin
+      href="https://fonts.gstatic.com"
+      rel="preconnect"
     >
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JNELG2PQ3Z"></script>

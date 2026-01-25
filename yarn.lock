@@ -16075,7 +16075,6 @@ __metadata:
     "@types/react-dom": "npm:18.0.9"
     autoprefixer: "npm:^10.4.13"
     codemirror: "npm:^5.58.3"
-    eslint: "npm:^9.39.1"
     firebase-tools: "npm:^15.4.0"
     highlight.js: "npm:^11.9.0"
     marked: "npm:^9.1.5"
