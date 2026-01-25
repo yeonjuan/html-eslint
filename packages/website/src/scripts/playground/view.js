@@ -206,7 +206,7 @@ export class View {
     return html`<li class="bg-red-100 text-red-800 px-2 rounded flex items-center">
         <span class="my-4">
           <span>${line}:${column} - ${escapeHTML(message)}</span>
-          <a href="/docs/rules/${rule}" class="ml-1 hover:underline">(${rule})</a>
+          <a class="ml-1 hover:underline" href="/docs/rules/${rule}">(${rule})</a>
         </span>
         <div class="ml-auto mr-0 my-2">
           ${fix ? html`<button type="submit" class="bg-accent text-white px-4 py-1 rounded hover:opacity-80 w-max">apply fix</button>` : ""}

@@ -45,7 +45,7 @@ export function escapeHTML(str) {
 }
 
 export const INITIAL_HTML = html`<!doctype html>
-  <html>
+  <html lang="en-US">
     <head>
     </head>
     <body>

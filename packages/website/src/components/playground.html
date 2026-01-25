@@ -9,7 +9,7 @@
   </style>
   <h1 class="sr-only">Playground</h1>
   <div class="flex flex-col mt-3 px-2 w-full">
-    <div class="flex" id="language-tabs">
+    <div id="language-tabs" class="flex">
       <div class="py-2 px-4 rounded-t cursor-pointer" data-language="html">
         <h2>HTML</h2>
       </div>
@@ -32,10 +32,10 @@
       <div class="flex-1">
         <div class="flex flex-col w-full">
           <ul id="tabs" class="[&>li]:inline-block [&>li]:p-2 [&>li]:border-[1px] [&>li]:rounded-t [&>li]:border-b-0 [&>li]:border-transparent">
-            <li data-tab="errors" class="tab cursor-pointer !border-gray-200">
+            <li class="tab cursor-pointer !border-gray-200" data-tab="errors">
               Errors
             </li>
-            <li data-tab="fixed" class="tab cursor-pointer">
+            <li class="tab cursor-pointer" data-tab="fixed">
               Fixed
             </li>
           </ul>
