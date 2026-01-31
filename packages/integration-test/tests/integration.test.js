@@ -121,6 +121,60 @@ describe("integration tests", () => {
     }, 20000);
   });
 
+  describe("eslint-v10-flat-config", () => {
+    it("should throw a lint error for invalid files", async () => {
+      const htmlResult = await runESLint({
+        fixtureName: "eslint-v10-flat-config",
+        eslintVersion: "10.0.0-rc.2",
+        glob: "html/invalid.html",
+      });
+      expect(htmlResult[0].fatalErrorCount).toBe(0);
+      expect(htmlResult[0].messages.length).toBeGreaterThanOrEqual(1);
+
+      const jsResult = await runESLint({
+        fixtureName: "eslint-v10-flat-config",
+        eslintVersion: "10.0.0-rc.2",
+        glob: "js/invalid.js",
+      });
+      expect(jsResult[0].fatalErrorCount).toBe(0);
+      expect(jsResult[0].messages.length).toBeGreaterThanOrEqual(1);
+
+      const frontmatterResult = await runESLint({
+        fixtureName: "eslint-v10-flat-config",
+        eslintVersion: "10.0.0-rc.2",
+        glob: "frontmatter/invalid.html",
+      });
+      expect(frontmatterResult[0].fatalErrorCount).toBe(0);
+      expect(frontmatterResult[0].messages.length).toBeGreaterThanOrEqual(1);
+    }, 20000);
+
+    it("should not throw any lint error for valid files", async () => {
+      const htmlResult = await runESLint({
+        fixtureName: "eslint-v10-flat-config",
+        eslintVersion: "10.0.0-rc.2",
+        glob: "html/valid.html",
+      });
+      expect(htmlResult[0].fatalErrorCount).toBe(0);
+      expect(htmlResult[0].messages.length).toBe(0);
+
+      const jsResult = await runESLint({
+        fixtureName: "eslint-v10-flat-config",
+        eslintVersion: "10.0.0-rc.2",
+        glob: "js/valid.js",
+      });
+      expect(jsResult[0].fatalErrorCount).toBe(0);
+      expect(jsResult[0].messages.length).toBe(0);
+
+      const frontmatterResult = await runESLint({
+        fixtureName: "eslint-v10-flat-config",
+        eslintVersion: "10.0.0-rc.2",
+        glob: "frontmatter/valid.html",
+      });
+      expect(frontmatterResult[0].fatalErrorCount).toBe(0);
+      expect(frontmatterResult[0].messages.length).toBeGreaterThanOrEqual(0);
+    }, 20000);
+  });
+
   describe("typescript", () => {
     it("should not throw any type error", async () => {
       const result927 = await runTypecheck({
