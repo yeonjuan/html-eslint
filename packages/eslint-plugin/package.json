@@ -46,7 +46,7 @@
     "@html-eslint/types": "^0.54.0"
   },
   "peerDependencies": {
-    "eslint": ">=8.0.0"
+    "eslint": ">=8.0.0 || ^10.0.0-0"
   },
   "devDependencies": {
     "@eslint/core": "^1.0.0",
