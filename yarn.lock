@@ -1348,7 +1348,7 @@ __metadata:
   dependencies:
     "@lerna-lite/cli": "npm:^4.11.0"
     "@lerna-lite/publish": "npm:^4.11.1"
-    "@mdn/browser-compat-data": "npm:^7.2.4"
+    "@mdn/browser-compat-data": "npm:^7.3.0"
     "@types/jest": "npm:^29.5.14"
     compute-baseline: "npm:^0.3.1"
     cspell: "npm:^8.0.0"
@@ -2341,10 +2341,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdn/browser-compat-data@npm:^7.2.4":
-  version: 7.2.4
-  resolution: "@mdn/browser-compat-data@npm:7.2.4"
-  checksum: 10c0/45311b45bd870d4e5c403b37e14bedff04b89e9bccad96790ddc3d59014143c381dd236e54829ca4c15c798b90853905d87b0edf61a5750612c8f9b3826c2150
+"@mdn/browser-compat-data@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "@mdn/browser-compat-data@npm:7.3.0"
+  checksum: 10c0/95b75bae6d4934889e2bda055744e6aa9421fef1a0949ee806fd9674331b126a59598bc0170bbc826e151add39c66dc6ebdac323e06b354fbbc889ad4fd80e05
   languageName: node
   linkType: hard
 
