@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/cli",
-  "version": "0.54.1",
+  "version": "0.54.2",
   "description": "HTML-ESLint CLI",
   "author": "yeonjuan <yeonjuan93@naver.com>",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
@@ -23,7 +23,7 @@
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "dependencies": {
-    "@html-eslint/eslint-plugin": "^0.54.1",
+    "@html-eslint/eslint-plugin": "^0.54.2",
     "@html-eslint/parser": "^0.54.0",
     "axios": "^1.13.2",
     "chalk": "^4.1.1",
