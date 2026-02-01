@@ -49,7 +49,7 @@ ruleTester.run("no-redundant-role", rule, {
       code: "<form></form>",
     },
     {
-      code: '<form name="myform"></form>',
+      code: '<form name="my-form"></form>',
     },
     {
       code: "<section></section>",
@@ -268,8 +268,8 @@ ruleTester.run("no-redundant-role", rule, {
       ],
     },
     {
-      code: '<form name="myform" role="form"></form>',
-      output: '<form name="myform" ></form>',
+      code: '<form name="my-form" role="form"></form>',
+      output: '<form name="my-form" ></form>',
       errors: [
         {
           messageId: "redundant",
