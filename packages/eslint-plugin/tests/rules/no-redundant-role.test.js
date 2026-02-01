@@ -61,7 +61,7 @@ ruleTester.run("no-redundant-role", rule, {
   invalid: [
     {
       code: '<button role="button">Click</button>',
-      output: '<button >Click</button>',
+      output: "<button >Click</button>",
       errors: [
         {
           messageId: "redundant",
@@ -74,7 +74,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<nav role="navigation"></nav>',
-      output: '<nav ></nav>',
+      output: "<nav ></nav>",
       errors: [
         {
           messageId: "redundant",
@@ -87,7 +87,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<main role="main"></main>',
-      output: '<main ></main>',
+      output: "<main ></main>",
       errors: [
         {
           messageId: "redundant",
@@ -113,7 +113,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<ul role="list"></ul>',
-      output: '<ul ></ul>',
+      output: "<ul ></ul>",
       errors: [
         {
           messageId: "redundant",
@@ -126,7 +126,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<ol role="list"></ol>',
-      output: '<ol ></ol>',
+      output: "<ol ></ol>",
       errors: [
         {
           messageId: "redundant",
@@ -178,7 +178,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<textarea role="textbox"></textarea>',
-      output: '<textarea ></textarea>',
+      output: "<textarea ></textarea>",
       errors: [
         {
           messageId: "redundant",
@@ -191,7 +191,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<article role="article"></article>',
-      output: '<article ></article>',
+      output: "<article ></article>",
       errors: [
         {
           messageId: "redundant",
@@ -204,7 +204,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<aside role="complementary"></aside>',
-      output: '<aside ></aside>',
+      output: "<aside ></aside>",
       errors: [
         {
           messageId: "redundant",
@@ -217,7 +217,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<h1 role="heading"></h1>',
-      output: '<h1 ></h1>',
+      output: "<h1 ></h1>",
       errors: [
         {
           messageId: "redundant",
@@ -230,7 +230,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<table role="table"></table>',
-      output: '<table ></table>',
+      output: "<table ></table>",
       errors: [
         {
           messageId: "redundant",
@@ -243,7 +243,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<tr role="row"></tr>',
-      output: '<tr ></tr>',
+      output: "<tr ></tr>",
       errors: [
         {
           messageId: "redundant",
@@ -256,7 +256,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<td role="cell"></td>',
-      output: '<td ></td>',
+      output: "<td ></td>",
       errors: [
         {
           messageId: "redundant",
@@ -282,7 +282,7 @@ ruleTester.run("no-redundant-role", rule, {
     },
     {
       code: '<progress role="progressbar"></progress>',
-      output: '<progress ></progress>',
+      output: "<progress ></progress>",
       errors: [
         {
           messageId: "redundant",
@@ -313,7 +313,7 @@ html\`<div role="\${role}"></div>\``,
   invalid: [
     {
       code: 'html`<button role="button">Click</button>`',
-      output: 'html`<button >Click</button>`',
+      output: "html`<button >Click</button>`",
       errors: [
         {
           message:
@@ -323,7 +323,7 @@ html\`<div role="\${role}"></div>\``,
     },
     {
       code: 'html`<nav role="navigation"></nav>`',
-      output: 'html`<nav ></nav>`',
+      output: "html`<nav ></nav>`",
       errors: [
         {
           message:
@@ -333,7 +333,7 @@ html\`<div role="\${role}"></div>\``,
     },
     {
       code: 'html`<main role="main"></main>`',
-      output: 'html`<main ></main>`',
+      output: "html`<main ></main>`",
       errors: [
         {
           message:
