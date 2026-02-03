@@ -5,7 +5,7 @@ const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-const { getImplicitRole } = require("html-standard");
+const { accessibility } = require("html-standard");
 
 const MESSAGE_IDS = {
   REDUNDANT: "redundant",
@@ -33,7 +33,6 @@ module.exports = {
   },
 
   create(context) {
-    const sourceCode = context.sourceCode;
     return createVisitors(context, {
       Tag(node) {
         const role = findAttr(node, "role");
@@ -58,17 +57,19 @@ module.exports = {
           return;
         }
 
-        const elementName = node.name.toLowerCase();
-
-        const implicitRole = getImplicitRole(elementName, {
-          attribute(key) {
-            const attr = findAttr(node, key);
-            if (attr && attr.value) {
-              return attr.value.value;
-            }
-            return null;
+        const elem = accessibility(node.name, {
+          attributes: {
+            get(key) {
+              const attr = findAttr(node, key);
+              if (attr && attr.value) {
+                return attr.value.value;
+              }
+              return null;
+            },
           },
         });
+
+        const implicitRole = elem.implicitRole();
 
         if (implicitRole && implicitRole.toLowerCase() === roleValue) {
           context.report({
@@ -76,7 +77,7 @@ module.exports = {
             messageId: MESSAGE_IDS.REDUNDANT,
             data: {
               role: roleValue,
-              element: elementName,
+              element: node.name,
             },
             fix(fixer) {
               return fixer.removeRange(role.range);
