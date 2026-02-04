@@ -34,6 +34,9 @@ ruleTester.run("no-redundant-role", rule, {
       code: "<a>Not a link</a>",
     },
     {
+      code: "<input >",
+    },
+    {
       code: '<input type="text">',
     },
     {
@@ -158,6 +161,19 @@ ruleTester.run("no-redundant-role", rule, {
           messageId: "redundant",
           data: {
             role: "radio",
+            element: "input",
+          },
+        },
+      ],
+    },
+    {
+      code: '<input role="textbox">',
+      output: "<input >",
+      errors: [
+        {
+          messageId: "redundant",
+          data: {
+            role: "textbox",
             element: "input",
           },
         },

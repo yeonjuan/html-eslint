@@ -36,26 +36,18 @@ module.exports = {
     return createVisitors(context, {
       Tag(node) {
         const role = findAttr(node, "role");
-        if (!role) {
+        if (!role || !role.value || !role.value.value) {
           return;
         }
 
         /** Allow template expression. ex: html`<div role=${role}></div>` */
         if (
-          role.value &&
           role.value.parts.some((part) => part.type === NODE_TYPES.Template)
         ) {
           return;
         }
 
-        const roleValue = (
-          (role.value && role.value.value) ||
-          ""
-        ).toLowerCase();
-
-        if (!roleValue) {
-          return;
-        }
+        const roleValue = role.value.value.toLowerCase();
 
         const elem = accessibility(node.name, {
           attributes: {
