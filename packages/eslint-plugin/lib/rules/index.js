@@ -57,6 +57,7 @@ const noWhitespaceOnlyChildren = require("./no-whitespace-only-children");
 const noObsoleteAttrs = require("./no-obsolete-attrs");
 const classSpacing = require("./class-spacing");
 const cssNoEmptyBlocks = require("./css-no-empty-blocks");
+const noRedundantRole = require("./no-redundant-role");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -120,6 +121,7 @@ const rules = {
   "no-obsolete-attrs": noObsoleteAttrs,
   "class-spacing": classSpacing,
   "css-no-empty-blocks": cssNoEmptyBlocks,
+  "no-redundant-role": noRedundantRole,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
