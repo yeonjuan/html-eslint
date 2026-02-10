@@ -5,7 +5,7 @@ const { RULE_CATEGORY } = require("../constants");
 const { findAttr } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-const { accessibility } = require("html-standard");
+const { element } = require("html-standard");
 
 const MESSAGE_IDS = {
   REDUNDANT: "redundant",
@@ -49,7 +49,7 @@ module.exports = {
 
         const roleValue = role.value.value.toLowerCase();
 
-        const elem = accessibility(node.name, {
+        const elem = element(node.name, {
           attributes: {
             get(key) {
               const attr = findAttr(node, key);
