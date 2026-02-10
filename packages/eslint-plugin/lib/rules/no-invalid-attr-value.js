@@ -46,8 +46,11 @@ module.exports = {
     function checkAttributes(node, elementName) {
       for (const attr of node.attributes) {
         const key = attr.key.value;
+        if (key.toLowerCase() === "rel") {
+          continue;
+        }
 
-        const value = attr.value ? attr.value.value : true;
+        const value = attr.value ? attr.value.value : "";
         if (attr.value && hasTemplate(attr.value)) {
           continue;
         }
