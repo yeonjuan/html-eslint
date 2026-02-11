@@ -48,8 +48,21 @@ ruleTester.run("no-invalid-attr-value", rule, {
     { code: '<input type="email" autocomplete="email" />' },
     { code: '<input type="text" autocomplete="username" />' },
     { code: '<input type="password" autocomplete="current-password" />' },
+    { code: '<input type="password" autocomplete="new-password" />' },
     { code: '<input type="text" autocomplete="off" />' },
     { code: '<input type="text" autocomplete="on" />' },
+    { code: '<input type="tel" autocomplete="tel" />' },
+    { code: '<input type="url" autocomplete="url" />' },
+    { code: '<input type="text" autocomplete="organization" />' },
+    { code: '<input type="text" autocomplete="street-address" />' },
+    { code: '<input type="text" autocomplete="address-line1" />' },
+    { code: '<input type="text" autocomplete="address-line2" />' },
+    { code: '<input type="text" autocomplete="postal-code" />' },
+    { code: '<input type="text" autocomplete="country" />' },
+    { code: '<input type="text" autocomplete="cc-name" />' },
+    { code: '<input type="text" autocomplete="cc-number" />' },
+    { code: '<input type="text" autocomplete="cc-exp" />' },
+    { code: '<input type="text" autocomplete="cc-csc" />' },
     { code: '<link rel="stylesheet" href="style.css" />' },
     { code: '<a href="page.html" rel="noopener">Link</a>' },
     { code: '<a href="page.html" rel="noreferrer">Link</a>' },
@@ -238,6 +251,22 @@ ruleTester.run("no-invalid-attr-value", rule, {
       errors: [{ messageId: "invalid" }],
     },
     {
+      code: '<input type="text" autocomplete="user-name" />',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: '<input type="password" autocomplete="password" />',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: '<input type="email" autocomplete="mail" />',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: '<input type="text" autocomplete="first-name" />',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
       code: '<div dir="invalid">Text</div>',
       errors: [{ messageId: "invalid" }],
     },
@@ -378,6 +407,10 @@ templateRuleTester.run("[template] no-invalid-attr-value", rule, {
     { code: 'html`<div dir="${direction}">Text</div>`' },
     { code: 'html`<th scope="${scope}">Header</th>`' },
     { code: 'html`<input type="text" autocomplete="${autocomplete}" />`' },
+    { code: 'html`<input type="text" autocomplete="name" />`' },
+    { code: 'html`<input type="email" autocomplete="email" />`' },
+    { code: 'html`<input type="password" autocomplete="current-password" />`' },
+    { code: 'html`<input type="text" autocomplete="street-address" />`' },
     { code: 'html`<link rel="${rel}" href="style.css" />`' },
     { code: 'html`<script src="script.js" crossorigin="${cors}"></script>`' },
     {
@@ -394,7 +427,6 @@ templateRuleTester.run("[template] no-invalid-attr-value", rule, {
     },
     { code: 'html`<input type="text" name="${name}" value="${value}" />`' },
     { code: 'html`<button type="submit" id="${id}">Submit</button>`' },
-    // ignore option tests with templates
     {
       code: 'html`<input type="custom-type" />`',
       options: [{ ignore: [{ tag: "input", attr: "type" }] }],
@@ -480,6 +512,14 @@ templateRuleTester.run("[template] no-invalid-attr-value", rule, {
       errors: [{ messageId: "invalid" }],
     },
     {
+      code: 'html`<input type="text" autocomplete="user-name" />`',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: 'html`<input type="password" autocomplete="password" />`',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
       code: 'html`<script src="script.js" crossorigin="yes"></script>`',
       errors: [{ messageId: "invalid" }],
     },
@@ -495,7 +535,6 @@ templateRuleTester.run("[template] no-invalid-attr-value", rule, {
       code: 'html`<img src="image.jpg" crossorigin="invalid" loading="${loading}" />`',
       errors: [{ messageId: "invalid" }],
     },
-    // ignore option tests with templates - should still fail if not ignored
     {
       code: 'html`<input type="invalid-type" />`',
       options: [{ ignore: [{ tag: "button", attr: "type" }] }],
