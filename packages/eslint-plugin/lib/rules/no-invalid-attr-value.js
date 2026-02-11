@@ -17,7 +17,11 @@ const MESSAGE_IDS = {
   INVALID: "invalid",
 };
 
-/** @type {RuleModule<[]>} */
+/**
+ * @type {RuleModule<
+ *   [{ ignore?: { tag: string; attr: string; valuePattern?: string }[] }]
+ * >}
+ */
 module.exports = {
   meta: {
     type: "code",
@@ -31,7 +35,33 @@ module.exports = {
     },
 
     fixable: null,
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          ignore: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                tag: {
+                  type: "string",
+                },
+                attr: {
+                  type: "string",
+                },
+                valuePattern: {
+                  type: "string",
+                },
+              },
+              required: ["tag", "attr"],
+              additionalProperties: false,
+            },
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
     messages: {
       [MESSAGE_IDS.INVALID]:
         "Invalid value '{{value}}' for attribute '{{attr}}' on <{{element}}>. {{suggestion}}",
@@ -39,6 +69,37 @@ module.exports = {
   },
 
   create(context) {
+    const options = context.options[0] || {};
+    const ignoreList = options.ignore || [];
+
+    /**
+     * Check if the attribute should be ignored
+     *
+     * @param {string} elementName
+     * @param {string} attrName
+     * @param {string} attrValue
+     * @returns {boolean}
+     */
+    function shouldIgnore(elementName, attrName, attrValue) {
+      return ignoreList.some((ignoreRule) => {
+        const tagMatch =
+          ignoreRule.tag.toLowerCase() === elementName.toLowerCase();
+        const attrMatch =
+          ignoreRule.attr.toLowerCase() === attrName.toLowerCase();
+
+        if (!tagMatch || !attrMatch) {
+          return false;
+        }
+
+        if (ignoreRule.valuePattern === undefined) {
+          return true;
+        }
+
+        const regex = new RegExp(ignoreRule.valuePattern);
+        return regex.test(attrValue);
+      });
+    }
+
     /**
      * @param {Tag | ScriptTag | StyleTag} node
      * @param {string} elementName
@@ -46,14 +107,16 @@ module.exports = {
     function checkAttributes(node, elementName) {
       for (const attr of node.attributes) {
         const key = attr.key.value;
-        if (key.toLowerCase() === "rel") {
-          continue;
-        }
 
         const value = attr.value ? attr.value.value : "";
         if (attr.value && hasTemplate(attr.value)) {
           continue;
         }
+
+        if (shouldIgnore(elementName, key, value)) {
+          continue;
+        }
+
         const validator = element(elementName).attributes.get(key);
         if (validator) {
           const result = validator.validate(value);

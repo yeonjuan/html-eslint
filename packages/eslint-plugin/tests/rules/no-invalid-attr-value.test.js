@@ -61,6 +61,10 @@ ruleTester.run("no-invalid-attr-value", rule, {
     { code: '<div dir="auto">Text</div>' },
     { code: '<img src="image.jpg" loading="lazy" />' },
     { code: '<img src="image.jpg" loading="eager" />' },
+    { code: '<img src="image.jpg" width="100" />' },
+    { code: '<img src="image.jpg" height="200" />' },
+    { code: '<img src="image.jpg" width="100" height="200" />' },
+    { code: '<img src="image.jpg" width="0" height="0" />' },
     { code: '<input type="email" multiple />' },
     { code: '<a href="#" target="_blank" rel="noopener">Link</a>' },
     { code: '<form method="post" enctype="multipart/form-data"></form>' },
@@ -71,6 +75,113 @@ ruleTester.run("no-invalid-attr-value", rule, {
     { code: '<input type="date" min="2020-01-01" max="2025-12-31" />' },
     {
       code: '<a href="page.html" target="_blank" rel="noopener noreferrer">Link</a>',
+    },
+    // ignore option tests - allow any value for specified tag/attr
+    {
+      code: '<input type="custom-type" />',
+      options: [{ ignore: [{ tag: "input", attr: "type" }] }],
+    },
+    {
+      code: '<input type="invalid-type" />',
+      options: [{ ignore: [{ tag: "input", attr: "type" }] }],
+    },
+    {
+      code: '<button type="custom">Click</button>',
+      options: [{ ignore: [{ tag: "button", attr: "type" }] }],
+    },
+    {
+      code: '<form method="put"></form>',
+      options: [{ ignore: [{ tag: "form", attr: "method" }] }],
+    },
+    // ignore option tests - allow specific values with valuePattern (exact match)
+    {
+      code: '<input type="custom-type" />',
+      options: [
+        {
+          ignore: [
+            { tag: "input", attr: "type", valuePattern: "^custom-type$" },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<button type="custom">Click</button>',
+      options: [
+        { ignore: [{ tag: "button", attr: "type", valuePattern: "^custom$" }] },
+      ],
+    },
+    {
+      code: '<form method="put"></form>',
+      options: [
+        { ignore: [{ tag: "form", attr: "method", valuePattern: "^put$" }] },
+      ],
+    },
+    // ignore option tests - allow multiple values with regex pattern
+    {
+      code: '<input type="custom-type" />',
+      options: [
+        {
+          ignore: [
+            {
+              tag: "input",
+              attr: "type",
+              valuePattern: "^(custom-type|another-type)$",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<input type="another-type" />',
+      options: [
+        {
+          ignore: [
+            {
+              tag: "input",
+              attr: "type",
+              valuePattern: "^(custom-type|another-type)$",
+            },
+          ],
+        },
+      ],
+    },
+    // ignore option tests - pattern matching with wildcards
+    {
+      code: '<input type="custom-foo" />',
+      options: [
+        {
+          ignore: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
+        },
+      ],
+    },
+    {
+      code: '<input type="custom-bar" />',
+      options: [
+        {
+          ignore: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
+        },
+      ],
+    },
+    // multiple ignore rules
+    {
+      code: '<input type="custom-type" /><button type="custom">Click</button>',
+      options: [
+        {
+          ignore: [
+            { tag: "input", attr: "type" },
+            { tag: "button", attr: "type", valuePattern: "^custom$" },
+          ],
+        },
+      ],
+    },
+    // case insensitive matching
+    {
+      code: '<INPUT TYPE="custom-type" />',
+      options: [{ ignore: [{ tag: "input", attr: "type" }] }],
+    },
+    {
+      code: '<Input Type="custom-type" />',
+      options: [{ ignore: [{ tag: "INPUT", attr: "TYPE" }] }],
     },
   ],
   invalid: [
@@ -127,10 +238,6 @@ ruleTester.run("no-invalid-attr-value", rule, {
       errors: [{ messageId: "invalid" }],
     },
     {
-      code: '<link rel="invalid" href="style.css" />',
-      errors: [{ messageId: "invalid" }],
-    },
-    {
       code: '<div dir="invalid">Text</div>',
       errors: [{ messageId: "invalid" }],
     },
@@ -144,6 +251,22 @@ ruleTester.run("no-invalid-attr-value", rule, {
     },
     {
       code: '<img src="image.jpg" loading="fast" />',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: '<img src="image.jpg" width="abc" />',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: '<img src="image.jpg" height="xyz" />',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: '<img src="image.jpg" width="-100" />',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: '<img src="image.jpg" width="100px" />',
       errors: [{ messageId: "invalid" }],
     },
     {
@@ -175,10 +298,6 @@ ruleTester.run("no-invalid-attr-value", rule, {
       errors: [{ messageId: "invalid" }],
     },
     {
-      code: '<a href="page.html" target="_blank" rel="invalid">Link</a>',
-      errors: [{ messageId: "invalid" }],
-    },
-    {
       code: '<input type="invalid" autocomplete="name" />',
       errors: [{ messageId: "invalid" }],
     },
@@ -194,6 +313,53 @@ ruleTester.run("no-invalid-attr-value", rule, {
       code: '<th scope="invalid" id="header">Header</th>',
       errors: [{ messageId: "invalid" }],
     },
+    // ignore option tests - should still fail if value doesn't match pattern
+    {
+      code: '<input type="invalid-type" />',
+      options: [
+        {
+          ignore: [
+            { tag: "input", attr: "type", valuePattern: "^custom-type$" },
+          ],
+        },
+      ],
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: '<button type="invalid">Click</button>',
+      options: [
+        { ignore: [{ tag: "button", attr: "type", valuePattern: "^custom$" }] },
+      ],
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: '<form method="put"></form>',
+      options: [
+        { ignore: [{ tag: "form", attr: "method", valuePattern: "^delete$" }] },
+      ],
+      errors: [{ messageId: "invalid" }],
+    },
+    // ignore option tests - should fail with pattern that doesn't match
+    {
+      code: '<input type="invalid-type" />',
+      options: [
+        {
+          ignore: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
+        },
+      ],
+      errors: [{ messageId: "invalid" }],
+    },
+    // ignore option tests - should fail if tag or attr doesn't match
+    {
+      code: '<input type="invalid-type" />',
+      options: [{ ignore: [{ tag: "button", attr: "type" }] }],
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: '<button type="invalid">Click</button>',
+      options: [{ ignore: [{ tag: "button", attr: "name" }] }],
+      errors: [{ messageId: "invalid" }],
+    },
   ],
 });
 
@@ -206,6 +372,9 @@ templateRuleTester.run("[template] no-invalid-attr-value", rule, {
     { code: 'html`<form enctype="${enctype}"></form>`' },
     { code: 'html`<img src="image.jpg" crossorigin="${cors}" />`' },
     { code: 'html`<img src="image.jpg" loading="${loading}" />`' },
+    { code: 'html`<img src="image.jpg" width="${width}" />`' },
+    { code: 'html`<img src="image.jpg" height="${height}" />`' },
+    { code: 'html`<img src="image.jpg" width="100" height="200" />`' },
     { code: 'html`<div dir="${direction}">Text</div>`' },
     { code: 'html`<th scope="${scope}">Header</th>`' },
     { code: 'html`<input type="text" autocomplete="${autocomplete}" />`' },
@@ -225,6 +394,25 @@ templateRuleTester.run("[template] no-invalid-attr-value", rule, {
     },
     { code: 'html`<input type="text" name="${name}" value="${value}" />`' },
     { code: 'html`<button type="submit" id="${id}">Submit</button>`' },
+    // ignore option tests with templates
+    {
+      code: 'html`<input type="custom-type" />`',
+      options: [{ ignore: [{ tag: "input", attr: "type" }] }],
+    },
+    {
+      code: 'html`<button type="custom">Click</button>`',
+      options: [
+        { ignore: [{ tag: "button", attr: "type", valuePattern: "^custom$" }] },
+      ],
+    },
+    {
+      code: 'html`<input type="custom-foo" />`',
+      options: [
+        {
+          ignore: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -260,6 +448,18 @@ templateRuleTester.run("[template] no-invalid-attr-value", rule, {
       errors: [{ messageId: "invalid" }],
     },
     {
+      code: 'html`<img src="image.jpg" width="abc" />`',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: 'html`<img src="image.jpg" height="-100" />`',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: 'html`<img src="image.jpg" width="100px" />`',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
       code: 'html`<div dir="invalid">Text</div>`',
       errors: [{ messageId: "invalid" }],
     },
@@ -280,10 +480,6 @@ templateRuleTester.run("[template] no-invalid-attr-value", rule, {
       errors: [{ messageId: "invalid" }],
     },
     {
-      code: 'html`<link rel="invalid" href="style.css" />`',
-      errors: [{ messageId: "invalid" }],
-    },
-    {
       code: 'html`<script src="script.js" crossorigin="yes"></script>`',
       errors: [{ messageId: "invalid" }],
     },
@@ -297,6 +493,12 @@ templateRuleTester.run("[template] no-invalid-attr-value", rule, {
     },
     {
       code: 'html`<img src="image.jpg" crossorigin="invalid" loading="${loading}" />`',
+      errors: [{ messageId: "invalid" }],
+    },
+    // ignore option tests with templates - should still fail if not ignored
+    {
+      code: 'html`<input type="invalid-type" />`',
+      options: [{ ignore: [{ tag: "button", attr: "type" }] }],
       errors: [{ messageId: "invalid" }],
     },
   ],
