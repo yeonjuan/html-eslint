@@ -84,6 +84,8 @@ ruleTester.run("no-invalid-attr-value", rule, {
     { code: '<input type="text" name="username" autocomplete="username" />' },
     { code: '<img src="image.jpg" crossorigin="anonymous" loading="lazy" />' },
     { code: '<script src="script.js" crossorigin="anonymous" async></script>' },
+    { code: '<style type="text/css"></style>' },
+    { code: '<style blocking="render"></style>' },
     { code: '<button type="submit" name="action">Submit</button>' },
     { code: '<input type="date" min="2020-01-01" max="2025-12-31" />' },
     {
@@ -316,6 +318,10 @@ ruleTester.run("no-invalid-attr-value", rule, {
     },
     {
       code: '<script src="script.js" crossorigin="invalid" async></script>',
+      errors: [{ messageId: "invalid" }],
+    },
+    {
+      code: '<style blocking="invalid"></style>',
       errors: [{ messageId: "invalid" }],
     },
     {
