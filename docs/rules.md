@@ -17,6 +17,7 @@
 | [no-duplicate-in-head](rules/no-duplicate-in-head)               | Disallow duplicate tags in `<head>`                                                            |       |
 | [no-ineffective-attrs](rules/no-ineffective-attrs)               | Disallow HTML attributes that have no effect in their context                                  |       |
 | [no-inline-styles](rules/no-inline-styles)                       | Disallow using inline style                                                                    |       |
+| [no-invalid-attr-value](rules/no-invalid-attr-value)             | Disallow invalid attribute values according to HTML standards                                  |       |
 | [no-invalid-entity](rules/no-invalid-entity)                     | Disallows the use of invalid HTML entities                                                     |       |
 | [no-nested-interactive](rules/no-nested-interactive)             | Disallows nested interactive elements                                                          |       |
 | [no-obsolete-attrs](rules/no-obsolete-attrs)                     | Disallow use of obsolete attributes in HTML5                                                   | ⭐    |

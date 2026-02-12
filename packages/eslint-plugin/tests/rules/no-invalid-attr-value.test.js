@@ -89,29 +89,29 @@ ruleTester.run("no-invalid-attr-value", rule, {
     {
       code: '<a href="page.html" target="_blank" rel="noopener noreferrer">Link</a>',
     },
-    // ignore option tests - allow any value for specified tag/attr
+    // allow option tests - allow any value for specified tag/attr
     {
       code: '<input type="custom-type" />',
-      options: [{ ignore: [{ tag: "input", attr: "type" }] }],
+      options: [{ allow: [{ tag: "input", attr: "type" }] }],
     },
     {
       code: '<input type="invalid-type" />',
-      options: [{ ignore: [{ tag: "input", attr: "type" }] }],
+      options: [{ allow: [{ tag: "input", attr: "type" }] }],
     },
     {
       code: '<button type="custom">Click</button>',
-      options: [{ ignore: [{ tag: "button", attr: "type" }] }],
+      options: [{ allow: [{ tag: "button", attr: "type" }] }],
     },
     {
       code: '<form method="put"></form>',
-      options: [{ ignore: [{ tag: "form", attr: "method" }] }],
+      options: [{ allow: [{ tag: "form", attr: "method" }] }],
     },
-    // ignore option tests - allow specific values with valuePattern (exact match)
+    // allow option tests - allow specific values with valuePattern (exact match)
     {
       code: '<input type="custom-type" />',
       options: [
         {
-          ignore: [
+          allow: [
             { tag: "input", attr: "type", valuePattern: "^custom-type$" },
           ],
         },
@@ -120,21 +120,21 @@ ruleTester.run("no-invalid-attr-value", rule, {
     {
       code: '<button type="custom">Click</button>',
       options: [
-        { ignore: [{ tag: "button", attr: "type", valuePattern: "^custom$" }] },
+        { allow: [{ tag: "button", attr: "type", valuePattern: "^custom$" }] },
       ],
     },
     {
       code: '<form method="put"></form>',
       options: [
-        { ignore: [{ tag: "form", attr: "method", valuePattern: "^put$" }] },
+        { allow: [{ tag: "form", attr: "method", valuePattern: "^put$" }] },
       ],
     },
-    // ignore option tests - allow multiple values with regex pattern
+    // allow option tests - allow multiple values with regex pattern
     {
       code: '<input type="custom-type" />',
       options: [
         {
-          ignore: [
+          allow: [
             {
               tag: "input",
               attr: "type",
@@ -148,7 +148,7 @@ ruleTester.run("no-invalid-attr-value", rule, {
       code: '<input type="another-type" />',
       options: [
         {
-          ignore: [
+          allow: [
             {
               tag: "input",
               attr: "type",
@@ -158,12 +158,12 @@ ruleTester.run("no-invalid-attr-value", rule, {
         },
       ],
     },
-    // ignore option tests - pattern matching with wildcards
+    // allow option tests - pattern matching with wildcards
     {
       code: '<input type="custom-foo" />',
       options: [
         {
-          ignore: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
+          allow: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
         },
       ],
     },
@@ -171,16 +171,16 @@ ruleTester.run("no-invalid-attr-value", rule, {
       code: '<input type="custom-bar" />',
       options: [
         {
-          ignore: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
+          allow: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
         },
       ],
     },
-    // multiple ignore rules
+    // multiple allow rules
     {
       code: '<input type="custom-type" /><button type="custom">Click</button>',
       options: [
         {
-          ignore: [
+          allow: [
             { tag: "input", attr: "type" },
             { tag: "button", attr: "type", valuePattern: "^custom$" },
           ],
@@ -190,11 +190,11 @@ ruleTester.run("no-invalid-attr-value", rule, {
     // case insensitive matching
     {
       code: '<INPUT TYPE="custom-type" />',
-      options: [{ ignore: [{ tag: "input", attr: "type" }] }],
+      options: [{ allow: [{ tag: "input", attr: "type" }] }],
     },
     {
       code: '<Input Type="custom-type" />',
-      options: [{ ignore: [{ tag: "INPUT", attr: "TYPE" }] }],
+      options: [{ allow: [{ tag: "INPUT", attr: "TYPE" }] }],
     },
   ],
   invalid: [
@@ -342,12 +342,12 @@ ruleTester.run("no-invalid-attr-value", rule, {
       code: '<th scope="invalid" id="header">Header</th>',
       errors: [{ messageId: "invalid" }],
     },
-    // ignore option tests - should still fail if value doesn't match pattern
+    // allow option tests - should still fail if value doesn't match pattern
     {
       code: '<input type="invalid-type" />',
       options: [
         {
-          ignore: [
+          allow: [
             { tag: "input", attr: "type", valuePattern: "^custom-type$" },
           ],
         },
@@ -357,36 +357,36 @@ ruleTester.run("no-invalid-attr-value", rule, {
     {
       code: '<button type="invalid">Click</button>',
       options: [
-        { ignore: [{ tag: "button", attr: "type", valuePattern: "^custom$" }] },
+        { allow: [{ tag: "button", attr: "type", valuePattern: "^custom$" }] },
       ],
       errors: [{ messageId: "invalid" }],
     },
     {
       code: '<form method="put"></form>',
       options: [
-        { ignore: [{ tag: "form", attr: "method", valuePattern: "^delete$" }] },
+        { allow: [{ tag: "form", attr: "method", valuePattern: "^delete$" }] },
       ],
       errors: [{ messageId: "invalid" }],
     },
-    // ignore option tests - should fail with pattern that doesn't match
+    // allow option tests - should fail with pattern that doesn't match
     {
       code: '<input type="invalid-type" />',
       options: [
         {
-          ignore: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
+          allow: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
         },
       ],
       errors: [{ messageId: "invalid" }],
     },
-    // ignore option tests - should fail if tag or attr doesn't match
+    // allow option tests - should fail if tag or attr doesn't match
     {
       code: '<input type="invalid-type" />',
-      options: [{ ignore: [{ tag: "button", attr: "type" }] }],
+      options: [{ allow: [{ tag: "button", attr: "type" }] }],
       errors: [{ messageId: "invalid" }],
     },
     {
       code: '<button type="invalid">Click</button>',
-      options: [{ ignore: [{ tag: "button", attr: "name" }] }],
+      options: [{ allow: [{ tag: "button", attr: "name" }] }],
       errors: [{ messageId: "invalid" }],
     },
   ],
@@ -429,19 +429,19 @@ templateRuleTester.run("[template] no-invalid-attr-value", rule, {
     { code: 'html`<button type="submit" id="${id}">Submit</button>`' },
     {
       code: 'html`<input type="custom-type" />`',
-      options: [{ ignore: [{ tag: "input", attr: "type" }] }],
+      options: [{ allow: [{ tag: "input", attr: "type" }] }],
     },
     {
       code: 'html`<button type="custom">Click</button>`',
       options: [
-        { ignore: [{ tag: "button", attr: "type", valuePattern: "^custom$" }] },
+        { allow: [{ tag: "button", attr: "type", valuePattern: "^custom$" }] },
       ],
     },
     {
       code: 'html`<input type="custom-foo" />`',
       options: [
         {
-          ignore: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
+          allow: [{ tag: "input", attr: "type", valuePattern: "^custom-.*$" }],
         },
       ],
     },
@@ -537,7 +537,7 @@ templateRuleTester.run("[template] no-invalid-attr-value", rule, {
     },
     {
       code: 'html`<input type="invalid-type" />`',
-      options: [{ ignore: [{ tag: "button", attr: "type" }] }],
+      options: [{ allow: [{ tag: "button", attr: "type" }] }],
       errors: [{ messageId: "invalid" }],
     },
   ],

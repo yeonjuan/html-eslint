@@ -1336,7 +1336,7 @@ __metadata:
     es-html-parser: "npm:0.3.1"
     eslint: "npm:^9.39.1"
     espree: "npm:^10.3.0"
-    html-standard: "npm:0.0.8"
+    html-standard: "npm:^0.0.10"
     typescript: "npm:^5.8.3"
   peerDependencies:
     eslint: ">=8.0.0 || ^10.0.0-0"
@@ -9323,10 +9323,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-standard@npm:0.0.8":
-  version: 0.0.8
-  resolution: "html-standard@npm:0.0.8"
-  checksum: 10c0/1344d481cc9e66d0368a656143a2482bc718d4f911cde15a8ac0a2dabe77e3d4bd7851d464febd79a08a0de7974659f8f224e09dc88da14e8d44ebc6c1b24679
+"html-standard@npm:^0.0.10":
+  version: 0.0.10
+  resolution: "html-standard@npm:0.0.10"
+  checksum: 10c0/e44f01675addbfd087d1187649b2d2900e1e0159f146e17c066ef16f688f63aa05d2db393896e09215cd951ac4121578f49aa5206bb5de6aa3200619701a6501
   languageName: node
   linkType: hard
 

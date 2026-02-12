@@ -19,7 +19,7 @@ const MESSAGE_IDS = {
 
 /**
  * @type {RuleModule<
- *   [{ ignore?: { tag: string; attr: string; valuePattern?: string }[] }]
+ *   [{ allow?: { tag: string; attr: string; valuePattern?: string }[] }]
  * >}
  */
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
       {
         type: "object",
         properties: {
-          ignore: {
+          allow: {
             type: "array",
             items: {
               type: "object",
@@ -70,32 +70,32 @@ module.exports = {
 
   create(context) {
     const options = context.options[0] || {};
-    const ignoreList = options.ignore || [];
+    const allowList = options.allow || [];
 
     /**
-     * Check if the attribute should be ignored
+     * Check if the attribute should be allowed
      *
      * @param {string} elementName
      * @param {string} attrName
      * @param {string} attrValue
      * @returns {boolean}
      */
-    function shouldIgnore(elementName, attrName, attrValue) {
-      return ignoreList.some((ignoreRule) => {
+    function shouldAllow(elementName, attrName, attrValue) {
+      return allowList.some((allowRule) => {
         const tagMatch =
-          ignoreRule.tag.toLowerCase() === elementName.toLowerCase();
+          allowRule.tag.toLowerCase() === elementName.toLowerCase();
         const attrMatch =
-          ignoreRule.attr.toLowerCase() === attrName.toLowerCase();
+          allowRule.attr.toLowerCase() === attrName.toLowerCase();
 
         if (!tagMatch || !attrMatch) {
           return false;
         }
 
-        if (ignoreRule.valuePattern === undefined) {
+        if (allowRule.valuePattern === undefined) {
           return true;
         }
 
-        const regex = new RegExp(ignoreRule.valuePattern);
+        const regex = new RegExp(allowRule.valuePattern);
         return regex.test(attrValue);
       });
     }
@@ -113,16 +113,16 @@ module.exports = {
           continue;
         }
 
-        if (shouldIgnore(elementName, key, value)) {
+        if (shouldAllow(elementName, key, value)) {
           continue;
         }
 
         const validator = element(elementName).attributes.get(key);
         if (validator) {
-          const result = validator.validate(value);
+          const result = validator.validateValue(value);
           if (!result.valid) {
             context.report({
-              node: attr,
+              node: attr.value || attr,
               messageId: MESSAGE_IDS.INVALID,
               data: {
                 value: `${value}`,
