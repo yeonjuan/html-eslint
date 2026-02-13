@@ -76,9 +76,6 @@ Examples of **incorrect** code for this rule:
 <!-- Invalid crossorigin value -->
 <img src="image.jpg" crossorigin="invalid" />
 
-<!-- Invalid rel value -->
-<link rel="invalid" href="style.css" />
-
 <!-- Invalid autocomplete value -->
 <input type="text" autocomplete="invalid-value" />
 
