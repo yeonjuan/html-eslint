@@ -44,7 +44,7 @@
     "@html-eslint/template-parser": "^0.54.0",
     "@html-eslint/template-syntax-parser": "^0.54.0",
     "@html-eslint/types": "^0.54.0",
-    "html-standard": "0.0.8"
+    "html-standard": "^0.0.11"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 || ^10.0.0-0"

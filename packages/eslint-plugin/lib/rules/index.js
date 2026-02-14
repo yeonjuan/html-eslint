@@ -58,6 +58,7 @@ const noObsoleteAttrs = require("./no-obsolete-attrs");
 const classSpacing = require("./class-spacing");
 const cssNoEmptyBlocks = require("./css-no-empty-blocks");
 const noRedundantRole = require("./no-redundant-role");
+const noInvalidAttrValue = require("./no-invalid-attr-value");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -122,6 +123,7 @@ const rules = {
   "class-spacing": classSpacing,
   "css-no-empty-blocks": cssNoEmptyBlocks,
   "no-redundant-role": noRedundantRole,
+  "no-invalid-attr-value": noInvalidAttrValue,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
