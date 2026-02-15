@@ -1,0 +1,47 @@
+{
+  "name": "@html-eslint/core",
+  "version": "0.1.0",
+  "type": "commonjs",
+  "description": "Core HTML validation logic for html-eslint",
+  "author": "yeonjuan",
+  "homepage": "https://github.com/yeonjuan/html-eslint#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib",
+    "types"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeonjuan/html-eslint.git"
+  },
+  "scripts": {
+    "ts": "tsc --noEmit",
+    "lint": "eslint .",
+    "build": "rimraf types && tsc --project tsconfig.build.json"
+  },
+  "bugs": {
+    "url": "https://github.com/yeonjuan/html-eslint/issues"
+  },
+  "keywords": [
+    "html",
+    "eslint",
+    "validation",
+    "core",
+    "lint"
+  ],
+  "dependencies": {
+    "@html-eslint/types": "^0.55.0",
+    "html-standard": "^0.0.11"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+  }
+}

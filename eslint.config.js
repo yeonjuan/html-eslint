@@ -34,7 +34,7 @@ module.exports = [
         ...globals.node,
       },
 
-      ecmaVersion: 9,
+      ecmaVersion: 2022,
       sourceType: "commonjs",
     },
 
@@ -55,6 +55,12 @@ module.exports = [
   },
   {
     files: ["tools/**/*.mjs"],
+    languageOptions: {
+      sourceType: "module",
+    },
+  },
+  {
+    files: ["packages/svelte/**/*.{js,mjs}"],
     languageOptions: {
       sourceType: "module",
     },

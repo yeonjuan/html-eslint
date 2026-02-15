@@ -24,6 +24,7 @@ packages/**/.yarn
 integration-test-projects/**/*.yarn
 packages/template-syntax-parser/types
 packages/template-parser/types
+packages/svelte/types
 packages/parser/types
 packages/eslint-plugin/types
 CLAUDE.md
