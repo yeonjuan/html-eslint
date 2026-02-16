@@ -1,34 +1,19 @@
 export interface ElementNodeAdapter<AttributeKeyNode, AttributeValueNode> {
   getTagName(): string;
-  getAttributes(): ElementAttributeAdapter<
-    AttributeKeyNode,
-    AttributeValueNode
-  >[];
+  getAttributes(): AttributeAdapter<AttributeKeyNode, AttributeValueNode>[];
 }
 
-export interface ElementAttributeAdapter<AttributeKeyNode, AttributeValueNode> {
-  key:
-    | {
-        node: AttributeKeyNode;
-        isExpression: true;
-        value: null;
-      }
-    | {
-        node: AttributeKeyNode;
-        isExpression: false;
-        value: string;
-      };
-  value:
-    | {
-        node: null;
-        isExpression: true;
-        value: null;
-      }
-    | {
-        node: AttributeValueNode | null;
-        isExpression: false;
-        value: string;
-      };
+export interface AttributeAdapter<AttributeKeyNode, AttributeValueNode> {
+  key(): {
+    node: AttributeKeyNode;
+    isExpression: () => boolean;
+    value: null | string;
+  };
+  value(): {
+    node: AttributeValueNode | null;
+    isExpression: () => boolean;
+    value: string | null;
+  };
 }
 
 export interface NoInvalidAttrValueOptions {

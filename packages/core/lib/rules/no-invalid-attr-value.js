@@ -54,6 +54,9 @@ export function noInvalidAttrValue(options) {
      */
     checkAttributes(adapter) {
       const name = adapter.getTagName();
+      if (name.includes("-")) {
+        return [];
+      }
       const spec = element(name);
       /**
        * @type {NoInvalidAttrValueResult<
@@ -64,13 +67,25 @@ export function noInvalidAttrValue(options) {
       const result = [];
 
       for (const attribute of adapter.getAttributes()) {
-        const attrKey = attribute.key;
-        const attrValue = attribute.value;
+        const attrKey = attribute.key();
+        if (attrKey.isExpression()) {
+          continue;
+        }
+
+        const attrValue = attribute.value();
+
+        if (attrValue.isExpression()) {
+          continue;
+        }
+
         if (
-          attrKey.isExpression ||
-          attrValue.isExpression ||
+          attrKey.value &&
+          attrValue.value &&
           shouldAllow(name, attrKey.value, attrValue.value)
         ) {
+          continue;
+        }
+        if (!attrKey.value || !attrValue.value) {
           continue;
         }
         const validator = spec.attributes.get(attrKey.value);

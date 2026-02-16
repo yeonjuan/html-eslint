@@ -1,5 +1,8 @@
 /**
- * @import {ElementNodeAdapter} from "@html-eslint/core"
+ * @import {
+ *   AttributeAdapter,
+ *   ElementNodeAdapter
+ * } from "@html-eslint/core"
  * @import {
  *   AttributeKey,
  *   AttributeValue,
@@ -12,6 +15,34 @@
 const { getNameOf, hasTemplate } = require("./node");
 
 /**
+ * @param {AttributeKey} key
+ * @param {AttributeValue | undefined} value
+ * @returns {AttributeAdapter<AttributeKey, AttributeValue>}
+ */
+function attributeNodeAdapter(key, value) {
+  return {
+    key() {
+      return {
+        node: key,
+        isExpression() {
+          return hasTemplate(key);
+        },
+        value: key.value,
+      };
+    },
+    value() {
+      return {
+        node: value || null,
+        isExpression() {
+          return value ? hasTemplate(value) : false;
+        },
+        value: value ? value.value : "",
+      };
+    },
+  };
+}
+
+/**
  * @param {ScriptTag | StyleTag | Tag} node
  * @returns {ElementNodeAdapter<AttributeKey, AttributeValue>}
  */
@@ -22,33 +53,7 @@ function elementNodeAdapter(node) {
     },
     getAttributes() {
       return node.attributes.map((attribute) => {
-        if (attribute.value && hasTemplate(attribute.value)) {
-          return {
-            key: {
-              node: attribute.key,
-              isExpression: false,
-              value: attribute.key.value,
-            },
-            value: {
-              node: null,
-              isExpression: true,
-              value: null,
-            },
-          };
-        }
-
-        return {
-          key: {
-            node: attribute.key,
-            isExpression: false,
-            value: attribute.key.value,
-          },
-          value: {
-            node: attribute.value || null,
-            isExpression: false,
-            value: attribute.value ? attribute.value.value : "",
-          },
-        };
+        return attributeNodeAdapter(attribute.key, attribute.value);
       });
     },
   };
