@@ -54,7 +54,7 @@ module.exports = [
     },
   },
   {
-    files: ["tools/**/*.mjs"],
+    files: ["tools/**/*.mjs", "packages/core/**/*.js"],
     languageOptions: {
       sourceType: "module",
     },

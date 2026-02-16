@@ -1,5 +1,7 @@
 /**
  * @import {
+ *   AttributeKey,
+ *   AttributeValue,
  *   ScriptTag,
  *   StyleTag,
  *   Tag
@@ -10,8 +12,8 @@
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-const { element } = require("html-standard");
-const { hasTemplate } = require("./utils/node");
+const { noInvalidAttrValue } = require("@html-eslint/core");
+const { elementNodeAdapter } = require("./utils/adapter");
 
 const MESSAGE_IDS = {
   INVALID: "invalid",
@@ -70,85 +72,34 @@ module.exports = {
 
   create(context) {
     const options = context.options[0] || {};
-    const allowList = options.allow || [];
 
-    /**
-     * Check if the attribute should be allowed
-     *
-     * @param {string} elementName
-     * @param {string} attrName
-     * @param {string} attrValue
-     * @returns {boolean}
-     */
-    function shouldAllow(elementName, attrName, attrValue) {
-      return allowList.some((allowRule) => {
-        const tagMatch =
-          allowRule.tag.toLowerCase() === elementName.toLowerCase();
-        const attrMatch =
-          allowRule.attr.toLowerCase() === attrName.toLowerCase();
+    const ruleCore = /**
+     * @type {ReturnType<
+     *   typeof noInvalidAttrValue<AttributeKey, AttributeValue>
+     * >}
+     */ (noInvalidAttrValue(options));
 
-        if (!tagMatch || !attrMatch) {
-          return false;
-        }
-
-        if (allowRule.valuePattern === undefined) {
-          return true;
-        }
-
-        const regex = new RegExp(allowRule.valuePattern);
-        return regex.test(attrValue);
-      });
-    }
-
-    /**
-     * @param {Tag | ScriptTag | StyleTag} node
-     * @param {string} elementName
-     */
-    function checkAttributes(node, elementName) {
-      for (const attr of node.attributes) {
-        const key = attr.key.value;
-
-        const value = attr.value ? attr.value.value : "";
-        if (attr.value && hasTemplate(attr.value)) {
-          continue;
-        }
-
-        if (shouldAllow(elementName, key, value)) {
-          continue;
-        }
-
-        const validator = element(elementName).attributes.get(key);
-        if (validator) {
-          const result = validator.validateValue(value);
-          if (!result.valid) {
-            context.report({
-              node: attr.value || attr,
-              messageId: MESSAGE_IDS.INVALID,
-              data: {
-                value: `${value}`,
-                attr: key,
-                element: elementName,
-                suggestion: result.reason || "Use a valid value.",
-              },
-            });
-          }
-        }
+    /** @param {Tag | ScriptTag | StyleTag} node */
+    function checkAttributes(node) {
+      const result = ruleCore.checkAttributes(elementNodeAdapter(node));
+      for (const r of result) {
+        context.report({
+          node: r.valueNode || r.keyNode,
+          messageId: MESSAGE_IDS.INVALID,
+          data: {
+            value: r.valueNode ? r.valueNode.value : "",
+            attr: r.keyNode.value,
+            element: r.elementName,
+            suggestion: r.reason || "Use a valid value.",
+          },
+        });
       }
     }
 
     return createVisitors(context, {
-      /** @param {Tag} node */
-      Tag(node) {
-        checkAttributes(node, node.name);
-      },
-      /** @param {ScriptTag} node */
-      ScriptTag(node) {
-        checkAttributes(node, "script");
-      },
-      /** @param {StyleTag} node */
-      StyleTag(node) {
-        checkAttributes(node, "style");
-      },
+      Tag: checkAttributes,
+      ScriptTag: checkAttributes,
+      StyleTag: checkAttributes,
     });
   },
 };
