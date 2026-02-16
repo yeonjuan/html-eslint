@@ -2714,6 +2714,7 @@ __metadata:
   resolution: "@html-eslint/core@workspace:packages/core"
   dependencies:
     "@html-eslint/types": "npm:^0.55.0"
+    eslint: "npm:^9.39.1"
     html-standard: "npm:^0.0.12"
     tsup: "npm:^8.5.1"
     typescript: "npm:^5.8.3"
