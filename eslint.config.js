@@ -60,7 +60,7 @@ module.exports = [
     },
   },
   {
-    files: ["packages/svelte/**/*.{js,mjs}"],
+    files: ["packages/svelte/**/*.{js,mjs}", "packages/core/**/*.{js,mjs}"],
     languageOptions: {
       sourceType: "module",
     },

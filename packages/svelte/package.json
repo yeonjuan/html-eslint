@@ -40,7 +40,7 @@
   "dependencies": {
     "@html-eslint/core": "^0.1.0",
     "@html-eslint/types": "^0.55.0",
-    "html-standard": "file:../../../html-standard"
+    "html-standard": "0.0.12"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 || ^10.0.0-0"
@@ -50,6 +50,7 @@
     "@babel/preset-env": "^7.26.0",
     "@types/eslint-scope": "^8.4.0",
     "@typescript-eslint/parser": "^8.55.0",
+    "@typescript-eslint/types": "^8.55.0",
     "babel-jest": "^30.2.0",
     "eslint": "^9.39.1",
     "jest": "^30.2.0",

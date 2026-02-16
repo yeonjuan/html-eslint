@@ -40,7 +40,7 @@
   "dependencies": {
     "@html-eslint/core": "^0.1.0",
     "@html-eslint/types": "^0.55.0",
-    "html-standard": "file:../../../html-standard"
+    "html-standard": "0.0.12"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 || ^10.0.0-0"

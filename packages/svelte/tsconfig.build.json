@@ -3,6 +3,7 @@
   "include": ["lib"],
   "compilerOptions": {
     "outDir": "types",
+    "skipLibCheck": true,
     "emitDeclarationOnly": true,
     "noEmit": false,
     "rootDir": "lib"
