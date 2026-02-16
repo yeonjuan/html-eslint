@@ -1,8 +1,8 @@
 {
-  "name": "@html-eslint/svelte",
+  "name": "@html-eslint/angular",
   "version": "0.1.0",
-  "type": "module",
-  "description": "HTML ESLint plugin for Svelte",
+  "type": "commonjs",
+  "description": "HTML ESLint plugin for Angular",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "url": "git+https://github.com/yeonjuan/html-eslint.git"
   },
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --config=jest.config.mjs --coverage",
+    "test": "jest --config=jest.config.js --coverage",
     "ts": "tsc --noEmit",
     "lint": "eslint .",
     "build": "rimraf types && tsc --project tsconfig.build.json"
@@ -33,7 +33,7 @@
     "eslintplugin",
     "eslint-plugin",
     "html",
-    "svelte",
+    "angular",
     "lint",
     "accessibility"
   ],
@@ -46,15 +46,14 @@
     "eslint": ">=8.0.0 || ^10.0.0-0"
   },
   "devDependencies": {
+    "@angular-eslint/bundled-angular-compiler": "^21.2.0",
+    "@angular-eslint/template-parser": "^19.1.1",
+    "@angular/compiler": "^21.1.4",
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
-    "@types/eslint-scope": "^8.4.0",
-    "@typescript-eslint/parser": "^8.55.0",
     "babel-jest": "^30.2.0",
     "eslint": "^9.39.1",
     "jest": "^30.2.0",
-    "svelte": "^5.17.1",
-    "svelte-eslint-parser": "^1.4.1",
     "typescript": "^5.8.3"
   },
   "engines": {

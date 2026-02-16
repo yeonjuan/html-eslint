@@ -18,6 +18,8 @@
     "docs/rules/no-obsolete-attrs.md"
   ],
   "words": [
+    "noninteractive",
+    "svelte",
     "foofoo",
     "rowspan",
     "tseslint",

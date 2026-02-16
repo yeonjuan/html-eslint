@@ -1,8 +1,3 @@
-/**
- * @file Core HTML validation logic for html-eslint
- * @author yeonjuan
- */
-
 "use strict";
 
 module.exports = {

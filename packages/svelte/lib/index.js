@@ -1,8 +1,3 @@
-/**
- * @file HTML ESLint plugin for Svelte
- * @author yeonjuan
- */
-
 import noInvalidAttrValue from "./rules/no-invalid-attr-value.js";
 
 export default {

@@ -1,11 +1,11 @@
-import rule from "../../lib/rules/no-invalid-attr-value.js";
-import * as svelteParser from "svelte-eslint-parser";
+const rule = require("../../lib/rules/no-invalid-attr-value.js");
+const angularParser = require("@angular-eslint/template-parser");
 
-import { RuleTester } from "eslint";
+const { RuleTester } = require("eslint");
 
 const ruleTester = new RuleTester({
   languageOptions: {
-    parser: svelteParser,
+    parser: angularParser,
   },
 });
 
@@ -27,19 +27,31 @@ ruleTester.run("no-invalid-attr-value", rule, {
     {
       code: '<button type="submit">Submit</button>',
     },
-    // Svelte expressions should be ignored
+    // Angular expressions should be ignored
     {
-      code: '<img src={imageUrl} alt="description" />',
+      code: '<img [src]="imageUrl" alt="description" />',
     },
     {
-      code: "<input type={inputType} />",
+      code: '<input [type]="inputType" />',
     },
     {
-      code: "<a href={dynamicUrl}>Link</a>",
+      code: '<a [href]="dynamicUrl">Link</a>',
     },
-    // Mixed content with expressions
+    // Event bindings
     {
-      code: '<img src="prefix-{imageId}.jpg" alt="description" />',
+      code: '<button (click)="onClick()">Click</button>',
+    },
+    // Two-way binding
+    {
+      code: '<input [(ngModel)]="value" />',
+    },
+    // Structural directives
+    {
+      code: '<div *ngIf="show">Content</div>',
+    },
+    // Template reference variables
+    {
+      code: '<input #myInput type="text" />',
     },
     // Allow list - custom invalid values that should be allowed
     {
@@ -116,7 +128,16 @@ ruleTester.run("no-invalid-attr-value", rule, {
         },
       ],
     },
-
+    // Invalid autocomplete
+    {
+      code: '<input autocomplete="invalid-value" />',
+      errors: [
+        {
+          message:
+            "Invalid value 'invalid-value' for attribute 'autocomplete' on <input>. Invalid autofill field name: \"invalid-value\". Must be one of the standard autofill field names.",
+        },
+      ],
+    },
     // Allow list should not prevent other invalid values
     {
       code: '<input type="other-invalid" />',
