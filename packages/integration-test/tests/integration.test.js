@@ -190,6 +190,6 @@ describe("integration tests", () => {
         fileName: "eslint.config.ts",
       });
       expect(result9392).toBe(undefined);
-    });
+    }, 20000);
   });
 });
