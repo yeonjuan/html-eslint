@@ -53,6 +53,7 @@ async function makePackageJson({
       "@html-eslint/template-syntax-parser": packageFileVersion(
         "template-syntax-parser"
       ),
+      "@html-eslint/core": packageFileVersion("core"),
     },
   };
   await writeFile(

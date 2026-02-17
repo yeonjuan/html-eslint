@@ -20,6 +20,7 @@ module.exports = [
       "**/integration-test-projects",
       "**/coverage",
       "prettier.config.mjs",
+      "**/dist",
     ],
   },
   ...compat.extends("eslint:recommended"),
@@ -54,7 +55,7 @@ module.exports = [
     },
   },
   {
-    files: ["tools/**/*.mjs"],
+    files: ["tools/**/*.mjs", "packages/core/**/*.js"],
     languageOptions: {
       sourceType: "module",
     },

@@ -40,6 +40,7 @@
   ],
   "dependencies": {
     "@eslint/plugin-kit": "^0.4.1",
+    "@html-eslint/core": "^0.55.0",
     "@html-eslint/parser": "^0.55.0",
     "@html-eslint/template-parser": "^0.55.0",
     "@html-eslint/template-syntax-parser": "^0.55.0",
