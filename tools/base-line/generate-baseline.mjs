@@ -147,7 +147,7 @@ const BASELINE_FALSE = 0;
 
 const elements = new Map(${JSON.stringify(Object.entries(elementsStatus))});
 const globalAttributes = new Map(${JSON.stringify(Object.entries(globalAttributesStatus))});
-module.exports = {
+export {
   elements,
   globalAttributes,
   BASELINE_HIGH,
@@ -155,7 +155,7 @@ module.exports = {
   BASELINE_FALSE
 }
 `;
-  const jsPath = "./packages/eslint-plugin/lib/rules/utils/baseline.js";
+  const jsPath = "./packages/core/lib/utils/baseline.js";
   const config = await prettier.resolveConfig(jsPath);
   fs.writeFileSync(
     jsPath,

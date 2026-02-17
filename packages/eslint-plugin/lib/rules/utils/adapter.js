@@ -6,6 +6,9 @@
  * @import {
  *   AttributeKey,
  *   AttributeValue,
+ *   OpenScriptTagStart,
+ *   OpenStyleTagStart,
+ *   OpenTagStart,
  *   ScriptTag,
  *   StyleTag,
  *   Tag
@@ -44,10 +47,20 @@ function attributeNodeAdapter(key, value) {
 
 /**
  * @param {ScriptTag | StyleTag | Tag} node
- * @returns {ElementNodeAdapter<AttributeKey, AttributeValue>}
+ * @returns {ElementNodeAdapter<
+ *   | ScriptTag
+ *   | StyleTag
+ *   | Tag
+ *   | OpenTagStart
+ *   | OpenScriptTagStart
+ *   | OpenStyleTagStart,
+ *   AttributeKey,
+ *   AttributeValue
+ * >}
  */
 function elementNodeAdapter(node) {
   return {
+    node: node.openStart,
     getTagName() {
       return getNameOf(node);
     },

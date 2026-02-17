@@ -9,6 +9,16 @@
 import { element } from "html-standard";
 
 /**
+ * @type {{
+ *   invalid: "invalid";
+ * }}
+ */
+export const NO_INVALID_ATTR_VALUE_MESSAGE_IDS = {
+  invalid: "invalid",
+};
+
+/**
+ * @template ElementNode
  * @template AttributeKeyNode
  * @template AttributeValueNode
  * @param {NoInvalidAttrValueOptions} options
@@ -46,7 +56,11 @@ export function noInvalidAttrValue(options) {
 
   return {
     /**
-     * @param {ElementNodeAdapter<AttributeKeyNode, AttributeValueNode>} adapter
+     * @param {ElementNodeAdapter<
+     *   ElementNode,
+     *   AttributeKeyNode,
+     *   AttributeValueNode
+     * >} adapter
      * @returns {NoInvalidAttrValueResult<
      *   AttributeKeyNode,
      *   AttributeValueNode
@@ -93,10 +107,14 @@ export function noInvalidAttrValue(options) {
           const validateResult = validator.validateValue(attrValue.value);
           if (!validateResult.valid) {
             result.push({
-              keyNode: attrKey.node,
-              valueNode: attrValue.node,
-              elementName: name,
-              reason: validateResult.reason || "Use a valid value.",
+              node: attrValue.node || attrKey.node,
+              messageId: NO_INVALID_ATTR_VALUE_MESSAGE_IDS.invalid,
+              data: {
+                value: attrValue.value || "",
+                attr: attrKey.value,
+                element: name,
+                suggestion: validateResult.reason || "Use a valid value.",
+              },
             });
           }
         }
