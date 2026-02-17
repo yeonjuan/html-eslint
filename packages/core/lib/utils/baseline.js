@@ -613,7 +613,7 @@ const globalAttributes = new Map([
   ["virtualkeyboardpolicy", "0:"],
   ["writingsuggestions", "0:"],
 ]);
-module.exports = {
+export {
   elements,
   globalAttributes,
   BASELINE_HIGH,

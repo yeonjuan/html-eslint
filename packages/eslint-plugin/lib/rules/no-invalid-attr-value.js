@@ -2,6 +2,9 @@
  * @import {
  *   AttributeKey,
  *   AttributeValue,
+ *   OpenScriptTagStart,
+ *   OpenStyleTagStart,
+ *   OpenTagStart,
  *   ScriptTag,
  *   StyleTag,
  *   Tag
@@ -12,12 +15,11 @@
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-const { noInvalidAttrValue } = require("@html-eslint/core");
+const {
+  noInvalidAttrValue,
+  NO_INVALID_ATTR_VALUE_MESSAGE_IDS,
+} = require("@html-eslint/core");
 const { elementNodeAdapter } = require("./utils/adapter");
-
-const MESSAGE_IDS = {
-  INVALID: "invalid",
-};
 
 /**
  * @type {RuleModule<
@@ -65,7 +67,7 @@ module.exports = {
       },
     ],
     messages: {
-      [MESSAGE_IDS.INVALID]:
+      [NO_INVALID_ATTR_VALUE_MESSAGE_IDS.invalid]:
         "Invalid value '{{value}}' for attribute '{{attr}}' on <{{element}}>. {{suggestion}}",
     },
   },
@@ -75,7 +77,16 @@ module.exports = {
 
     const ruleCore = /**
      * @type {ReturnType<
-     *   typeof noInvalidAttrValue<AttributeKey, AttributeValue>
+     *   typeof noInvalidAttrValue<
+     *     | Tag
+     *     | ScriptTag
+     *     | StyleTag
+     *     | OpenTagStart
+     *     | OpenScriptTagStart
+     *     | OpenStyleTagStart,
+     *     AttributeKey,
+     *     AttributeValue
+     *   >
      * >}
      */ (noInvalidAttrValue(options));
 
@@ -84,14 +95,9 @@ module.exports = {
       const result = ruleCore.checkAttributes(elementNodeAdapter(node));
       for (const r of result) {
         context.report({
-          node: r.valueNode || r.keyNode,
-          messageId: MESSAGE_IDS.INVALID,
-          data: {
-            value: r.valueNode ? r.valueNode.value : "",
-            attr: r.keyNode.value,
-            element: r.elementName,
-            suggestion: r.reason || "Use a valid value.",
-          },
+          node: r.node,
+          messageId: r.messageId,
+          data: r.data,
         });
       }
     }

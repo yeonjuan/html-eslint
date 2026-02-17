@@ -1,6 +1,11 @@
-export interface ElementNodeAdapter<AttributeKeyNode, AttributeValueNode> {
+export interface ElementNodeAdapter<
+  ElementNode,
+  AttributeKeyNode,
+  AttributeValueNode,
+> {
   getTagName(): string;
   getAttributes(): AttributeAdapter<AttributeKeyNode, AttributeValueNode>[];
+  node: ElementNode;
 }
 
 export interface AttributeAdapter<AttributeKeyNode, AttributeValueNode> {
@@ -26,8 +31,48 @@ export interface NoInvalidAttrValueOptions {
 
 export type NoInvalidAttrValueResult<AttributeKeyNode, AttributeValueNode> =
   Array<{
-    keyNode: AttributeKeyNode;
-    valueNode: AttributeValueNode | null;
-    elementName: string;
-    reason: string;
+    messageId: "invalid";
+    node: AttributeKeyNode | AttributeValueNode;
+    data: {
+      value: string;
+      attr: string;
+      element: string;
+      suggestion: string;
+    };
   }>;
+
+export interface UseBaselineOptions {
+  available: "widely" | "newly" | number;
+}
+
+export type UseBaselineResult<
+  ElementNode,
+  AttributeKeyNode,
+  AttributeValueNode,
+> = Array<
+  | {
+      messageId: "noBaselineElement";
+      node: ElementNode | AttributeValueNode;
+      data: {
+        element: string;
+        availability: string;
+      };
+    }
+  | {
+      messageId: "notBaselineElementAttribute";
+      node: ElementNode | AttributeValueNode | AttributeKeyNode;
+      data: {
+        element: string;
+        attr: string;
+        availability: string;
+      };
+    }
+  | {
+      messageId: "notBaselineGlobalAttribute";
+      node: AttributeValueNode | AttributeKeyNode;
+      data: {
+        attr: string;
+        availability: string;
+      };
+    }
+>;
