@@ -5,6 +5,7 @@
 const { NO_INVALID_ATTR_VALUE_MESSAGE_IDS } = require("@html-eslint/core");
 const { elementNodeAdapter } = require("./utils/adapter");
 const { noInvalidAttrValue } = require("@html-eslint/core");
+const { AST_NODE_TYPES } = require("@typescript-eslint/types");
 /**
  * @type {RuleModule<
  *   [{ allow?: { tag: string; attr: string; valuePattern?: string }[] }]
@@ -70,6 +71,9 @@ module.exports = {
      */ (noInvalidAttrValue(options));
     return {
       JSXOpeningElement(node) {
+        if (node.name.type !== AST_NODE_TYPES.JSXIdentifier) {
+          return;
+        }
         const adapter = elementNodeAdapter(node);
         const result = ruleCore.checkAttributes(adapter);
         for (const r of result) {
