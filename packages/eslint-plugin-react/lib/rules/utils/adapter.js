@@ -112,7 +112,9 @@ function attributeNodeAdapter(node) {
         if (
           node.value.type === AST_NODE_TYPES.JSXExpressionContainer &&
           (node.value.expression.type === AST_NODE_TYPES.Literal ||
-            node.value.expression.type === AST_NODE_TYPES.TemplateLiteral)
+            (node.value.expression.type === AST_NODE_TYPES.TemplateLiteral &&
+              node.value.expression.expressions.length === 0 &&
+              node.value.expression.quasis.length === 1))
         ) {
           return false;
         }
@@ -123,7 +125,6 @@ function attributeNodeAdapter(node) {
         if (!node.value) {
           return "";
         }
-        console.log(node.value.type);
         return getAttributeValue(node.value);
       },
     },

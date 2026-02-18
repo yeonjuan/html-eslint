@@ -71,7 +71,11 @@ module.exports = {
      */ (noInvalidAttrValue(options));
     return {
       JSXOpeningElement(node) {
-        if (node.name.type !== AST_NODE_TYPES.JSXIdentifier) {
+        if (
+          node.name.type !== AST_NODE_TYPES.JSXIdentifier ||
+          node.name.name.toLocaleLowerCase() !== node.name.name ||
+          node.name.name.includes("-")
+        ) {
           return;
         }
         const adapter = elementNodeAdapter(node);

@@ -11,6 +11,7 @@ ruleTester.run("no-invalid-attr-value", rule, {
     { code: '<input type="password" />' },
     { code: '<input type="checkbox" />' },
     { code: '<input type="radio" />' },
+    { code: "<input {...props} />" },
     { code: '<button type="button">Click</button>' },
     { code: '<button type="submit">Submit</button>' },
     { code: '<button type="reset">Reset</button>' },
@@ -35,6 +36,7 @@ ruleTester.run("no-invalid-attr-value", rule, {
     { code: "<button type={`button`}>Click</button>" },
     { code: "<img loading={`lazy`} />" },
     { code: "<div dir={`ltr`}>Text</div>" },
+    { code: "<input type={`invalid-${type}`} />" },
     // allow option
     {
       code: '<input type="custom-type" />',
@@ -164,4 +166,17 @@ ruleTester.run("no-invalid-attr-value", rule, {
       errors: [{ messageId: "invalid" }],
     },
   ],
+});
+
+ruleTester.run("no-invalid-attr-value (custom components)", rule, {
+  valid: [
+    { code: '<Input type="invalid-type" />' },
+    { code: '<Textarea type="invalid" />' },
+    { code: '<MyButton type="invalid">Click</MyButton>' },
+    { code: '<FormField method="put" />' },
+    { code: '<CustomImg loading="invalid" />' },
+    { code: '<my-input type="invalid-type" />' },
+    { code: '<custom-button type="invalid">Click</custom-button>' },
+  ],
+  invalid: [],
 });
