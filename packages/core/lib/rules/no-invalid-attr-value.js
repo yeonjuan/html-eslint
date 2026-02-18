@@ -104,7 +104,7 @@ export function noInvalidAttrValue(options) {
         }
         const validator = spec.attributes.get(attrKeyValue);
         if (validator) {
-          const validateResult = validator.validateValue(attrKeyValue);
+          const validateResult = validator.validateValue(attrValueValue);
           if (!validateResult.valid) {
             result.push({
               node: attribute.value.node() || attribute.key.node(),
