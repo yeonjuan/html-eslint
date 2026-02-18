@@ -5,6 +5,7 @@
     "outDir": "types",
     "emitDeclarationOnly": true,
     "noEmit": false,
-    "rootDir": "lib"
+    "rootDir": "lib",
+    "skipLibCheck": true
   }
 }
