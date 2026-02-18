@@ -37,6 +37,7 @@ ruleTester.run("no-invalid-attr-value", rule, {
     { code: "<img loading={`lazy`} />" },
     { code: "<div dir={`ltr`}>Text</div>" },
     { code: "<input type={`invalid-${type}`} />" },
+    { code: '<custom.input type="invalid-type" />' },
     // allow option
     {
       code: '<input type="custom-type" />',
