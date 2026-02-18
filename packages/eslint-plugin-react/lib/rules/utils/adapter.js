@@ -16,64 +16,58 @@ const { AST_NODE_TYPES } = require("@typescript-eslint/types");
 function attributeNodeAdapter(node) {
   if (node.type === AST_NODE_TYPES.JSXSpreadAttribute) {
     return {
-      key() {
-        return {
-          node: null,
-          isExpression() {
-            return true;
-          },
-          value: null,
-        };
+      key: {
+        node: () => null,
+        isExpression() {
+          return true;
+        },
+        value: () => null,
       },
-      value() {
-        return {
-          node: null,
-          isExpression() {
-            return true;
-          },
-          value: null,
-        };
+      value: {
+        node: () => null,
+        isExpression() {
+          return true;
+        },
+        value: () => null,
       },
     };
   }
 
   return {
-    key() {
-      return {
-        node: node.name,
-        isExpression() {
-          return false;
-        },
-        value:
-          node.name.type === AST_NODE_TYPES.JSXIdentifier
-            ? node.name.name
-            : `${node.name.namespace}:${node.name.name}`,
-      };
+    key: {
+      node: () => node.name,
+      isExpression() {
+        return false;
+      },
+      value: () => {
+        if (node.name.type === AST_NODE_TYPES.JSXIdentifier) {
+          return node.name.name;
+        }
+        return `${node.name.namespace}:${node.name.name}`;
+      },
     },
-    value() {
-      return {
-        node: node.value,
-        isExpression() {
-          if (!node.value) {
-            return false;
-          }
+    value: {
+      node: () => node.value,
+      isExpression() {
+        if (!node.value) {
+          return false;
+        }
 
-          if (node.value && node.value.type === AST_NODE_TYPES.Literal) {
-            return false;
-          }
+        if (node.value && node.value.type === AST_NODE_TYPES.Literal) {
+          return false;
+        }
 
-          return true;
-        },
-        value: (() => {
-          if (!node.value) {
-            return "";
-          }
-          if (node.value.type === AST_NODE_TYPES.Literal) {
-            return String(node.value.value);
-          }
-          return null;
-        })(),
-      };
+        return true;
+      },
+      value: () => {
+        if (!node.value) {
+          return "";
+        }
+        if (node.value.type === AST_NODE_TYPES.Literal) {
+          return String(node.value.value);
+        }
+        return null;
+      },
     },
   };
 }
@@ -88,7 +82,7 @@ function attributeNodeAdapter(node) {
  */
 function elementNodeAdapter(node) {
   return {
-    node,
+    node: () => node,
     getTagName() {
       if (node.name.type === AST_NODE_TYPES.JSXIdentifier) {
         return node.name.name;

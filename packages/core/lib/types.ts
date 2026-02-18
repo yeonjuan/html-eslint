@@ -5,19 +5,19 @@ export interface ElementNodeAdapter<
 > {
   getTagName(): string;
   getAttributes(): AttributeAdapter<AttributeKeyNode, AttributeValueNode>[];
-  node: ElementNode;
+  node: () => ElementNode;
 }
 
 export interface AttributeAdapter<AttributeKeyNode, AttributeValueNode> {
-  key(): {
-    node: AttributeKeyNode;
+  key: {
+    node: () => AttributeKeyNode;
     isExpression: () => boolean;
-    value: null | string;
+    value: () => null | string;
   };
-  value(): {
-    node: AttributeValueNode | null;
+  value: {
+    node: () => AttributeValueNode | null;
     isExpression: () => boolean;
-    value: string | null;
+    value: () => string | null;
   };
 }
 
