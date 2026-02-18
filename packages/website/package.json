@@ -23,7 +23,7 @@
     "@stylistic/eslint-plugin": "^3.0.0",
     "@types/codemirror": "^5.60.5",
     "@types/eslint": "^9.6.1",
-    "@types/node": "17.0.23",
+    "@types/node": "25.2.3",
     "@types/react": "^18.0.26",
     "@types/react-dom": "18.0.9",
     "autoprefixer": "^10.4.13",
