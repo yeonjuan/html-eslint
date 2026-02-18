@@ -19,6 +19,7 @@
     "docs/rules/no-obsolete-attrs.md"
   ],
   "words": [
+    "TSES",
     "foofoo",
     "rowspan",
     "tseslint",
