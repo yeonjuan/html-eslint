@@ -18,7 +18,7 @@ ruleTester.run("no-invalid-attr-value", rule, {
     { code: '<form method="post"></form>' },
     { code: '<a href="#" target="_blank">Link</a>' },
     { code: '<a href="#" target="_self">Link</a>' },
-    { code: '<img src="image.jpg" crossorigin="anonymous" />' },
+    { code: '<img src="image.jpg" crossOrigin="anonymous" />' },
     { code: '<img src="image.jpg" loading="lazy" />' },
     { code: '<img src="image.jpg" loading="eager" />' },
     { code: '<div dir="ltr">Text</div>' },
@@ -43,31 +43,108 @@ ruleTester.run("no-invalid-attr-value", rule, {
   invalid: [
     {
       code: '<input type="invalid-type" />',
-      errors: [{ messageId: "invalid" }],
+      errors: [
+        {
+          messageId: "invalid",
+          data: {
+            value: "invalid-type",
+            attr: "type",
+            element: "input",
+            suggestion:
+              'Value "invalid-type" is not a valid keyword. Expected one of: hidden, text, search, tel, url, email, password, date, month, week, time, datetime-local, number, range, color, checkbox, radio, file, submit, image, reset, button',
+          },
+        },
+      ],
     },
     {
       code: '<input type="txt" />',
-      errors: [{ messageId: "invalid" }],
+      errors: [
+        {
+          messageId: "invalid",
+          data: {
+            value: "txt",
+            attr: "type",
+            element: "input",
+            suggestion:
+              'Value "txt" is not a valid keyword. Expected one of: hidden, text, search, tel, url, email, password, date, month, week, time, datetime-local, number, range, color, checkbox, radio, file, submit, image, reset, button',
+          },
+        },
+      ],
     },
     {
       code: '<button type="invalid">Click</button>',
-      errors: [{ messageId: "invalid" }],
+      errors: [
+        {
+          messageId: "invalid",
+          data: {
+            value: "invalid",
+            attr: "type",
+            element: "button",
+            suggestion:
+              'Value "invalid" is not a valid keyword. Expected one of: submit, reset, button',
+          },
+        },
+      ],
     },
     {
       code: '<form method="put"></form>',
-      errors: [{ messageId: "invalid" }],
+      errors: [
+        {
+          messageId: "invalid",
+          data: {
+            value: "put",
+            attr: "method",
+            element: "form",
+            suggestion:
+              'Value "put" is not a valid keyword. Expected one of: get, post, dialog',
+          },
+        },
+      ],
     },
     {
-      code: '<img src="image.jpg" crossorigin="invalid" />',
-      errors: [{ messageId: "invalid" }],
+      code: '<img src="image.jpg" crossOrigin="invalid" />',
+      errors: [
+        {
+          messageId: "invalid",
+          data: {
+            value: "invalid",
+            attr: "crossOrigin",
+            element: "img",
+            suggestion:
+              'Value "invalid" is not a valid keyword. Expected one of: , anonymous, use-credentials',
+          },
+        },
+      ],
     },
     {
       code: '<img src="image.jpg" loading="invalid" />',
-      errors: [{ messageId: "invalid" }],
+      errors: [
+        {
+          messageId: "invalid",
+          data: {
+            value: "invalid",
+            attr: "loading",
+            element: "img",
+            suggestion:
+              'Value "invalid" is not a valid keyword. Expected one of: eager, lazy',
+          },
+        },
+      ],
     },
     {
       code: '<div dir="invalid">Text</div>',
-      errors: [{ messageId: "invalid" }],
+      errors: [
+        {
+          messageId: "invalid",
+          data: {
+            value: "invalid",
+            attr: "dir",
+            element: "div",
+            suggestion:
+              'Value "invalid" is not a valid keyword. Expected one of: ltr, rtl, auto',
+          },
+        },
+      ],
     },
   ],
 });
