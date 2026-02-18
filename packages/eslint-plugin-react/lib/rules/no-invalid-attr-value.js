@@ -5,7 +5,11 @@
 const { NO_INVALID_ATTR_VALUE_MESSAGE_IDS } = require("@html-eslint/core");
 const { elementNodeAdapter } = require("./utils/adapter");
 const { noInvalidAttrValue } = require("@html-eslint/core");
-/** @type {RuleModule<[]>} */
+/**
+ * @type {RuleModule<
+ *   [{ allow?: { tag: string; attr: string; valuePattern?: string }[] }]
+ * >}
+ */
 module.exports = {
   meta: {
     type: "problem",
@@ -54,6 +58,7 @@ module.exports = {
   },
 
   create(context) {
+    const options = context.options[0] || {};
     const ruleCore = /**
      * @type {ReturnType<
      *   typeof noInvalidAttrValue<
@@ -62,11 +67,7 @@ module.exports = {
      *     TSESTree.JSXAttribute["value"]
      *   >
      * >}
-     */ (
-      noInvalidAttrValue({
-        allow: [],
-      })
-    );
+     */ (noInvalidAttrValue(options));
     return {
       JSXOpeningElement(node) {
         const adapter = elementNodeAdapter(node);
