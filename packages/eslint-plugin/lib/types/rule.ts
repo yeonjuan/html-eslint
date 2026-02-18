@@ -104,8 +104,10 @@ type ReportDescriptorLocation = {
   column?: number;
 };
 
-export interface Context<Options extends unknown[]>
-  extends Omit<eslint.Rule.RuleContext, "report"> {
+export interface Context<Options extends unknown[]> extends Omit<
+  eslint.Rule.RuleContext,
+  "report"
+> {
   report(descriptor: ReportDescriptor): void;
   options: Options;
 }
