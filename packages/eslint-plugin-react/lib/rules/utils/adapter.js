@@ -6,6 +6,73 @@
  * @import {TSESTree} from "@typescript-eslint/types"
  */
 const { AST_NODE_TYPES } = require("@typescript-eslint/types");
+
+/**
+ * @type {AttributeAdapter<
+ *   TSESTree.JSXSpreadAttribute | TSESTree.JSXAttribute["name"] | null,
+ *   TSESTree.JSXAttribute["value"]
+ * >}
+ */
+const nullAdapter = {
+  key: {
+    node: () => null,
+    isExpression() {
+      return true;
+    },
+    value: () => null,
+  },
+  value: {
+    node: () => null,
+    isExpression() {
+      return true;
+    },
+    value: () => null,
+  },
+};
+
+/**
+ * @param {TSESTree.Node} node
+ * @returns {node is  TSESTree.NullLiteral}
+ */
+function isNullLiteral(node) {
+  return node.type === AST_NODE_TYPES.Literal && node.value == null;
+}
+
+/**
+ * @param {TSESTree.Node} node
+ * @returns {string | null}
+ */
+function getAttributeValue(node) {
+  switch (node.type) {
+    case AST_NODE_TYPES.Literal:
+      if (node.value === null) {
+        if (isNullLiteral(node)) {
+          return String(node.value); // "null"
+        }
+        if ("regex" in node) {
+          return `/${node.regex.pattern}/${node.regex.flags}`;
+        }
+
+        if ("bigint" in node) {
+          return node.bigint;
+        }
+      } else {
+        return String(node.value);
+      }
+      break;
+
+    case AST_NODE_TYPES.TemplateLiteral:
+      if (node.expressions.length === 0 && node.quasis.length === 1) {
+        return node.quasis[0].value.cooked;
+      }
+      break;
+    case AST_NODE_TYPES.JSXExpressionContainer: {
+      return getAttributeValue(node.expression);
+    }
+  }
+  return null;
+}
+
 /**
  * @param {TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute} node
  * @returns {AttributeAdapter<
@@ -15,22 +82,7 @@ const { AST_NODE_TYPES } = require("@typescript-eslint/types");
  */
 function attributeNodeAdapter(node) {
   if (node.type === AST_NODE_TYPES.JSXSpreadAttribute) {
-    return {
-      key: {
-        node: () => null,
-        isExpression() {
-          return true;
-        },
-        value: () => null,
-      },
-      value: {
-        node: () => null,
-        isExpression() {
-          return true;
-        },
-        value: () => null,
-      },
-    };
+    return nullAdapter;
   }
 
   return {
@@ -53,7 +105,15 @@ function attributeNodeAdapter(node) {
           return false;
         }
 
-        if (node.value && node.value.type === AST_NODE_TYPES.Literal) {
+        if (node.value.type === AST_NODE_TYPES.Literal) {
+          return false;
+        }
+
+        if (
+          node.value.type === AST_NODE_TYPES.JSXExpressionContainer &&
+          (node.value.expression.type === AST_NODE_TYPES.Literal ||
+            node.value.expression.type === AST_NODE_TYPES.TemplateLiteral)
+        ) {
           return false;
         }
 
@@ -63,10 +123,8 @@ function attributeNodeAdapter(node) {
         if (!node.value) {
           return "";
         }
-        if (node.value.type === AST_NODE_TYPES.Literal) {
-          return String(node.value.value);
-        }
-        return null;
+        console.log(node.value.type);
+        return getAttributeValue(node.value);
       },
     },
   };

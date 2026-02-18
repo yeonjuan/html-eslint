@@ -23,11 +23,18 @@ ruleTester.run("no-invalid-attr-value", rule, {
     { code: '<img src="image.jpg" loading="eager" />' },
     { code: '<div dir="ltr">Text</div>' },
     { code: '<div dir="rtl">Text</div>' },
-    // JSX expressions should be skipped (dynamic values)
     { code: "<input type={inputType} />" },
     { code: "<button type={type}>Click</button>" },
     { code: "<img loading={loading} />" },
     { code: "<div dir={direction}>Text</div>" },
+    { code: '<input type={"text"} />' },
+    { code: '<button type={"button"}>Click</button>' },
+    { code: '<img loading={"lazy"} />' },
+    { code: '<div dir={"ltr"}>Text</div>' },
+    { code: "<input type={`text`} />" },
+    { code: "<button type={`button`}>Click</button>" },
+    { code: "<img loading={`lazy`} />" },
+    { code: "<div dir={`ltr`}>Text</div>" },
     // allow option
     {
       code: '<input type="custom-type" />',
@@ -145,6 +152,16 @@ ruleTester.run("no-invalid-attr-value", rule, {
           },
         },
       ],
+    },
+    // JSX expression container with invalid string literal - should report
+    {
+      code: '<input type={"invalid-type"} />',
+      errors: [{ messageId: "invalid" }],
+    },
+    // JSX expression container with invalid template literal - should report
+    {
+      code: "<input type={`invalid-type`} />",
+      errors: [{ messageId: "invalid" }],
     },
   ],
 });
