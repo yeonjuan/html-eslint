@@ -1,5 +1,6 @@
 const rules = require("./rules");
 const { name, version } = require("../package.json");
+const { allRules } = require("./configs");
 
 /** @import {ESLint} from "eslint" */
 
@@ -11,7 +12,27 @@ const plugin = {
   },
   // @ts-ignore
   rules,
-  configs: {},
+  configs: {
+    recommended: {
+      rules: allRules,
+      name: "css:recommended",
+      plugins: {
+        /** @returns {ESLint.Plugin} */
+        get ["html-react"]() {
+          return require(".");
+        },
+      },
+    },
+    all: {
+      rules: allRules,
+      plugins: {
+        /** @returns {ESLint.Plugin} */
+        get ["html-react"]() {
+          return require(".");
+        },
+      },
+    },
+  },
 };
 
 module.exports = plugin;

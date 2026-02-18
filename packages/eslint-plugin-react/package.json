@@ -7,7 +7,7 @@
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "lib/index.js",
-  "types": "types/exports.d.ts",
+  "types": "types/index.d.ts",
   "files": [
     "lib",
     "types"
