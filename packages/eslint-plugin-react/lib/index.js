@@ -9,6 +9,7 @@ const plugin = {
     name,
     version,
   },
+  // @ts-ignore
   rules,
   configs: {},
 };
