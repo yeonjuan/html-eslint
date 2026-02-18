@@ -1,5 +1,5 @@
 /**
- * @import {TSESTree} from '@typescript-eslint/types
+ * @import {TSESTree} from "@typescript-eslint/types"
  * @import {RuleModule} from "../types"
  */
 const { NO_INVALID_ATTR_VALUE_MESSAGE_IDS } = require("@html-eslint/core");
