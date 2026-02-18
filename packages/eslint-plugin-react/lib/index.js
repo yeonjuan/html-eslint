@@ -15,7 +15,7 @@ const plugin = {
   configs: {
     recommended: {
       rules: allRules,
-      name: "css:recommended",
+      name: "html-react:recommended",
       plugins: {
         /** @returns {ESLint.Plugin} */
         get ["html-react"]() {
