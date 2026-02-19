@@ -17,7 +17,7 @@ module.exports = {
       description: "Enforce the use of baseline features.",
       recommended: true,
       category: "Best Practice",
-      url: "",
+      url: "https://html-eslint.org/docs/react/rules/use-baseline",
     },
     fixable: null,
     schema: [

@@ -19,9 +19,8 @@ module.exports = {
       description:
         "Disallow invalid attribute values according to HTML standards",
       category: "Best Practice",
-      recommended: false,
-      // TODO
-      url: "",
+      recommended: true,
+      url: "https://html-eslint.org/docs/react/rules/no-invalid-attr-value",
     },
 
     fixable: null,
