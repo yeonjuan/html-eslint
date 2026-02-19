@@ -16,7 +16,8 @@
     "**/use-baseline.test.js",
     "packages/eslint-plugin/lib/specs/obsolete-attrs.js",
     "packages/eslint-plugin/tests/rules/no-obsolete-attrs.test.js",
-    "docs/rules/no-obsolete-attrs.md"
+    "docs/rules/no-obsolete-attrs.md",
+    "**/no-ineffective-attrs.js"
   ],
   "words": [
     "TSES",
