@@ -125,6 +125,16 @@ function attributeNodeAdapter(node) {
         if (!node.value) {
           return "";
         }
+        if (
+          node.value.type === AST_NODE_TYPES.JSXExpressionContainer &&
+          node.value.expression.type === AST_NODE_TYPES.Literal &&
+          (typeof node.value.expression.value === "boolean" ||
+            typeof node.value.expression.value === "undefined" ||
+            (typeof node.value.expression.value === "object" &&
+              !node.value.expression.value))
+        ) {
+          return null;
+        }
         return getAttributeValue(node.value);
       },
     },

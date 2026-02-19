@@ -38,6 +38,11 @@ ruleTester.run("no-invalid-attr-value", rule, {
     { code: "<div dir={`ltr`}>Text</div>" },
     { code: "<input type={`invalid-${type}`} />" },
     { code: '<custom.input type="invalid-type" />' },
+    { code: "<script async />" },
+    { code: "<script async={true} />" },
+    { code: "<script async={false} />" },
+    { code: "<script async={undefined} />" },
+    { code: "<script async={null} />" },
     // allow option
     {
       code: '<input type="custom-type" />',
@@ -166,6 +171,8 @@ ruleTester.run("no-invalid-attr-value", rule, {
       code: "<input type={`invalid-type`} />",
       errors: [{ messageId: "invalid" }],
     },
+    { code: "<script async={1} />", errors: [{ messageId: "invalid" }] },
+    { code: "<script async={'false'} />", errors: [{ messageId: "invalid" }] },
   ],
 });
 

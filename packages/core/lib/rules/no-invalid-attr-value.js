@@ -94,12 +94,12 @@ export function noInvalidAttrValue(options) {
 
         if (
           attrKeyValue &&
-          attrValueValue &&
+          attrValueValue !== null &&
           shouldAllow(name, attrKeyValue, attrValueValue)
         ) {
           continue;
         }
-        if (!attrKeyValue || !attrValueValue) {
+        if (!attrKeyValue || attrValueValue === null) {
           continue;
         }
         const validator = spec.attributes.get(attrKeyValue);
