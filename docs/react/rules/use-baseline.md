@@ -23,10 +23,10 @@ export default [
   {
     files: ["**/*.jsx", "**/*.tsx"],
     plugins: {
-      "html-react": htmlReact,
+      "@html-eslint/react": htmlReact,
     },
     rules: {
-      "html-react/use-baseline": "error",
+      "@html-eslint/react/use-baseline": "error",
     },
   },
 ];

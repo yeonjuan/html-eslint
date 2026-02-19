@@ -1,3 +1,4 @@
+/* eslint-disable @stylistic/indent */
 /**
  * @import {Marked} from "marked";
  */
@@ -45,8 +46,8 @@ function convertToHTML(src, dist, marked, options) {
   );
   const meta = html`<title>${
     path.parse(src.markdownPath).name
-  } - html-eslint</title>
-    <link rel="canonical" href="${dist.htmlPath.
+      } - html-eslint</title>
+    <link href="${dist.htmlPath.
       replace(
         path.join(
           process.cwd(),
@@ -57,7 +58,7 @@ function convertToHTML(src, dist, marked, options) {
       replace(
         ".html",
         "/"
-      )}">
+      )}" rel="canonical">
    `;
 
   const content = templateHtml.

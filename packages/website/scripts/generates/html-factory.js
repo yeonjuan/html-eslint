@@ -11,7 +11,12 @@ const fileIconMap = {
 const fileIcon = (name) => {
   const icon = fileIconMap[name];
   if (!icon) return "";
-  return html`<img src="${icon}" alt="" width="20" height="20">`;
+  return html`<img
+      alt=""
+      height="20"
+      src="${icon}"
+      width="20"
+    >`;
 };
 
 const fileName = (name) => {
@@ -30,12 +35,19 @@ const fileName = (name) => {
  */
 const exampleCode = (type, code) => {
   return html`<div class="md-code-wrapper md-code-${type}">
-    <pre><code class="hljs code2">${code}</code></pre></div>
+    <pre><code class="hljs code2">${code}</code></pre>
+    </div>
   `;
 };
 
 const exampleIcon = (type) => {
-  return html`<img src="~/src/assets/icon-${type}.svg" class="inline mr-[9px]" alt="">`;
+  return html`<img
+      class="inline mr-[9px]"
+      alt=""
+      height="18"
+      src="~/src/assets/icon-${type}.svg"
+      width="18"
+    >`;
 };
 
 module.exports = {

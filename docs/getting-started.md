@@ -2,17 +2,11 @@
 
 ## Contents
 
-- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Lint HTML in JavaScript Template Literals](#lint-html-in-javascript-template-literals)
 - [Legacy Configuration](#legacy-configuration)
 - [Editor Configuration](#editor-configuration)
-
-## Prerequisites
-
-- Node.js: `^12.22.0 || ^14.17.0 || >=16.0.0`.
-- ESLint: `>=6`.
 
 ## Installation
 

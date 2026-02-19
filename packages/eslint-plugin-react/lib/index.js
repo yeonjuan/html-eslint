@@ -15,10 +15,9 @@ const plugin = {
   configs: {
     recommended: {
       rules: allRules,
-      name: "html-react:recommended",
       plugins: {
         /** @returns {ESLint.Plugin} */
-        get ["html-react"]() {
+        get ["@html-eslint/react"]() {
           return require(".");
         },
       },
@@ -27,7 +26,7 @@ const plugin = {
       rules: allRules,
       plugins: {
         /** @returns {ESLint.Plugin} */
-        get ["html-react"]() {
+        get ["@html-eslint/react"]() {
           return require(".");
         },
       },

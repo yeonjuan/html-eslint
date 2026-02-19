@@ -43,12 +43,14 @@ module.exports = function generateHTMLs(srcDir, distDir, outDir) {
         nextOutDir
       );
     } else if (parsed.ext === ".md") {
+      parsed
       convertToHTML(
         {
           markdownPath: filepath,
           templateHtmlPath: resolve(
             cwd(),
-            "./src/components/template.html"
+            parsed.dir.includes("react") ? "./src/components/template-react.html"
+              : "./src/components/template.html"
           )
         },
         {

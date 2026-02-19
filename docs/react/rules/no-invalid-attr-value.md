@@ -12,10 +12,10 @@ export default [
   {
     files: ["**/*.jsx", "**/*.tsx"],
     plugins: {
-      "html-react": htmlReact,
+      "@html-eslint/react": htmlReact,
     },
     rules: {
-      "html-react/no-invalid-attr-value": "error",
+      "@html-eslint/react/no-invalid-attr-value": "error",
     },
   },
 ];
@@ -44,10 +44,10 @@ export default [
   {
     files: ["**/*.jsx"],
     plugins: {
-      "html-react": htmlReact,
+      "@html-eslint/react": htmlReact,
     },
     rules: {
-      "html-react/no-invalid-attr-value": [
+      "@html-eslint/react/no-invalid-attr-value": [
         "error",
         {
           allow: [
@@ -71,10 +71,10 @@ export default [
   {
     files: ["**/*.jsx"],
     plugins: {
-      "html-react": htmlReact,
+      "@html-eslint/react": htmlReact,
     },
     rules: {
-      "html-react/no-invalid-attr-value": [
+      "@html-eslint/react/no-invalid-attr-value": [
         "error",
         {
           allow: [

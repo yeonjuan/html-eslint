@@ -1516,7 +1516,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react":
+"@html-eslint/eslint-plugin-react@npm:^0.55.0, @html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react"
   dependencies:
@@ -17014,6 +17014,7 @@ __metadata:
   resolution: "website@workspace:packages/website"
   dependencies:
     "@html-eslint/eslint-plugin": "npm:^0.55.0"
+    "@html-eslint/eslint-plugin-react": "npm:^0.55.0"
     "@html-eslint/parser": "npm:^0.55.0"
     "@html-eslint/web-linter": "npm:^0.55.0"
     "@html-kit/html": "npm:^0.0.4"

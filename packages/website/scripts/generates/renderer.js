@@ -79,7 +79,7 @@ module.exports = {
     }
 
     return html`<div class="md-code-wrapper">
-      ${fileName(info)}
+        ${fileName(info)}
        <pre><code class="hljs code2 md-code${
           info
             ? ""
@@ -89,15 +89,26 @@ module.exports = {
   link(href, title, text) {
     const isExternal = href.indexOf("http") === 0;
     if (isExternal) {
-      text += html`<img class="inline" src="~/src/assets/icon-external-link.svg" alt="" width="20" height="20">`;
+      text += html`<img
+          class="inline"
+          alt=""
+          height="20"
+          src="~/src/assets/icon-external-link.svg"
+          width="20"
+        >`;
     }
     href = href.replace(
       /\.md$/,
       ""
     );
-    return html`<a href="${href}" target="${isExternal
-      ? "blank"
-      : ""}" class="md-a" rel="noopener noreferrer">${text}</a>`;
+    return html`<a
+        class="md-a"
+        href="${href}"
+        rel="noopener noreferrer"
+        target="${isExternal
+          ? "blank"
+          : ""}"
+      >${text}</a>`;
   },
   tablecell(content, flags) {
     if (flags.header) {
