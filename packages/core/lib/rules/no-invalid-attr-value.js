@@ -111,7 +111,7 @@ export function noInvalidAttrValue(options) {
               messageId: NO_INVALID_ATTR_VALUE_MESSAGE_IDS.invalid,
               data: {
                 value: attrValueValue || "",
-                attr: attrKeyValue,
+                attr: attribute.key.raw() || attrKeyValue,
                 element: name,
                 suggestion: validateResult.reason || "Use a valid value.",
               },

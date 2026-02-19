@@ -20,6 +20,7 @@ const nullAdapter = {
       return true;
     },
     value: () => null,
+    raw: () => null,
   },
   value: {
     node: () => null,
@@ -92,6 +93,12 @@ function attributeNodeAdapter(node) {
         return false;
       },
       value: () => {
+        if (node.name.type === AST_NODE_TYPES.JSXIdentifier) {
+          return node.name.name.toLowerCase();
+        }
+        return `${node.name.namespace}:${node.name.name}`;
+      },
+      raw: () => {
         if (node.name.type === AST_NODE_TYPES.JSXIdentifier) {
           return node.name.name;
         }

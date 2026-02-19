@@ -29,7 +29,8 @@ function attributeNodeAdapter(key, value) {
       isExpression() {
         return hasTemplate(key);
       },
-      value: () => key.value,
+      value: () => key.value.toLowerCase(),
+      raw: () => key.value,
     },
     value: {
       node: () => value || null,
