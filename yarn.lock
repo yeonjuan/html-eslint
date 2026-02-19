@@ -1516,6 +1516,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@html-eslint/eslint-plugin-react@npm:^0.55.0, @html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react":
+  version: 0.0.0-use.local
+  resolution: "@html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react"
+  dependencies:
+    "@html-eslint/core": "npm:^0.55.0"
+    "@html-eslint/eslint-plugin": "npm:^0.55.0"
+    "@html-eslint/types": "npm:^0.55.0"
+    "@typescript-eslint/types": "npm:^8.56.0"
+    typescript: "npm:^5.9.3"
+  peerDependencies:
+    eslint: ">=8.0.0 || ^10.0.0-0"
+  languageName: unknown
+  linkType: soft
+
 "@html-eslint/eslint-plugin@npm:^0.55.0, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
@@ -5249,6 +5263,13 @@ __metadata:
   version: 8.53.1
   resolution: "@typescript-eslint/types@npm:8.53.1"
   checksum: 10c0/fa49f5f60de6851de45a9aff0a3ba3c4d00a0991100414e8af1a5d6f32764a48b6b7c0f65748a651f0da0e57df0745cdb8f11c590fa0fb22dd0e54e4c6b5c878
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/types@npm:^8.56.0":
+  version: 8.56.0
+  resolution: "@typescript-eslint/types@npm:8.56.0"
+  checksum: 10c0/5deb4ebf5fa62f9f927f6aa45f7245aa03567e88941cd76e7b083175fd59fc40368a804ba7ff7581eac75706e42ddd5c77d2a60d6b1e76ab7865d559c9af9937
   languageName: node
   linkType: hard
 
@@ -16993,6 +17014,7 @@ __metadata:
   resolution: "website@workspace:packages/website"
   dependencies:
     "@html-eslint/eslint-plugin": "npm:^0.55.0"
+    "@html-eslint/eslint-plugin-react": "npm:^0.55.0"
     "@html-eslint/parser": "npm:^0.55.0"
     "@html-eslint/web-linter": "npm:^0.55.0"
     "@html-kit/html": "npm:^0.0.4"

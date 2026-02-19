@@ -81,37 +81,37 @@ export function noInvalidAttrValue(options) {
       const result = [];
 
       for (const attribute of adapter.getAttributes()) {
-        const attrKey = attribute.key();
-        if (attrKey.isExpression()) {
+        if (attribute.key.isExpression()) {
           continue;
         }
 
-        const attrValue = attribute.value();
-
-        if (attrValue.isExpression()) {
+        if (attribute.value.isExpression()) {
           continue;
         }
+
+        const attrKeyValue = attribute.key.value();
+        const attrValueValue = attribute.value.value();
 
         if (
-          attrKey.value &&
-          attrValue.value &&
-          shouldAllow(name, attrKey.value, attrValue.value)
+          attrKeyValue &&
+          attrValueValue &&
+          shouldAllow(name, attrKeyValue, attrValueValue)
         ) {
           continue;
         }
-        if (!attrKey.value || !attrValue.value) {
+        if (!attrKeyValue || !attrValueValue) {
           continue;
         }
-        const validator = spec.attributes.get(attrKey.value);
+        const validator = spec.attributes.get(attrKeyValue);
         if (validator) {
-          const validateResult = validator.validateValue(attrValue.value);
+          const validateResult = validator.validateValue(attrValueValue);
           if (!validateResult.valid) {
             result.push({
-              node: attrValue.node || attrKey.node,
+              node: attribute.value.node() || attribute.key.node(),
               messageId: NO_INVALID_ATTR_VALUE_MESSAGE_IDS.invalid,
               data: {
-                value: attrValue.value || "",
-                attr: attrKey.value,
+                value: attrValueValue || "",
+                attr: attrKeyValue,
                 element: name,
                 suggestion: validateResult.reason || "Use a valid value.",
               },

@@ -46,6 +46,9 @@ async function makePackageJson({
       eslint: eslintVersion,
       "@html-eslint/eslint-plugin": packageFileVersion("eslint-plugin"),
       "@html-eslint/parser": packageFileVersion("parser"),
+      "@html-eslint/eslint-plugin-react": packageFileVersion(
+        "eslint-plugin-react"
+      ),
       typescript: ts ? "5.9.3" : undefined,
     },
     resolutions: {

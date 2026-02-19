@@ -192,4 +192,26 @@ describe("integration tests", () => {
       expect(result9392).toBe(undefined);
     }, 20000);
   });
+
+  describe("react", () => {
+    it("should throw a lint error for invalid files", async () => {
+      const jsxResult = await runESLint({
+        fixtureName: "react",
+        eslintVersion: "9.27.0",
+        glob: "jsx/invalid.jsx",
+      });
+      expect(jsxResult[0].fatalErrorCount).toBe(0);
+      expect(jsxResult[0].messages.length).toBeGreaterThanOrEqual(1);
+    }, 20000);
+
+    it("should not throw any lint error for valid files", async () => {
+      const jsxResult = await runESLint({
+        fixtureName: "react",
+        eslintVersion: "9.27.0",
+        glob: "jsx/valid.jsx",
+      });
+      expect(jsxResult[0].fatalErrorCount).toBe(0);
+      expect(jsxResult[0].messages.length).toBe(0);
+    }, 20000);
+  });
 });

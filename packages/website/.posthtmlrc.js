@@ -1,6 +1,11 @@
-const { resolve } = require("path");
-const { readFileSync } = require("fs");
+const {
+  resolve 
+} = require("path");
+const {
+  readFileSync 
+} = require("fs");
 const rulesRecord = require("@html-eslint/eslint-plugin/lib/rules");
+const reactRulesRecord = require('@html-eslint/eslint-plugin-react/lib/rules')
 
 const rules = {
   ["Best Practice"]: [],
@@ -40,6 +45,9 @@ const expressionsOption = {
       accessibility: rules["Accessibility"],
       style: rules["Style"],
     },
+    navsReact: Object.entries(reactRulesRecord).map(([rulename]) => {
+      return [rulename, '~/src/docs/react/rules/' + rulename + ".html"]
+    })
   },
 };
 

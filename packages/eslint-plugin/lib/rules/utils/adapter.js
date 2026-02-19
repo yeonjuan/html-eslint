@@ -24,23 +24,19 @@ const { getNameOf, hasTemplate } = require("./node");
  */
 function attributeNodeAdapter(key, value) {
   return {
-    key() {
-      return {
-        node: key,
-        isExpression() {
-          return hasTemplate(key);
-        },
-        value: key.value,
-      };
+    key: {
+      node: () => key,
+      isExpression() {
+        return hasTemplate(key);
+      },
+      value: () => key.value,
     },
-    value() {
-      return {
-        node: value || null,
-        isExpression() {
-          return value ? hasTemplate(value) : false;
-        },
-        value: value ? value.value : "",
-      };
+    value: {
+      node: () => value || null,
+      isExpression() {
+        return value ? hasTemplate(value) : false;
+      },
+      value: () => (value ? value.value : ""),
     },
   };
 }
@@ -60,7 +56,7 @@ function attributeNodeAdapter(key, value) {
  */
 function elementNodeAdapter(node) {
   return {
-    node: node.openStart,
+    node: () => node.openStart,
     getTagName() {
       return getNameOf(node);
     },

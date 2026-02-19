@@ -216,7 +216,7 @@ export function useBaseline(options) {
         return [
           {
             messageId: USE_BASELINE_MESSAGE_IDS.noBaselineElement,
-            node: adapter.node,
+            node: adapter.node(),
             data: {
               element: `<${elementName}>`,
               availability,
@@ -235,17 +235,17 @@ export function useBaseline(options) {
       const result = [];
 
       for (const attribute of adapter.getAttributes()) {
-        const attributeKey = attribute.key().value;
-        const attributeKeyIsExpression = attribute.key().isExpression();
+        const attributeKey = attribute.key.value();
+        const attributeKeyIsExpression = attribute.key.isExpression();
         if (!attributeKey || attributeKeyIsExpression) {
           continue;
         }
-        const attributeValue = attribute.value().value;
+        const attributeValue = attribute.value.value();
 
         if (!isSupportedElementAttributeKey(elementName, attributeKey)) {
           result.push({
             messageId: USE_BASELINE_MESSAGE_IDS.notBaselineElementAttribute,
-            node: attribute.key().node,
+            node: attribute.key.node(),
             data: {
               element: `<${elementName}>`,
               attr: attributeKey,
@@ -255,7 +255,7 @@ export function useBaseline(options) {
         } else if (!isSupportedGlobalAttributeKey(attributeKey)) {
           result.push({
             messageId: USE_BASELINE_MESSAGE_IDS.notBaselineGlobalAttribute,
-            node: attribute.key().node,
+            node: attribute.key.node(),
             data: {
               attr: attributeKey,
               availability,
@@ -276,7 +276,7 @@ export function useBaseline(options) {
           ) {
             result.push({
               messageId: USE_BASELINE_MESSAGE_IDS.notBaselineElementAttribute,
-              node: attribute.value().node || adapter.node,
+              node: attribute.value.node() || adapter.node(),
               data: {
                 element: `<${elementName}>`,
                 attr: `${attributeKey}="${attributeValue}"`,
@@ -286,7 +286,7 @@ export function useBaseline(options) {
           } else if (
             !isSupportedGlobalAttributeKeyValue(attributeKey, attributeValue)
           ) {
-            const valueNode = attribute.value().node;
+            const valueNode = attribute.value.node();
             if (valueNode) {
               result.push({
                 messageId: USE_BASELINE_MESSAGE_IDS.notBaselineGlobalAttribute,

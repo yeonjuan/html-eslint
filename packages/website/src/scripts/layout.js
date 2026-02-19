@@ -1,10 +1,14 @@
-document.querySelectorAll("[data-nav]").forEach((elem) => {
+const navElements = Array.from(document.querySelectorAll("[data-nav]"));
+navElements.sort((a, b) => b.dataset.nav.length - a.dataset.nav.length);
+
+for (const elem of navElements) {
   if (window.location.pathname.indexOf(elem.dataset.nav) === 0) {
     elem.dataset.navActive.split(" ").forEach((cls) => {
       elem.classList.add(cls);
     });
+    break;
   }
-});
+}
 
 const $overlay = document.getElementById("overlay");
 const $menu = document.getElementById("menu");

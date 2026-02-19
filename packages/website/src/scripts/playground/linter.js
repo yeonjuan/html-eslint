@@ -7,7 +7,7 @@ import {
 } from "@html-eslint/web-linter";
 import {
   Language
-} from "./language";
+} from "./languages";
 
 /**
  * @import eslint from "eslint";
@@ -92,7 +92,7 @@ export class Linter {
    * @returns {string | undefined}
    */
   getParser(language) {
-    if (language.value === "javascript") {
+    if (language.value === "javascript" || language.value === "jsx") {
       return undefined;
     }
     return "@html-eslint/parser";
