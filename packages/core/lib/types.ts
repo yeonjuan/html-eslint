@@ -13,6 +13,7 @@ export interface AttributeAdapter<AttributeKeyNode, AttributeValueNode> {
     node: () => AttributeKeyNode;
     isExpression: () => boolean;
     value: () => null | string;
+    raw: () => null | string;
   };
   value: {
     node: () => AttributeValueNode | null;
@@ -76,3 +77,11 @@ export type UseBaselineResult<
       };
     }
 >;
+
+export type NoIneffectiveAttrsResult<AttributeKeyNode> = Array<{
+  messageId: "ineffective";
+  node: AttributeKeyNode;
+  data: {
+    message: string;
+  };
+}>;

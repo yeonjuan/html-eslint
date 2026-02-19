@@ -241,14 +241,14 @@ export function useBaseline(options) {
           continue;
         }
         const attributeValue = attribute.value.value();
-
+        const attrKeyRaw = attribute.key.raw() || attributeKey;
         if (!isSupportedElementAttributeKey(elementName, attributeKey)) {
           result.push({
             messageId: USE_BASELINE_MESSAGE_IDS.notBaselineElementAttribute,
             node: attribute.key.node(),
             data: {
               element: `<${elementName}>`,
-              attr: attributeKey,
+              attr: attrKeyRaw,
               availability,
             },
           });
@@ -257,7 +257,7 @@ export function useBaseline(options) {
             messageId: USE_BASELINE_MESSAGE_IDS.notBaselineGlobalAttribute,
             node: attribute.key.node(),
             data: {
-              attr: attributeKey,
+              attr: attrKeyRaw,
               availability,
             },
           });
@@ -279,7 +279,7 @@ export function useBaseline(options) {
               node: attribute.value.node() || adapter.node(),
               data: {
                 element: `<${elementName}>`,
-                attr: `${attributeKey}="${attributeValue}"`,
+                attr: `${attrKeyRaw}="${attributeValue}"`,
                 availability,
               },
             });
@@ -292,7 +292,7 @@ export function useBaseline(options) {
                 messageId: USE_BASELINE_MESSAGE_IDS.notBaselineGlobalAttribute,
                 node: valueNode,
                 data: {
-                  attr: `${attributeKey}="${attributeValue}"`,
+                  attr: `${attrKeyRaw}="${attributeValue}"`,
                   availability,
                 },
               });
