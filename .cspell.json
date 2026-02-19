@@ -18,7 +18,8 @@
     "packages/eslint-plugin/tests/rules/no-obsolete-attrs.test.js",
     "docs/rules/no-obsolete-attrs.md",
     "**/no-ineffective-attrs.js",
-    "**/no-ineffective-attrs.test.js"
+    "**/no-ineffective-attrs.test.js",
+    "**/no-ineffective-attrs.md"
   ],
   "words": [
     "TSES",
