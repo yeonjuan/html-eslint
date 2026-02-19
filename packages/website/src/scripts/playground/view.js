@@ -6,6 +6,8 @@
 import "codemirror/lib/codemirror.css";
 import "codemirror/mode/htmlmixed/htmlmixed.js";
 import "codemirror/mode/javascript/javascript.js";
+import "codemirror/mode/javascript/javascript.js";
+import "codemirror/mode/jsx/jsx.js";
 import "codemirror/addon/hint/show-hint.js";
 import "codemirror/addon/hint/show-hint.css";
 import rules from "@html-eslint/eslint-plugin/lib/rules";
