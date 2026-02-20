@@ -7,4 +7,8 @@ export {
   noIneffectiveAttrs,
   NO_INEFFECTIVE_ATTRS_MESSAGE_IDS,
 } from "./rules/no-ineffective-attrs";
+export {
+  noObsoleteTags,
+  NO_OBSOLETE_TAGS_MESSAGE_IDS,
+} from "./rules/no-obsolete-tags";
 export * from "./types";
