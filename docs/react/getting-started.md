@@ -34,6 +34,13 @@ import htmlReact from "@html-eslint/eslint-plugin-react";
 export default [
   {
     files: ["**/*.jsx", "**/*.tsx"],
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
     plugins: {
       "@html-eslint/react": htmlReact,
     },
@@ -61,6 +68,13 @@ import htmlReact from "@html-eslint/eslint-plugin-react";
 export default [
   {
     files: ["**/*.jsx", "**/*.tsx"],
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
     ...htmlReact.configs.recommended,
   },
 ];
@@ -75,6 +89,13 @@ import htmlReact from "@html-eslint/eslint-plugin-react";
 export default [
   {
     files: ["**/*.jsx", "**/*.tsx"],
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
     ...htmlReact.configs.all,
   },
 ];
