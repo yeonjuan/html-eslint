@@ -1510,7 +1510,7 @@ __metadata:
   dependencies:
     "@html-eslint/types": "npm:^0.55.0"
     eslint: "npm:^9.39.1"
-    html-standard: "npm:^0.0.12"
+    html-standard: "npm:^0.0.13"
     tsup: "npm:^8.5.1"
     typescript: "npm:^5.8.3"
   languageName: unknown
@@ -1545,7 +1545,6 @@ __metadata:
     es-html-parser: "npm:0.3.1"
     eslint: "npm:^9.39.1"
     espree: "npm:^10.3.0"
-    html-standard: "npm:^0.0.11"
     typescript: "npm:^5.9.3"
   peerDependencies:
     eslint: ">=8.0.0 || ^10.0.0-0"
@@ -10148,22 +10147,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-standard@npm:^0.0.11":
-  version: 0.0.11
-  resolution: "html-standard@npm:0.0.11"
-  dependencies:
-    vscode-css-languageservice: "npm:^6.3.9"
-  checksum: 10c0/ff55943df2cc3f132a3514db6234e0aad45398d2c56a6afffb23c5aaa8f67e1d81be53cfacaa20f0b8375ccdd9d3aabca40abaee10dd63656fbbc8217155a422
-  languageName: node
-  linkType: hard
-
-"html-standard@npm:^0.0.12":
-  version: 0.0.12
-  resolution: "html-standard@npm:0.0.12"
+"html-standard@npm:^0.0.13":
+  version: 0.0.13
+  resolution: "html-standard@npm:0.0.13"
   dependencies:
     vscode-css-languageservice: "npm:^6.3.9"
     vscode-languageserver-textdocument: "npm:^1.0.12"
-  checksum: 10c0/7a8eb35f1e3dafee8e68f8d9e1c2546d3bc40153eec638436c060411f781439619944fcc6f4e24eb3d5e8d12cb3097d4b8205988c14e13ec90f2e1ab055ede1e
+  checksum: 10c0/98a4b1c8705a3063be7ac62863794b347d72329e53cdf51f69758f4fd1ebd1b41c2954700b5b4c77cfa6fdb41fee37287395f20037b18775d5acdb882760f984
   languageName: node
   linkType: hard
 
