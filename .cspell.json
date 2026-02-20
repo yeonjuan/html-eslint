@@ -12,6 +12,7 @@
     "packages/website/**",
     "packages/eslint-plugin/types/**",
     "packages/core/lib/utils/baseline.js",
+    "packages/core/lib/utils/obsolete-attrs.js",
     "packages/core/dist",
     "**/use-baseline.test.js",
     "**/no-ineffective-attrs.js",
