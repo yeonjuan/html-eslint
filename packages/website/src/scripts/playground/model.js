@@ -25,11 +25,7 @@ export class Model {
      * @type {string}
      */
     this.code = "";
-    /**
-     * @member
-     * @type {string}
-     */
-    this.jsx = "";
+   
 
     /**
      * @member
@@ -128,26 +124,23 @@ export class Model {
    * @param {"html" | "jsx" | "javascript"} language
    */
   setLanguage(language) {
-    console.log('setLanguage', language)
-    console.log('before this.rules', this.rules)
     this.cache[this.language.key] = {
       code: this.code,
       config:{
         rules: this.rules,
       }
     } 
-
     this.language = createLanguage(language);
     this.setCode(
       this.cache[language].code || 
       this.language.initialCode
     );
+  
     this.setRules(
       this.cache[language].config.rules || 
       this.language.initialConfig.rules
     )
     this.notify("changeLanguage");
-    console.log('after this.rules', this.rules);
   }
 
   /**
@@ -240,6 +233,8 @@ export class Model {
         throw new Error("empty parsed");
       }
       this.setLanguage(parsed.language);
+      this.setCode(parsed.code);
+
       const hasConfig = parsed.config &&
         typeof parsed.config === "object";
       const hasRule = hasConfig && parsed.config.rules &&
