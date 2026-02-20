@@ -23,6 +23,12 @@ ruleTester.run("no-obsolete-attrs", rule, {
     {
       code: '<div id="content">Content</div>',
     },
+    {
+      code: "<a charset={false}>Link</a>",
+    },
+    {
+      code: "<a charset={null}>Link</a>",
+    },
   ],
   invalid: [
     {

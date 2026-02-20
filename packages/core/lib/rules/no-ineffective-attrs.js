@@ -477,9 +477,10 @@ export function noIneffectiveAttrs() {
       for (const check of tagCheckers) {
         for (const attribute of adapter.getAttributes()) {
           const attrKeyValue = attribute.key.value();
+          const attrValueValue = attribute.value.value();
           if (
             attribute.value.isExpression() ||
-            !attrKeyValue ||
+            attrValueValue === null ||
             attrKeyValue !== check.attr
           ) {
             continue;

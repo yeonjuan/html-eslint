@@ -1,48 +1,35 @@
-/**
- * @import {
- *   JSXAttribute,
- *   JSXOpeningElement,
- *   JSXSpreadAttribute,
- *   RuleModule
- * } from "../types"
- */
+/** @import {RuleModule} from "../types" */
 const {
-  noIneffectiveAttrs,
-  NO_INEFFECTIVE_ATTRS_MESSAGE_IDS,
+  noObsoleteTags,
+  NO_OBSOLETE_TAGS_MESSAGE_IDS,
 } = require("@html-eslint/core");
 const { elementNodeAdapter } = require("./utils/adapter");
 const { AST_NODE_TYPES } = require("../constants/node-types");
 
-/** @type {RuleModule<[]>} */
+/**
+ * @type {RuleModule<
+ *   [{ allow?: { tag: string; attr: string; valuePattern?: string }[] }]
+ * >}
+ */
 module.exports = {
   meta: {
-    type: "problem",
-
+    type: "code",
     docs: {
-      description:
-        "Disallow HTML attributes that have no effect in their context",
+      description: "Disallow use of obsolete elements in HTML5",
       category: "Best Practice",
       recommended: true,
-      url: "https://html-eslint.org/docs/react/rules/no-ineffective-attrs",
     },
-
     fixable: null,
     schema: [],
     messages: {
-      [NO_INEFFECTIVE_ATTRS_MESSAGE_IDS.ineffective]: "{{ message }}",
+      [NO_OBSOLETE_TAGS_MESSAGE_IDS.unexpected]:
+        "Unexpected use of obsolete tag <{{tag}}>",
     },
   },
 
   create(context) {
-    const ruleCore = /**
-     * @type {ReturnType<
-     *   typeof noIneffectiveAttrs<
-     *     JSXOpeningElement,
-     *     JSXSpreadAttribute | JSXAttribute["name"] | null,
-     *     JSXAttribute["value"]
-     *   >
-     * >}
-     */ (noIneffectiveAttrs());
+    const ruleCore = noObsoleteTags();
+
     return {
       JSXOpeningElement(node) {
         if (
@@ -53,10 +40,10 @@ module.exports = {
           return;
         }
         const adapter = elementNodeAdapter(node);
-        const result = ruleCore.checkAttributes(adapter);
+        const result = ruleCore.checkElement(adapter);
         for (const r of result) {
           context.report({
-            node: r.node || undefined,
+            node: r.node,
             messageId: r.messageId,
             data: r.data,
           });

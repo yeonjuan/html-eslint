@@ -7,7 +7,7 @@
     },
     "lint": {},
     "dev": {
-      "dependsOn": ["^dev"]
+      "dependsOn": ["^dev", "^build"]
     },
     "test": {
       "dependsOn": ["^build"]

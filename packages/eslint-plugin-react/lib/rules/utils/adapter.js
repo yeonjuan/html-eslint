@@ -3,14 +3,20 @@
  *   AttributeAdapter,
  *   ElementNodeAdapter
  * } from "@html-eslint/core"
- * @import {TSESTree} from "@typescript-eslint/types"
+ * @import {
+ *   JSXAttribute,
+ *   JSXOpeningElement,
+ *   JSXSpreadAttribute,
+ *   Node,
+ *   NullLiteral
+ * } from "../../types"
  */
-const { AST_NODE_TYPES } = require("@typescript-eslint/types");
+const { AST_NODE_TYPES } = require("../../constants/node-types");
 
 /**
  * @type {AttributeAdapter<
- *   TSESTree.JSXSpreadAttribute | TSESTree.JSXAttribute["name"] | null,
- *   TSESTree.JSXAttribute["value"]
+ *   JSXSpreadAttribute | JSXAttribute["name"] | null,
+ *   JSXAttribute["value"]
  * >}
  */
 const nullAdapter = {
@@ -32,15 +38,15 @@ const nullAdapter = {
 };
 
 /**
- * @param {TSESTree.Node} node
- * @returns {node is  TSESTree.NullLiteral}
+ * @param {Node} node
+ * @returns {node is  NullLiteral}
  */
 function isNullLiteral(node) {
   return node.type === AST_NODE_TYPES.Literal && node.value == null;
 }
 
 /**
- * @param {TSESTree.Node} node
+ * @param {Node} node
  * @returns {string | null}
  */
 function getAttributeValue(node) {
@@ -48,16 +54,24 @@ function getAttributeValue(node) {
     case AST_NODE_TYPES.Literal:
       if (node.value === null) {
         if (isNullLiteral(node)) {
-          return String(node.value); // "null"
+          return null;
         }
         if ("regex" in node) {
+          // @ts-ignore
           return `/${node.regex.pattern}/${node.regex.flags}`;
         }
 
         if ("bigint" in node) {
+          // @ts-ignore
           return node.bigint;
         }
       } else {
+        if (node.value === true) {
+          return "";
+        }
+        if (node.value === false || node.value === undefined) {
+          return null;
+        }
         return String(node.value);
       }
       break;
@@ -68,6 +82,7 @@ function getAttributeValue(node) {
       }
       break;
     case AST_NODE_TYPES.JSXExpressionContainer: {
+      // @ts-ignore
       return getAttributeValue(node.expression);
     }
   }
@@ -75,10 +90,10 @@ function getAttributeValue(node) {
 }
 
 /**
- * @param {TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute} node
+ * @param {JSXAttribute | JSXSpreadAttribute} node
  * @returns {AttributeAdapter<
- *   TSESTree.JSXSpreadAttribute | TSESTree.JSXAttribute["name"] | null,
- *   TSESTree.JSXAttribute["value"]
+ *   JSXSpreadAttribute | JSXAttribute["name"] | null,
+ *   JSXAttribute["value"]
  * >}
  */
 function attributeNodeAdapter(node) {
@@ -132,16 +147,7 @@ function attributeNodeAdapter(node) {
         if (!node.value) {
           return "";
         }
-        if (
-          node.value.type === AST_NODE_TYPES.JSXExpressionContainer &&
-          node.value.expression.type === AST_NODE_TYPES.Literal &&
-          (typeof node.value.expression.value === "boolean" ||
-            typeof node.value.expression.value === "undefined" ||
-            (typeof node.value.expression.value === "object" &&
-              !node.value.expression.value))
-        ) {
-          return null;
-        }
+
         return getAttributeValue(node.value);
       },
     },
@@ -149,11 +155,11 @@ function attributeNodeAdapter(node) {
 }
 
 /**
- * @param {TSESTree.JSXOpeningElement} node
+ * @param {JSXOpeningElement} node
  * @returns {ElementNodeAdapter<
- *   TSESTree.JSXOpeningElement,
- *   TSESTree.JSXSpreadAttribute | TSESTree.JSXAttribute["name"] | null,
- *   TSESTree.JSXAttribute["value"]
+ *   JSXOpeningElement,
+ *   JSXSpreadAttribute | JSXAttribute["name"] | null,
+ *   JSXAttribute["value"]
  * >}
  */
 function elementNodeAdapter(node) {

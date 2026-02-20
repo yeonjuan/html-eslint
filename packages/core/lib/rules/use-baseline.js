@@ -241,6 +241,9 @@ export function useBaseline(options) {
           continue;
         }
         const attributeValue = attribute.value.value();
+        if (attributeValue === null) {
+          continue;
+        }
         const attrKeyRaw = attribute.key.raw() || attributeKey;
         if (!isSupportedElementAttributeKey(elementName, attributeKey)) {
           result.push({

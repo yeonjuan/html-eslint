@@ -86,6 +86,14 @@ export type NoIneffectiveAttrsResult<AttributeKeyNode> = Array<{
   };
 }>;
 
+export type NoObsoleteTagsResult<ElementNode> = Array<{
+  messageId: "unexpected";
+  node: ElementNode;
+  data: {
+    tag: string;
+  };
+}>;
+
 export type NoObsoleteAttrsResult<AttributeKeyNode> = Array<{
   messageId: "obsolete";
   node: AttributeKeyNode;

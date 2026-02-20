@@ -2,6 +2,7 @@ import {
   parseForESLint
 } from "@html-eslint/parser";
 import rules from "@html-eslint/eslint-plugin/lib/rules";
+import reactRules from '@html-eslint/eslint-plugin-react/lib/rules';
 import {
   Linter as WebLinter
 } from "@html-eslint/web-linter";
@@ -29,7 +30,7 @@ import {
  * @returns {RulesModules}
  */
 function allRules() {
-  return Object.entries(rules).reduce(
+  const htmlRules = Object.entries(rules).reduce(
     (rules, [
       name,
       rule
@@ -39,6 +40,22 @@ function allRules() {
     }),
     {}
   );
+
+  const reactPluginRules = Object.entries(reactRules).reduce(
+    (rules, [
+      name,
+      rule
+    ]) => ({
+      ...rules,
+      [`@html-eslint/react/${name}`]: rule
+    }),
+    {}
+  );
+
+  return {
+    ...htmlRules,
+    ...reactPluginRules
+  };
 }
 
 export class Linter {
@@ -92,7 +109,7 @@ export class Linter {
    * @returns {string | undefined}
    */
   getParser(language) {
-    if (language.value === "javascript" || language.value === "jsx") {
+    if (language.key === "javascript" || language.key === "jsx") {
       return undefined;
     }
     return "@html-eslint/parser";
@@ -107,9 +124,14 @@ export class Linter {
    */
   lint(code, language, fix = false) {
     try {
-      const parserOptions = language.value === "javascript" ? {
+      const parserOptions = language.key === "javascript" ? ({
         ecmaVersion: "latest"
-      } : this._parserOptions;
+      }) : language.key === "jsx" ? ({
+        ecmaVersion: "latest",
+        ecmaFeatures: {
+          jsx: true,
+        }
+      }): this._parserOptions;
       const messages = this._linter.verify(
         code,
         {

@@ -1,13 +1,17 @@
 /**
- * @import {TSESTree} from "@typescript-eslint/types"
- * @import {RuleModule} from "../types"
+ * @import {
+ *   JSXAttribute,
+ *   JSXOpeningElement,
+ *   JSXSpreadAttribute,
+ *   RuleModule
+ * } from "../types"
  * @typedef {Object} Option
  * @property {"widely" | "newly" | number} Option.available
  */
 
 const { useBaseline, USE_BASELINE_MESSAGE_IDS } = require("@html-eslint/core");
 const { elementNodeAdapter } = require("./utils/adapter");
-const { AST_NODE_TYPES } = require("@typescript-eslint/types");
+const { AST_NODE_TYPES } = require("../constants/node-types");
 
 /** @type {RuleModule<[Option]>} */
 module.exports = {
@@ -57,9 +61,9 @@ module.exports = {
     const ruleCore = /**
      * @type {ReturnType<
      *   typeof useBaseline<
-     *     TSESTree.JSXOpeningElement,
-     *     TSESTree.JSXSpreadAttribute | TSESTree.JSXAttribute["name"] | null,
-     *     TSESTree.JSXAttribute["value"]
+     *     JSXOpeningElement,
+     *     JSXSpreadAttribute | JSXAttribute["name"] | null,
+     *     JSXAttribute["value"]
      *   >
      * >}
      */ (useBaseline(options));

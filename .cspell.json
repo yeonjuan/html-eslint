@@ -12,14 +12,18 @@
     "packages/website/**",
     "packages/eslint-plugin/types/**",
     "packages/core/lib/utils/baseline.js",
+    "packages/core/lib/utils/obsolete-attrs.js",
     "packages/core/dist",
     "**/use-baseline.test.js",
     "**/no-ineffective-attrs.js",
     "**/no-ineffective-attrs.test.js",
     "**/no-ineffective-attrs.md",
-    "**/no-obsolete-attrs.test.js",
-    "**/obsolete-attrs.js",
-    "**/no-obsolete-attrs.md"
+    "**/no-obsolete-tags.md",
+    "**/no-obsolete-tags.js",
+    "**/no-obsolete-tags.test.js",
+    "**/no-obsolete-attrs.md",
+    "**/no-obsolete-attrs.js",
+    "**/no-obsolete-attrs.test.js"
   ],
   "words": [
     "TSES",

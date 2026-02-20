@@ -7,7 +7,7 @@ const {
   NO_OBSOLETE_ATTRS_MESSAGE_IDS,
 } = require("@html-eslint/core");
 const { elementNodeAdapter } = require("./utils/adapter");
-const { AST_NODE_TYPES } = require("@typescript-eslint/types");
+const { AST_NODE_TYPES } = require("../constants/node-types");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
