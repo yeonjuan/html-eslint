@@ -51,7 +51,6 @@ ruleTester.run("no-obsolete-tags", rule, {
     {
       code: '<input type="text" />',
     },
-    // Custom components (PascalCase) are ignored
     {
       code: "<Center>Content</Center>",
     },
@@ -61,7 +60,6 @@ ruleTester.run("no-obsolete-tags", rule, {
     {
       code: "<Big>Large text</Big>",
     },
-    // Custom elements with hyphens are ignored
     {
       code: "<custom-center>Content</custom-center>",
     },
@@ -79,7 +77,6 @@ ruleTester.run("no-obsolete-tags", rule, {
         },
       ],
     })),
-    // Test frameset with frame
     {
       code: `
 <frameset cols="25%,*,25%">
@@ -96,7 +93,6 @@ ruleTester.run("no-obsolete-tags", rule, {
         },
       ],
     },
-    // Self-closing tags
     {
       code: "<center />",
       errors: [
@@ -113,7 +109,6 @@ ruleTester.run("no-obsolete-tags", rule, {
         },
       ],
     },
-    // Tags with attributes
     {
       code: '<font color="red">Text</font>',
       errors: [
