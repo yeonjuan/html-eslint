@@ -4,7 +4,10 @@ const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-const { classSpacing, CLASS_SPACING_MESSAGE_IDS } = require("@html-eslint/core");
+const {
+  classSpacing,
+  CLASS_SPACING_MESSAGE_IDS,
+} = require("@html-eslint/core");
 
 /** @type {RuleModule<[]>} */
 module.exports = {

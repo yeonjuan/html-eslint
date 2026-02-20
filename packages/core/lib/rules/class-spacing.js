@@ -38,11 +38,7 @@ export function classSpacing() {
       const valueNode = attribute.value.node();
 
       // Skip if no value or value is expression
-      if (
-        !attrValueValue ||
-        attribute.value.isExpression() ||
-        !valueNode
-      ) {
+      if (!attrValueValue || attribute.value.isExpression() || !valueNode) {
         return result;
       }
 

@@ -120,7 +120,10 @@ module.exports = {
                 ) {
                   const expression = valueNode.expression;
                   if (expression.type === AST_NODE_TYPES.Literal) {
-                    return fixer.replaceText(expression, `"${normalizedValue}"`);
+                    return fixer.replaceText(
+                      expression,
+                      `"${normalizedValue}"`
+                    );
                   } else if (
                     expression.type === AST_NODE_TYPES.TemplateLiteral
                   ) {

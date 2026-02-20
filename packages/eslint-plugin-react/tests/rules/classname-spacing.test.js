@@ -24,7 +24,7 @@ ruleTester.run("classname-spacing", rule, {
       code: '<button id=" foo "></button>',
     },
     {
-      code: '<button className={someVar}></button>',
+      code: "<button className={someVar}></button>",
     },
     {
       code: '<Button className="foo"></Button>',
@@ -125,8 +125,8 @@ ruleTester.run("classname-spacing", rule, {
       ],
     },
     {
-      code: '<div className={`foo `}></div>',
-      output: '<div className={`foo`}></div>',
+      code: "<div className={`foo `}></div>",
+      output: "<div className={`foo`}></div>",
       errors: [
         {
           messageId: "extraSpacingEnd",
@@ -134,8 +134,8 @@ ruleTester.run("classname-spacing", rule, {
       ],
     },
     {
-      code: '<div className={`foo  bar`}></div>',
-      output: '<div className={`foo bar`}></div>',
+      code: "<div className={`foo  bar`}></div>",
+      output: "<div className={`foo bar`}></div>",
       errors: [
         {
           messageId: "extraSpacingBetween",
