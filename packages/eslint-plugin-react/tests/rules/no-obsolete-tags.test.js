@@ -49,14 +49,14 @@ ruleTester.run("no-obsolete-tags", rule, {
       code: "<button>Click me</button>",
     },
     {
-      code: "<input type=\"text\" />",
+      code: '<input type="text" />',
     },
     // Custom components (PascalCase) are ignored
     {
       code: "<Center>Content</Center>",
     },
     {
-      code: "<Font size=\"large\">Text</Font>",
+      code: '<Font size="large">Text</Font>',
     },
     {
       code: "<Big>Large text</Big>",
