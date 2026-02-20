@@ -39,9 +39,13 @@ export function noObsoleteAttrs() {
 
       for (const attribute of adapter.getAttributes()) {
         const attrKeyValue = attribute.key.value();
-
+        const attrValueValue = attribute.value.value();
         // Skip if attribute key is an expression or doesn't have a value
-        if (attribute.key.isExpression() || !attrKeyValue) {
+        if (
+          attribute.key.isExpression() ||
+          attrKeyValue === null ||
+          attrValueValue === null
+        ) {
           continue;
         }
 

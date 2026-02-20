@@ -54,6 +54,15 @@ ruleTester.run("no-invalid-attr-value", rule, {
         { allow: [{ tag: "button", attr: "type", valuePattern: "^custom$" }] },
       ],
     },
+    {
+      code: "<input type={false} />",
+    },
+    {
+      code: "<input type={null} />",
+    },
+    {
+      code: "<input type={undefined} />",
+    },
   ],
   invalid: [
     {

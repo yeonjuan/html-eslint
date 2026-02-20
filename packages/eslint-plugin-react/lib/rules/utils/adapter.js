@@ -48,7 +48,7 @@ function getAttributeValue(node) {
     case AST_NODE_TYPES.Literal:
       if (node.value === null) {
         if (isNullLiteral(node)) {
-          return String(node.value); // "null"
+          return null;
         }
         if ("regex" in node) {
           return `/${node.regex.pattern}/${node.regex.flags}`;
@@ -58,6 +58,12 @@ function getAttributeValue(node) {
           return node.bigint;
         }
       } else {
+        if (node.value === true) {
+          return "";
+        }
+        if (node.value === false || node.value === undefined) {
+          return null;
+        }
         return String(node.value);
       }
       break;
@@ -132,16 +138,7 @@ function attributeNodeAdapter(node) {
         if (!node.value) {
           return "";
         }
-        if (
-          node.value.type === AST_NODE_TYPES.JSXExpressionContainer &&
-          node.value.expression.type === AST_NODE_TYPES.Literal &&
-          (typeof node.value.expression.value === "boolean" ||
-            typeof node.value.expression.value === "undefined" ||
-            (typeof node.value.expression.value === "object" &&
-              !node.value.expression.value))
-        ) {
-          return null;
-        }
+
         return getAttributeValue(node.value);
       },
     },

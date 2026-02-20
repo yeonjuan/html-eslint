@@ -91,12 +91,11 @@ export function noInvalidAttrValue(options) {
 
         const attrKeyValue = attribute.key.value();
         const attrValueValue = attribute.value.value();
+        if (attrValueValue === null) {
+          continue;
+        }
 
-        if (
-          attrKeyValue &&
-          attrValueValue !== null &&
-          shouldAllow(name, attrKeyValue, attrValueValue)
-        ) {
+        if (attrKeyValue && shouldAllow(name, attrKeyValue, attrValueValue)) {
           continue;
         }
         if (!attrKeyValue || attrValueValue === null) {

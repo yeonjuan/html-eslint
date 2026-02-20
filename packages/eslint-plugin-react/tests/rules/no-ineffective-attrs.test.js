@@ -83,8 +83,6 @@ ruleTester.run("no-ineffective-attrs", rule, {
     {
       code: '<button type="submit" formTarget="_blank">Submit</button>',
     },
-
-    // Valid img with usemap without ismap (React camelCase)
     {
       code: '<img src="map.jpg" useMap="#map" />',
     },
@@ -250,6 +248,9 @@ ruleTester.run("no-ineffective-attrs", rule, {
     },
     {
       code: '<my-button type="button" formAction="/submit">Click</my-button>',
+    },
+    {
+      code: '<input type="password" multiple={false} />',
     },
   ],
   invalid: [
