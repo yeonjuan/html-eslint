@@ -10,7 +10,7 @@
 
 // https://html.spec.whatwg.org/dev/obsolete.html#non-conforming-features
 /** @type {ObsoleteAttrs} */
-module.exports = {
+export const OBSOLETE_ATTRS = {
   charset: [
     {
       elements: ["a", "link"],
