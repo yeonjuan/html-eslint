@@ -18,8 +18,8 @@ module.exports = {
       description:
         "Disallow HTML attributes that have no effect in their context",
       category: "Best Practice",
-      recommended: false,
-      url: "",
+      recommended: true,
+      url: "https://html-eslint.org/docs/react/rules/no-ineffective-attrs",
     },
 
     fixable: null,

@@ -17,8 +17,8 @@ module.exports = {
     docs: {
       description: "Disallow use of obsolete attributes in HTML5",
       category: "Best Practice",
-      recommended: false,
-      url: "",
+      recommended: true,
+      url: "https://html-eslint.org/docs/react/rules/no-obsolete-attrs",
     },
 
     fixable: null,
