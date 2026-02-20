@@ -19,7 +19,10 @@
     "**/no-ineffective-attrs.md",
     "**/no-obsolete-tags.md",
     "**/no-obsolete-tags.js",
-    "**/no-obsolete-tags.test.js"
+    "**/no-obsolete-tags.test.js",
+    "**/no-obsolete-attrs.md",
+    "**/no-obsolete-attrs.js",
+    "**/no-obsolete-attrs.test.js"
   ],
   "words": [
     "TSES",
