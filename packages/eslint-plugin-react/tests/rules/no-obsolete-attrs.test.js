@@ -2,38 +2,31 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-obsolete-attrs");
 
 const ruleTester = createRuleTester();
-const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("no-obsolete-attrs", rule, {
   valid: [
     {
-      code: `
-<html>
-<body>
-<a href="/page">Link</a>
-<img src="image.jpg" alt="Image">
-<table>
-  <tr>
-    <th scope="col">Header</th>
-  </tr>
-</table>
-</body>
-</html>
-`,
+      code: '<a href="/page">Link</a>',
     },
     {
-      code: `<link rel="stylesheet" href="style.css">`,
+      code: '<img src="image.jpg" alt="Image" />',
     },
     {
-      code: `<script src="script.js"></script>`,
+      code: '<table><tr><th scope="col">Header</th></tr></table>',
     },
     {
-      code: `<div id="content">Content</div>`,
+      code: '<link rel="stylesheet" href="style.css" />',
+    },
+    {
+      code: '<script src="script.js"></script>',
+    },
+    {
+      code: '<div id="content">Content</div>',
     },
   ],
   invalid: [
     {
-      code: `<a charset="UTF-8">Link</a>`,
+      code: '<a charset="UTF-8">Link</a>',
       errors: [
         {
           messageId: "obsolete",
@@ -47,7 +40,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<link charset="UTF-8">`,
+      code: '<link charset="UTF-8" />',
       errors: [
         {
           messageId: "obsolete",
@@ -61,7 +54,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<script charset="UTF-8"></script>`,
+      code: '<script charset="UTF-8"></script>',
       errors: [
         {
           messageId: "obsolete",
@@ -75,7 +68,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<a name="anchor">Link</a>`,
+      code: '<a name="anchor">Link</a>',
       errors: [
         {
           messageId: "obsolete",
@@ -88,7 +81,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<img name="myimage" src="image.jpg">`,
+      code: '<img name="myimage" src="image.jpg" />',
       errors: [
         {
           messageId: "obsolete",
@@ -101,7 +94,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<table align="center"></table>`,
+      code: '<table align="center"></table>',
       errors: [
         {
           messageId: "obsolete",
@@ -114,7 +107,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<div align="left">Content</div>`,
+      code: '<div align="left">Content</div>',
       errors: [
         {
           messageId: "obsolete",
@@ -127,7 +120,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<body bgcolor="#ffffff"></body>`,
+      code: '<body bgcolor="#ffffff"></body>',
       errors: [
         {
           messageId: "obsolete",
@@ -140,7 +133,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<table bgcolor="#cccccc" border="1"></table>`,
+      code: '<table bgcolor="#cccccc" border="1"></table>',
       errors: [
         {
           messageId: "obsolete",
@@ -161,7 +154,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<img src="image.jpg" border="0">`,
+      code: '<img src="image.jpg" border="0" />',
       errors: [
         {
           messageId: "obsolete",
@@ -174,7 +167,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<table width="100%" height="200" cellpadding="5" cellspacing="0"></table>`,
+      code: '<table width="100%" height="200" cellPadding="5" cellSpacing="0"></table>',
       errors: [
         {
           messageId: "obsolete",
@@ -211,7 +204,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<iframe frameborder="0" scrolling="no"></iframe>`,
+      code: '<iframe frameBorder="0" scrolling="no"></iframe>',
       errors: [
         {
           messageId: "obsolete",
@@ -232,7 +225,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<td scope="row">Cell</td>`,
+      code: '<td scope="row">Cell</td>',
       errors: [
         {
           messageId: "obsolete",
@@ -245,7 +238,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<html manifest="app.appcache"></html>`,
+      code: '<html manifest="app.appcache"></html>',
       errors: [
         {
           messageId: "obsolete",
@@ -258,7 +251,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<form accept="image/*"></form>`,
+      code: '<form accept="image/*"></form>',
       errors: [
         {
           messageId: "obsolete",
@@ -272,7 +265,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: `<div contextmenu="mymenu">Content</div>`,
+      code: '<div contextMenu="mymenu">Content</div>',
       errors: [
         {
           messageId: "obsolete",
@@ -282,35 +275,6 @@ ruleTester.run("no-obsolete-attrs", rule, {
             suggestion:
               "To implement a custom context menu, use script to handle the contextmenu event.",
           },
-        },
-      ],
-    },
-  ],
-});
-
-templateRuleTester.run("[template] no-obsolete-attrs", rule, {
-  valid: [
-    {
-      code: `html\`<a href="/page">Link</a>\`;`,
-    },
-    {
-      code: `html\`<img src="image.jpg" alt="Image">\`;`,
-    },
-  ],
-  invalid: [
-    {
-      code: `html\`<a name="anchor">Link</a>\`;`,
-      errors: [
-        {
-          messageId: "obsolete",
-        },
-      ],
-    },
-    {
-      code: `html\`<table align="center"></table>\`;`,
-      errors: [
-        {
-          messageId: "obsolete",
         },
       ],
     },
