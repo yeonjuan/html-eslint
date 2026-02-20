@@ -103,3 +103,34 @@ export type NoObsoleteAttrsResult<AttributeKeyNode> = Array<{
     suggestion: string;
   };
 }>;
+
+export type ClassSpacingResult<AttributeValueNode> = Array<
+  | {
+      messageId: "extraSpacingStart";
+      node: AttributeValueNode;
+      data: {
+        normalized: string;
+      };
+      spacingType: "start";
+      spacingLength: number;
+    }
+  | {
+      messageId: "extraSpacingEnd";
+      node: AttributeValueNode;
+      data: {
+        normalized: string;
+      };
+      spacingType: "end";
+      spacingLength: number;
+    }
+  | {
+      messageId: "extraSpacingBetween";
+      node: AttributeValueNode;
+      data: {
+        normalized: string;
+      };
+      spacingType: "between";
+      spacingIndex: number;
+      spacingLength: number;
+    }
+>;
