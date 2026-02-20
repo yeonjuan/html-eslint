@@ -13,11 +13,11 @@ export const languageJSX = {
 }`,
   initialConfig: {
     rules: {
-      "@html-eslint/use-baseline": "error",
-      "@html-eslint/no-invalid-attr-value": "error"
+      "@html-eslint/react/use-baseline": "error",
+      "@html-eslint/react/no-invalid-attr-value": "error"
     }
   },
   isEqual(lang) {
-    return lang === "jsx"
-  }
+    return lang === "jsx";
+  },
 }

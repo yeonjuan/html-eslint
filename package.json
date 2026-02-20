@@ -27,6 +27,7 @@
     "@lerna-lite/cli": "^4.11.2",
     "@lerna-lite/publish": "^4.11.2",
     "@mdn/browser-compat-data": "^7.3.2",
+    "@parcel/transformer-sass": "2.16.4",
     "@types/jest": "^29.5.14",
     "compute-baseline": "^0.4.0",
     "cspell": "^8.0.0",
