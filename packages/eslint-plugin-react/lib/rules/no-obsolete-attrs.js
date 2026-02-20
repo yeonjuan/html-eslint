@@ -3,8 +3,8 @@
  * @import {RuleModule} from "../types"
  */
 const {
-  noIneffectiveAttrs,
-  NO_INEFFECTIVE_ATTRS_MESSAGE_IDS,
+  noObsoleteAttrs,
+  NO_OBSOLETE_ATTRS_MESSAGE_IDS,
 } = require("@html-eslint/core");
 const { elementNodeAdapter } = require("./utils/adapter");
 const { AST_NODE_TYPES } = require("@typescript-eslint/types");
@@ -15,30 +15,22 @@ module.exports = {
     type: "problem",
 
     docs: {
-      description:
-        "Disallow HTML attributes that have no effect in their context",
+      description: "Disallow use of obsolete attributes in HTML5",
       category: "Best Practice",
       recommended: true,
-      url: "https://html-eslint.org/docs/react/rules/no-ineffective-attrs",
+      url: "https://html-eslint.org/docs/react/rules/no-obsolete-attrs",
     },
 
     fixable: null,
     schema: [],
     messages: {
-      [NO_INEFFECTIVE_ATTRS_MESSAGE_IDS.ineffective]: "{{ message }}",
+      [NO_OBSOLETE_ATTRS_MESSAGE_IDS.obsolete]:
+        "The {{attr}} attribute on <{{element}}> is obsolete. {{suggestion}}",
     },
   },
 
   create(context) {
-    const ruleCore = /**
-     * @type {ReturnType<
-     *   typeof noIneffectiveAttrs<
-     *     TSESTree.JSXOpeningElement,
-     *     TSESTree.JSXSpreadAttribute | TSESTree.JSXAttribute["name"] | null,
-     *     TSESTree.JSXAttribute["value"]
-     *   >
-     * >}
-     */ (noIneffectiveAttrs());
+    const ruleCore = noObsoleteAttrs();
     return {
       JSXOpeningElement(node) {
         if (

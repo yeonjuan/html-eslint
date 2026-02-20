@@ -93,3 +93,13 @@ export type NoObsoleteTagsResult<ElementNode> = Array<{
     tag: string;
   };
 }>;
+
+export type NoObsoleteAttrsResult<AttributeKeyNode> = Array<{
+  messageId: "obsolete";
+  node: AttributeKeyNode;
+  data: {
+    attr: string;
+    element: string;
+    suggestion: string;
+  };
+}>;
