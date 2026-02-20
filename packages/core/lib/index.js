@@ -11,6 +11,7 @@ export {
   noObsoleteTags,
   NO_OBSOLETE_TAGS_MESSAGE_IDS,
 } from "./rules/no-obsolete-tags";
+export {
   noObsoleteAttrs,
   NO_OBSOLETE_ATTRS_MESSAGE_IDS,
 } from "./rules/no-obsolete-attrs";
