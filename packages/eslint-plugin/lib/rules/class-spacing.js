@@ -1,6 +1,5 @@
 /** @import {RuleModule} from "../types" */
 
-const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
@@ -8,6 +7,7 @@ const {
   classSpacing,
   CLASS_SPACING_MESSAGE_IDS,
 } = require("@html-eslint/core");
+const { attributeNodeAdapter } = require("./utils/adapter");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -36,35 +36,16 @@ module.exports = {
 
     return createVisitors(context, {
       Attribute(node) {
+        const adapter = attributeNodeAdapter(node.key, node.value);
         if (node.key.value.toLowerCase() !== "class") {
           return;
         }
-
-        const attributeValue = node.value;
-        if (
-          !attributeValue ||
-          !attributeValue.value ||
-          attributeValue.parts.some((part) => part.type === NODE_TYPES.Template)
-        ) {
+        const attrValueNode = adapter.value.node();
+        if (!attrValueNode) {
           return;
         }
 
-        // Create an attribute adapter
-        const attributeAdapter = {
-          key: {
-            node: () => node.key,
-            isExpression: () => false,
-            value: () => node.key.value,
-            raw: () => node.key.value,
-          },
-          value: {
-            node: () => attributeValue,
-            isExpression: () => false,
-            value: () => attributeValue.value,
-          },
-        };
-
-        const results = ruleCore.checkClassAttribute(attributeAdapter);
+        const results = ruleCore.checkClassAttribute(adapter);
 
         for (const result of results) {
           const normalizedValue = result.data.normalized;
@@ -73,38 +54,38 @@ module.exports = {
           if (result.spacingType === "start") {
             loc = {
               start: {
-                line: attributeValue.loc.start.line,
-                column: attributeValue.loc.start.column,
+                line: attrValueNode.loc.start.line,
+                column: attrValueNode.loc.start.column,
               },
               end: {
-                line: attributeValue.loc.start.line,
-                column: attributeValue.loc.start.column + result.spacingLength,
+                line: attrValueNode.loc.start.line,
+                column: attrValueNode.loc.start.column + result.spacingLength,
               },
             };
           } else if (result.spacingType === "end") {
-            const classValue = attributeValue.value;
+            const classValue = attrValueNode.value;
             loc = {
               start: {
-                line: attributeValue.loc.start.line,
+                line: attrValueNode.loc.start.line,
                 column:
-                  attributeValue.loc.start.column + classValue.trimEnd().length,
+                  attrValueNode.loc.start.column + classValue.trimEnd().length,
               },
               end: {
-                line: attributeValue.loc.start.line,
-                column: attributeValue.loc.start.column + classValue.length,
+                line: attrValueNode.loc.start.line,
+                column: attrValueNode.loc.start.column + classValue.length,
               },
             };
           } else {
             // between
             loc = {
               start: {
-                line: attributeValue.loc.start.line,
-                column: attributeValue.loc.start.column + result.spacingIndex,
+                line: attrValueNode.loc.start.line,
+                column: attrValueNode.loc.start.column + result.spacingIndex,
               },
               end: {
-                line: attributeValue.loc.start.line,
+                line: attrValueNode.loc.start.line,
                 column:
-                  attributeValue.loc.start.column +
+                  attrValueNode.loc.start.column +
                   result.spacingIndex +
                   result.spacingLength,
               },
@@ -116,7 +97,7 @@ module.exports = {
             messageId: result.messageId,
             fix(fixer) {
               return fixer.replaceTextRange(
-                attributeValue.range,
+                attrValueNode.range,
                 normalizedValue
               );
             },

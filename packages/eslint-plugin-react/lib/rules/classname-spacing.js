@@ -6,7 +6,7 @@ const {
   classSpacing,
   CLASS_SPACING_MESSAGE_IDS,
 } = require("@html-eslint/core");
-const { elementNodeAdapter } = require("./utils/adapter");
+const { attributeNodeAdapter } = require("./utils/adapter");
 const { AST_NODE_TYPES } = require("../constants/node-types");
 
 /** @type {RuleModule<[]>} */
@@ -36,107 +36,79 @@ module.exports = {
   create(context) {
     const ruleCore = classSpacing();
     return {
-      JSXOpeningElement(node) {
-        if (
-          node.name.type !== AST_NODE_TYPES.JSXIdentifier ||
-          node.name.name.toLocaleLowerCase() !== node.name.name ||
-          node.name.name.includes("-")
-        ) {
+      JSXAttribute(node) {
+        const adapter = attributeNodeAdapter(node);
+        if (adapter.key.value() !== "classname") {
           return;
         }
-
-        const adapter = elementNodeAdapter(node);
-        const attributes = adapter.getAttributes();
-
-        for (const attribute of attributes) {
-          const attrKeyValue = attribute.key.value();
-
-          // Only check className attributes
-          if (!attrKeyValue || attrKeyValue !== "classname") {
+        const attrValue = adapter.value.value();
+        const attrValueNode = adapter.value.node();
+        if (!attrValueNode) {
+          return;
+        }
+        const results = ruleCore.checkClassAttribute(adapter);
+        for (const result of results) {
+          let loc;
+          if (!attrValue) {
             continue;
           }
+          const normalizedValue = result.data.normalized;
 
-          const results = ruleCore.checkClassAttribute(attribute);
-
-          for (const result of results) {
-            const valueNode = attribute.value.node();
-            if (!valueNode) {
-              continue;
-            }
-
-            const sourceCode = context.sourceCode || context.getSourceCode();
-            const normalizedValue = result.data.normalized;
-
-            // Calculate location based on spacing type
-            let loc;
-            const attrValue = attribute.value.value();
-            if (!attrValue) {
-              continue;
-            }
-
-            if (result.spacingType === "start") {
-              loc = {
-                start: valueNode.loc.start,
-                end: {
-                  line: valueNode.loc.start.line,
-                  column: valueNode.loc.start.column + result.spacingLength,
-                },
-              };
-            } else if (result.spacingType === "end") {
-              loc = {
-                start: {
-                  line: valueNode.loc.end.line,
-                  column: valueNode.loc.end.column - result.spacingLength,
-                },
-                end: valueNode.loc.end,
-              };
-            } else {
-              // between
-              loc = {
-                start: {
-                  line: valueNode.loc.start.line,
-                  column: valueNode.loc.start.column + result.spacingIndex,
-                },
-                end: {
-                  line: valueNode.loc.start.line,
-                  column:
-                    valueNode.loc.start.column +
-                    result.spacingIndex +
-                    result.spacingLength,
-                },
-              };
-            }
-
-            context.report({
-              node: valueNode,
-              loc,
-              messageId: result.messageId,
-              fix(fixer) {
-                // For JSX, we need to handle different value node types
-                if (valueNode.type === AST_NODE_TYPES.Literal) {
-                  return fixer.replaceText(valueNode, `"${normalizedValue}"`);
-                } else if (
-                  valueNode.type === AST_NODE_TYPES.JSXExpressionContainer
-                ) {
-                  const expression = valueNode.expression;
-                  if (expression.type === AST_NODE_TYPES.Literal) {
-                    return fixer.replaceText(
-                      expression,
-                      `"${normalizedValue}"`
-                    );
-                  } else if (
-                    expression.type === AST_NODE_TYPES.TemplateLiteral
-                  ) {
-                    return fixer.replaceText(
-                      expression,
-                      `\`${normalizedValue}\``
-                    );
-                  }
-                }
-                return null;
+          if (result.spacingType === "start") {
+            loc = {
+              start: attrValueNode.loc.start,
+              end: {
+                line: attrValueNode.loc.start.line,
+                column: attrValueNode.loc.start.column + result.spacingLength,
               },
-            });
+            };
+          } else if (result.spacingType === "end") {
+            loc = {
+              start: {
+                line: attrValueNode.loc.end.line,
+                column: attrValueNode.loc.end.column - result.spacingLength,
+              },
+              end: attrValueNode.loc.end,
+            };
+          } else {
+            loc = {
+              start: {
+                line: attrValueNode.loc.start.line,
+                column: attrValueNode.loc.start.column + result.spacingIndex,
+              },
+              end: {
+                line: attrValueNode.loc.start.line,
+                column:
+                  attrValueNode.loc.start.column +
+                  result.spacingIndex +
+                  result.spacingLength,
+              },
+            };
           }
+
+          context.report({
+            node: result.node,
+            loc,
+            messageId: result.messageId,
+            fix(fixer) {
+              if (attrValueNode.type === AST_NODE_TYPES.Literal) {
+                return fixer.replaceText(attrValueNode, `"${normalizedValue}"`);
+              } else if (
+                attrValueNode.type === AST_NODE_TYPES.JSXExpressionContainer
+              ) {
+                const expression = attrValueNode.expression;
+                if (expression.type === AST_NODE_TYPES.Literal) {
+                  return fixer.replaceText(expression, `"${normalizedValue}"`);
+                } else if (expression.type === AST_NODE_TYPES.TemplateLiteral) {
+                  return fixer.replaceText(
+                    expression,
+                    `\`${normalizedValue}\``
+                  );
+                }
+              }
+              return null;
+            },
+          });
         }
       },
     };

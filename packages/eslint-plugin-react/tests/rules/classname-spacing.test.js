@@ -32,6 +32,9 @@ ruleTester.run("classname-spacing", rule, {
     {
       code: '<custom-element className="foo"></custom-element>',
     },
+    {
+      code: "<Button className={`foo ${bar} baz`}/>",
+    },
   ],
   invalid: [
     {
@@ -40,6 +43,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingStart",
+          line: 1,
+          column: 19,
+          endLine: 1,
+          endColumn: 20,
         },
       ],
     },
@@ -49,6 +56,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingEnd",
+          line: 1,
+          column: 24,
+          endLine: 1,
+          endColumn: 25,
         },
       ],
     },
@@ -58,6 +69,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingStart",
+          line: 1,
+          column: 19,
+          endLine: 1,
+          endColumn: 20,
         },
       ],
     },
@@ -67,6 +82,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingStart",
+          line: 1,
+          column: 19,
+          endLine: 1,
+          endColumn: 21,
         },
       ],
     },
@@ -76,6 +95,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingEnd",
+          line: 1,
+          column: 24,
+          endLine: 1,
+          endColumn: 26,
         },
       ],
     },
@@ -85,6 +108,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingBetween",
+          line: 1,
+          column: 22,
+          endLine: 1,
+          endColumn: 24,
         },
       ],
     },
@@ -94,6 +121,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingBetween",
+          line: 1,
+          column: 22,
+          endLine: 1,
+          endColumn: 25,
         },
       ],
     },
@@ -103,6 +134,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingBetween",
+          line: 1,
+          column: 22,
+          endLine: 1,
+          endColumn: 24,
         },
       ],
     },
@@ -112,6 +147,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingStart",
+          line: 1,
+          column: 19,
+          endLine: 1,
+          endColumn: 21,
         },
       ],
     },
@@ -121,6 +160,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingStart",
+          line: 1,
+          column: 16,
+          endLine: 1,
+          endColumn: 17,
         },
       ],
     },
@@ -130,6 +173,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingEnd",
+          line: 1,
+          column: 23,
+          endLine: 1,
+          endColumn: 24,
         },
       ],
     },
@@ -139,6 +186,10 @@ ruleTester.run("classname-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingBetween",
+          line: 1,
+          column: 19,
+          endLine: 1,
+          endColumn: 21,
         },
       ],
     },
