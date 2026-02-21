@@ -8,7 +8,7 @@ type NodeWithStringType<T extends TSESTree.Node> = Omit<T, "type"> & {
 };
 
 export type NullLiteral = NodeWithStringType<TSESTree.NullLiteral>;
-
+export type NodeOrToken = TSESTree.NodeOrTokenData;
 // Node type aliases with string literal types
 export type AccessorProperty = NodeWithStringType<TSESTree.AccessorProperty>;
 export type ArrayExpression = NodeWithStringType<TSESTree.ArrayExpression>;
@@ -233,9 +233,7 @@ export type Node =
   | WithStatement
   | YieldExpression;
 
-export type RuleFunction<T extends TSESTree.NodeOrTokenData = never> = (
-  node: T
-) => void;
+export type RuleFunction<T extends NodeOrToken = never> = (node: T) => void;
 
 type RuleListenerExitSelectors = {
   [K in keyof RuleListenerBaseSelectors as `${K}:exit`]: RuleListenerBaseSelectors[K];
@@ -342,19 +340,19 @@ interface RuleFix {
 }
 
 export interface RuleFixer {
-  insertTextAfter(nodeOrToken: TSESTree.BaseNode, text: string): RuleFix;
+  insertTextAfter(nodeOrToken: NodeOrToken, text: string): RuleFix;
 
   insertTextAfterRange(range: eslint.AST.Range, text: string): RuleFix;
 
-  insertTextBefore(nodeOrToken: TSESTree.BaseNode, text: string): RuleFix;
+  insertTextBefore(nodeOrToken: NodeOrToken, text: string): RuleFix;
 
   insertTextBeforeRange(range: eslint.AST.Range, text: string): RuleFix;
 
-  remove(nodeOrToken: TSESTree.BaseNode): RuleFix;
+  remove(nodeOrToken: NodeOrToken): RuleFix;
 
   removeRange(range: eslint.AST.Range): RuleFix;
 
-  replaceText(nodeOrToken: TSESTree.BaseNode, text: string): RuleFix;
+  replaceText(nodeOrToken: NodeOrToken, text: string): RuleFix;
 
   replaceTextRange(range: eslint.AST.Range, text: string): RuleFix;
 }

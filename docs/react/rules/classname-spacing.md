@@ -1,6 +1,6 @@
 # classname-spacing
 
-This rule disallows extra spacing in `className` attribute values in React/JSX code.
+This rule disallows extra spacing in `className` values in React/JSX code.
 
 ## How to use
 
@@ -21,6 +21,22 @@ export default [
 ];
 ```
 
+## Options
+
+This rule accepts an options object with the following properties:
+
+### `callees`
+
+An array of function names that should be checked for spacing issues. This is useful for checking utility functions like `clsx`, `cn`, or `classnames`.
+
+```js
+{
+  "@html-eslint/react/classname-spacing": ["error", {
+    "callees": ["clsx", "cn", "classnames"]
+  }]
+}
+```
+
 ## Rule Details
 
 This rule enforces proper spacing in `className` attribute values by:
@@ -28,6 +44,8 @@ This rule enforces proper spacing in `className` attribute values by:
 - Disallowing leading whitespace
 - Disallowing trailing whitespace
 - Disallowing multiple spaces between class names
+
+When the `callees` option is specified, the rule also checks string arguments passed to the specified functions.
 
 This rule is auto-fixable using the `--fix` option.
 
@@ -55,6 +73,12 @@ Examples of **incorrect** code for this rule:
 <div className={" foo"}></div>
 <div className={`foo `}></div>
 <div className={`foo  bar`}></div>
+
+// With callees option
+// eslint @html-eslint/react/classname-spacing: ["error", { "callees": ["clsx", "cn"] }]
+const classes = clsx(" foo");
+const styles = cn("foo ");
+const combined = clsx("foo  bar", " baz ");
 ```
 
 Examples of **correct** code for this rule:
@@ -82,6 +106,14 @@ Examples of **correct** code for this rule:
 
 // Custom elements are ignored
 <custom-element className=" foo "></custom-element>
+
+// With callees option
+// eslint @html-eslint/react/classname-spacing: ["error", { "callees": ["clsx", "cn"] }]
+const classes = clsx("foo bar");
+const styles = cn("foo bar");
+
+// Function not in callees is ignored
+const other = classnames(" foo  bar ");
 ```
 
 ## When Not To Use It

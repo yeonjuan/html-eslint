@@ -35,6 +35,22 @@ ruleTester.run("classname-spacing", rule, {
     {
       code: "<Button className={`foo ${bar} baz`}/>",
     },
+    {
+      code: 'const x = clsx("foo")',
+      options: [{ callees: ["clsx"] }],
+    },
+    {
+      code: 'const x = cn("foo bar")',
+      options: [{ callees: ["cn"] }],
+    },
+    {
+      code: 'const x = classnames(" foo ")',
+      options: [{ callees: ["clsx"] }],
+    },
+    {
+      code: 'const x = classnames("foo", bar)',
+      options: [{ callees: ["classnames"] }],
+    },
   ],
   invalid: [
     {
@@ -190,6 +206,93 @@ ruleTester.run("classname-spacing", rule, {
           column: 19,
           endLine: 1,
           endColumn: 21,
+        },
+      ],
+    },
+    {
+      code: 'const x = clsx(" foo")',
+      output: 'const x = clsx("foo")',
+      options: [{ callees: ["clsx"] }],
+      errors: [
+        {
+          messageId: "extraSpacingStart",
+          line: 1,
+          column: 16,
+          endLine: 1,
+          endColumn: 17,
+        },
+      ],
+    },
+    {
+      code: 'const x = clsx("foo ")',
+      output: 'const x = clsx("foo")',
+      options: [{ callees: ["clsx"] }],
+      errors: [
+        {
+          messageId: "extraSpacingEnd",
+          line: 1,
+          column: 21,
+          endLine: 1,
+          endColumn: 22,
+        },
+      ],
+    },
+    {
+      code: 'const x = clsx("foo  bar")',
+      output: 'const x = clsx("foo bar")',
+      options: [{ callees: ["clsx"] }],
+      errors: [
+        {
+          messageId: "extraSpacingBetween",
+          line: 1,
+          column: 19,
+          endLine: 1,
+          endColumn: 21,
+        },
+      ],
+    },
+    {
+      code: "const x = cn(`foo  bar`)",
+      output: "const x = cn(`foo bar`)",
+      options: [{ callees: ["cn"] }],
+      errors: [
+        {
+          messageId: "extraSpacingBetween",
+          line: 1,
+          column: 17,
+          endLine: 1,
+          endColumn: 19,
+        },
+      ],
+    },
+    {
+      code: 'const x = clsx(" foo", "bar  baz")',
+      output: 'const x = clsx("foo", "bar baz")',
+      options: [{ callees: ["clsx"] }],
+      errors: [
+        {
+          messageId: "extraSpacingStart",
+          line: 1,
+          column: 16,
+          endLine: 1,
+          endColumn: 17,
+        },
+        {
+          messageId: "extraSpacingBetween",
+          line: 1,
+          column: 27,
+          endLine: 1,
+          endColumn: 29,
+        },
+      ],
+    },
+    {
+      code: 'const x = clsx(condition && "bar  baz")',
+      output: 'const x = clsx(condition && "bar baz")',
+      options: [{ callees: ["clsx"] }],
+      errors: [
+        {
+          messageId: "extraSpacingBetween",
         },
       ],
     },
