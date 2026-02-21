@@ -55,9 +55,16 @@ module.exports = [
     },
   },
   {
-    files: ["tools/**/*.mjs", "packages/core/**/*.js"],
+    files: [
+      "tools/**/*.mjs",
+      "packages/core/**/*.js",
+      "packages/eslint-plugin-svelte/**/*.js",
+    ],
     languageOptions: {
       sourceType: "module",
+      parserOptions: {
+        ecmaVersion: 2020,
+      },
     },
   },
 ];

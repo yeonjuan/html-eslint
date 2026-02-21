@@ -1530,6 +1530,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@html-eslint/eslint-plugin-svelte@workspace:packages/eslint-plugin-svelte":
+  version: 0.0.0-use.local
+  resolution: "@html-eslint/eslint-plugin-svelte@workspace:packages/eslint-plugin-svelte"
+  dependencies:
+    "@html-eslint/core": "npm:^0.56.0"
+    "@html-eslint/eslint-plugin": "npm:^0.56.0"
+    "@html-eslint/types": "npm:^0.56.0"
+    "@typescript-eslint/types": "npm:^8.56.0"
+    typescript: "npm:^5.9.3"
+  peerDependencies:
+    eslint: ">=8.0.0 || ^10.0.0-0"
+  languageName: unknown
+  linkType: soft
+
 "@html-eslint/eslint-plugin@npm:^0.56.0, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
