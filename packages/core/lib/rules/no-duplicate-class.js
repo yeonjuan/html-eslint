@@ -16,6 +16,7 @@ export const NO_DUPLICATE_CLASS_MESSAGE_IDS = {
 
 /**
  * Split class string into tokens (class names and spaces) with their positions
+ *
  * @param {string} value - The class attribute value
  * @returns {{ value: string; pos: number }[]}
  */
@@ -86,7 +87,10 @@ export function noDuplicateClass() {
               hasClassBefore: !!classesAndSpaces[index - 2],
               hasClassAfter: !!classesAndSpaces[index + 2],
               spacesBeforePos: before ? before.pos : pos,
-              spacesAfterLength: after && after.value.trim().length === 0 ? after.value.length : 0,
+              spacesAfterLength:
+                after && after.value.trim().length === 0
+                  ? after.value.length
+                  : 0,
             });
           } else {
             classSet.add(className);

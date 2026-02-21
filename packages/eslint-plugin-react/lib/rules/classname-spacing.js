@@ -17,6 +17,7 @@ const {
 } = require("@html-eslint/core");
 const { attributeNodeAdapter } = require("./utils/adapter");
 const { AST_NODE_TYPES } = require("../constants/node-types");
+const { isStaticString } = require("./utils/node");
 
 /** @type {RuleModule<[Option]>} */
 module.exports = {
@@ -100,19 +101,6 @@ module.exports = {
           },
         };
       }
-    }
-
-    /**
-     * @param {Node} node
-     * @returns {node is Literal | TemplateLiteral}
-     */
-    function isStaticString(node) {
-      return (
-        node.type === AST_NODE_TYPES.Literal ||
-        (node.type === AST_NODE_TYPES.TemplateLiteral &&
-          node.expressions.length === 0 &&
-          node.quasis.length === 1)
-      );
     }
 
     /**

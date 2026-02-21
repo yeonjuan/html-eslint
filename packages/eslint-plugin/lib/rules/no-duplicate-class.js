@@ -74,7 +74,9 @@ module.exports = {
                   result.classIndex +
                   result.classLength +
                   result.spacesAfterLength
-                : attrValueNode.range[0] + result.classIndex + result.classLength;
+                : attrValueNode.range[0] +
+                  result.classIndex +
+                  result.classLength;
 
               return fixer.replaceTextRange(
                 [startRange, endRange],

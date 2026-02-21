@@ -4,7 +4,6 @@
  * @import {
  *   Literal,
  *   Node,
- *   NodeOrToken,
  *   RuleModule,
  *   TemplateLiteral
  * } from "../types"
@@ -17,6 +16,7 @@ const {
 } = require("@html-eslint/core");
 const { attributeNodeAdapter } = require("./utils/adapter");
 const { AST_NODE_TYPES } = require("../constants/node-types");
+const { isStaticString } = require("./utils/node");
 
 /** @type {RuleModule<[Option]>} */
 module.exports = {
@@ -58,42 +58,64 @@ module.exports = {
     const ruleCore = noDuplicateClass();
 
     /**
+     * Get the actual string content node from attribute value Unwraps
+     * JSXExpressionContainer if needed
+     *
+     * @param {any} valueNode
+     * @returns {any}
+     */
+    function getStringContentNode(valueNode) {
+      if (valueNode.type === AST_NODE_TYPES.JSXExpressionContainer) {
+        return valueNode.expression;
+      }
+      return valueNode;
+    }
+
+    /**
+     * Calculate offset for the string content based on node type
+     *
+     * - Literal: 1 (opening quote)
+     * - TemplateLiteral: 1 (opening backtick)
+     *
+     * @param {any} contentNode
+     * @returns {number}
+     */
+    function getStringContentOffset(contentNode) {
+      if (
+        contentNode.type === AST_NODE_TYPES.Literal ||
+        contentNode.type === AST_NODE_TYPES.TemplateLiteral
+      ) {
+        return 1;
+      }
+      return 0;
+    }
+
+    /**
      * Calculate location based on duplicate class result
      *
-     * @param {NodeOrToken} node
+     * @param {any} valueNode - The attribute value node (may be
+     *   JSXExpressionContainer)
      * @param {NoDuplicateClassResult<any>[number]} result
      * @returns {AST.SourceLocation}
      */
-    function calculateLocation(node, result) {
-      // For Literal nodes, we need to account for the opening quote
-      const offset = node.type === AST_NODE_TYPES.Literal ? 1 : 0;
+    function calculateLocation(valueNode, result) {
+      const contentNode = getStringContentNode(valueNode);
+      const offset = getStringContentOffset(contentNode);
+
       return {
         start: {
-          line: node.loc.start.line,
-          column: node.loc.start.column + result.classIndex + offset,
+          line: contentNode.loc.start.line,
+          column: contentNode.loc.start.column + result.classIndex + offset,
         },
         end: {
-          line: node.loc.start.line,
+          line: contentNode.loc.start.line,
           column:
-            node.loc.start.column +
+            contentNode.loc.start.column +
             result.classIndex +
             result.className.length +
             offset,
         },
       };
-    }
-
-    /**
-     * @param {Node} node
-     * @returns {node is Literal | TemplateLiteral}
-     */
-    function isStaticString(node) {
-      return (
-        node.type === AST_NODE_TYPES.Literal ||
-        (node.type === AST_NODE_TYPES.TemplateLiteral &&
-          node.expressions.length === 0 &&
-          node.quasis.length === 1)
-      );
     }
 
     /**
@@ -117,7 +139,10 @@ module.exports = {
      * @returns {string | null}
      */
     function getRawValue(node) {
-      if (node.type === AST_NODE_TYPES.Literal && typeof node.value === "string") {
+      if (
+        node.type === AST_NODE_TYPES.Literal &&
+        typeof node.value === "string"
+      ) {
         return node.value;
       } else if (
         node.type === AST_NODE_TYPES.TemplateLiteral &&
@@ -127,31 +152,6 @@ module.exports = {
         return node.quasis[0].value.cooked;
       }
       return null;
-    }
-
-    /**
-     * Create a fixed string by removing duplicate class
-     *
-     * @param {string} originalValue
-     * @param {NoDuplicateClassResult<any>[number]} result
-     * @returns {string}
-     */
-    function createFixedValue(originalValue, result) {
-      const startIndex = result.hasSpacesBefore
-        ? result.spacesBeforePos
-        : result.classIndex;
-      const endIndex = result.hasSpacesAfter
-        ? result.classIndex + result.classLength + result.spacesAfterLength
-        : result.classIndex + result.classLength;
-
-      const replacement =
-        result.hasClassBefore && result.hasClassAfter ? " " : "";
-
-      return (
-        originalValue.substring(0, startIndex) +
-        replacement +
-        originalValue.substring(endIndex)
-      );
     }
 
     /**
@@ -193,13 +193,25 @@ module.exports = {
           messageId: result.messageId,
           data: result.data,
           fix(fixer) {
-            const fixedValue = createFixedValue(value, result);
-            if (node.type === AST_NODE_TYPES.Literal) {
-              return fixer.replaceText(node, `"${fixedValue}"`);
-            } else if (node.type === AST_NODE_TYPES.TemplateLiteral) {
-              return fixer.replaceText(node, `\`${fixedValue}\``);
-            }
-            return null;
+            // Get the offset based on node type
+            const offset = getStringContentOffset(node);
+
+            const startRange = result.hasSpacesBefore
+              ? node.range[0] + offset + result.spacesBeforePos
+              : node.range[0] + offset + result.classIndex;
+
+            const endRange = result.hasSpacesAfter
+              ? node.range[0] +
+                offset +
+                result.classIndex +
+                result.classLength +
+                result.spacesAfterLength
+              : node.range[0] + offset + result.classIndex + result.classLength;
+
+            return fixer.replaceTextRange(
+              [startRange, endRange],
+              result.hasClassBefore && result.hasClassAfter ? " " : ""
+            );
           },
         });
       }
@@ -228,7 +240,6 @@ module.exports = {
           return;
         }
 
-        // Check all arguments
         for (const arg of node.arguments) {
           processNode(arg);
         }
@@ -246,24 +257,7 @@ module.exports = {
 
         const results = ruleCore.checkClassAttribute(adapter);
         for (const result of results) {
-          // For JSXAttribute, we need to handle the different node types
-          let targetNode = attrValueNode;
-          let value = attrValue;
-
-          // If it's a JSXExpressionContainer, we need to work with the expression inside
-          if (attrValueNode.type === AST_NODE_TYPES.JSXExpressionContainer) {
-            const expression = attrValueNode.expression;
-            if (isStaticString(expression)) {
-              targetNode = expression;
-              value = getRawValue(expression) || attrValue;
-            } else {
-              continue;
-            }
-          } else if (!isStaticString(attrValueNode)) {
-            continue;
-          }
-
-          const loc = calculateLocation(targetNode, result);
+          const loc = calculateLocation(attrValueNode, result);
 
           context.report({
             node: result.node,
@@ -271,13 +265,29 @@ module.exports = {
             messageId: result.messageId,
             data: result.data,
             fix(fixer) {
-              const fixedValue = createFixedValue(value, result);
-              if (targetNode.type === AST_NODE_TYPES.Literal) {
-                return fixer.replaceText(targetNode, `"${fixedValue}"`);
-              } else if (targetNode.type === AST_NODE_TYPES.TemplateLiteral) {
-                return fixer.replaceText(targetNode, `\`${fixedValue}\``);
-              }
-              return null;
+              // Get the actual string content node and its offset
+              const contentNode = getStringContentNode(attrValueNode);
+              const offset = getStringContentOffset(contentNode);
+
+              const startRange = result.hasSpacesBefore
+                ? contentNode.range[0] + offset + result.spacesBeforePos
+                : contentNode.range[0] + offset + result.classIndex;
+
+              const endRange = result.hasSpacesAfter
+                ? contentNode.range[0] +
+                  offset +
+                  result.classIndex +
+                  result.classLength +
+                  result.spacesAfterLength
+                : contentNode.range[0] +
+                  offset +
+                  result.classIndex +
+                  result.classLength;
+
+              return fixer.replaceTextRange(
+                [startRange, endRange],
+                result.hasClassBefore && result.hasClassAfter ? " " : ""
+              );
             },
           });
         }
