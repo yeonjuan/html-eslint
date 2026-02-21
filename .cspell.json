@@ -26,6 +26,7 @@
     "**/no-obsolete-attrs.test.js"
   ],
   "words": [
+    "CLAUDE.md",
     "callees",
     "TSES",
     "foofoo",
