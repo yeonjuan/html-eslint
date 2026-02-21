@@ -59,6 +59,7 @@ const classSpacing = require("./class-spacing");
 const cssNoEmptyBlocks = require("./css-no-empty-blocks");
 const noRedundantRole = require("./no-redundant-role");
 const noInvalidAttrValue = require("./no-invalid-attr-value");
+const headOrder = require("./head-order");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -124,6 +125,7 @@ const rules = {
   "css-no-empty-blocks": cssNoEmptyBlocks,
   "no-redundant-role": noRedundantRole,
   "no-invalid-attr-value": noInvalidAttrValue,
+  "head-order": headOrder,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
