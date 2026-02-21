@@ -1,8 +1,5 @@
 /**
- * @import {
- *   SourceCode,
- *   TraversalStep
- * } from "@eslint/core"
+ * @import {TraversalStep} from "@eslint/core"
  * @import {
  *   DirectiveType,
  *   SourceLocation
@@ -71,6 +68,11 @@ class HTMLSourceCode extends TextSourceCodeBase {
 
   getLines() {
     return this.lines;
+  }
+
+  /** @returns {CommentContent[]} */
+  getAllComments() {
+    return this.comments;
   }
 
   getInlineConfigNodes() {
@@ -183,6 +185,306 @@ class HTMLSourceCode extends TextSourceCodeBase {
   getParent(node) {
     return this.parentsMap.get(node);
   }
+
+  // TODO the following methods are stubs
+  /* eslint-disable no-unused-vars */
+
+  /**
+   * @param {import("estree").Node} _node
+   * @returns {import("eslint").Scope.Variable[]}
+   */
+  getDeclaredVariables(_node) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node} _node
+   * @returns {import("estree").Comment | null}
+   */
+  getJSDocComment(_node) {
+    return null;
+  }
+
+  /**
+   * @param {number} _index
+   * @returns {import("estree").Node | null}
+   */
+  getNodeByRangeIndex(_index) {
+    return null;
+  }
+
+  /**
+   * @param {import("eslint").AST.Token} _first
+   * @param {import("eslint").AST.Token} _second
+   * @returns {boolean}
+   */
+  isSpaceBetweenTokens(_first, _second) {
+    return false;
+  }
+
+  /**
+   * @param {number} _offset
+   * @param {{ includeComments?: boolean }} [options]
+   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   */
+  getTokenByRangeStart(_offset, options) {
+    return null;
+  }
+
+  /**
+   * @param {import("estree").Node} _node
+   * @param {any} [_options]
+   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   */
+  getFirstToken(_node, _options) {
+    return null;
+  }
+
+  /**
+   * @param {import("estree").Node} _node
+   * @param {any} [_options]
+   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   */
+  getFirstTokens(_node, _options) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node} _node
+   * @param {any} [_options]
+   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   */
+  getLastToken(_node, _options) {
+    return null;
+  }
+
+  /**
+   * @param {import("estree").Node} _node
+   * @param {any} [_options]
+   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   */
+  getLastTokens(_node, _options) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _node
+   * @param {any} [_options]
+   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   */
+  getTokenBefore(_node, _options) {
+    return null;
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _node
+   * @param {any} [_options]
+   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   */
+  getTokensBefore(_node, _options) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _node
+   * @param {any} [_options]
+   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   */
+  getTokenAfter(_node, _options) {
+    return null;
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _node
+   * @param {any} [_options]
+   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   */
+  getTokensAfter(_node, _options) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _node
+   * @param {any} [_options]
+   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   */
+  getTokenOrCommentBefore(_node, _options) {
+    return null;
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _node
+   * @param {any} [_options]
+   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   */
+  getTokenOrCommentAfter(_node, _options) {
+    return null;
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _left
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _right
+   * @param {any} [_options]
+   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   */
+  getFirstTokenBetween(_left, _right, _options) {
+    return null;
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _left
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _right
+   * @param {any} [_options]
+   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   */
+  getFirstTokensBetween(_left, _right, _options) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _left
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _right
+   * @param {any} [_options]
+   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   */
+  getLastTokenBetween(_left, _right, _options) {
+    return null;
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _left
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _right
+   * @param {any} [_options]
+   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   */
+  getLastTokensBetween(_left, _right, _options) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _left
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _right
+   * @param {any} [_options]
+   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   */
+  getTokensBetween(_left, _right, _options) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node} _node
+   * @param {number | undefined} [_beforeCount]
+   * @param {number | undefined} [_afterCount]
+   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   */
+  getTokens(_node, _beforeCount, _afterCount) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _left
+   * @param {import("estree").Node
+   *   | import("eslint").AST.Token
+   *   | import("estree").Comment} _right
+   * @returns {boolean}
+   */
+  commentsExistBetween(_left, _right) {
+    return false;
+  }
+
+  /**
+   * @param {import("estree").Node | import("eslint").AST.Token} _nodeOrToken
+   * @returns {import("estree").Comment[]}
+   */
+  getCommentsBefore(_nodeOrToken) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node | import("eslint").AST.Token} _nodeOrToken
+   * @returns {import("estree").Comment[]}
+   */
+  getCommentsAfter(_nodeOrToken) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node} _node
+   * @returns {import("estree").Comment[]}
+   */
+  getCommentsInside(_node) {
+    return [];
+  }
+
+  /**
+   * @param {import("estree").Node} _node
+   * @returns {import("eslint").Scope.Scope | null}
+   */
+  getScope(_node) {
+    return null;
+  }
+
+  /**
+   * @param {import("estree").Node | import("eslint").AST.Token} _first
+   * @param {import("estree").Node | import("eslint").AST.Token} _second
+   * @returns {boolean}
+   */
+  isSpaceBetween(_first, _second) {
+    return false;
+  }
+
+  /**
+   * @param {import("estree").Identifier} _node
+   * @returns {boolean}
+   */
+  isGlobalReference(_node) {
+    return false;
+  }
+
+  /**
+   * @param {string} _name
+   * @param {import("estree").Node} [_refNode]
+   * @returns {boolean}
+   */
+  markVariableAsUsed(_name, _refNode) {
+    return false;
+  }
+
+  /* eslint-enable no-unused-vars */
 }
 /**
  * @param {{ ast: AST.Program; text: string; comments: CommentContent[] }} config
