@@ -10,6 +10,7 @@
 | Rule                                                             | Description                                                                                    |       |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ----- |
 | [css-no-empty-blocks](rules/css-no-empty-blocks)                 | Disallows empty CSS blocks in `<style>` tags.                                                  |       |
+| [head-order](rules/head-order)                                   | Enforce optimal ordering of elements in `<head>`                                               |       |
 | [max-element-depth](rules/max-element-depth)                     | Enforce maximum element depth                                                                  |       |
 | [no-duplicate-attrs](rules/no-duplicate-attrs)                   | Disallow duplicate attributes                                                                  | ⭐    |
 | [no-duplicate-class](rules/no-duplicate-class)                   | Disallow duplicate class names                                                                 | 🔧    |
