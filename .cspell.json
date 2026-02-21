@@ -23,7 +23,8 @@
     "**/no-obsolete-tags.test.js",
     "**/no-obsolete-attrs.md",
     "**/no-obsolete-attrs.js",
-    "**/no-obsolete-attrs.test.js"
+    "**/no-obsolete-attrs.test.js",
+    "CLAUDE.md"
   ],
   "words": [
     "callees",

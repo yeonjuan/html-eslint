@@ -16,4 +16,8 @@ export {
   NO_OBSOLETE_ATTRS_MESSAGE_IDS,
 } from "./rules/no-obsolete-attrs";
 export { classSpacing, CLASS_SPACING_MESSAGE_IDS } from "./rules/class-spacing";
+export {
+  noDuplicateClass,
+  NO_DUPLICATE_CLASS_MESSAGE_IDS,
+} from "./rules/no-duplicate-class";
 export * from "./types";

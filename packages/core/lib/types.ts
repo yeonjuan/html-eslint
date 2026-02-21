@@ -134,3 +134,21 @@ export type ClassSpacingResult<AttributeValueNode> = Array<
       spacingLength: number;
     }
 >;
+
+export type NoDuplicateClassResult<AttributeValueNode> = Array<{
+  messageId: "duplicateClass";
+  node: AttributeValueNode;
+  data: {
+    class: string;
+  };
+  className: string;
+  classIndex: number;
+  classLength: number;
+  tokenIndex: number;
+  hasSpacesBefore: boolean;
+  hasSpacesAfter: boolean;
+  hasClassBefore: boolean;
+  hasClassAfter: boolean;
+  spacesBeforePos: number;
+  spacesAfterLength: number;
+}>;

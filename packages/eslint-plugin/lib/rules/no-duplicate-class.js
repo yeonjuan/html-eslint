@@ -1,20 +1,13 @@
-/**
- * @import {AttributeValue} from "@html-eslint/types"
- * @import {RuleModule} from "../types"
- * @typedef {Object} ClassInfo
- * @property {string} name
- * @property {import("@html-eslint/types").AnyNode["loc"]} loc
- * @property {import("@html-eslint/types").AnyNode["range"]} range
- */
+/** @import {RuleModule} from "../types" */
 
-const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-
-const MESSAGE_IDS = {
-  DUPLICATE_CLASS: "duplicateClass",
-};
+const {
+  noDuplicateClass,
+  NO_DUPLICATE_CLASS_MESSAGE_IDS,
+} = require("@html-eslint/core");
+const { attributeNodeAdapter } = require("./utils/adapter");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -29,101 +22,69 @@ module.exports = {
     fixable: "code",
     schema: [],
     messages: {
-      [MESSAGE_IDS.DUPLICATE_CLASS]: "The class '{{class}}' is duplicated.",
+      [NO_DUPLICATE_CLASS_MESSAGE_IDS.duplicateClass]:
+        "The class '{{class}}' is duplicated.",
     },
   },
 
   create(context) {
-    /**
-     * @param {AttributeValue} value
-     * @returns {{ value: string; pos: number }[]}
-     */
-    function splitClassAndSpaces(value) {
-      /** @type {{ value: string; pos: number }[]} */
-      const result = [];
-      const regex = /(\s+|\S+)/g;
-      /** @type {RegExpExecArray | null} */
-      let match = null;
-
-      while ((match = regex.exec(value.value)) !== null) {
-        result.push({
-          value: match[0],
-          pos: match.index,
-        });
-      }
-
-      return result;
-    }
+    const ruleCore = noDuplicateClass();
 
     return createVisitors(context, {
       Attribute(node) {
+        const adapter = attributeNodeAdapter(node.key, node.value);
         if (node.key.value.toLowerCase() !== "class") {
           return;
         }
-        const attributeValue = node.value;
-        if (
-          !attributeValue ||
-          !attributeValue.value ||
-          attributeValue.parts.some((part) => part.type === NODE_TYPES.Template)
-        ) {
+        const attrValueNode = adapter.value.node();
+        if (!attrValueNode) {
           return;
         }
-        const classesAndSpaces = splitClassAndSpaces(attributeValue);
-        const classSet = new Set();
-        classesAndSpaces.forEach(({ value, pos }, index) => {
-          const className = value.trim();
 
-          if (className.length && classSet.has(className)) {
-            context.report({
-              loc: {
-                start: {
-                  line: attributeValue.loc.start.line,
-                  column: attributeValue.loc.start.column + pos,
-                },
-                end: {
-                  line: attributeValue.loc.start.line,
-                  column:
-                    attributeValue.loc.start.column + pos + className.length,
-                },
+        const results = ruleCore.checkClassAttribute(adapter);
+
+        for (const result of results) {
+          context.report({
+            loc: {
+              start: {
+                line: attrValueNode.loc.start.line,
+                column: attrValueNode.loc.start.column + result.classIndex,
               },
-              data: {
-                class: className,
+              end: {
+                line: attrValueNode.loc.start.line,
+                column:
+                  attrValueNode.loc.start.column +
+                  result.classIndex +
+                  result.className.length,
               },
-              messageId: MESSAGE_IDS.DUPLICATE_CLASS,
-              fix(fixer) {
-                if (!node.value) {
-                  return null;
-                }
-                const before = classesAndSpaces[index - 1];
-                const after = classesAndSpaces[index + 1];
-                const hasSpacesBefore =
-                  !!before && before.value.trim().length === 0;
-                const hasSpacesAfter =
-                  !!after && after.value.trim().length === 0;
-                const hasClassBefore = !!classesAndSpaces[index - 2];
-                const hasClassAfter = !!classesAndSpaces[index + 2];
+            },
+            data: result.data,
+            messageId: result.messageId,
+            fix(fixer) {
+              if (!node.value) {
+                return null;
+              }
 
-                const startRange = hasSpacesBefore
-                  ? attributeValue.range[0] + before.pos
-                  : attributeValue.range[0] + pos;
+              const startRange = result.hasSpacesBefore
+                ? attrValueNode.range[0] + result.spacesBeforePos
+                : attrValueNode.range[0] + result.classIndex;
 
-                const endRange = hasSpacesAfter
-                  ? attributeValue.range[0] +
-                    pos +
-                    value.length +
-                    after.value.length
-                  : attributeValue.range[0] + pos + value.length;
+              const endRange = result.hasSpacesAfter
+                ? attrValueNode.range[0] +
+                  result.classIndex +
+                  result.classLength +
+                  result.spacesAfterLength
+                : attrValueNode.range[0] +
+                  result.classIndex +
+                  result.classLength;
 
-                return fixer.replaceTextRange(
-                  [startRange, endRange],
-                  hasClassBefore && hasClassAfter ? " " : ""
-                );
-              },
-            });
-          } else {
-            classSet.add(className);
-          }
-        });
+              return fixer.replaceTextRange(
+                [startRange, endRange],
+                result.hasClassBefore && result.hasClassAfter ? " " : ""
+              );
+            },
+          });
+        }
       },
     });
   },
