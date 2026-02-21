@@ -1,0 +1,70 @@
+{
+  "name": "@html-eslint/eslint-plugin-svelte",
+  "version": "0.56.0",
+  "type": "module",
+  "description": "ESLint plugin for HTML with Svelte support",
+  "author": "yeonjuan",
+  "homepage": "https://github.com/yeonjuan/html-eslint#readme",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeonjuan/html-eslint.git"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules --no-warnings ../../node_modules/jest/bin/jest.js --coverage",
+    "ts": "tsc --noEmit",
+    "lint": "eslint .",
+    "build": "tsup"
+  },
+  "bugs": {
+    "url": "https://github.com/yeonjuan/html-eslint/issues"
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "html",
+    "svelte",
+    "lint"
+  ],
+  "dependencies": {
+    "@html-eslint/core": "^0.56.0",
+    "@html-eslint/eslint-plugin": "^0.56.0",
+    "@html-eslint/types": "^0.56.0",
+    "@typescript-eslint/types": "^8.56.0"
+  },
+  "peerDependencies": {
+    "eslint": ">=8.0.0 || ^10.0.0-0",
+    "svelte-eslint-parser": "^1.0.0"
+  },
+  "devDependencies": {
+    "svelte": "^5.53.1",
+    "svelte-eslint-parser": "^1.4.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+  }
+}
