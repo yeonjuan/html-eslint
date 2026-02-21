@@ -1,19 +1,18 @@
 /**
  * @file HTML ESLint adapter for capo.js
  *
- * This adapter bridges HTML ESLint AST nodes with capo.js API.
- * It implements the HTMLAdapter interface required by capo.js.
+ *   This adapter bridges HTML ESLint AST nodes with capo.js API. It implements
+ *   the HTMLAdapter interface required by capo.js.
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { findAttr } = require("./node");
 
-/**
- * Adapter for HTML ESLint AST nodes to work with capo.js
- */
+/** Adapter for HTML ESLint AST nodes to work with capo.js */
 class HtmlEslintAdapter {
   /**
    * Check if node is an Element (Tag, ScriptTag, or StyleTag)
+   *
    * @param {any} node - The node to check
    * @returns {boolean}
    */
@@ -28,6 +27,7 @@ class HtmlEslintAdapter {
 
   /**
    * Get the tag name of an element (lowercase)
+   *
    * @param {any} node - Element node
    * @returns {string} - Tag name like 'meta', 'link', 'script'
    */
@@ -54,6 +54,7 @@ class HtmlEslintAdapter {
 
   /**
    * Get attribute value from element
+   *
    * @param {any} node - Element node
    * @param {string} attrName - Attribute name (case-insensitive)
    * @returns {string | null} - Attribute value or null if not found
@@ -73,6 +74,7 @@ class HtmlEslintAdapter {
 
   /**
    * Check if element has a specific attribute
+   *
    * @param {any} node - Element node
    * @param {string} attrName - Attribute name (case-insensitive)
    * @returns {boolean} - True if attribute exists
@@ -87,6 +89,7 @@ class HtmlEslintAdapter {
 
   /**
    * Get all attribute names for an element
+   *
    * @param {any} node - Element node
    * @returns {string[]} - Array of attribute names
    */
@@ -108,6 +111,7 @@ class HtmlEslintAdapter {
 
   /**
    * Get text content of a node (for inline scripts/styles)
+   *
    * @param {any} node - Element node
    * @returns {string} - Text content
    */
@@ -117,7 +121,10 @@ class HtmlEslintAdapter {
     }
 
     // ScriptTag and StyleTag have a value property containing the content
-    if (node.type === NODE_TYPES.ScriptTag || node.type === NODE_TYPES.StyleTag) {
+    if (
+      node.type === NODE_TYPES.ScriptTag ||
+      node.type === NODE_TYPES.StyleTag
+    ) {
       if (node.value && node.value.value) {
         return node.value.value;
       }
@@ -128,8 +135,10 @@ class HtmlEslintAdapter {
 
   /**
    * Get child elements of a node
+   *
    * @param {any} node - Parent node
-   * @returns {any[]} - Array of child element nodes (excluding text/comment nodes)
+   * @returns {any[]} - Array of child element nodes (excluding text/comment
+   *   nodes)
    */
   getChildren(node) {
     if (!node || !node.children) {
@@ -144,6 +153,7 @@ class HtmlEslintAdapter {
 
   /**
    * Get parent element of a node
+   *
    * @param {any} node - Child node
    * @returns {any | null} - Parent element node, or null if no parent
    */
@@ -153,8 +163,10 @@ class HtmlEslintAdapter {
 
   /**
    * Get sibling elements of a node
+   *
    * @param {any} node - Element node
-   * @returns {any[]} - Array of sibling element nodes (excluding the node itself)
+   * @returns {any[]} - Array of sibling element nodes (excluding the node
+   *   itself)
    */
   getSiblings(node) {
     const parent = this.getParent(node);
@@ -168,8 +180,14 @@ class HtmlEslintAdapter {
 
   /**
    * Get source location for a node
+   *
    * @param {any} node - Element node
-   * @returns {{ line: number, column: number, endLine?: number, endColumn?: number } | null}
+   * @returns {{
+   *   line: number;
+   *   column: number;
+   *   endLine?: number;
+   *   endColumn?: number;
+   * } | null}
    */
   getLocation(node) {
     if (!node || !node.loc) {
@@ -186,6 +204,7 @@ class HtmlEslintAdapter {
 
   /**
    * Stringify element for logging/debugging
+   *
    * @param {any} node - Element node
    * @returns {string} - String representation like "<meta charset='utf-8'>"
    */

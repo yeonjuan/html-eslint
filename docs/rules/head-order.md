@@ -35,8 +35,8 @@ Examples of **incorrect** code for this rule:
 ```html
 <!-- ✗ BAD: title should come before preconnect -->
 <head>
-  <meta charset="UTF-8">
-  <link rel="preconnect" href="https://example.com">
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://example.com" />
   <title>Page Title</title>
 </head>
 ```
@@ -45,17 +45,17 @@ Examples of **incorrect** code for this rule:
 <!-- ✗ BAD: meta charset should come before title -->
 <head>
   <title>Page Title</title>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
 </head>
 ```
 
 ```html
 <!-- ✗ BAD: stylesheet should come before preload -->
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Page Title</title>
-  <link rel="preload" href="font.woff" as="font">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preload" href="font.woff" as="font" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 ```
 
@@ -64,25 +64,29 @@ Examples of **correct** code for this rule:
 ```html
 <!-- ✓ GOOD: optimal order -->
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Page Title</title>
-  <link rel="preconnect" href="https://example.com">
+  <link rel="preconnect" href="https://example.com" />
   <script src="script.js" async></script>
-  <style>@import url('styles.css');</style>
-  <script>console.log('sync script');</script>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preload" href="font.woff" as="font">
+  <style>
+    @import url("styles.css");
+  </style>
+  <script>
+    console.log("sync script");
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" href="font.woff" as="font" />
   <script src="deferred.js" defer></script>
-  <link rel="prefetch" href="next-page.html">
+  <link rel="prefetch" href="next-page.html" />
 </head>
 ```
 
 ```html
 <!-- ✓ GOOD: base comes before title (both are META category) -->
 <head>
-  <base href="/">
-  <meta charset="UTF-8">
+  <base href="/" />
+  <meta charset="UTF-8" />
   <title>Page Title</title>
 </head>
 ```

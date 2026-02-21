@@ -92,10 +92,7 @@ declare module "@rviscomi/capo.js" {
   };
 
   export function getWeight(element: any, adapter: HTMLAdapter): number;
-  export function getHeadWeights(
-    head: any,
-    adapter: HTMLAdapter
-  ): WeightInfo[];
+  export function getHeadWeights(head: any, adapter: HTMLAdapter): WeightInfo[];
 
   export function isMeta(element: any, adapter: HTMLAdapter): boolean;
   export function isTitle(element: any, adapter: HTMLAdapter): boolean;
