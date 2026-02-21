@@ -6,11 +6,23 @@
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
-  "main": "lib/index.js",
-  "types": "types/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
   "files": [
-    "lib",
-    "types"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"
@@ -20,10 +32,10 @@
     "url": "git+https://github.com/yeonjuan/html-eslint.git"
   },
   "scripts": {
-    "test": "jest --coverage",
+    "test": "node --experimental-vm-modules --no-warnings ../../node_modules/jest/bin/jest.js --coverage",
     "ts": "tsc --noEmit",
     "lint": "eslint .",
-    "build": "rimraf types && tsc --project tsconfig.build.json"
+    "build": "tsup"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
@@ -47,7 +59,9 @@
     "svelte-eslint-parser": "^1.0.0"
   },
   "devDependencies": {
+    "svelte": "^5.53.1",
     "svelte-eslint-parser": "^1.4.1",
+    "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },
   "engines": {
