@@ -119,7 +119,7 @@ module.exports = {
 
         if (missingProperties.length) {
           context.report({
-            node,
+            node: node.openStart,
             data: {
               properties: missingProperties.join(", "),
             },
