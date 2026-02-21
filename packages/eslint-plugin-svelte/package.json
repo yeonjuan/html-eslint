@@ -43,9 +43,11 @@
     "@typescript-eslint/types": "^8.56.0"
   },
   "peerDependencies": {
-    "eslint": ">=8.0.0 || ^10.0.0-0"
+    "eslint": ">=8.0.0 || ^10.0.0-0",
+    "svelte-eslint-parser": "^1.0.0"
   },
   "devDependencies": {
+    "svelte-eslint-parser": "^1.4.1",
     "typescript": "^5.9.3"
   },
   "engines": {
