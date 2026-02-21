@@ -2,7 +2,7 @@
 
 > Enforce optimal ordering of elements in `<head>`
 
-The order of elements in the `<head>` tag can affect the (perceived) performance of a web page. This rule enforces the optimal ordering of `<head>` elements based on [capo.js](https://github.com/rviscomi/capo.js) by Rick Viscomi, which is inspired by Harry Roberts' work on [ct.css](https://csswizardry.com/ct/) and Vitaly Friedman's [Nordic.js 2022 presentation](https://youtu.be/uqLl-Yew2o8?t=2873).
+The order of elements in the `<head>` tag can affect the (perceived) performance of a web page. This rule enforces the optimal ordering of `<head>` elements based on [capo.js](https://github.com/rviscomi/capo.js).
 
 ## How to use
 
