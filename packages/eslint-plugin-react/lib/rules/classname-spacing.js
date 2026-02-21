@@ -26,7 +26,7 @@ module.exports = {
     docs: {
       description: "Disallow extra spacing in className values",
       category: "Stylistic Issues",
-      recommended: false,
+      recommended: true,
       url: "https://html-eslint.org/docs/react/rules/classname-spacing",
     },
 
@@ -48,11 +48,11 @@ module.exports = {
     ],
     messages: {
       [CLASS_SPACING_MESSAGE_IDS.extraSpacingStart]:
-        "Unexpected space at the start of className value",
+        "Unexpected space at the start of className",
       [CLASS_SPACING_MESSAGE_IDS.extraSpacingEnd]:
-        "Unexpected space at the end of className value",
+        "Unexpected space at the end of className",
       [CLASS_SPACING_MESSAGE_IDS.extraSpacingBetween]:
-        "Unexpected extra spaces between class names",
+        "Unexpected extra spaces between classNames",
     },
   },
 
