@@ -1,6 +1,5 @@
 const { runESLint, runTypecheck } = require("../lib/test-utils");
 
-/** Helper function to test ESLint results */
 function expectLintResult(result, { shouldHaveErrors = false } = {}) {
   expect(result[0].fatalErrorCount).toBe(0);
   if (shouldHaveErrors) {
@@ -10,7 +9,6 @@ function expectLintResult(result, { shouldHaveErrors = false } = {}) {
   }
 }
 
-/** Helper function to test multiple files with ESLint */
 async function testESLintFiles({
   fixtureName,
   eslintVersion,
