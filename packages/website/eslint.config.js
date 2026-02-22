@@ -53,7 +53,13 @@ module.exports = defineConfig([
       "html/indent": ["error", 2],
       "html/no-inline-styles": "off",
       "html/id-naming-convention": ["error", "kebab-case"],
-      "html/head-order": ["error", 2],
+      "html/head-order": ["error",{
+        ignores: [
+          {
+            tagPattern: "^block$"
+          }
+        ]
+      }],
     },
   },
 ]);

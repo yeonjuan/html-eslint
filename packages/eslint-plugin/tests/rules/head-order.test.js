@@ -66,6 +66,88 @@ ruleTester.run("head-order", rule, {
 </html>
       `,
     },
+    // With ignores - script tags ignored
+    {
+      code: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="analytics.js" defer></script>
+  <script src="tracking.js" defer></script>
+</head>
+</html>
+      `,
+      options: [{ ignores: [{ tagPattern: "^script$" }] }],
+    },
+    // With ignores - specific link with rel="preconnect" ignored
+    {
+      code: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <script src="deferred.js" defer></script>
+  <link rel="preconnect" href="https://analytics.com">
+</head>
+</html>
+      `,
+      options: [
+        {
+          ignores: [
+            { tagPattern: "^link$", attrKeyPattern: "^rel$", attrValuePattern: "preconnect" },
+          ],
+        },
+      ],
+    },
+    // With ignores - multiple conditions (AND)
+    {
+      code: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="analytics.js" defer></script>
+</head>
+</html>
+      `,
+      options: [
+        {
+          ignores: [{ tagPattern: "^script$", attrValuePattern: "analytics" }],
+        },
+      ],
+    },
+    // With ignores - attribute key pattern matching specific attribute
+    {
+      code: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://example.com" data-ignore="true">
+</head>
+</html>
+      `,
+      options: [{ ignores: [{ attrKeyPattern: "^data-ignore$" }] }],
+    },
+    // With ignores - tag and attribute value pattern (AND condition) - all scripts ignored
+    {
+      code: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js"></script>
+  <script src="analytics.js"></script>
+</head>
+</html>
+      `,
+      options: [{ ignores: [{ tagPattern: "^script$" }] }],
+    },
   ],
   invalid: [
     // TITLE (9) should come before PRECONNECT (8)
@@ -257,6 +339,83 @@ ruleTester.run("head-order", rule, {
           data: {
             nextCategory: "PRECONNECT",
             currentCategory: "DEFER_SCRIPT",
+          },
+        },
+      ],
+    },
+    // With ignores - ignored tags maintain position, others are sorted
+    {
+      code: `
+<html>
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <script src="ignored.js" defer></script>
+  <title>Test</title>
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <script src="ignored.js" defer></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+</html>
+      `,
+      options: [
+        { ignores: [{ tagPattern: "^script$", attrValuePattern: "ignored" }] },
+      ],
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "META",
+            currentCategory: "SYNC_STYLES",
+          },
+        },
+      ],
+    },
+    // With ignores - multiple ignore patterns
+    {
+      code: `
+<html>
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <script src="analytics.js"></script>
+  <title>Test</title>
+  <link rel="preconnect" href="https://cdn.example.com">
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <script src="analytics.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://cdn.example.com">
+</head>
+</html>
+      `,
+      options: [
+        {
+          ignores: [
+            { tagPattern: "^script$", attrValuePattern: "analytics" },
+            { tagPattern: "^link$", attrValuePattern: "cdn" },
+          ],
+        },
+      ],
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "META",
+            currentCategory: "SYNC_STYLES",
           },
         },
       ],

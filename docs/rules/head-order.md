@@ -16,6 +16,39 @@ module.exports = {
 };
 ```
 
+## Options
+
+This rule has an optional object option with the following property:
+
+- `ignores`: An array of ignore pattern objects. Each object can have the following optional properties:
+  - `tagPattern`: Regex pattern for tag names (e.g., `"^script$"`, `"^link$"`)
+  - `attrKeyPattern`: Regex pattern for attribute keys (e.g., `"^rel$"`, `"^data-"`)
+  - `attrValuePattern`: Regex pattern for attribute values (e.g., `"analytics"`, `"^https://cdn"`)
+
+All specified patterns within an ignore object must match (AND condition) for an element to be ignored.
+
+```js,.eslintrc.js
+module.exports = {
+  rules: {
+    "@html-eslint/head-order": [
+      "error",
+      {
+        ignores: [
+          // Ignore all script tags
+          { tagPattern: "^script$" },
+          // Ignore link tags with rel="preconnect" containing "cdn" in the value
+          {
+            tagPattern: "^link$",
+            attrKeyPattern: "^rel$",
+            attrValuePattern: "cdn",
+          },
+        ],
+      },
+    ],
+  },
+};
+```
+
 ## Rule Details
 
 This rule enforces that elements within the `<head>` tag follow the optimal loading order for web performance. Elements are categorized and should appear in this order (from highest to lowest priority):
@@ -91,6 +124,79 @@ Examples of **correct** code for this rule:
   <meta charset="UTF-8" />
   <title>Page Title</title>
 </head>
+```
+
+### With `ignores` option
+
+#### Example 1: Ignore all script tags
+
+```html
+<!-- ✓ GOOD: all scripts are ignored, other elements follow optimal order -->
+<head>
+  <meta charset="UTF-8" />
+  <title>Page Title</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="analytics.js" defer></script>
+  <!-- script position is ignored -->
+  <script src="app.js"></script>
+  <!-- script position is ignored -->
+</head>
+```
+
+With configuration:
+
+```js,.eslintrc.js
+{
+  ignores: [{ tagPattern: "^script$" }];
+}
+```
+
+#### Example 2: Ignore scripts with specific src (AND condition)
+
+```html
+<!-- ✓ GOOD: only analytics scripts are ignored -->
+<head>
+  <meta charset="UTF-8" />
+  <title>Page Title</title>
+  <script src="async.js" async></script>
+  <!-- follows optimal order -->
+  <script src="analytics.js"></script>
+  <!-- ignored: matches both tagPattern AND attrValuePattern -->
+</head>
+```
+
+With configuration:
+
+```js,.eslintrc.js
+{
+  ignores: [{ tagPattern: "^script$", attrValuePattern: "analytics" }];
+}
+```
+
+#### Example 3: Multiple ignore patterns
+
+```html
+<!-- ✓ GOOD: analytics scripts and cdn preconnect links are ignored -->
+<head>
+  <meta charset="UTF-8" />
+  <title>Page Title</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="analytics.js"></script>
+  <!-- ignored -->
+  <link rel="preconnect" href="https://cdn.example.com" />
+  <!-- ignored -->
+</head>
+```
+
+With configuration:
+
+```js,.eslintrc.js
+{
+  ignores: [
+    { tagPattern: "^script$", attrValuePattern: "analytics" },
+    { tagPattern: "^link$", attrValuePattern: "cdn" },
+  ];
+}
 ```
 
 ## Why?
