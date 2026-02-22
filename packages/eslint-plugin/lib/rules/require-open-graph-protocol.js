@@ -108,7 +108,7 @@ module.exports = {
             requiredProperties.includes(property.value.value)
           ) {
             const content = findAttr(meta, "content");
-            return !content || !content.value || !content.value.value;
+            return !content?.value?.value;
           }
           return false;
         });

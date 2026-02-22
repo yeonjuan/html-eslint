@@ -80,9 +80,7 @@ module.exports = {
   },
 
   create(context) {
-    const convention = context.options?.length
-      ? context.options[0]
-      : CONVENTIONS.SNAKE_CASE;
+    const convention = context.options?.[0] ?? CONVENTIONS.SNAKE_CASE;
 
     const checkNaming =
       convention === CONVENTIONS.REGEX

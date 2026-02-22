@@ -43,10 +43,7 @@ module.exports = {
           return;
         }
 
-        if (
-          (ariaHiddenAttr.value && ariaHiddenAttr.value.value !== "false") ||
-          !ariaHiddenAttr.value
-        ) {
+        if (ariaHiddenAttr.value?.value !== "false" || !ariaHiddenAttr.value) {
           context.report({
             node: ariaHiddenAttr,
             messageId: MESSAGE_IDS.UNEXPECTED,

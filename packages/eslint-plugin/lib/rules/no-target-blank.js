@@ -53,7 +53,7 @@ module.exports = {
               return;
             }
 
-            if (!rel || !rel.value || !rel.value.value.includes("noreferrer")) {
+            if (!rel?.value?.value.includes("noreferrer")) {
               context.report({
                 node: target,
                 messageId: MESSAGE_IDS.MISSING,

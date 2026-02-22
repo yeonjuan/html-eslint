@@ -36,7 +36,7 @@ module.exports = {
     return createVisitors(context, {
       Tag(node) {
         const role = findAttr(node, "role");
-        if (!role || !role.value || !role.value.value) {
+        if (!role?.value?.value) {
           return;
         }
 

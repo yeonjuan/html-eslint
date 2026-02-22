@@ -58,8 +58,7 @@ module.exports = {
       lines.forEach((line, index) => {
         const lineNumber = index + offset.line;
         const match = line.match(/[ \t\u00a0\u2000-\u200b\u3000]+$/);
-        const lineBreakLength =
-          lineBreaks && lineBreaks[index] ? lineBreaks[index].length : 1;
+        const lineBreakLength = lineBreaks?.[index]?.length ?? 1;
         const lineLength = line.length + lineBreakLength;
         const columnOffset = index === 0 ? offset.column : 0;
         if (match) {

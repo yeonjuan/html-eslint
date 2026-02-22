@@ -59,9 +59,8 @@ module.exports = {
 
       const contentEditableAttr = findAttr(node, "contenteditable");
       if (contentEditableAttr) {
-        const value = contentEditableAttr.value
-          ? contentEditableAttr.value.value.toLowerCase()
-          : "";
+        const value = contentEditableAttr.value?.value.toLowerCase() ?? "";
+
         if (value === "" || value === "true" || value === "plaintext-only") {
           return true;
         }
@@ -95,7 +94,7 @@ module.exports = {
     return createVisitors(context, {
       Tag(node) {
         const ariaHiddenAttr = findAttr(node, "aria-hidden");
-        if (!ariaHiddenAttr || !ariaHiddenAttr.value) {
+        if (!ariaHiddenAttr?.value) {
           return;
         }
 

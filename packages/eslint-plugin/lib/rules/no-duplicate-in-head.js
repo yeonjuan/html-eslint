@@ -94,8 +94,7 @@ module.exports = {
             return;
           }
 
-          const currentHeadCount =
-            headCountRef !== null ? headCountRef.count : headCount;
+          const currentHeadCount = headCountRef?.count ?? headCount;
           if (currentHeadCount === 0) return;
 
           const trackingKey = getTrackingKey(node);

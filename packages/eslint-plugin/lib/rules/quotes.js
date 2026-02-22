@@ -67,9 +67,7 @@ module.exports = {
   },
 
   create(context) {
-    const SELECTED_STYLE = context.options?.length
-      ? context.options[0]
-      : QUOTES_STYLES.DOUBLE;
+    const SELECTED_STYLE = context.options?.[0] ?? QUOTES_STYLES.DOUBLE;
     const expectedQuote = SELECTED_STYLE === QUOTES_STYLES.DOUBLE ? `"` : `'`;
     const enforceTemplatedAttrValue =
       context.options?.[1]?.enforceTemplatedAttrValue;

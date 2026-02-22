@@ -98,7 +98,7 @@ module.exports = {
           });
         }
 
-        if (!width || !width.value) {
+        if (!width?.value) {
           context.report({
             node: node.openStart,
             messageId: MESSAGE_IDS.MISSING_WIDTH,
