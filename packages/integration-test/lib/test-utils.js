@@ -26,6 +26,7 @@ function packageFileVersion(name) {
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
  * @param {string} params.dir
+ * @param {string[]} params.localPackages
  * @param {boolean} [params.ts]
  * @param {Record<string, string>} [params.scripts]
  */
@@ -35,7 +36,13 @@ async function makePackageJson({
   dir,
   ts,
   scripts,
+  localPackages,
 }) {
+  const devDependencies = {};
+  localPackages.forEach((pkg) => {
+    devDependencies[pkg] = packageFileVersion(pkg.replace("@html-eslint/", ""));
+  });
+
   const packageJson = {
     name: fixtureName,
     private: true,
@@ -44,12 +51,8 @@ async function makePackageJson({
     scripts,
     devDependencies: {
       eslint: eslintVersion,
-      "@html-eslint/eslint-plugin": packageFileVersion("eslint-plugin"),
-      "@html-eslint/parser": packageFileVersion("parser"),
-      "@html-eslint/eslint-plugin-react": packageFileVersion(
-        "eslint-plugin-react"
-      ),
       typescript: ts ? "5.9.3" : undefined,
+      ...devDependencies,
     },
     resolutions: {
       "@html-eslint/template-parser": packageFileVersion("template-parser"),
@@ -57,6 +60,7 @@ async function makePackageJson({
         "template-syntax-parser"
       ),
       "@html-eslint/core": packageFileVersion("core"),
+      "@html-eslint/parser": packageFileVersion("parser"),
     },
   };
   await writeFile(
@@ -71,14 +75,29 @@ async function makePackageJson({
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
  * @param {Record<string, string>} [params.scripts]
+ * @param {string[]} params.localPackages
+ * @param {string[]} params.log
  * @returns {Promise<{ dir: string }>}
  */
-async function setup({ fixtureName, eslintVersion, scripts }) {
+async function setup({
+  fixtureName,
+  eslintVersion,
+  scripts,
+  localPackages,
+  log,
+}) {
   const dir = await tmpDir();
   const fixturePath = path.join(__dirname, "../fixtures/", fixtureName);
 
   await copyDir(fixturePath, dir);
-  await makePackageJson({ fixtureName, eslintVersion, dir, scripts });
+  await makePackageJson({
+    fixtureName,
+    eslintVersion,
+    dir,
+    scripts,
+    localPackages,
+    log,
+  });
   return { dir };
 }
 
@@ -87,14 +106,22 @@ async function setup({ fixtureName, eslintVersion, scripts }) {
  * @param {string} params.glob
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
+ * @param {string[]} localPackages
+ * @param {boolean} log
  */
-async function runESLint({ fixtureName, eslintVersion, glob }) {
-  const { dir } = await setup({ fixtureName, eslintVersion });
+async function runESLint({
+  fixtureName,
+  eslintVersion,
+  glob,
+  localPackages,
+  log,
+}) {
+  const { dir } = await setup({ fixtureName, eslintVersion, localPackages });
 
   await execFile("yarn", ["install", "--no-immutable"], {
     cwd: dir,
   }).catch((e) => {
-    console.error(e);
+    log && console.error(e);
   });
   const outFile = await tmpFile();
   await execFile(
@@ -103,7 +130,9 @@ async function runESLint({ fixtureName, eslintVersion, glob }) {
     {
       cwd: dir,
     }
-  ).catch(() => {});
+  ).catch((e) => {
+    log && console.error(e);
+  });
 
   const result = await readFile(outFile, "utf-8");
 
@@ -116,8 +145,15 @@ async function runESLint({ fixtureName, eslintVersion, glob }) {
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
  * @param {string} params.fileName
+ * @param {string[]} params.localPackages
+ * @param {boolean} params.log
  */
-async function runTypecheck({ fixtureName, eslintVersion }) {
+async function runTypecheck({
+  fixtureName,
+  eslintVersion,
+  localPackages,
+  log,
+}) {
   let error;
   const { dir } = await setup({
     fixtureName,
@@ -125,16 +161,18 @@ async function runTypecheck({ fixtureName, eslintVersion }) {
     scripts: {
       ts: `tsc -p ./tsconfig.json`,
     },
+    localPackages,
+    log,
   });
   await execFile("yarn", ["install", "--no-immutable"], {
     cwd: dir,
   }).catch((e) => {
-    console.error(e);
+    log && console.error(e);
   });
   await execFile("yarn", ["run", "ts"], {
     cwd: dir,
   }).catch((e) => {
-    console.error(e);
+    log && console.error(e);
     error = e;
   });
   return error;
