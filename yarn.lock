@@ -1541,7 +1541,7 @@ __metadata:
     "@html-eslint/template-parser": "npm:^0.56.0"
     "@html-eslint/template-syntax-parser": "npm:^0.56.0"
     "@html-eslint/types": "npm:^0.56.0"
-    "@rviscomi/capo.js": "file:../../../capo.js"
+    "@rviscomi/capo.js": "npm:^2.1.0"
     "@types/estree": "npm:^0.0.47"
     es-html-parser: "npm:0.3.1"
     eslint: "npm:^9.39.1"
@@ -4736,10 +4736,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rviscomi/capo.js@file:../../../capo.js::locator=%40html-eslint%2Feslint-plugin%40workspace%3Apackages%2Feslint-plugin":
+"@rviscomi/capo.js@npm:^2.1.0":
   version: 2.1.0
-  resolution: "@rviscomi/capo.js@file:../../../capo.js#../../../capo.js::hash=033837&locator=%40html-eslint%2Feslint-plugin%40workspace%3Apackages%2Feslint-plugin"
-  checksum: 10c0/d59c15f5caf9370faaead16004a297ccabecf16194cd5216b9f3251cab4df0c3cecefc7f78dfa1dbd6f3ee0b273806dce927c8ac5e18eb5dcc5643d10f3c45e5
+  resolution: "@rviscomi/capo.js@npm:2.1.0"
+  checksum: 10c0/4d6ce3ecfd7d117282f19ee4274158bc95c80bea234bc58826d3ef02814f2a777a5808f1b22bbd99a6054c4ad0a7abc45019c72546dc1abe2662ca7ef208da1d
   languageName: node
   linkType: hard
 

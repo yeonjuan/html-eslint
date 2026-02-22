@@ -1,10 +1,4 @@
-/**
- * @import {
- *   AnyNode,
- *   Tag
- * } from "@html-eslint/types"
- * @import {RuleModule} from "../types"
- */
+/** @import {RuleModule} from "../types" */
 
 const { RULE_CATEGORY } = require("../constants");
 const { getRuleUrl } = require("./utils/rule");
@@ -43,24 +37,17 @@ module.exports = {
         if (node.name !== "head") {
           return;
         }
+        const analysis = analyzeHeadWithOrdering(node, adapter);
 
-        try {
-          const analysis = analyzeHeadWithOrdering(node, adapter);
-
-          // Report ordering violations
-          for (const violation of analysis.orderingViolations) {
-            context.report({
-              node: violation.nextElement,
-              messageId: MESSAGE_IDS.WRONG_ORDER,
-              data: {
-                nextCategory: violation.nextCategory,
-                currentCategory: violation.currentCategory,
-              },
-            });
-          }
-        } catch (error) {
-          // Silently fail if capo.js encounters an error
-          // This prevents the linter from crashing on unexpected HTML structures
+        for (const violation of analysis.orderingViolations) {
+          context.report({
+            node: violation.nextElement,
+            messageId: MESSAGE_IDS.WRONG_ORDER,
+            data: {
+              nextCategory: violation.nextCategory,
+              currentCategory: violation.currentCategory,
+            },
+          });
         }
       },
     };
