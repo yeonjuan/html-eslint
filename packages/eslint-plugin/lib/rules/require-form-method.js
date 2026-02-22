@@ -61,10 +61,7 @@ module.exports = {
           return;
         }
 
-        if (
-          method.value.parts &&
-          method.value.parts.some((part) => part.type !== NODE_TYPES.Part)
-        ) {
+        if (method.value.parts?.some((part) => part.type !== NODE_TYPES.Part)) {
           return;
         }
 

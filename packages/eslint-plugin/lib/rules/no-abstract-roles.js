@@ -54,11 +54,7 @@ module.exports = {
     /** @param {Tag | ScriptTag | StyleTag} node */
     function check(node) {
       const roleAttr = findAttr(node, "role");
-      if (
-        roleAttr &&
-        roleAttr.value &&
-        ABSTRACT_ROLE_SET.has(roleAttr.value.value)
-      ) {
+      if (roleAttr?.value && ABSTRACT_ROLE_SET.has(roleAttr.value.value)) {
         context.report({
           messageId: MESSAGE_IDS.UNEXPECTED,
           node: roleAttr,

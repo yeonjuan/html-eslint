@@ -30,8 +30,7 @@ function hasOnlyWhitespaceChildren(node) {
       continue;
     }
     if (isText(child)) {
-      // Check if text contains any non-whitespace characters
-      if (child.value && child.value.trim().length > 0) {
+      if (child.value?.trim().length > 0) {
         return false;
       }
     } else {

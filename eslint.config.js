@@ -35,7 +35,7 @@ module.exports = [
         ...globals.node,
       },
 
-      ecmaVersion: 9,
+      ecmaVersion: 2020,
       sourceType: "commonjs",
     },
 

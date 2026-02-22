@@ -1559,6 +1559,7 @@ __metadata:
     "@html-eslint/template-parser": "npm:^0.56.0"
     "@html-eslint/template-syntax-parser": "npm:^0.56.0"
     "@html-eslint/types": "npm:^0.56.0"
+    "@rviscomi/capo.js": "npm:^2.1.0"
     "@types/estree": "npm:^0.0.47"
     es-html-parser: "npm:0.3.1"
     eslint: "npm:^9.39.1"
@@ -4760,6 +4761,13 @@ __metadata:
   version: 4.57.1
   resolution: "@rollup/rollup-win32-x64-msvc@npm:4.57.1"
   conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rviscomi/capo.js@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@rviscomi/capo.js@npm:2.1.0"
+  checksum: 10c0/4d6ce3ecfd7d117282f19ee4274158bc95c80bea234bc58826d3ef02814f2a777a5808f1b22bbd99a6054c4ad0a7abc45019c72546dc1abe2662ca7ef208da1d
   languageName: node
   linkType: hard
 

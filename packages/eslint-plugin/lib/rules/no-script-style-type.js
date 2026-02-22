@@ -43,12 +43,7 @@ module.exports = {
      */
     function check(node, unnecessaryValue) {
       const type = findAttr(node, "type");
-      if (
-        type &&
-        type.value &&
-        type.value.value &&
-        type.value.value.trim().toLocaleLowerCase() === unnecessaryValue
-      ) {
+      if (type?.value?.value?.trim().toLocaleLowerCase() === unnecessaryValue) {
         context.report({
           node: type,
           messageId: MESSAGE_IDS.UNNECESSARY,
@@ -68,7 +63,7 @@ module.exports = {
       Tag(node) {
         if (node.name === "link") {
           const rel = findAttr(node, "rel");
-          if (rel && rel.value && rel.value.value === "stylesheet") {
+          if (rel?.value?.value === "stylesheet") {
             check(node, "text/css");
           }
         }

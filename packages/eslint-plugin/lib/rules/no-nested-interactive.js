@@ -38,7 +38,7 @@ function isInteractive(tag) {
     // input (if the type attribute is not in the Hidden state)
     case "input": {
       const typeAttr = findAttr(tag, "type");
-      return !(typeAttr && typeAttr.value && typeAttr.value.value === "hidden");
+      return typeAttr?.value?.value !== "hidden";
     }
     case "button":
     case "details":
