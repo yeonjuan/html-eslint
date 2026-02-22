@@ -74,7 +74,15 @@ module.exports = {
     const sourceCode = getSourceCode(context);
     /** @type {RuleOptions} */
     const options = context.options[0] || {};
-    const ignores = options.ignores || [];
+    const ignorePatterns = (options.ignores || []).map((pattern) => ({
+      tagRegex: pattern.tagPattern ? new RegExp(pattern.tagPattern, "u") : null,
+      attrKeyRegex: pattern.attrKeyPattern
+        ? new RegExp(pattern.attrKeyPattern, "u")
+        : null,
+      attrValueRegex: pattern.attrValuePattern
+        ? new RegExp(pattern.attrValuePattern, "u")
+        : null,
+    }));
 
     /**
      * Check if a tag should be ignored based on ignore patterns
@@ -83,31 +91,24 @@ module.exports = {
      * @returns {boolean} - True if the element should be ignored
      */
     function shouldIgnoreElement(element) {
-      return ignores.some((ignorePattern) => {
-        // All specified patterns must match (AND condition)
+      return ignorePatterns.some((pattern) => {
+        /** @type {boolean[]} */
         const checks = [];
 
-        // Check tag pattern
-        if (ignorePattern.tagPattern !== undefined) {
+        if (pattern.tagRegex) {
           const tagName = adapter.getTagName(element);
-          const tagRegex = new RegExp(ignorePattern.tagPattern, "u");
-          checks.push(tagRegex.test(tagName));
+          checks.push(pattern.tagRegex.test(tagName));
         }
 
-        // Check attribute key pattern
-        if (ignorePattern.attrKeyPattern !== undefined) {
+        if (pattern.attrKeyRegex) {
           const attrNames = adapter.getAttributeNames(element);
-          const attrKeyRegex = new RegExp(ignorePattern.attrKeyPattern, "u");
+          const attrKeyRegex = pattern.attrKeyRegex;
           checks.push(attrNames.some((name) => attrKeyRegex.test(name)));
         }
 
-        // Check attribute value pattern
-        if (ignorePattern.attrValuePattern !== undefined) {
+        if (pattern.attrValueRegex) {
           const attrNames = adapter.getAttributeNames(element);
-          const attrValueRegex = new RegExp(
-            ignorePattern.attrValuePattern,
-            "u"
-          );
+          const attrValueRegex = pattern.attrValueRegex;
           const hasMatchingValue = attrNames.some((name) => {
             const value = adapter.getAttribute(element, name);
             return value !== null && attrValueRegex.test(value);
