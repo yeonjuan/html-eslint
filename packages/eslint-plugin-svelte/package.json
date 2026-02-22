@@ -59,6 +59,8 @@
     "svelte-eslint-parser": "^1.0.0"
   },
   "devDependencies": {
+    "@types/eslint-scope": "^9.1.0",
+    "@typescript-eslint/parser": "^8.56.0",
     "svelte": "^5.53.1",
     "svelte-eslint-parser": "^1.4.1",
     "tsup": "^8.5.1",
