@@ -5,6 +5,11 @@ const { getRuleUrl } = require("./utils/rule");
 const { HtmlEslintAdapter } = require("./utils/capo-adapter");
 const { analyzeHeadWithOrdering, getWeight } = require("@rviscomi/capo.js");
 const { getSourceCode } = require("./utils/source-code");
+const { parseTemplateLiteral } = require("./utils/template-literal");
+const {
+  shouldCheckTaggedTemplateExpression,
+  shouldCheckTemplateLiteral,
+} = require("./utils/settings");
 
 const MESSAGE_IDS = {
   WRONG_ORDER: "wrongOrder",
@@ -121,74 +126,102 @@ module.exports = {
       });
     }
 
-    return {
-      Tag(node) {
-        if (node.name !== "head") {
-          return;
-        }
-        const analysis = analyzeHeadWithOrdering(node, adapter);
+    /**
+     * Process a head tag node and report violations
+     *
+     * @param {any} node - Head tag node to process
+     */
+    function processHeadTag(node) {
+      if (node.name !== "head") {
+        return;
+      }
+      const analysis = analyzeHeadWithOrdering(node, adapter);
 
-        if (analysis.orderingViolations.length === 0) {
-          return;
-        }
+      if (analysis.orderingViolations.length === 0) {
+        return;
+      }
 
-        const children = adapter.getChildren(node);
+      const children = adapter.getChildren(node);
 
-        // Filter violations to exclude ignored elements
-        const filteredViolations = analysis.orderingViolations.filter(
-          (violation) =>
-            !shouldIgnoreElement(violation.nextElement) &&
-            !shouldIgnoreElement(violation.currentElement)
-        );
+      // Filter violations to exclude ignored elements
+      const filteredViolations = analysis.orderingViolations.filter(
+        (violation) =>
+          !shouldIgnoreElement(violation.nextElement) &&
+          !shouldIgnoreElement(violation.currentElement)
+      );
 
-        for (const violation of filteredViolations) {
-          context.report({
-            node: violation.nextElement,
-            messageId: MESSAGE_IDS.WRONG_ORDER,
-            data: {
-              nextCategory: violation.nextCategory,
-              currentCategory: violation.currentCategory,
-            },
-            fix(fixer) {
-              // Separate children into ignored and non-ignored
-              const childrenWithIgnoreFlag = children.map((child) => ({
-                element: child,
-                ignored: shouldIgnoreElement(child),
-                originalIndex: children.indexOf(child),
-              }));
+      for (const violation of filteredViolations) {
+        context.report({
+          node: violation.nextElement,
+          messageId: MESSAGE_IDS.WRONG_ORDER,
+          data: {
+            nextCategory: violation.nextCategory,
+            currentCategory: violation.currentCategory,
+          },
+          fix(fixer) {
+            // Separate children into ignored and non-ignored
+            const childrenWithIgnoreFlag = children.map((child) => ({
+              element: child,
+              ignored: shouldIgnoreElement(child),
+              originalIndex: children.indexOf(child),
+            }));
 
-              // Get non-ignored children and sort them
-              const nonIgnoredChildren = childrenWithIgnoreFlag
-                .filter((item) => !item.ignored)
-                .map((item) => item.element);
+            // Get non-ignored children and sort them
+            const nonIgnoredChildren = childrenWithIgnoreFlag
+              .filter((item) => !item.ignored)
+              .map((item) => item.element);
 
-              const sortedNonIgnored = [...nonIgnoredChildren].sort((a, b) => {
-                const weightA = getWeight(a, adapter);
-                const weightB = getWeight(b, adapter);
-                return weightB - weightA;
-              });
+            const sortedNonIgnored = [...nonIgnoredChildren].sort((a, b) => {
+              const weightA = getWeight(a, adapter);
+              const weightB = getWeight(b, adapter);
+              return weightB - weightA;
+            });
 
-              const fixes = [];
+            const fixes = [];
 
-              // Only replace non-ignored children
-              let sortedIndex = 0;
-              for (let i = 0; i < children.length; i++) {
-                const originalChild = children[i];
+            // Only replace non-ignored children
+            let sortedIndex = 0;
+            for (let i = 0; i < children.length; i++) {
+              const originalChild = children[i];
 
-                if (!shouldIgnoreElement(originalChild)) {
-                  const sortedChild = sortedNonIgnored[sortedIndex];
-                  sortedIndex++;
+              if (!shouldIgnoreElement(originalChild)) {
+                const sortedChild = sortedNonIgnored[sortedIndex];
+                sortedIndex++;
 
-                  if (originalChild !== sortedChild) {
-                    const sortedText = sourceCode.getText(sortedChild);
-                    fixes.push(fixer.replaceText(originalChild, sortedText));
-                  }
+                if (originalChild !== sortedChild) {
+                  // @ts-ignore
+                  const sortedText = sourceCode.getText(sortedChild);
+                  fixes.push(fixer.replaceText(originalChild, sortedText));
                 }
               }
+            }
 
-              return fixes;
-            },
-          });
+            return fixes;
+          },
+        });
+      }
+    }
+
+    return {
+      Tag(node) {
+        processHeadTag(node);
+      },
+
+      TaggedTemplateExpression(node) {
+        if (shouldCheckTaggedTemplateExpression(node, context)) {
+          const visitor = {
+            Tag: processHeadTag,
+          };
+          parseTemplateLiteral(node.quasi, sourceCode, visitor);
+        }
+      },
+
+      TemplateLiteral(node) {
+        if (shouldCheckTemplateLiteral(node, context)) {
+          const visitor = {
+            Tag: processHeadTag,
+          };
+          parseTemplateLiteral(node, sourceCode, visitor);
         }
       },
     };

@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/head-order");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("head-order", rule, {
   valid: [
@@ -424,12 +425,334 @@ ruleTester.run("head-order", rule, {
         },
       ],
     },
+    // IMPORT_STYLES (6) should come before SYNC_SCRIPT (5)
+    {
+      code: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <script>console.log('sync');</script>
+  <style>@import url('fonts.css');</style>
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <style>@import url('fonts.css');</style>
+  <script>console.log('sync');</script>
+</head>
+</html>
+      `,
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "IMPORT_STYLES",
+            currentCategory: "SYNC_SCRIPT",
+          },
+        },
+      ],
+    },
   ],
 });
 
-// Template tests are not applicable for this rule as it analyzes full HTML documents
-// The rule requires analyzing the <head> element structure which is specific to .html files
-// templateRuleTester.run("[template] head-order", rule, {
-//   valid: [],
-//   invalid: [],
-// });
+templateRuleTester.run("[template] head-order", rule, {
+  valid: [
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test Page</title>
+  <link rel="preconnect" href="https://example.com">
+  <script src="script.js" async></script>
+</head>
+</html>
+\`;
+      `,
+    },
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+</head>
+</html>
+\`;
+      `,
+    },
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="analytics.js" defer></script>
+</head>
+</html>
+\`;
+      `,
+      options: [{ ignores: [{ tagPattern: "^script$" }] }],
+    },
+    // With expressions - meta with expression attribute
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="\${charset}">
+  <title>Test</title>
+  <link rel="preconnect" href="https://example.com">
+</head>
+</html>
+\`;
+      `,
+    },
+    // With expressions - link with expression in href
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="preconnect" href="\${cdnUrl}">
+  <script src="\${scriptUrl}" async></script>
+</head>
+</html>
+\`;
+      `,
+    },
+    // With expressions - script with expression
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <script src="\${asyncScript}" async></script>
+  <script src="\${syncScript}"></script>
+</head>
+</html>
+\`;
+      `,
+    },
+  ],
+  invalid: [
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://example.com">
+  <title>Test</title>
+</head>
+</html>
+\`;
+      `,
+      output: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="preconnect" href="https://example.com">
+</head>
+</html>
+\`;
+      `,
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "TITLE",
+            currentCategory: "PRECONNECT",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <title>Test</title>
+  <meta charset="UTF-8">
+</head>
+</html>
+\`;
+      `,
+      output: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+</head>
+</html>
+\`;
+      `,
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "META",
+            currentCategory: "TITLE",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="preload" href="font.woff" as="font">
+  <link rel="stylesheet" href="styles.css">
+</head>
+</html>
+\`;
+      `,
+      output: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preload" href="font.woff" as="font">
+</head>
+</html>
+\`;
+      `,
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "SYNC_STYLES",
+            currentCategory: "PRELOAD",
+          },
+        },
+      ],
+    },
+    // With expressions - TITLE should come before PRECONNECT
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="\${charset}">
+  <link rel="preconnect" href="\${cdnUrl}">
+  <title>Test</title>
+</head>
+</html>
+\`;
+      `,
+      output: `
+const template = html\`
+<html>
+<head>
+  <meta charset="\${charset}">
+  <title>Test</title>
+  <link rel="preconnect" href="\${cdnUrl}">
+</head>
+</html>
+\`;
+      `,
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "TITLE",
+            currentCategory: "PRECONNECT",
+          },
+        },
+      ],
+    },
+    // With expressions - ASYNC_SCRIPT should come before SYNC_SCRIPT
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <script src="\${syncScript}"></script>
+  <script src="\${asyncScript}" async></script>
+</head>
+</html>
+\`;
+      `,
+      output: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <script src="\${asyncScript}" async></script>
+  <script src="\${syncScript}"></script>
+</head>
+</html>
+\`;
+      `,
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "ASYNC_SCRIPT",
+            currentCategory: "SYNC_SCRIPT",
+          },
+        },
+      ],
+    },
+    // With expressions - SYNC_STYLES should come before PRELOAD
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="preload" href="\${fontUrl}" as="font">
+  <link rel="stylesheet" href="\${cssUrl}">
+</head>
+</html>
+\`;
+      `,
+      output: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="stylesheet" href="\${cssUrl}">
+  <link rel="preload" href="\${fontUrl}" as="font">
+</head>
+</html>
+\`;
+      `,
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "SYNC_STYLES",
+            currentCategory: "PRELOAD",
+          },
+        },
+      ],
+    },
+  ],
+});
