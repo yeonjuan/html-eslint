@@ -80,10 +80,9 @@ module.exports = {
   },
 
   create(context) {
-    const convention =
-      context.options && context.options.length
-        ? context.options[0]
-        : CONVENTIONS.SNAKE_CASE;
+    const convention = context.options?.length
+      ? context.options[0]
+      : CONVENTIONS.SNAKE_CASE;
 
     const checkNaming =
       convention === CONVENTIONS.REGEX
@@ -101,8 +100,7 @@ module.exports = {
       }
       const idAttr = findAttr(node, "id");
       if (
-        idAttr &&
-        idAttr.value &&
+        idAttr?.value &&
         !hasTemplate(idAttr.value) &&
         !checkNaming(idAttr.value.value)
       ) {
@@ -124,8 +122,7 @@ module.exports = {
       }
       const idAttr = findAttr(node, "id");
       if (
-        idAttr &&
-        idAttr.value &&
+        idAttr?.value &&
         !hasTemplate(idAttr.value) &&
         !checkNaming(idAttr.value.value)
       ) {

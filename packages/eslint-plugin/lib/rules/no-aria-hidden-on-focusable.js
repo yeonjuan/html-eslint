@@ -69,7 +69,7 @@ module.exports = {
 
       // Check for tabindex attribute
       const tabIndexAttr = findAttr(node, "tabindex");
-      if (tabIndexAttr && tabIndexAttr.value) {
+      if (tabIndexAttr?.value) {
         const tabIndexValue = tabIndexAttr.value.value;
         // If tabindex is -1, the element is not focusable
         if (tabIndexValue === "-1") {

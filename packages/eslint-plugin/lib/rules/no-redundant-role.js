@@ -53,7 +53,7 @@ module.exports = {
           attributes: {
             get(key) {
               const attr = findAttr(node, key);
-              if (attr && attr.value) {
+              if (attr?.value) {
                 return attr.value.value;
               }
               return null;
@@ -63,7 +63,7 @@ module.exports = {
 
         const implicitRole = elem.implicitRole();
 
-        if (implicitRole && implicitRole.toLowerCase() === roleValue) {
+        if (implicitRole?.toLowerCase() === roleValue) {
           context.report({
             node: role,
             messageId: MESSAGE_IDS.REDUNDANT,

@@ -39,7 +39,7 @@ module.exports = {
         if (!ariaHiddenAttr) {
           return;
         }
-        if (ariaHiddenAttr.value && ariaHiddenAttr.value.parts.length) {
+        if (ariaHiddenAttr.value?.parts.length) {
           return;
         }
 

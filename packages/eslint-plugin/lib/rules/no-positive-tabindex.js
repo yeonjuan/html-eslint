@@ -40,8 +40,7 @@ module.exports = {
     function check(node) {
       const tabIndexAttr = findAttr(node, "tabindex");
       if (
-        tabIndexAttr &&
-        tabIndexAttr.value &&
+        tabIndexAttr?.value &&
         !tabIndexAttr.value.parts.length &&
         parseInt(tabIndexAttr.value.value, 10) > 0
       ) {

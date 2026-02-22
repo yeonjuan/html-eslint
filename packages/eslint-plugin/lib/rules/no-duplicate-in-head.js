@@ -38,7 +38,7 @@ function getTrackingKey(node) {
     }
 
     const nameAttr = findAttr(node, "name");
-    if (nameAttr && nameAttr.value && nameAttr.value.value === "viewport") {
+    if (nameAttr?.value?.value === "viewport") {
       return "meta[name=viewport]";
     }
   }
@@ -46,12 +46,7 @@ function getTrackingKey(node) {
   if (tagName === "link") {
     const relAttr = findAttr(node, "rel");
     const hrefAttr = findAttr(node, "href");
-    if (
-      relAttr &&
-      relAttr.value &&
-      relAttr.value.value === "canonical" &&
-      hrefAttr
-    ) {
+    if (relAttr?.value?.value === "canonical" && hrefAttr) {
       return "link[rel=canonical]";
     }
   }
