@@ -4,6 +4,8 @@
 
 The order of elements in the `<head>` tag can affect the (perceived) performance of a web page. This rule enforces the optimal ordering of `<head>` elements based on [capo.js](https://github.com/rviscomi/capo.js).
 
+**Fixable:** This rule is automatically fixable using the `--fix` flag on the command line.
+
 ## How to use
 
 ```js,.eslintrc.js

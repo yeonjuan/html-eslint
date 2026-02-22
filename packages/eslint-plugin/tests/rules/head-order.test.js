@@ -79,6 +79,15 @@ ruleTester.run("head-order", rule, {
 </head>
 </html>
       `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="preconnect" href="https://example.com">
+</head>
+</html>
+      `,
       errors: [
         {
           messageId: "wrongOrder",
@@ -96,6 +105,14 @@ ruleTester.run("head-order", rule, {
 <head>
   <title>Test</title>
   <meta charset="UTF-8">
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
 </head>
 </html>
       `,
@@ -121,6 +138,16 @@ ruleTester.run("head-order", rule, {
 </head>
 </html>
       `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preload" href="font.woff" as="font">
+</head>
+</html>
+      `,
       errors: [
         {
           messageId: "wrongOrder",
@@ -143,6 +170,16 @@ ruleTester.run("head-order", rule, {
 </head>
 </html>
       `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <script src="async.js" async></script>
+  <script>console.log('sync');</script>
+</head>
+</html>
+      `,
       errors: [
         {
           messageId: "wrongOrder",
@@ -162,6 +199,16 @@ ruleTester.run("head-order", rule, {
   <meta charset="UTF-8">
   <script src="deferred.js" defer></script>
   <title>Test</title>
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="deferred.js" defer></script>
 </head>
 </html>
       `,
@@ -191,6 +238,16 @@ ruleTester.run("head-order", rule, {
   <title>Test</title>
   <script src="deferred.js" defer></script>
   <link rel="preconnect" href="https://example.com">
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="preconnect" href="https://example.com">
+  <script src="deferred.js" defer></script>
 </head>
 </html>
       `,

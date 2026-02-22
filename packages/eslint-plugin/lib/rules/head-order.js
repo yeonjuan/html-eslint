@@ -3,7 +3,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { getRuleUrl } = require("./utils/rule");
 const { HtmlEslintAdapter } = require("./utils/capo-adapter");
-const { analyzeHeadWithOrdering } = require("@rviscomi/capo.js");
+const { analyzeHeadWithOrdering, getWeight } = require("@rviscomi/capo.js");
 
 const MESSAGE_IDS = {
   WRONG_ORDER: "wrongOrder",
@@ -21,7 +21,7 @@ module.exports = {
       url: getRuleUrl("head-order"),
     },
 
-    fixable: null,
+    fixable: "code",
     schema: [],
     messages: {
       [MESSAGE_IDS.WRONG_ORDER]:
@@ -31,6 +31,7 @@ module.exports = {
 
   create(context) {
     const adapter = new HtmlEslintAdapter();
+    const sourceCode = context.sourceCode || context.getSourceCode();
 
     return {
       Tag(node) {
@@ -39,6 +40,12 @@ module.exports = {
         }
         const analysis = analyzeHeadWithOrdering(node, adapter);
 
+        if (analysis.orderingViolations.length === 0) {
+          return;
+        }
+
+        const children = adapter.getChildren(node);
+
         for (const violation of analysis.orderingViolations) {
           context.report({
             node: violation.nextElement,
@@ -46,6 +53,28 @@ module.exports = {
             data: {
               nextCategory: violation.nextCategory,
               currentCategory: violation.currentCategory,
+            },
+            fix(fixer) {
+              const sortedChildren = [...children].sort((a, b) => {
+                const weightA = getWeight(a, adapter);
+                const weightB = getWeight(b, adapter);
+                return weightB - weightA;
+              });
+
+              const fixes = [];
+
+              for (let i = 0; i < children.length; i++) {
+                const originalChild = children[i];
+                const sortedChild = sortedChildren[i];
+
+                if (originalChild !== sortedChild) {
+                  const sortedText = sourceCode.getText(sortedChild);
+
+                  fixes.push(fixer.replaceText(originalChild, sortedText));
+                }
+              }
+
+              return fixes;
             },
           });
         }

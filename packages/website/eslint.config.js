@@ -52,7 +52,8 @@ module.exports = defineConfig([
     rules: {
       "html/indent": ["error", 2],
       "html/no-inline-styles": "off",
-      "html/id-naming-convention": ["error", "kebab-case"]
+      "html/id-naming-convention": ["error", "kebab-case"],
+      "html/head-order": ["error", 2],
     },
   },
 ]);
