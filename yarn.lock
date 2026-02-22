@@ -1540,6 +1540,7 @@ __metadata:
     "@types/eslint-scope": "npm:^9.1.0"
     "@typescript-eslint/parser": "npm:^8.56.0"
     "@typescript-eslint/types": "npm:^8.56.0"
+    eslint-scope: "npm:^9.1.1"
     svelte: "npm:^5.53.1"
     svelte-eslint-parser: "npm:^1.4.1"
     tsup: "npm:^8.5.1"
@@ -8622,7 +8623,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-scope@npm:*":
+"eslint-scope@npm:*, eslint-scope@npm:^9.1.1":
   version: 9.1.1
   resolution: "eslint-scope@npm:9.1.1"
   dependencies:
