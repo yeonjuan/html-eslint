@@ -7,11 +7,28 @@
 <!doctype html>
 <html class="light" lang="en">
   <head>
+    <meta charset="utf-8">
     <block name="meta">
       <title>html-eslint</title>
     </block>
-    <meta charset="utf-8">
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link
+      crossorigin
+      href="https://fonts.gstatic.com"
+      rel="preconnect"
+    >
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JNELG2PQ3Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JNELG2PQ3Z');
+    </script>
+    <link href="~/src/common.css" rel="stylesheet">
+    <link href="~/src/highlight.scss" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <meta content="ESLint plugin for linting HTML. Find and fix problems in your HTML code" name="description">
     <meta content="website" property="og:type">
     <meta content="https://html-eslint.org" property="og:url">
@@ -25,6 +42,7 @@
     <meta content="en" property="og:locale">
     <meta content="summary_large_image" name="twitter:card">
     <meta content="ESLint plugin for linting HTML." name="twitter:title">
+    <block name="head"></block>
     <meta content="Find and fix problems in your HTML code" name="twitter:description">
     <meta content="~/src/assets/logo_506x253.png" name="twitter:image">
     <link href="~/src/assets/logo_48x48.svg" rel="icon">
@@ -45,23 +63,6 @@
       rel="apple-touch-icon"
       sizes="180x180"
     >
-    <link href="~/src/common.css" rel="stylesheet">
-    <block name="head"></block>
-    <link href="~/src/highlight.scss" rel="stylesheet">
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link
-      crossorigin
-      href="https://fonts.gstatic.com"
-      rel="preconnect"
-    >
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JNELG2PQ3Z"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-JNELG2PQ3Z');
-    </script>
   </head>
   <body class="text-base relative">
     <module href="/components/header/header.html" locals='{"version": "{{version}}"}'></module>
