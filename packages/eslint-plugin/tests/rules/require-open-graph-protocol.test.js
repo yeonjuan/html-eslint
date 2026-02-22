@@ -40,7 +40,8 @@ ruleTester.run("require-open-graph-protocol", rule, {
 </html>`,
       errors: [
         {
-          message: "Require use of meta tags for OGP. (og:type, og:url, og:image)",
+          message:
+            "Require use of meta tags for OGP. (og:type, og:url, og:image)",
           line: 2,
           column: 3,
         },
