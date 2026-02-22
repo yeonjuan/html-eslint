@@ -153,6 +153,36 @@ ruleTester.run("head-order", rule, {
       `,
       options: [{ ignores: [{ tagPattern: "^script$" }] }],
     },
+    // With HTML comments - comments maintain their position
+    {
+      code: `
+<html>
+<head>
+  <!-- This is a comment -->
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <!-- Another comment -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Final comment -->
+</head>
+</html>
+      `,
+    },
+    // With HTML comments mixed with elements
+    {
+      code: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- Comment between meta and title -->
+  <title>Test</title>
+  <link rel="preconnect" href="https://example.com">
+  <!-- Comment before script -->
+  <script src="script.js" async></script>
+</head>
+</html>
+      `,
+    },
   ],
   invalid: [
     // TITLE (9) should come before PRECONNECT (8)
@@ -457,6 +487,123 @@ ruleTester.run("head-order", rule, {
         },
       ],
     },
+    // With HTML comments - TITLE should come before PRECONNECT, comments maintain position
+    {
+      code: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- Comment before link -->
+  <link rel="preconnect" href="https://example.com">
+  <!-- Comment before title -->
+  <title>Test</title>
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- Comment before link -->
+  <title>Test</title>
+  <!-- Comment before title -->
+  <link rel="preconnect" href="https://example.com">
+</head>
+</html>
+      `,
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "TITLE",
+            currentCategory: "PRECONNECT",
+          },
+        },
+      ],
+    },
+    // With HTML comments - META should come before TITLE, comments maintain position
+    {
+      code: `
+<html>
+<head>
+  <!-- Header comment -->
+  <title>Test</title>
+  <!-- Comment between -->
+  <meta charset="UTF-8">
+  <!-- Footer comment -->
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <!-- Header comment -->
+  <meta charset="UTF-8">
+  <!-- Comment between -->
+  <title>Test</title>
+  <!-- Footer comment -->
+</head>
+</html>
+      `,
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "META",
+            currentCategory: "TITLE",
+          },
+        },
+      ],
+    },
+    // With HTML comments - multiple violations with comments
+    {
+      code: `
+<html>
+<head>
+  <!-- Start -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Comment 1 -->
+  <meta charset="UTF-8">
+  <!-- Comment 2 -->
+  <script src="deferred.js" defer></script>
+  <!-- Comment 3 -->
+  <title>Test</title>
+  <!-- End -->
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <!-- Start -->
+  <meta charset="UTF-8">
+  <!-- Comment 1 -->
+  <title>Test</title>
+  <!-- Comment 2 -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Comment 3 -->
+  <script src="deferred.js" defer></script>
+  <!-- End -->
+</head>
+</html>
+      `,
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "META",
+            currentCategory: "SYNC_STYLES",
+          },
+        },
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "TITLE",
+            currentCategory: "DEFER_SCRIPT",
+          },
+        },
+      ],
+    },
   ],
 });
 
@@ -542,6 +689,22 @@ const template = html\`
   <title>Test</title>
   <script src="\${asyncScript}" async></script>
   <script src="\${syncScript}"></script>
+</head>
+</html>
+\`;
+      `,
+    },
+    // With HTML comments in template
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <!-- Comment -->
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <!-- Another comment -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 </html>
 \`;
@@ -750,6 +913,42 @@ const template = html\`
           data: {
             nextCategory: "SYNC_STYLES",
             currentCategory: "PRELOAD",
+          },
+        },
+      ],
+    },
+    // With HTML comments - TITLE should come before PRECONNECT
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- Comment -->
+  <link rel="preconnect" href="https://example.com">
+  <title>Test</title>
+</head>
+</html>
+\`;
+      `,
+      output: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- Comment -->
+  <title>Test</title>
+  <link rel="preconnect" href="https://example.com">
+</head>
+</html>
+\`;
+      `,
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "TITLE",
+            currentCategory: "PRECONNECT",
           },
         },
       ],

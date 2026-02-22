@@ -10,6 +10,7 @@ const {
   shouldCheckTaggedTemplateExpression,
   shouldCheckTemplateLiteral,
 } = require("./utils/settings");
+const { NODE_TYPES } = require("@html-eslint/parser");
 
 const MESSAGE_IDS = {
   WRONG_ORDER: "wrongOrder",
@@ -90,12 +91,18 @@ module.exports = {
     }));
 
     /**
-     * Check if a tag should be ignored based on ignore patterns
+     * Check if a tag should be ignored based on ignore patterns or if it's a
+     * comment
      *
      * @param {any} element - Element node to check
      * @returns {boolean} - True if the element should be ignored
      */
     function shouldIgnoreElement(element) {
+      // Ignore HTML comments
+      if (element.type === NODE_TYPES.Comment) {
+        return true;
+      }
+
       return ignorePatterns.some((pattern) => {
         /** @type {boolean[]} */
         const checks = [];

@@ -92,7 +92,7 @@ class HtmlEslintAdapter {
     }
 
     return node.attributes
-      .filter((attr) => attr.type === "Attribute" && attr.key)
+      .filter((attr) => attr.type === NODE_TYPES.Attribute && attr.key)
       .map((attr) => attr.key.value);
   }
 
@@ -190,6 +190,7 @@ class HtmlEslintAdapter {
    * @param {AnyNode} node - Element node
    * @returns {string} - String representation like "<meta charset='utf-8'>"
    */
+  /* istanbul ignore next */
   stringify(node) {
     if (!this.isElement(node)) {
       return "";
