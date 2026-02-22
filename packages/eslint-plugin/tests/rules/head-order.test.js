@@ -96,7 +96,11 @@ ruleTester.run("head-order", rule, {
       options: [
         {
           ignores: [
-            { tagPattern: "^link$", attrKeyPattern: "^rel$", attrValuePattern: "preconnect" },
+            {
+              tagPattern: "^link$",
+              attrKeyPattern: "^rel$",
+              attrValuePattern: "preconnect",
+            },
           ],
         },
       ],

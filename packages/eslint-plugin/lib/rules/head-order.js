@@ -12,8 +12,10 @@ const MESSAGE_IDS = {
 
 /**
  * @typedef {Object} IgnorePattern
- * @property {string} [tagPattern] - Regex pattern for tag (e.g., "script", "link")
- * @property {string} [attrKeyPattern] - Regex pattern for attribute key (e.g., "rel", "src")
+ * @property {string} [tagPattern] - Regex pattern for tag (e.g., "script",
+ *   "link")
+ * @property {string} [attrKeyPattern] - Regex pattern for attribute key (e.g.,
+ *   "rel", "src")
  * @property {string} [attrValuePattern] - Regex pattern for attribute value
  */
 
