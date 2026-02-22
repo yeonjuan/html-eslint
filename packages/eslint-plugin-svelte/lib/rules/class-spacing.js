@@ -1,10 +1,15 @@
 /**
+ * @import {
+ *   SvelteAttribute,
+ *   SvelteLiteral
+ * } from "../types.js"
  * @file Disallow extra spacing in class attribute values for Svelte
  * @typedef {import("../types.js").RuleModule} RuleModule
  */
 
 import { classSpacing, CLASS_SPACING_MESSAGE_IDS } from "@html-eslint/core";
 import { attributeNodeAdapter } from "./utils/adapter.js";
+import { AST_NODE_TYPES } from "../constants/node-types.js";
 
 /** @type {RuleModule} */
 const rule = {
@@ -33,7 +38,7 @@ const rule = {
 
     return {
       /**
-       * @param {any} node
+       * @param {SvelteAttribute} node
        * @returns
        */
       SvelteAttribute(node) {
@@ -51,17 +56,13 @@ const rule = {
           return;
         }
 
-        // Skip if the attribute contains expressions (e.g., class="foo {bar}")
-        // We only check fully static class attributes
         const hasExpression = node.value.some(
-          /** @param {any} part */
-          (part) => part.type !== "SvelteLiteral"
+          (part) => part.type !== AST_NODE_TYPES.SvelteLiteral
         );
         if (hasExpression) {
           return;
         }
 
-        // Create adapter for the core rule
         const adapter = attributeNodeAdapter(node);
 
         const results = ruleCore.checkClassAttribute(adapter);
@@ -69,10 +70,11 @@ const rule = {
         for (const result of results) {
           const normalizedValue = result.data.normalized;
 
-          // Since we only process fully static attributes,
-          // there should be exactly one SvelteLiteral value part
           const valuePart = node.value[0];
 
+          if (valuePart.type !== AST_NODE_TYPES.SvelteLiteral) {
+            continue;
+          }
           let loc;
           if (result.spacingType === "start") {
             loc = {
