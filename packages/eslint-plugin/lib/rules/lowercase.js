@@ -96,7 +96,7 @@ module.exports = {
           },
         });
       }
-      if (node.attributes && node.attributes.length) {
+      if (node.attributes?.length) {
         node.attributes.forEach((attribute) => {
           if (isAllowedAttributeKey(attribute.key.value)) {
             return;
@@ -137,7 +137,7 @@ module.exports = {
           },
         });
       }
-      if (doctype.attributes && doctype.attributes.length) {
+      if (doctype.attributes?.length) {
         doctype.attributes.forEach((attribute) => {
           if (
             attribute.value &&

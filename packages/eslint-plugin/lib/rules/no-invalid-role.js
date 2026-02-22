@@ -254,16 +254,12 @@ module.exports = {
         }
         /** Allow template expression. ex: html`<div role=${role}></div>` */
         if (
-          role.value &&
-          role.value.parts.some((part) => part.type === NODE_TYPES.Template)
+          role.value?.parts.some((part) => part.type === NODE_TYPES.Template)
         ) {
           return;
         }
 
-        const roleValue = (
-          (role.value && role.value.value) ||
-          ""
-        ).toLowerCase();
+        const roleValue = (role.value?.value || "").toLowerCase();
 
         if (
           (roleValue === "presentation" || roleValue === "none") &&

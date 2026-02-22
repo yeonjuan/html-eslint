@@ -78,10 +78,7 @@ module.exports = {
     function isOgpMeta(node) {
       const isMeta = isTag(node) && node.name === "meta";
       const property = isMeta ? findAttr(node, "property") : undefined;
-      const hasOgProperty =
-        !!property &&
-        !!property.value &&
-        property.value.value.indexOf("og:") === 0;
+      const hasOgProperty = property?.value?.value?.indexOf("og:") === 0;
       return hasOgProperty;
     }
 
@@ -97,7 +94,7 @@ module.exports = {
         const missingProperties = requiredProperties.filter((required) => {
           return !metaTags.some((meta) => {
             const property = findAttr(meta, "property");
-            if (property && property.value) {
+            if (property?.value) {
               return property.value.value === required;
             }
             return false;
@@ -107,12 +104,11 @@ module.exports = {
         const emptyContentMetaTags = metaTags.filter((meta) => {
           const property = findAttr(meta, "property");
           if (
-            property &&
-            property.value &&
+            property?.value &&
             requiredProperties.includes(property.value.value)
           ) {
             const content = findAttr(meta, "content");
-            return !content || !content.value || !content.value.value;
+            return !content?.value?.value;
           }
           return false;
         });

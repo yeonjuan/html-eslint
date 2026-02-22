@@ -80,7 +80,7 @@ module.exports = {
             ? "script"
             : "style";
       node.attributes.forEach((attr) => {
-        if (!attr.key || !attr.key.value) {
+        if (!attr.key?.value) {
           return;
         }
         const matched = checkers.find((checker) =>

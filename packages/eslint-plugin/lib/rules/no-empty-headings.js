@@ -21,11 +21,7 @@ const HEADING_NAMES = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
 /** @param {Tag} node */
 function isAriaHidden(node) {
   const ariaHiddenAttr = findAttr(node, "aria-hidden");
-  return (
-    ariaHiddenAttr &&
-    ariaHiddenAttr.value &&
-    ariaHiddenAttr.value.value === "true"
-  );
+  return ariaHiddenAttr?.value?.value === "true";
 }
 
 /**
@@ -34,7 +30,7 @@ function isAriaHidden(node) {
  */
 function isRoleHeading(node) {
   const roleAttr = findAttr(node, "role");
-  return !!roleAttr && !!roleAttr.value && roleAttr.value.value === "heading";
+  return roleAttr?.value?.value === "heading";
 }
 
 /**
@@ -44,7 +40,7 @@ function isRoleHeading(node) {
 function getAltText(node) {
   if (node.name.toLowerCase() === "img") {
     const altAttr = findAttr(node, "alt");
-    if (altAttr && altAttr.value && altAttr.value.value) {
+    if (altAttr?.value?.value) {
       return altAttr.value.value;
     }
   }

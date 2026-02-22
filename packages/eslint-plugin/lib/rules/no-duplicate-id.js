@@ -49,7 +49,7 @@ module.exports = {
           return;
         }
         const idAttr = findAttr(node, "id");
-        if (idAttr && idAttr.value) {
+        if (idAttr?.value) {
           if (!map.has(idAttr.value.value)) {
             map.set(idAttr.value.value, []);
           }

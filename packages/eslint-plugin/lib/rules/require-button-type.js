@@ -75,7 +75,7 @@ module.exports = {
           return;
         }
         const typeAttr = findAttr(node, "type");
-        if (!typeAttr || !typeAttr.value) {
+        if (!typeAttr?.value) {
           context.report({
             node: node.openStart,
             messageId: MESSAGE_IDS.MISSING,
