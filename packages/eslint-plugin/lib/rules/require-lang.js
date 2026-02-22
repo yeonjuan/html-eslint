@@ -45,7 +45,7 @@ module.exports = {
             },
             messageId: MESSAGE_IDS.MISSING,
           });
-        } else if (langAttr.value && langAttr.value.value.trim().length === 0) {
+        } else if (langAttr.value?.value.trim().length === 0) {
           context.report({
             node: node.openStart,
             messageId: MESSAGE_IDS.EMPTY,

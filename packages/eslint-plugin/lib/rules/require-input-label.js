@@ -44,16 +44,14 @@ module.exports = {
         for (const attr of node.attributes) {
           if (
             LABEL_ATTRIBUTES.has(attr.key.value.toLowerCase()) &&
-            attr.value &&
-            attr.value.value
+            attr.value?.value
           ) {
             return;
           }
 
           if (
             attr.key.value.toLowerCase() === "type" &&
-            attr.value &&
-            attr.value.value === "hidden"
+            attr.value?.value === "hidden"
           ) {
             return;
           }

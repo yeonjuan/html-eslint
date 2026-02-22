@@ -92,9 +92,7 @@ module.exports = {
 
       tagOptions.forEach((option) => {
         const attrName = option.attr;
-        const attr = attributes.find(
-          (attr) => attr.key && attr.key.value === attrName
-        );
+        const attr = attributes.find((attr) => attr.key?.value === attrName);
         if (!attr) {
           context.report({
             ...(option.message

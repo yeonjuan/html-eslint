@@ -13,6 +13,17 @@ const execFile = promisify(childProcess.execFile);
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 tmp.setGracefulCleanup();
+
+const PACKAGE_VERSION = "0.0.2";
+const PACKAGE_MANAGER = "yarn@4.9.1";
+const TYPESCRIPT_VERSION = "5.9.3";
+const HTML_ESLINT_PACKAGES = [
+  "template-parser",
+  "template-syntax-parser",
+  "core",
+  "parser",
+];
+
 /**
  * @param {string} name
  * @returns {string}
@@ -22,10 +33,27 @@ function packageFileVersion(name) {
 }
 
 /**
+ * Install yarn dependencies in a directory
+ *
+ * @param {string} dir
+ * @param {boolean} log
+ */
+async function installDependencies(dir, log) {
+  await execFile("yarn", ["install", "--no-immutable"], { cwd: dir }).catch(
+    (e) => {
+      if (log) {
+        console.error(e);
+      }
+    }
+  );
+}
+
+/**
  * @param {Object} params
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
  * @param {string} params.dir
+ * @param {string[]} params.localPackages
  * @param {boolean} [params.ts]
  * @param {Record<string, string>} [params.scripts]
  */
@@ -35,29 +63,34 @@ async function makePackageJson({
   dir,
   ts,
   scripts,
+  localPackages,
 }) {
+  const devDependencies = Object.fromEntries(
+    localPackages.map((pkg) => [
+      pkg,
+      packageFileVersion(pkg.replace("@html-eslint/", "")),
+    ])
+  );
+
+  const resolutions = Object.fromEntries(
+    HTML_ESLINT_PACKAGES.map((pkg) => [
+      `@html-eslint/${pkg}`,
+      packageFileVersion(pkg),
+    ])
+  );
+
   const packageJson = {
     name: fixtureName,
     private: true,
-    version: "0.0.2",
-    packageManager: "yarn@4.9.1",
+    version: PACKAGE_VERSION,
+    packageManager: PACKAGE_MANAGER,
     scripts,
     devDependencies: {
       eslint: eslintVersion,
-      "@html-eslint/eslint-plugin": packageFileVersion("eslint-plugin"),
-      "@html-eslint/parser": packageFileVersion("parser"),
-      "@html-eslint/eslint-plugin-react": packageFileVersion(
-        "eslint-plugin-react"
-      ),
-      typescript: ts ? "5.9.3" : undefined,
+      typescript: ts ? TYPESCRIPT_VERSION : undefined,
+      ...devDependencies,
     },
-    resolutions: {
-      "@html-eslint/template-parser": packageFileVersion("template-parser"),
-      "@html-eslint/template-syntax-parser": packageFileVersion(
-        "template-syntax-parser"
-      ),
-      "@html-eslint/core": packageFileVersion("core"),
-    },
+    resolutions,
   };
   await writeFile(
     path.join(dir, "package.json"),
@@ -71,14 +104,29 @@ async function makePackageJson({
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
  * @param {Record<string, string>} [params.scripts]
+ * @param {string[]} params.localPackages
+ * @param {string[]} params.log
  * @returns {Promise<{ dir: string }>}
  */
-async function setup({ fixtureName, eslintVersion, scripts }) {
+async function setup({
+  fixtureName,
+  eslintVersion,
+  scripts,
+  localPackages,
+  log,
+}) {
   const dir = await tmpDir();
   const fixturePath = path.join(__dirname, "../fixtures/", fixtureName);
 
   await copyDir(fixturePath, dir);
-  await makePackageJson({ fixtureName, eslintVersion, dir, scripts });
+  await makePackageJson({
+    fixtureName,
+    eslintVersion,
+    dir,
+    scripts,
+    localPackages,
+    log,
+  });
   return { dir };
 }
 
@@ -87,56 +135,68 @@ async function setup({ fixtureName, eslintVersion, scripts }) {
  * @param {string} params.glob
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
+ * @param {string[]} params.localPackages
+ * @param {boolean} params.log
  */
-async function runESLint({ fixtureName, eslintVersion, glob }) {
-  const { dir } = await setup({ fixtureName, eslintVersion });
+async function runESLint({
+  fixtureName,
+  eslintVersion,
+  glob,
+  localPackages,
+  log,
+}) {
+  const { dir } = await setup({ fixtureName, eslintVersion, localPackages });
 
-  await execFile("yarn", ["install", "--no-immutable"], {
-    cwd: dir,
-  }).catch((e) => {
-    console.error(e);
-  });
+  await installDependencies(dir, log);
+
   const outFile = await tmpFile();
   await execFile(
     "yarn",
     ["eslint", "--format", "json", "--output-file", outFile, glob],
-    {
-      cwd: dir,
+    { cwd: dir }
+  ).catch((e) => {
+    if (log) {
+      console.error(e);
     }
-  ).catch(() => {});
+  });
 
   const result = await readFile(outFile, "utf-8");
-
-  const parsed = JSON.parse(result);
-  return parsed;
+  return JSON.parse(result);
 }
 
 /**
  * @param {Object} params
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
- * @param {string} params.fileName
+ * @param {string[]} params.localPackages
+ * @param {boolean} params.log
  */
-async function runTypecheck({ fixtureName, eslintVersion }) {
+async function runTypecheck({
+  fixtureName,
+  eslintVersion,
+  localPackages,
+  log,
+}) {
   let error;
   const { dir } = await setup({
     fixtureName,
     eslintVersion,
     scripts: {
-      ts: `tsc -p ./tsconfig.json`,
+      ts: "tsc -p ./tsconfig.json",
     },
+    localPackages,
+    log,
   });
-  await execFile("yarn", ["install", "--no-immutable"], {
-    cwd: dir,
-  }).catch((e) => {
-    console.error(e);
-  });
-  await execFile("yarn", ["run", "ts"], {
-    cwd: dir,
-  }).catch((e) => {
-    console.error(e);
+
+  await installDependencies(dir, log);
+
+  await execFile("yarn", ["run", "ts"], { cwd: dir }).catch((e) => {
+    if (log) {
+      console.error(e);
+    }
     error = e;
   });
+
   return error;
 }
 

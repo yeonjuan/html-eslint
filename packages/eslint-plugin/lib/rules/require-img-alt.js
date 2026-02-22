@@ -49,11 +49,7 @@ module.exports = {
   },
 
   create(context) {
-    const substitute =
-      (context.options &&
-        context.options[0] &&
-        context.options[0].substitute) ||
-      [];
+    const substitute = context.options?.[0]?.substitute || [];
 
     return createVisitors(context, {
       Tag(node) {
@@ -97,7 +93,7 @@ function hasValidAltOrSubstitute(node, substitute) {
   let hasAnyAlt = false;
 
   for (const attr of node.attributes) {
-    if (attr.key && attr.key.value) {
+    if (attr.key?.value) {
       const isAltAttr = attr.key.value === "alt";
       const isSubstituteAttr = substitute.includes(attr.key.value);
 

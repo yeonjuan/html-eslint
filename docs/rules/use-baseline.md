@@ -60,3 +60,4 @@ If an integer `number` is used as an option, this rule allows features that beca
 - [W3C WebDX Community Group - Baseline](https://web-platform-dx.github.io/web-features/)
 - [web.dev - Baseline](https://web.dev/baseline)
 - [Chrome Developers Blog - Baseline features availability in developer tools](https://developer.chrome.com/blog/web-at-io25#7_baseline_features_availability_is_now_in_your_familiar_tools_vs_code_eslint_and_more)
+- [eslint-plugin-baseline-js](https://github.com/3ru/eslint-plugin-baseline-js)

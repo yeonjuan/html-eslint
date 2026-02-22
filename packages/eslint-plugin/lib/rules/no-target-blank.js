@@ -45,15 +45,15 @@ module.exports = {
         }
 
         const target = findAttr(node, "target");
-        if (target && target.value && target.value.value === "_blank") {
+        if (target?.value?.value === "_blank") {
           const href = findAttr(node, "href");
-          if (href && href.value && isExternalLink(href.value.value)) {
+          if (href?.value && isExternalLink(href.value.value)) {
             const rel = findAttr(node, "rel");
-            if (rel && rel.value && rel.value.parts.length) {
+            if (rel?.value?.parts?.length) {
               return;
             }
 
-            if (!rel || !rel.value || !rel.value.value.includes("noreferrer")) {
+            if (!rel?.value?.value.includes("noreferrer")) {
               context.report({
                 node: target,
                 messageId: MESSAGE_IDS.MISSING,

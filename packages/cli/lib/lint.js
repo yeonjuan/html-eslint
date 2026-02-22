@@ -29,10 +29,7 @@ module.exports = function lint(code, config, checkStyle = false) {
 
   if (!checkStyle) {
     Object.entries(eslintConfig.rules).forEach(([key]) => {
-      if (
-        allRules[key].meta.docs &&
-        allRules[key].meta.docs.category === "Style"
-      ) {
+      if (allRules[key].meta.docs?.category === "Style") {
         eslintConfig.rules[key] = "off";
       }
     });

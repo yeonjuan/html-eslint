@@ -37,7 +37,7 @@ function attributeNodeAdapter(key, value) {
       isExpression() {
         return value ? hasTemplate(value) : false;
       },
-      value: () => (value ? value.value : ""),
+      value: () => value?.value ?? "",
     },
   };
 }
