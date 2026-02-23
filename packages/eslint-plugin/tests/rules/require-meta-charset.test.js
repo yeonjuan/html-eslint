@@ -111,5 +111,25 @@ ruleTester.run("require-meta-charset", rule, {
         },
       ],
     },
+    {
+      // bare charset attribute with no value: <meta charset>
+      code: `<html><head><meta charset></head></html>`,
+      output: `<html><head><meta charset="UTF-8"></head></html>`,
+      errors: [
+        {
+          messageId: "empty",
+        },
+      ],
+    },
+    {
+      // head with no leading whitespace before first child
+      code: `<html><head><title>t</title></head></html>`,
+      output: `<html><head>\n            <meta charset="UTF-8"><title>t</title></head></html>`,
+      errors: [
+        {
+          messageId: "missing",
+        },
+      ],
+    },
   ],
 });
