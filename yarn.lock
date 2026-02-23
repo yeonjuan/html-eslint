@@ -1493,8 +1493,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/cli@workspace:packages/cli"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.56.0"
-    "@html-eslint/parser": "npm:^0.56.0"
+    "@html-eslint/eslint-plugin": "npm:^0.57.0"
+    "@html-eslint/parser": "npm:^0.57.0"
     axios: "npm:^1.13.5"
     chalk: "npm:^5.6.2"
     eslint: "npm:^9.39.1"
@@ -1504,11 +1504,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/core@npm:^0.56.0, @html-eslint/core@workspace:packages/core":
+"@html-eslint/core@npm:^0.57.0, @html-eslint/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@html-eslint/core@workspace:packages/core"
   dependencies:
-    "@html-eslint/types": "npm:^0.56.0"
+    "@html-eslint/types": "npm:^0.57.0"
     eslint: "npm:^9.39.1"
     html-standard: "npm:^0.0.13"
     tsup: "npm:^8.5.1"
@@ -1516,13 +1516,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin-react@npm:^0.56.0, @html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react":
+"@html-eslint/eslint-plugin-react@npm:^0.57.0, @html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react"
   dependencies:
-    "@html-eslint/core": "npm:^0.56.0"
-    "@html-eslint/eslint-plugin": "npm:^0.56.0"
-    "@html-eslint/types": "npm:^0.56.0"
+    "@html-eslint/core": "npm:^0.57.0"
+    "@html-eslint/eslint-plugin": "npm:^0.57.0"
+    "@html-eslint/types": "npm:^0.57.0"
     "@typescript-eslint/types": "npm:^8.56.0"
     typescript: "npm:^5.9.3"
   peerDependencies:
@@ -1530,17 +1530,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin@npm:^0.56.0, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
+"@html-eslint/eslint-plugin@npm:^0.57.0, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
   dependencies:
     "@eslint/core": "npm:^1.0.0"
     "@eslint/plugin-kit": "npm:^0.4.1"
-    "@html-eslint/core": "npm:^0.56.0"
-    "@html-eslint/parser": "npm:^0.56.0"
-    "@html-eslint/template-parser": "npm:^0.56.0"
-    "@html-eslint/template-syntax-parser": "npm:^0.56.0"
-    "@html-eslint/types": "npm:^0.56.0"
+    "@html-eslint/core": "npm:^0.57.0"
+    "@html-eslint/parser": "npm:^0.57.0"
+    "@html-eslint/template-parser": "npm:^0.57.0"
+    "@html-eslint/template-syntax-parser": "npm:^0.57.0"
+    "@html-eslint/types": "npm:^0.57.0"
     "@rviscomi/capo.js": "npm:^2.1.0"
     "@types/estree": "npm:^0.0.47"
     es-html-parser: "npm:0.3.1"
@@ -1576,13 +1576,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/parser@npm:^0.56.0, @html-eslint/parser@workspace:packages/parser":
+"@html-eslint/parser@npm:^0.57.0, @html-eslint/parser@workspace:packages/parser":
   version: 0.0.0-use.local
   resolution: "@html-eslint/parser@workspace:packages/parser"
   dependencies:
     "@eslint/css-tree": "npm:^3.6.9"
-    "@html-eslint/template-syntax-parser": "npm:^0.56.0"
-    "@html-eslint/types": "npm:^0.56.0"
+    "@html-eslint/template-syntax-parser": "npm:^0.57.0"
+    "@html-eslint/types": "npm:^0.57.0"
     "@types/css-tree": "npm:^2.3.11"
     css-tree: "npm:^3.1.0"
     es-html-parser: "npm:0.3.1"
@@ -1590,11 +1590,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/template-parser@npm:^0.56.0, @html-eslint/template-parser@workspace:packages/template-parser":
+"@html-eslint/template-parser@npm:^0.57.0, @html-eslint/template-parser@workspace:packages/template-parser":
   version: 0.0.0-use.local
   resolution: "@html-eslint/template-parser@workspace:packages/template-parser"
   dependencies:
-    "@html-eslint/types": "npm:^0.56.0"
+    "@html-eslint/types": "npm:^0.57.0"
     "@types/espree": "npm:^10.1.0"
     "@types/estree": "npm:^0.0.47"
     es-html-parser: "npm:0.3.1"
@@ -1604,17 +1604,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/template-syntax-parser@npm:^0.56.0, @html-eslint/template-syntax-parser@workspace:packages/template-syntax-parser":
+"@html-eslint/template-syntax-parser@npm:^0.57.0, @html-eslint/template-syntax-parser@workspace:packages/template-syntax-parser":
   version: 0.0.0-use.local
   resolution: "@html-eslint/template-syntax-parser@workspace:packages/template-syntax-parser"
   dependencies:
-    "@html-eslint/types": "npm:^0.56.0"
+    "@html-eslint/types": "npm:^0.57.0"
     eslint: "npm:^9.39.1"
     globals: "npm:^15.12.0"
   languageName: unknown
   linkType: soft
 
-"@html-eslint/types@npm:^0.56.0, @html-eslint/types@workspace:packages/types":
+"@html-eslint/types@npm:^0.57.0, @html-eslint/types@workspace:packages/types":
   version: 0.0.0-use.local
   resolution: "@html-eslint/types@workspace:packages/types"
   dependencies:
@@ -1627,7 +1627,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/web-linter@npm:^0.56.0, @html-eslint/web-linter@workspace:packages/web-linter":
+"@html-eslint/web-linter@npm:^0.57.0, @html-eslint/web-linter@workspace:packages/web-linter":
   version: 0.0.0-use.local
   resolution: "@html-eslint/web-linter@workspace:packages/web-linter"
   dependencies:
@@ -17296,10 +17296,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "website@workspace:packages/website"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.56.0"
-    "@html-eslint/eslint-plugin-react": "npm:^0.56.0"
-    "@html-eslint/parser": "npm:^0.56.0"
-    "@html-eslint/web-linter": "npm:^0.56.0"
+    "@html-eslint/eslint-plugin": "npm:^0.57.0"
+    "@html-eslint/eslint-plugin-react": "npm:^0.57.0"
+    "@html-eslint/parser": "npm:^0.57.0"
+    "@html-eslint/web-linter": "npm:^0.57.0"
     "@html-kit/html": "npm:^0.0.4"
     "@parcel/transformer-sass": "npm:2.16.3"
     "@stylistic/eslint-plugin": "npm:^3.0.0"
