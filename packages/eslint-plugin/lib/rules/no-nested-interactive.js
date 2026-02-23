@@ -40,8 +40,9 @@ function isInteractive(tag) {
       const typeAttr = findAttr(tag, "type");
       return typeAttr?.value?.value !== "hidden";
     }
+    // case "details": see https://github.com/yeonjuan/html-eslint/issues/518
+    case "summary":
     case "button":
-    case "details":
     case "embed":
     case "iframe":
     case "label":
