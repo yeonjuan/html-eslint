@@ -30,6 +30,14 @@ ruleTester.run("no-nested-interactive", rule, {
     {
       code: "<label> text: <input type='text'></label>",
     },
+    {
+      code: `
+      <details>
+ <summary>Name & Extension:</summary>
+ <input type=text value="Interactive Input">
+</details>
+      `,
+    },
   ],
   invalid: [
     {
@@ -94,6 +102,21 @@ ruleTester.run("no-nested-interactive", rule, {
           messageId: "unexpected",
           data: {
             tag: "label",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+      <details>
+ <summary><input type=text value="Interactive Input"></summary>
+</details>
+      `,
+      errors: [
+        {
+          messageId: "unexpected",
+          data: {
+            tag: "summary",
           },
         },
       ],
