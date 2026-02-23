@@ -2,6 +2,7 @@
 title: no-extra-spacing-attrs
 description: Disallow extra spacing around attributes for cleaner and more consistent HTML.
 ---
+
 # no-extra-spacing-attrs
 
 This rule disallows extra spaces around attributes and between the start or end of a tag.

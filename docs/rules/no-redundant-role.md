@@ -4,6 +4,7 @@ description: >-
   Disallow redundant ARIA role attributes that match the element's implicit
   role.
 ---
+
 # no-redundant-role
 
 This rule disallows redundant role attributes that match the element's implicit role.

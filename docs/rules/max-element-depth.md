@@ -2,6 +2,7 @@
 title: max-element-depth
 description: Enforce maximum element depth to prevent overly nested HTML structures.
 ---
+
 # max-element-depth
 
 This rule enforces a maximum allowed depth for nested HTML elements.

@@ -2,6 +2,7 @@
 title: sort-attrs
 description: Enforce priority and alphabetical sorting of attributes for consistency.
 ---
+
 # sort-attrs
 
 This rule enforces priority-based and alphabetical sorting of attributes.

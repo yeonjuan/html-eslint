@@ -2,6 +2,7 @@
 title: element-newline
 description: Enforce newline between elements for improved code readability and structure.
 ---
+
 # element-newline
 
 This rule enforces newlines between tags.

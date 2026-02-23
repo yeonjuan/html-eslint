@@ -2,6 +2,7 @@
 title: require-doctype
 description: Require DOCTYPE declaration in HTML documents for proper rendering mode.
 ---
+
 # require-doctype
 
 This rule enforces the use of `<!DOCTYPE html>` in the document.

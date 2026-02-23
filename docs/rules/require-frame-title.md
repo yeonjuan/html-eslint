@@ -2,6 +2,7 @@
 title: require-frame-title
 description: Require title attribute on frame and iframe elements for accessibility.
 ---
+
 # require-frame-title
 
 This rule enforces the use of `title` attribute on `<frame>` and `<iframe>`.

@@ -4,6 +4,7 @@ description: >-
   Disallow duplicate attributes on HTML elements as per HTML specification
   requirements.
 ---
+
 # no-duplicate-attrs
 
 This rule disallows the use of duplicate attributes.

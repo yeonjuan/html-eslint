@@ -2,6 +2,7 @@
 title: require-meta-viewport
 description: Require viewport meta tag in the head for responsive design.
 ---
+
 # require-meta-viewport
 
 This rule enforces the use of `<meta name="viewport">` in the `<head>`.

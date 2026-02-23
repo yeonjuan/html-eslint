@@ -2,6 +2,7 @@
 title: no-restricted-attrs
 description: Disallow specified attributes based on custom configuration.
 ---
+
 # no-restricted-attrs
 
 This rule disallows the use of specified attributes.

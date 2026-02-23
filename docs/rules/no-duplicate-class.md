@@ -4,6 +4,7 @@ description: >-
   Disallow duplicate class names in class attributes to avoid confusion and
   errors.
 ---
+
 # no-duplicate-class
 
 This rule disallows duplicate class names in `class` attributes.

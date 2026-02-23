@@ -2,6 +2,7 @@
 title: no-restricted-attr-values
 description: Disallow specified attribute values based on custom configuration.
 ---
+
 # no-restricted-attr-values
 
 This rule disallows the use of specified attribute values.

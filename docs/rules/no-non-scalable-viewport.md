@@ -2,6 +2,7 @@
 title: no-non-scalable-viewport
 description: Disallow user-scalable=no in viewport meta tag for better accessibility.
 ---
+
 # no-non-scalable-viewport
 
 This rule disallows the use of `user-scalable=no` in the `<meta name="viewport">`.

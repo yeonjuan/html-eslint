@@ -2,6 +2,7 @@
 title: no-invalid-attr-value
 description: Disallow invalid attribute values in React/JSX according to HTML standards.
 ---
+
 # no-invalid-attr-value
 
 This rule disallows invalid attribute values according to HTML standards in React/JSX.

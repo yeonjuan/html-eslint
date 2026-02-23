@@ -2,6 +2,7 @@
 title: no-extra-spacing-text
 description: Disallow unnecessary consecutive spaces in text content.
 ---
+
 # no-extra-spacing-text
 
 This rule disallows multiple consecutive spaces or tabs in text and comments.

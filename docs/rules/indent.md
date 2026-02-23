@@ -2,6 +2,7 @@
 title: indent
 description: Enforce consistent indentation for HTML elements and attributes.
 ---
+
 # indent
 
 This rule enforces consistent indentation.

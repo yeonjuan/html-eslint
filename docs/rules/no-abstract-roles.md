@@ -2,6 +2,7 @@
 title: no-abstract-roles
 description: Disallow use of abstract ARIA roles that should not be used in HTML markup.
 ---
+
 # no-abstract-roles
 
 This rule disallows the use of abstract ARIA roles.

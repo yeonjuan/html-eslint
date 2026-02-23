@@ -2,6 +2,7 @@
 title: no-duplicate-in-head
 description: Disallow duplicate tags in the head element to avoid redundant metadata.
 ---
+
 # no-duplicate-in-head
 
 This rule disallows duplicate tags in the `<head>` section that should be unique.

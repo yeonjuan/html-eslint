@@ -2,6 +2,7 @@
 title: no-invalid-entity
 description: Disallow invalid HTML entities to prevent rendering issues and invalid markup.
 ---
+
 # no-invalid-entity
 
 Disallow use of invalid HTML entities.

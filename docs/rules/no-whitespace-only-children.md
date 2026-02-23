@@ -2,6 +2,7 @@
 title: no-whitespace-only-children
 description: Disallow tags with only whitespace children to avoid unnecessary markup.
 ---
+
 # no-whitespace-only-children
 
 This rule disallows tags that contain only whitespace characters (spaces, tabs, newlines) as children.

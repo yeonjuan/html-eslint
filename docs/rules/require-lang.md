@@ -4,6 +4,7 @@ description: >-
   Require lang attribute on the html element for accessibility and
   internationalization.
 ---
+
 # require-lang
 
 This rule enforces the presence of the `lang` attribute on the `<html>` tag.

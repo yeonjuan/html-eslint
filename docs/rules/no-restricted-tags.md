@@ -2,6 +2,7 @@
 title: no-restricted-tags
 description: Disallow specified HTML tags based on custom configuration.
 ---
+
 # no-restricted-tags
 
 This rule disallows the use of specified tags.

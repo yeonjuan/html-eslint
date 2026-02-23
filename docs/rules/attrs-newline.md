@@ -4,6 +4,7 @@ description: >-
   Enforce newline between attributes for better readability and maintainability
   of HTML code.
 ---
+
 # attrs-newline
 
 This rule enforces a newline between attributes when more than a certain number of attributes are present.

@@ -4,6 +4,7 @@ description: >-
   Disallow empty or inaccessible heading elements for better document structure
   and accessibility.
 ---
+
 # no-empty-headings
 
 This rule enforces that all heading elements (h1–h6) and elements with `role="heading"` must have accessible text content.

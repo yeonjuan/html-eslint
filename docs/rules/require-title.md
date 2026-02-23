@@ -2,6 +2,7 @@
 title: require-title
 description: Require title element in the head for document title and SEO.
 ---
+
 # require-title
 
 This rule enforces the use of `<title>` tag in the `<head>`.

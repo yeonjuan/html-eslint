@@ -4,6 +4,7 @@ description: >-
   Disallow invalid ARIA role attributes to ensure proper accessibility
   semantics.
 ---
+
 # no-invalid-role
 
 This rule disallows the use of an invalid ARIA role on elements.

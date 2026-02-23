@@ -2,6 +2,7 @@
 title: no-obsolete-tags
 description: Disallow obsolete HTML elements that are deprecated in HTML5.
 ---
+
 # no-obsolete-tags
 
 This rule disallows the use of obsolete tags in HTML5.

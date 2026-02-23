@@ -4,6 +4,7 @@ description: >-
   Disallow nested interactive elements to prevent accessibility and usability
   issues.
 ---
+
 # no-nested-interactive
 
 This rule disallows interactive elements from being nested within other interactive elements.

@@ -2,6 +2,7 @@
 title: no-script-style-type
 description: Enforce omitting type attributes for script and style elements in HTML5.
 ---
+
 # no-script-style-type
 
 This rule disallows the use of `type` attributes for style sheets (unless not using CSS) and scripts (unless using a different language than CSS/JavaScript).

@@ -2,6 +2,7 @@
 title: no-multiple-h1
 description: Disallow multiple h1 elements for better SEO and document structure.
 ---
+
 # no-multiple-h1
 
 This rule disallows the use of multiple `<h1>`.

@@ -4,6 +4,7 @@ description: >-
   Disallow heading elements inside button elements to maintain proper semantic
   structure.
 ---
+
 # no-heading-inside-button
 
 This rule disallows the use of heading elements inside `<button>`.
