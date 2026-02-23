@@ -26,6 +26,7 @@ function isMetaCharset(node) {
 
 /**
  * Get the indentation string for inserting a new child inside a head tag.
+ *
  * @param {Tag} headNode
  * @returns {string}
  */
