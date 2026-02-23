@@ -131,5 +131,15 @@ ruleTester.run("require-meta-charset", rule, {
         },
       ],
     },
+    {
+      // completely empty head (zero children, no whitespace)
+      code: `<html><head></head></html>`,
+      output: `<html><head>\n        <meta charset="UTF-8"></head></html>`,
+      errors: [
+        {
+          messageId: "missing",
+        },
+      ],
+    },
   ],
 });
