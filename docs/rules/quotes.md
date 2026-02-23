@@ -1,3 +1,10 @@
+---
+title: quotes
+description: >-
+  Enforce consistent quoting style for attribute values using double or single
+  quotes.
+---
+
 # quotes
 
 This rule enforces consistent use of quotes for attribute values (`'` or `"`).

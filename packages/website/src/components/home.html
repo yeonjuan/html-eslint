@@ -1,64 +1,84 @@
 <div class="flex flex-col w-full text-left justify-center md:text-center items-center">
   <section class="pt-[24px] md:pt-[60px] pb-[80px] md:pb-[80px] md:max-w-[1200px] flex flex-col items-center">
     <img
-      alt=""
+      alt="HTML ESLint Logo"
       height="160"
       src="~/src/assets/logo_320x320.png"
       width="160"
     >
     <h1 class="display1 text-[40px]">HTML ESLINT</h1>
     <p class="text-black-900 text-center text-lg md:text-xl my-6 md:my-8">
-      An ESLint plugin for formatting and linting HTML.
+      ESLint plugins for formatting and linting HTML, and React/JSX.
     </p>
-    <ul class="[&>li]:py-1 [&>li]: w-full flex items-center justify-center text-sm md:text-base flex-col md:flex-row mt-2 mb-10 gap-1 md:gap-5 text-center text-gray-900">
-      <li>
-        <a class="bg-accent border border-accent px-4 py-3 text-white rounded-xl inline-block min-w-[200px] md:min-w-[120px]" href="~/src/docs/getting-started.html">
-          Get Started
-        </a>
-      </li>
-      <li>
-        <a class="bg-white border border-gray-400 px-4 py-3 rounded-xl inline-block min-w-[200px] md:min-w-[120px]" href="~/src/playground.html">
-          Playground
-        </a>
-      </li>
-      <li>
-        <a class="bg-white border border-gray-400 px-4 py-3 rounded-xl inline-block min-w-[200px] md:min-w-[120px]" href="~/src/docs/rules.html">
-          All Rules
-        </a>
-      </li>
-    </ul>
-    <div class="flex gap-3 flex-col md:flex-row">
-      <article class="bg-[#f6f6f7] w-full p-4 rounded-md">
-        <h2 class="mb-2 title4">Lint HTML files with ESLint</h2>
-        <p class="body3 text-gray-700 leading-[2]">
-          There are various formatting and linting rules available for HTML code.
-          <br>
-          See
-          <a class="text-accent underline" href="~/src/docs/rules.html">All Rules.</a>
+
+    <div class="w-full max-w-[900px] flex flex-col gap-8 mt-8 mb-12">
+      <div class="bg-white border-2 border-gray-300 rounded-xl p-6 shadow-sm">
+        <h2 class="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 justify-center">
+          <span class="text-accent">HTML</span>
+        </h2>
+        <div class="text-center mb-4">
+          <a
+            class="text-sm text-gray-500 hover:text-accent transition-colors font-mono"
+            href="https://www.npmjs.com/package/@html-eslint/eslint-plugin"
+            rel="noreferrer noopener"
+            target="_blank"
+          >@html-eslint/eslint-plugin</a>
+        </div>
+        <p class="text-gray-600 mb-4 leading-relaxed">
+          Lint and format HTML files with 70+ rules. Supports HTML in JavaScript template literals and integration with template engines like Handlebars, ERB, and TWIG.
         </p>
-      </article>
-      <article class="bg-[#f6f6f7] w-full p-4 rounded-md title4">
-        <h2 class="mb-2 title4">Lint HTML code in JS Template Literals</h2>
-        <p class="body3 text-gray-700 leading-[2]">
-          Supports linting and formatting HTML code written in JavaScript template literals.
-          <br>
-          See
-          <a class="text-accent underline" href="~/src/docs/getting-started.html#lint-html-code-inside-javascript-template-literals">Lint HTML in JavaScript Template Literals.</a>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <a class="bg-accent border border-accent px-5 py-3 text-white rounded-lg hover:bg-accent/90 transition-colors text-center font-medium" href="~/src/docs/getting-started.html">
+            Getting Started
+          </a>
+          <a class="bg-white border-2 border-gray-300 px-5 py-3 text-gray-900 rounded-lg hover:border-accent hover:text-accent transition-colors text-center font-medium" href="~/src/docs/rules.html">
+            All Rules
+          </a>
+          <a class="bg-white border-2 border-gray-300 px-5 py-3 text-gray-900 rounded-lg hover:border-accent hover:text-accent transition-colors text-center font-medium" href="~/src/docs/getting-started.html#lint-html-code-inside-javascript-template-literals">
+            HTML in JS
+          </a>
+          <a class="bg-white border-2 border-gray-300 px-5 py-3 text-gray-900 rounded-lg hover:border-accent hover:text-accent transition-colors text-center font-medium" href="~/src/docs/integrating-template-engine.html">
+            Template Syntax Engine
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-white border-2 border-gray-300 rounded-xl p-6 shadow-sm">
+        <h2 class="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 justify-center">
+          <span class="text-accent">React</span>
+        </h2>
+        <div class="text-center mb-4">
+          <a
+            class="text-sm text-gray-500 hover:text-accent transition-colors font-mono"
+            href="https://www.npmjs.com/package/@html-eslint/eslint-plugin-react"
+            rel="noreferrer noopener"
+            target="_blank"
+          >@html-eslint/eslint-plugin-react</a>
+        </div>
+        <p class="text-gray-600 mb-4 leading-relaxed">
+          Validate HTML attribute values and enforce baseline browser compatibility directly in your React/JSX code. Catch invalid attributes and ensure cross-browser support.
         </p>
-      </article>
-      <article class="bg-[#f6f6f7] w-full p-4 rounded-md">
-        <h2 class="mb-2 title4">Integrate with template engines</h2>
-        <p class="body3 text-gray-700 leading-[2]">
-          Supports integration with template engines like Handlebars, ERB, and TWIG.
-          <br>
-          See
-          <a class="text-accent underline" href="~/src/docs/integrating-template-engine.html">Integrating Template Engine.</a>
-        </p>
-      </article>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <a class="bg-accent border border-accent px-5 py-3 text-white rounded-lg hover:bg-accent/90 transition-colors text-center font-medium" href="~/src/docs/react/getting-started.html">
+            Getting Started
+          </a>
+          <a class="bg-white border-2 border-gray-300 px-5 py-3 text-gray-900 rounded-lg hover:border-accent hover:text-accent transition-colors text-center font-medium" href="~/src/docs/react/rules.html">
+            All Rules
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-accent/5 border-2 border-accent rounded-xl p-6 shadow-sm text-center">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Try it now</h2>
+        <a class="bg-accent border border-accent px-8 py-3 text-white rounded-lg hover:bg-accent/90 transition-colors inline-block font-medium text-lg" href="~/src/playground.html">
+          Open Playground
+        </a>
+      </div>
     </div>
+
     <p class="flex justify-center flex-col items-center text-black-700 mt-12">
       <span>
-        If you’d like to support html-eslint, please consider
+        If you'd like to support html-eslint, please consider
         <a
           class="text-accent"
           href="https://github.com/yeonjuan/html-eslint"
@@ -67,7 +87,7 @@
         >starring it on GitHub</a>
         or making a donation!
       </span>
-    
+
       <a
         class="mt-12"
         href="https://www.buymeacoffee.com/yeonjuan93p"

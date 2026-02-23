@@ -18,7 +18,8 @@
     "@html-eslint/parser": "^0.56.0",
     "@html-eslint/web-linter": "^0.56.0",
     "@html-kit/html": "^0.0.4",
-    "codemirror": "^5.58.3"
+    "codemirror": "^5.58.3",
+    "gray-matter": "^4.0.3"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "2.16.3",

@@ -1,3 +1,10 @@
+---
+title: require-button-type
+description: >-
+  Require type attribute on button elements to prevent unintended form
+  submissions.
+---
+
 # require-button-type
 
 This rule enforces that `button` elements include a valid `type` attribute: `"button"`, `"submit"`, or `"reset"`

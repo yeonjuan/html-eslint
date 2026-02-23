@@ -1,3 +1,8 @@
+---
+title: no-duplicate-id
+description: Disallow duplicate id attributes to ensure unique element identification.
+---
+
 # no-duplicate-id
 
 This rule disallows duplicate `id` attributes.

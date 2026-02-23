@@ -1,3 +1,8 @@
+---
+title: no-trailing-spaces
+description: Disallow trailing whitespace at the end of lines for cleaner code.
+---
+
 # no-trailing-spaces
 
 This rule disallows trailing whitespace at the end of lines.

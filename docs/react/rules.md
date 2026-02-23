@@ -1,3 +1,8 @@
+---
+title: Rules
+description: Available rules for HTML ESLint React plugin including validation for HTML attributes, obsolete elements, and baseline browser compatibility in React/JSX.
+---
+
 # Rules
 
 ## Available Rules

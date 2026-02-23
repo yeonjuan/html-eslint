@@ -1,3 +1,8 @@
+---
+title: no-duplicate-classname
+description: Disallow duplicate class names in className attributes in React/JSX.
+---
+
 # no-duplicate-classname
 
 This rule disallows duplicate class names in `className` attributes in React/JSX code.
