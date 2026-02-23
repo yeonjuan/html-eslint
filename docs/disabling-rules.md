@@ -1,3 +1,8 @@
+---
+title: Disabling Rules
+description: Learn how to disable HTML ESLint rules using inline HTML comments for entire files, specific lines, or individual rules.
+---
+
 # Disabling Rules
 
 ## Disable rules with inline comments

@@ -1,3 +1,9 @@
+---
+title: id-naming-convention
+description: >-
+  Enforce consistent naming convention for id attributes across your HTML
+  documents.
+---
 # id-naming-convention
 
 This rule enforces a consistent naming convention for `id` attribute values.

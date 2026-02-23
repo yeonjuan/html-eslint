@@ -1,3 +1,7 @@
+---
+title: use-baseline
+description: Enforce the use of baseline browser-compatible features and attribute values.
+---
 # use-baseline
 
 This rule enforces the use of baseline features.

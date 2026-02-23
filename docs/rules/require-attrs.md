@@ -1,3 +1,7 @@
+---
+title: require-attrs
+description: Require specified attributes on elements based on custom configuration.
+---
 # require-attrs
 
 This rule enforces the use of tags with specified attributes.

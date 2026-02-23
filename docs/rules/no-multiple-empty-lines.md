@@ -1,3 +1,7 @@
+---
+title: no-multiple-empty-lines
+description: Disallow multiple consecutive empty lines for cleaner and more readable HTML.
+---
 # no-multiple-empty-lines
 
 This rule disallows the use of multiple consecutive empty lines.

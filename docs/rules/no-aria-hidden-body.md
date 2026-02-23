@@ -1,3 +1,9 @@
+---
+title: no-aria-hidden-body
+description: >-
+  Disallow aria-hidden attribute on the body element to ensure page content is
+  accessible.
+---
 # no-aria-hidden-body
 
 This rule disallows the use of the `aria-hidden` attribute on the `body`.

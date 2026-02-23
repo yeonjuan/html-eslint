@@ -1,3 +1,9 @@
+---
+title: class-spacing
+description: >-
+  Disallow extra spacing in class attribute values to maintain consistent
+  formatting.
+---
 # class-spacing
 
 Disallow extra spacing in class attribute values.

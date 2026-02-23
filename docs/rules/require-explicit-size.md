@@ -1,3 +1,7 @@
+---
+title: require-explicit-size
+description: Require explicit width and height attributes on img and iframe elements.
+---
 # require-explicit-size
 
 This rule enforces that certain elements such as `img` and `iframe`, have explicitly defined width and height attributes.

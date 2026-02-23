@@ -1,3 +1,7 @@
+---
+title: require-li-container
+description: 'Require li elements to be inside ul, ol, or menu elements.'
+---
 # require-li-container
 
 This rule enforces that `<li>` elements must be children of `<ul>`, `<ol>` or `<menu>`.

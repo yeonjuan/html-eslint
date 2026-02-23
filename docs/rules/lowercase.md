@@ -1,3 +1,7 @@
+---
+title: lowercase
+description: Enforce lowercase for tag and attribute names following HTML best practices.
+---
 # lowercase
 
 This rule enforces the use of lowercase for tag and attribute names.

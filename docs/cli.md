@@ -1,6 +1,7 @@
 ---
 id: cli
 title: CLI
+description: Command-line interface for HTML ESLint to lint HTML files directly from URLs with configuration options.
 ---
 
 # CLI

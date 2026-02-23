@@ -1,3 +1,7 @@
+---
+title: require-form-method
+description: Require method attribute on form elements for clear form submission behavior.
+---
 # require-form-method
 
 This rule enforces the use of a valid `method` attribute on `<form>` elements.

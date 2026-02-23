@@ -1,3 +1,7 @@
+---
+title: no-obsolete-attrs
+description: Disallow obsolete HTML attributes that are deprecated in HTML5.
+---
 # no-obsolete-attrs
 
 This rule disallows the use of obsolete attributes in HTML5.

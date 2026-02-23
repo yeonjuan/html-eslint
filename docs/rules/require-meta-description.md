@@ -1,3 +1,7 @@
+---
+title: require-meta-description
+description: Require meta description tag in the head for SEO purposes.
+---
 # require-meta-description
 
 This rule requires a `<meta name="description">` tag within the `<head></head>`.

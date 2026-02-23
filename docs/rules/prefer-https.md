@@ -1,3 +1,7 @@
+---
+title: prefer-https
+description: Prefer HTTPS over HTTP for embedded resources to ensure secure connections.
+---
 # prefer-https
 
 This rule enforces the use of `HTTPS` for embedded resources (image, media, style sheet and script).

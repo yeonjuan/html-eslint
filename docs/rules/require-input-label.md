@@ -1,3 +1,7 @@
+---
+title: require-input-label
+description: 'Require labels for input, textarea, and select elements for accessibility.'
+---
 # require-input-label
 
 This rule enforces the presence of accessible labels for input elements such as `<input type="text">`, `<select>` and `<textarea>`.

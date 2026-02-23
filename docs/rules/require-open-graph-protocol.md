@@ -1,3 +1,7 @@
+---
+title: require-open-graph-protocol
+description: Require specified Open Graph meta tags for social media sharing.
+---
 # require-open-graph-protocol
 
 This rule enforces the use of specified meta tags for open graph protocol.

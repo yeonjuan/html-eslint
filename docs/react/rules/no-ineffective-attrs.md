@@ -1,3 +1,7 @@
+---
+title: no-ineffective-attrs
+description: Disallow HTML attributes that have no effect in their React/JSX context.
+---
 # no-ineffective-attrs
 
 This rule disallows HTML attributes that have no effect in their context in React/JSX code.

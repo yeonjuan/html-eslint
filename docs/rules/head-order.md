@@ -1,3 +1,9 @@
+---
+title: head-order
+description: >-
+  Enforce optimal ordering of elements in the head tag for better performance
+  and SEO.
+---
 # head-order
 
 > Enforce optimal ordering of elements in `<head>`

@@ -1,3 +1,9 @@
+---
+title: no-positive-tabindex
+description: >-
+  Disallow positive tabindex values to maintain natural tab order for
+  accessibility.
+---
 # no-positive-tabindex
 
 This rule disallows the use of positive `tabindex` attribute values.
