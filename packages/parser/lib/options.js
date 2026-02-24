@@ -19,13 +19,6 @@ function getOptions(code, parserOptions) {
       html,
     };
   }
-  /** @type {TemplateSyntax[] | undefined} */
-  let templateInfos = undefined;
-  if (parserOptions.templateEngineSyntax) {
-    templateInfos = templateSyntaxParser.parse(code, {
-      syntax: parserOptions.templateEngineSyntax,
-    }).syntax;
-  }
 
   /** @type {any} */
   let tokenAdapter = undefined;
@@ -56,6 +49,14 @@ function getOptions(code, parserOptions) {
         },
       };
     }
+  }
+
+    /** @type {TemplateSyntax[] | undefined} */
+  let templateInfos = undefined;
+  if (parserOptions.templateEngineSyntax) {
+    templateInfos = templateSyntaxParser.parse(html, {
+      syntax: parserOptions.templateEngineSyntax,
+    }).syntax;
   }
 
   /** @type {string[] | undefined} */

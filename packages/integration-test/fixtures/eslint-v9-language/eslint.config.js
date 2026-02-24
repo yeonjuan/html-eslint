@@ -19,4 +19,18 @@ module.exports = defineConfig([
             "html/quotes": ["error"]
         }
     },
+    {
+        files: ["frontmatter/*.html"],
+        plugins: {
+            html
+        },
+        language: 'html/html',
+        languageOptions: {
+            frontmatter: true,
+            templateEngineSyntax: htmlParser.TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+        rules: {
+            "html/no-duplicate-class": "error",
+        }
+    },
 ]);
