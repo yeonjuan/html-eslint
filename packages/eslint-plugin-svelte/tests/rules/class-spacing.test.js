@@ -32,6 +32,9 @@ ruleTester.run("class-spacing", rule, {
     {
       code: `<div class="container"></div>`,
     },
+    {
+      code: `<div class={["foo", "bar"]}></div>`,
+    },
   ],
   invalid: [
     {
@@ -121,6 +124,15 @@ ruleTester.run("class-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingStart",
+        },
+      ],
+    },
+    {
+      code: `<div class={["foo  bar"]}></div>`,
+      output: `<div class={["foo  bar"]}></div>`,
+      errors: [
+        {
+          messageId: "extraSpacingBetween",
         },
       ],
     },

@@ -61,9 +61,10 @@
   "devDependencies": {
     "@types/eslint-scope": "^9.1.0",
     "@typescript-eslint/parser": "^8.56.0",
+    "@typescript-eslint/types": "^8.56.0",
     "eslint-scope": "^9.1.1",
     "svelte": "^5.53.1",
-    "svelte-eslint-parser": "^1.4.1",
+    "svelte-eslint-parser": "^1.5.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },

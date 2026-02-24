@@ -1,5 +1,6 @@
 /**
  * @import {
+ *   Node,
  *   SvelteAttribute,
  *   SvelteLiteral
  * } from "../types.js"
@@ -37,12 +38,7 @@ const rule = {
     const ruleCore = classSpacing();
 
     return {
-      /**
-       * @param {SvelteAttribute} node
-       * @returns
-       */
       SvelteAttribute(node) {
-        // Check if this is a class attribute
         if (
           !node.key ||
           !node.key.name ||
@@ -51,7 +47,6 @@ const rule = {
           return;
         }
 
-        // Skip if no value
         if (!node.value || node.value.length === 0) {
           return;
         }
@@ -120,7 +115,6 @@ const rule = {
             node: valuePart,
             loc,
             messageId: result.messageId,
-            /** @param {any} fixer */
             fix(fixer) {
               return fixer.replaceTextRange(valuePart.range, normalizedValue);
             },

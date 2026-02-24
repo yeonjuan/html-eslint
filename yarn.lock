@@ -1542,7 +1542,7 @@ __metadata:
     "@typescript-eslint/types": "npm:^8.56.0"
     eslint-scope: "npm:^9.1.1"
     svelte: "npm:^5.53.1"
-    svelte-eslint-parser: "npm:^1.4.1"
+    svelte-eslint-parser: "npm:^1.5.1"
     tsup: "npm:^8.5.1"
     typescript: "npm:^5.9.3"
   peerDependencies:
@@ -15699,21 +15699,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"semver@npm:^7.7.2, semver@npm:^7.7.4":
+  version: 7.7.4
+  resolution: "semver@npm:7.7.4"
+  bin:
+    semver: bin/semver.js
+  checksum: 10c0/5215ad0234e2845d4ea5bb9d836d42b03499546ddafb12075566899fc617f68794bb6f146076b6881d755de17d6c6cc73372555879ec7dce2c2feee947866ad2
+  languageName: node
+  linkType: hard
+
 "semver@npm:^7.7.3":
   version: 7.7.3
   resolution: "semver@npm:7.7.3"
   bin:
     semver: bin/semver.js
   checksum: 10c0/4afe5c986567db82f44c8c6faef8fe9df2a9b1d98098fc1721f57c696c4c21cebd572f297fc21002f81889492345b8470473bc6f4aff5fb032a6ea59ea2bc45e
-  languageName: node
-  linkType: hard
-
-"semver@npm:^7.7.4":
-  version: 7.7.4
-  resolution: "semver@npm:7.7.4"
-  bin:
-    semver: bin/semver.js
-  checksum: 10c0/5215ad0234e2845d4ea5bb9d836d42b03499546ddafb12075566899fc617f68794bb6f146076b6881d755de17d6c6cc73372555879ec7dce2c2feee947866ad2
   languageName: node
   linkType: hard
 
@@ -16413,9 +16413,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svelte-eslint-parser@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "svelte-eslint-parser@npm:1.4.1"
+"svelte-eslint-parser@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "svelte-eslint-parser@npm:1.5.1"
   dependencies:
     eslint-scope: "npm:^8.2.0"
     eslint-visitor-keys: "npm:^4.0.0"
@@ -16423,12 +16423,13 @@ __metadata:
     postcss: "npm:^8.4.49"
     postcss-scss: "npm:^4.0.9"
     postcss-selector-parser: "npm:^7.0.0"
+    semver: "npm:^7.7.2"
   peerDependencies:
     svelte: ^3.37.0 || ^4.0.0 || ^5.0.0
   peerDependenciesMeta:
     svelte:
       optional: true
-  checksum: 10c0/67283b6cb6eee400a3a68e9d33a2f7373695a50a28df487260414d9cea776eba2d195c57cda4cc1597e01790f1ceb9880b77d12f09f9ed5c8acb1b26733e08db
+  checksum: 10c0/aa070c01307cf7b2048422e7fef71bec7d6444ceef4ea2c75bac9daf96cec109da6e1f8ba992775398677b99213c9c66395d2b8267b58dce2a347c79e716fc5c
   languageName: node
   linkType: hard
 
