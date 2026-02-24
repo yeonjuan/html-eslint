@@ -45,7 +45,7 @@ module.exports = [
             }
         },
         rules: {
-            "html/indent": ["error", 2],
+            "html/no-duplicate-class": "error",
         }
     }
 ];
