@@ -17,6 +17,8 @@ tmp.setGracefulCleanup();
 const PACKAGE_VERSION = "0.0.2";
 const PACKAGE_MANAGER = "yarn@4.9.1";
 const TYPESCRIPT_VERSION = "5.9.3";
+const SVELTE_ESLINT_PLUGIN_VERSION = "3.15.0";
+const SVELTE_VERSION = "5";
 const HTML_ESLINT_PACKAGES = [
   "template-parser",
   "template-syntax-parser",
@@ -55,6 +57,7 @@ async function installDependencies(dir, log) {
  * @param {string} params.dir
  * @param {string[]} params.localPackages
  * @param {boolean} [params.ts]
+ * @param {boolean} [params.svelte]
  * @param {Record<string, string>} [params.scripts]
  */
 async function makePackageJson({
@@ -62,6 +65,7 @@ async function makePackageJson({
   eslintVersion,
   dir,
   ts,
+  svelte,
   scripts,
   localPackages,
 }) {
@@ -88,6 +92,8 @@ async function makePackageJson({
     devDependencies: {
       eslint: eslintVersion,
       typescript: ts ? TYPESCRIPT_VERSION : undefined,
+      "eslint-plugin-svelte": svelte ? SVELTE_ESLINT_PLUGIN_VERSION : undefined,
+      svelte: svelte ? SVELTE_VERSION : undefined,
       ...devDependencies,
     },
     resolutions,
@@ -105,6 +111,7 @@ async function makePackageJson({
  * @param {string} params.eslintVersion
  * @param {Record<string, string>} [params.scripts]
  * @param {string[]} params.localPackages
+ * @param {boolean} [params.svelte]
  * @param {string[]} params.log
  * @returns {Promise<{ dir: string }>}
  */
@@ -113,6 +120,7 @@ async function setup({
   eslintVersion,
   scripts,
   localPackages,
+  svelte,
   log,
 }) {
   const dir = await tmpDir();
@@ -125,6 +133,7 @@ async function setup({
     dir,
     scripts,
     localPackages,
+    svelte,
     log,
   });
   return { dir };
@@ -136,6 +145,7 @@ async function setup({
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
  * @param {string[]} params.localPackages
+ * @param {boolean} [params.svelte]
  * @param {boolean} params.log
  */
 async function runESLint({
@@ -143,9 +153,15 @@ async function runESLint({
   eslintVersion,
   glob,
   localPackages,
+  svelte,
   log,
 }) {
-  const { dir } = await setup({ fixtureName, eslintVersion, localPackages });
+  const { dir } = await setup({
+    fixtureName,
+    eslintVersion,
+    localPackages,
+    svelte,
+  });
 
   await installDependencies(dir, log);
 

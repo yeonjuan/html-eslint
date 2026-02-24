@@ -13,6 +13,7 @@ async function testESLintFiles({
   fixtureName,
   eslintVersion,
   localPackages,
+  svelte,
   files,
   shouldHaveErrors = false,
 }) {
@@ -21,6 +22,7 @@ async function testESLintFiles({
       fixtureName,
       eslintVersion,
       localPackages,
+      svelte,
       glob: file,
       log: !shouldHaveErrors,
     });
@@ -33,6 +35,7 @@ function createESLintConfigTests({
   eslintVersion,
   fixtureName,
   localPackages,
+  svelte,
   invalidFiles = [
     "html/invalid.html",
     "js/invalid.js",
@@ -41,7 +44,7 @@ function createESLintConfigTests({
   validFiles = ["html/valid.html", "js/valid.js", "frontmatter/valid.html"],
   testTimeout = 20000,
 }) {
-  const config = { eslintVersion, fixtureName, localPackages };
+  const config = { eslintVersion, fixtureName, localPackages, svelte };
 
   if (invalidFiles.length > 0) {
     it(
@@ -131,6 +134,17 @@ describe("integration tests", () => {
       localPackages: ["@html-eslint/eslint-plugin-react"],
       invalidFiles: ["jsx/invalid.jsx"],
       validFiles: ["jsx/valid.jsx"],
+    });
+  });
+
+  describe("svelte", () => {
+    createESLintConfigTests({
+      eslintVersion: "9",
+      fixtureName: "svelte",
+      localPackages: ["@html-eslint/eslint-plugin-svelte"],
+      svelte: true,
+      invalidFiles: ["svelte/invalid.svelte"],
+      validFiles: ["svelte/valid.svelte"],
     });
   });
 });
