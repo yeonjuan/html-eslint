@@ -42,6 +42,11 @@ module.exports = [
             parser: htmlParser,
             parserOptions: {
                 frontmatter: true,
+                templateEngineSyntax: [
+                    { open: "{{", close: "}}" },
+                    { open: "{%", close: "%}" },
+                    { open: "{#", close: "#}", isComment: true },
+			    ],
             }
         },
         rules: {
