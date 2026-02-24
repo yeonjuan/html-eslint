@@ -51,7 +51,7 @@ function getOptions(code, parserOptions) {
     }
   }
 
-    /** @type {TemplateSyntax[] | undefined} */
+  /** @type {TemplateSyntax[] | undefined} */
   let templateInfos = undefined;
   if (parserOptions.templateEngineSyntax) {
     templateInfos = templateSyntaxParser.parse(html, {
