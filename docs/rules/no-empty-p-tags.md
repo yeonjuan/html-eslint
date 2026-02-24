@@ -34,7 +34,7 @@ module.exports = {
 
 ```html
 <p></p>
-<p>   </p>
+<p></p>
 <p><!-- spacing hack --></p>
 <p><span></span></p>
 ```

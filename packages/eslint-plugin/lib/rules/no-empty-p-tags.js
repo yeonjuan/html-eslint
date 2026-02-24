@@ -16,8 +16,8 @@ const MESSAGE_IDS = {
 };
 
 /**
- * Returns true if a Tag node has any meaningful text content
- * (non-empty, non-whitespace text in any descendant).
+ * Returns true if a Tag node has any meaningful text content (non-empty,
+ * non-whitespace text in any descendant).
  *
  * @param {Tag} node
  * @returns {boolean}
