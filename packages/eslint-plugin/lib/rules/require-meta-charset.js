@@ -36,7 +36,7 @@ module.exports = {
       url: getRuleUrl("require-meta-charset"),
     },
 
-    fixable: null,
+    fixable: "code",
     schema: [],
     messages: {
       [MESSAGE_IDS.MISSING]: 'Missing `<meta charset="...">`.',
@@ -57,6 +57,12 @@ module.exports = {
           context.report({
             node,
             messageId: MESSAGE_IDS.MISSING,
+            fix(fixer) {
+              return fixer.insertTextAfter(
+                node.openEnd,
+                '<meta charset="utf-8">'
+              );
+            },
           });
           return;
         }
@@ -68,6 +74,9 @@ module.exports = {
             context.report({
               node: charsetAttr,
               messageId: MESSAGE_IDS.EMPTY,
+              fix(fixer) {
+                return fixer.replaceText(charsetAttr, 'charset="utf-8"');
+              },
             });
           }
         }

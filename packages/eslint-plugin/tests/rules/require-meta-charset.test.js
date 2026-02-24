@@ -32,7 +32,13 @@ ruleTester.run("require-meta-charset", rule, {
       </head>
 </html>
 `,
-
+      output: `
+<html>
+      <head><meta charset="utf-8">
+          <meta name="description">
+      </head>
+</html>
+`,
       errors: [
         {
           messageId: "missing",
@@ -43,6 +49,12 @@ ruleTester.run("require-meta-charset", rule, {
       code: `
 <html>
       <head>
+      </head>
+</html>
+`,
+      output: `
+<html>
+      <head><meta charset="utf-8">
       </head>
 </html>
 `,
@@ -60,6 +72,13 @@ ruleTester.run("require-meta-charset", rule, {
       </head>
 </html>
 `,
+      output: `
+<html>
+      <head>
+          <meta charset="utf-8">
+      </head>
+</html>
+`,
       errors: [
         {
           messageId: "empty",
@@ -70,6 +89,14 @@ ruleTester.run("require-meta-charset", rule, {
       code: `
 <html>
       <head>
+        <title> title </title>
+        <meta foo="charset">
+      </head>
+</html>
+`,
+      output: `
+<html>
+      <head><meta charset="utf-8">
         <title> title </title>
         <meta foo="charset">
       </head>
