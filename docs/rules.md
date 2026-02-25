@@ -36,7 +36,7 @@
 | [require-doctype](rules/require-doctype)                         | Require `<!DOCTYPE HTML>` in HTML                                                              | ⭐ 🔧 |
 | [require-explicit-size](rules/require-explicit-size)             | Enforces that some elements (img, iframe) have explicitly defined width and height attributes. |       |
 | [require-li-container](rules/require-li-container)               | Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.                                            | ⭐    |
-| [require-meta-charset](rules/require-meta-charset)               | Enforce use of `<meta charset="...">` in `<head>`                                              |       |
+| [require-meta-charset](rules/require-meta-charset)               | Enforce use of `<meta charset="...">` in `<head>`                                              | 🔧    |
 | [use-baseline](rules/use-baseline)                               | Enforce the use of baseline features.                                                          | ⭐    |
 
 ## SEO
