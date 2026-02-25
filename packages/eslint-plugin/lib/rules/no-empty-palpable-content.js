@@ -100,7 +100,7 @@ function hasTextContent(node) {
   return false;
 }
 
-/** @type {RuleModule<[{allowElements?: string[]}]>} */
+/** @type {RuleModule<[{checkElements?: string[]}]>} */
 module.exports = {
   meta: {
     type: "code",
