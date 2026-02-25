@@ -1546,7 +1546,7 @@ __metadata:
     es-html-parser: "npm:0.3.1"
     eslint: "npm:^9.39.1"
     espree: "npm:^10.3.0"
-    html-standard: "npm:0.0.13"
+    html-standard: "npm:^0.0.13"
     typescript: "npm:^5.9.3"
   peerDependencies:
     eslint: ">=8.0.0 || ^10.0.0-0"
@@ -10177,7 +10177,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-standard@npm:0.0.13, html-standard@npm:^0.0.13":
+"html-standard@npm:^0.0.13":
   version: 0.0.13
   resolution: "html-standard@npm:0.0.13"
   dependencies:
