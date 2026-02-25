@@ -1,8 +1,8 @@
 {
-  "name": "@html-eslint/eslint-plugin-react",
+  "name": "@html-eslint/eslint-plugin-angular",
   "version": "0.57.0",
   "type": "commonjs",
-  "description": "ESLint plugin for HTML with React support",
+  "description": "ESLint plugin for HTML with Angular support",
   "author": "yeonjuan",
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
@@ -33,18 +33,19 @@
     "eslintplugin",
     "eslint-plugin",
     "html",
-    "react",
+    "angular",
     "lint"
   ],
   "dependencies": {
     "@html-eslint/core": "^0.57.0",
-    "@html-eslint/types": "^0.57.0",
-    "@typescript-eslint/types": "^8.56.0"
+    "@html-eslint/types": "^0.57.0"
   },
   "peerDependencies": {
+    "@angular-eslint/template-parser": ">=18.0.0",
     "eslint": ">=8.0.0 || ^10.0.0-0"
   },
   "devDependencies": {
+    "@angular-eslint/template-parser": "^21.2.0",
     "typescript": "^5.9.3"
   },
   "engines": {
