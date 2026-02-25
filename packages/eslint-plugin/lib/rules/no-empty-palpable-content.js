@@ -20,43 +20,27 @@ const MESSAGE_IDS = {
  * accessibility concern (screen readers announce the element but find no
  * content inside it).
  *
- * Headings (h1–h6) are intentionally excluded — they are already covered
- * by the `no-empty-headings` rule.
+ * Deliberately omits generic structural elements (div, section, main, …)
+ * that are commonly used as CSS-only containers or JS-populated slots.
  *
- * Void / replaced elements (img, input, br, hr, …) are excluded because
- * they cannot contain child nodes.
+ * Headings (h1–h6) are excluded — already covered by `no-empty-headings`.
  */
 const DEFAULT_ELEMENTS = [
-  // Block / flow elements
+  // Paragraph / quotation — emptiness almost always a bug
   "p",
-  "div",
-  "section",
-  "article",
-  "aside",
-  "main",
-  "nav",
-  "header",
-  "footer",
-  "address",
   "blockquote",
-  "pre",
-  "figure",
-  "figcaption",
-  // Interactive
+  "q",
+  // Interactive — empty means no accessible name → accessibility failure
   "a",
   "button",
   "label",
-  "details",
-  "summary",
-  // Inline / phrasing
-  "span",
+  // Inline semantics — empty inline wrappers serve no purpose
   "em",
   "strong",
   "b",
   "i",
   "s",
   "u",
-  "q",
   "cite",
   "code",
   "kbd",
@@ -66,11 +50,8 @@ const DEFAULT_ELEMENTS = [
   "sub",
   "sup",
   "var",
-  "output",
-  "time",
-  "data",
-  "dfn",
   "abbr",
+  "dfn",
   "bdi",
   "bdo",
   "ins",
@@ -79,15 +60,17 @@ const DEFAULT_ELEMENTS = [
   "li",
   "dt",
   "dd",
+  "figcaption",
   "caption",
-  // Form structure
-  "fieldset",
-  "legend",
+  // Metadata / output
+  "time",
+  "data",
+  "output",
 ];
 
 /**
- * Replaced / embedded elements that count as content even when they have no
- * text descendants (e.g. <img>, <svg>, <video>).
+ * Replaced / embedded elements that count as visual content even when they
+ * contain no text (e.g. <img>, <svg>, <video>).
  */
 const REPLACED_ELEMENTS = new Set([
   "img",
@@ -108,6 +91,39 @@ const REPLACED_ELEMENTS = new Set([
 ]);
 
 /**
+ * Complete set of standard HTML element names.
+ * Any tag name NOT in this set is treated as a custom element or template
+ * slot (e.g. <block>, <content>, <slot>) and considered potential content —
+ * because template engines expand these tags at render time.
+ */
+const KNOWN_HTML_ELEMENTS = new Set([
+  "a", "abbr", "address", "article", "aside", "audio",
+  "b", "bdi", "bdo", "blockquote", "body", "br", "button",
+  "canvas", "caption", "cite", "code", "col", "colgroup",
+  "data", "datalist", "dd", "del", "details", "dfn", "dialog",
+  "div", "dl", "dt",
+  "em", "embed",
+  "fieldset", "figcaption", "figure", "footer", "form",
+  "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html",
+  "i", "iframe", "img", "input", "ins",
+  "kbd",
+  "label", "legend", "li", "link",
+  "main", "map", "mark", "menu", "meta", "meter",
+  "nav", "noscript",
+  "object", "ol", "optgroup", "option", "output",
+  "p", "picture", "pre", "progress",
+  "q",
+  "rp", "rt", "ruby",
+  "s", "samp", "script", "search", "section", "select",
+  "small", "source", "span", "strong", "style", "sub", "summary", "sup",
+  "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead",
+  "time", "title", "tr", "track",
+  "u", "ul",
+  "var", "video",
+  "wbr",
+]);
+
+/**
  * Returns true if the element should be skipped because it already has an
  * accessible name or is intentionally hidden from assistive technology.
  *
@@ -115,15 +131,12 @@ const REPLACED_ELEMENTS = new Set([
  * @returns {boolean}
  */
 function isAccessiblyNamedOrHidden(node) {
-  // aria-label / aria-labelledby provide an accessible name even when empty
   if (findAttr(node, "aria-label")) return true;
   if (findAttr(node, "aria-labelledby")) return true;
 
-  // aria-hidden="true" → intentionally removed from AT
   const ariaHidden = findAttr(node, "aria-hidden");
   if (ariaHidden?.value?.value === "true") return true;
 
-  // role="presentation" or role="none" → decorative
   const role = findAttr(node, "role");
   const roleValue = role?.value?.value ?? "";
   if (roleValue === "presentation" || roleValue === "none") return true;
@@ -134,7 +147,9 @@ function isAccessiblyNamedOrHidden(node) {
 /**
  * Returns true if a Tag node has any meaningful content:
  *   - a non-empty text node in any descendant, OR
- *   - a replaced/embedded element (img, svg, video, …) in any descendant.
+ *   - a replaced/embedded element (img, svg, video, …), OR
+ *   - a non-standard element (custom element or template slot such as
+ *     <block>, <content>, <slot>) that expands to content at render time.
  *
  * @param {Tag} node
  * @returns {boolean}
@@ -143,7 +158,11 @@ function hasContent(node) {
   for (const child of node.children) {
     if (isText(child) && child.value.trim()) return true;
     if (isTag(child)) {
-      if (REPLACED_ELEMENTS.has(child.name.toLowerCase())) return true;
+      const childName = child.name.toLowerCase();
+      // Replaced / embedded elements count as visual content
+      if (REPLACED_ELEMENTS.has(childName)) return true;
+      // Non-standard elements are template/custom elements that expand at render
+      if (!KNOWN_HTML_ELEMENTS.has(childName)) return true;
       if (hasContent(child)) return true;
     }
   }
@@ -197,8 +216,7 @@ module.exports = {
         const tagName = node.name.toLowerCase();
         if (!elements.has(tagName)) return;
 
-        // Skip elements that are accessible via aria attributes, or are
-        // intentionally hidden from assistive technology.
+        // Skip elements with an accessible name or that are hidden from AT
         if (isAccessiblyNamedOrHidden(node)) return;
 
         if (!hasContent(node)) {

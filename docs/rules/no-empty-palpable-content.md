@@ -40,6 +40,7 @@ The following are **not** flagged:
 - Elements with `aria-hidden="true"` — intentionally removed from the accessibility tree
 - Elements with `role="presentation"` or `role="none"` — decorative
 - Elements containing replaced/embedded content (`<img>`, `<svg>`, `<video>`, `<audio>`, `<canvas>`, `<iframe>`, etc.)
+- Elements containing custom/non-standard child elements (`<slot>`, `<my-component>`, template engine tags like `<block>`, `<content>`) — these expand to content at render time
 
 ### ❌ Incorrect
 
@@ -73,6 +74,10 @@ The following are **not** flagged:
 <!-- Contains a replaced element (img, svg, video, …) -->
 <a href="/"><img alt="GitHub" src="logo.svg" /></a>
 <button><svg viewBox="0 0 24 24">…</svg></button>
+
+<!-- Contains a template slot or custom element -->
+<label><slot></slot></label>
+<p><my-content></my-content></p>
 ```
 
 ## Options
@@ -92,9 +97,9 @@ type Options = [
 
 ### `checkElements`
 
-By default the rule checks the following elements:
+By default the rule checks semantically significant elements where emptiness is almost always a bug. Generic structural elements (`div`, `section`, `main`, etc.) are **not** included by default because they are commonly used as CSS-only containers or JavaScript-populated slots.
 
-`p`, `div`, `section`, `article`, `aside`, `main`, `nav`, `header`, `footer`, `address`, `blockquote`, `pre`, `figure`, `figcaption`, `a`, `button`, `label`, `details`, `summary`, `span`, `em`, `strong`, `b`, `i`, `s`, `u`, `q`, `cite`, `code`, `kbd`, `samp`, `mark`, `small`, `sub`, `sup`, `var`, `output`, `time`, `data`, `dfn`, `abbr`, `bdi`, `bdo`, `ins`, `del`, `li`, `dt`, `dd`, `caption`, `fieldset`, `legend`
+Default elements: `p`, `blockquote`, `q`, `a`, `button`, `label`, `em`, `strong`, `b`, `i`, `s`, `u`, `cite`, `code`, `kbd`, `samp`, `mark`, `small`, `sub`, `sup`, `var`, `abbr`, `dfn`, `bdi`, `bdo`, `ins`, `del`, `li`, `dt`, `dd`, `figcaption`, `caption`, `time`, `data`, `output`
 
 To restrict checking to only specific elements:
 

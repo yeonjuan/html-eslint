@@ -8,8 +8,6 @@ ruleTester.run("no-empty-palpable-content", rule, {
   valid: [
     // Elements with text content are fine
     { code: "<p>Some text</p>" },
-    { code: "<div>Content</div>" },
-    { code: "<span>Text</span>" },
     { code: "<a href='/'>Link text</a>" },
     { code: "<button>Click me</button>" },
     { code: "<li>List item</li>" },
@@ -17,22 +15,26 @@ ruleTester.run("no-empty-palpable-content", rule, {
     { code: "<article><h2>Heading</h2><p>Text</p></article>" },
     // Nested text content counts
     { code: "<p><span>Nested text</span></p>" },
-    { code: "<div><em>Emphasized</em></div>" },
     { code: "<p>Mixed <strong>bold</strong> content</p>" },
-    // Deeply nested text still counts
-    { code: "<div><span><em>Deep text</em></span></div>" },
+    // Elements not in the default set are not checked
+    { code: "<div></div>" },
+    { code: "<span></span>" },
+    { code: "<section></section>" },
+    { code: "<article></article>" },
+    { code: "<aside></aside>" },
+    { code: "<main></main>" },
+    { code: "<nav></nav>" },
+    { code: "<header></header>" },
+    { code: "<footer></footer>" },
+    { code: "<pre></pre>" },
+    { code: "<figure></figure>" },
     // Headings are excluded (covered by no-empty-headings)
     { code: "<h1></h1>" },
     { code: "<h2></h2>" },
-    { code: "<h3></h3>" },
     // Void / replaced elements not in the check list are ignored
     { code: "<img src='logo.svg' alt='' />" },
     { code: "<input type='text' />" },
-    { code: "<br />" },
-    { code: "<hr />" },
-    // Non-palpable-content elements not in the default list are ignored
     { code: "<table></table>" },
-    { code: "<thead></thead>" },
     { code: "<tr></tr>" },
     // Custom checkElements option — only specified elements are checked
     {
@@ -43,66 +45,39 @@ ruleTester.run("no-empty-palpable-content", rule, {
       code: "<p>Text</p>",
       options: [{ checkElements: ["p", "span"] }],
     },
-    // Whitespace with non-empty nested tag counts as having text
-    { code: "<label>  <span>Name</span>  </label>" },
     // aria-label / aria-labelledby provide an accessible name — skip
     { code: "<button aria-label='Close'></button>" },
     { code: "<a href='/' aria-label='Home'></a>" },
+    { code: "<label aria-label='Email'></label>" },
     { code: "<div aria-labelledby='heading-id'></div>" },
     // aria-hidden removes element from AT — skip
-    { code: "<div aria-hidden='true'></div>" },
-    { code: "<span aria-hidden='true'></span>" },
+    { code: "<p aria-hidden='true'></p>" },
+    { code: "<em aria-hidden='true'></em>" },
     // role=presentation / role=none — decorative, skip
-    { code: "<div role='presentation'></div>" },
-    { code: "<span role='none'></span>" },
+    { code: "<a role='presentation'></a>" },
+    { code: "<button role='none'></button>" },
     // Replaced elements count as content
     { code: "<a href='/'><img alt='GitHub' src='logo.svg' /></a>" },
     { code: "<button><svg viewBox='0 0 24 24'></svg></button>" },
-    { code: "<div><img src='icon.png' alt='icon' /></div>" },
-    { code: "<figure><canvas></canvas></figure>" },
     { code: "<p><picture><source srcset='img.webp' /><img alt='' src='img.jpg' /></picture></p>" },
+    // Non-standard / template elements count as content
+    { code: "<label><content></content></label>" },
+    { code: "<p><slot></slot></p>" },
+    { code: "<li><my-component></my-component></li>" },
   ],
   invalid: [
-    // Block elements
+    // Block / paragraph elements
     {
       code: "<p></p>",
       errors: [{ messageId: "empty", data: { tag: "p" } }],
     },
     {
-      code: "<div></div>",
-      errors: [{ messageId: "empty", data: { tag: "div" } }],
-    },
-    {
-      code: "<section></section>",
-      errors: [{ messageId: "empty", data: { tag: "section" } }],
-    },
-    {
-      code: "<article></article>",
-      errors: [{ messageId: "empty", data: { tag: "article" } }],
-    },
-    {
-      code: "<aside></aside>",
-      errors: [{ messageId: "empty", data: { tag: "aside" } }],
-    },
-    {
-      code: "<main></main>",
-      errors: [{ messageId: "empty", data: { tag: "main" } }],
-    },
-    {
-      code: "<nav></nav>",
-      errors: [{ messageId: "empty", data: { tag: "nav" } }],
-    },
-    {
-      code: "<header></header>",
-      errors: [{ messageId: "empty", data: { tag: "header" } }],
-    },
-    {
-      code: "<footer></footer>",
-      errors: [{ messageId: "empty", data: { tag: "footer" } }],
-    },
-    {
       code: "<blockquote></blockquote>",
       errors: [{ messageId: "empty", data: { tag: "blockquote" } }],
+    },
+    {
+      code: "<q></q>",
+      errors: [{ messageId: "empty", data: { tag: "q" } }],
     },
     // Interactive elements
     {
@@ -119,10 +94,6 @@ ruleTester.run("no-empty-palpable-content", rule, {
     },
     // Inline elements
     {
-      code: "<span></span>",
-      errors: [{ messageId: "empty", data: { tag: "span" } }],
-    },
-    {
       code: "<em></em>",
       errors: [{ messageId: "empty", data: { tag: "em" } }],
     },
@@ -133,6 +104,10 @@ ruleTester.run("no-empty-palpable-content", rule, {
     {
       code: "<code></code>",
       errors: [{ messageId: "empty", data: { tag: "code" } }],
+    },
+    {
+      code: "<cite></cite>",
+      errors: [{ messageId: "empty", data: { tag: "cite" } }],
     },
     // List items
     {
@@ -147,34 +122,23 @@ ruleTester.run("no-empty-palpable-content", rule, {
       code: "<dd></dd>",
       errors: [{ messageId: "empty", data: { tag: "dd" } }],
     },
-    // Whitespace only
+    {
+      code: "<figcaption></figcaption>",
+      errors: [{ messageId: "empty", data: { tag: "figcaption" } }],
+    },
+    // Whitespace / comment only
     {
       code: "<p>   </p>",
       errors: [{ messageId: "empty", data: { tag: "p" } }],
     },
     {
-      code: "<span>  \n  </span>",
-      errors: [{ messageId: "empty", data: { tag: "span" } }],
-    },
-    // Comment only (no text)
-    {
       code: "<p><!-- spacing hack --></p>",
       errors: [{ messageId: "empty", data: { tag: "p" } }],
     },
-    // Nested empty tags (no text anywhere in subtree)
-    {
-      code: "<div><span></span></div>",
-      errors: [
-        { messageId: "empty", data: { tag: "div" } },
-        { messageId: "empty", data: { tag: "span" } },
-      ],
-    },
+    // p with nested empty standard element (span not in defaults, but p still flagged)
     {
       code: "<p><span></span></p>",
-      errors: [
-        { messageId: "empty", data: { tag: "p" } },
-        { messageId: "empty", data: { tag: "span" } },
-      ],
+      errors: [{ messageId: "empty", data: { tag: "p" } }],
     },
     // Multiple errors in one snippet
     {
@@ -184,16 +148,21 @@ ruleTester.run("no-empty-palpable-content", rule, {
         { messageId: "empty", data: { tag: "p" } },
       ],
     },
-    // Custom checkElements option
+    // Custom checkElements option opts in elements not in defaults
     {
-      code: "<p></p>",
-      options: [{ checkElements: ["p", "span"] }],
-      errors: [{ messageId: "empty", data: { tag: "p" } }],
+      code: "<div></div>",
+      options: [{ checkElements: ["div"] }],
+      errors: [{ messageId: "empty", data: { tag: "div" } }],
     },
     {
       code: "<span></span>",
-      options: [{ checkElements: ["p", "span"] }],
+      options: [{ checkElements: ["span"] }],
       errors: [{ messageId: "empty", data: { tag: "span" } }],
+    },
+    {
+      code: "<section></section>",
+      options: [{ checkElements: ["section"] }],
+      errors: [{ messageId: "empty", data: { tag: "section" } }],
     },
     // Case-insensitive tag matching
     {
@@ -210,9 +179,8 @@ ruleTester.run("no-empty-palpable-content", rule, {
 // Also runs in template (JS) context
 templateRuleTester.run("[template] no-empty-palpable-content", rule, {
   valid: [
-    {
-      code: "html`<p>Content</p>`",
-    },
+    { code: "html`<p>Content</p>`" },
+    { code: "html`<button aria-label='close'></button>`" },
   ],
   invalid: [
     {
@@ -220,8 +188,8 @@ templateRuleTester.run("[template] no-empty-palpable-content", rule, {
       errors: [{ messageId: "empty", data: { tag: "p" } }],
     },
     {
-      code: "html`<span></span>`",
-      errors: [{ messageId: "empty", data: { tag: "span" } }],
+      code: "html`<button></button>`",
+      errors: [{ messageId: "empty", data: { tag: "button" } }],
     },
   ],
 });
