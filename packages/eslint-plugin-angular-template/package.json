@@ -47,6 +47,7 @@
   "devDependencies": {
     "@angular-eslint/bundled-angular-compiler": "^21.2.0",
     "@angular-eslint/template-parser": "^21.2.0",
+    "@angular/compiler": "^21.1.5",
     "typescript": "^5.9.3"
   },
   "engines": {

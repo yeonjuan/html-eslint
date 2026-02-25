@@ -42,6 +42,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@angular/compiler@npm:^21.1.5":
+  version: 21.1.5
+  resolution: "@angular/compiler@npm:21.1.5"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  checksum: 10c0/e2ea3b2cbe94f1809f4058a5c24deb96c45fd8828ea51a8a45db4d8de58573da1e9243c9854620c8459c589cd7560a25a2ff0c6ad980d14d19c3a4b2fdd4ad52
+  languageName: node
+  linkType: hard
+
 "@apidevtools/json-schema-ref-parser@npm:^9.0.3":
   version: 9.1.2
   resolution: "@apidevtools/json-schema-ref-parser@npm:9.1.2"
@@ -1542,6 +1551,7 @@ __metadata:
   dependencies:
     "@angular-eslint/bundled-angular-compiler": "npm:^21.2.0"
     "@angular-eslint/template-parser": "npm:^21.2.0"
+    "@angular/compiler": "npm:^21.1.5"
     "@html-eslint/core": "npm:^0.57.0"
     "@html-eslint/types": "npm:^0.57.0"
     typescript: "npm:^5.9.3"
@@ -16665,7 +16675,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.1, tslib@npm:^2.8.0":
+"tslib@npm:^2.0.1, tslib@npm:^2.3.0, tslib@npm:^2.8.0":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62
