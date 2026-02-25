@@ -45,6 +45,22 @@ ruleTester.run("no-empty-palpable-content", rule, {
     },
     // Whitespace with non-empty nested tag counts as having text
     { code: "<label>  <span>Name</span>  </label>" },
+    // aria-label / aria-labelledby provide an accessible name — skip
+    { code: "<button aria-label='Close'></button>" },
+    { code: "<a href='/' aria-label='Home'></a>" },
+    { code: "<div aria-labelledby='heading-id'></div>" },
+    // aria-hidden removes element from AT — skip
+    { code: "<div aria-hidden='true'></div>" },
+    { code: "<span aria-hidden='true'></span>" },
+    // role=presentation / role=none — decorative, skip
+    { code: "<div role='presentation'></div>" },
+    { code: "<span role='none'></span>" },
+    // Replaced elements count as content
+    { code: "<a href='/'><img alt='GitHub' src='logo.svg' /></a>" },
+    { code: "<button><svg viewBox='0 0 24 24'></svg></button>" },
+    { code: "<div><img src='icon.png' alt='icon' /></div>" },
+    { code: "<figure><canvas></canvas></figure>" },
+    { code: "<p><picture><source srcset='img.webp' /><img alt='' src='img.jpg' /></picture></p>" },
   ],
   invalid: [
     // Block elements

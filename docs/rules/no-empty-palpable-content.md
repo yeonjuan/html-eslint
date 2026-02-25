@@ -33,7 +33,13 @@ module.exports = {
 
 ## Rule Details
 
-Elements that are empty or contain only whitespace (and no text content in any descendant) are not allowed.
+Elements that are empty or contain only whitespace (and no text content or replaced elements in any descendant) are not allowed.
+
+The following are **not** flagged:
+- Elements with `aria-label` or `aria-labelledby` — they have an accessible name
+- Elements with `aria-hidden="true"` — intentionally removed from the accessibility tree
+- Elements with `role="presentation"` or `role="none"` — decorative
+- Elements containing replaced/embedded content (`<img>`, `<svg>`, `<video>`, `<audio>`, `<canvas>`, `<iframe>`, etc.)
 
 ### ❌ Incorrect
 
@@ -49,11 +55,24 @@ Elements that are empty or contain only whitespace (and no text content in any d
 ### ✅ Correct
 
 ```html
+<!-- Has text content -->
 <p>Some text content</p>
 <div><span>Nested text</span></div>
 <a href="/about">About us</a>
 <button>Submit</button>
 <li>Item text</li>
+
+<!-- Has an accessible name via aria-label -->
+<button aria-label="Close dialog"></button>
+<a href="/" aria-label="Home"></a>
+
+<!-- Intentionally hidden from assistive technology -->
+<div aria-hidden="true"></div>
+<span role="presentation"></span>
+
+<!-- Contains a replaced element (img, svg, video, …) -->
+<a href="/"><img alt="GitHub" src="logo.svg" /></a>
+<button><svg viewBox="0 0 24 24">…</svg></button>
 ```
 
 ## Options
