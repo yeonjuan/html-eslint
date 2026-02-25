@@ -36,6 +36,7 @@ module.exports = {
 Elements that are empty or contain only whitespace (and no text content or replaced elements in any descendant) are not allowed.
 
 The following are **not** flagged:
+
 - Elements with `aria-label` or `aria-labelledby` — they have an accessible name
 - Elements with `aria-hidden="true"` — intentionally removed from the accessibility tree
 - Elements with `role="presentation"` or `role="none"` — decorative
@@ -46,7 +47,7 @@ The following are **not** flagged:
 
 ```html
 <p></p>
-<div>   </div>
+<div></div>
 <span><!-- comment only --></span>
 <a href="/about"></a>
 <button></button>
@@ -86,12 +87,11 @@ The following are **not** flagged:
 type Options = [
   {
     /**
-     * Override the list of element names to check.
-     * When provided, this list completely replaces the default set.
-     * Element names are case-insensitive.
+     * Override the list of element names to check. When provided, this list
+     * completely replaces the default set. Element names are case-insensitive.
      */
     checkElements?: string[];
-  }
+  },
 ];
 ```
 
@@ -109,7 +109,7 @@ module.exports = {
   rules: {
     "@html-eslint/no-empty-palpable-content": [
       "error",
-      { checkElements: ["p", "div", "span", "a", "button"] }
+      { checkElements: ["p", "div", "span", "a", "button"] },
     ],
   },
 };

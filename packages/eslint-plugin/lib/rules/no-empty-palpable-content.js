@@ -20,8 +20,8 @@ const MESSAGE_IDS = {
  * accessibility concern (screen readers announce the element but find no
  * content inside it).
  *
- * Deliberately omits generic structural elements (div, section, main, …)
- * that are commonly used as CSS-only containers or JS-populated slots.
+ * Deliberately omits generic structural elements (div, section, main, …) that
+ * are commonly used as CSS-only containers or JS-populated slots.
  *
  * Headings (h1–h6) are excluded — already covered by `no-empty-headings`.
  */
@@ -91,35 +91,120 @@ const REPLACED_ELEMENTS = new Set([
 ]);
 
 /**
- * Complete set of standard HTML element names.
- * Any tag name NOT in this set is treated as a custom element or template
- * slot (e.g. <block>, <content>, <slot>) and considered potential content —
- * because template engines expand these tags at render time.
+ * Complete set of standard HTML element names. Any tag name NOT in this set is
+ * treated as a custom element or template slot (e.g. <block>, <content>,
+ * <slot>) and considered potential content — because template engines expand
+ * these tags at render time.
  */
 const KNOWN_HTML_ELEMENTS = new Set([
-  "a", "abbr", "address", "article", "aside", "audio",
-  "b", "bdi", "bdo", "blockquote", "body", "br", "button",
-  "canvas", "caption", "cite", "code", "col", "colgroup",
-  "data", "datalist", "dd", "del", "details", "dfn", "dialog",
-  "div", "dl", "dt",
-  "em", "embed",
-  "fieldset", "figcaption", "figure", "footer", "form",
-  "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html",
-  "i", "iframe", "img", "input", "ins",
+  "a",
+  "abbr",
+  "address",
+  "article",
+  "aside",
+  "audio",
+  "b",
+  "bdi",
+  "bdo",
+  "blockquote",
+  "body",
+  "br",
+  "button",
+  "canvas",
+  "caption",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "data",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "footer",
+  "form",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "head",
+  "header",
+  "hgroup",
+  "hr",
+  "html",
+  "i",
+  "iframe",
+  "img",
+  "input",
+  "ins",
   "kbd",
-  "label", "legend", "li", "link",
-  "main", "map", "mark", "menu", "meta", "meter",
-  "nav", "noscript",
-  "object", "ol", "optgroup", "option", "output",
-  "p", "picture", "pre", "progress",
+  "label",
+  "legend",
+  "li",
+  "link",
+  "main",
+  "map",
+  "mark",
+  "menu",
+  "meta",
+  "meter",
+  "nav",
+  "noscript",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "picture",
+  "pre",
+  "progress",
   "q",
-  "rp", "rt", "ruby",
-  "s", "samp", "script", "search", "section", "select",
-  "small", "source", "span", "strong", "style", "sub", "summary", "sup",
-  "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead",
-  "time", "title", "tr", "track",
-  "u", "ul",
-  "var", "video",
+  "rp",
+  "rt",
+  "ruby",
+  "s",
+  "samp",
+  "script",
+  "search",
+  "section",
+  "select",
+  "small",
+  "source",
+  "span",
+  "strong",
+  "style",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "template",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "title",
+  "tr",
+  "track",
+  "u",
+  "ul",
+  "var",
+  "video",
   "wbr",
 ]);
 
@@ -146,10 +231,11 @@ function isAccessiblyNamedOrHidden(node) {
 
 /**
  * Returns true if a Tag node has any meaningful content:
- *   - a non-empty text node in any descendant, OR
- *   - a replaced/embedded element (img, svg, video, …), OR
- *   - a non-standard element (custom element or template slot such as
- *     <block>, <content>, <slot>) that expands to content at render time.
+ *
+ * - A non-empty text node in any descendant, OR
+ * - A replaced/embedded element (img, svg, video, …), OR
+ * - A non-standard element (custom element or template slot such as <block>,
+ *   <content>, <slot>) that expands to content at render time.
  *
  * @param {Tag} node
  * @returns {boolean}
@@ -169,7 +255,7 @@ function hasContent(node) {
   return false;
 }
 
-/** @type {RuleModule<[{checkElements?: string[]}]>} */
+/** @type {RuleModule<[{ checkElements?: string[] }]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -186,8 +272,8 @@ module.exports = {
         type: "object",
         properties: {
           /**
-           * Override the list of element names to check.
-           * When provided, this list replaces the default set entirely.
+           * Override the list of element names to check. When provided, this
+           * list replaces the default set entirely.
            */
           checkElements: {
             type: "array",
@@ -206,9 +292,7 @@ module.exports = {
   create(context) {
     const options = context.options[0] || {};
     const elements = new Set(
-      (options.checkElements ?? DEFAULT_ELEMENTS).map((el) =>
-        el.toLowerCase()
-      )
+      (options.checkElements ?? DEFAULT_ELEMENTS).map((el) => el.toLowerCase())
     );
 
     return createVisitors(context, {

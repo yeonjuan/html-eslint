@@ -59,7 +59,9 @@ ruleTester.run("no-empty-palpable-content", rule, {
     // Replaced elements count as content
     { code: "<a href='/'><img alt='GitHub' src='logo.svg' /></a>" },
     { code: "<button><svg viewBox='0 0 24 24'></svg></button>" },
-    { code: "<p><picture><source srcset='img.webp' /><img alt='' src='img.jpg' /></picture></p>" },
+    {
+      code: "<p><picture><source srcset='img.webp' /><img alt='' src='img.jpg' /></picture></p>",
+    },
     // Non-standard / template elements count as content
     { code: "<label><content></content></label>" },
     { code: "<p><slot></slot></p>" },
