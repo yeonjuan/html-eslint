@@ -11,7 +11,6 @@
 
 const { useBaseline, USE_BASELINE_MESSAGE_IDS } = require("@html-eslint/core");
 const { elementNodeAdapter } = require("./utils/adapter");
-const { AST_NODE_TYPES } = require("../constants/node-types");
 
 /** @type {RuleModule<[Option]>} */
 module.exports = {
@@ -70,7 +69,6 @@ module.exports = {
 
     return {
       Element(node) {
-        // Skip custom elements (containing a hyphen)
         if (node.name.includes("-")) {
           return;
         }

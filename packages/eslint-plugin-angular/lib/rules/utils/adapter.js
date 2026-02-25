@@ -11,25 +11,6 @@
  */
 const { AST_NODE_TYPES } = require("../../constants/node-types");
 
-/** @type {AttributeAdapter<null, null>} */
-const nullAdapter = {
-  key: {
-    node: () => null,
-    isExpression() {
-      return true;
-    },
-    value: () => null,
-    raw: () => null,
-  },
-  value: {
-    node: () => null,
-    isExpression() {
-      return true;
-    },
-    value: () => null,
-  },
-};
-
 /**
  * @param {AngularTextAttribute} node
  * @returns {AttributeAdapter<AngularTextAttribute | null, null>}
@@ -55,8 +36,16 @@ function textAttributeAdapter(node) {
 }
 
 /**
- * BoundAttribute is a dynamic binding like [attr]="expr". We treat it as an
- * expression so baseline checks skip value validation.
+ * BoundAttribute covers two Angular binding syntaxes:
+ *
+ * - Property binding: `[property]="expr"` (BindingType.Property = 0) node.name
+ *   holds the property name as-is (e.g. "disabled", "href")
+ * - Attribute binding: `[attr.attr-key]="expr"` (BindingType.Attribute = 1)
+ *   Angular strips the "attr." prefix, so node.name already holds the bare
+ *   attribute name (e.g. "aria-label", "data-id")
+ *
+ * In both cases the value is a dynamic expression, so value.isExpression()
+ * returns true to skip value validation in baseline checks.
  *
  * @param {AngularBoundAttribute} node
  * @returns {AttributeAdapter<AngularBoundAttribute | null, null>}
@@ -74,6 +63,8 @@ function boundAttributeAdapter(node) {
     value: {
       node: () => null,
       isExpression() {
+        // Both property binding ([prop]="expr") and attribute binding
+        // ([attr.key]="expr") have dynamic values — always treat as expression.
         return true;
       },
       value: () => null,
