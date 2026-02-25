@@ -1,4 +1,4 @@
-const angularPlugin = require('@html-eslint/eslint-plugin-angular');
+const angularPlugin = require('@html-eslint/eslint-plugin-angular-template');
 const templateParser = require('@angular-eslint/template-parser');
 
 module.exports = [
@@ -10,6 +10,8 @@ module.exports = [
         languageOptions: {
             parser: templateParser,
         },
-        rules: angularPlugin.configs.recommended.rules,
+        rules: {
+            "@html-eslint/angular-template/use-baseline": ["error", { available: 2019 }],
+        }
     },
 ];
