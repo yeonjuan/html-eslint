@@ -60,18 +60,24 @@ module.exports = {
           return;
         }
 
-        const valueStartOffset = attr.valueSpan.start.offset;
+        // fullStart includes leading whitespace; start skips it.
+        // Use fullStart so leading-space fixes cover the entire value region.
+        const fullStart = attr.valueSpan.fullStart ?? attr.valueSpan.start;
+        const valueStartOffset = fullStart.offset;
         const valueEndOffset = attr.valueSpan.end.offset;
         const normalizedValue = result.data.normalized;
+
+        // valueCol is the column of the first character inside the quotes
+        const valueCol = fullStart.col;
 
         /** @type {import("eslint").AST.SourceLocation} */
         let loc;
         if (result.spacingType === "start") {
           loc = {
-            start: { line: attr.loc.start.line, column: attr.loc.start.column },
+            start: { line: attr.loc.start.line, column: valueCol },
             end: {
               line: attr.loc.start.line,
-              column: attr.loc.start.column + result.spacingLength,
+              column: valueCol + result.spacingLength,
             },
           };
         } else if (result.spacingType === "end") {
@@ -86,14 +92,11 @@ module.exports = {
           loc = {
             start: {
               line: attr.loc.start.line,
-              column: attr.loc.start.column + result.spacingIndex,
+              column: valueCol + result.spacingIndex,
             },
             end: {
               line: attr.loc.start.line,
-              column:
-                attr.loc.start.column +
-                result.spacingIndex +
-                result.spacingLength,
+              column: valueCol + result.spacingIndex + result.spacingLength,
             },
           };
         }
