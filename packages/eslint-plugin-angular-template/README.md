@@ -51,6 +51,6 @@ module.exports = [
 
 ## Rules
 
-| Rule | Description | Recommended |
-|------|-------------|-------------|
-| [use-baseline](https://html-eslint.org/docs/angular/rules/use-baseline) | Enforce the use of baseline features | ✅ |
+| Rule                                                                    | Description                          | Recommended |
+| ----------------------------------------------------------------------- | ------------------------------------ | ----------- |
+| [use-baseline](https://html-eslint.org/docs/angular/rules/use-baseline) | Enforce the use of baseline features | ✅          |

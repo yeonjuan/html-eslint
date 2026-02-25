@@ -35,6 +35,7 @@ export default [
 This rule enforces that static `class` attribute values have no leading spaces, no trailing spaces, and no consecutive spaces between class names.
 
 **Note**: Dynamic class bindings are ignored:
+
 - `[class]="expr"` — property binding, value is an expression
 - `[class.active]="isActive"` — class binding, value is an expression
 
@@ -56,11 +57,9 @@ Examples of **incorrect** code for this rule:
 
 <!-- Inside Angular control flow — elements are still checked -->
 @if (show) {
-  <div class=" foo bar"></div>
-}
-
-@for (item of items; track item.id) {
-  <li class="item  item2"></li>
+<div class=" foo bar"></div>
+} @for (item of items; track item.id) {
+<li class="item  item2"></li>
 }
 ```
 
@@ -78,11 +77,9 @@ Examples of **correct** code for this rule:
 
 <!-- Angular control flow with valid elements -->
 @if (show) {
-  <div class="foo bar"></div>
-}
-
-@for (item of items; track item.id) {
-  <li class="item item2"></li>
+<div class="foo bar"></div>
+} @for (item of items; track item.id) {
+<li class="item item2"></li>
 }
 ```
 

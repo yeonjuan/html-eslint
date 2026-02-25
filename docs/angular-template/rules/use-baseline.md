@@ -88,7 +88,7 @@ Examples of **incorrect** code for this rule:
 
 <!-- Inside Angular control flow — elements are still checked -->
 @if (show) {
-  <slot></slot>
+<slot></slot>
 }
 ```
 
@@ -111,13 +111,11 @@ Examples of **correct** code for this rule:
 
 <!-- Angular control flow with valid elements -->
 @if (isLoggedIn) {
-  <span>Welcome</span>
+<span>Welcome</span>
 } @else {
-  <a href="/login">Login</a>
-}
-
-@for (item of items; track item.id) {
-  <li>{{ item.name }}</li>
+<a href="/login">Login</a>
+} @for (item of items; track item.id) {
+<li>{{ item.name }}</li>
 }
 ```
 
