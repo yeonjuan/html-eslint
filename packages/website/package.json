@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.57.0",
+  "version": "0.57.1",
   "private": true,
   "scripts": {
     "clear:cache": "rimraf ../../parcel-cache",
@@ -13,9 +13,9 @@
     "llms-txt": "node ./scripts/llms.txt.js"
   },
   "dependencies": {
-    "@html-eslint/eslint-plugin": "^0.57.0",
-    "@html-eslint/eslint-plugin-react": "^0.57.0",
-    "@html-eslint/parser": "^0.57.0",
+    "@html-eslint/eslint-plugin": "^0.57.1",
+    "@html-eslint/eslint-plugin-react": "^0.57.1",
+    "@html-eslint/parser": "^0.57.1",
     "@html-eslint/web-linter": "^0.57.0",
     "@html-kit/html": "^0.0.4",
     "codemirror": "^5.58.3",
