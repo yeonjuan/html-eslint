@@ -1493,8 +1493,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/cli@workspace:packages/cli"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.57.0"
-    "@html-eslint/parser": "npm:^0.57.0"
+    "@html-eslint/eslint-plugin": "npm:^0.57.1"
+    "@html-eslint/parser": "npm:^0.57.1"
     axios: "npm:^1.13.5"
     chalk: "npm:^5.6.2"
     eslint: "npm:^9.39.1"
@@ -1516,12 +1516,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin-react@npm:^0.57.0, @html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react":
+"@html-eslint/eslint-plugin-react@npm:^0.57.1, @html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react"
   dependencies:
     "@html-eslint/core": "npm:^0.57.0"
-    "@html-eslint/eslint-plugin": "npm:^0.57.0"
+    "@html-eslint/eslint-plugin": "npm:^0.57.1"
     "@html-eslint/types": "npm:^0.57.0"
     "@typescript-eslint/types": "npm:^8.56.0"
     typescript: "npm:^5.9.3"
@@ -1530,14 +1530,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin@npm:^0.57.0, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
+"@html-eslint/eslint-plugin@npm:^0.57.1, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
   dependencies:
     "@eslint/core": "npm:^1.0.0"
     "@eslint/plugin-kit": "npm:^0.4.1"
     "@html-eslint/core": "npm:^0.57.0"
-    "@html-eslint/parser": "npm:^0.57.0"
+    "@html-eslint/parser": "npm:^0.57.1"
     "@html-eslint/template-parser": "npm:^0.57.0"
     "@html-eslint/template-syntax-parser": "npm:^0.57.0"
     "@html-eslint/types": "npm:^0.57.0"
@@ -1577,7 +1577,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/parser@npm:^0.57.0, @html-eslint/parser@workspace:packages/parser":
+"@html-eslint/parser@npm:^0.57.1, @html-eslint/parser@workspace:packages/parser":
   version: 0.0.0-use.local
   resolution: "@html-eslint/parser@workspace:packages/parser"
   dependencies:
@@ -17297,9 +17297,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "website@workspace:packages/website"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.57.0"
-    "@html-eslint/eslint-plugin-react": "npm:^0.57.0"
-    "@html-eslint/parser": "npm:^0.57.0"
+    "@html-eslint/eslint-plugin": "npm:^0.57.1"
+    "@html-eslint/eslint-plugin-react": "npm:^0.57.1"
+    "@html-eslint/parser": "npm:^0.57.1"
     "@html-eslint/web-linter": "npm:^0.57.0"
     "@html-kit/html": "npm:^0.0.4"
     "@parcel/transformer-sass": "npm:2.16.3"
