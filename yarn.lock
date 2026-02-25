@@ -22,7 +22,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-eslint/bundled-angular-compiler@npm:21.2.0":
+"@angular-eslint/bundled-angular-compiler@npm:21.2.0, @angular-eslint/bundled-angular-compiler@npm:^21.2.0":
   version: 21.2.0
   resolution: "@angular-eslint/bundled-angular-compiler@npm:21.2.0"
   checksum: 10c0/5cacc170274ab13c5a5caf8474e40887144ad1926106975d99a3a2911663322491d5452db7c3dc7500f6b9b4587e4a62dd5c0e950c9fee8dd41ddd24424e0b6d
@@ -1540,6 +1540,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin-angular-template@workspace:packages/eslint-plugin-angular-template"
   dependencies:
+    "@angular-eslint/bundled-angular-compiler": "npm:^21.2.0"
     "@angular-eslint/template-parser": "npm:^21.2.0"
     "@html-eslint/core": "npm:^0.57.0"
     "@html-eslint/types": "npm:^0.57.0"

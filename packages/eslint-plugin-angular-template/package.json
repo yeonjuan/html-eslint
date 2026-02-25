@@ -45,6 +45,7 @@
     "eslint": ">=8.0.0 || ^10.0.0-0"
   },
   "devDependencies": {
+    "@angular-eslint/bundled-angular-compiler": "^21.2.0",
     "@angular-eslint/template-parser": "^21.2.0",
     "typescript": "^5.9.3"
   },
