@@ -17,7 +17,7 @@ const plugin = {
       rules: allRules,
       plugins: {
         /** @returns {ESLint.Plugin} */
-        get ["@html-eslint/angular"]() {
+        get ["@html-eslint/angular-template"]() {
           return require(".");
         },
       },
@@ -26,7 +26,7 @@ const plugin = {
       rules: allRules,
       plugins: {
         /** @returns {ESLint.Plugin} */
-        get ["@html-eslint/angular"]() {
+        get ["@html-eslint/angular-template"]() {
           return require(".");
         },
       },

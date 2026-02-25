@@ -1536,9 +1536,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin-angular@workspace:packages/eslint-plugin-angular":
+"@html-eslint/eslint-plugin-angular-template@workspace:packages/eslint-plugin-angular-template":
   version: 0.0.0-use.local
-  resolution: "@html-eslint/eslint-plugin-angular@workspace:packages/eslint-plugin-angular"
+  resolution: "@html-eslint/eslint-plugin-angular-template@workspace:packages/eslint-plugin-angular-template"
   dependencies:
     "@angular-eslint/template-parser": "npm:^21.2.0"
     "@html-eslint/core": "npm:^0.57.0"

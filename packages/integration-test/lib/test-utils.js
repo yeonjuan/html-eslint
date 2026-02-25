@@ -56,6 +56,7 @@ async function installDependencies(dir, log) {
  * @param {string[]} params.localPackages
  * @param {boolean} [params.ts]
  * @param {Record<string, string>} [params.scripts]
+ * @param {Record<string, string>} [params.extraDependencies]
  */
 async function makePackageJson({
   fixtureName,
@@ -64,6 +65,7 @@ async function makePackageJson({
   ts,
   scripts,
   localPackages,
+  extraDependencies = {},
 }) {
   const devDependencies = Object.fromEntries(
     localPackages.map((pkg) => [
@@ -89,6 +91,7 @@ async function makePackageJson({
       eslint: eslintVersion,
       typescript: ts ? TYPESCRIPT_VERSION : undefined,
       ...devDependencies,
+      ...extraDependencies,
     },
     resolutions,
   };
@@ -106,6 +109,7 @@ async function makePackageJson({
  * @param {Record<string, string>} [params.scripts]
  * @param {string[]} params.localPackages
  * @param {string[]} params.log
+ * @param {Record<string, string>} [params.extraDependencies]
  * @returns {Promise<{ dir: string }>}
  */
 async function setup({
@@ -114,6 +118,7 @@ async function setup({
   scripts,
   localPackages,
   log,
+  extraDependencies,
 }) {
   const dir = await tmpDir();
   const fixturePath = path.join(__dirname, "../fixtures/", fixtureName);
@@ -126,6 +131,7 @@ async function setup({
     scripts,
     localPackages,
     log,
+    extraDependencies,
   });
   return { dir };
 }
@@ -137,6 +143,7 @@ async function setup({
  * @param {string} params.eslintVersion
  * @param {string[]} params.localPackages
  * @param {boolean} params.log
+ * @param {Record<string, string>} [params.extraDependencies]
  */
 async function runESLint({
   fixtureName,
@@ -144,8 +151,14 @@ async function runESLint({
   glob,
   localPackages,
   log,
+  extraDependencies,
 }) {
-  const { dir } = await setup({ fixtureName, eslintVersion, localPackages });
+  const { dir } = await setup({
+    fixtureName,
+    eslintVersion,
+    localPackages,
+    extraDependencies,
+  });
 
   await installDependencies(dir, log);
 

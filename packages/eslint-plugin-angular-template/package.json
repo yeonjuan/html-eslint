@@ -1,5 +1,5 @@
 {
-  "name": "@html-eslint/eslint-plugin-angular",
+  "name": "@html-eslint/eslint-plugin-angular-template",
   "version": "0.57.0",
   "type": "commonjs",
   "description": "ESLint plugin for HTML with Angular support",
