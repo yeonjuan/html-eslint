@@ -5,7 +5,8 @@ import rules from "../rules/index.js";
 const ruleKeys = Object.keys(rules);
 
 const allRules = ruleKeys.reduce((acc, ruleName) => {
-  acc[`@html-eslint/svelte/${ruleName}`] = "error";
+  acc[`@html-eslint/svelte/${ruleName}`] =
+    ruleName === "use-baseline" ? "warn" : "error";
   return acc;
 }, /** @type {Record<string, "error" | "warn">} */ ({}));
 

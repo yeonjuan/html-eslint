@@ -1,6 +1,6 @@
 /** Type definitions for @html-eslint/eslint-plugin-svelte */
 import type { TSESTree } from "@typescript-eslint/types";
-import type { Rule } from "eslint";
+import eslint from "eslint";
 import { AST } from "svelte-eslint-parser";
 
 /** Utility type to convert node type enum to string literal */
@@ -10,20 +10,16 @@ type NodeWithStringType<T extends TSESTree.Node> = Omit<T, "type"> & {
 export type NodeOrToken = TSESTree.NodeOrTokenData;
 export type SvelteAttribute = AST.SvelteAttribute;
 export type SvelteLiteral = AST.SvelteLiteral;
+export type SvelteElement = AST.SvelteElement;
+export type SvelteScriptElement = AST.SvelteScriptElement;
+export type SvelteStyleElement = AST.SvelteStyleElement;
 export type ArrayExpression = NodeWithStringType<TSESTree.ArrayExpression>;
 
 export type Node = AST.SvelteNode | TSESTree.Node;
 
 export interface RuleModule {
-  meta: Rule.RuleMetaData & {
-    docs?: {
-      description?: string;
-      recommended?: boolean;
-      category?: string;
-      url?: string;
-    };
-  };
-  create: (context: Rule.RuleContext) => RuleListener;
+  meta: eslint.Rule.RuleMetaData;
+  create: (context: eslint.Rule.RuleContext) => RuleListener;
 }
 export type RuleListener = RuleListenerBaseSelectors &
   RuleListenerExitSelectors;
@@ -39,4 +35,7 @@ type RuleListenerExitSelectors = {
 interface RuleListenerBaseSelectors {
   SvelteAttribute?: RuleFunction<SvelteAttribute>;
   ArrayExpression?: RuleFunction<ArrayExpression>;
+  SvelteElement?: RuleFunction<SvelteElement>;
+  SvelteScriptElement?: RuleFunction<SvelteScriptElement>;
+  SvelteStyleElement?: RuleFunction<SvelteStyleElement>;
 }
