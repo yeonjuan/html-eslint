@@ -13,6 +13,7 @@ It supports multiple use cases, including:
 ## Rules
 
 - All documentation, code, and comments must be written in English.
+- When a new rule is added or a rule's options are added, removed, or changed, the corresponding documentation in `docs/` must also be updated.
 - Always run `yarn run format` after completing any code modification.
 - Always run `yarn check:spell` after completing any code modification. If an error occurs:
   - If the flagged word is not a typo but a valid term, add it to the `words` array in `.cspell.json`.
