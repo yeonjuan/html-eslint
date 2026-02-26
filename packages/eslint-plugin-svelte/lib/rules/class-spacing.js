@@ -222,19 +222,13 @@ const rule = {
           return;
         }
 
-        // Process each value part
         node.value.forEach((valuePart, index) => {
           const hasNextPart = index < node.value.length - 1;
 
-          // Handle SvelteLiteral (static strings)
           if (valuePart.type === AST_NODE_TYPES.SvelteLiteral) {
             processSvelteLiteral(valuePart, hasNextPart);
-          }
-          // Handle SvelteMustacheTag with expressions
-          else if (valuePart.type === AST_NODE_TYPES.SvelteMustacheTag) {
+          } else if (valuePart.type === AST_NODE_TYPES.SvelteMustacheTag) {
             const expression = valuePart.expression;
-
-            // Handle ArrayExpression inside mustache tags
             if (
               expression &&
               expression.type === AST_NODE_TYPES.ArrayExpression
@@ -244,9 +238,7 @@ const rule = {
                   processStringNode(element);
                 }
               });
-            }
-            // Handle static strings directly in mustache tags
-            else if (expression && isStaticString(expression)) {
+            } else if (expression && isStaticString(expression)) {
               processStringNode(expression);
             }
           }
