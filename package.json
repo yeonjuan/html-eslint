@@ -20,8 +20,8 @@
     "check": "yarn test && yarn check:format && yarn check:spell && yarn check:ts",
     "publish:website": "yarn workspace website deploy",
     "prepare": "husky",
-    "new-rule": "node ./tools/add-new-rule/index.js",
-    "baseline": "node ./tools/base-line/generate-baseline.mjs"
+    "new-rule": "node ./tools/rule/new-rule.js",
+    "baseline": "node ./tools/baseline/generate-baseline.mjs"
   },
   "devDependencies": {
     "@lerna-lite/cli": "^4.11.2",
