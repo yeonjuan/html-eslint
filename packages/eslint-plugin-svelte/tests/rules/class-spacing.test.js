@@ -35,6 +35,15 @@ ruleTester.run("class-spacing", rule, {
     {
       code: `<div class={["foo", "bar"]}></div>`,
     },
+    {
+      code: "<div class={`foo bar`}></div>",
+    },
+    {
+      code: "<div class={`container`}></div>",
+    },
+    {
+      code: "<div class={[`foo`, `bar`]}></div>",
+    },
   ],
   invalid: [
     {
@@ -133,6 +142,57 @@ ruleTester.run("class-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacingBetween",
+        },
+      ],
+    },
+    {
+      code: "<div class={` foo`}></div>",
+      output: "<div class={`foo`}></div>",
+      errors: [
+        {
+          messageId: "extraSpacingStart",
+        },
+      ],
+    },
+    {
+      code: "<div class={`foo `}></div>",
+      output: "<div class={`foo`}></div>",
+      errors: [
+        {
+          messageId: "extraSpacingEnd",
+        },
+      ],
+    },
+    {
+      code: "<div class={`foo  bar`}></div>",
+      output: "<div class={`foo bar`}></div>",
+      errors: [
+        {
+          messageId: "extraSpacingBetween",
+        },
+      ],
+    },
+    {
+      code: "<div class={[`foo  bar`, ` baz `]}></div>",
+      output: "<div class={[`foo bar`, `baz`]}></div>",
+      errors: [
+        {
+          messageId: "extraSpacingBetween",
+        },
+        {
+          messageId: "extraSpacingStart",
+        },
+      ],
+    },
+    {
+      code: "<div class={[` foo `, `  bar  `]}></div>",
+      output: "<div class={[`foo`, `bar`]}></div>",
+      errors: [
+        {
+          messageId: "extraSpacingStart",
+        },
+        {
+          messageId: "extraSpacingStart",
         },
       ],
     },
