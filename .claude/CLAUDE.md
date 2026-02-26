@@ -12,6 +12,7 @@ It supports multiple use cases, including:
 
 ## Rules
 
+- All documentation, code, and comments must be written in English.
 - Always run `yarn run format` after completing any code modification.
 - Always run `yarn check:spell` after completing any code modification. If an error occurs:
   - If the flagged word is not a typo but a valid term, add it to the `words` array in `.cspell.json`.
@@ -54,3 +55,14 @@ It supports multiple use cases, including:
 - `packages/website`: Documentation site with an interactive playground, built with Parcel, HTML, JavaScript and Tailwind CSS.
 - `packages/web-linter`: Browserified bundle of the plugin for use in web-based linting environments.
 - `packages/integration-test`: Integration tests across all supported environments.
+
+## Documentation
+
+The `docs/` directory contains the source documentation written in Markdown. When `yarn build` is run, `packages/website` converts these files into HTML for the documentation site.
+
+Each subdirectory maps to a specific plugin:
+
+- `docs/` — Rules and guides for `@html-eslint/eslint-plugin`
+- `docs/react/` — Rules and guides for `@html-eslint/eslint-plugin-react`
+- `docs/angular-template/` — Rules and guides for `@html-eslint/eslint-plugin-angular-template`
+- `docs/svelte/` — Rules and guides for `@html-eslint/eslint-plugin-svelte`
