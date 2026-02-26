@@ -7,7 +7,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr, isTag, isText } = require("./utils/node");
+const { findAttr, isTag, isText, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -38,7 +38,7 @@ function isRoleHeading(node) {
  * @returns {string}
  */
 function getAltText(node) {
-  if (node.name.toLowerCase() === "img") {
+  if (getNameOf(node) === "img") {
     const altAttr = findAttr(node, "alt");
     if (altAttr?.value?.value) {
       return altAttr.value.value;
@@ -103,7 +103,7 @@ module.exports = {
   create(context) {
     return createVisitors(context, {
       Tag(node) {
-        const tagName = node.name.toLowerCase();
+        const tagName = getNameOf(node);
         const isHeadingTag = HEADING_NAMES.has(tagName);
         const isRoleHeadingEl = isRoleHeading(node);
         if (!isHeadingTag && !isRoleHeadingEl) return;

@@ -5,7 +5,7 @@
 
 const { parseTemplateLiteral } = require("./utils/template-literal");
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, getNameOf } = require("./utils/node");
 const {
   shouldCheckTaggedTemplateExpression,
   shouldCheckTemplateLiteral,
@@ -25,7 +25,7 @@ const MESSAGE_IDS = {
  * @returns {string | null}
  */
 function getTrackingKey(node) {
-  const tagName = node.name.toLowerCase();
+  const tagName = getNameOf(node);
 
   if (["title", "base"].includes(tagName)) {
     return tagName;
@@ -83,7 +83,7 @@ module.exports = {
       return {
         /** @param {Tag} node */
         Tag(node) {
-          const tagName = node.name.toLowerCase();
+          const tagName = getNameOf(node);
 
           if (tagName === "head") {
             if (headCountRef !== null) {
@@ -112,7 +112,7 @@ module.exports = {
 
         /** @param {Tag} node */
         "Tag:exit"(node) {
-          const tagName = node.name.toLowerCase();
+          const tagName = getNameOf(node);
           if (tagName === "head") {
             if (headCountRef !== null) {
               headCountRef.count--;
