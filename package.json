@@ -20,7 +20,7 @@
     "check": "yarn test && yarn check:format && yarn check:spell && yarn check:ts",
     "publish:website": "yarn workspace website deploy",
     "prepare": "husky",
-    "new-rule": "node ./tools/add-new-rule.js",
+    "new-rule": "node ./tools/add-new-rule/index.js",
     "baseline": "node ./tools/base-line/generate-baseline.mjs"
   },
   "devDependencies": {

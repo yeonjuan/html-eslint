@@ -56,6 +56,10 @@ It supports multiple use cases, including:
 - `packages/website`: Documentation site with an interactive playground, built with Parcel, HTML, JavaScript and Tailwind CSS.
 - `packages/web-linter`: Browserified bundle of the plugin for use in web-based linting environments.
 - `packages/integration-test`: Integration tests across all supported environments.
+- `./tools`: Internal development scripts.
+  - `add-new-rule.js`: Scaffolding generator invoked by `yarn new-rule` to create rule, test, and doc files from templates.
+  - `base-line/generate-baseline.mjs`: Generates web standards baseline data used by the website.
+  - `templates/`: Template files (`rule.js`, `rule.test.js`, `rule.md`) used by `add-new-rule.js` when scaffolding a new rule.
 
 ## Documentation
 
