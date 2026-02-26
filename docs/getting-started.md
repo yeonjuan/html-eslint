@@ -1,3 +1,8 @@
+---
+title: Getting Started
+description: Learn how to install and configure HTML ESLint to lint HTML files and HTML in JavaScript template literals with ESLint.
+---
+
 # Getting Started
 
 ## Contents

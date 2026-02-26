@@ -1,3 +1,8 @@
+---
+title: FAQs
+description: Frequently asked questions about HTML ESLint including solutions for typescript-eslint typed linting compatibility issues.
+---
+
 # FAQs
 
 ## Problem when using typescript-eslint typed linting.

@@ -1,3 +1,8 @@
+---
+title: use-baseline
+description: Enforce baseline browser-compatible features in React/JSX components.
+---
+
 # use-baseline
 
 This rule enforces the use of baseline features in React/JSX.

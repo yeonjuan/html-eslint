@@ -98,7 +98,7 @@ describe("integration tests", () => {
       fixtureName: "eslint-v9-language",
       localPackages: ["@html-eslint/eslint-plugin"],
       invalidFiles: [],
-      validFiles: ["html/valid.html"],
+      validFiles: ["html/valid.html", "frontmatter/valid.html"],
     });
   });
 

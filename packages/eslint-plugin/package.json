@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/eslint-plugin",
-  "version": "0.56.0",
+  "version": "0.57.1",
   "type": "commonjs",
   "description": "ESLint plugin for HTML",
   "author": "yeonjuan",
@@ -40,12 +40,13 @@
   ],
   "dependencies": {
     "@eslint/plugin-kit": "^0.4.1",
-    "@html-eslint/core": "^0.56.0",
-    "@html-eslint/parser": "^0.56.0",
-    "@html-eslint/template-parser": "^0.56.0",
-    "@html-eslint/template-syntax-parser": "^0.56.0",
-    "@html-eslint/types": "^0.56.0",
-    "@rviscomi/capo.js": "^2.1.0"
+    "@html-eslint/core": "^0.57.0",
+    "@html-eslint/parser": "^0.57.1",
+    "@html-eslint/template-parser": "^0.57.0",
+    "@html-eslint/template-syntax-parser": "^0.57.0",
+    "@html-eslint/types": "^0.57.0",
+    "@rviscomi/capo.js": "^2.1.0",
+    "html-standard": "^0.0.13"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 || ^10.0.0-0"

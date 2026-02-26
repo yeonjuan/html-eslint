@@ -1,3 +1,8 @@
+---
+title: Getting Started
+description: Learn how to install and configure HTML ESLint React plugin to validate HTML attribute values and baseline browser compatibility in React/JSX code.
+---
+
 # Getting Started
 
 `@html-eslint/eslint-plugin-react` is an ESLint plugin that validates HTML attribute values and baseline browser compatibility directly in your React/JSX code. It extends the core `@html-eslint` functionality to work seamlessly with React components,

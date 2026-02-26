@@ -1,3 +1,8 @@
+---
+title: Developer Guide
+description: Comprehensive guide for contributing to HTML ESLint including how to propose new rules, modify existing rules, and test implementations.
+---
+
 # Developer Guide
 
 Thank you for taking the time to contribute to our project. Your efforts are greatly appreciated and play a vital role in improving and growing our work!

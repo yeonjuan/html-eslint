@@ -1,3 +1,8 @@
+---
+title: no-ineffective-attrs
+description: Disallow HTML attributes that have no effect in their context.
+---
+
 # no-ineffective-attrs
 
 ## How to use

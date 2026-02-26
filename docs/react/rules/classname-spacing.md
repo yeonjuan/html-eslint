@@ -1,3 +1,8 @@
+---
+title: classname-spacing
+description: Disallow extra spacing in className attribute values in React/JSX.
+---
+
 # classname-spacing
 
 This rule disallows extra spacing in `className` values in React/JSX code.

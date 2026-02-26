@@ -1,3 +1,8 @@
+---
+title: no-aria-hidden-on-focusable
+description: Disallow aria-hidden on focusable elements to prevent accessibility conflicts.
+---
+
 # no-aria-hidden-on-focusable
 
 This rule disallows the use of `aria-hidden="true"` on focusable elements.

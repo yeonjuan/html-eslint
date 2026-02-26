@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/eslint-plugin-react",
-  "version": "0.56.0",
+  "version": "0.57.1",
   "type": "commonjs",
   "description": "ESLint plugin for HTML with React support",
   "author": "yeonjuan",
@@ -37,9 +37,9 @@
     "lint"
   ],
   "dependencies": {
-    "@html-eslint/core": "^0.56.0",
-    "@html-eslint/eslint-plugin": "^0.56.0",
-    "@html-eslint/types": "^0.56.0",
+    "@html-eslint/core": "^0.57.0",
+    "@html-eslint/eslint-plugin": "^0.57.1",
+    "@html-eslint/types": "^0.57.0",
     "@typescript-eslint/types": "^8.56.0"
   },
   "peerDependencies": {

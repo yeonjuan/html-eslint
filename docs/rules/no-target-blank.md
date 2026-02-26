@@ -1,3 +1,8 @@
+---
+title: no-target-blank
+description: Disallow unsafe target="_blank" without rel="noopener" or rel="noreferrer".
+---
+
 # no-target-blank
 
 This rule disallows the use of `target="blank"` without `rel="noreferrer"`.

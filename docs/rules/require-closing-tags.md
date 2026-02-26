@@ -1,3 +1,8 @@
+---
+title: require-closing-tags
+description: Require closing tags for all elements to ensure valid HTML structure.
+---
+
 # require-closing-tags
 
 This rule enforces closing tags.

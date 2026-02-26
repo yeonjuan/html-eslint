@@ -1,3 +1,10 @@
+---
+title: no-accesskey-attrs
+description: >-
+  Disallow use of accesskey attribute due to accessibility and usability
+  concerns.
+---
+
 # no-accesskey-attrs
 
 This rule disallows the use of the `accesskey` attributes.

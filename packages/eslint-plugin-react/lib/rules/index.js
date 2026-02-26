@@ -5,6 +5,7 @@ const noObsoleteTags = require("./no-obsolete-tags");
 const noObsoleteAttrs = require("./no-obsolete-attrs");
 const classnameSpacing = require("./classname-spacing");
 const noDuplicateClassname = require("./no-duplicate-classname");
+// import new rule here ↑
 
 const rules = {
   "no-invalid-attr-value": noInvalidAttrValue,
@@ -14,6 +15,7 @@ const rules = {
   "no-obsolete-attrs": noObsoleteAttrs,
   "classname-spacing": classnameSpacing,
   "no-duplicate-classname": noDuplicateClassname,
+  // export new rule here ↑
 };
 
 module.exports = rules;
