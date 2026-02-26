@@ -25,6 +25,7 @@ const {
   isLine,
   isScript,
   isStyle,
+  getNameOf,
 } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
@@ -151,7 +152,7 @@ module.exports = {
      */
     function shouldSkipChildren(node) {
       if (isTag(node)) {
-        if (skipTags.includes(node.name.toLowerCase())) {
+        if (skipTags.includes(getNameOf(node))) {
           return true;
         }
         if (node.children.some((child) => child.type === "RawContent")) {
@@ -167,8 +168,7 @@ module.exports = {
      */
     function isInline(node) {
       return (
-        isLine(node) ||
-        (isTag(node) && inlineTags.includes(node.name.toLowerCase()))
+        isLine(node) || (isTag(node) && inlineTags.includes(getNameOf(node)))
       );
     }
 

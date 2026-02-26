@@ -2,7 +2,7 @@
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -263,9 +263,7 @@ module.exports = {
 
         if (
           (roleValue === "presentation" || roleValue === "none") &&
-          ELEMENTS_DISALLOWING_PRESENTATION_OR_NONE_ROLE.has(
-            node.name.toLowerCase()
-          )
+          ELEMENTS_DISALLOWING_PRESENTATION_OR_NONE_ROLE.has(getNameOf(node))
         ) {
           context.report({
             node: role,
