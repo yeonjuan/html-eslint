@@ -30,7 +30,7 @@ It supports multiple use cases, including:
 - `yarn check:format`: Check formatting without modifying
 - `yarn check:ts`: TypeScript type checking
 - `yarn check`: Run all checks (test, format, spell, ts)
-- `yarn new-rule <rule-name>`: Generate scaffolding for a new rule (At the moment, support is limited to `packages/eslint-plugin` only.)
+- `yarn new-rule <plugin-type> <rule-name>`: Generate scaffolding for a new rule. `plugin-type` must be `html` (for `packages/eslint-plugin`) or `react` (for `packages/eslint-plugin-react`).
 
 ## Architecture
 
