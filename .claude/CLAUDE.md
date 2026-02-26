@@ -13,7 +13,8 @@ It supports multiple use cases, including:
 ## Rules
 
 - All documentation, code, and comments must be written in English.
-- When a new rule is added or a rule's options are added, removed, or changed, the corresponding documentation in `docs/` must also be updated.
+- When adding a new rule, always use `yarn new-rule <plugin-type> <rule-name>` to generate the scaffolding first. Never create rule files manually.
+- When a new rule is added or a rule's options are added, removed, or changed, the corresponding documentation in `docs/` must also be updated. Never modify rule code without updating the docs.
 - Always run `yarn run format` after completing any code/doc modification.
 - Always run `yarn check:spell` after completing any code modification. If an error occurs:
   - If the flagged word is not a typo but a valid term, add it to the `words` array in `.cspell.json`.
