@@ -84,11 +84,14 @@ const rule = {
      * @returns {boolean}
      */
     function isStaticString(node) {
-      if (node.type === "Literal" && typeof node.value === "string") {
+      if (
+        node.type === AST_NODE_TYPES.Literal &&
+        typeof node.value === "string"
+      ) {
         return true;
       }
       if (
-        node.type === "TemplateLiteral" &&
+        node.type === AST_NODE_TYPES.TemplateLiteral &&
         node.expressions.length === 0 &&
         node.quasis.length === 1
       ) {
@@ -146,9 +149,9 @@ const rule = {
           loc,
           messageId: result.messageId,
           fix(fixer) {
-            if (node.type === "Literal") {
+            if (node.type === AST_NODE_TYPES.Literal) {
               return fixer.replaceText(node, `"${normalizedValue}"`);
-            } else if (node.type === "TemplateLiteral") {
+            } else if (node.type === AST_NODE_TYPES.TemplateLiteral) {
               return fixer.replaceText(node, `\`${normalizedValue}\``);
             }
             return null;
