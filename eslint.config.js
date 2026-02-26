@@ -21,6 +21,7 @@ module.exports = [
       "**/coverage",
       "prettier.config.mjs",
       "**/dist",
+      "tools/rule/templates/**/*.js",
     ],
   },
   ...compat.extends("eslint:recommended"),
