@@ -59,6 +59,7 @@ module.exports = [
       "tools/**/*.mjs",
       "packages/core/**/*.js",
       "packages/eslint-plugin-svelte/**/*.js",
+      "**/*.mjs",
     ],
     languageOptions: {
       sourceType: "module",

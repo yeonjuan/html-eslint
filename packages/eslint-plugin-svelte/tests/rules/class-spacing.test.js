@@ -129,7 +129,7 @@ ruleTester.run("class-spacing", rule, {
     },
     {
       code: `<div class={["foo  bar"]}></div>`,
-      output: `<div class={["foo  bar"]}></div>`,
+      output: `<div class={["foo bar"]}></div>`,
       errors: [
         {
           messageId: "extraSpacingBetween",

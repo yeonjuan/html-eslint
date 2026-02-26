@@ -38,4 +38,5 @@ type RuleListenerExitSelectors = {
 
 interface RuleListenerBaseSelectors {
   SvelteAttribute?: RuleFunction<SvelteAttribute>;
+  ArrayExpression?: RuleFunction<ArrayExpression>;
 }
