@@ -1,9 +1,12 @@
 /**
  * @import {
  *   JSXAttribute,
+ *   JSXIdentifier,
  *   JSXOpeningElement,
  *   JSXSpreadAttribute,
- *   RuleModule
+ *   Literal,
+ *   RuleModule,
+ *   TemplateLiteral
  * } from "../types"
  * @typedef {Object} Option
  * @property {"widely" | "newly" | number} Option.available
@@ -63,7 +66,7 @@ module.exports = {
      *   typeof useBaseline<
      *     JSXOpeningElement,
      *     JSXSpreadAttribute | JSXAttribute["name"] | null,
-     *     JSXAttribute["value"]
+     *     Literal | TemplateLiteral | JSXIdentifier | null
      *   >
      * >}
      */ (useBaseline(options));
