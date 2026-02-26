@@ -12,13 +12,13 @@
 - npm
 
 ```console,Terminal
-npm install --save-dev eslint @html-eslint/eslint-plugin-svelte
+npm install --save-dev eslint @html-eslint/eslint-plugin-svelte svelte-eslint-parser
 ```
 
 - yarn
 
 ```console,Terminal
-yarn add -D eslint @html-eslint/eslint-plugin-svelte
+yarn add -D eslint @html-eslint/eslint-plugin-svelte svelte-eslint-parser
 ```
 
 ## Configuration
@@ -30,12 +30,21 @@ Update your ESLint configuration file:
 ```js
 // eslint.config.js (flat config)
 import htmlSvelte from "@html-eslint/eslint-plugin-svelte";
+import svelteParser from "svelte-eslint-parser";
 
 export default [
   {
-    files: ["**/*.svelte"],
-    plugins: {
-      "@html-eslint/svelte": htmlSvelte,
+    files: [
+      "**/*.svelte",
+      "*.svelte",
+      // Need to specify the file extension for Svelte 5 with rune symbols
+      "**/*.svelte.js",
+      "*.svelte.js",
+      "**/*.svelte.ts",
+      "*.svelte.ts",
+    ],
+    languageOptions: {
+      parser: svelteParser,
     },
     rules: {
       "@html-eslint/svelte/class-spacing": "error",
@@ -56,10 +65,14 @@ The plugin provides two preset configurations:
 ```js
 // eslint.config.js
 import htmlSvelte from "@html-eslint/eslint-plugin-svelte";
+import svelteParser from "svelte-eslint-parser";
 
 export default [
   {
     files: ["**/*.svelte"],
+    languageOptions: {
+      parser: svelteParser,
+    },
     ...htmlSvelte.configs.recommended,
   },
 ];
@@ -70,10 +83,14 @@ export default [
 ```js
 // eslint.config.js
 import htmlSvelte from "@html-eslint/eslint-plugin-svelte";
+import svelteParser from "svelte-eslint-parser";
 
 export default [
   {
     files: ["**/*.svelte"],
+    languageOptions: {
+      parser: svelteParser,
+    },
     ...htmlSvelte.configs.all,
   },
 ];
