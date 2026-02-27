@@ -6,6 +6,7 @@ import noObsoleteTags from "./no-obsolete-tags.js";
 import noObsoleteAttrs from "./no-obsolete-attrs.js";
 import noIneffectiveAttrs from "./no-ineffective-attrs.js";
 import noDuplicateClass from "./no-duplicate-class.js";
+import noInvalidAttrValue from "./no-invalid-attr-value.js";
 // import new rule here ↑
 
 const rules = {
@@ -15,6 +16,7 @@ const rules = {
   "no-obsolete-attrs": noObsoleteAttrs,
   "no-ineffective-attrs": noIneffectiveAttrs,
   "no-duplicate-class": noDuplicateClass,
+  "no-invalid-attr-value": noInvalidAttrValue,
   // export new rule here ↑
 };
 
