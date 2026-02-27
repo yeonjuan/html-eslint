@@ -11,6 +11,7 @@ import {
   BASELINE_HIGH,
   BASELINE_LOW,
 } from "../utils/baseline";
+import { isCustomElement } from "../utils/node";
 
 /**
  * @type {{
@@ -31,14 +32,6 @@ export const USE_BASELINE_MESSAGE_IDS = {
  */
 function toStatusKey(...parts) {
   return parts.map((part) => part.toLowerCase().trim()).join(".");
-}
-
-/**
- * @param {string} element
- * @returns {boolean}
- */
-function isCustomElement(element) {
-  return element.includes("-");
 }
 
 /**

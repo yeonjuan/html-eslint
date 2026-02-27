@@ -17,7 +17,6 @@ tmp.setGracefulCleanup();
 const PACKAGE_VERSION = "0.0.2";
 const PACKAGE_MANAGER = "yarn@4.9.1";
 const PNPM_PACKAGE_MANAGER = "pnpm@9.15.4";
-const TYPESCRIPT_VERSION = "5.9.3";
 const HTML_ESLINT_PACKAGES = [
   "template-parser",
   "template-syntax-parser",
@@ -56,7 +55,8 @@ async function installDependencies(dir, log, packageManager = "yarn") {
  * @param {string} params.eslintVersion
  * @param {string} params.dir
  * @param {string[]} params.localPackages
- * @param {boolean} [params.ts]
+ * @param {[string, string][]} [params.externalPackages=[]] Array of
+ *   [packageName, version] tuples. Default is `[]`
  * @param {Record<string, string>} [params.scripts]
  * @param {"yarn" | "pnpm"} [params.packageManager="yarn"] Default is `"yarn"`
  */
@@ -64,7 +64,7 @@ async function makePackageJson({
   fixtureName,
   eslintVersion,
   dir,
-  ts,
+  externalPackages = [],
   scripts,
   localPackages,
   packageManager = "yarn",
@@ -75,6 +75,8 @@ async function makePackageJson({
       packageFileVersion(pkg.replace("@html-eslint/", "")),
     ])
   );
+
+  const externalDeps = Object.fromEntries(externalPackages);
 
   const resolutions = Object.fromEntries(
     HTML_ESLINT_PACKAGES.map((pkg) => [
@@ -92,7 +94,7 @@ async function makePackageJson({
     scripts,
     devDependencies: {
       eslint: eslintVersion,
-      typescript: ts ? TYPESCRIPT_VERSION : undefined,
+      ...externalDeps,
       ...devDependencies,
     },
   };
@@ -119,6 +121,8 @@ async function makePackageJson({
  * @param {string} params.eslintVersion
  * @param {Record<string, string>} [params.scripts]
  * @param {string[]} params.localPackages
+ * @param {[string, string][]} [params.externalPackages=[]] Array of
+ *   [packageName, version] tuples. Default is `[]`
  * @param {boolean} [params.log]
  * @param {"yarn" | "pnpm"} [params.packageManager="yarn"] Default is `"yarn"`
  * @returns {Promise<{ dir: string }>}
@@ -128,6 +132,7 @@ async function setup({
   eslintVersion,
   scripts,
   localPackages,
+  externalPackages = [],
   log,
   packageManager = "yarn",
 }) {
@@ -141,6 +146,7 @@ async function setup({
     dir,
     scripts,
     localPackages,
+    externalPackages,
     log,
     packageManager,
   });
@@ -153,6 +159,8 @@ async function setup({
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
  * @param {string[]} params.localPackages
+ * @param {[string, string][]} [params.externalPackages=[]] Array of
+ *   [packageName, version] tuples. Default is `[]`
  * @param {boolean} [params.log]
  * @param {"yarn" | "pnpm"} [params.packageManager="yarn"] Default is `"yarn"`
  */
@@ -161,6 +169,7 @@ async function runESLint({
   eslintVersion,
   glob,
   localPackages,
+  externalPackages = [],
   log,
   packageManager = "yarn",
 }) {
@@ -168,6 +177,7 @@ async function runESLint({
     fixtureName,
     eslintVersion,
     localPackages,
+    externalPackages,
     packageManager,
   });
 
@@ -206,6 +216,8 @@ async function runESLint({
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
  * @param {string[]} params.localPackages
+ * @param {[string, string][]} [params.externalPackages=[]] Array of
+ *   [packageName, version] tuples. Default is `[]`
  * @param {boolean} [params.log]
  * @param {"yarn" | "pnpm"} [params.packageManager="yarn"] Default is `"yarn"`
  */
@@ -213,10 +225,10 @@ async function runTypecheck({
   fixtureName,
   eslintVersion,
   localPackages,
+  externalPackages = [],
   log,
   packageManager = "yarn",
 }) {
-  let error;
   const { dir } = await setup({
     fixtureName,
     eslintVersion,
@@ -224,6 +236,7 @@ async function runTypecheck({
       ts: "tsc -p ./tsconfig.json",
     },
     localPackages,
+    externalPackages,
     log,
     packageManager,
   });
@@ -231,22 +244,24 @@ async function runTypecheck({
   await installDependencies(dir, log, packageManager);
 
   if (packageManager === "pnpm") {
-    await execFile("pnpm", ["run", "ts"], { cwd: dir }).catch((e) => {
-      // if (log) {
-      console.error(e);
-      // }
-      error = e;
-    });
+    return await execFile("pnpm", ["run", "ts"], { cwd: dir })
+      .then(() => undefined)
+      .catch((error) => {
+        if (log) {
+          console.error(error);
+        }
+        return error;
+      });
   } else {
-    await execFile("yarn", ["run", "ts"], { cwd: dir }).catch((e) => {
-      if (log) {
-        console.error(e);
-      }
-      error = e;
-    });
+    return await execFile("yarn", ["run", "ts"], { cwd: dir })
+      .then(() => undefined)
+      .catch((error) => {
+        if (log) {
+          console.error(error);
+        }
+        return error;
+      });
   }
-
-  return error;
 }
 
 module.exports = {

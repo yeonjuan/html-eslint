@@ -13,6 +13,7 @@ async function testESLintFiles({
   fixtureName,
   eslintVersion,
   localPackages,
+  externalPackages = [],
   files,
   shouldHaveErrors = false,
   packageManager = "yarn",
@@ -22,6 +23,7 @@ async function testESLintFiles({
       fixtureName,
       eslintVersion,
       localPackages,
+      externalPackages,
       glob: file,
       log: !shouldHaveErrors,
       packageManager,
@@ -35,6 +37,7 @@ function createESLintConfigTests({
   eslintVersion,
   fixtureName,
   localPackages,
+  externalPackages = [],
   invalidFiles = [
     "html/invalid.html",
     "js/invalid.js",
@@ -44,7 +47,13 @@ function createESLintConfigTests({
   testTimeout = 20000,
   packageManager = "yarn",
 }) {
-  const config = { eslintVersion, fixtureName, localPackages, packageManager };
+  const config = {
+    eslintVersion,
+    fixtureName,
+    localPackages,
+    externalPackages,
+    packageManager,
+  };
 
   if (invalidFiles.length > 0) {
     it(
@@ -160,6 +169,7 @@ describe("integration tests", () => {
     const eslintVersion = "9.27.0";
     const fixtureName = "typescript";
     const localPackages = ["@html-eslint/eslint-plugin"];
+    const externalPackages = [["typescript", "5.9.3"]];
 
     describe("with yarn", () => {
       it("should not throw any type error", async () => {
@@ -167,8 +177,8 @@ describe("integration tests", () => {
           fixtureName,
           eslintVersion,
           localPackages,
+          externalPackages,
           fileName: "eslint.config.ts",
-          log: true,
         });
         expect(result).toBe(undefined);
       }, 20000);
@@ -180,8 +190,8 @@ describe("integration tests", () => {
           fixtureName,
           eslintVersion,
           localPackages,
+          externalPackages,
           fileName: "eslint.config.ts",
-          log: true,
           packageManager: "pnpm",
         });
         expect(result).toBe(undefined);
@@ -209,6 +219,20 @@ describe("integration tests", () => {
         validFiles: ["jsx/valid.jsx"],
         packageManager: "pnpm",
       });
+    });
+  });
+
+  describe("svelte", () => {
+    createESLintConfigTests({
+      eslintVersion: "9",
+      fixtureName: "svelte",
+      localPackages: ["@html-eslint/eslint-plugin-svelte"],
+      externalPackages: [
+        ["eslint-plugin-svelte", "3.15.0"],
+        ["svelte", "5"],
+      ],
+      invalidFiles: ["svelte/invalid.svelte"],
+      validFiles: ["svelte/valid.svelte"],
     });
   });
 });

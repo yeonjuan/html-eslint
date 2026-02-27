@@ -21,6 +21,7 @@ module.exports = [
       "**/coverage",
       "prettier.config.mjs",
       "**/dist",
+      "tools/rule/templates/**/*.js",
     ],
   },
   ...compat.extends("eslint:recommended"),
@@ -55,9 +56,17 @@ module.exports = [
     },
   },
   {
-    files: ["tools/**/*.mjs", "packages/core/**/*.js"],
+    files: [
+      "tools/**/*.mjs",
+      "packages/core/**/*.js",
+      "packages/eslint-plugin-svelte/**/*.js",
+      "**/*.mjs",
+    ],
     languageOptions: {
       sourceType: "module",
+      parserOptions: {
+        ecmaVersion: 2020,
+      },
     },
   },
 ];

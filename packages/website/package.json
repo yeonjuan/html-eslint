@@ -15,6 +15,7 @@
   "dependencies": {
     "@html-eslint/eslint-plugin": "^0.57.1",
     "@html-eslint/eslint-plugin-react": "^0.57.1",
+    "@html-eslint/eslint-plugin-svelte": "^0.57.1",
     "@html-eslint/parser": "^0.57.1",
     "@html-eslint/web-linter": "^0.57.0",
     "@html-kit/html": "^0.0.4",

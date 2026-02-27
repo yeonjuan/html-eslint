@@ -49,8 +49,9 @@ module.exports = function generateHTMLs(srcDir, distDir, outDir) {
           markdownPath: filepath,
           templateHtmlPath: resolve(
             cwd(),
-            parsed.dir.includes("react") ? "./src/components/template-react.html"
-              : "./src/components/template.html"
+            parsed.dir.includes("react") ? "./src/components/template-react.html":
+              parsed.dir.includes("svelte") ? "./src/components/template-svelte.html"
+                : "./src/components/template.html"
           )
         },
         {
