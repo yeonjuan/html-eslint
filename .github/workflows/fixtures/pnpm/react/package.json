@@ -1,0 +1,15 @@
+{
+  "name": "pnpm-react-test",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "eslint": "^9.0.0",
+    "@html-eslint/eslint-plugin-react": "^0.57.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@html-eslint/eslint-plugin-react": "file:../../../../../packages/eslint-plugin-react",
+      "@html-eslint/core": "file:../../../../../packages/core"
+    }
+  }
+}

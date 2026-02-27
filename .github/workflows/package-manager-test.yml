@@ -1,0 +1,224 @@
+name: Package Manager Test
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  test-npm:
+    name: Test with npm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build packages
+        run: yarn build
+
+      - name: Copy fixture to temp directory
+        run: |
+          cp -r .github/workflows/fixtures/npm/html /tmp/npm-test
+
+      - name: Install with npm
+        run: |
+          cd /tmp/npm-test
+          npm install
+
+      - name: Run ESLint
+        run: |
+          cd /tmp/npm-test
+          npx eslint test.html
+
+  test-npm-react:
+    name: Test with npm (React)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build packages
+        run: yarn build
+
+      - name: Copy fixture to temp directory
+        run: |
+          cp -r .github/workflows/fixtures/npm/react /tmp/npm-test-react
+
+      - name: Install with npm
+        run: |
+          cd /tmp/npm-test-react
+          npm install
+
+      - name: Run ESLint
+        run: |
+          cd /tmp/npm-test-react
+          npx eslint test.jsx
+
+  test-pnpm:
+    name: Test with pnpm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build packages
+        run: yarn build
+
+      - name: Copy fixture to temp directory
+        run: |
+          cp -r .github/workflows/fixtures/pnpm/html /tmp/pnpm-test
+
+      - name: Install with pnpm
+        run: |
+          cd /tmp/pnpm-test
+          corepack prepare pnpm@9.15.4 --activate
+          pnpm install
+
+      - name: Run ESLint
+        run: |
+          cd /tmp/pnpm-test
+          pnpm exec eslint test.html
+
+  test-pnpm-react:
+    name: Test with pnpm (React)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build packages
+        run: yarn build
+
+      - name: Copy fixture to temp directory
+        run: |
+          cp -r .github/workflows/fixtures/pnpm/react /tmp/pnpm-test-react
+
+      - name: Install with pnpm
+        run: |
+          cd /tmp/pnpm-test-react
+          corepack prepare pnpm@9.15.4 --activate
+          pnpm install
+
+      - name: Run ESLint
+        run: |
+          cd /tmp/pnpm-test-react
+          pnpm exec eslint test.jsx
+
+  test-yarn:
+    name: Test with Yarn
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build packages
+        run: yarn build
+
+      - name: Copy fixture to temp directory
+        run: |
+          cp -r .github/workflows/fixtures/yarn/html /tmp/yarn-test
+
+      - name: Install with Yarn
+        run: |
+          cd /tmp/yarn-test
+          corepack enable
+          yarn set version stable
+          yarn install
+
+      - name: Run ESLint
+        run: |
+          cd /tmp/yarn-test
+          yarn eslint test.html
+
+  test-yarn-react:
+    name: Test with Yarn (React)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build packages
+        run: yarn build
+
+      - name: Copy fixture to temp directory
+        run: |
+          cp -r .github/workflows/fixtures/yarn/react /tmp/yarn-test-react
+
+      - name: Install with Yarn
+        run: |
+          cd /tmp/yarn-test-react
+          corepack enable
+          yarn set version stable
+          yarn install
+
+      - name: Run ESLint
+        run: |
+          cd /tmp/yarn-test-react
+          yarn eslint test.jsx
