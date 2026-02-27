@@ -1,5 +1,8 @@
 /**
- * @import {RuleModule} from "../types.js"
+ * @import {
+ *   RuleModule,
+ *   SvelteElement
+ * } from "../types.js"
  * @typedef {Object} Option
  * @property {"widely" | "newly" | number} Option.available
  */
@@ -56,12 +59,13 @@ const rule = {
     /**
      * Check an element node for baseline features
      *
-     * @param {any} node
+     * @param {SvelteElement} node
      */
     function checkElement(node) {
-      // Skip components (PascalCase or kebab-case with dash)
+      if (node.name.type !== "SvelteName") {
+        return;
+      }
       if (
-        !node.name ||
         node.name.name.toLowerCase() !== node.name.name ||
         node.name.name.includes("-")
       ) {
@@ -93,8 +97,6 @@ const rule = {
 
     return {
       SvelteElement: checkElement,
-      SvelteScriptElement: checkElement,
-      SvelteStyleElement: checkElement,
     };
   },
 };
