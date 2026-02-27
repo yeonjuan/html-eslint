@@ -1,5 +1,8 @@
 /**
- * @import {RuleModule} from "../types.js"
+ * @import {
+ *   RuleModule,
+ *   SvelteElement
+ * } from "../types.js"
  * @file Disallow use of obsolete elements in HTML5 for Svelte
  */
 
@@ -32,7 +35,7 @@ const rule = {
     /**
      * Check if an element uses an obsolete tag
      *
-     * @param {any} node
+     * @param {SvelteElement} node
      */
     function checkElement(node) {
       const adapter = elementNodeAdapter(node);
@@ -48,8 +51,6 @@ const rule = {
 
     return {
       SvelteElement: checkElement,
-      SvelteScriptElement: checkElement,
-      SvelteStyleElement: checkElement,
     };
   },
 };

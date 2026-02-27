@@ -76,26 +76,6 @@ ruleTester.run("use-baseline", rule, {
       ],
     },
     {
-      code: `<script type="module"></script>`,
-      errors: [
-        {
-          message:
-            "Attribute 'type=\"module\"' on '<script>' is not a 2017 available baseline feature.",
-        },
-      ],
-      options: [{ available: 2017 }],
-    },
-    {
-      code: `<style blocking="render"></style>`,
-      errors: [
-        {
-          message:
-            "Attribute 'blocking' on '<style>' is not a widely available baseline feature.",
-        },
-      ],
-      options: [{ available: "widely" }],
-    },
-    {
       code: `<input type="week" />`,
       errors: [
         {

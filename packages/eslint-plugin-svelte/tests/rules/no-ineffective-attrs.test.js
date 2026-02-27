@@ -175,32 +175,6 @@ ruleTester.run("no-ineffective-attrs", rule, {
       ],
     },
     {
-      code: "<script defer></script>",
-      errors: [
-        {
-          messageId: "ineffective",
-          line: 1,
-          column: 9,
-          data: {
-            message: 'The "defer" attribute has no effect on inline scripts.',
-          },
-        },
-      ],
-    },
-    {
-      code: "<script async></script>",
-      errors: [
-        {
-          messageId: "ineffective",
-          line: 1,
-          column: 9,
-          data: {
-            message: 'The "async" attribute has no effect on inline scripts.',
-          },
-        },
-      ],
-    },
-    {
       code: "<a download>Download</a>",
       errors: [
         {

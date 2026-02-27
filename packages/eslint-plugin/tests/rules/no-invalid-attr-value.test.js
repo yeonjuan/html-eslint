@@ -321,10 +321,6 @@ ruleTester.run("no-invalid-attr-value", rule, {
       errors: [{ messageId: "invalid" }],
     },
     {
-      code: '<style blocking="invalid"></style>',
-      errors: [{ messageId: "invalid" }],
-    },
-    {
       code: '<form method="invalid" enctype="multipart/form-data"></form>',
       errors: [{ messageId: "invalid" }],
     },

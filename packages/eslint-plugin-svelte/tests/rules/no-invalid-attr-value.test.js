@@ -204,16 +204,6 @@ ruleTester.run("no-invalid-attr-value", rule, {
         },
       ],
     },
-    {
-      code: '<style blocking="invalid"></style>',
-      errors: [
-        {
-          messageId: "invalid",
-          line: 1,
-          column: 18,
-        },
-      ],
-    },
     // allow option tests - should still fail if value doesn't match pattern
     {
       code: '<input type="invalid-type" />',

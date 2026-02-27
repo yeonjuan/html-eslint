@@ -1,5 +1,8 @@
 /**
- * @import {RuleModule} from "../types.js"
+ * @import {
+ *   RuleModule,
+ *   SvelteElement
+ * } from "../types.js"
  * @file Disallow duplicate class names for Svelte
  */
 
@@ -33,7 +36,7 @@ const rule = {
     /**
      * Check if an element has duplicate class names
      *
-     * @param {any} node
+     * @param {SvelteElement} node
      */
     function checkElement(node) {
       const adapter = elementNodeAdapter(node);

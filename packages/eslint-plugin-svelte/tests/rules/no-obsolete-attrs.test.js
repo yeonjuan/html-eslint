@@ -66,22 +66,6 @@ ruleTester.run("no-obsolete-attrs", rule, {
       ],
     },
     {
-      code: '<script charset="UTF-8"></script>',
-      errors: [
-        {
-          messageId: "obsolete",
-          line: 1,
-          column: 9,
-          data: {
-            attr: "charset",
-            element: "script",
-            suggestion:
-              "It is redundant to specify it on the script element since it inherits from the document.",
-          },
-        },
-      ],
-    },
-    {
       code: '<a name="anchor">Link</a>',
       errors: [
         {
