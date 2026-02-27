@@ -1,0 +1,65 @@
+<script locals>
+  module.exports = {
+    navs: locals.navsSvelte
+  }
+</script>
+<div class="font-black md:pl-[280px] w-full md:w-[200px]">
+  <button
+    id="nav-button"
+    type="button"
+    class="mt-[17px] flex md:hidden body4 text-black-700 w-full px-[16px] py-[12px] border-gray-300 border rounded-[6px]"
+  >
+    Menu
+    <img
+      class="rotate-90 ml-auto"
+      alt=""
+      height="20"
+      src="~/src/assets/icon-chevron-right.svg"
+      width="20"
+    >
+  </button>
+  <aside id="nav" class="hidden w-full border border-gray-300 border-t-0 bg-white md:h-[calc(100vh-66px)] md:overflow-y-auto md:block md:w-[280px] md:top-0 md:mt-[66px] md:fixed md:left-0 md:pb-[60px]">
+    <div class="flex flex-col justify-center pr-4 pt-4 md:hidden">
+      <button
+        id="nav-close-btn"
+        type="button"
+        class="hidden ml-auto w-[24px] h-[24px]"
+      >
+        <img
+          alt=""
+          height="21"
+          src="~/src/assets/icon-close.svg"
+          width="21"
+        >
+      </button>
+    </div>
+    <ul class="mt-[22px] px-[12px] [&>li]:px-[12px] [&>li]:mb-[12px]">
+      <li>
+        <a class="w-full flex items-center" href="~/src/docs/svelte/getting-started.html">
+          <span class="title5">Getting Started</span>
+          <img
+            class="ml-auto"
+            alt=""
+            height="20"
+            src="~/src/assets/icon-chevron-right.svg"
+            width="20"
+          >
+        </a>
+      </li>
+      <li>
+        <a class="w-full flex items-center" href="~/src/docs/svelte/rules.html">
+          <span class="title5">Rules</span>
+          <img
+            class="ml-auto"
+            alt=""
+            height="20"
+            src="~/src/assets/icon-chevron-right.svg"
+            width="20"
+          >
+        </a>
+      </li>
+      <module href="/components/nav-list.html" locals='{ "id": "best-practice-nav", "list": {{navs}} }'>
+      </module>
+    </ul>
+  </aside>
+</div>

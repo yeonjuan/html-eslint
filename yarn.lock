@@ -2662,7 +2662,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin-svelte@workspace:packages/eslint-plugin-svelte":
+"@html-eslint/eslint-plugin-svelte@npm:^0.57.1, @html-eslint/eslint-plugin-svelte@workspace:packages/eslint-plugin-svelte":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin-svelte@workspace:packages/eslint-plugin-svelte"
   dependencies:
@@ -19842,6 +19842,7 @@ __metadata:
   dependencies:
     "@html-eslint/eslint-plugin": "npm:^0.57.1"
     "@html-eslint/eslint-plugin-react": "npm:^0.57.1"
+    "@html-eslint/eslint-plugin-svelte": "npm:^0.57.1"
     "@html-eslint/parser": "npm:^0.57.1"
     "@html-eslint/web-linter": "npm:^0.57.0"
     "@html-kit/html": "npm:^0.0.4"

@@ -5,7 +5,8 @@ const {
   readFileSync 
 } = require("fs");
 const rulesRecord = require("@html-eslint/eslint-plugin/lib/rules");
-const reactRulesRecord = require('@html-eslint/eslint-plugin-react/lib/rules')
+const reactRulesRecord = require('@html-eslint/eslint-plugin-react/lib/rules');
+const svelteRulesRecord = require('@html-eslint/eslint-plugin-svelte').default.rules;
 
 const rules = {
   ["Best Practice"]: [],
@@ -47,7 +48,10 @@ const expressionsOption = {
     },
     navsReact: Object.entries(reactRulesRecord).map(([rulename]) => {
       return [rulename, '~/src/docs/react/rules/' + rulename + ".html"]
-    })
+    }),
+    navsSvelte: Object.entries(svelteRulesRecord).map(([rulename]) => {
+      return [rulename, '~/src/docs/svelte/rules/' + rulename + ".html"]
+    }),
   },
 };
 

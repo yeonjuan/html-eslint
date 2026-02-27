@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/eslint-plugin-svelte",
-  "version": "0.56.0",
+  "version": "0.57.1",
   "type": "module",
   "description": "ESLint plugin for HTML with Svelte support",
   "author": "yeonjuan",
