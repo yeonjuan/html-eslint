@@ -3,7 +3,10 @@
   "version": "0.57.1",
   "type": "commonjs",
   "description": "ESLint plugin for HTML with React support",
-  "author": "yeonjuan",
+  "author": {
+    "name": "yeonjuan",
+    "url": "https://github.com/yeonjuan"
+  },
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "lib/index.js",
@@ -43,7 +46,6 @@
     "eslint": ">=8.0.0 || ^10.0.0-0"
   },
   "devDependencies": {
-    "@html-eslint/eslint-plugin": "^0.57.1",
     "@typescript-eslint/types": "^8.56.0",
     "typescript": "^5.9.3"
   },

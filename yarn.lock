@@ -1509,7 +1509,6 @@ __metadata:
   resolution: "@html-eslint/eslint-plugin-react@workspace:packages/eslint-plugin-react"
   dependencies:
     "@html-eslint/core": "npm:^0.57.0"
-    "@html-eslint/eslint-plugin": "npm:^0.57.1"
     "@typescript-eslint/types": "npm:^8.56.0"
     typescript: "npm:^5.9.3"
   peerDependencies:

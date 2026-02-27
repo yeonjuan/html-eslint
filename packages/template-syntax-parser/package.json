@@ -2,7 +2,10 @@
   "name": "@html-eslint/template-syntax-parser",
   "version": "0.57.0",
   "description": "Parse template syntax",
-  "author": "yeonjuan",
+  "author": {
+    "name": "yeonjuan",
+    "url": "https://github.com/yeonjuan"
+  },
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "lib/index.js",
@@ -27,6 +30,15 @@
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
+  "keywords": [
+    "html",
+    "eslint",
+    "parser",
+    "template",
+    "handlebars",
+    "erb",
+    "twig"
+  ],
   "dependencies": {
     "@html-eslint/types": "^0.57.0"
   },

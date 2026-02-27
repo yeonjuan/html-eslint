@@ -2,7 +2,10 @@
   "name": "@html-eslint/core",
   "version": "0.57.0",
   "description": "Core HTML validation logic for html-eslint",
-  "author": "yeonjuan",
+  "author": {
+    "name": "yeonjuan",
+    "url": "https://github.com/yeonjuan"
+  },
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "./dist/index.js",

@@ -22,8 +22,11 @@
     "type": "git",
     "url": "git+https://github.com/yeonjuan/html-eslint.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "yeonjuan",
+    "url": "https://github.com/yeonjuan"
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
