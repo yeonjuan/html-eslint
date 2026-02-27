@@ -16,6 +16,7 @@ async function testESLintFiles({
   svelte,
   files,
   shouldHaveErrors = false,
+  packageManager = "yarn",
 }) {
   for (const file of files) {
     const result = await runESLint({
@@ -25,6 +26,7 @@ async function testESLintFiles({
       svelte,
       glob: file,
       log: !shouldHaveErrors,
+      packageManager,
     });
     expectLintResult(result, { shouldHaveErrors });
   }
@@ -43,8 +45,9 @@ function createESLintConfigTests({
   ],
   validFiles = ["html/valid.html", "js/valid.js", "frontmatter/valid.html"],
   testTimeout = 20000,
+  packageManager = "yarn",
 }) {
-  const config = { eslintVersion, fixtureName, localPackages, svelte };
+  const config = { eslintVersion, fixtureName, localPackages, packageManager };
 
   if (invalidFiles.length > 0) {
     it(
@@ -77,36 +80,82 @@ function createESLintConfigTests({
 
 describe("integration tests", () => {
   describe("eslint-v8-legacy-config", () => {
-    createESLintConfigTests({
-      eslintVersion: "8",
-      fixtureName: "eslint-v8-legacy-config",
-      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+    describe("with yarn", () => {
+      createESLintConfigTests({
+        eslintVersion: "8",
+        fixtureName: "eslint-v8-legacy-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      });
+    });
+
+    describe("with pnpm", () => {
+      createESLintConfigTests({
+        eslintVersion: "8",
+        fixtureName: "eslint-v8-legacy-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+        packageManager: "pnpm",
+      });
     });
   });
 
   describe("eslint-v9-flat-config", () => {
-    createESLintConfigTests({
-      eslintVersion: "9",
-      fixtureName: "eslint-v9-flat-config",
-      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+    describe("with yarn", () => {
+      createESLintConfigTests({
+        eslintVersion: "9",
+        fixtureName: "eslint-v9-flat-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      });
+    });
+
+    describe("with pnpm", () => {
+      createESLintConfigTests({
+        eslintVersion: "9",
+        fixtureName: "eslint-v9-flat-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+        packageManager: "pnpm",
+      });
     });
   });
 
   describe("eslint-v9-language", () => {
-    createESLintConfigTests({
-      eslintVersion: "9",
-      fixtureName: "eslint-v9-language",
-      localPackages: ["@html-eslint/eslint-plugin"],
-      invalidFiles: [],
-      validFiles: ["html/valid.html", "frontmatter/valid.html"],
+    describe("with yarn", () => {
+      createESLintConfigTests({
+        eslintVersion: "9",
+        fixtureName: "eslint-v9-language",
+        localPackages: ["@html-eslint/eslint-plugin"],
+        invalidFiles: [],
+        validFiles: ["html/valid.html", "frontmatter/valid.html"],
+      });
+    });
+
+    describe("with pnpm", () => {
+      createESLintConfigTests({
+        eslintVersion: "9",
+        fixtureName: "eslint-v9-language",
+        localPackages: ["@html-eslint/eslint-plugin"],
+        invalidFiles: [],
+        validFiles: ["html/valid.html", "frontmatter/valid.html"],
+        packageManager: "pnpm",
+      });
     });
   });
 
   describe("eslint-v10-flat-config", () => {
-    createESLintConfigTests({
-      eslintVersion: "10",
-      fixtureName: "eslint-v10-flat-config",
-      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+    describe("with yarn", () => {
+      createESLintConfigTests({
+        eslintVersion: "10",
+        fixtureName: "eslint-v10-flat-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      });
+    });
+
+    describe("with pnpm", () => {
+      createESLintConfigTests({
+        eslintVersion: "10",
+        fixtureName: "eslint-v10-flat-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+        packageManager: "pnpm",
+      });
     });
   });
 
@@ -115,25 +164,54 @@ describe("integration tests", () => {
     const fixtureName = "typescript";
     const localPackages = ["@html-eslint/eslint-plugin"];
 
-    it("should not throw any type error", async () => {
-      const result = await runTypecheck({
-        fixtureName,
-        eslintVersion,
-        localPackages,
-        fileName: "eslint.config.ts",
-        log: true,
-      });
-      expect(result).toBe(undefined);
-    }, 20000);
+    describe("with yarn", () => {
+      it("should not throw any type error", async () => {
+        const result = await runTypecheck({
+          fixtureName,
+          eslintVersion,
+          localPackages,
+          fileName: "eslint.config.ts",
+          log: true,
+        });
+        expect(result).toBe(undefined);
+      }, 20000);
+    });
+
+    describe("with pnpm", () => {
+      it("should not throw any type error", async () => {
+        const result = await runTypecheck({
+          fixtureName,
+          eslintVersion,
+          localPackages,
+          fileName: "eslint.config.ts",
+          log: true,
+          packageManager: "pnpm",
+        });
+        expect(result).toBe(undefined);
+      }, 20000);
+    });
   });
 
   describe("react", () => {
-    createESLintConfigTests({
-      eslintVersion: "9.27.0",
-      fixtureName: "react",
-      localPackages: ["@html-eslint/eslint-plugin-react"],
-      invalidFiles: ["jsx/invalid.jsx"],
-      validFiles: ["jsx/valid.jsx"],
+    describe("with yarn", () => {
+      createESLintConfigTests({
+        eslintVersion: "9.27.0",
+        fixtureName: "react",
+        localPackages: ["@html-eslint/eslint-plugin-react"],
+        invalidFiles: ["jsx/invalid.jsx"],
+        validFiles: ["jsx/valid.jsx"],
+      });
+    });
+
+    describe("with pnpm", () => {
+      createESLintConfigTests({
+        eslintVersion: "9.27.0",
+        fixtureName: "react",
+        localPackages: ["@html-eslint/eslint-plugin-react"],
+        invalidFiles: ["jsx/invalid.jsx"],
+        validFiles: ["jsx/valid.jsx"],
+        packageManager: "pnpm",
+      });
     });
   });
 

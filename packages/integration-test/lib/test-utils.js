@@ -16,6 +16,7 @@ tmp.setGracefulCleanup();
 
 const PACKAGE_VERSION = "0.0.2";
 const PACKAGE_MANAGER = "yarn@4.9.1";
+const PNPM_PACKAGE_MANAGER = "pnpm@9.15.4";
 const TYPESCRIPT_VERSION = "5.9.3";
 const SVELTE_ESLINT_PLUGIN_VERSION = "3.15.0";
 const SVELTE_VERSION = "5";
@@ -35,19 +36,20 @@ function packageFileVersion(name) {
 }
 
 /**
- * Install yarn dependencies in a directory
+ * Install dependencies in a directory
  *
  * @param {string} dir
  * @param {boolean} log
+ * @param {"yarn" | "pnpm"} [packageManager="yarn"] Default is `"yarn"`
  */
-async function installDependencies(dir, log) {
-  await execFile("yarn", ["install", "--no-immutable"], { cwd: dir }).catch(
-    (e) => {
-      if (log) {
-        console.error(e);
-      }
+async function installDependencies(dir, log, packageManager = "yarn") {
+  const installArgs =
+    packageManager === "pnpm" ? ["install"] : ["install", "--no-immutable"];
+  await execFile(packageManager, installArgs, { cwd: dir }).catch((e) => {
+    if (log) {
+      console.error(e);
     }
-  );
+  });
 }
 
 /**
@@ -59,6 +61,7 @@ async function installDependencies(dir, log) {
  * @param {boolean} [params.ts]
  * @param {boolean} [params.svelte]
  * @param {Record<string, string>} [params.scripts]
+ * @param {"yarn" | "pnpm"} [params.packageManager="yarn"] Default is `"yarn"`
  */
 async function makePackageJson({
   fixtureName,
@@ -68,6 +71,7 @@ async function makePackageJson({
   svelte,
   scripts,
   localPackages,
+  packageManager = "yarn",
 }) {
   const devDependencies = Object.fromEntries(
     localPackages.map((pkg) => [
@@ -87,7 +91,8 @@ async function makePackageJson({
     name: fixtureName,
     private: true,
     version: PACKAGE_VERSION,
-    packageManager: PACKAGE_MANAGER,
+    packageManager:
+      packageManager === "pnpm" ? PNPM_PACKAGE_MANAGER : PACKAGE_MANAGER,
     scripts,
     devDependencies: {
       eslint: eslintVersion,
@@ -96,8 +101,17 @@ async function makePackageJson({
       svelte: svelte ? SVELTE_VERSION : undefined,
       ...devDependencies,
     },
-    resolutions,
   };
+
+  // Use pnpm.overrides for pnpm, resolutions for yarn
+  if (packageManager === "pnpm") {
+    packageJson.pnpm = {
+      overrides: resolutions,
+    };
+  } else {
+    packageJson.resolutions = resolutions;
+  }
+
   await writeFile(
     path.join(dir, "package.json"),
     JSON.stringify(packageJson),
@@ -111,8 +125,8 @@ async function makePackageJson({
  * @param {string} params.eslintVersion
  * @param {Record<string, string>} [params.scripts]
  * @param {string[]} params.localPackages
- * @param {boolean} [params.svelte]
- * @param {string[]} params.log
+ * @param {boolean} [params.log]
+ * @param {"yarn" | "pnpm"} [params.packageManager="yarn"] Default is `"yarn"`
  * @returns {Promise<{ dir: string }>}
  */
 async function setup({
@@ -122,6 +136,7 @@ async function setup({
   localPackages,
   svelte,
   log,
+  packageManager = "yarn",
 }) {
   const dir = await tmpDir();
   const fixturePath = path.join(__dirname, "../fixtures/", fixtureName);
@@ -135,6 +150,7 @@ async function setup({
     localPackages,
     svelte,
     log,
+    packageManager,
   });
   return { dir };
 }
@@ -145,8 +161,8 @@ async function setup({
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
  * @param {string[]} params.localPackages
- * @param {boolean} [params.svelte]
- * @param {boolean} params.log
+ * @param {boolean} [params.log]
+ * @param {"yarn" | "pnpm"} [params.packageManager="yarn"] Default is `"yarn"`
  */
 async function runESLint({
   fixtureName,
@@ -155,26 +171,40 @@ async function runESLint({
   localPackages,
   svelte,
   log,
+  packageManager = "yarn",
 }) {
   const { dir } = await setup({
     fixtureName,
     eslintVersion,
     localPackages,
-    svelte,
+    packageManager,
   });
 
-  await installDependencies(dir, log);
+  await installDependencies(dir, log, packageManager);
 
   const outFile = await tmpFile();
-  await execFile(
-    "yarn",
-    ["eslint", "--format", "json", "--output-file", outFile, glob],
-    { cwd: dir }
-  ).catch((e) => {
-    if (log) {
-      console.error(e);
-    }
-  });
+  const eslintArgs = [
+    "eslint",
+    "--format",
+    "json",
+    "--output-file",
+    outFile,
+    glob,
+  ];
+
+  if (packageManager === "pnpm") {
+    await execFile("pnpm", ["exec", ...eslintArgs], { cwd: dir }).catch((e) => {
+      if (log) {
+        console.error(e);
+      }
+    });
+  } else {
+    await execFile("yarn", eslintArgs, { cwd: dir }).catch((e) => {
+      if (log) {
+        console.error(e);
+      }
+    });
+  }
 
   const result = await readFile(outFile, "utf-8");
   return JSON.parse(result);
@@ -185,13 +215,15 @@ async function runESLint({
  * @param {string} params.fixtureName
  * @param {string} params.eslintVersion
  * @param {string[]} params.localPackages
- * @param {boolean} params.log
+ * @param {boolean} [params.log]
+ * @param {"yarn" | "pnpm"} [params.packageManager="yarn"] Default is `"yarn"`
  */
 async function runTypecheck({
   fixtureName,
   eslintVersion,
   localPackages,
   log,
+  packageManager = "yarn",
 }) {
   let error;
   const { dir } = await setup({
@@ -202,16 +234,26 @@ async function runTypecheck({
     },
     localPackages,
     log,
+    packageManager,
   });
 
-  await installDependencies(dir, log);
+  await installDependencies(dir, log, packageManager);
 
-  await execFile("yarn", ["run", "ts"], { cwd: dir }).catch((e) => {
-    if (log) {
+  if (packageManager === "pnpm") {
+    await execFile("pnpm", ["run", "ts"], { cwd: dir }).catch((e) => {
+      // if (log) {
       console.error(e);
-    }
-    error = e;
-  });
+      // }
+      error = e;
+    });
+  } else {
+    await execFile("yarn", ["run", "ts"], { cwd: dir }).catch((e) => {
+      if (log) {
+        console.error(e);
+      }
+      error = e;
+    });
+  }
 
   return error;
 }

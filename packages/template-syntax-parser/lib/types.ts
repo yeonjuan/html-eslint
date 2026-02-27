@@ -1,4 +1,4 @@
-import type { AST } from "eslint";
+import type { Range } from "@html-eslint/types";
 
 export type SyntaxConfigItem = {
   open: string;
@@ -14,21 +14,21 @@ export type TemplateSyntaxParserConfig = {
 };
 
 export type TemplateSyntax = {
-  open: AST.Range;
-  close: AST.Range;
+  open: Range;
+  close: Range;
 };
 
 export type OpenSyntax = {
   type: "open";
   value: string;
-  range: AST.Range;
+  range: Range;
   isComment?: boolean;
 };
 
 export type CloseSyntax = {
   type: "close";
   value: string;
-  range: AST.Range;
+  range: Range;
   isComment?: boolean;
 };
 

@@ -2,7 +2,10 @@
   "name": "@html-eslint/parser",
   "version": "0.57.1",
   "description": "Parser for @html-eslint/eslint-plugin",
-  "author": "yeonjuan",
+  "author": {
+    "name": "yeonjuan",
+    "url": "https://github.com/yeonjuan"
+  },
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "lib/index.js",
@@ -20,22 +23,27 @@
     "url": "git+https://github.com/yeonjuan/html-eslint.git"
   },
   "scripts": {
-    "test": "jest --coverage --updateSnapshot --passWithNoTests",
+    "test": "jest --coverage --updateSnapshot",
     "ts": "tsc --noEmit",
     "build": "rimraf types && tsc --project tsconfig.build.json"
   },
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
+  "keywords": [
+    "html",
+    "eslint",
+    "parser",
+    "ast",
+    "lint"
+  ],
   "dependencies": {
-    "@eslint/css-tree": "^3.6.9",
     "@html-eslint/template-syntax-parser": "^0.57.0",
     "@html-eslint/types": "^0.57.0",
     "css-tree": "^3.1.0",
     "es-html-parser": "0.3.1"
   },
   "devDependencies": {
-    "@types/css-tree": "^2.3.11",
-    "typescript": "^5.9.3"
+    "@types/css-tree": "^2.3.11"
   }
 }
