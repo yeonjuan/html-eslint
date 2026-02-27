@@ -6,7 +6,7 @@ module.exports = [
         html,
     },
     language: "html/html",
-    extends: ["html/all"],
     files: ["**/*.html"],
   },
+  html.configs.all
 ];
