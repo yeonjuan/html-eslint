@@ -49,6 +49,7 @@ const requireExplicitSize = require("./require-explicit-size");
 const useBaseLine = require("./use-baseline");
 const noDuplicateClass = require("./no-duplicate-class");
 const noEmptyHeadings = require("./no-empty-headings");
+const requireContent = require("./require-content");
 const noInvalidEntity = require("./no-invalid-entity");
 const noDuplicateInHead = require("./no-duplicate-in-head");
 const noIneffectiveAttrs = require("./no-ineffective-attrs");
@@ -115,6 +116,7 @@ const rules = {
   "use-baseline": useBaseLine,
   "no-duplicate-class": noDuplicateClass,
   "no-empty-headings": noEmptyHeadings,
+  "require-content": requireContent,
   "no-invalid-entity": noInvalidEntity,
   "no-duplicate-in-head": noDuplicateInHead,
   "no-ineffective-attrs": noIneffectiveAttrs,
