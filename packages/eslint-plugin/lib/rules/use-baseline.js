@@ -84,11 +84,11 @@ module.exports = {
       const adapter = elementNodeAdapter(node);
       const result = ruleCore.checkAttributes(adapter);
 
-      for (const r of result) {
+      for (const { messageId, data, node } of result) {
         context.report({
-          messageId: r.messageId,
-          data: r.data,
-          node: r.node,
+          node,
+          messageId,
+          data,
         });
       }
     }

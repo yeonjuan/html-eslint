@@ -26,6 +26,23 @@ module.exports = [
   },
   ...compat.extends("eslint:recommended"),
   {
+    rules: {
+      "prefer-destructuring": [
+        "error",
+        {
+          VariableDeclarator: {
+            array: false,
+            object: true,
+          },
+          AssignmentExpression: {
+            array: false,
+            object: false,
+          },
+        },
+      ],
+    },
+  },
+  {
     plugins: {
       jest,
       node,

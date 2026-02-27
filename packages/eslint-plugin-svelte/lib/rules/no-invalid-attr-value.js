@@ -83,7 +83,7 @@ const rule = {
         }
 
         context.report({
-          node: reportNode || undefined,
+          node: reportNode,
           messageId,
           data,
         });

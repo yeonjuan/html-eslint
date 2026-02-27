@@ -81,7 +81,7 @@ const rule = {
         let reportNode = node;
         if (node) {
           if (Array.isArray(node) && node.length > 0) {
-            reportNode = node[0];
+            [reportNode] = node;
           } else if (node.type) {
             reportNode = node;
           }

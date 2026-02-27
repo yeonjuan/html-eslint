@@ -67,7 +67,7 @@ module.exports = {
      */
     function hasSkipTagOnParent(node) {
       // @ts-ignore
-      const parent = node.parent;
+      const { parent } = node;
       if (
         parent &&
         // @ts-ignore

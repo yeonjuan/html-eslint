@@ -168,7 +168,7 @@ const rule = {
      *   this one
      */
     function processSvelteLiteral(valuePart, hasNextPart) {
-      const value = valuePart.value;
+      const { value } = valuePart;
       if (!value || typeof value !== "string") {
         return;
       }
@@ -227,7 +227,7 @@ const rule = {
           if (valuePart.type === AST_NODE_TYPES.SvelteLiteral) {
             processSvelteLiteral(valuePart, hasNextPart);
           } else if (valuePart.type === AST_NODE_TYPES.SvelteMustacheTag) {
-            const expression = valuePart.expression;
+            const { expression } = valuePart;
             if (expression?.type === AST_NODE_TYPES.ArrayExpression) {
               expression.elements.forEach((element) => {
                 if (element && isStaticString(element)) {

@@ -87,7 +87,7 @@ module.exports = {
         if (node.name !== "head") {
           return;
         }
-        const children = node.children;
+        const { children } = node;
 
         const metaTags = filter(children, isOgpMeta);
 
