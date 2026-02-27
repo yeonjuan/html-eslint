@@ -1300,16 +1300,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/css-tree@npm:^3.6.9":
-  version: 3.6.9
-  resolution: "@eslint/css-tree@npm:3.6.9"
-  dependencies:
-    mdn-data: "npm:2.23.0"
-    source-map-js: "npm:^1.0.1"
-  checksum: 10c0/5dd436fb6e9aa2cc3a00252cea6287f78fde1cba664894fc9b46c4817f23d5d5614bfbe55decd05ae062877b80a653bc73106e8e3ca311d4ff18e2baa9e71634
-  languageName: node
-  linkType: hard
-
 "@eslint/eslintrc@npm:^2.1.4":
   version: 2.1.4
   resolution: "@eslint/eslintrc@npm:2.1.4"
@@ -1508,8 +1498,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/core@workspace:packages/core"
   dependencies:
-    "@html-eslint/types": "npm:^0.57.0"
-    eslint: "npm:^9.39.1"
     html-standard: "npm:^0.0.13"
     tsup: "npm:^8.5.1"
     typescript: "npm:^5.8.3"
@@ -1522,7 +1510,6 @@ __metadata:
   dependencies:
     "@html-eslint/core": "npm:^0.57.0"
     "@html-eslint/eslint-plugin": "npm:^0.57.1"
-    "@html-eslint/types": "npm:^0.57.0"
     "@typescript-eslint/types": "npm:^8.56.0"
     typescript: "npm:^5.9.3"
   peerDependencies:
@@ -1581,7 +1568,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/parser@workspace:packages/parser"
   dependencies:
-    "@eslint/css-tree": "npm:^3.6.9"
     "@html-eslint/template-syntax-parser": "npm:^0.57.0"
     "@html-eslint/types": "npm:^0.57.0"
     "@types/css-tree": "npm:^2.3.11"
@@ -1611,7 +1597,6 @@ __metadata:
   dependencies:
     "@html-eslint/types": "npm:^0.57.0"
     eslint: "npm:^9.39.1"
-    globals: "npm:^15.12.0"
   languageName: unknown
   linkType: soft
 
@@ -1621,9 +1606,7 @@ __metadata:
   dependencies:
     "@types/css-tree": "npm:^2.3.11"
     "@types/estree": "npm:^1.0.6"
-    css-tree: "npm:^3.1.0"
     es-html-parser: "npm:0.3.1"
-    eslint: "npm:^9.39.1"
     typescript: "npm:^5.9.3"
   languageName: unknown
   linkType: soft
@@ -12361,13 +12344,6 @@ __metadata:
   version: 2.12.2
   resolution: "mdn-data@npm:2.12.2"
   checksum: 10c0/b22443b71d70f72ccc3c6ba1608035431a8fc18c3c8fc53523f06d20e05c2ac10f9b53092759a2ca85cf02f0d37036f310b581ce03e7b99ac74d388ef8152ade
-  languageName: node
-  linkType: hard
-
-"mdn-data@npm:2.23.0":
-  version: 2.23.0
-  resolution: "mdn-data@npm:2.23.0"
-  checksum: 10c0/7da2e4dda68da8f26077a328172afd8c1b167d8e9ac0518b8297d752b30a093debe5c6260fd7330e6d2d704a04b9ad0f7499a95a0526d50d7b32aae29d9db4e6
   languageName: node
   linkType: hard
 

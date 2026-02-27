@@ -28,7 +28,6 @@
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
   "dependencies": {
-    "@eslint/css-tree": "^3.6.9",
     "@html-eslint/template-syntax-parser": "^0.57.0",
     "@html-eslint/types": "^0.57.0",
     "css-tree": "^3.1.0",

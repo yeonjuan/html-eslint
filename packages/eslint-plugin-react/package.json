@@ -37,15 +37,14 @@
     "lint"
   ],
   "dependencies": {
-    "@html-eslint/core": "^0.57.0",
-    "@html-eslint/eslint-plugin": "^0.57.1",
-    "@html-eslint/types": "^0.57.0",
-    "@typescript-eslint/types": "^8.56.0"
+    "@html-eslint/core": "^0.57.0"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 || ^10.0.0-0"
   },
   "devDependencies": {
+    "@html-eslint/eslint-plugin": "^0.57.1",
+    "@typescript-eslint/types": "^8.56.0",
     "typescript": "^5.9.3"
   },
   "engines": {
