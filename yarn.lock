@@ -1500,7 +1500,6 @@ __metadata:
   dependencies:
     html-standard: "npm:^0.0.13"
     tsup: "npm:^8.5.1"
-    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 
@@ -1510,7 +1509,6 @@ __metadata:
   dependencies:
     "@html-eslint/core": "npm:^0.57.0"
     "@typescript-eslint/types": "npm:^8.56.0"
-    typescript: "npm:^5.9.3"
   peerDependencies:
     eslint: ">=8.0.0 || ^10.0.0-0"
   languageName: unknown
@@ -1533,7 +1531,6 @@ __metadata:
     eslint: "npm:^9.39.1"
     espree: "npm:^10.3.0"
     html-standard: "npm:^0.0.13"
-    typescript: "npm:^5.9.3"
   peerDependencies:
     eslint: ">=8.0.0 || ^10.0.0-0"
   languageName: unknown
@@ -1572,7 +1569,6 @@ __metadata:
     "@types/css-tree": "npm:^2.3.11"
     css-tree: "npm:^3.1.0"
     es-html-parser: "npm:0.3.1"
-    typescript: "npm:^5.9.3"
   languageName: unknown
   linkType: soft
 
@@ -1606,7 +1602,6 @@ __metadata:
     "@types/css-tree": "npm:^2.3.11"
     "@types/estree": "npm:^1.0.6"
     es-html-parser: "npm:0.3.1"
-    typescript: "npm:^5.9.3"
   languageName: unknown
   linkType: soft
 
@@ -16809,16 +16804,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.8.3":
-  version: 5.8.3
-  resolution: "typescript@npm:5.8.3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/5f8bb01196e542e64d44db3d16ee0e4063ce4f3e3966df6005f2588e86d91c03e1fb131c2581baf0fb65ee79669eea6e161cd448178986587e9f6844446dbb48
-  languageName: node
-  linkType: hard
-
 "typescript@npm:^5.9.3":
   version: 5.9.3
   resolution: "typescript@npm:5.9.3"
@@ -16826,16 +16811,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10c0/6bd7552ce39f97e711db5aa048f6f9995b53f1c52f7d8667c1abdc1700c68a76a308f579cd309ce6b53646deb4e9a1be7c813a93baaf0a28ccd536a30270e1c5
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A^5.8.3#optional!builtin<compat/typescript>":
-  version: 5.8.3
-  resolution: "typescript@patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/39117e346ff8ebd87ae1510b3a77d5d92dae5a89bde588c747d25da5c146603a99c8ee588c7ef80faaf123d89ed46f6dbd918d534d641083177d5fac38b8a1cb
   languageName: node
   linkType: hard
 
