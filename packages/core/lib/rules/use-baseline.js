@@ -85,9 +85,7 @@ function getElementAttributeSpecificStatusKey(element, key, value) {
  * @template AttributeValueNode
  * @param {UseBaselineOptions} options
  */
-export function useBaseline(options) {
-  const available = options.available;
-
+export function useBaseline({ available }) {
   const baseYear = typeof available === "number" ? available : null;
   const baseStatus = available === "widely" ? BASELINE_HIGH : BASELINE_LOW;
   const availability = String(available);

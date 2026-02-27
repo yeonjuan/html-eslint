@@ -103,34 +103,34 @@ module.exports = {
         return true;
       }
 
-      return ignorePatterns.some((pattern) => {
-        /** @type {boolean[]} */
-        const checks = [];
+      return ignorePatterns.some(
+        ({ tagRegex, attrKeyRegex, attrValueRegex }) => {
+          /** @type {boolean[]} */
+          const checks = [];
 
-        if (pattern.tagRegex) {
-          const tagName = adapter.getTagName(element);
-          checks.push(pattern.tagRegex.test(tagName));
+          if (tagRegex) {
+            const tagName = adapter.getTagName(element);
+            checks.push(tagRegex.test(tagName));
+          }
+
+          if (attrKeyRegex) {
+            const attrNames = adapter.getAttributeNames(element);
+            checks.push(attrNames.some((name) => attrKeyRegex.test(name)));
+          }
+
+          if (attrValueRegex) {
+            const attrNames = adapter.getAttributeNames(element);
+            const hasMatchingValue = attrNames.some((name) => {
+              const value = adapter.getAttribute(element, name);
+              return value !== null && attrValueRegex.test(value);
+            });
+            checks.push(hasMatchingValue);
+          }
+
+          // All specified patterns must match (AND condition)
+          return checks.length > 0 && checks.every((check) => check === true);
         }
-
-        if (pattern.attrKeyRegex) {
-          const attrNames = adapter.getAttributeNames(element);
-          const attrKeyRegex = pattern.attrKeyRegex;
-          checks.push(attrNames.some((name) => attrKeyRegex.test(name)));
-        }
-
-        if (pattern.attrValueRegex) {
-          const attrNames = adapter.getAttributeNames(element);
-          const attrValueRegex = pattern.attrValueRegex;
-          const hasMatchingValue = attrNames.some((name) => {
-            const value = adapter.getAttribute(element, name);
-            return value !== null && attrValueRegex.test(value);
-          });
-          checks.push(hasMatchingValue);
-        }
-
-        // All specified patterns must match (AND condition)
-        return checks.length > 0 && checks.every((check) => check === true);
-      });
+      );
     }
 
     /**

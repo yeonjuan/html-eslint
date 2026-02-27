@@ -80,10 +80,9 @@ export function noIneffectiveAttrs() {
    * @returns {boolean}
    */
   function isTemplateValueAttr(adapter, attrName) {
-    for (const attribute of adapter.getAttributes()) {
-      const keyValue = attribute.key.value();
+    for (const { key, value } of adapter.getAttributes()) {
+      const keyValue = key.value();
       if (keyValue && keyValue === attrName) {
-        const value = attribute.value;
         return value.isExpression();
       }
     }

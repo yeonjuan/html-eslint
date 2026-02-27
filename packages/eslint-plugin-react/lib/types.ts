@@ -379,7 +379,7 @@ type ReportDescriptor = ReportDescriptorMessage &
   ReportDescriptorOptions;
 type ReportDescriptorMessage = { message: string } | { messageId: string };
 type ReportDescriptorLocation = {
-  node?: Node;
+  node?: Node | null;
   loc?: eslint.AST.SourceLocation;
   line?: number;
   column?: number;

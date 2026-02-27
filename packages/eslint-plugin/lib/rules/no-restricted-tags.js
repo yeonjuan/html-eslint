@@ -56,8 +56,7 @@ module.exports = {
   },
 
   create(context) {
-    /** @type {Options} */
-    const options = context.options;
+    const { options } = context;
     const checkers = options.map((option) => new PatternChecker(option));
 
     /** @param {Tag | StyleTag | ScriptTag} node */

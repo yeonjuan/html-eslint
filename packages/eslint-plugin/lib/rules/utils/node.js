@@ -100,7 +100,7 @@ function hasTemplate(node) {
  */
 function splitToLineNodes(node) {
   let start = node.range[0];
-  let line = node.loc.start.line;
+  let { line } = node.loc.start;
   const startCol = node.loc.start.column;
   /** @type {Line[]} */
   const lineNodes = [];

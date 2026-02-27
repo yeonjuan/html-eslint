@@ -58,11 +58,11 @@ module.exports = {
     /** @param {Tag | ScriptTag | StyleTag} node */
     function checkAttributes(node) {
       const result = ruleCore.checkAttributes(elementNodeAdapter(node));
-      for (const r of result) {
+      for (const { node, messageId, data } of result) {
         context.report({
-          node: r.node,
-          messageId: r.messageId,
-          data: r.data,
+          node,
+          messageId,
+          data,
         });
       }
     }

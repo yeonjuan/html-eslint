@@ -52,9 +52,11 @@ function getSettings(settings) {
  * @returns {boolean}
  */
 function shouldCheckTaggedTemplateExpression(node, context) {
-  const { templateLiterals } = getSettings(context.settings);
-  const tags = templateLiterals.tags;
+  const {
+    templateLiterals: { tags },
+  } = getSettings(context.settings);
   const tagNode = node.tag;
+
   return !!(
     tagNode.type === "Identifier" && tags.some((tag) => tag.test(tagNode.name))
   );
