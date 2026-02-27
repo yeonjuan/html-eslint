@@ -3,11 +3,21 @@
 ## How to use
 
 ```js,.eslintrc.js
-module.exports = {
-  rules: {
-    "@html-eslint/svelte/{ruleName}": "error",
+import svelteParser from "svelte-eslint-parser";
+export default  [
+ {
+    files: ["**/*.svelte"],
+    plugins: {
+      "@html-eslint/svelte": htmlSvelte,
+    },
+    languageOptions: {
+      parser: svelteParser,
+    },
+    rules: {
+         "@html-eslint/svelte/{ruleName}": "error",
+    },
   },
-};
+];
 ```
 
 ## Rule Details

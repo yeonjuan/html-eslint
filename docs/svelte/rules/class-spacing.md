@@ -6,6 +6,7 @@ This rule disallows extra spacing in `class` attribute values in Svelte code.
 
 ```js
 // eslint.config.js (flat config)
+import svelteParser from "svelte-eslint-parser";
 import htmlSvelte from "@html-eslint/eslint-plugin-svelte";
 
 export default [
@@ -13,6 +14,9 @@ export default [
     files: ["**/*.svelte"],
     plugins: {
       "@html-eslint/svelte": htmlSvelte,
+    },
+    languageOptions: {
+      parser: svelteParser,
     },
     rules: {
       "@html-eslint/svelte/class-spacing": "error",
