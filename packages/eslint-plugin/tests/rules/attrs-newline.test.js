@@ -234,6 +234,63 @@ ruleTester.run("attrs-newline", rule, {
         },
       ],
     },
+    // skip option: tag in skip list is not enforced even if attrs exceed threshold
+    {
+      code: `<pre class="foo" id="bar" data-x="1"></pre>`,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          skip: ["pre"],
+        },
+      ],
+    },
+    // skip option: other tags still get enforced
+    {
+      code: `
+      <pre class="foo" id="bar"></pre>
+      <div
+        class="foo"
+        id="bar"
+        >
+      </div>`,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 0,
+          skip: ["pre"],
+        },
+      ],
+    },
+    // inline option: inline tags are not enforced
+    {
+      code: `<p>Lorem ipsum <span class="foo" data-foo="true">consectetur</span> adipiscing elit.</p>`,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          inline: ["span"],
+        },
+      ],
+    },
+    // inline option with $inline preset: all standard inline elements are excluded
+    {
+      code: `<p>Click <a class="link" href="/foo" target="_blank">here</a> for info.</p>`,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          inline: ["$inline"],
+        },
+      ],
+    },
+    // $inline preset covers span as well
+    {
+      code: `<p>Hello <span class="hi" id="greeting" data-test="true">world</span></p>`,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          inline: ["$inline"],
+        },
+      ],
+    },
   ],
 
   invalid: [
