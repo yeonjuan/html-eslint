@@ -28,3 +28,10 @@ packages/parser/types
 packages/eslint-plugin/types
 packages/eslint-plugin-react/types
 
+# Workflow fixtures
+.github/workflows/fixtures/**/node_modules
+.github/workflows/fixtures/**/.yarn
+.github/workflows/fixtures/**/yarn.lock
+.github/workflows/fixtures/**/package-lock.json
+.github/workflows/fixtures/**/pnpm-lock.yaml
+

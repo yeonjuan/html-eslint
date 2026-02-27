@@ -28,18 +28,14 @@ jobs:
       - name: Build packages
         run: yarn build
 
-      - name: Copy fixture to temp directory
-        run: |
-          cp -r .github/workflows/fixtures/npm/html /tmp/npm-test
-
       - name: Install with npm
         run: |
-          cd /tmp/npm-test
+          cd .github/workflows/fixtures/npm/html
           npm install
 
       - name: Run ESLint
         run: |
-          cd /tmp/npm-test
+          cd .github/workflows/fixtures/npm/html
           npx eslint test.html
 
   test-npm-react:
@@ -63,18 +59,14 @@ jobs:
       - name: Build packages
         run: yarn build
 
-      - name: Copy fixture to temp directory
-        run: |
-          cp -r .github/workflows/fixtures/npm/react /tmp/npm-test-react
-
       - name: Install with npm
         run: |
-          cd /tmp/npm-test-react
+          cd .github/workflows/fixtures/npm/react
           npm install
 
       - name: Run ESLint
         run: |
-          cd /tmp/npm-test-react
+          cd .github/workflows/fixtures/npm/react
           npx eslint test.jsx
 
   test-pnpm:
@@ -98,19 +90,15 @@ jobs:
       - name: Build packages
         run: yarn build
 
-      - name: Copy fixture to temp directory
-        run: |
-          cp -r .github/workflows/fixtures/pnpm/html /tmp/pnpm-test
-
       - name: Install with pnpm
         run: |
-          cd /tmp/pnpm-test
+          cd .github/workflows/fixtures/pnpm/html
           corepack prepare pnpm@9.15.4 --activate
           pnpm install
 
       - name: Run ESLint
         run: |
-          cd /tmp/pnpm-test
+          cd .github/workflows/fixtures/pnpm/html
           pnpm exec eslint test.html
 
   test-pnpm-react:
@@ -134,19 +122,15 @@ jobs:
       - name: Build packages
         run: yarn build
 
-      - name: Copy fixture to temp directory
-        run: |
-          cp -r .github/workflows/fixtures/pnpm/react /tmp/pnpm-test-react
-
       - name: Install with pnpm
         run: |
-          cd /tmp/pnpm-test-react
+          cd .github/workflows/fixtures/pnpm/react
           corepack prepare pnpm@9.15.4 --activate
           pnpm install
 
       - name: Run ESLint
         run: |
-          cd /tmp/pnpm-test-react
+          cd .github/workflows/fixtures/pnpm/react
           pnpm exec eslint test.jsx
 
   test-yarn:
@@ -170,20 +154,16 @@ jobs:
       - name: Build packages
         run: yarn build
 
-      - name: Copy fixture to temp directory
-        run: |
-          cp -r .github/workflows/fixtures/yarn/html /tmp/yarn-test
-
       - name: Install with Yarn
         run: |
-          cd /tmp/yarn-test
+          cd .github/workflows/fixtures/yarn/html
           corepack enable
           yarn set version stable
           yarn install
 
       - name: Run ESLint
         run: |
-          cd /tmp/yarn-test
+          cd .github/workflows/fixtures/yarn/html
           yarn eslint test.html
 
   test-yarn-react:
@@ -207,18 +187,14 @@ jobs:
       - name: Build packages
         run: yarn build
 
-      - name: Copy fixture to temp directory
-        run: |
-          cp -r .github/workflows/fixtures/yarn/react /tmp/yarn-test-react
-
       - name: Install with Yarn
         run: |
-          cd /tmp/yarn-test-react
+          cd .github/workflows/fixtures/yarn/react
           corepack enable
           yarn set version stable
           yarn install
 
       - name: Run ESLint
         run: |
-          cd /tmp/yarn-test-react
+          cd .github/workflows/fixtures/yarn/react
           yarn eslint test.jsx
