@@ -10,6 +10,8 @@
  * @typedef {Object} Option
  * @property {"sameline" | "newline"} [option.closeStyle]
  * @property {number} [options.ifAttrsMoreThan]
+ * @property {string[]} [options.skip]
+ * @property {string[]} [options.inline]
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -21,6 +23,61 @@ const MESSAGE_ID = {
   CLOSE_STYLE_WRONG: "closeStyleWrong",
   NEWLINE_MISSING: "newlineMissing",
 };
+
+/** @type {Object<string, string[]>} */
+const PRESETS = {
+  // From https://developer.mozilla.org/en-US/docs/Web/HTML/Element#inline_text_semantics
+  $inline: `
+a
+abbr
+b
+bdi
+bdo
+br
+cite
+code
+data
+dfn
+em
+i
+kbd
+mark
+q
+rp
+rt
+ruby
+s
+samp
+small
+span
+strong
+sub
+sup
+time
+u
+var
+wbr
+  `
+    .trim()
+    .split(`\n`),
+};
+
+/**
+ * Expand preset tokens (e.g. "$inline") into the corresponding tag list.
+ * @param {string[]} options
+ * @returns {string[]}
+ */
+function optionsOrPresets(options) {
+  const result = [];
+  for (const option of options) {
+    if (option in PRESETS) {
+      result.push(...PRESETS[option]);
+    } else {
+      result.push(option);
+    }
+  }
+  return result;
+}
 
 /** @type {RuleModule<[Option]>} */
 module.exports = {
@@ -45,6 +102,18 @@ module.exports = {
           ifAttrsMoreThan: {
             type: "integer",
           },
+          skip: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+          inline: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
         },
         additionalProperties: false,
       },
@@ -61,9 +130,23 @@ module.exports = {
     const attrMin =
       typeof options.ifAttrsMoreThan !== "number" ? 2 : options.ifAttrsMoreThan;
     const closeStyle = options.closeStyle || "newline";
+    const skipTags = optionsOrPresets(options.skip || []);
+    const inlineTags = optionsOrPresets(options.inline || []);
+
+    /**
+     * Returns true if attrs-newline should be skipped for this tag.
+     * @param {string} tagName
+     * @returns {boolean}
+     */
+    function shouldSkipTag(tagName) {
+      const name = tagName.toLowerCase();
+      return skipTags.includes(name) || inlineTags.includes(name);
+    }
 
     return createVisitors(context, {
       Tag(node) {
+        if (shouldSkipTag(node.name)) return;
+
         const shouldBeMultiline = node.attributes.length > attrMin;
         if (!shouldBeMultiline) return;
 
