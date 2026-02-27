@@ -2,7 +2,7 @@ import * as estree from "estree";
 import { SourceLocation } from "./source-location";
 import { Range } from "./range";
 
-interface EstreeNode extends estree.BaseNode {
+export interface EstreeNode extends estree.BaseNode {
   type: string;
   loc: SourceLocation;
   range: Range;
