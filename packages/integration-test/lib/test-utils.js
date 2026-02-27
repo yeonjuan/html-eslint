@@ -244,23 +244,23 @@ async function runTypecheck({
   await installDependencies(dir, log, packageManager);
 
   if (packageManager === "pnpm") {
-    return await execFile("pnpm", ["run", "ts"], { cwd: dir }).catch(
-      (error) => {
+    return await execFile("pnpm", ["run", "ts"], { cwd: dir })
+      .then(() => undefined)
+      .catch((error) => {
         if (log) {
           console.error(error);
         }
         return error;
-      }
-    );
+      });
   } else {
-    return await execFile("yarn", ["run", "ts"], { cwd: dir }).catch(
-      (error) => {
+    return await execFile("yarn", ["run", "ts"], { cwd: dir })
+      .then(() => undefined)
+      .catch((error) => {
         if (log) {
           console.error(error);
         }
         return error;
-      }
-    );
+      });
   }
 }
 
