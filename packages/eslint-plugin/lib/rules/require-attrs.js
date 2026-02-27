@@ -19,6 +19,7 @@
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
+const { getNameOf } = require("./utils/node");
 const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
@@ -151,7 +152,7 @@ module.exports = {
 
     /** @param {Tag} node */
     function checkTag(node) {
-      const tagName = node.name.toLowerCase();
+      const tagName = getNameOf(node);
       if (!tagOptionsMap.has(tagName)) {
         return;
       }

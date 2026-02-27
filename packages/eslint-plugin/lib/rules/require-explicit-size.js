@@ -6,7 +6,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -65,11 +65,7 @@ module.exports = {
     const allowIdSet = new Set(allowId);
     return createVisitors(context, {
       Tag(node) {
-        if (
-          !TARGET_ELEMENTS.some(
-            (element) => element === node.name.toLowerCase()
-          )
-        ) {
+        if (!TARGET_ELEMENTS.some((element) => element === getNameOf(node))) {
           return;
         }
         const classAttr = findAttr(node, "class");

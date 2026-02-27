@@ -4,7 +4,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -55,7 +55,7 @@ module.exports = {
      * @returns {boolean}
      */
     function isFocusable(node) {
-      const tagName = node.name.toLowerCase();
+      const tagName = getNameOf(node);
 
       const contentEditableAttr = findAttr(node, "contenteditable");
       if (contentEditableAttr) {

@@ -1,9 +1,12 @@
 /**
  * @import {
  *   JSXAttribute,
+ *   JSXIdentifier,
  *   JSXOpeningElement,
  *   JSXSpreadAttribute,
- *   RuleModule
+ *   Literal,
+ *   RuleModule,
+ *   TemplateLiteral
  * } from "../types"
  */
 const {
@@ -39,7 +42,7 @@ module.exports = {
      *   typeof noIneffectiveAttrs<
      *     JSXOpeningElement,
      *     JSXSpreadAttribute | JSXAttribute["name"] | null,
-     *     JSXAttribute["value"]
+     *     Literal | TemplateLiteral | JSXIdentifier | null
      *   >
      * >}
      */ (noIneffectiveAttrs());
@@ -54,6 +57,7 @@ module.exports = {
         }
         const adapter = elementNodeAdapter(node);
         const result = ruleCore.checkAttributes(adapter);
+
         for (const r of result) {
           context.report({
             node: r.node || undefined,
