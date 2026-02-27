@@ -13,7 +13,7 @@
     "rollup-plugin-polyfill-node": "^0.11.0"
   },
   "scripts": {
-    "line": "eslint .",
+    "lint": "eslint .",
     "dev": "rollup --config && yarn post",
     "build": "rollup --config && yarn post",
     "post": "node ./postprocess.js"
@@ -22,8 +22,11 @@
     "type": "git",
     "url": "git+https://github.com/yeonjuan/html-eslint.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "yeonjuan",
+    "url": "https://github.com/yeonjuan"
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },

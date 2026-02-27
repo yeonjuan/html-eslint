@@ -18,11 +18,10 @@
     "@html-eslint/parser": "^0.57.1",
     "@html-eslint/web-linter": "^0.57.0",
     "@html-kit/html": "^0.0.4",
-    "codemirror": "^5.58.3",
-    "gray-matter": "^4.0.3"
+    "codemirror": "^5.58.3"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "2.16.3",
+    "@parcel/transformer-sass": "2.16.4",
     "@stylistic/eslint-plugin": "^3.0.0",
     "@types/codemirror": "^5.60.5",
     "@types/eslint": "^9.6.1",
@@ -31,6 +30,7 @@
     "@types/react-dom": "18.0.9",
     "autoprefixer": "^10.4.13",
     "firebase-tools": "^15.6.0",
+    "gray-matter": "^4.0.3",
     "highlight.js": "^11.9.0",
     "marked": "^9.1.5",
     "marked-highlight": "^2.0.6",

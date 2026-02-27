@@ -3,7 +3,10 @@
   "version": "0.57.1",
   "type": "commonjs",
   "description": "ESLint plugin for HTML",
-  "author": "yeonjuan",
+  "author": {
+    "name": "yeonjuan",
+    "url": "https://github.com/yeonjuan"
+  },
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "lib/index.js",
@@ -53,11 +56,10 @@
   },
   "devDependencies": {
     "@eslint/core": "^1.0.0",
-    "@types/estree": "^0.0.47",
+    "@types/estree": "^1.0.6",
     "es-html-parser": "0.3.1",
     "eslint": "^9.39.1",
-    "espree": "^10.3.0",
-    "typescript": "^5.9.3"
+    "espree": "^10.3.0"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"

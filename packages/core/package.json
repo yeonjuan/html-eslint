@@ -2,7 +2,10 @@
   "name": "@html-eslint/core",
   "version": "0.57.0",
   "description": "Core HTML validation logic for html-eslint",
-  "author": "yeonjuan",
+  "author": {
+    "name": "yeonjuan",
+    "url": "https://github.com/yeonjuan"
+  },
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -46,13 +49,10 @@
     "lint"
   ],
   "dependencies": {
-    "@html-eslint/types": "^0.57.0",
-    "eslint": "^9.39.1",
     "html-standard": "^0.0.13"
   },
   "devDependencies": {
-    "tsup": "^8.5.1",
-    "typescript": "^5.8.3"
+    "tsup": "^8.5.1"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
