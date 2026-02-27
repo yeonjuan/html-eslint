@@ -49,10 +49,7 @@
     "lint"
   ],
   "dependencies": {
-    "@html-eslint/core": "^0.57.0",
-    "@html-eslint/eslint-plugin": "^0.57.0",
-    "@html-eslint/types": "^0.57.0",
-    "@typescript-eslint/types": "^8.56.0"
+    "@html-eslint/core": "^0.57.0"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 || ^10.0.0-0",
@@ -61,6 +58,7 @@
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@babel/preset-env": "^7.29.0",
+    "@html-eslint/types": "^0.57.0",
     "@types/babel__core": "^7",
     "@types/babel__preset-env": "^7",
     "@types/eslint-scope": "^9.1.0",
