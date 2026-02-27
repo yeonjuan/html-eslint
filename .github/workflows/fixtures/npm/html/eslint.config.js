@@ -2,7 +2,11 @@ const html = require("@html-eslint/eslint-plugin");
 
 module.exports = [
   {
-    ...html.configs.all,
+    plugins: {
+            html,
+    },
+    language: "html/html",
+    extends: ["html/all"],
     files: ["**/*.html"],
   },
 ];

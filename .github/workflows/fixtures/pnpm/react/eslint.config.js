@@ -10,6 +10,6 @@ module.exports = [
         },
       },
     },
-    ...htmlReact.configs.all,
   },
+  htmlReact.configs.all,
 ];
