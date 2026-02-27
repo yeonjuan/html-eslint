@@ -98,6 +98,8 @@ ruleTester.run("no-obsolete-tags", rule, {
         errors: [
           {
             message: `Unexpected use of obsolete tag <${tag}>`,
+            line: 1,
+            column: 1,
           },
         ],
       })
@@ -107,6 +109,8 @@ ruleTester.run("no-obsolete-tags", rule, {
       errors: [
         {
           message: "Unexpected use of obsolete tag <keygen>",
+          line: 1,
+          column: 1,
         },
       ],
     },
@@ -119,10 +123,14 @@ ruleTester.run("no-obsolete-tags", rule, {
         {
           messageId: "unexpected",
           data: { tag: "frameset" },
+          line: 2,
+          column: 1,
         },
         {
           messageId: "unexpected",
           data: { tag: "frame" },
+          line: 3,
+          column: 3,
         },
       ],
     },
@@ -131,6 +139,8 @@ ruleTester.run("no-obsolete-tags", rule, {
       errors: [
         {
           message: "Unexpected use of obsolete tag <center>",
+          line: 1,
+          column: 1,
         },
       ],
     },
@@ -139,6 +149,8 @@ ruleTester.run("no-obsolete-tags", rule, {
       errors: [
         {
           message: "Unexpected use of obsolete tag <font>",
+          line: 1,
+          column: 1,
         },
       ],
     },
@@ -147,6 +159,8 @@ ruleTester.run("no-obsolete-tags", rule, {
       errors: [
         {
           message: "Unexpected use of obsolete tag <font>",
+          line: 1,
+          column: 1,
         },
       ],
     },
@@ -155,6 +169,8 @@ ruleTester.run("no-obsolete-tags", rule, {
       errors: [
         {
           message: "Unexpected use of obsolete tag <center>",
+          line: 1,
+          column: 1,
         },
       ],
     },
@@ -169,6 +185,8 @@ ruleTester.run("no-obsolete-tags", rule, {
       errors: [
         {
           message: "Unexpected use of obsolete tag <center>",
+          line: 3,
+          column: 3,
         },
       ],
     },
