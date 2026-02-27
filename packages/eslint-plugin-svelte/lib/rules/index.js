@@ -4,6 +4,7 @@ import classSpacing from "./class-spacing.js";
 import useBaseline from "./use-baseline.js";
 import noObsoleteTags from "./no-obsolete-tags.js";
 import noObsoleteAttrs from "./no-obsolete-attrs.js";
+import noIneffectiveAttrs from "./no-ineffective-attrs.js";
 // import new rule here ↑
 
 const rules = {
@@ -11,6 +12,7 @@ const rules = {
   "use-baseline": useBaseline,
   "no-obsolete-tags": noObsoleteTags,
   "no-obsolete-attrs": noObsoleteAttrs,
+  "no-ineffective-attrs": noIneffectiveAttrs,
   // export new rule here ↑
 };
 

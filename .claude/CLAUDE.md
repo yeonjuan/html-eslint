@@ -13,6 +13,10 @@ It supports multiple use cases, including:
 ## Rules
 
 - All documentation, code, and comments must be written in English.
+- Comments should be kept to a minimum and only used where necessary. Write self-explanatory code that doesn't require comments to understand. Only add comments when:
+  - Explaining complex algorithms or non-obvious logic
+  - Documenting public APIs with JSDoc
+  - Providing context that cannot be expressed through code alone
 - When adding a new rule, always use `yarn new-rule <plugin-type> <rule-name>` to generate the scaffolding first. Never create rule files manually.
 - When a new rule is added or a rule's options are added, removed, or changed, the corresponding documentation in `docs/` must also be updated. Never modify rule code without updating the docs.
 - Always run `yarn run format` after completing any code/doc modification.
