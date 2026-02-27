@@ -1526,7 +1526,7 @@ __metadata:
     "@html-eslint/template-syntax-parser": "npm:^0.57.0"
     "@html-eslint/types": "npm:^0.57.0"
     "@rviscomi/capo.js": "npm:^2.1.0"
-    "@types/estree": "npm:^0.0.47"
+    "@types/estree": "npm:^1.0.6"
     es-html-parser: "npm:0.3.1"
     eslint: "npm:^9.39.1"
     espree: "npm:^10.3.0"
