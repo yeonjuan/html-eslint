@@ -11,6 +11,7 @@ import {
   NO_DUPLICATE_CLASS_MESSAGE_IDS,
 } from "@html-eslint/core";
 import { elementNodeAdapter } from "./utils/adapter.js";
+import { AST_NODE_TYPES } from "../constants/node-types.js";
 
 /** @type {RuleModule} */
 const rule = {
@@ -58,7 +59,7 @@ const rule = {
         for (const result of results) {
           // Get the first literal value node for location reporting
           const firstLiteral = attrValueNode.find(
-            (part) => part.type === "SvelteLiteral"
+            (part) => part.type === AST_NODE_TYPES.SvelteLiteral
           );
 
           if (!firstLiteral) {

@@ -40,11 +40,11 @@ const rule = {
     function checkElement(node) {
       const adapter = elementNodeAdapter(node);
       const result = ruleCore.checkElement(adapter);
-      for (const r of result) {
+      for (const { node, messageId, data } of result) {
         context.report({
-          node: r.node,
-          messageId: r.messageId,
-          data: r.data,
+          node,
+          messageId,
+          data,
         });
       }
     }

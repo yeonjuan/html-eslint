@@ -189,7 +189,6 @@ const rule = {
 
       const results = ruleCore.checkClassAttribute(adapter);
       for (const result of results) {
-        // Skip trailing space errors if there are more value parts after this
         if (hasNextPart && result.spacingType === "end") {
           continue;
         }
@@ -229,10 +228,7 @@ const rule = {
             processSvelteLiteral(valuePart, hasNextPart);
           } else if (valuePart.type === AST_NODE_TYPES.SvelteMustacheTag) {
             const expression = valuePart.expression;
-            if (
-              expression &&
-              expression.type === AST_NODE_TYPES.ArrayExpression
-            ) {
+            if (expression?.type === AST_NODE_TYPES.ArrayExpression) {
               expression.elements.forEach((element) => {
                 if (element && isStaticString(element)) {
                   processStringNode(element);

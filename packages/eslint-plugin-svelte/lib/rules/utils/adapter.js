@@ -12,6 +12,8 @@
  * } from "svelte-eslint-parser/lib/ast"
  */
 
+import { AST_NODE_TYPES } from "../../constants/node-types";
+
 /**
  * Checks if a Svelte value part contains template/expression
  *
@@ -35,7 +37,7 @@ function getAttributeValue(valueArray) {
 
   // Concatenate all literal parts, skip expression parts
   return valueArray
-    .filter((part) => part.type === "SvelteLiteral")
+    .filter((part) => part.type === AST_NODE_TYPES.SvelteLiteral)
     .map((part) => part.value)
     .join("");
 }
@@ -109,7 +111,7 @@ function getTagName(node) {
   }
 
   // Handle SvelteMemberExpressionName (e.g., namespace.component)
-  if (node.name.type === "SvelteMemberExpressionName") {
+  if (node.name.type === AST_NODE_TYPES.SvelteMemberExpressionName) {
     // For member expressions, we can't easily get a simple tag name
     // Return empty string as these are typically dynamic components
     return "";
@@ -133,12 +135,9 @@ export function elementNodeAdapter(node) {
       return getTagName(node);
     },
     getAttributes() {
-      // Get attributes from startTag
       const attributes = node.startTag?.attributes || [];
-
-      // Filter to only include SvelteAttribute nodes, exclude directives
       return attributes
-        .filter((attr) => attr.type === "SvelteAttribute")
+        .filter((attr) => attr.type === AST_NODE_TYPES.SvelteAttribute)
         .map(attributeNodeAdapter);
     },
   };

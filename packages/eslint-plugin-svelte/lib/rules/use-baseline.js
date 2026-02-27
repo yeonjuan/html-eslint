@@ -75,21 +75,21 @@ const rule = {
       const adapter = elementNodeAdapter(node);
       const result = ruleCore.checkAttributes(adapter);
 
-      for (const r of result) {
+      for (const { node, messageId, data } of result) {
         // r.node might be an array or other structure from Svelte parser
         // Extract the first node if it's an array, or use the element node as fallback
         let reportNode = node;
-        if (r.node) {
-          if (Array.isArray(r.node) && r.node.length > 0) {
-            reportNode = r.node[0];
-          } else if (r.node.type) {
-            reportNode = r.node;
+        if (node) {
+          if (Array.isArray(node) && node.length > 0) {
+            reportNode = node[0];
+          } else if (node.type) {
+            reportNode = node;
           }
         }
 
         context.report({
-          messageId: r.messageId,
-          data: r.data,
+          messageId,
+          data,
           node: reportNode,
         });
       }

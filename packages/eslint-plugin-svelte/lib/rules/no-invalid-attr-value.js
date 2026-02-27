@@ -12,6 +12,7 @@ import {
   NO_INVALID_ATTR_VALUE_MESSAGE_IDS,
 } from "@html-eslint/core";
 import { elementNodeAdapter } from "./utils/adapter.js";
+import { AST_NODE_TYPES } from "../constants/node-types.js";
 
 /** @type {RuleModule} */
 const rule = {
@@ -70,21 +71,21 @@ const rule = {
       const adapter = elementNodeAdapter(node);
       const result = ruleCore.checkAttributes(adapter);
 
-      for (const r of result) {
+      for (const { node, messageId, data } of result) {
         // For Svelte, r.node is an array of SvelteLiteral | SvelteMustacheTag
         // We need to find the first SvelteLiteral node for reporting
-        let reportNode = r.node;
-        if (Array.isArray(r.node)) {
-          const firstLiteral = r.node.find(
-            (part) => part.type === "SvelteLiteral"
+        let reportNode = node;
+        if (Array.isArray(node)) {
+          const firstLiteral = node.find(
+            (part) => part.type === AST_NODE_TYPES.SvelteLiteral
           );
-          reportNode = firstLiteral || r.node[0];
+          reportNode = firstLiteral || node[0];
         }
 
         context.report({
           node: reportNode || undefined,
-          messageId: r.messageId,
-          data: r.data,
+          messageId,
+          data,
         });
       }
     }

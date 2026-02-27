@@ -4,4 +4,6 @@ export const AST_NODE_TYPES = /** @type {const} */ ({
   ArrayExpression: "ArrayExpression",
   Literal: "Literal",
   TemplateLiteral: "TemplateLiteral",
+  SvelteMemberExpressionName: "SvelteMemberExpressionName",
+  SvelteAttribute: "SvelteAttribute",
 });
