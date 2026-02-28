@@ -5,7 +5,7 @@
  * } from "@html-eslint/types"
  * @import {RuleModule} from "../types"
  * @typedef {Object} Option
- * @property {string[]} [Option.elements]
+ * @property {string[]} [Option.tagPatterns]
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -52,23 +52,23 @@ function toRegExp(pattern) {
 }
 
 /**
- * Builds a matcher function from the elements option. Each item is either a
+ * Builds a matcher function from the tagPatterns option. Each item is either a
  * plain tag name or a regex pattern string ("/^custom-/").
  *
- * @param {string[]} elements
+ * @param {string[]} tagPatterns
  * @returns {(tagName: string) => boolean}
  */
-function buildMatcher(elements) {
+function buildMatcher(tagPatterns) {
   const exact = new Set();
   /** @type {RegExp[]} */
   const patterns = [];
 
-  for (const el of elements) {
-    const re = toRegExp(el);
+  for (const pattern of tagPatterns) {
+    const re = toRegExp(pattern);
     if (re) {
       patterns.push(re);
     } else {
-      exact.add(el.toLowerCase());
+      exact.add(pattern.toLowerCase());
     }
   }
 
@@ -134,7 +134,7 @@ module.exports = {
       {
         type: "object",
         properties: {
-          elements: {
+          tagPatterns: {
             type: "array",
             items: { type: "string" },
             uniqueItems: true,
@@ -152,8 +152,8 @@ module.exports = {
   create(context) {
     const option = context.options[0] || {};
     const matchesElement =
-      option.elements && option.elements.length > 0
-        ? buildMatcher(option.elements)
+      option.tagPatterns && option.tagPatterns.length > 0
+        ? buildMatcher(option.tagPatterns)
         : /** @param {string} tagName */ (tagName) =>
             DEFAULT_ELEMENTS.has(tagName);
 

@@ -61,17 +61,17 @@ This rule has an object option:
 
 ```ts
 "@html-eslint/require-content": ["error", {
-  "elements": string[], // Default: h1–h6, p, a, button, li, dt, dd, option, label
+  "tagPatterns": string[], // Default: h1–h6, p, a, button, li, dt, dd, option, label
 }]
 ```
 
-#### elements
+#### tagPatterns
 
-Override the default element list with a custom set of tag names to check. Each item is either a plain tag name or a regex pattern string (wrapped in `/`), which is useful for matching custom elements.
+Override the default element list with a custom set of tag name patterns to check. Each item is either a plain tag name or a regex pattern string (wrapped in `/`), which is useful for matching custom elements.
 
 ```json
 "@html-eslint/require-content": ["error", {
-  "elements": ["p", "button", "a", "/^custom-/"]
+  "tagPatterns": ["p", "button", "a", "/^custom-/"]
 }]
 ```
 

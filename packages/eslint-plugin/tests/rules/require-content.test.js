@@ -41,11 +41,11 @@ ruleTester.run("require-content", rule, {
     // Custom elements list — only check configured elements
     {
       code: `<p></p><span>content</span>`,
-      options: [{ elements: ["span"] }],
+      options: [{ tagPatterns: ["span"] }],
     },
     {
       code: `<span>content</span>`,
-      options: [{ elements: ["span"] }],
+      options: [{ tagPatterns: ["span"] }],
     },
 
     // Whitespace-only child text followed by a real child element
@@ -54,13 +54,13 @@ ruleTester.run("require-content", rule, {
     // Regex pattern — element not matching the pattern is ignored
     {
       code: `<div></div>`,
-      options: [{ elements: ["/^custom-/"] }],
+      options: [{ tagPatterns: ["/^custom-/"] }],
     },
 
     // Regex pattern — element matching pattern with content is valid
     {
       code: `<custom-button>Click</custom-button>`,
-      options: [{ elements: ["/^custom-/"] }],
+      options: [{ tagPatterns: ["/^custom-/"] }],
     },
   ],
 
@@ -137,14 +137,14 @@ ruleTester.run("require-content", rule, {
     // Custom elements list
     {
       code: `<span></span>`,
-      options: [{ elements: ["span"] }],
+      options: [{ tagPatterns: ["span"] }],
       errors: [{ messageId: "requireContent" }],
     },
 
     // Regex pattern — element matching pattern with no content
     {
       code: `<custom-button></custom-button>`,
-      options: [{ elements: ["/^custom-/"] }],
+      options: [{ tagPatterns: ["/^custom-/"] }],
       errors: [{ messageId: "requireContent" }],
     },
 
