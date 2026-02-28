@@ -2,6 +2,7 @@ const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/require-content");
 
 const ruleTester = createRuleTester();
+const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("require-content", rule, {
   valid: [
@@ -37,7 +38,7 @@ ruleTester.run("require-content", rule, {
     { code: `<span></span>` },
     { code: `<section></section>` },
 
-    // Custom elements list — only check configured elements (p is ignored since not in custom list)
+    // Custom elements list — only check configured elements
     {
       code: `<p></p><span>content</span>`,
       options: [{ elements: ["span"] }],
@@ -49,6 +50,18 @@ ruleTester.run("require-content", rule, {
 
     // Whitespace-only child text followed by a real child element
     { code: `<button>  <span>OK</span>  </button>` },
+
+    // Regex pattern — element not matching the pattern is ignored
+    {
+      code: `<div></div>`,
+      options: [{ elements: ["/^custom-/"] }],
+    },
+
+    // Regex pattern — element matching pattern with content is valid
+    {
+      code: `<custom-button>Click</custom-button>`,
+      options: [{ elements: ["/^custom-/"] }],
+    },
   ],
 
   invalid: [
@@ -115,10 +128,23 @@ ruleTester.run("require-content", rule, {
       errors: [{ messageId: "requireContent" }],
     },
 
+    // Self-closing syntax (browsers render <p /> as <p></p>)
+    {
+      code: `<p />`,
+      errors: [{ messageId: "requireContent" }],
+    },
+
     // Custom elements list
     {
       code: `<span></span>`,
       options: [{ elements: ["span"] }],
+      errors: [{ messageId: "requireContent" }],
+    },
+
+    // Regex pattern — element matching pattern with no content
+    {
+      code: `<custom-button></custom-button>`,
+      options: [{ elements: ["/^custom-/"] }],
       errors: [{ messageId: "requireContent" }],
     },
 
@@ -129,6 +155,36 @@ ruleTester.run("require-content", rule, {
         { messageId: "requireContent" },
         { messageId: "requireContent" },
       ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template] require-content", rule, {
+  valid: [
+    {
+      code: "html`<p>content</p>`",
+    },
+    {
+      code: "html`<p hidden></p>`",
+    },
+    {
+      code: "html`<p hidden=${value}></p>`",
+    },
+    {
+      code: "html`<p>${content}</p>`",
+    },
+    {
+      code: "html`<button aria-label='Close'></button>`",
+    },
+  ],
+  invalid: [
+    {
+      code: "html`<p></p>`",
+      errors: [{ messageId: "requireContent" }],
+    },
+    {
+      code: "html`<button></button>`",
+      errors: [{ messageId: "requireContent" }],
     },
   ],
 });

@@ -67,13 +67,15 @@ This rule has an object option:
 
 #### elements
 
-Override the default element list with a custom set of tag names to check.
+Override the default element list with a custom set of tag names to check. Each item is either a plain tag name or a regex pattern string (wrapped in `/`), which is useful for matching custom elements.
 
 ```json
 "@html-eslint/require-content": ["error", {
-  "elements": ["p", "button", "a", "span"]
+  "elements": ["p", "button", "a", "/^custom-/"]
 }]
 ```
+
+Plain strings are matched case-insensitively. Regex patterns are matched against the full tag name.
 
 ### Exemptions
 

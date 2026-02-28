@@ -4,7 +4,6 @@
  *   Text
  * } from "@html-eslint/types"
  * @import {RuleModule} from "../types"
- *
  * @typedef {Object} Option
  * @property {string[]} [Option.elements]
  */
@@ -19,9 +18,8 @@ const MESSAGE_IDS = {
 };
 
 /**
- * Default set of elements that must have meaningful content.
- * These are elements where empty content is almost always a bug or
- * an accessibility failure.
+ * Default set of elements that must have meaningful content. These are elements
+ * where empty content is almost always a bug or an accessibility failure.
  */
 const DEFAULT_ELEMENTS = new Set([
   "h1",
@@ -41,8 +39,50 @@ const DEFAULT_ELEMENTS = new Set([
 ]);
 
 /**
+ * Converts an element pattern string to a RegExp, or returns null if it is a
+ * plain tag name. Patterns wrapped in slashes (e.g. "/^custom-/") are treated
+ * as regex; all others are treated as exact, case-insensitive tag names.
+ *
+ * @param {string} pattern
+ * @returns {RegExp | null}
+ */
+function toRegExp(pattern) {
+  const m = pattern.match(/^\/(.+)\/([gimsuy]*)$/);
+  return m ? new RegExp(m[1], m[2]) : null;
+}
+
+/**
+ * Builds a matcher function from the elements option. Each item is either a
+ * plain tag name or a regex pattern string ("/^custom-/").
+ *
+ * @param {string[]} elements
+ * @returns {(tagName: string) => boolean}
+ */
+function buildMatcher(elements) {
+  const exact = new Set();
+  /** @type {RegExp[]} */
+  const patterns = [];
+
+  for (const el of elements) {
+    const re = toRegExp(el);
+    if (re) {
+      patterns.push(re);
+    } else {
+      exact.add(el.toLowerCase());
+    }
+  }
+
+  if (patterns.length === 0) {
+    return (tagName) => exact.has(tagName);
+  }
+  return (tagName) =>
+    exact.has(tagName) || patterns.some((re) => re.test(tagName));
+}
+
+/**
  * Returns true if the element has an accessible name via ARIA attributes,
  * making visible text content optional.
+ *
  * @param {Tag} node
  * @returns {boolean}
  */
@@ -52,6 +92,7 @@ function hasAriaAccessibleName(node) {
 
 /**
  * Returns true if the element is hidden from the accessibility tree.
+ *
  * @param {Tag} node
  * @returns {boolean}
  */
@@ -62,8 +103,9 @@ function isHidden(node) {
 }
 
 /**
- * Returns true if the element has meaningful content — at least one child
- * that is a non-whitespace text node or a non-hidden child element.
+ * Returns true if the element has meaningful content — at least one child that
+ * is a non-whitespace text node or a non-hidden child element.
+ *
  * @param {Tag} node
  * @returns {boolean}
  */
@@ -81,8 +123,7 @@ module.exports = {
     type: "code",
 
     docs: {
-      description:
-        "Require that certain elements have meaningful content.",
+      description: "Require that certain elements have meaningful content.",
       category: RULE_CATEGORY.ACCESSIBILITY,
       recommended: false,
       url: getRuleUrl("require-content"),
@@ -110,24 +151,20 @@ module.exports = {
 
   create(context) {
     const option = context.options[0] || {};
-    const elements =
+    const matchesElement =
       option.elements && option.elements.length > 0
-        ? new Set(option.elements.map((el) => el.toLowerCase()))
-        : DEFAULT_ELEMENTS;
+        ? buildMatcher(option.elements)
+        : /** @param {string} tagName */ (tagName) =>
+            DEFAULT_ELEMENTS.has(tagName);
 
     return createVisitors(context, {
       Tag(node) {
         const tagName = node.name.toLowerCase();
-        if (!elements.has(tagName)) return;
+        if (!matchesElement(tagName)) return;
 
-        // Skip hidden elements — they don't need visible content.
         if (isHidden(node)) return;
 
-        // Skip elements with an ARIA accessible name — visible text is optional.
         if (hasAriaAccessibleName(node)) return;
-
-        // Skip void/self-closing elements (no children possible).
-        if (!node.close) return;
 
         if (!hasContent(node)) {
           context.report({
