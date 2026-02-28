@@ -8,7 +8,7 @@
  */
 
 const { NODE_TYPES } = require("@html-eslint/parser");
-const { findAttr } = require("./node");
+const { findAttr, getNameOf } = require("./node");
 
 /** Adapter for HTML ESLint AST nodes to work with capo.js */
 class HtmlEslintAdapter {
@@ -36,15 +36,7 @@ class HtmlEslintAdapter {
     if (!this.isElement(node)) {
       return "";
     }
-
-    if (node.type === NODE_TYPES.ScriptTag) {
-      return "script";
-    }
-    if (node.type === NODE_TYPES.StyleTag) {
-      return "style";
-    }
-
-    return node?.name.toLowerCase();
+    return getNameOf(node);
   }
 
   /**

@@ -16,7 +16,6 @@
  * @property {string} [message]
  */
 
-const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getNameOf } = require("./utils/node");
@@ -143,7 +142,7 @@ module.exports = {
 
     /** @param {StyleTag | ScriptTag} node */
     function checkStyleOrScript(node) {
-      const tagName = node.type === NODE_TYPES.StyleTag ? "style" : "script";
+      const tagName = getNameOf(node);
       if (!tagOptionsMap.has(tagName)) {
         return;
       }
