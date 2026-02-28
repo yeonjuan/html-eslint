@@ -13,10 +13,10 @@
  * }[]} Options
  */
 
-const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
+const { getNameOf } = require("./utils/node");
 
 const MESSAGE_IDS = {
   RESTRICTED: "restricted",
@@ -72,12 +72,7 @@ module.exports = {
 
     /** @param {Tag | StyleTag | ScriptTag} node */
     function check(node) {
-      const tagName =
-        node.type === NODE_TYPES.Tag
-          ? node.name
-          : node.type === NODE_TYPES.ScriptTag
-            ? "script"
-            : "style";
+      const tagName = getNameOf(node);
       node.attributes.forEach((attr) => {
         if (!attr.key?.value) {
           return;
