@@ -82,12 +82,12 @@ ruleTester.run("require-details-summary", rule, {
 templateRuleTester.run("require-details-summary (template)", rule, {
   valid: [
     {
-      code: 'const t = html`<details><summary>Info</summary><p>More</p></details>`',
+      code: "const t = html`<details><summary>Info</summary><p>More</p></details>`",
     },
   ],
   invalid: [
     {
-      code: 'const t = html`<details><p>Missing summary</p></details>`',
+      code: "const t = html`<details><p>Missing summary</p></details>`",
       errors: [{ messageId: "missingSummary" }],
     },
   ],

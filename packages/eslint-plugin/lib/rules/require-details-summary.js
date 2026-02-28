@@ -1,7 +1,5 @@
 /**
- * @import {
- *   Tag
- * } from "@html-eslint/types"
+ * @import {Tag} from "@html-eslint/types"
  * @import {RuleModule} from "../types"
  */
 
@@ -28,7 +26,7 @@ function firstElementChild(node) {
   return null;
 }
 
-/** @type {RuleModule} */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
