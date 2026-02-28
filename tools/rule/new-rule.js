@@ -25,6 +25,11 @@ const PLUGIN_CONFIGS = {
     docsDir: path.join(ROOT_DIR, "docs/react/rules"),
     templatesDir: path.join(TEMPLATES_DIR, "react"),
   },
+  svelte: {
+    pluginDir: path.join(ROOT_DIR, "packages/eslint-plugin-svelte"),
+    docsDir: path.join(ROOT_DIR, "docs/svelte/rules"),
+    templatesDir: path.join(TEMPLATES_DIR, "svelte"),
+  },
 };
 
 /** @param {string} ruleName @returns {string} */
@@ -99,15 +104,36 @@ function updateIndex(config, ruleName) {
   }
 
   console.log(`> Update index.js (${indexPath})`);
-  const updated = content
-    .replace(
-      "// import new rule here ↑",
-      `const ${camelCase} = require("./${ruleName}");\n// import new rule here ↑`
-    )
-    .replace(
-      "// export new rule here ↑",
-      `"${ruleName}": ${camelCase},\n  // export new rule here ↑`
-    );
+
+  // Detect if the file uses ESM or CommonJS
+  const isESM =
+    content.includes("import ") && content.includes("export default");
+
+  let updated;
+  if (isESM) {
+    // ESM format
+    updated = content
+      .replace(
+        "// import new rule here ↑",
+        `import ${camelCase} from "./${ruleName}.js";\n// import new rule here ↑`
+      )
+      .replace(
+        "// export new rule here ↑",
+        `"${ruleName}": ${camelCase},\n  // export new rule here ↑`
+      );
+  } else {
+    // CommonJS format
+    updated = content
+      .replace(
+        "// import new rule here ↑",
+        `const ${camelCase} = require("./${ruleName}");\n// import new rule here ↑`
+      )
+      .replace(
+        "// export new rule here ↑",
+        `"${ruleName}": ${camelCase},\n  // export new rule here ↑`
+      );
+  }
+
   fs.writeFileSync(indexPath, updated, "utf-8");
 }
 

@@ -5,18 +5,22 @@
  * } from "@html-eslint/core"
  * @import {
  *   JSXAttribute,
+ *   JSXIdentifier,
  *   JSXOpeningElement,
  *   JSXSpreadAttribute,
+ *   Literal,
  *   Node,
- *   NullLiteral
+ *   NullLiteral,
+ *   TemplateLiteral
  * } from "../../types"
  */
 const { AST_NODE_TYPES } = require("../../constants/node-types");
+const { findAttributeValueNode } = require("./node");
 
 /**
  * @type {AttributeAdapter<
  *   JSXSpreadAttribute | JSXAttribute["name"] | null,
- *   JSXAttribute["value"]
+ *   Literal | TemplateLiteral | null
  * >}
  */
 const nullAdapter = {
@@ -93,7 +97,7 @@ function getAttributeValue(node) {
  * @param {JSXAttribute | JSXSpreadAttribute} node
  * @returns {AttributeAdapter<
  *   JSXSpreadAttribute | JSXAttribute["name"] | null,
- *   JSXAttribute["value"]
+ *   Literal | TemplateLiteral | JSXIdentifier | null
  * >}
  */
 function attributeNodeAdapter(node) {
@@ -121,27 +125,14 @@ function attributeNodeAdapter(node) {
       },
     },
     value: {
-      node: () => node.value,
+      node: () => {
+        return findAttributeValueNode(node);
+      },
       isExpression() {
         if (!node.value) {
           return false;
         }
-
-        if (node.value.type === AST_NODE_TYPES.Literal) {
-          return false;
-        }
-
-        if (
-          node.value.type === AST_NODE_TYPES.JSXExpressionContainer &&
-          (node.value.expression.type === AST_NODE_TYPES.Literal ||
-            (node.value.expression.type === AST_NODE_TYPES.TemplateLiteral &&
-              node.value.expression.expressions.length === 0 &&
-              node.value.expression.quasis.length === 1))
-        ) {
-          return false;
-        }
-
-        return true;
+        return !findAttributeValueNode(node);
       },
       value: () => {
         if (!node.value) {
@@ -159,7 +150,7 @@ function attributeNodeAdapter(node) {
  * @returns {ElementNodeAdapter<
  *   JSXOpeningElement,
  *   JSXSpreadAttribute | JSXAttribute["name"] | null,
- *   JSXAttribute["value"]
+ *   Literal | TemplateLiteral | JSXIdentifier | null
  * >}
  */
 function elementNodeAdapter(node) {

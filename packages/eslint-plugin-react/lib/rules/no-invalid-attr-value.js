@@ -1,9 +1,12 @@
 /**
  * @import {
  *   JSXAttribute,
+ *   JSXIdentifier,
  *   JSXOpeningElement,
  *   JSXSpreadAttribute,
- *   RuleModule
+ *   Literal,
+ *   RuleModule,
+ *   TemplateLiteral
  * } from "../types"
  */
 const { NO_INVALID_ATTR_VALUE_MESSAGE_IDS } = require("@html-eslint/core");
@@ -68,7 +71,7 @@ module.exports = {
      *   typeof noInvalidAttrValue<
      *     JSXOpeningElement,
      *     JSXSpreadAttribute | JSXAttribute["name"] | null,
-     *     JSXAttribute["value"]
+     *     Literal | TemplateLiteral | JSXIdentifier | null
      *   >
      * >}
      */ (noInvalidAttrValue(options));
@@ -83,11 +86,11 @@ module.exports = {
         }
         const adapter = elementNodeAdapter(node);
         const result = ruleCore.checkAttributes(adapter);
-        for (const r of result) {
+        for (const { node, messageId, data } of result) {
           context.report({
-            node: r.node || undefined,
-            messageId: r.messageId,
-            data: r.data,
+            node,
+            messageId,
+            data,
           });
         }
       },

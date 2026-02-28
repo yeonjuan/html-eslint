@@ -1,9 +1,12 @@
 /**
  * @import {
  *   JSXAttribute,
+ *   JSXIdentifier,
  *   JSXOpeningElement,
  *   JSXSpreadAttribute,
- *   RuleModule
+ *   Literal,
+ *   RuleModule,
+ *   TemplateLiteral
  * } from "../types"
  * @typedef {Object} Option
  * @property {"widely" | "newly" | number} Option.available
@@ -63,7 +66,7 @@ module.exports = {
      *   typeof useBaseline<
      *     JSXOpeningElement,
      *     JSXSpreadAttribute | JSXAttribute["name"] | null,
-     *     JSXAttribute["value"]
+     *     Literal | TemplateLiteral | JSXIdentifier | null
      *   >
      * >}
      */ (useBaseline(options));
@@ -79,11 +82,11 @@ module.exports = {
         }
         const adapter = elementNodeAdapter(node);
         const result = ruleCore.checkAttributes(adapter);
-        for (const r of result) {
+        for (const { node, messageId, data } of result) {
           context.report({
-            messageId: r.messageId,
-            data: r.data,
-            node: r.node || undefined,
+            node,
+            messageId,
+            data,
           });
         }
       },

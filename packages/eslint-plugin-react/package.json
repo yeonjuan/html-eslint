@@ -3,7 +3,10 @@
   "version": "0.57.1",
   "type": "commonjs",
   "description": "ESLint plugin for HTML with React support",
-  "author": "yeonjuan",
+  "author": {
+    "name": "yeonjuan",
+    "url": "https://github.com/yeonjuan"
+  },
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "lib/index.js",
@@ -37,16 +40,13 @@
     "lint"
   ],
   "dependencies": {
-    "@html-eslint/core": "^0.57.0",
-    "@html-eslint/eslint-plugin": "^0.57.1",
-    "@html-eslint/types": "^0.57.0",
-    "@typescript-eslint/types": "^8.56.0"
+    "@html-eslint/core": "^0.57.0"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 || ^10.0.0-0"
   },
   "devDependencies": {
-    "typescript": "^5.9.3"
+    "@typescript-eslint/types": "^8.56.0"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"

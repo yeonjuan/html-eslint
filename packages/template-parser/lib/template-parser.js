@@ -1,5 +1,8 @@
 /**
- * @import {TemplateLiteral} from "@html-eslint/types"
+ * @import {
+ *   Range,
+ *   TemplateLiteral
+ * } from "@html-eslint/types"
  * @import {SourceCode} from "eslint"
  * @import {TemplateHTMLVisitor} from "./types"
  */
@@ -19,7 +22,7 @@ function parse(node, sourceCode, visitor) {
   const rangeOffset = node.range[0] + 1;
   const lineOffset = node.loc.start.line - 1;
   const expressions = node.expressions;
-  /** @type {{ open: [number, number]; close: [number, number] }[]} */
+  /** @type {{ open: Range; close: Range }[]} */
   const templateInfos = [];
   quasis.forEach((element, index) => {
     htmlParts.push(element.value.raw);

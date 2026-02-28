@@ -31,7 +31,7 @@ function isMetaCharset(node) {
  * @returns {string}
  */
 function getChildIndent(headNode) {
-  const children = headNode.children;
+  const { children } = headNode;
   if (children.length > 0) {
     // If first child is a text node (e.g. "\n    "), extract trailing whitespace
     const first = children[0];

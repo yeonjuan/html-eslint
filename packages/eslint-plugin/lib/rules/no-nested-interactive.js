@@ -4,7 +4,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -18,7 +18,7 @@ const MESSAGE_IDS = {
  * @see https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2
  */
 function isInteractive(tag) {
-  const tagName = tag.name.toLowerCase();
+  const tagName = getNameOf(tag);
 
   switch (tagName) {
     // a (if the href attribute is present)
@@ -91,9 +91,9 @@ module.exports = {
         if (interactiveStack.length) {
           if (interactiveStack.length === 1) {
             const parentLabel = interactiveStack.find(
-              (tag) => tag.name.toLowerCase() === "label"
+              (tag) => getNameOf(tag) === "label"
             );
-            if (parentLabel && node.name.toLowerCase() !== "label") {
+            if (parentLabel && getNameOf(node) !== "label") {
               return;
             }
           }

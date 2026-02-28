@@ -13,18 +13,20 @@ async function testESLintFiles({
   fixtureName,
   eslintVersion,
   localPackages,
-  extraDependencies,
+  externalPackages = [],
   files,
   shouldHaveErrors = false,
+  packageManager = "yarn",
 }) {
   for (const file of files) {
     const result = await runESLint({
       fixtureName,
       eslintVersion,
       localPackages,
-      extraDependencies,
+      externalPackages,
       glob: file,
       log: !shouldHaveErrors,
+      packageManager,
     });
     expectLintResult(result, { shouldHaveErrors });
   }
@@ -35,7 +37,7 @@ function createESLintConfigTests({
   eslintVersion,
   fixtureName,
   localPackages,
-  extraDependencies,
+  externalPackages = [],
   invalidFiles = [
     "html/invalid.html",
     "js/invalid.js",
@@ -43,12 +45,14 @@ function createESLintConfigTests({
   ],
   validFiles = ["html/valid.html", "js/valid.js", "frontmatter/valid.html"],
   testTimeout = 20000,
+  packageManager = "yarn",
 }) {
   const config = {
     eslintVersion,
     fixtureName,
     localPackages,
-    extraDependencies,
+    externalPackages,
+    packageManager,
   };
 
   if (invalidFiles.length > 0) {
@@ -82,36 +86,82 @@ function createESLintConfigTests({
 
 describe("integration tests", () => {
   describe("eslint-v8-legacy-config", () => {
-    createESLintConfigTests({
-      eslintVersion: "8",
-      fixtureName: "eslint-v8-legacy-config",
-      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+    describe("with yarn", () => {
+      createESLintConfigTests({
+        eslintVersion: "8",
+        fixtureName: "eslint-v8-legacy-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      });
+    });
+
+    describe("with pnpm", () => {
+      createESLintConfigTests({
+        eslintVersion: "8",
+        fixtureName: "eslint-v8-legacy-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+        packageManager: "pnpm",
+      });
     });
   });
 
   describe("eslint-v9-flat-config", () => {
-    createESLintConfigTests({
-      eslintVersion: "9",
-      fixtureName: "eslint-v9-flat-config",
-      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+    describe("with yarn", () => {
+      createESLintConfigTests({
+        eslintVersion: "9",
+        fixtureName: "eslint-v9-flat-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      });
+    });
+
+    describe("with pnpm", () => {
+      createESLintConfigTests({
+        eslintVersion: "9",
+        fixtureName: "eslint-v9-flat-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+        packageManager: "pnpm",
+      });
     });
   });
 
   describe("eslint-v9-language", () => {
-    createESLintConfigTests({
-      eslintVersion: "9",
-      fixtureName: "eslint-v9-language",
-      localPackages: ["@html-eslint/eslint-plugin"],
-      invalidFiles: [],
-      validFiles: ["html/valid.html", "frontmatter/valid.html"],
+    describe("with yarn", () => {
+      createESLintConfigTests({
+        eslintVersion: "9",
+        fixtureName: "eslint-v9-language",
+        localPackages: ["@html-eslint/eslint-plugin"],
+        invalidFiles: [],
+        validFiles: ["html/valid.html", "frontmatter/valid.html"],
+      });
+    });
+
+    describe("with pnpm", () => {
+      createESLintConfigTests({
+        eslintVersion: "9",
+        fixtureName: "eslint-v9-language",
+        localPackages: ["@html-eslint/eslint-plugin"],
+        invalidFiles: [],
+        validFiles: ["html/valid.html", "frontmatter/valid.html"],
+        packageManager: "pnpm",
+      });
     });
   });
 
   describe("eslint-v10-flat-config", () => {
-    createESLintConfigTests({
-      eslintVersion: "10",
-      fixtureName: "eslint-v10-flat-config",
-      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+    describe("with yarn", () => {
+      createESLintConfigTests({
+        eslintVersion: "10",
+        fixtureName: "eslint-v10-flat-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      });
+    });
+
+    describe("with pnpm", () => {
+      createESLintConfigTests({
+        eslintVersion: "10",
+        fixtureName: "eslint-v10-flat-config",
+        localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+        packageManager: "pnpm",
+      });
     });
   });
 
@@ -119,26 +169,70 @@ describe("integration tests", () => {
     const eslintVersion = "9.27.0";
     const fixtureName = "typescript";
     const localPackages = ["@html-eslint/eslint-plugin"];
+    const externalPackages = [["typescript", "5.9.3"]];
 
-    it("should not throw any type error", async () => {
-      const result = await runTypecheck({
-        fixtureName,
-        eslintVersion,
-        localPackages,
-        fileName: "eslint.config.ts",
-        log: true,
-      });
-      expect(result).toBe(undefined);
-    }, 20000);
+    describe("with yarn", () => {
+      it("should not throw any type error", async () => {
+        const result = await runTypecheck({
+          fixtureName,
+          eslintVersion,
+          localPackages,
+          externalPackages,
+          fileName: "eslint.config.ts",
+        });
+        expect(result).toBe(undefined);
+      }, 20000);
+    });
+
+    describe("with pnpm", () => {
+      it("should not throw any type error", async () => {
+        const result = await runTypecheck({
+          fixtureName,
+          eslintVersion,
+          localPackages,
+          externalPackages,
+          fileName: "eslint.config.ts",
+          packageManager: "pnpm",
+        });
+        expect(result).toBe(undefined);
+      }, 20000);
+    });
   });
 
   describe("react", () => {
+    describe("with yarn", () => {
+      createESLintConfigTests({
+        eslintVersion: "9.27.0",
+        fixtureName: "react",
+        localPackages: ["@html-eslint/eslint-plugin-react"],
+        invalidFiles: ["jsx/invalid.jsx"],
+        validFiles: ["jsx/valid.jsx"],
+      });
+    });
+
+    describe("with pnpm", () => {
+      createESLintConfigTests({
+        eslintVersion: "9.27.0",
+        fixtureName: "react",
+        localPackages: ["@html-eslint/eslint-plugin-react"],
+        invalidFiles: ["jsx/invalid.jsx"],
+        validFiles: ["jsx/valid.jsx"],
+        packageManager: "pnpm",
+      });
+    });
+  });
+
+  describe("svelte", () => {
     createESLintConfigTests({
-      eslintVersion: "9.27.0",
-      fixtureName: "react",
-      localPackages: ["@html-eslint/eslint-plugin-react"],
-      invalidFiles: ["jsx/invalid.jsx"],
-      validFiles: ["jsx/valid.jsx"],
+      eslintVersion: "9",
+      fixtureName: "svelte",
+      localPackages: ["@html-eslint/eslint-plugin-svelte"],
+      externalPackages: [
+        ["eslint-plugin-svelte", "3.15.0"],
+        ["svelte", "5"],
+      ],
+      invalidFiles: ["svelte/invalid.svelte"],
+      validFiles: ["svelte/valid.svelte"],
     });
   });
 

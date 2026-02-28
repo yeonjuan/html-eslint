@@ -17,7 +17,7 @@ const {
 } = require("@html-eslint/core");
 const { attributeNodeAdapter } = require("./utils/adapter");
 const { AST_NODE_TYPES } = require("../constants/node-types");
-const { isStaticString } = require("./utils/node");
+const { isStaticString, adjustLocationColumn } = require("./utils/node");
 
 /** @type {RuleModule<[Option]>} */
 module.exports = {
@@ -123,7 +123,7 @@ module.exports = {
      * @param {Node} node
      */
     function processStringNode(node) {
-      if (!isStaticString(node)) {
+      if (!node || !isStaticString(node)) {
         return;
       }
 
@@ -166,7 +166,7 @@ module.exports = {
 
         context.report({
           node,
-          loc,
+          loc: adjustLocationColumn(loc, 1),
           messageId: result.messageId,
           fix(fixer) {
             if (node.type === AST_NODE_TYPES.Literal) {
@@ -225,23 +225,18 @@ module.exports = {
 
           context.report({
             node: result.node,
-            loc,
+            loc: adjustLocationColumn(loc, 1),
             messageId: result.messageId,
             fix(fixer) {
               if (attrValueNode.type === AST_NODE_TYPES.Literal) {
                 return fixer.replaceText(attrValueNode, `"${normalizedValue}"`);
               } else if (
-                attrValueNode.type === AST_NODE_TYPES.JSXExpressionContainer
+                attrValueNode.type === AST_NODE_TYPES.TemplateLiteral
               ) {
-                const expression = attrValueNode.expression;
-                if (expression.type === AST_NODE_TYPES.Literal) {
-                  return fixer.replaceText(expression, `"${normalizedValue}"`);
-                } else if (expression.type === AST_NODE_TYPES.TemplateLiteral) {
-                  return fixer.replaceText(
-                    expression,
-                    `\`${normalizedValue}\``
-                  );
-                }
+                return fixer.replaceText(
+                  attrValueNode,
+                  `\`${normalizedValue}\``
+                );
               }
               return null;
             },

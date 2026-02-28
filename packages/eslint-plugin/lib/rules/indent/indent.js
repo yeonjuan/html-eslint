@@ -174,9 +174,8 @@ module.exports = {
       if (isTag(node) || isScript(node) || isStyle(node) || isText(node)) {
         return getTagIncreasingLevel(node);
       }
-      const type = node.type;
-      if (type === NODE_TYPES.Attribute) {
-        const optionIndent = indentLevelOptions[type];
+      if (node.type === NODE_TYPES.Attribute) {
+        const optionIndent = indentLevelOptions[node.type];
         if (typeof optionIndent === "number") {
           return optionIndent;
         }
@@ -243,7 +242,7 @@ module.exports = {
       function getActualIndent(node) {
         const lines = sourceCode.getLines();
         const line = lines[node.loc.start.line - 1];
-        let column = node.loc.start.column;
+        let { column } = node.loc.start;
 
         if (isLine(node)) {
           column += countLeftPadding(node.value);
@@ -491,8 +490,7 @@ function countLeftPadding(str) {
  * @param {Context<any[]>} context
  * @returns {IndentOptionInfo}
  */
-function getIndentOptionInfo(context) {
-  const options = context.options;
+function getIndentOptionInfo({ options }) {
   /** @type {IndentType["SPACE"] | IndentType["TAB"]} */
   let indentType = INDENT_TYPES.SPACE;
   let indentSize = 4;
