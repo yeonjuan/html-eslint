@@ -1,5 +1,9 @@
 /**
  * @import {
+ *   Range,
+ *   SourceLocation
+ * } from "@html-eslint/types"
+ * @import {
  *   AttributeAdapter,
  *   AttributeValueAdapter,
  *   ClassSpacingResult
@@ -10,21 +14,113 @@ const CLASS_BETWEEN_EXTRA_SPACES_REGEX = /\s{2,}/;
 
 /**
  * @type {{
- *   extraSpacingStart: "extraSpacingStart";
- *   extraSpacingEnd: "extraSpacingEnd";
- *   extraSpacingBetween: "extraSpacingBetween";
+ *   extraSpacing: "extraSpacing";
  * }}
  */
 export const CLASS_SPACING_MESSAGE_IDS = {
-  extraSpacingStart: "extraSpacingStart",
-  extraSpacingEnd: "extraSpacingEnd",
-  extraSpacingBetween: "extraSpacingBetween",
+  extraSpacing: "extraSpacing",
 };
 
 /**
- * @template AttributeKeyNode
- * @template AttributeValueNode
+ * @param {string} value
+ * @param {SourceLocation} loc
+ * @param {Range} range
+ * @param {ClassSpacingResult} result
  */
+function checkLeading(value, loc, range, result) {
+  if (value.startsWith(" ")) {
+    const leadingSpaces = value.length - value.trimStart().length;
+    const spacingStart = loc.start;
+    const spacingEnd = {
+      line: spacingStart.line,
+      column: spacingStart.column + leadingSpaces,
+    };
+    /** @type {Range} */
+    const spacingRange = [range[0], range[0] + leadingSpaces];
+    result.push({
+      messageId: CLASS_SPACING_MESSAGE_IDS.extraSpacing,
+      loc: {
+        start: spacingStart,
+        end: spacingEnd,
+      },
+      range: spacingRange,
+    });
+  }
+}
+
+/**
+ * @param {string} value
+ * @param {SourceLocation} loc
+ * @param {Range} range
+ * @param {ClassSpacingResult} result
+ */
+function checkBetween(value, loc, range, result) {
+  const trimmedValue = value.trim();
+  if (CLASS_BETWEEN_EXTRA_SPACES_REGEX.test(trimmedValue)) {
+    const leadingSpaces = value.length - value.trimStart().length;
+    const matches = trimmedValue.matchAll(
+      CLASS_BETWEEN_EXTRA_SPACES_REGEX_GLOBAL
+    );
+
+    for (const match of matches) {
+      if (match.index !== undefined) {
+        const matchIndex = leadingSpaces + match.index;
+        const matchEndIndex = matchIndex + match[0].length;
+        const { start } = loc;
+        const spacingStart = {
+          line: start.line,
+          column: start.column + matchIndex + 1,
+        };
+        const spacingEnd = {
+          line: start.line,
+          column: start.column + matchEndIndex,
+        };
+        /** @type {Range} */
+        const spacingRange = [
+          range[0] + matchIndex + 1,
+          range[0] + matchEndIndex,
+        ];
+
+        result.push({
+          messageId: CLASS_SPACING_MESSAGE_IDS.extraSpacing,
+          loc: {
+            start: spacingStart,
+            end: spacingEnd,
+          },
+          range: spacingRange,
+        });
+      }
+    }
+  }
+}
+
+/**
+ * @param {string} value
+ * @param {SourceLocation} loc
+ * @param {Range} range
+ * @param {ClassSpacingResult} result
+ */
+function checkTrailing(value, loc, range, result) {
+  if (value.endsWith(" ")) {
+    const trailingSpaces = value.length - value.trimEnd().length;
+    const spacingEnd = loc.end;
+    const spacingStart = {
+      line: spacingEnd.line,
+      column: spacingEnd.column - trailingSpaces,
+    };
+    /** @type {Range} */
+    const spacingRange = [range[1] - trailingSpaces, range[1]];
+    result.push({
+      messageId: CLASS_SPACING_MESSAGE_IDS.extraSpacing,
+      loc: {
+        start: spacingStart,
+        end: spacingEnd,
+      },
+      range: spacingRange,
+    });
+  }
+}
+
 export function classSpacing() {
   return {
     /**
@@ -44,75 +140,13 @@ export function classSpacing() {
         return result;
       }
 
+      const { loc, range } = classValue;
+
+      checkLeading(value, loc, range, result);
+      checkBetween(value, loc, range, result);
+      checkTrailing(value, loc, range, result);
+
       return result;
-
-      // const attrValueValue = attribute.value.value();
-      // const valueNode = attribute.value.node();
-
-      // // Skip if no value or value is expression
-      // if (!attrValueValue || attribute.value.isExpression() || !valueNode) {
-      //   return result;
-      // }
-
-      // const classValue = attrValueValue;
-      // const trimmedValue = classValue.trim();
-
-      // // If already normalized, skip
-      // if (
-      //   classValue === trimmedValue &&
-      //   !CLASS_BETWEEN_EXTRA_SPACES_REGEX.test(classValue)
-      // ) {
-      //   return result;
-      // }
-
-      // const normalizedValue = trimmedValue.replace(/\s+/g, " ");
-
-      // // Check for leading spaces
-      // if (classValue !== trimmedValue && classValue.startsWith(" ")) {
-      //   result.push({
-      //     messageId: CLASS_SPACING_MESSAGE_IDS.extraSpacingStart,
-      //     node: valueNode,
-      //     data: {
-      //       normalized: normalizedValue,
-      //     },
-      //     spacingType: "start",
-      //     spacingLength: classValue.length - classValue.trimStart().length,
-      //   });
-      //   return result;
-      // }
-
-      // // Check for trailing spaces
-      // if (classValue !== trimmedValue && classValue.endsWith(" ")) {
-      //   result.push({
-      //     messageId: CLASS_SPACING_MESSAGE_IDS.extraSpacingEnd,
-      //     node: valueNode,
-      //     data: {
-      //       normalized: normalizedValue,
-      //     },
-      //     spacingType: "end",
-      //     spacingLength: classValue.length - classValue.trimEnd().length,
-      //   });
-      //   return result;
-      // }
-
-      // // Check for extra spaces between class names
-      // if (CLASS_BETWEEN_EXTRA_SPACES_REGEX.test(classValue)) {
-      //   const match = classValue.match(CLASS_BETWEEN_EXTRA_SPACES_REGEX);
-      //   if (match && match.index !== undefined) {
-      //     result.push({
-      //       messageId: CLASS_SPACING_MESSAGE_IDS.extraSpacingBetween,
-      //       node: valueNode,
-      //       data: {
-      //         normalized: normalizedValue,
-      //       },
-      //       spacingType: "between",
-      //       spacingIndex: match.index,
-      //       spacingLength: match[0].length,
-      //     });
-      //   }
-      // }
-
-      // return result;
     },
   };
 }
