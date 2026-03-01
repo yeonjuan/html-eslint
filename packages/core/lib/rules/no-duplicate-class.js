@@ -1,6 +1,6 @@
 /**
  * @import {
- *   AttributeAdapter,
+ *   AttributeValueAdapter,
  *   NoDuplicateClassResult
  * } from "../types"
  */
@@ -37,60 +37,54 @@ function splitClassAndSpaces(value) {
   return result;
 }
 
-/**
- * @template AttributeKeyNode
- * @template AttributeValueNode
- */
 export function noDuplicateClass() {
   return {
     /**
-     * @param {AttributeAdapter<AttributeKeyNode, AttributeValueNode>} attribute
-     * @returns {NoDuplicateClassResult<AttributeValueNode>}
+     * @param {AttributeValueAdapter} classValue
+     * @returns {NoDuplicateClassResult}
      */
-    checkClassAttribute(attribute) {
-      /** @type {NoDuplicateClassResult<AttributeValueNode>} */
+    checkClassValue(classValue) {
+      /** @type {NoDuplicateClassResult} */
       const result = [];
 
-      const attrValueValue = attribute.value.value();
-      const valueNode = attribute.value.node();
-
-      // Skip if no value or value is expression
-      if (!attrValueValue || attribute.value.isExpression() || !valueNode) {
+      if (classValue.hasExpression()) {
         return result;
       }
 
-      const classesAndSpaces = splitClassAndSpaces(attrValueValue);
+      const value = classValue.getValue();
+      if (!value) {
+        return result;
+      }
+
+      const loc = classValue.getLocation();
+      const range = classValue.getRange();
+
+      const classesAndSpaces = splitClassAndSpaces(value);
       const classSet = new Set();
 
-      classesAndSpaces.forEach(({ value, pos }, index) => {
+      classesAndSpaces.forEach(({ value, pos }) => {
         const className = value.trim();
 
         if (className.length) {
           if (classSet.has(className)) {
-            // Found a duplicate - report it
-            // Include information needed for fix logic
-            const before = classesAndSpaces[index - 1];
-            const after = classesAndSpaces[index + 1];
-
+            const classStart = {
+              line: loc.start.line,
+              column: loc.start.column + pos,
+            };
+            const classEnd = {
+              line: loc.start.line,
+              column: loc.start.column + pos + value.length,
+            };
             result.push({
               messageId: NO_DUPLICATE_CLASS_MESSAGE_IDS.duplicateClass,
-              node: valueNode,
-              data: {
-                class: className,
+              loc: {
+                start: classStart,
+                end: classEnd,
               },
-              className,
-              classIndex: pos,
-              classLength: value.length,
-              tokenIndex: index,
-              hasSpacesBefore: !!before && before.value.trim().length === 0,
-              hasSpacesAfter: !!after && after.value.trim().length === 0,
-              hasClassBefore: !!classesAndSpaces[index - 2],
-              hasClassAfter: !!classesAndSpaces[index + 2],
-              spacesBeforePos: before ? before.pos : pos,
-              spacesAfterLength:
-                after && after.value.trim().length === 0
-                  ? after.value.length
-                  : 0,
+              range: [range[0] + pos, range[0] + pos + value.length],
+              data: {
+                className,
+              },
             });
           } else {
             classSet.add(className);
