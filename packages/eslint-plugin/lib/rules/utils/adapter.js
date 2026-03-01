@@ -1,9 +1,11 @@
 /**
  * @import {
  *   AttributeAdapter,
+ *   AttributeValueAdapter,
  *   ElementNodeAdapter
  * } from "@html-eslint/core"
  * @import {
+ *   AnyNode,
  *   AttributeKey,
  *   AttributeValue,
  *   OpenScriptTagStart,
@@ -16,6 +18,19 @@
  */
 
 const { getNameOf, hasTemplate } = require("./node");
+
+/**
+ * @param {AttributeValue} node
+ * @returns {AttributeValueAdapter}
+ */
+function attributeValueAdapter(node) {
+  return {
+    loc: node.loc,
+    range: node.range,
+    getValue: () => node.value,
+    hasExpression: () => !!node.parts.length,
+  };
+}
 
 /**
  * @param {AttributeKey} key
@@ -69,4 +84,8 @@ function elementNodeAdapter(node) {
   };
 }
 
-module.exports = { elementNodeAdapter, attributeNodeAdapter };
+module.exports = {
+  elementNodeAdapter,
+  attributeNodeAdapter,
+  attributeValueAdapter,
+};

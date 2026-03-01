@@ -11,6 +11,7 @@
  */
 
 const CLASS_BETWEEN_EXTRA_SPACES_REGEX = /\s{2,}/;
+const CLASS_BETWEEN_EXTRA_SPACES_REGEX_GLOBAL = /\s{2,}/g;
 
 /**
  * @type {{
