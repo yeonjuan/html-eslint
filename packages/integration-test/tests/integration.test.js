@@ -235,4 +235,16 @@ describe("integration tests", () => {
       validFiles: ["svelte/valid.svelte"],
     });
   });
+
+  describe("angular", () => {
+    createESLintConfigTests({
+      eslintVersion: "9.27.0",
+      fixtureName: "angular-template",
+      log: true,
+      localPackages: ["@html-eslint/eslint-plugin-angular-template"],
+      externalPackages: [["@angular-eslint/template-parser", "^21.2.0"]],
+      invalidFiles: ["templates/invalid.html"],
+      validFiles: ["templates/valid.html"],
+    });
+  });
 });

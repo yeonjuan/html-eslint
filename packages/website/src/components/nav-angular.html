@@ -1,6 +1,6 @@
 <script locals>
   module.exports = {
-    navs: locals.navsSvelte
+    list: locals.navsAngularTemplate
   }
 </script>
 <div class="font-black md:pl-[280px] w-full md:w-[200px]">
@@ -35,7 +35,7 @@
     </div>
     <ul class="mt-[22px] px-[12px] [&>li]:px-[12px] [&>li]:mb-[12px]">
       <li>
-        <a class="w-full flex items-center" href="~/src/docs/svelte/getting-started.html">
+        <a class="w-full flex items-center" href="~/src/docs/angular-template/getting-started.html">
           <span class="title5">Getting Started</span>
           <img
             class="ml-auto"
@@ -47,7 +47,7 @@
         </a>
       </li>
       <li>
-        <a class="w-full flex items-center" href="~/src/docs/svelte/rules.html">
+        <a class="w-full flex items-center" href="~/src/docs/angular-template/rules.html">
           <span class="title5">Rules</span>
           <img
             class="ml-auto"
@@ -58,7 +58,7 @@
           >
         </a>
       </li>
-      <module href="/components/nav-list.html" locals='{ "list": {{navs}} }'>
+      <module href="/components/nav-list.html" locals='{ "list": {{list}} }'>
       </module>
     </ul>
   </aside>

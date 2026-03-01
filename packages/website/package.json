@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@html-eslint/eslint-plugin": "^0.57.1",
+    "@html-eslint/eslint-plugin-angular-template": "^0.57.1",
     "@html-eslint/eslint-plugin-react": "^0.57.1",
     "@html-eslint/eslint-plugin-svelte": "^0.57.1",
     "@html-eslint/parser": "^0.57.1",
