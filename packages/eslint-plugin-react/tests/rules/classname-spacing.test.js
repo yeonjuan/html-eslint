@@ -58,7 +58,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo"></button>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 20,
           endLine: 1,
@@ -71,11 +71,11 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo"></button>',
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
           line: 1,
-          column: 25,
+          column: 23,
           endLine: 1,
-          endColumn: 26,
+          endColumn: 24,
         },
       ],
     },
@@ -84,11 +84,18 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo"></button>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 20,
           endLine: 1,
           endColumn: 21,
+        },
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 24,
+          endLine: 1,
+          endColumn: 25,
         },
       ],
     },
@@ -97,7 +104,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo"></button>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 20,
           endLine: 1,
@@ -110,7 +117,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo"></button>',
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
           line: 1,
           column: 25,
           endLine: 1,
@@ -123,7 +130,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo bar"></button>',
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
           column: 23,
           endLine: 1,
@@ -136,7 +143,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo bar"></button>',
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
           column: 23,
           endLine: 1,
@@ -149,7 +156,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo bar baz"></button>',
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
           column: 23,
           endLine: 1,
@@ -162,7 +169,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo bar"></button>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 20,
           endLine: 1,
@@ -175,7 +182,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<div className={"foo"}></div>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 18,
           endLine: 1,
@@ -188,7 +195,7 @@ ruleTester.run("classname-spacing", rule, {
       output: "<div className={`foo`}></div>",
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
           line: 1,
           column: 23,
           endLine: 1,
@@ -201,7 +208,7 @@ ruleTester.run("classname-spacing", rule, {
       output: "<div className={`foo bar`}></div>",
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
           column: 21,
           endLine: 1,
@@ -215,7 +222,7 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["clsx"] }],
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 17,
           endLine: 1,
@@ -229,7 +236,7 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["clsx"] }],
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
           line: 1,
           column: 22,
           endLine: 1,
@@ -243,7 +250,7 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["clsx"] }],
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
           column: 20,
           endLine: 1,
@@ -257,7 +264,7 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["cn"] }],
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
           column: 18,
           endLine: 1,
@@ -271,14 +278,14 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["clsx"] }],
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 17,
           endLine: 1,
           endColumn: 18,
         },
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
           column: 28,
           endLine: 1,
@@ -292,7 +299,7 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["clsx"] }],
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -301,7 +308,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<div className={   "foo" }></div>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 21,
           endLine: 1,

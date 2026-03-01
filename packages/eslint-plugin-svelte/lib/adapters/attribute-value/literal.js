@@ -1,21 +1,16 @@
 /**
  * @import {AttributeValueAdapter} from "@html-eslint/core"
- * @import {
- *   Range,
- *   SourceLocation
- * } from "@html-eslint/types"
- * @import {TemplateLiteral} from "../../../types"
+ * @import {Range} from "@html-eslint/types"
+ * @import {Literal} from "../../types"
  */
 
 /** @implements {AttributeValueAdapter} */
-export class TemplateLiteralAttributeValueAdapter {
-  /** @param {TemplateLiteral} node */
+export class LiteralAttributeValueAdapter {
+  /** @param {Literal} node */
   constructor(node) {
-    /** @private */
     this.node = node;
   }
 
-  /** @returns {SourceLocation} */
   getLocation() {
     return {
       start: {
@@ -29,24 +24,23 @@ export class TemplateLiteralAttributeValueAdapter {
     };
   }
 
-  /** @returns {Range} */
   getRange() {
     return /** @type {Range} */ ([
       this.node.range[0] + 1,
       this.node.range[1] - 1,
     ]);
   }
-  /** @returns {string | null} */
-  getValue() {
-    if (this.hasExpression()) {
-      return null;
-    }
-    const quasis = this.node.quasis[0];
-    return quasis.value.cooked;
+
+  hasExpression() {
+    return false;
   }
 
-  /** @returns {boolean} */
-  hasExpression() {
-    return !!this.node.expressions.length;
+  getValue() {
+    if (typeof this.node.value === "string") {
+      return this.node.value;
+    } else if (typeof this.node.value === "number") {
+      return String(this.node.value);
+    }
+    return null;
   }
 }

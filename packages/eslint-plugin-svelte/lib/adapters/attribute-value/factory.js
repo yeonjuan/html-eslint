@@ -1,17 +1,21 @@
 /**
+ * @import {AttributeValueAdapter} from "@html-eslint/core"
  * @import {
  *   Literal,
  *   SvelteLiteral,
  *   TemplateLiteral
- * } from "../../../types"
+ * } from "../../types"
  */
 
-import { AST_NODE_TYPES } from "../../../constants/node-types";
+import { AST_NODE_TYPES } from "../../constants/node-types";
 import { LiteralAttributeValueAdapter } from "./literal";
 import { SvelteLiteralAttributeValueAdapter } from "./svelte-literal";
 import { TemplateLiteralAttributeValueAdapter } from "./template-literal";
 
-/** @param {Literal | SvelteLiteral | TemplateLiteral} node */
+/**
+ * @param {Literal | SvelteLiteral | TemplateLiteral} node
+ * @returns {AttributeValueAdapter}
+ */
 export function createAttributeValueAdapter(node) {
   switch (node.type) {
     case AST_NODE_TYPES.Literal: {

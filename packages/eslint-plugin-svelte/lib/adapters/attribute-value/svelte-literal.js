@@ -1,6 +1,6 @@
 /**
  * @import {AttributeValueAdapter} from "@html-eslint/core"
- * @import {SvelteLiteral} from "../../../types"
+ * @import {SvelteLiteral} from "../../types"
  */
 
 /** @implements {AttributeValueAdapter} */

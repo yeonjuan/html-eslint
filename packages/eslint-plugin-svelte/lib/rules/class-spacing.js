@@ -1,5 +1,4 @@
 /**
- * @import {ClassSpacingResult} from "@html-eslint/core"
  * @import {
  *   Literal,
  *   RuleModule,
@@ -12,7 +11,7 @@
 
 import { CLASS_SPACING_MESSAGE_IDS, classSpacing } from "@html-eslint/core";
 import { AST_NODE_TYPES } from "../constants/node-types.js";
-import { createAttributeValueAdapter } from "./adapters/attribute-value/factory.js";
+import { createAttributeValueAdapter } from "../adapters/attribute-value/factory.js";
 
 /** @type {RuleModule} */
 const rule = {
@@ -76,12 +75,10 @@ const rule = {
         if (
           !node.key ||
           !node.key.name ||
-          node.key.name.toLowerCase() !== "class"
+          node.key.name.toLowerCase() !== "class" ||
+          !node.value ||
+          node.value.length === 0
         ) {
-          return;
-        }
-
-        if (!node.value || node.value.length === 0) {
           return;
         }
 

@@ -1,11 +1,11 @@
 /**
  * @import {AttributeValueAdapter} from "@html-eslint/core"
  * @import {Range} from "@html-eslint/types"
- * @import {Literal} from "../../../types"
+ * @import {Literal} from "../../types"
  */
 
 /** @implements {AttributeValueAdapter} */
-export class LiteralAttributeValueAdapter {
+class LiteralAttributeValueAdapter {
   /** @param {Literal} node */
   constructor(node) {
     this.node = node;
@@ -44,3 +44,7 @@ export class LiteralAttributeValueAdapter {
     return null;
   }
 }
+
+module.exports = {
+  LiteralAttributeValueAdapter,
+};

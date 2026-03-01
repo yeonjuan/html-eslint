@@ -26,12 +26,8 @@ module.exports = {
     fixable: "code",
     schema: [],
     messages: {
-      [CLASS_SPACING_MESSAGE_IDS.extraSpacingStart]:
+      [CLASS_SPACING_MESSAGE_IDS.extraSpacing]:
         "Unexpected space at the start of class",
-      [CLASS_SPACING_MESSAGE_IDS.extraSpacingEnd]:
-        "Unexpected space at the end of class",
-      [CLASS_SPACING_MESSAGE_IDS.extraSpacingBetween]:
-        "Unexpected extra spaces between class names",
     },
   },
 
@@ -105,6 +101,11 @@ module.exports = {
     }
 
     return {
+      TextAttribute(node) {
+        if (node.name !== "class") {
+          return;
+        }
+      },
       Element(node) {
         for (const attr of node.attributes) {
           if (
@@ -114,8 +115,6 @@ module.exports = {
             checkTextAttribute(attr);
           }
         }
-        // BoundAttribute ([class]="expr") is an expression —
-        // classSpacing core skips it automatically via isExpression().
       },
     };
   },
