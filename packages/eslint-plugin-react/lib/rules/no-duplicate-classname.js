@@ -1,6 +1,4 @@
 /**
- * @import {NoDuplicateClassResult} from "@html-eslint/core"
- * @import {AST} from "eslint"
  * @import {
  *   ConditionalExpression,
  *   JSXExpressionContainer,
