@@ -9,8 +9,10 @@ description: Learn how to install and configure HTML ESLint to lint HTML files a
 
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Lint HTML in JavaScript Template Literals](#lint-html-in-javascript-template-literals)
-- [Legacy Configuration](#legacy-configuration)
+  - [ESLint v10](#eslint-v10)
+  - [ESLint v9](#eslint-v9)
+  - [ESLint v8 (Legacy)](#eslint-v8-legacy)
+- [Lint HTML in JavaScript Template Literals](#lint-html-code-inside-javascript-template-literals)
 - [Editor Configuration](#editor-configuration)
 
 ## Installation
@@ -29,14 +31,15 @@ yarn add -D eslint @html-eslint/parser @html-eslint/eslint-plugin
 
 ## Configuration
 
-Update your configuration file:
+### ESLint v10
+
+If you are using ESLint v10, update your configuration file:
 
 ```js,eslint.config.js
 import { defineConfig } from "eslint/config";
 import html from "@html-eslint/eslint-plugin";
 
 export default defineConfig([
-    // lint html files
     {
         files: ["**/*.html"],
         plugins: {
@@ -52,6 +55,49 @@ export default defineConfig([
 ]);
 ```
 
+### ESLint v9
+
+If you are using ESLint v9 (flat config), update your configuration file:
+
+```js,eslint.config.js
+import html from "@html-eslint/eslint-plugin";
+
+export default [
+    {
+        files: ["**/*.html"],
+        ...html.configs["flat/recommended"],
+    },
+    {
+        files: ["**/*.html"],
+        rules: {
+            "@html-eslint/no-duplicate-class": "error",
+        },
+    },
+];
+```
+
+### ESLint v8 (Legacy)
+
+If you are using ESLint v8 or earlier with legacy configuration:
+
+```js,.eslintrc.js
+module.exports = {
+    overrides: [
+        {
+            files: ["**/*.html"],
+            parser: '@html-eslint/parser',
+            extends: ["plugin:@html-eslint/recommended-legacy"],
+            plugins: [
+                '@html-eslint'
+            ],
+            rules: {
+                '@html-eslint/no-duplicate-class': "error"
+            }
+        },
+    ],
+}
+```
+
 ## Lint HTML code inside JavaScript Template Literals
 
 In addition to standalone HTML files, html-eslint also supports linting HTML inside JavaScript and TypeScript template literals, such as:
@@ -62,7 +108,9 @@ html`<div class="box">${content}</div>`;
 const code = /* html */ `<img class="image" src=${src}/>`;
 ```
 
-To enable this, you don’t need to set a language. Just apply html-eslint rules to your JavaScript or TypeScript files, and the plugin will detect and lint HTML within template literals.
+To enable this, you don't need to set a language. Just apply html-eslint rules to your JavaScript or TypeScript files, and the plugin will detect and lint HTML within template literals.
+
+**ESLint v10/v9:**
 
 ```js,eslint.config.js
 import { defineConfig } from "eslint/config";
@@ -81,19 +129,18 @@ export default defineConfig([
 ]);
 ```
 
-## Legacy Configuration
+**ESLint v8 (Legacy):**
 
-If you are using ESLint version v8 or earlier, you can configure it as follows.
-
-```js,eslintrc.js
+```js,.eslintrc.js
 module.exports = {
-  //...
   plugins: ["@html-eslint"],
   overrides: [
     {
-      files: ["*.html"],
-      parser: "@html-eslint/parser",
+      files: ["*.js", "*.ts"],
       extends: ["plugin:@html-eslint/recommended-legacy"],
+      rules: {
+        "@html-eslint/require-img-alt": "error",
+      },
     },
   ],
 };
