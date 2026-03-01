@@ -1,3 +1,5 @@
+import type { Range, SourceLocation } from "@html-eslint/types";
+
 export interface ElementNodeAdapter<
   ElementNode,
   AttributeKeyNode,
@@ -6,6 +8,13 @@ export interface ElementNodeAdapter<
   getTagName(): string;
   getAttributes(): AttributeAdapter<AttributeKeyNode, AttributeValueNode>[];
   node: () => ElementNode;
+}
+
+export interface AttributeValueAdapter {
+  getLocation: () => SourceLocation;
+  getRange: () => Range;
+  getValue: () => string | null;
+  hasExpression: () => boolean;
 }
 
 export interface AttributeAdapter<AttributeKeyNode, AttributeValueNode> {
@@ -104,36 +113,11 @@ export type NoObsoleteAttrsResult<AttributeKeyNode> = Array<{
   };
 }>;
 
-export type ClassSpacingResult<AttributeValueNode> = Array<
-  | {
-      messageId: "extraSpacingStart";
-      node: AttributeValueNode;
-      data: {
-        normalized: string;
-      };
-      spacingType: "start";
-      spacingLength: number;
-    }
-  | {
-      messageId: "extraSpacingEnd";
-      node: AttributeValueNode;
-      data: {
-        normalized: string;
-      };
-      spacingType: "end";
-      spacingLength: number;
-    }
-  | {
-      messageId: "extraSpacingBetween";
-      node: AttributeValueNode;
-      data: {
-        normalized: string;
-      };
-      spacingType: "between";
-      spacingIndex: number;
-      spacingLength: number;
-    }
->;
+export type ClassSpacingResult = Array<{
+  messageId: "extraSpacing";
+  range: Range;
+  loc: SourceLocation;
+}>;
 
 export type NoDuplicateClassResult<AttributeValueNode> = Array<{
   messageId: "duplicateClass";

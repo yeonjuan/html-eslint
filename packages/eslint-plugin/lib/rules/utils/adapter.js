@@ -69,4 +69,7 @@ function elementNodeAdapter(node) {
   };
 }
 
-module.exports = { elementNodeAdapter, attributeNodeAdapter };
+module.exports = {
+  elementNodeAdapter,
+  attributeNodeAdapter,
+};

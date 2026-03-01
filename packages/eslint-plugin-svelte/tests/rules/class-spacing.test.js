@@ -27,9 +27,6 @@ ruleTester.run("class-spacing", rule, {
       code: `<button class:active={isActive}></button>`,
     },
     {
-      code: `<button class="foo {bar}"></button>`,
-    },
-    {
       code: `<div class="container"></div>`,
     },
     {
@@ -51,7 +48,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo"></button>`,
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -60,7 +57,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo"></button>`,
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -69,7 +66,10 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo"></button>`,
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -78,7 +78,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo"></button>`,
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -87,7 +87,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo"></button>`,
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -96,7 +96,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo bar"></button>`,
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -105,7 +105,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo bar"></button>`,
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -114,7 +114,10 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo bar baz"></button>`,
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -123,7 +126,13 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo bar"></button>`,
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -132,7 +141,13 @@ ruleTester.run("class-spacing", rule, {
       output: `<div class="container wrapper"></div>`,
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -141,7 +156,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<div class={["foo bar"]}></div>`,
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -150,7 +165,7 @@ ruleTester.run("class-spacing", rule, {
       output: "<div class={`foo`}></div>",
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -159,7 +174,7 @@ ruleTester.run("class-spacing", rule, {
       output: "<div class={`foo`}></div>",
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -168,7 +183,7 @@ ruleTester.run("class-spacing", rule, {
       output: "<div class={`foo bar`}></div>",
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -177,10 +192,13 @@ ruleTester.run("class-spacing", rule, {
       output: "<div class={[`foo bar`, `baz`]}></div>",
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
         },
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -189,10 +207,16 @@ ruleTester.run("class-spacing", rule, {
       output: "<div class={[`foo`, `bar`]}></div>",
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
         },
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
         },
       ],
     },

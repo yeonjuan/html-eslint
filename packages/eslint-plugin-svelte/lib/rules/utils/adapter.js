@@ -1,6 +1,7 @@
 /**
  * @import {
  *   AttributeAdapter,
+ *   AttributeValueAdapter,
  *   ElementNodeAdapter
  * } from "@html-eslint/core"
  * @import {

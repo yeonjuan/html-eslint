@@ -13,8 +13,10 @@ export type SvelteLiteral = AST.SvelteLiteral;
 export type SvelteElement = AST.SvelteElement;
 export type SvelteScriptElement = AST.SvelteScriptElement;
 export type SvelteStyleElement = AST.SvelteStyleElement;
+export type SvelteMustacheTag = AST.SvelteMustacheTag;
 export type ArrayExpression = NodeWithStringType<TSESTree.ArrayExpression>;
-
+export type Literal = NodeWithStringType<TSESTree.Literal>;
+export type TemplateLiteral = NodeWithStringType<TSESTree.TemplateLiteral>;
 export type Node = AST.SvelteNode | TSESTree.Node;
 
 export interface RuleModule {
