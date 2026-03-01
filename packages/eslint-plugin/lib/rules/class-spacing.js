@@ -7,7 +7,7 @@ const {
   classSpacing,
   CLASS_SPACING_MESSAGE_IDS,
 } = require("@html-eslint/core");
-const { attributeValueAdapter } = require("./utils/adapter");
+const { createAttributeValueAdapter } = require("../adapters/factory");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -35,7 +35,7 @@ module.exports = {
           return;
         }
 
-        const adapter = attributeValueAdapter(node.value);
+        const adapter = createAttributeValueAdapter(node.value);
         const result = checkClassValue(adapter);
         for (const { loc, messageId, range } of result) {
           context.report({

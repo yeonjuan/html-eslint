@@ -11,8 +11,8 @@ export interface ElementNodeAdapter<
 }
 
 export interface AttributeValueAdapter {
-  loc: SourceLocation;
-  range: Range;
+  getLocation: () => SourceLocation;
+  getRange: () => Range;
   getValue: () => string | null;
   hasExpression: () => boolean;
 }

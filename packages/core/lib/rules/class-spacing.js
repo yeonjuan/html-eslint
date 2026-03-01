@@ -141,7 +141,8 @@ export function classSpacing() {
         return result;
       }
 
-      const { loc, range } = classValue;
+      const loc = classValue.getLocation();
+      const range = classValue.getRange();
 
       checkLeading(value, loc, range, result);
       checkBetween(value, loc, range, result);
