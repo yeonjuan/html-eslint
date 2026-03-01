@@ -108,15 +108,6 @@ Examples of **correct** code for this rule:
 
 <!-- Custom elements are ignored -->
 <my-component [title]="title"></my-component>
-
-<!-- Angular control flow with valid elements -->
-@if (isLoggedIn) {
-<span>Welcome</span>
-} @else {
-<a href="/login">Login</a>
-} @for (item of items; track item.id) {
-<li>{{ item.name }}</li>
-}
 ```
 
 ## Further Reading

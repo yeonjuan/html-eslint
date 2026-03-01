@@ -1,0 +1,14 @@
+<extends src="components/layout.html">
+  <block name="meta">
+    {{meta}}
+  </block>
+  <block name="nav">
+    <include src="components/nav-angular.html"></include>
+  </block>
+  <block name="content">
+    <include src="{{path}}"></include>
+  </block>
+  <block name="footer">
+    <module href="/components/footer.html" locals='{"class":"ml-0 md:ml-[280px]"}'></module>
+  </block>
+</extends>

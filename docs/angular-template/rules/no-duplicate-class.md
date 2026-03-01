@@ -68,13 +68,6 @@ Examples of **correct** code for this rule:
 <!-- Dynamic binding — skipped -->
 <div [class]="classExpr"></div>
 <div [class.active]="isActive"></div>
-
-<!-- Angular control flow with valid elements -->
-@if (show) {
-<div class="foo bar"></div>
-} @for (item of items; track item.id) {
-<li class="item">{{ item.name }}</li>
-}
 ```
 
 ## When Not To Use It

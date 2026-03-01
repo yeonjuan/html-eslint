@@ -2680,7 +2680,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin-angular-template@workspace:packages/eslint-plugin-angular-template":
+"@html-eslint/eslint-plugin-angular-template@npm:^0.57.1, @html-eslint/eslint-plugin-angular-template@workspace:packages/eslint-plugin-angular-template":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin-angular-template@workspace:packages/eslint-plugin-angular-template"
   dependencies:
@@ -19886,6 +19886,7 @@ __metadata:
   resolution: "website@workspace:packages/website"
   dependencies:
     "@html-eslint/eslint-plugin": "npm:^0.57.1"
+    "@html-eslint/eslint-plugin-angular-template": "npm:^0.57.1"
     "@html-eslint/eslint-plugin-react": "npm:^0.57.1"
     "@html-eslint/eslint-plugin-svelte": "npm:^0.57.1"
     "@html-eslint/parser": "npm:^0.57.1"
