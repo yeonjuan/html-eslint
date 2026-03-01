@@ -4,10 +4,7 @@ import eslint from "eslint";
 import { AST } from "svelte-eslint-parser";
 
 /** Utility type to convert node type enum to string literal */
-type NodeWithStringType<T extends TSESTree.Node> = Omit<
-  T,
-  "type" | "parent"
-> & {
+type NodeWithStringType<T extends TSESTree.Node> = Omit<T, "type"> & {
   type: `${T["type"]}`;
 };
 export type NodeOrToken = TSESTree.NodeOrTokenData;

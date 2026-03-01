@@ -23,7 +23,7 @@ module.exports = {
     schema: [],
     messages: {
       [CLASS_SPACING_MESSAGE_IDS.extraSpacing]:
-        "Unexpected space at the start of class attribute value",
+        "Unexpected extra spacing in class attribute value",
     },
   },
 

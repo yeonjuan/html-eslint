@@ -58,7 +58,7 @@ module.exports = {
     ],
     messages: {
       [CLASS_SPACING_MESSAGE_IDS.extraSpacing]:
-        "Unexpected space at the start of className",
+        "Unexpected extra spacing in className value",
     },
   },
 
