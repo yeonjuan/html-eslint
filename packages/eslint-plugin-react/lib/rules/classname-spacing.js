@@ -2,9 +2,10 @@
  * @import {ClassSpacingResult} from "@html-eslint/core"
  * @import {AST} from "eslint"
  * @import {
+ *   ConditionalExpression,
  *   JSXExpressionContainer,
  *   Literal,
- *   Node,
+ *   LogicalExpression,
  *   NodeOrToken,
  *   RuleModule,
  *   TemplateLiteral
@@ -20,6 +21,12 @@ const { AST_NODE_TYPES } = require("../constants/node-types");
 const {
   createAttributeValueAdapter,
 } = require("../adapters/attribute-value/factory");
+const {
+  isLiteral,
+  isTemplateLiteral,
+  isLogicalExpression,
+  isConditionalExpression,
+} = require("./utils/node");
 
 /** @type {RuleModule<[Option]>} */
 module.exports = {
@@ -89,14 +96,50 @@ module.exports = {
       }
     }
 
+    /** @param {LogicalExpression} node */
+    function checkLogicalExpression(node) {
+      [node.left, node.right].forEach((n) => {
+        if (isLiteral(n) || isTemplateLiteral(n)) {
+          checkLiteral(n);
+        } else if (isLogicalExpression(n)) {
+          checkLogicalExpression(n);
+        } else if (isConditionalExpression(n)) {
+          checkConditionalExpression(n);
+        }
+      });
+    }
+
+    /** @param {ConditionalExpression} node */
+    function checkConditionalExpression(node) {
+      [node.consequent, node.alternate].forEach((n) => {
+        if (isLiteral(n) || isTemplateLiteral(n)) {
+          checkLiteral(n);
+        } else if (isLogicalExpression(n)) {
+          checkLogicalExpression(n);
+        } else if (isConditionalExpression(n)) {
+          checkConditionalExpression(n);
+        }
+      });
+    }
+
+    /**
+     * Check if node is a checkable expression and process it
+     *
+     * @param {NodeOrToken} node
+     */
+    function checkExpression(node) {
+      if (isLiteral(node) || isTemplateLiteral(node)) {
+        checkLiteral(node);
+      } else if (isLogicalExpression(node)) {
+        checkLogicalExpression(node);
+      } else if (isConditionalExpression(node)) {
+        checkConditionalExpression(node);
+      }
+    }
+
     /** @param {JSXExpressionContainer} node */
     function checkJSXExpressionContainer(node) {
-      if (
-        node.expression.type === AST_NODE_TYPES.Literal ||
-        node.expression.type === AST_NODE_TYPES.TemplateLiteral
-      ) {
-        checkLiteral(node.expression);
-      }
+      checkExpression(node.expression);
     }
 
     return {
@@ -106,12 +149,7 @@ module.exports = {
         }
 
         for (const arg of node.arguments) {
-          if (
-            arg.type === AST_NODE_TYPES.Literal ||
-            arg.type === AST_NODE_TYPES.TemplateLiteral
-          ) {
-            checkLiteral(arg);
-          }
+          checkExpression(arg);
         }
       },
       JSXAttribute(node) {
@@ -123,7 +161,7 @@ module.exports = {
           return;
         }
 
-        if (node.value.type === AST_NODE_TYPES.Literal) {
+        if (isLiteral(node.value)) {
           checkLiteral(node.value);
         } else if (node.value.type === AST_NODE_TYPES.JSXExpressionContainer) {
           checkJSXExpressionContainer(node.value);

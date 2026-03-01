@@ -1,10 +1,13 @@
 /**
  * @import {AST} from "eslint"
  * @import {
+ *   ConditionalExpression,
  *   JSXAttribute,
  *   JSXIdentifier,
  *   Literal,
+ *   LogicalExpression,
  *   Node,
+ *   NodeOrToken,
  *   TemplateLiteral
  * } from "../../types"
  */
@@ -83,8 +86,44 @@ function adjustLocationColumn(location, columnOffset) {
   };
 }
 
+/**
+ * @param {NodeOrToken} node
+ * @returns {node is Literal}
+ */
+function isLiteral(node) {
+  return node.type === AST_NODE_TYPES.Literal;
+}
+
+/**
+ * @param {NodeOrToken} node
+ * @returns {node is TemplateLiteral}
+ */
+function isTemplateLiteral(node) {
+  return node.type === AST_NODE_TYPES.TemplateLiteral;
+}
+
+/**
+ * @param {NodeOrToken} node
+ * @returns {node is LogicalExpression}
+ */
+function isLogicalExpression(node) {
+  return node.type === AST_NODE_TYPES.LogicalExpression;
+}
+
+/**
+ * @param {NodeOrToken} node
+ * @returns {node is ConditionalExpression}
+ */
+function isConditionalExpression(node) {
+  return node.type === AST_NODE_TYPES.ConditionalExpression;
+}
+
 module.exports = {
   isStaticString,
   findAttributeValueNode,
   adjustLocationColumn,
+  isLiteral,
+  isTemplateLiteral,
+  isLogicalExpression,
+  isConditionalExpression,
 };
