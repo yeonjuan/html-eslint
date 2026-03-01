@@ -10,6 +10,7 @@
 | Rule                                                             | Description                                                                                    |       |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ----- |
 | [css-no-empty-blocks](rules/css-no-empty-blocks)                 | Disallows empty CSS blocks in `<style>` tags.                                                  |       |
+| [head-order](rules/head-order)                                   | Enforce optimal ordering of elements in `<head>`                                               | 🔧    |
 | [max-element-depth](rules/max-element-depth)                     | Enforce maximum element depth                                                                  |       |
 | [no-duplicate-attrs](rules/no-duplicate-attrs)                   | Disallow duplicate attributes                                                                  | ⭐    |
 | [no-duplicate-class](rules/no-duplicate-class)                   | Disallow duplicate class names                                                                 | 🔧    |
@@ -17,6 +18,7 @@
 | [no-duplicate-in-head](rules/no-duplicate-in-head)               | Disallow duplicate tags in `<head>`                                                            |       |
 | [no-ineffective-attrs](rules/no-ineffective-attrs)               | Disallow HTML attributes that have no effect in their context                                  |       |
 | [no-inline-styles](rules/no-inline-styles)                       | Disallow using inline style                                                                    |       |
+| [no-invalid-attr-value](rules/no-invalid-attr-value)             | Disallow invalid attribute values according to HTML standards                                  |       |
 | [no-invalid-entity](rules/no-invalid-entity)                     | Disallows the use of invalid HTML entities                                                     |       |
 | [no-nested-interactive](rules/no-nested-interactive)             | Disallows nested interactive elements                                                          |       |
 | [no-obsolete-attrs](rules/no-obsolete-attrs)                     | Disallow use of obsolete attributes in HTML5                                                   | ⭐    |
@@ -34,7 +36,7 @@
 | [require-doctype](rules/require-doctype)                         | Require `<!DOCTYPE HTML>` in HTML                                                              | ⭐ 🔧 |
 | [require-explicit-size](rules/require-explicit-size)             | Enforces that some elements (img, iframe) have explicitly defined width and height attributes. |       |
 | [require-li-container](rules/require-li-container)               | Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.                                            | ⭐    |
-| [require-meta-charset](rules/require-meta-charset)               | Enforce use of `<meta charset="...">` in `<head>`                                              |       |
+| [require-meta-charset](rules/require-meta-charset)               | Enforce use of `<meta charset="...">` in `<head>`                                              | 🔧    |
 | [use-baseline](rules/use-baseline)                               | Enforce the use of baseline features.                                                          | ⭐    |
 
 ## SEO
@@ -49,23 +51,24 @@
 
 ## Accessibility
 
-| Rule                                                             | Description                                                            |     |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------------- | --- |
-| [no-abstract-roles](rules/no-abstract-roles)                     | Disallow use of abstract roles                                         |     |
-| [no-accesskey-attrs](rules/no-accesskey-attrs)                   | Disallow use of accesskey attribute                                    |     |
-| [no-aria-hidden-body](rules/no-aria-hidden-body)                 | Disallow use of aria-hidden attributes on the `body` element.          |     |
-| [no-aria-hidden-on-focusable](rules/no-aria-hidden-on-focusable) | Disallow aria-hidden="true" on focusable elements                      |     |
-| [no-empty-headings](rules/no-empty-headings)                     | Disallow empty or inaccessible headings.                               |     |
-| [no-heading-inside-button](rules/no-heading-inside-button)       | Disallows the use of heading elements inside <button>.                 |     |
-| [no-invalid-role](rules/no-invalid-role)                         | Disallows use of invalid role.                                         |     |
-| [no-non-scalable-viewport](rules/no-non-scalable-viewport)       | Disallow use of `user-scalable=no` in `<meta name="viewport">`.        |     |
-| [no-positive-tabindex](rules/no-positive-tabindex)               | Disallow use of positive `tabindex`.                                   |     |
-| [no-skip-heading-levels](rules/no-skip-heading-levels)           | Disallow skipping heading levels                                       |     |
-| [require-form-method](rules/require-form-method)                 | Require `method` attribute in `<form>`                                 |     |
-| [require-frame-title](rules/require-frame-title)                 | Require `title` in `<frame>`, `<iframe>`                               |     |
-| [require-img-alt](rules/require-img-alt)                         | Require `alt` attribute on `<img>` tag                                 | ⭐  |
-| [require-input-label](rules/require-input-label)                 | Enforces use of label for form elements(`input`, `textarea`, `select`) |     |
-| [require-meta-viewport](rules/require-meta-viewport)             | Enforce use of `<meta name="viewport">` in `<head>`                    |     |
+| Rule                                                             | Description                                                               |     |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------- | --- |
+| [no-abstract-roles](rules/no-abstract-roles)                     | Disallow use of abstract roles                                            |     |
+| [no-accesskey-attrs](rules/no-accesskey-attrs)                   | Disallow use of accesskey attribute                                       |     |
+| [no-aria-hidden-body](rules/no-aria-hidden-body)                 | Disallow use of aria-hidden attributes on the `body` element.             |     |
+| [no-aria-hidden-on-focusable](rules/no-aria-hidden-on-focusable) | Disallow aria-hidden="true" on focusable elements                         |     |
+| [no-empty-headings](rules/no-empty-headings)                     | Disallow empty or inaccessible headings.                                  |     |
+| [no-heading-inside-button](rules/no-heading-inside-button)       | Disallows the use of heading elements inside <button>.                    |     |
+| [no-invalid-role](rules/no-invalid-role)                         | Disallows use of invalid role.                                            |     |
+| [no-non-scalable-viewport](rules/no-non-scalable-viewport)       | Disallow use of `user-scalable=no` in `<meta name="viewport">`.           |     |
+| [no-positive-tabindex](rules/no-positive-tabindex)               | Disallow use of positive `tabindex`.                                      |     |
+| [no-redundant-role](rules/no-redundant-role)                     | Disallow redundant role attributes that match the element's implicit role | 🔧  |
+| [no-skip-heading-levels](rules/no-skip-heading-levels)           | Disallow skipping heading levels                                          |     |
+| [require-form-method](rules/require-form-method)                 | Require `method` attribute in `<form>`                                    |     |
+| [require-frame-title](rules/require-frame-title)                 | Require `title` in `<frame>`, `<iframe>`                                  |     |
+| [require-img-alt](rules/require-img-alt)                         | Require `alt` attribute on `<img>` tag                                    | ⭐  |
+| [require-input-label](rules/require-input-label)                 | Enforces use of label for form elements(`input`, `textarea`, `select`)    |     |
+| [require-meta-viewport](rules/require-meta-viewport)             | Enforce use of `<meta name="viewport">` in `<head>`                       |     |
 
 ## Style
 

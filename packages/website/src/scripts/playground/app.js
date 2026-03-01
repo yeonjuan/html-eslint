@@ -113,12 +113,15 @@ class App {
   }
 
   handleLanguageChange() {
-    this.view.renderLanguageTabs(this.model.language.value);
+    this.view.renderLanguageTabs(this.model.language.key);
     this.view.codeEditor.setOption(
       "mode",
-      this.model.language.mime()
+      this.model.language.mime
     );
     this.view.codeEditor.setValue(this.model.getCode());
+    this.view.configEditor.setValue(JSON.stringify({
+      rules: this.model.rules
+    }, null, 2))
     this.model.lint();
   }
 }

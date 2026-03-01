@@ -1,19 +1,13 @@
 /**
  * @import eslint from "eslint";
- * @import {Language} from "./language";
+ * @import {Language} from "./languages/types";
  * @import {RulesRecord, ParserOptions} from "./linter";
  * @typedef {"lint" | "changeLanguage" | "autofixed"} EventType
  */
 
 import {
-  INITAIL_CONFIG,
-  INITIAL_HTML,
-  INITIAL_JAVASCRIPT,
-  getInitialCode
-} from "./helpers";
-import {
-  Language
-} from "./language";
+  createLanguage,
+} from "./languages";
 import {
   Linter
 } from "./linter";
@@ -30,19 +24,14 @@ export class Model {
      * @member
      * @type {string}
      */
-    this.html = "";
-
-    /**
-     * @member
-     * @type {string}
-     */
-    this.javascript = "";
+    this.code = "";
+   
 
     /**
      * @member
      * @type {RulesRecord}
      */
-    this.rules = {};
+    this.rules = null;
 
     /**
      * @member
@@ -60,7 +49,29 @@ export class Model {
      * @member
      * @type {Language}
      */
-    this.language = new Language("html");
+    this.language = createLanguage("html");
+
+
+    this.cache = {
+      html: {
+        code: "",
+        config: {
+          rules: null
+        }
+      },
+      javascript: {
+        code: "",
+        config: {
+          rules: null
+        }
+      },
+      jsx: {
+        code: "",
+        config: {
+          rules: null
+        }
+      },
+    }
 
     /**
      * @member
@@ -102,32 +113,33 @@ export class Model {
   }
 
   setCode(code) {
-    if (this.language.value === "html") {
-      this.html = code;
-    } else {
-      this.javascript = code;
-    }
+    this.code = code;
   }
 
   getCode() {
-    if (this.language.value === "html") {
-      return this.html;
-    } else {
-      return this.javascript;
-    }
+    return this.code;
   }
 
   /**
-   * @param {Language} language
+   * @param {"html" | "jsx" | "javascript"} language
    */
   setLanguage(language) {
-    if (this.language.value === language) {
-      return;
-    }
-    this.language = new Language(language);
-    if (!this.getCode()) {
-      this.setCode(getInitialCode(this.language.value));
-    }
+    this.cache[this.language.key] = {
+      code: this.code,
+      config:{
+        rules: this.rules,
+      }
+    } 
+    this.language = createLanguage(language);
+    this.setCode(
+      this.cache[language].code || 
+      this.language.initialCode
+    );
+  
+    this.setRules(
+      this.cache[language].config.rules || 
+      this.language.initialConfig.rules
+    )
     this.notify("changeLanguage");
   }
 
@@ -206,7 +218,7 @@ export class Model {
         rules: this.rules,
         parserOptions: this.parserOptions || undefined,
       },
-      language: this.language.value
+      language: this.language.key
     }))));
     return hash;
   }
@@ -220,44 +232,18 @@ export class Model {
       if (!parsed || typeof parsed !== "object") {
         throw new Error("empty parsed");
       }
-      if (parsed.language === "javascript") {
-        this.setLanguage(parsed.language);
-        if (typeof parsed.code === "string" && parsed.code) {
-          this.setCode(parsed.code);
-        } else {
-          this.html = INITIAL_HTML;
-          this.javascript = INITIAL_JAVASCRIPT;
-        }
-      } else {
-        this.setLanguage("html");
-        if (typeof parsed.code === "string" && parsed.code) {
-          this.setCode(parsed.code);
-        } else {
-          this.html = INITIAL_HTML;
-          this.javascript = INITIAL_JAVASCRIPT;
-        }
-      }
-      
+      this.setLanguage(parsed.language);
+      this.setCode(parsed.code);
+
       const hasConfig = parsed.config &&
         typeof parsed.config === "object";
       const hasRule = hasConfig && parsed.config.rules &&
         typeof parsed.config.rules === "object";
-      const hasParserOptions = hasConfig && parsed.config.parserOptions &&
-        typeof parsed.config.parserOptions === 'object';
       if (hasRule) {
         this.setRules(parsed.config.rules);
-      } else {
-        this.setRules(JSON.parse(INITAIL_CONFIG).rules);
-      }
-      if (hasParserOptions) {
-        this.setParserOptions(parsed.config.parserOptions)
-      }
+      } 
     } catch (error) {
-      console.error(error);
-      this.javascript = INITIAL_JAVASCRIPT;
       this.setLanguage("html");
-      this.setCode(INITIAL_HTML);
-      this.setRules(JSON.parse(INITAIL_CONFIG).rules);
     }
   }
 }

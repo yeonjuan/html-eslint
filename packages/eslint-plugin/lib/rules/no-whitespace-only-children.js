@@ -7,7 +7,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { isText, isComment, getLocBetween } = require("./utils/node");
+const { isText, isComment, getLocBetween, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -30,8 +30,7 @@ function hasOnlyWhitespaceChildren(node) {
       continue;
     }
     if (isText(child)) {
-      // Check if text contains any non-whitespace characters
-      if (child.value && child.value.trim().length > 0) {
+      if (child.value?.trim().length > 0) {
         return false;
       }
     } else {
@@ -87,7 +86,7 @@ module.exports = {
           return;
         }
 
-        const tagName = node.name.toLowerCase();
+        const tagName = getNameOf(node);
 
         // If tagPatterns is specified, check if tag name matches any pattern
         const matches = tagPatterns.some((pattern) => pattern.test(tagName));

@@ -1,17 +1,13 @@
 /** @import {RuleModule} from "../types" */
 
-const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-
-const MESSAGE_IDS = {
-  EXTRA_SPACING_START: "extraSpacingStart",
-  EXTRA_SPACING_END: "extraSpacingEnd",
-  EXTRA_SPACING_BETWEEN: "extraSpacingBetween",
-};
-
-const CLASS_BETWEEN_EXTRA_SPACES_REGEX = /\s{2,}/;
+const {
+  classSpacing,
+  CLASS_SPACING_MESSAGE_IDS,
+} = require("@html-eslint/core");
+const { attributeNodeAdapter } = require("./utils/adapter");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -26,121 +22,86 @@ module.exports = {
     fixable: "code",
     schema: [],
     messages: {
-      [MESSAGE_IDS.EXTRA_SPACING_START]:
+      [CLASS_SPACING_MESSAGE_IDS.extraSpacingStart]:
         "Unexpected space at the start of class attribute value",
-      [MESSAGE_IDS.EXTRA_SPACING_END]:
+      [CLASS_SPACING_MESSAGE_IDS.extraSpacingEnd]:
         "Unexpected space at the end of class attribute value",
-      [MESSAGE_IDS.EXTRA_SPACING_BETWEEN]:
+      [CLASS_SPACING_MESSAGE_IDS.extraSpacingBetween]:
         "Unexpected extra spaces between class names",
     },
   },
 
   create(context) {
+    const ruleCore = classSpacing();
+
     return createVisitors(context, {
       Attribute(node) {
+        const adapter = attributeNodeAdapter(node.key, node.value);
         if (node.key.value.toLowerCase() !== "class") {
           return;
         }
-
-        const attributeValue = node.value;
-        if (
-          !attributeValue ||
-          !attributeValue.value ||
-          attributeValue.parts.some((part) => part.type === NODE_TYPES.Template)
-        ) {
+        const attrValueNode = adapter.value.node();
+        if (!attrValueNode) {
           return;
         }
 
-        const classValue = attributeValue.value;
-        const trimmedValue = classValue.trim();
+        const results = ruleCore.checkClassAttribute(adapter);
 
-        if (
-          classValue === trimmedValue &&
-          !CLASS_BETWEEN_EXTRA_SPACES_REGEX.test(classValue)
-        ) {
-          return;
-        }
+        for (const result of results) {
+          const normalizedValue = result.data.normalized;
 
-        const normalizedValue = trimmedValue.replace(/\s+/g, " ");
-
-        // Check for leading spaces
-        if (classValue !== trimmedValue && classValue.startsWith(" ")) {
-          context.report({
-            loc: {
+          let loc;
+          if (result.spacingType === "start") {
+            loc = {
               start: {
-                line: attributeValue.loc.start.line,
-                column: attributeValue.loc.start.column,
+                line: attrValueNode.loc.start.line,
+                column: attrValueNode.loc.start.column,
               },
               end: {
-                line: attributeValue.loc.start.line,
-                column:
-                  attributeValue.loc.start.column +
-                  (classValue.length - classValue.trimStart().length),
+                line: attrValueNode.loc.start.line,
+                column: attrValueNode.loc.start.column + result.spacingLength,
               },
-            },
-            messageId: MESSAGE_IDS.EXTRA_SPACING_START,
-            fix(fixer) {
-              return fixer.replaceTextRange(
-                attributeValue.range,
-                normalizedValue
-              );
-            },
-          });
-          return;
-        }
-
-        // Check for trailing spaces
-        if (classValue !== trimmedValue && classValue.endsWith(" ")) {
-          context.report({
-            loc: {
+            };
+          } else if (result.spacingType === "end") {
+            const classValue = attrValueNode.value;
+            loc = {
               start: {
-                line: attributeValue.loc.start.line,
+                line: attrValueNode.loc.start.line,
                 column:
-                  attributeValue.loc.start.column + classValue.trimEnd().length,
+                  attrValueNode.loc.start.column + classValue.trimEnd().length,
               },
               end: {
-                line: attributeValue.loc.start.line,
-                column: attributeValue.loc.start.column + classValue.length,
+                line: attrValueNode.loc.start.line,
+                column: attrValueNode.loc.start.column + classValue.length,
               },
-            },
-            messageId: MESSAGE_IDS.EXTRA_SPACING_END,
-            fix(fixer) {
-              return fixer.replaceTextRange(
-                attributeValue.range,
-                normalizedValue
-              );
-            },
-          });
-          return;
-        }
-
-        // Check for extra spaces between class names
-        if (CLASS_BETWEEN_EXTRA_SPACES_REGEX.test(classValue)) {
-          const match = classValue.match(CLASS_BETWEEN_EXTRA_SPACES_REGEX);
-          if (match && match.index !== undefined) {
-            context.report({
-              loc: {
-                start: {
-                  line: attributeValue.loc.start.line,
-                  column: attributeValue.loc.start.column + match.index,
-                },
-                end: {
-                  line: attributeValue.loc.start.line,
-                  column:
-                    attributeValue.loc.start.column +
-                    match.index +
-                    match[0].length,
-                },
+            };
+          } else {
+            // between
+            loc = {
+              start: {
+                line: attrValueNode.loc.start.line,
+                column: attrValueNode.loc.start.column + result.spacingIndex,
               },
-              messageId: MESSAGE_IDS.EXTRA_SPACING_BETWEEN,
-              fix(fixer) {
-                return fixer.replaceTextRange(
-                  attributeValue.range,
-                  normalizedValue
-                );
+              end: {
+                line: attrValueNode.loc.start.line,
+                column:
+                  attrValueNode.loc.start.column +
+                  result.spacingIndex +
+                  result.spacingLength,
               },
-            });
+            };
           }
+
+          context.report({
+            loc,
+            messageId: result.messageId,
+            fix(fixer) {
+              return fixer.replaceTextRange(
+                attrValueNode.range,
+                normalizedValue
+              );
+            },
+          });
         }
       },
     });

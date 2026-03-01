@@ -16,9 +16,9 @@
  * @property {string} [message]
  */
 
-const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
+const { getNameOf } = require("./utils/node");
 const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
@@ -92,9 +92,7 @@ module.exports = {
 
       tagOptions.forEach((option) => {
         const attrName = option.attr;
-        const attr = attributes.find(
-          (attr) => attr.key && attr.key.value === attrName
-        );
+        const attr = attributes.find((attr) => attr.key?.value === attrName);
         if (!attr) {
           context.report({
             ...(option.message
@@ -144,7 +142,7 @@ module.exports = {
 
     /** @param {StyleTag | ScriptTag} node */
     function checkStyleOrScript(node) {
-      const tagName = node.type === NODE_TYPES.StyleTag ? "style" : "script";
+      const tagName = getNameOf(node);
       if (!tagOptionsMap.has(tagName)) {
         return;
       }
@@ -153,7 +151,7 @@ module.exports = {
 
     /** @param {Tag} node */
     function checkTag(node) {
-      const tagName = node.name.toLowerCase();
+      const tagName = getNameOf(node);
       if (!tagOptionsMap.has(tagName)) {
         return;
       }

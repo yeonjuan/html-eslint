@@ -2,7 +2,7 @@
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -40,7 +40,7 @@ module.exports = {
   create(context) {
     return createVisitors(context, {
       Tag(node) {
-        if (node.name.toLowerCase() !== "form") {
+        if (getNameOf(node) !== "form") {
           return;
         }
         const method = findAttr(node, "method");
@@ -61,10 +61,7 @@ module.exports = {
           return;
         }
 
-        if (
-          method.value.parts &&
-          method.value.parts.some((part) => part.type !== NODE_TYPES.Part)
-        ) {
+        if (method.value.parts?.some((part) => part.type !== NODE_TYPES.Part)) {
           return;
         }
 

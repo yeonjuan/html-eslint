@@ -11,13 +11,24 @@
     "**/node_modules/**",
     "packages/website/**",
     "packages/eslint-plugin/types/**",
-    "packages/eslint-plugin/lib/rules/utils/baseline.js",
-    "packages/eslint-plugin/tests/rules/use-baseline.test.js",
-    "packages/eslint-plugin/lib/specs/obsolete-attrs.js",
-    "packages/eslint-plugin/tests/rules/no-obsolete-attrs.test.js",
-    "docs/rules/no-obsolete-attrs.md"
+    "packages/core/lib/utils/baseline.js",
+    "packages/core/lib/utils/obsolete-attrs.js",
+    "packages/core/dist",
+    "**/use-baseline.test.js",
+    "**/no-ineffective-attrs.js",
+    "**/no-ineffective-attrs.test.js",
+    "**/no-ineffective-attrs.md",
+    "**/no-obsolete-tags.md",
+    "**/no-obsolete-tags.js",
+    "**/no-obsolete-tags.test.js",
+    "**/no-obsolete-attrs.md",
+    "**/no-obsolete-attrs.js",
+    "**/no-obsolete-attrs.test.js",
+    "CLAUDE.md"
   ],
   "words": [
+    "callees",
+    "TSES",
     "foofoo",
     "rowspan",
     "tseslint",
@@ -67,6 +78,12 @@
     "nofullscreen",
     "controlslist",
     "describedby",
-    "atrule"
+    "atrule",
+    "rviscomi",
+    "Vitaly",
+    "Contentful",
+    "prerender",
+    "popovertarget",
+    "mypopover"
   ]
 }

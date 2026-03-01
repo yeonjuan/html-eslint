@@ -80,8 +80,7 @@ module.exports = {
           }
 
           // Check if the numeric entity is valid (exists in entities.json or within valid Unicode range)
-          const entityKey = Object.keys(entities).find((key) => {
-            const codepoints = entities[key].codepoints;
+          const entityKey = Object.values(entities).find(({ codepoints }) => {
             return codepoints.length === 1 && codepoints[0] === num;
           });
 

@@ -26,6 +26,24 @@ ruleTester.run("require-open-graph-protocol", rule, {
         {
           message:
             "Require use of meta tags for OGP. (og:title, og:type, og:url, og:image)",
+          line: 1,
+          column: 7,
+        },
+      ],
+    },
+    {
+      // Error should be reported at the opening <head> tag only, not the entire head content
+      code: `<html>
+  <head>
+    <meta property="og:title" content="title" />
+  </head>
+</html>`,
+      errors: [
+        {
+          message:
+            "Require use of meta tags for OGP. (og:type, og:url, og:image)",
+          line: 2,
+          column: 3,
         },
       ],
     },

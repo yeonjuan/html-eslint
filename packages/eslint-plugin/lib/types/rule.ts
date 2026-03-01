@@ -8,7 +8,6 @@ type AnyNodeAndLine = AST.AnyNode | Line;
 type PostFix<T, S extends string> = {
   [K in keyof T as `${K & string}${S}`]: T[K];
 };
-
 interface BaseRuleListener {
   Document?: (node: AST.Document) => void;
   AttributeKey?: (node: AST.AttributeKey) => void;
@@ -61,19 +60,19 @@ interface RuleFix {
 export interface RuleFixer {
   insertTextAfter(nodeOrToken: AnyNodeAndLine, text: string): RuleFix;
 
-  insertTextAfterRange(range: eslint.AST.Range, text: string): RuleFix;
+  insertTextAfterRange(range: AST.Range, text: string): RuleFix;
 
   insertTextBefore(nodeOrToken: AnyNodeAndLine, text: string): RuleFix;
 
-  insertTextBeforeRange(range: eslint.AST.Range, text: string): RuleFix;
+  insertTextBeforeRange(range: AST.Range, text: string): RuleFix;
 
   remove(nodeOrToken: AnyNodeAndLine): RuleFix;
 
-  removeRange(range: eslint.AST.Range): RuleFix;
+  removeRange(range: AST.Range): RuleFix;
 
   replaceText(nodeOrToken: AnyNodeAndLine, text: string): RuleFix;
 
-  replaceTextRange(range: eslint.AST.Range, text: string): RuleFix;
+  replaceTextRange(range: AST.Range, text: string): RuleFix;
 }
 
 export type ReportFixFunction = (
@@ -99,13 +98,15 @@ type ReportDescriptor = ReportDescriptorMessage &
 type ReportDescriptorMessage = { message: string } | { messageId: string };
 type ReportDescriptorLocation = {
   node?: estree.BaseNode;
-  loc?: eslint.AST.SourceLocation;
+  loc?: AST.SourceLocation;
   line?: number;
   column?: number;
 };
 
-export interface Context<Options extends unknown[]>
-  extends Omit<eslint.Rule.RuleContext, "report"> {
+export interface Context<Options extends unknown[]> extends Omit<
+  eslint.Rule.RuleContext,
+  "report"
+> {
   report(descriptor: ReportDescriptor): void;
   options: Options;
 }

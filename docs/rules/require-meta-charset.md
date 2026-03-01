@@ -1,3 +1,8 @@
+---
+title: require-meta-charset
+description: Require meta charset declaration in the head for proper character encoding.
+---
+
 # require-meta-charset
 
 This rule requires a `<meta charset="...">` tag within the `<head>`.

@@ -1,3 +1,8 @@
+---
+title: require-img-alt
+description: Enforce alt attribute on img tags for accessibility, SEO, and fallback text when images fail to load.
+---
+
 # require-img-alt
 
 This rule enforces the use of `alt` attribute in `img` tags.

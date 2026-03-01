@@ -1,5 +1,5 @@
 /**
- * @import {AST} from "eslint"
+ * @import {Range} from "@html-eslint/types"
  * @import {
  *   CloseSyntax,
  *   OpenSyntax,
@@ -13,14 +13,14 @@ module.exports = class Parser {
   /**
    * @param {string} code
    * @param {SyntaxConfigItem[]} syntaxPairs
-   * @param {AST.Range[]} skipRanges
+   * @param {Range[]} skipRanges
    */
   constructor(code, syntaxPairs, skipRanges) {
     /** @type {string} */
     this.code = code;
     /** @type {SyntaxConfigItem[]} */
     this.syntaxPairs = syntaxPairs || [];
-    /** @type {AST.Range[]} */
+    /** @type {Range[]} */
     this.skipRanges = skipRanges;
     /** @type {OpenSyntax[]} */
     this.syntaxStack = [];
@@ -31,7 +31,7 @@ module.exports = class Parser {
   /**
    * @private
    * @param {number} index
-   * @returns {AST.Range | undefined}
+   * @returns {Range | undefined}
    */
   findSkipRange(index) {
     return this.skipRanges.find(

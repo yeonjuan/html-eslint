@@ -4,7 +4,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -18,7 +18,7 @@ const MESSAGE_IDS = {
  * @see https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2
  */
 function isInteractive(tag) {
-  const tagName = tag.name.toLowerCase();
+  const tagName = getNameOf(tag);
 
   switch (tagName) {
     // a (if the href attribute is present)
@@ -38,10 +38,11 @@ function isInteractive(tag) {
     // input (if the type attribute is not in the Hidden state)
     case "input": {
       const typeAttr = findAttr(tag, "type");
-      return !(typeAttr && typeAttr.value && typeAttr.value.value === "hidden");
+      return typeAttr?.value?.value !== "hidden";
     }
+    // case "details": see https://github.com/yeonjuan/html-eslint/issues/518
+    case "summary":
     case "button":
-    case "details":
     case "embed":
     case "iframe":
     case "label":
@@ -90,9 +91,9 @@ module.exports = {
         if (interactiveStack.length) {
           if (interactiveStack.length === 1) {
             const parentLabel = interactiveStack.find(
-              (tag) => tag.name.toLowerCase() === "label"
+              (tag) => getNameOf(tag) === "label"
             );
-            if (parentLabel && node.name.toLowerCase() !== "label") {
+            if (parentLabel && getNameOf(node) !== "label") {
               return;
             }
           }

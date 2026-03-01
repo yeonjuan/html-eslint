@@ -11,7 +11,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const SVG_CAMEL_CASE_ATTRIBUTES = require("../constants/svg-camel-case-attributes");
 const { createVisitors } = require("./utils/visitors");
-const { hasTemplate, isScript, isStyle } = require("./utils/node");
+const { hasTemplate, getNameOf } = require("./utils/node");
 const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
@@ -60,16 +60,9 @@ module.exports = {
     }
 
     /** @param {Tag | StyleTag | ScriptTag} node */
-    function nameOf(node) {
-      if (isScript(node)) return "script";
-      if (isStyle(node)) return "style";
-      return node.name;
-    }
-
-    /** @param {Tag | StyleTag | ScriptTag} node */
     function check(node) {
       const raw = node.openStart.value.slice(1);
-      const name = nameOf(node);
+      const name = getNameOf(node);
       if (
         name !== raw &&
         (svgStack.length === 0 || name.toLowerCase() === "svg")
@@ -81,7 +74,6 @@ module.exports = {
             name: raw,
           },
           fix(fixer) {
-            const name = nameOf(node);
             const fixes = [
               fixer.replaceTextRange(node.openStart.range, `<${name}`),
             ];
@@ -96,7 +88,7 @@ module.exports = {
           },
         });
       }
-      if (node.attributes && node.attributes.length) {
+      if (node.attributes?.length) {
         node.attributes.forEach((attribute) => {
           if (isAllowedAttributeKey(attribute.key.value)) {
             return;
@@ -137,7 +129,7 @@ module.exports = {
           },
         });
       }
-      if (doctype.attributes && doctype.attributes.length) {
+      if (doctype.attributes?.length) {
         doctype.attributes.forEach((attribute) => {
           if (
             attribute.value &&

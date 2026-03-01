@@ -1,10 +1,11 @@
 import CSSTree, { CssLocation, List } from "css-tree";
+import { Range } from "./range";
 
 type ToESTree<Node extends CSSTree.CssNodeCommon> = Omit<
   Node,
   "type" | "children"
 > & {
-  range: [number, number];
+  range: Range;
   loc: CssLocation;
 };
 

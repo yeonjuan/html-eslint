@@ -1,14 +1,20 @@
-/** @import {RuleModule} from "../types" */
+/**
+ * @import {
+ *   ScriptTag,
+ *   StyleTag,
+ *   Tag
+ * } from "@html-eslint/types"
+ * @import {RuleModule} from "../types"
+ */
 
-const { RULE_CATEGORY, OBSOLETE_TAGS } = require("../constants");
+const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-
-const OBSOLETE_TAGS_SET = new Set(OBSOLETE_TAGS);
-
-const MESSAGE_IDS = {
-  UNEXPECTED: "unexpected",
-};
+const { elementNodeAdapter } = require("./utils/adapter");
+const {
+  noObsoleteTags,
+  NO_OBSOLETE_TAGS_MESSAGE_IDS,
+} = require("@html-eslint/core");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -25,23 +31,30 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "Unexpected use of obsolete tag <{{tag}}>",
+      [NO_OBSOLETE_TAGS_MESSAGE_IDS.unexpected]:
+        "Unexpected use of obsolete tag <{{tag}}>",
     },
   },
 
   create(context) {
+    const ruleCore = noObsoleteTags();
+
+    /** @param {Tag | ScriptTag | StyleTag} node */
+    function checkElement(node) {
+      const result = ruleCore.checkElement(elementNodeAdapter(node));
+      for (const { node, messageId, data } of result) {
+        context.report({
+          node,
+          messageId,
+          data,
+        });
+      }
+    }
+
     return createVisitors(context, {
-      Tag(node) {
-        if (OBSOLETE_TAGS_SET.has(node.name)) {
-          context.report({
-            node,
-            data: {
-              tag: node.name,
-            },
-            messageId: MESSAGE_IDS.UNEXPECTED,
-          });
-        }
-      },
+      Tag: checkElement,
+      ScriptTag: checkElement,
+      StyleTag: checkElement,
     });
   },
 };

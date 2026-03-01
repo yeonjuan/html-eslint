@@ -6,7 +6,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -58,40 +58,26 @@ module.exports = {
   },
 
   create(context) {
-    const allowClass =
-      (context.options &&
-        context.options[0] &&
-        context.options[0].allowClass) ||
-      [];
-    const allowId =
-      (context.options && context.options[0] && context.options[0].allowId) ||
-      [];
+    const allowClass = context.options?.[0]?.allowClass || [];
+    const allowId = context.options?.[0]?.allowId || [];
 
     const allowClassSet = new Set(allowClass);
     const allowIdSet = new Set(allowId);
     return createVisitors(context, {
       Tag(node) {
-        if (
-          !TARGET_ELEMENTS.some(
-            (element) => element === node.name.toLowerCase()
-          )
-        ) {
+        if (!TARGET_ELEMENTS.some((element) => element === getNameOf(node))) {
           return;
         }
         const classAttr = findAttr(node, "class");
         if (
-          classAttr &&
-          classAttr.value &&
-          classAttr.value.value.split(" ").some((cls) => allowClassSet.has(cls))
+          classAttr?.value?.value
+            .split(" ")
+            .some((cls) => allowClassSet.has(cls))
         ) {
           return;
         }
         const idAttr = findAttr(node, "id");
-        if (
-          idAttr &&
-          idAttr.value &&
-          idAttr.value.value.split(" ").some((id) => allowIdSet.has(id))
-        ) {
+        if (idAttr?.value?.value.split(" ").some((id) => allowIdSet.has(id))) {
           return;
         }
 
@@ -108,7 +94,7 @@ module.exports = {
           });
         }
 
-        if (!width || !width.value) {
+        if (!width?.value) {
           context.report({
             node: node.openStart,
             messageId: MESSAGE_IDS.MISSING_WIDTH,

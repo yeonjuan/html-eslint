@@ -8,10 +8,10 @@
  * @typedef {{ tagPatterns: string[]; message?: string }[]} Options
  */
 
-const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
+const { getNameOf } = require("./utils/node");
 
 const MESSAGE_IDS = {
   RESTRICTED: "restricted",
@@ -56,18 +56,12 @@ module.exports = {
   },
 
   create(context) {
-    /** @type {Options} */
-    const options = context.options;
+    const { options } = context;
     const checkers = options.map((option) => new PatternChecker(option));
 
     /** @param {Tag | StyleTag | ScriptTag} node */
     function check(node) {
-      const tagName =
-        node.type === NODE_TYPES.Tag
-          ? node.name
-          : node.type === NODE_TYPES.ScriptTag
-            ? "script"
-            : "style";
+      const tagName = getNameOf(node);
 
       const matched = checkers.find((checker) => checker.test(tagName));
 

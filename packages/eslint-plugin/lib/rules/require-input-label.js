@@ -5,7 +5,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
-const { findParent, isTag } = require("./utils/node");
+const { findParent, isTag, getNameOf } = require("./utils/node");
 const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
@@ -37,30 +37,28 @@ module.exports = {
   create(context) {
     return createVisitors(context, {
       Tag(node) {
-        if (!INPUT_TAGS.has(node.name.toLowerCase())) {
+        if (!INPUT_TAGS.has(getNameOf(node))) {
           return;
         }
 
         for (const attr of node.attributes) {
           if (
             LABEL_ATTRIBUTES.has(attr.key.value.toLowerCase()) &&
-            attr.value &&
-            attr.value.value
+            attr.value?.value
           ) {
             return;
           }
 
           if (
             attr.key.value.toLowerCase() === "type" &&
-            attr.value &&
-            attr.value.value === "hidden"
+            attr.value?.value === "hidden"
           ) {
             return;
           }
         }
 
         const label = findParent(node, (parent) => {
-          return isTag(parent) && parent.name.toLowerCase() === "label";
+          return isTag(parent) && getNameOf(parent) === "label";
         });
 
         if (label) {

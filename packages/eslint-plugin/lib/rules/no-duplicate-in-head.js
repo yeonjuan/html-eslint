@@ -5,7 +5,7 @@
 
 const { parseTemplateLiteral } = require("./utils/template-literal");
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, getNameOf } = require("./utils/node");
 const {
   shouldCheckTaggedTemplateExpression,
   shouldCheckTemplateLiteral,
@@ -25,7 +25,7 @@ const MESSAGE_IDS = {
  * @returns {string | null}
  */
 function getTrackingKey(node) {
-  const tagName = node.name.toLowerCase();
+  const tagName = getNameOf(node);
 
   if (["title", "base"].includes(tagName)) {
     return tagName;
@@ -38,7 +38,7 @@ function getTrackingKey(node) {
     }
 
     const nameAttr = findAttr(node, "name");
-    if (nameAttr && nameAttr.value && nameAttr.value.value === "viewport") {
+    if (nameAttr?.value?.value === "viewport") {
       return "meta[name=viewport]";
     }
   }
@@ -46,12 +46,7 @@ function getTrackingKey(node) {
   if (tagName === "link") {
     const relAttr = findAttr(node, "rel");
     const hrefAttr = findAttr(node, "href");
-    if (
-      relAttr &&
-      relAttr.value &&
-      relAttr.value.value === "canonical" &&
-      hrefAttr
-    ) {
+    if (relAttr?.value?.value === "canonical" && hrefAttr) {
       return "link[rel=canonical]";
     }
   }
@@ -88,7 +83,7 @@ module.exports = {
       return {
         /** @param {Tag} node */
         Tag(node) {
-          const tagName = node.name.toLowerCase();
+          const tagName = getNameOf(node);
 
           if (tagName === "head") {
             if (headCountRef !== null) {
@@ -99,8 +94,7 @@ module.exports = {
             return;
           }
 
-          const currentHeadCount =
-            headCountRef !== null ? headCountRef.count : headCount;
+          const currentHeadCount = headCountRef?.count ?? headCount;
           if (currentHeadCount === 0) return;
 
           const trackingKey = getTrackingKey(node);
@@ -118,7 +112,7 @@ module.exports = {
 
         /** @param {Tag} node */
         "Tag:exit"(node) {
-          const tagName = node.name.toLowerCase();
+          const tagName = getNameOf(node);
           if (tagName === "head") {
             if (headCountRef !== null) {
               headCountRef.count--;

@@ -1,8 +1,11 @@
 {
   "name": "@html-eslint/template-parser",
-  "version": "0.54.0",
+  "version": "0.57.0",
   "description": "HTML parser for template literals ",
-  "author": "yeonjuan",
+  "author": {
+    "name": "yeonjuan",
+    "url": "https://github.com/yeonjuan"
+  },
   "homepage": "https://github.com/yeonjuan/html-eslint#readme",
   "license": "MIT",
   "main": "lib/index.js",
@@ -27,8 +30,16 @@
   "bugs": {
     "url": "https://github.com/yeonjuan/html-eslint/issues"
   },
+  "keywords": [
+    "html",
+    "eslint",
+    "parser",
+    "template-literal",
+    "lit",
+    "ast"
+  ],
   "dependencies": {
-    "@html-eslint/types": "^0.54.0",
+    "@html-eslint/types": "^0.57.0",
     "es-html-parser": "0.3.1"
   },
   "devDependencies": {

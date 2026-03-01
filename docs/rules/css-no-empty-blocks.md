@@ -1,3 +1,10 @@
+---
+title: css-no-empty-blocks
+description: >-
+  Disallow empty CSS blocks in style tags to keep stylesheets clean and
+  meaningful.
+---
+
 # css-no-empty-blocks
 
 This rule disallows empty CSS blocks in `<style>` tags.

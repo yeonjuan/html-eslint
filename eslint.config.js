@@ -20,9 +20,28 @@ module.exports = [
       "**/integration-test-projects",
       "**/coverage",
       "prettier.config.mjs",
+      "**/dist",
+      "tools/rule/templates/**/*.js",
     ],
   },
   ...compat.extends("eslint:recommended"),
+  {
+    rules: {
+      "prefer-destructuring": [
+        "error",
+        {
+          VariableDeclarator: {
+            array: false,
+            object: true,
+          },
+          AssignmentExpression: {
+            array: false,
+            object: false,
+          },
+        },
+      ],
+    },
+  },
   {
     plugins: {
       jest,
@@ -34,7 +53,7 @@ module.exports = [
         ...globals.node,
       },
 
-      ecmaVersion: 9,
+      ecmaVersion: 2020,
       sourceType: "commonjs",
     },
 
@@ -54,9 +73,17 @@ module.exports = [
     },
   },
   {
-    files: ["tools/**/*.mjs"],
+    files: [
+      "tools/**/*.mjs",
+      "packages/core/**/*.js",
+      "packages/eslint-plugin-svelte/**/*.js",
+      "**/*.mjs",
+    ],
     languageOptions: {
       sourceType: "module",
+      parserOptions: {
+        ecmaVersion: 2020,
+      },
     },
   },
 ];

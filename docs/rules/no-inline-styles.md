@@ -1,3 +1,10 @@
+---
+title: no-inline-styles
+description: >-
+  Disallow inline styles to promote separation of concerns and CSS best
+  practices.
+---
+
 # no-inline-styles
 
 This rule disallows the use of inline styles.

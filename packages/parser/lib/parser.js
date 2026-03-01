@@ -8,7 +8,7 @@ const { traverse, traverseCss } = require("./traverse");
 const { NODE_TYPES } = require("./node-types");
 const { getOptions } = require("./options");
 const { parse: parseCSS, toPlainObject } = require("css-tree");
-// const { parse: parseCSS, toPlainObject } = require("@eslint/css-tree");
+
 /**
  * @param {string} code
  * @param {ParserOptions | undefined} parserOptions

@@ -53,11 +53,7 @@ module.exports = {
 
         const descriptionMetaTags = metaTags.filter((meta) => {
           const nameAttr = findAttr(meta, "name");
-          return (
-            !!nameAttr &&
-            nameAttr.value &&
-            nameAttr.value.value.toLowerCase() === "description"
-          );
+          return nameAttr?.value?.value.toLowerCase() === "description";
         });
 
         if (descriptionMetaTags.length === 0) {

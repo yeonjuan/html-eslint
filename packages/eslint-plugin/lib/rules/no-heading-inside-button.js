@@ -1,7 +1,7 @@
 /** @import {RuleModule} from "../types" */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findParent, isTag } = require("./utils/node");
+const { findParent, isTag, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -33,12 +33,12 @@ module.exports = {
   create(context) {
     return createVisitors(context, {
       Tag(node) {
-        if (!HEADING_NAMES.has(node.name.toLowerCase())) {
+        if (!HEADING_NAMES.has(getNameOf(node))) {
           return;
         }
         const button = findParent(
           node,
-          (parent) => isTag(parent) && parent.name.toLowerCase() === "button"
+          (parent) => isTag(parent) && getNameOf(parent) === "button"
         );
 
         if (button) {

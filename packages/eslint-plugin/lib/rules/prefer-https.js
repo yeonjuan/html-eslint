@@ -9,7 +9,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr, isScript } = require("./utils/node");
+const { findAttr, isScript, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -37,7 +37,7 @@ function getResourceAttributeValue(node) {
   if (isScript(node)) {
     attribute = findAttr(node, "src");
   } else {
-    switch (node.name.toLowerCase()) {
+    switch (getNameOf(node)) {
       case "img":
       case "iframe":
       case "audio":

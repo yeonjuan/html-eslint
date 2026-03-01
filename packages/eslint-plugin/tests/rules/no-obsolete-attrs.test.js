@@ -36,7 +36,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<a charset="UTF-8">Link</a>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "charset",
             element: "a",
@@ -50,7 +50,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<link charset="UTF-8">`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "charset",
             element: "link",
@@ -64,7 +64,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<script charset="UTF-8"></script>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "charset",
             element: "script",
@@ -78,7 +78,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<a name="anchor">Link</a>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "name",
             element: "a",
@@ -91,7 +91,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<img name="myimage" src="image.jpg">`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "name",
             element: "img",
@@ -104,7 +104,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<table align="center"></table>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "align",
             element: "table",
@@ -117,7 +117,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<div align="left">Content</div>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "align",
             element: "div",
@@ -130,7 +130,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<body bgcolor="#ffffff"></body>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "bgcolor",
             element: "body",
@@ -143,7 +143,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<table bgcolor="#cccccc" border="1"></table>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "bgcolor",
             element: "table",
@@ -151,7 +151,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
           },
         },
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "border",
             element: "table",
@@ -164,7 +164,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<img src="image.jpg" border="0">`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "border",
             element: "img",
@@ -177,7 +177,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<table width="100%" height="200" cellpadding="5" cellspacing="0"></table>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "width",
             element: "table",
@@ -185,7 +185,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
           },
         },
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "height",
             element: "table",
@@ -193,7 +193,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
           },
         },
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "cellpadding",
             element: "table",
@@ -201,7 +201,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
           },
         },
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "cellspacing",
             element: "table",
@@ -214,7 +214,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<iframe frameborder="0" scrolling="no"></iframe>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "frameborder",
             element: "iframe",
@@ -222,7 +222,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
           },
         },
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "scrolling",
             element: "iframe",
@@ -235,7 +235,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<td scope="row">Cell</td>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "scope",
             element: "td",
@@ -248,7 +248,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<html manifest="app.appcache"></html>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "manifest",
             element: "html",
@@ -261,7 +261,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<form accept="image/*"></form>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "accept",
             element: "form",
@@ -275,7 +275,7 @@ ruleTester.run("no-obsolete-attrs", rule, {
       code: `<div contextmenu="mymenu">Content</div>`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
           data: {
             attr: "contextmenu",
             element: "div",
@@ -302,7 +302,7 @@ templateRuleTester.run("[template] no-obsolete-attrs", rule, {
       code: `html\`<a name="anchor">Link</a>\`;`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
         },
       ],
     },
@@ -310,7 +310,7 @@ templateRuleTester.run("[template] no-obsolete-attrs", rule, {
       code: `html\`<table align="center"></table>\`;`,
       errors: [
         {
-          messageId: "unexpected",
+          messageId: "obsolete",
         },
       ],
     },

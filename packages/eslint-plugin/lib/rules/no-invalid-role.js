@@ -2,7 +2,7 @@
 
 const { NODE_TYPES } = require("@html-eslint/parser");
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -254,22 +254,16 @@ module.exports = {
         }
         /** Allow template expression. ex: html`<div role=${role}></div>` */
         if (
-          role.value &&
-          role.value.parts.some((part) => part.type === NODE_TYPES.Template)
+          role.value?.parts.some((part) => part.type === NODE_TYPES.Template)
         ) {
           return;
         }
 
-        const roleValue = (
-          (role.value && role.value.value) ||
-          ""
-        ).toLowerCase();
+        const roleValue = (role.value?.value || "").toLowerCase();
 
         if (
           (roleValue === "presentation" || roleValue === "none") &&
-          ELEMENTS_DISALLOWING_PRESENTATION_OR_NONE_ROLE.has(
-            node.name.toLowerCase()
-          )
+          ELEMENTS_DISALLOWING_PRESENTATION_OR_NONE_ROLE.has(getNameOf(node))
         ) {
           context.report({
             node: role,

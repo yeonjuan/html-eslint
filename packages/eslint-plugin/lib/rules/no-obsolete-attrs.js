@@ -7,15 +7,14 @@
  * @import {RuleModule} from "../types"
  */
 
+const {
+  noObsoleteAttrs,
+  NO_OBSOLETE_ATTRS_MESSAGE_IDS,
+} = require("@html-eslint/core");
 const { RULE_CATEGORY } = require("../constants");
-const { OBSOLETE_ATTRS } = require("../specs");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-const { getNameOf } = require("./utils/node");
-
-const MESSAGE_IDS = {
-  UNEXPECTED: "unexpected",
-};
+const { elementNodeAdapter } = require("./utils/adapter");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -32,45 +31,24 @@ module.exports = {
     fixable: null,
     schema: [],
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]:
+      [NO_OBSOLETE_ATTRS_MESSAGE_IDS.obsolete]:
         "The {{attr}} attribute on <{{element}}> is obsolete. {{suggestion}}",
     },
   },
 
   create(context) {
+    const ruleCore = noObsoleteAttrs();
+
     /** @param {Tag | ScriptTag | StyleTag} node */
     function checkObsoleteAttrs(node) {
-      const tagName = getNameOf(node);
-      // Check each attribute on the element
-      if (node.attributes) {
-        for (const attr of node.attributes) {
-          const attrName = attr.key.value.toLowerCase();
-
-          // Check if this attribute is in the obsolete list
-          if (OBSOLETE_ATTRS[attrName]) {
-            const obsoleteConfigs = OBSOLETE_ATTRS[attrName];
-
-            // Check if this attribute is obsolete for this specific element
-            for (const config of obsoleteConfigs) {
-              // Handle wildcard (*) for all elements
-              if (
-                config.elements.includes("*") ||
-                config.elements.includes(tagName)
-              ) {
-                context.report({
-                  node: attr,
-                  messageId: MESSAGE_IDS.UNEXPECTED,
-                  data: {
-                    attr: attrName,
-                    element: tagName,
-                    suggestion: config.suggestion,
-                  },
-                });
-                break;
-              }
-            }
-          }
-        }
+      const adapter = elementNodeAdapter(node);
+      const result = ruleCore.checkAttributes(adapter);
+      for (const { node, messageId, data } of result) {
+        context.report({
+          node,
+          messageId,
+          data,
+        });
       }
     }
 

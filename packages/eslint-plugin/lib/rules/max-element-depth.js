@@ -52,9 +52,7 @@ module.exports = {
 
   create(context) {
     const maxDepth =
-      context.options &&
-      context.options[0] &&
-      typeof context.options[0].max === "number"
+      typeof context.options?.[0]?.max === "number"
         ? context.options[0].max
         : 32;
 
