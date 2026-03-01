@@ -34,8 +34,12 @@ module.exports = function generateHTMLs(srcDir, distDir, outDir) {
         outDir,
         filename
       );
-      if (!existsSync(nextDistDir)) mkdirSync(nextDistDir);
-      if (!existsSync(nextOutDir)) mkdirSync(nextOutDir);
+      if (!existsSync(nextDistDir)) mkdirSync(nextDistDir, {
+        recursive: true
+      });
+      if (!existsSync(nextOutDir)) mkdirSync(nextOutDir, {
+        recursive: true
+      });
 
       generateHTMLs(
         filepath,

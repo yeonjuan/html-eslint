@@ -13,7 +13,10 @@ const { AST_NODE_TYPES } = require("../../constants/node-types");
 
 /**
  * @param {AngularTextAttribute} node
- * @returns {AttributeAdapter<AngularTextAttribute | null, null>}
+ * @returns {AttributeAdapter<
+ *   AngularTextAttribute | null,
+ *   AngularTextAttribute
+ * >}
  */
 function textAttributeAdapter(node) {
   return {
@@ -26,7 +29,7 @@ function textAttributeAdapter(node) {
       raw: () => node.name,
     },
     value: {
-      node: () => null,
+      node: () => node,
       isExpression() {
         return false;
       },

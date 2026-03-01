@@ -242,7 +242,7 @@ describe("integration tests", () => {
       fixtureName: "angular-template",
       log: true,
       localPackages: ["@html-eslint/eslint-plugin-angular-template"],
-      extraDependencies: { "@angular-eslint/template-parser": "^21.2.0" },
+      externalPackages: [["@angular-eslint/template-parser", "^21.2.0"]],
       invalidFiles: ["templates/invalid.html"],
       validFiles: ["templates/valid.html"],
     });

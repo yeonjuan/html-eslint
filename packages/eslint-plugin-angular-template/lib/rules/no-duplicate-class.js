@@ -11,6 +11,7 @@ const {
   NO_DUPLICATE_CLASS_MESSAGE_IDS,
 } = require("@html-eslint/core");
 const { AST_NODE_TYPES } = require("../constants/node-types");
+const { textAttributeAdapter } = require("./utils/adapter");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -35,21 +36,7 @@ module.exports = {
 
     /** @param {AngularTextAttribute} attr */
     function checkTextAttribute(attr) {
-      // value is static string — build a minimal adapter
-      const adapter = {
-        key: {
-          node: () => attr,
-          isExpression: () => false,
-          value: () => attr.name.toLowerCase(),
-          raw: () => attr.name,
-        },
-        value: {
-          node: () => attr,
-          isExpression: () => false,
-          value: () => attr.value,
-        },
-      };
-
+      const adapter = textAttributeAdapter(attr);
       const results = ruleCore.checkClassAttribute(adapter);
 
       for (const result of results) {
