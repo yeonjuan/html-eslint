@@ -1,7 +1,10 @@
 /**
  * @import {
+ *   Literal,
  *   RuleModule,
- *   SvelteElement
+ *   SvelteLiteral,
+ *   SvelteMustacheTag,
+ *   TemplateLiteral
  * } from "../types.js"
  * @file Disallow duplicate class names for Svelte
  */
@@ -10,8 +13,9 @@ import {
   noDuplicateClass,
   NO_DUPLICATE_CLASS_MESSAGE_IDS,
 } from "@html-eslint/core";
-import { elementNodeAdapter } from "./utils/adapter.js";
 import { AST_NODE_TYPES } from "../constants/node-types.js";
+import { createAttributeValueAdapter } from "../adapters/attribute-value/factory.js";
+import { isLiteral, isTemplateLiteral } from "./utils/node.js";
 
 /** @type {RuleModule} */
 const rule = {
@@ -27,91 +31,65 @@ const rule = {
     schema: [],
     messages: {
       [NO_DUPLICATE_CLASS_MESSAGE_IDS.duplicateClass]:
-        "The class '{{class}}' is duplicated.",
+        "The class '{{className}}' is duplicated.",
     },
   },
 
   create(context) {
-    const ruleCore = noDuplicateClass();
+    const { checkClassValue } = noDuplicateClass();
 
-    /**
-     * Check if an element has duplicate class names
-     *
-     * @param {SvelteElement} node
-     */
-    function checkElement(node) {
-      const adapter = elementNodeAdapter(node);
-      const attributes = adapter.getAttributes();
+    /** @param {SvelteLiteral | Literal | TemplateLiteral} node */
+    function checkLiteral(node) {
+      const adapter = createAttributeValueAdapter(node);
+      const result = checkClassValue(adapter);
+      for (const { loc, messageId, range, data } of result) {
+        context.report({
+          loc,
+          messageId,
+          data,
+          fix(fixer) {
+            return fixer.removeRange(range);
+          },
+        });
+      }
+    }
 
-      for (const attrAdapter of attributes) {
-        const keyValue = attrAdapter.key.value();
-        if (!keyValue || keyValue.toLowerCase() !== "class") {
-          continue;
-        }
-
-        const attrValueNode = attrAdapter.value.node();
-        if (!attrValueNode || !Array.isArray(attrValueNode)) {
-          continue;
-        }
-
-        const results = ruleCore.checkClassAttribute(attrAdapter);
-
-        for (const result of results) {
-          // Get the first literal value node for location reporting
-          const firstLiteral = attrValueNode.find(
-            (part) => part.type === AST_NODE_TYPES.SvelteLiteral
-          );
-
-          if (!firstLiteral) {
-            continue;
+    /** @param {SvelteMustacheTag} node */
+    function checkSvelteMustacheTag(node) {
+      if (isLiteral(node.expression) || isTemplateLiteral(node.expression)) {
+        checkLiteral(node.expression);
+      } else if (node.expression.type === AST_NODE_TYPES.ArrayExpression) {
+        node.expression.elements.forEach((element) => {
+          if (!element) {
+            return;
           }
-
-          context.report({
-            loc: {
-              start: {
-                line: firstLiteral.loc.start.line,
-                column: firstLiteral.loc.start.column + result.classIndex,
-              },
-              end: {
-                line: firstLiteral.loc.start.line,
-                column:
-                  firstLiteral.loc.start.column +
-                  result.classIndex +
-                  result.className.length,
-              },
-            },
-            data: result.data,
-            messageId: result.messageId,
-            fix(fixer) {
-              if (!firstLiteral) {
-                return null;
-              }
-
-              const startRange = result.hasSpacesBefore
-                ? firstLiteral.range[0] + result.spacesBeforePos
-                : firstLiteral.range[0] + result.classIndex;
-
-              const endRange = result.hasSpacesAfter
-                ? firstLiteral.range[0] +
-                  result.classIndex +
-                  result.classLength +
-                  result.spacesAfterLength
-                : firstLiteral.range[0] +
-                  result.classIndex +
-                  result.classLength;
-
-              return fixer.replaceTextRange(
-                [startRange, endRange],
-                result.hasClassBefore && result.hasClassAfter ? " " : ""
-              );
-            },
-          });
-        }
+          if (isLiteral(element) || isTemplateLiteral(element)) {
+            checkLiteral(element);
+          }
+        });
       }
     }
 
     return {
-      SvelteElement: checkElement,
+      SvelteAttribute(node) {
+        if (
+          !node.key ||
+          !node.key.name ||
+          node.key.name.toLowerCase() !== "class" ||
+          !node.value ||
+          node.value.length === 0
+        ) {
+          return;
+        }
+
+        node.value.forEach((valuePart) => {
+          if (valuePart.type === AST_NODE_TYPES.SvelteLiteral) {
+            checkLiteral(valuePart);
+          } else if (valuePart.type === AST_NODE_TYPES.SvelteMustacheTag) {
+            checkSvelteMustacheTag(valuePart);
+          }
+        });
+      },
     };
   },
 };

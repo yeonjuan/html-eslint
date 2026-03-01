@@ -119,20 +119,11 @@ export type ClassSpacingResult = Array<{
   loc: SourceLocation;
 }>;
 
-export type NoDuplicateClassResult<AttributeValueNode> = Array<{
+export type NoDuplicateClassResult = Array<{
   messageId: "duplicateClass";
-  node: AttributeValueNode;
+  range: Range;
+  loc: SourceLocation;
   data: {
-    class: string;
+    className: string;
   };
-  className: string;
-  classIndex: number;
-  classLength: number;
-  tokenIndex: number;
-  hasSpacesBefore: boolean;
-  hasSpacesAfter: boolean;
-  hasClassBefore: boolean;
-  hasClassAfter: boolean;
-  spacesBeforePos: number;
-  spacesAfterLength: number;
 }>;
