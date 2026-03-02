@@ -23,6 +23,7 @@ export type SvelteSpreadAttribute = AST.SvelteSpreadAttribute;
 export type SvelteStyleDirective = AST.SvelteStyleDirective;
 export type SvelteShorthandAttribute = AST.SvelteShorthandAttribute;
 export type SvelteName = AST.SvelteName;
+export type SvelteMemberExpressionName = AST.SvelteMemberExpressionName;
 export type SvelteMustacheTagText = AST.SvelteMustacheTagText;
 export type ArrayExpression = NodeWithStringType<TSESTree.ArrayExpression>;
 export type Literal = NodeWithStringType<TSESTree.Literal>;

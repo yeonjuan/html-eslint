@@ -7,11 +7,31 @@
  *   Range,
  *   SourceLocation
  * } from "@html-eslint/types"
- * @import {JSXElement} from "../../types"
+ * @import {
+ *   JSXElement,
+ *   JSXMemberExpression
+ * } from "../../types"
  */
 
 const { AST_NODE_TYPES } = require("../../constants/node-types");
 const { createAttributeAdapter } = require("../attribute/factory");
+
+/**
+ * Recursively builds the string representation of a JSXMemberExpression. For
+ * example, <a.b.c> becomes "a.b.c"
+ *
+ * @param {JSXMemberExpression} node
+ * @returns {string}
+ */
+function getJSXMemberExpressionName(node) {
+  const objectName =
+    node.object.type === AST_NODE_TYPES.JSXIdentifier
+      ? node.object.name
+      : node.object.type === AST_NODE_TYPES.JSXNamespacedName
+        ? `${node.object.namespace.name}:${node.object.name.name}`
+        : getJSXMemberExpressionName(node.object);
+  return `${objectName}.${node.property.name}`;
+}
 
 /** @implements {ElementAdapter} */
 class JSXElementElementAdapter {
@@ -30,8 +50,7 @@ class JSXElementElementAdapter {
     if (
       this.node.openingElement.name.type === AST_NODE_TYPES.JSXMemberExpression
     ) {
-      // TODO: JSXMemberExpression 처리 (ex: <a.a ===> "a.a")
-      return "";
+      return getJSXMemberExpressionName(this.node.openingElement.name);
     }
     return this.node.openingElement.name.name;
   }

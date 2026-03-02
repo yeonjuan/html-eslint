@@ -7,11 +7,29 @@
  *   Range,
  *   SourceLocation
  * } from "@html-eslint/types"
- * @import {SvelteElement} from "../../types"
+ * @import {
+ *   SvelteElement,
+ *   SvelteMemberExpressionName
+ * } from "../../types"
  */
 
 import { AST_NODE_TYPES } from "../../constants/node-types";
 import { createAttributeAdapter } from "../attribute/factory";
+
+/**
+ * Recursively builds the string representation of a SvelteMemberExpressionName.
+ * For example, <a.b.c> becomes "a.b.c"
+ *
+ * @param {SvelteMemberExpressionName} node
+ * @returns {string}
+ */
+function getSvelteMemberExpressionName(node) {
+  const objectName =
+    node.object.type === AST_NODE_TYPES.Identifier
+      ? node.object.name
+      : getSvelteMemberExpressionName(node.object);
+  return `${objectName}.${node.property.name}`;
+}
 
 /** @implements {ElementAdapter} */
 export class SvelteElementElementAdapter {
@@ -22,8 +40,7 @@ export class SvelteElementElementAdapter {
 
   getElementName() {
     if (this.node.name.type === AST_NODE_TYPES.SvelteMemberExpressionName) {
-      // TODO: member expression name 처리
-      return "";
+      return getSvelteMemberExpressionName(this.node.name);
     }
     if (this.node.name.type === AST_NODE_TYPES.Identifier) {
       return this.node.name.name;
