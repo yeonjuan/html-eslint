@@ -4,13 +4,22 @@
  *   DirectiveType,
  *   SourceLocation
  * } from "@eslint/plugin-kit"
- * @import {HTMLProgram} from "@html-eslint/parser"
+ * @import {
+ *   HTMLComment,
+ *   HTMLProgram
+ * } from "@html-eslint/parser"
  * @import {
  *   AnyHTMLNode,
- *   CommentContent
+ *   AnyToken,
+ *   CommentContent,
+ *   NodeOrTokenData
  * } from "@html-eslint/types"
+ * @import {Scope} from "eslint"
  * @import {BaseNode} from "../types"
- * @import {SourceCodeOptions} from "./types"
+ * @import {
+ *   SourceCodeOptions,
+ *   TokenOrHTMLComment
+ * } from "./types"
  */
 const {
   TextSourceCodeBase,
@@ -192,16 +201,16 @@ class HTMLSourceCode extends TextSourceCodeBase {
   /* eslint-disable no-unused-vars */
 
   /**
-   * @param {import("estree").Node} _node
-   * @returns {import("eslint").Scope.Variable[]}
+   * @param {NodeOrTokenData} _node
+   * @returns {Scope.Variable[]}
    */
   getDeclaredVariables(_node) {
     return [];
   }
 
   /**
-   * @param {import("estree").Node} _node
-   * @returns {import("estree").Comment | null}
+   * @param {NodeOrTokenData} _node
+   * @returns {HTMLComment | null}
    */
   getJSDocComment(_node) {
     return null;
@@ -209,15 +218,15 @@ class HTMLSourceCode extends TextSourceCodeBase {
 
   /**
    * @param {number} _index
-   * @returns {import("estree").Node | null}
+   * @returns {NodeOrTokenData | null}
    */
   getNodeByRangeIndex(_index) {
     return null;
   }
 
   /**
-   * @param {import("eslint").AST.Token} _first
-   * @param {import("eslint").AST.Token} _second
+   * @param {AnyToken} _first
+   * @param {AnyToken} _second
    * @returns {boolean}
    */
   isSpaceBetweenTokens(_first, _second) {
@@ -227,7 +236,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
   /**
    * @param {number} _offset
    * @param {{ includeComments?: boolean }} [options]
-   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   * @returns {TokenOrHTMLComment | null}
    */
   getTokenByRangeStart(_offset, options) {
     return null;
@@ -236,7 +245,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
   /**
    * @param {import("estree").Node} _node
    * @param {any} [_options]
-   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   * @returns {TokenOrHTMLComment | null}
    */
   getFirstToken(_node, _options) {
     return null;
@@ -245,7 +254,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
   /**
    * @param {import("estree").Node} _node
    * @param {any} [_options]
-   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   * @returns {TokenOrHTMLComment[]}
    */
   getFirstTokens(_node, _options) {
     return [];
@@ -254,7 +263,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
   /**
    * @param {import("estree").Node} _node
    * @param {any} [_options]
-   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   * @returns {TokenOrHTMLComment | null}
    */
   getLastToken(_node, _options) {
     return null;
@@ -263,62 +272,52 @@ class HTMLSourceCode extends TextSourceCodeBase {
   /**
    * @param {import("estree").Node} _node
    * @param {any} [_options]
-   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   * @returns {TokenOrHTMLComment[]}
    */
   getLastTokens(_node, _options) {
     return [];
   }
 
   /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _node
+   * @param {NodeOrTokenData} _node
    * @param {any} [_options]
-   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   * @returns {TokenOrHTMLComment | null}
    */
   getTokenBefore(_node, _options) {
     return null;
   }
 
   /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _node
+   * @param {NodeOrTokenData} _node
    * @param {any} [_options]
-   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   * @returns {TokenOrHTMLComment[]}
    */
   getTokensBefore(_node, _options) {
     return [];
   }
 
   /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _node
+   * @param {NodeOrTokenData} _node
    * @param {any} [_options]
-   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   * @returns {TokenOrHTMLComment | null}
    */
   getTokenAfter(_node, _options) {
     return null;
   }
 
   /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _node
+   * @param {NodeOrTokenData} _node
    * @param {any} [_options]
-   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   * @returns {TokenOrHTMLComment[]}
    */
   getTokensAfter(_node, _options) {
     return [];
   }
 
   /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _node
+   * @param {NodeOrTokenData} _node
    * @param {any} [_options]
-   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   * @returns {TokenOrHTMLComment | null}
    */
   getTokenOrCommentBefore(_node, _options) {
     return null;
@@ -329,99 +328,75 @@ class HTMLSourceCode extends TextSourceCodeBase {
    *   | import("eslint").AST.Token
    *   | import("estree").Comment} _node
    * @param {any} [_options]
-   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   * @returns {TokenOrHTMLComment | null}
    */
   getTokenOrCommentAfter(_node, _options) {
     return null;
   }
 
   /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _left
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _right
+   * @param {NodeOrTokenData} _left
+   * @param {NodeOrTokenData} _right
    * @param {any} [_options]
-   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   * @returns {TokenOrHTMLComment | null}
    */
   getFirstTokenBetween(_left, _right, _options) {
     return null;
   }
 
   /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _left
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _right
+   * @param {NodeOrTokenData} _left
+   * @param {NodeOrTokenData} _right
    * @param {any} [_options]
-   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   * @returns {TokenOrHTMLComment[]}
    */
   getFirstTokensBetween(_left, _right, _options) {
     return [];
   }
 
   /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _left
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _right
+   * @param {NodeOrTokenData} _left
+   * @param {NodeOrTokenData} _right
    * @param {any} [_options]
-   * @returns {import("eslint").AST.Token | import("estree").Comment | null}
+   * @returns {TokenOrHTMLComment | null}
    */
   getLastTokenBetween(_left, _right, _options) {
     return null;
   }
 
   /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _left
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _right
+   * @param {NodeOrTokenData} _left
+   * @param {NodeOrTokenData} _right
    * @param {any} [_options]
-   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   * @returns {TokenOrHTMLComment[]}
    */
   getLastTokensBetween(_left, _right, _options) {
     return [];
   }
 
   /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _left
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _right
+   * @param {NodeOrTokenData} _left
+   * @param {NodeOrTokenData} _right
    * @param {any} [_options]
-   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   * @returns {TokenOrHTMLComment[]}
    */
   getTokensBetween(_left, _right, _options) {
     return [];
   }
 
   /**
-   * @param {import("estree").Node} _node
+   * @param {NodeOrTokenData} _node
    * @param {number | undefined} [_beforeCount]
    * @param {number | undefined} [_afterCount]
-   * @returns {(import("eslint").AST.Token | import("estree").Comment)[]}
+   * @returns {TokenOrHTMLComment[]}
    */
   getTokens(_node, _beforeCount, _afterCount) {
     return [];
   }
 
   /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _left
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _right
+   * @param {NodeOrTokenData} _left
+   * @param {NodeOrTokenData} _right
    * @returns {boolean}
    */
   commentsExistBetween(_left, _right) {
@@ -429,40 +404,40 @@ class HTMLSourceCode extends TextSourceCodeBase {
   }
 
   /**
-   * @param {import("estree").Node | import("eslint").AST.Token} _nodeOrToken
-   * @returns {import("estree").Comment[]}
+   * @param {NodeOrTokenData} _nodeOrToken
+   * @returns {HTMLComment[]}
    */
   getCommentsBefore(_nodeOrToken) {
     return [];
   }
 
   /**
-   * @param {import("estree").Node | import("eslint").AST.Token} _nodeOrToken
-   * @returns {import("estree").Comment[]}
+   * @param {NodeOrTokenData} _nodeOrToken
+   * @returns {HTMLComment[]}
    */
   getCommentsAfter(_nodeOrToken) {
     return [];
   }
 
   /**
-   * @param {import("estree").Node} _node
-   * @returns {import("estree").Comment[]}
+   * @param {NodeOrTokenData} _node
+   * @returns {HTMLComment[]}
    */
   getCommentsInside(_node) {
     return [];
   }
 
   /**
-   * @param {import("estree").Node} _node
-   * @returns {import("eslint").Scope.Scope | null}
+   * @param {NodeOrTokenData} _node
+   * @returns {Scope.Scope | null}
    */
   getScope(_node) {
     return null;
   }
 
   /**
-   * @param {import("estree").Node | import("eslint").AST.Token} _first
-   * @param {import("estree").Node | import("eslint").AST.Token} _second
+   * @param {NodeOrTokenData} _first
+   * @param {NodeOrTokenData} _second
    * @returns {boolean}
    */
   isSpaceBetween(_first, _second) {
@@ -470,7 +445,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
   }
 
   /**
-   * @param {import("estree").Identifier} _node
+   * @param {NodeOrTokenData} _node
    * @returns {boolean}
    */
   isGlobalReference(_node) {
@@ -479,7 +454,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
 
   /**
    * @param {string} _name
-   * @param {import("estree").Node} [_refNode]
+   * @param {NodeOrTokenData} [_refNode]
    * @returns {boolean}
    */
   markVariableAsUsed(_name, _refNode) {
