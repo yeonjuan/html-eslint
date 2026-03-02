@@ -16,7 +16,8 @@ module.exports = defineConfig([
         rules: {
             "html/indent": ["error", 2],
             "html/sort-attrs": ["error"],
-            "html/quotes": ["error"]
+            "html/quotes": ["error"],
+            "no-irregular-whitespace": "error"
         }
     },
     {

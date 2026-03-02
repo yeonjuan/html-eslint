@@ -1,5 +1,5 @@
 import { HTMLComment, HTMLProgram, ParserOptions } from "@html-eslint/parser";
-import { AnyHTMLNode } from "@html-eslint/types";
+import { AnyHTMLNode, AnyToken } from "@html-eslint/types";
 
 export type SourceCodeOptions = {
   LangOptions: ParserOptions;
@@ -7,3 +7,5 @@ export type SourceCodeOptions = {
   SyntaxElementWithLoc: AnyHTMLNode;
   ConfigNode: HTMLComment;
 };
+
+export type TokenOrHTMLComment = AnyToken | HTMLComment;

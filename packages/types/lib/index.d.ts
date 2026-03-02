@@ -5,3 +5,4 @@ export * from "./css-ast";
 export * from "./position";
 export * from "./range";
 export * from "./source-location";
+export * from "./node";

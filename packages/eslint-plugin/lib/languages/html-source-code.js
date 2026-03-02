@@ -4,13 +4,22 @@
  *   DirectiveType,
  *   SourceLocation
  * } from "@eslint/plugin-kit"
- * @import {HTMLProgram} from "@html-eslint/parser"
+ * @import {
+ *   HTMLComment,
+ *   HTMLProgram
+ * } from "@html-eslint/parser"
  * @import {
  *   AnyHTMLNode,
- *   CommentContent
+ *   AnyToken,
+ *   CommentContent,
+ *   NodeOrTokenData
  * } from "@html-eslint/types"
+ * @import {Scope} from "eslint"
  * @import {BaseNode} from "../types"
- * @import {SourceCodeOptions} from "./types"
+ * @import {
+ *   SourceCodeOptions,
+ *   TokenOrHTMLComment
+ * } from "./types"
  */
 const {
   TextSourceCodeBase,
@@ -70,6 +79,11 @@ class HTMLSourceCode extends TextSourceCodeBase {
 
   getLines() {
     return this.lines;
+  }
+
+  /** @returns {CommentContent[]} */
+  getAllComments() {
+    return [];
   }
 
   getInlineConfigNodes() {
@@ -182,6 +196,51 @@ class HTMLSourceCode extends TextSourceCodeBase {
   getParent(node) {
     return this.parentsMap.get(node);
   }
+
+  // TODO the following methods are stubs
+  /* eslint-disable no-unused-vars */
+
+  /**
+   * @param {NodeOrTokenData} _node
+   * @returns {HTMLComment | null}
+   */
+  getJSDocComment(_node) {
+    return null;
+  }
+
+  /** Stub implementations for ESLint's SourceCode API Compatibility */
+
+  /**
+   * @deprecated HTM does not have scopes
+   * @param {NodeOrTokenData} node
+   * @returns {Scope.Scope | null}
+   */
+  getScope(node) {
+    if (node?.type !== "Program") {
+      return null;
+    }
+    return createFakeGlobalScope(this.ast);
+  }
+
+  /**
+   * @deprecated HTML does not have scopes
+   * @returns {Scope.ScopeManager | null}
+   */
+  get scopeManager() {
+    return {
+      scopes: [],
+      globalScope: createFakeGlobalScope(this.ast),
+      acquire: (node) => {
+        if (node.type === "Program") {
+          return createFakeGlobalScope(this.ast);
+        }
+        return null;
+      },
+      getDeclaredVariables: () => [],
+    };
+  }
+
+  /* eslint-enable no-unused-vars */
 }
 /**
  * @param {{ ast: HTMLProgram; text: string; comments: CommentContent[] }} config
@@ -189,6 +248,36 @@ class HTMLSourceCode extends TextSourceCodeBase {
  */
 function createHTMLSourceCode(config) {
   return new HTMLSourceCode(config);
+}
+
+/**
+ * @deprecated HTML does not have scopes
+ * @param {HTMLProgram} node
+ * @returns {Scope.Scope}
+ */
+function createFakeGlobalScope(node) {
+  /** @type {Scope.Scope} */
+  const fakeGlobalScope = {
+    type: "global",
+    // @ts-ignore
+    block: node,
+    set: new Map(),
+    through: [],
+    childScopes: [],
+    // @ts-ignore
+    variableScope: null,
+    variables: [],
+    references: [],
+    functionExpressionScope: false,
+    isStrict: false,
+    upper: null,
+    implicit: {
+      variables: [],
+      set: new Map(),
+    },
+  };
+  fakeGlobalScope.variableScope = fakeGlobalScope;
+  return fakeGlobalScope;
 }
 
 module.exports = {
