@@ -223,7 +223,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
   }
 
   /**
-   * @deprecated YAML does not have scopes
+   * @deprecated HTML does not have scopes
    * @returns {Scope.ScopeManager | null}
    */
   get scopeManager() {
@@ -251,9 +251,7 @@ function createHTMLSourceCode(config) {
 }
 
 /**
- * Creates a fake global scope for YAML files.
- *
- * @deprecated YAML does not have scopes
+ * @deprecated HTML does not have scopes
  * @param {HTMLProgram} node
  * @returns {Scope.Scope}
  */
