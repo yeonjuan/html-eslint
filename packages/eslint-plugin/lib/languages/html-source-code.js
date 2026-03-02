@@ -81,7 +81,10 @@ class HTMLSourceCode extends TextSourceCodeBase {
     return this.lines;
   }
 
-  /** @returns {CommentContent[]} */
+  /**
+   * @private
+   * @returns {CommentContent[]}
+   */
   getAllComments() {
     return [];
   }
@@ -201,6 +204,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
   /* eslint-disable no-unused-vars */
 
   /**
+   * @private
    * @param {NodeOrTokenData} _node
    * @returns {HTMLComment | null}
    */
@@ -211,6 +215,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
   /** Stub implementations for ESLint's SourceCode API Compatibility */
 
   /**
+   * @private
    * @deprecated HTM does not have scopes
    * @param {NodeOrTokenData} node
    * @returns {Scope.Scope | null}
@@ -223,6 +228,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
   }
 
   /**
+   * @private
    * @deprecated HTML does not have scopes
    * @returns {Scope.ScopeManager | null}
    */
@@ -237,6 +243,9 @@ class HTMLSourceCode extends TextSourceCodeBase {
         return null;
       },
       getDeclaredVariables: () => [],
+      /** @param {any[]} _ */
+      // @ts-ignore
+      addGlobals(..._) {},
     };
   }
 
