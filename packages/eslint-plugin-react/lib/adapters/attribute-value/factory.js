@@ -1,17 +1,20 @@
 /**
  * @import {AttributeValueAdapter} from "@html-eslint/core"
  * @import {
+ *   JSXExpressionContainer,
  *   Literal,
  *   TemplateLiteral
  * } from "../../types"
  */
 
 const { AST_NODE_TYPES } = require("../../constants/node-types");
+const { JSXExpressionAttributeValueAdapter } = require("./jsx-expression");
+
 const { LiteralAttributeValueAdapter } = require("./literal");
 const { TemplateLiteralAttributeValueAdapter } = require("./template-literal");
 
 /**
- * @param {Literal | TemplateLiteral} node
+ * @param {Literal | TemplateLiteral | JSXExpressionContainer} node
  * @returns {AttributeValueAdapter}
  */
 function createAttributeValueAdapter(node) {
@@ -21,6 +24,9 @@ function createAttributeValueAdapter(node) {
     }
     case AST_NODE_TYPES.TemplateLiteral: {
       return new TemplateLiteralAttributeValueAdapter(node);
+    }
+    case AST_NODE_TYPES.JSXExpressionContainer: {
+      return new JSXExpressionAttributeValueAdapter(node);
     }
   }
 }

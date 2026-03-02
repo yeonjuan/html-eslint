@@ -8,7 +8,7 @@ export interface ElementAdapter {
 }
 
 export interface AttributeAdapter {
-  getKey: () => AttributeKeyAdapter;
+  getKey: () => AttributeKeyAdapter | null;
   getValue: () => AttributeValueAdapter | null;
 }
 
