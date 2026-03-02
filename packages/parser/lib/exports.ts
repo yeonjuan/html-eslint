@@ -1,2 +1,2 @@
 export * from "./index";
-export type { ParserOptions } from "./types";
+export type { ParserOptions, HTMLProgram, HTMLComment } from "./types";
