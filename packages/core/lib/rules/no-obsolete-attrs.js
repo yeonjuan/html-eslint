@@ -32,7 +32,7 @@ export function noObsoleteAttrs() {
         const attributeKey = attribute.getKey();
         const attrKeyValue = attributeKey.getValue();
         const attributeValue = attribute.getValue();
-        const attrValueValueValue = attributeValue.getValue();
+        const attrValueValueValue = attributeValue?.getValue();
         // Skip if attribute key is an expression or doesn't have a value
         if (
           attributeKey.hasExpression() ||

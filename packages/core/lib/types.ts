@@ -3,10 +3,13 @@ import type { Range, SourceLocation } from "@html-eslint/types";
 export interface ElementAdapter {
   getElementName(): string;
   getAttributes(): AttributeAdapter[];
-  open: {
-    getLocation: () => SourceLocation;
-    getRange: () => Range;
-  };
+  getOpenStartLocation: () => SourceLocation;
+  getOpenStartRange: () => Range;
+}
+
+export interface AttributeAdapter {
+  getKey: () => AttributeKeyAdapter;
+  getValue: () => AttributeValueAdapter | null;
 }
 
 export interface AttributeValueAdapter {
@@ -21,11 +24,6 @@ export interface AttributeKeyAdapter {
   hasExpression: () => boolean;
   getLocation: () => SourceLocation;
   getRange: () => Range;
-}
-
-export interface AttributeAdapter {
-  getKey: () => AttributeKeyAdapter;
-  getValue: () => AttributeValueAdapter;
 }
 
 export interface NoInvalidAttrValueOptions {

@@ -10,11 +10,11 @@
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-const { elementNodeAdapter } = require("./utils/adapter");
 const {
   noObsoleteTags,
   NO_OBSOLETE_TAGS_MESSAGE_IDS,
 } = require("@html-eslint/core");
+const { createElementAdapter } = require("../adapters/factory");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -37,14 +37,15 @@ module.exports = {
   },
 
   create(context) {
-    const ruleCore = noObsoleteTags();
+    const { checkElement } = noObsoleteTags();
 
     /** @param {Tag | ScriptTag | StyleTag} node */
-    function checkElement(node) {
-      const result = ruleCore.checkElement(elementNodeAdapter(node));
-      for (const { node, messageId, data } of result) {
+    function check(node) {
+      const adapter = createElementAdapter(node);
+      const result = checkElement(adapter);
+      for (const { loc, messageId, data } of result) {
         context.report({
-          node,
+          loc,
           messageId,
           data,
         });
@@ -52,9 +53,9 @@ module.exports = {
     }
 
     return createVisitors(context, {
-      Tag: checkElement,
-      ScriptTag: checkElement,
-      StyleTag: checkElement,
+      Tag: check,
+      ScriptTag: check,
+      StyleTag: check,
     });
   },
 };

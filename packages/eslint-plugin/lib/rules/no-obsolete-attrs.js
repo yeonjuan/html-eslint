@@ -14,7 +14,7 @@ const {
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
-const { elementNodeAdapter } = require("./utils/adapter");
+const { createElementAdapter } = require("../adapters/factory");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -41,11 +41,11 @@ module.exports = {
 
     /** @param {Tag | ScriptTag | StyleTag} node */
     function checkObsoleteAttrs(node) {
-      const adapter = elementNodeAdapter(node);
+      const adapter = createElementAdapter(node);
       const result = ruleCore.checkAttributes(adapter);
-      for (const { node, messageId, data } of result) {
+      for (const { loc, messageId, data } of result) {
         context.report({
-          node,
+          loc,
           messageId,
           data,
         });

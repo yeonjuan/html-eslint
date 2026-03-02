@@ -61,7 +61,7 @@ export function noObsoleteTags() {
         return [
           {
             messageId: NO_OBSOLETE_TAGS_MESSAGE_IDS.unexpected,
-            loc: adapter.open.getLocation(),
+            loc: adapter.getOpenStartLocation(),
             data: {
               tag: tagName,
             },

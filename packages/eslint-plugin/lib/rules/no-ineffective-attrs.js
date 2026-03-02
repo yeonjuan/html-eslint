@@ -1,10 +1,5 @@
 /**
  * @import {
- *   AttributeKey,
- *   AttributeValue,
- *   OpenScriptTagStart,
- *   OpenStyleTagStart,
- *   OpenTagStart,
  *   ScriptTag,
  *   StyleTag,
  *   Tag
@@ -19,7 +14,7 @@ const {
   noIneffectiveAttrs,
   NO_INEFFECTIVE_ATTRS_MESSAGE_IDS,
 } = require("@html-eslint/core");
-const { elementNodeAdapter } = require("./utils/adapter");
+const { createElementAdapter } = require("../adapters/factory");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -40,27 +35,17 @@ module.exports = {
   },
 
   create(context) {
-    const ruleCore = /**
-     * @type {ReturnType<
-     *   typeof noIneffectiveAttrs<
-     *     | Tag
-     *     | ScriptTag
-     *     | StyleTag
-     *     | OpenTagStart
-     *     | OpenScriptTagStart
-     *     | OpenStyleTagStart,
-     *     AttributeKey,
-     *     AttributeValue
-     *   >
-     * >}
-     */ (noIneffectiveAttrs());
+    const ruleCore = /** @type {ReturnType<typeof noIneffectiveAttrs>} */ (
+      noIneffectiveAttrs()
+    );
 
     /** @param {Tag | ScriptTag | StyleTag} node */
     function checkAttributes(node) {
-      const result = ruleCore.checkAttributes(elementNodeAdapter(node));
-      for (const { node, messageId, data } of result) {
+      const adapter = createElementAdapter(node);
+      const result = ruleCore.checkAttributes(adapter);
+      for (const { loc, messageId, data } of result) {
         context.report({
-          node,
+          loc,
           messageId,
           data,
         });

@@ -72,12 +72,12 @@ export function noInvalidAttrValue(options) {
 
         const attributeValue = attribute.getValue();
 
-        if (attributeValue.hasExpression()) {
+        if (attributeValue?.hasExpression()) {
           continue;
         }
 
         const attrKeyValue = attributeKey.getValue();
-        const attrValueValue = attributeValue.getValue();
+        const attrValueValue = attributeValue?.getValue() ?? null;
         if (attrValueValue === null) {
           continue;
         }
@@ -93,7 +93,7 @@ export function noInvalidAttrValue(options) {
           const validateResult = validator.validateValue(attrValueValue);
           if (!validateResult.valid) {
             result.push({
-              loc: attributeValue.getLocation(),
+              loc: attributeValue?.getLocation() ?? attributeKey?.getLocation(),
               messageId: NO_INVALID_ATTR_VALUE_MESSAGE_IDS.invalid,
               data: {
                 value: attrValueValue || "",

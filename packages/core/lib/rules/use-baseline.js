@@ -199,7 +199,7 @@ export function useBaseline({ available }) {
         return [
           {
             messageId: USE_BASELINE_MESSAGE_IDS.noBaselineElement,
-            loc: adapter.open.getLocation(),
+            loc: adapter.getOpenStartLocation(),
             data: {
               element: `<${elementName}>`,
               availability,
@@ -219,7 +219,7 @@ export function useBaseline({ available }) {
           continue;
         }
         const attributeValue = attribute.getValue();
-        const attributeValueValue = attributeValue.getValue();
+        const attributeValueValue = attributeValue?.getValue();
         if (attributeValueValue === null) {
           continue;
         }
@@ -248,12 +248,12 @@ export function useBaseline({ available }) {
             !isSupportedElementAttributeKeyValue(
               elementName,
               attributeKeyValue,
-              attributeValueValue
+              attributeValueValue || ""
             ) ||
             !isSupportedElementSpecificAttributeKeyValue(
               elementName,
               attributeKeyValue,
-              attributeValueValue
+              attributeValueValue || ""
             )
           ) {
             result.push({
@@ -268,7 +268,7 @@ export function useBaseline({ available }) {
           } else if (
             !isSupportedGlobalAttributeKeyValue(
               attributeKeyValue,
-              attributeValueValue
+              attributeValueValue || ""
             )
           ) {
             result.push({

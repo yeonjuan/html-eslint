@@ -37,15 +37,9 @@ module.exports = {
   },
 
   create(context) {
-    const ruleCore = /**
-     * @type {ReturnType<
-     *   typeof noIneffectiveAttrs<
-     *     JSXOpeningElement,
-     *     JSXSpreadAttribute | JSXAttribute["name"] | null,
-     *     Literal | TemplateLiteral | JSXIdentifier | null
-     *   >
-     * >}
-     */ (noIneffectiveAttrs());
+    const ruleCore = /** @type {ReturnType<typeof noIneffectiveAttrs>} */ (
+      noIneffectiveAttrs()
+    );
     return {
       JSXOpeningElement(node) {
         if (
@@ -58,9 +52,9 @@ module.exports = {
         const adapter = elementNodeAdapter(node);
         const result = ruleCore.checkAttributes(adapter);
 
-        for (const { node, messageId, data } of result) {
+        for (const { loc, messageId, data } of result) {
           context.report({
-            node,
+            loc,
             messageId,
             data,
           });

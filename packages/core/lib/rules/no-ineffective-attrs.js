@@ -32,7 +32,7 @@ export function noIneffectiveAttrs() {
     for (const attribute of adapter.getAttributes()) {
       const attrKeyValue = attribute.getKey().getValue();
       if (attrKeyValue && attrKeyValue === attrName) {
-        const value = attribute.getValue().getValue();
+        const value = attribute.getValue()?.getValue();
         return value || null;
       }
     }
@@ -390,11 +390,11 @@ export function noIneffectiveAttrs() {
             continue;
           }
           const attributeValue = attribute.getValue();
-          if (attributeValue.hasExpression()) {
+          if (attributeValue?.hasExpression()) {
             continue;
           }
           const attributeKeyValue = attributeKey.getValue();
-          const attributeValueValue = attributeValue.getValue();
+          const attributeValueValue = attributeValue?.getValue();
           if (
             attributeValueValue === null ||
             attributeKeyValue.toLowerCase() !== check.attr
