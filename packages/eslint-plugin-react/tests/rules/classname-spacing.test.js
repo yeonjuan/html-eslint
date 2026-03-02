@@ -51,6 +51,20 @@ ruleTester.run("classname-spacing", rule, {
       code: 'const x = classnames("foo", bar)',
       options: [{ callees: ["classnames"] }],
     },
+    {
+      code: '<div className={condition && "foo bar"}></div>',
+    },
+    {
+      code: '<div className={condition ? "foo bar" : "baz"}></div>',
+    },
+    {
+      code: 'const x = clsx(condition && "foo bar")',
+      options: [{ callees: ["clsx"] }],
+    },
+    {
+      code: 'const x = clsx(condition ? "foo bar" : "baz qux")',
+      options: [{ callees: ["clsx"] }],
+    },
   ],
   invalid: [
     {
@@ -58,7 +72,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo"></button>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 20,
           endLine: 1,
@@ -71,11 +85,11 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo"></button>',
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
           line: 1,
-          column: 25,
+          column: 23,
           endLine: 1,
-          endColumn: 26,
+          endColumn: 24,
         },
       ],
     },
@@ -84,11 +98,18 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo"></button>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 20,
           endLine: 1,
           endColumn: 21,
+        },
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 24,
+          endLine: 1,
+          endColumn: 25,
         },
       ],
     },
@@ -97,7 +118,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo"></button>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 20,
           endLine: 1,
@@ -110,11 +131,11 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo"></button>',
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
           line: 1,
-          column: 25,
+          column: 23,
           endLine: 1,
-          endColumn: 27,
+          endColumn: 25,
         },
       ],
     },
@@ -123,9 +144,9 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo bar"></button>',
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
-          column: 23,
+          column: 24,
           endLine: 1,
           endColumn: 25,
         },
@@ -136,9 +157,9 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo bar"></button>',
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
-          column: 23,
+          column: 24,
           endLine: 1,
           endColumn: 26,
         },
@@ -149,11 +170,18 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo bar baz"></button>',
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
-          column: 23,
+          column: 24,
           endLine: 1,
           endColumn: 25,
+        },
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 29,
+          endLine: 1,
+          endColumn: 30,
         },
       ],
     },
@@ -162,11 +190,25 @@ ruleTester.run("classname-spacing", rule, {
       output: '<button className="foo bar"></button>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 20,
           endLine: 1,
           endColumn: 22,
+        },
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 26,
+          endLine: 1,
+          endColumn: 27,
+        },
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 30,
+          endLine: 1,
+          endColumn: 32,
         },
       ],
     },
@@ -175,7 +217,7 @@ ruleTester.run("classname-spacing", rule, {
       output: '<div className={"foo"}></div>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 18,
           endLine: 1,
@@ -188,11 +230,11 @@ ruleTester.run("classname-spacing", rule, {
       output: "<div className={`foo`}></div>",
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
           line: 1,
-          column: 23,
+          column: 21,
           endLine: 1,
-          endColumn: 24,
+          endColumn: 22,
         },
       ],
     },
@@ -201,9 +243,9 @@ ruleTester.run("classname-spacing", rule, {
       output: "<div className={`foo bar`}></div>",
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
-          column: 21,
+          column: 22,
           endLine: 1,
           endColumn: 23,
         },
@@ -215,7 +257,7 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["clsx"] }],
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 17,
           endLine: 1,
@@ -229,11 +271,11 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["clsx"] }],
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
           line: 1,
-          column: 22,
+          column: 20,
           endLine: 1,
-          endColumn: 23,
+          endColumn: 21,
         },
       ],
     },
@@ -243,9 +285,9 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["clsx"] }],
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
-          column: 20,
+          column: 21,
           endLine: 1,
           endColumn: 22,
         },
@@ -257,9 +299,9 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["cn"] }],
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
-          column: 18,
+          column: 19,
           endLine: 1,
           endColumn: 20,
         },
@@ -271,18 +313,38 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["clsx"] }],
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
           column: 17,
           endLine: 1,
           endColumn: 18,
         },
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
           line: 1,
-          column: 28,
+          column: 29,
           endLine: 1,
           endColumn: 30,
+        },
+      ],
+    },
+    {
+      code: '<div className={   "  foo " }></div>',
+      output: '<div className={   "foo" }></div>',
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 21,
+          endLine: 1,
+          endColumn: 23,
+        },
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 26,
+          endLine: 1,
+          endColumn: 27,
         },
       ],
     },
@@ -292,20 +354,151 @@ ruleTester.run("classname-spacing", rule, {
       options: [{ callees: ["clsx"] }],
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
+          line: 1,
+          column: 34,
+          endLine: 1,
+          endColumn: 35,
         },
       ],
     },
     {
-      code: '<div className={   "  foo " }></div>',
-      output: '<div className={   "foo" }></div>',
+      code: '<div className={condition && " foo"}></div>',
+      output: '<div className={condition && "foo"}></div>',
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
           line: 1,
-          column: 21,
+          column: 31,
           endLine: 1,
-          endColumn: 23,
+          endColumn: 32,
+        },
+      ],
+    },
+    {
+      code: "<div className={condition && `foo `}></div>",
+      output: "<div className={condition && `foo`}></div>",
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 34,
+          endLine: 1,
+          endColumn: 35,
+        },
+      ],
+    },
+    {
+      code: '<div className={condition && "foo  bar"}></div>',
+      output: '<div className={condition && "foo bar"}></div>',
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 35,
+          endLine: 1,
+          endColumn: 36,
+        },
+      ],
+    },
+    {
+      code: '<div className={condition ? " foo" : "bar"}></div>',
+      output: '<div className={condition ? "foo" : "bar"}></div>',
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 30,
+          endLine: 1,
+          endColumn: 31,
+        },
+      ],
+    },
+    {
+      code: '<div className={condition ? "foo" : "bar "}></div>',
+      output: '<div className={condition ? "foo" : "bar"}></div>',
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 41,
+          endLine: 1,
+          endColumn: 42,
+        },
+      ],
+    },
+    {
+      code: '<div className={condition ? "foo  bar" : "baz"}></div>',
+      output: '<div className={condition ? "foo bar" : "baz"}></div>',
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 34,
+          endLine: 1,
+          endColumn: 35,
+        },
+      ],
+    },
+    {
+      code: '<div className={condition ? "foo" : "bar  baz"}></div>',
+      output: '<div className={condition ? "foo" : "bar baz"}></div>',
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 42,
+          endLine: 1,
+          endColumn: 43,
+        },
+      ],
+    },
+    {
+      code: 'const x = clsx(condition ? "  foo" : "bar")',
+      output: 'const x = clsx(condition ? "foo" : "bar")',
+      options: [{ callees: ["clsx"] }],
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 29,
+          endLine: 1,
+          endColumn: 31,
+        },
+      ],
+    },
+    {
+      code: 'const x = clsx(condition ? "foo" : "  bar")',
+      output: 'const x = clsx(condition ? "foo" : "bar")',
+      options: [{ callees: ["clsx"] }],
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 37,
+          endLine: 1,
+          endColumn: 39,
+        },
+      ],
+    },
+    {
+      code: 'const x = clsx(condition ? "foo  bar" : "baz  qux")',
+      output: 'const x = clsx(condition ? "foo bar" : "baz qux")',
+      options: [{ callees: ["clsx"] }],
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 33,
+          endLine: 1,
+          endColumn: 34,
+        },
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 46,
+          endLine: 1,
+          endColumn: 47,
         },
       ],
     },

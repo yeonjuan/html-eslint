@@ -1,25 +1,31 @@
-export interface ElementNodeAdapter<
-  ElementNode,
-  AttributeKeyNode,
-  AttributeValueNode,
-> {
-  getTagName(): string;
-  getAttributes(): AttributeAdapter<AttributeKeyNode, AttributeValueNode>[];
-  node: () => ElementNode;
+import type { Range, SourceLocation } from "@html-eslint/types";
+
+export interface ElementAdapter {
+  getElementName(): string;
+  getAttributes(): AttributeAdapter[];
+  getLocation(): SourceLocation;
+  getRange(): Range;
+  getOpenStartLocation(): SourceLocation;
+  getOpenStartRange(): Range;
 }
 
-export interface AttributeAdapter<AttributeKeyNode, AttributeValueNode> {
-  key: {
-    node: () => AttributeKeyNode;
-    isExpression: () => boolean;
-    value: () => null | string;
-    raw: () => null | string;
-  };
-  value: {
-    node: () => AttributeValueNode | null;
-    isExpression: () => boolean;
-    value: () => string | null;
-  };
+export interface AttributeAdapter {
+  getKey(): AttributeKeyAdapter | null;
+  getValue(): AttributeValueAdapter | null;
+}
+
+export interface AttributeValueAdapter {
+  getValue(): string | null;
+  hasExpression(): boolean;
+  getLocation(): SourceLocation;
+  getRange(): Range;
+}
+
+export interface AttributeKeyAdapter {
+  getValue(): string;
+  hasExpression(): boolean;
+  getLocation(): SourceLocation;
+  getRange(): Range;
 }
 
 export interface NoInvalidAttrValueOptions {
@@ -30,30 +36,25 @@ export interface NoInvalidAttrValueOptions {
   }>;
 }
 
-export type NoInvalidAttrValueResult<AttributeKeyNode, AttributeValueNode> =
-  Array<{
-    messageId: "invalid";
-    node: AttributeKeyNode | AttributeValueNode;
-    data: {
-      value: string;
-      attr: string;
-      element: string;
-      suggestion: string;
-    };
-  }>;
+export type NoInvalidAttrValueResult = Array<{
+  messageId: "invalid";
+  loc: SourceLocation;
+  data: {
+    value: string;
+    attr: string;
+    element: string;
+    suggestion: string;
+  };
+}>;
 
 export interface UseBaselineOptions {
   available: "widely" | "newly" | number;
 }
 
-export type UseBaselineResult<
-  ElementNode,
-  AttributeKeyNode,
-  AttributeValueNode,
-> = Array<
+export type UseBaselineResult = Array<
   | {
       messageId: "noBaselineElement";
-      node: ElementNode | AttributeValueNode;
+      loc: SourceLocation;
       data: {
         element: string;
         availability: string;
@@ -61,7 +62,7 @@ export type UseBaselineResult<
     }
   | {
       messageId: "notBaselineElementAttribute";
-      node: ElementNode | AttributeValueNode | AttributeKeyNode;
+      loc: SourceLocation;
       data: {
         element: string;
         attr: string;
@@ -70,7 +71,7 @@ export type UseBaselineResult<
     }
   | {
       messageId: "notBaselineGlobalAttribute";
-      node: AttributeValueNode | AttributeKeyNode;
+      loc: SourceLocation;
       data: {
         attr: string;
         availability: string;
@@ -78,25 +79,25 @@ export type UseBaselineResult<
     }
 >;
 
-export type NoIneffectiveAttrsResult<AttributeKeyNode> = Array<{
+export type NoIneffectiveAttrsResult = Array<{
   messageId: "ineffective";
-  node: AttributeKeyNode;
+  loc: SourceLocation;
   data: {
     message: string;
   };
 }>;
 
-export type NoObsoleteTagsResult<ElementNode> = Array<{
+export type NoObsoleteTagsResult = Array<{
   messageId: "unexpected";
-  node: ElementNode;
+  loc: SourceLocation;
   data: {
     tag: string;
   };
 }>;
 
-export type NoObsoleteAttrsResult<AttributeKeyNode> = Array<{
+export type NoObsoleteAttrsResult = Array<{
   messageId: "obsolete";
-  node: AttributeKeyNode;
+  loc: SourceLocation;
   data: {
     attr: string;
     element: string;
@@ -104,51 +105,17 @@ export type NoObsoleteAttrsResult<AttributeKeyNode> = Array<{
   };
 }>;
 
-export type ClassSpacingResult<AttributeValueNode> = Array<
-  | {
-      messageId: "extraSpacingStart";
-      node: AttributeValueNode;
-      data: {
-        normalized: string;
-      };
-      spacingType: "start";
-      spacingLength: number;
-    }
-  | {
-      messageId: "extraSpacingEnd";
-      node: AttributeValueNode;
-      data: {
-        normalized: string;
-      };
-      spacingType: "end";
-      spacingLength: number;
-    }
-  | {
-      messageId: "extraSpacingBetween";
-      node: AttributeValueNode;
-      data: {
-        normalized: string;
-      };
-      spacingType: "between";
-      spacingIndex: number;
-      spacingLength: number;
-    }
->;
+export type ClassSpacingResult = Array<{
+  messageId: "extraSpacing";
+  range: Range;
+  loc: SourceLocation;
+}>;
 
-export type NoDuplicateClassResult<AttributeValueNode> = Array<{
+export type NoDuplicateClassResult = Array<{
   messageId: "duplicateClass";
-  node: AttributeValueNode;
+  range: Range;
+  loc: SourceLocation;
   data: {
-    class: string;
+    className: string;
   };
-  className: string;
-  classIndex: number;
-  classLength: number;
-  tokenIndex: number;
-  hasSpacesBefore: boolean;
-  hasSpacesAfter: boolean;
-  hasClassBefore: boolean;
-  hasClassAfter: boolean;
-  spacesBeforePos: number;
-  spacesAfterLength: number;
 }>;

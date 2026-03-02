@@ -2675,6 +2675,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/core@workspace:packages/core"
   dependencies:
+    "@html-eslint/types": "npm:^0.57.0"
     html-standard: "npm:^0.0.13"
     tsup: "npm:^8.5.1"
   languageName: unknown

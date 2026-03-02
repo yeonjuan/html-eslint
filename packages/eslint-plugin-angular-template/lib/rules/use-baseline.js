@@ -1,16 +1,11 @@
 /**
- * @import {
- *   AngularBoundAttribute,
- *   AngularElement,
- *   AngularTextAttribute,
- *   RuleModule
- * } from "../types"
+ * @import {RuleModule} from "../types"
  * @typedef {Object} Option
  * @property {"widely" | "newly" | number} Option.available
  */
 
 const { useBaseline, USE_BASELINE_MESSAGE_IDS } = require("@html-eslint/core");
-const { elementNodeAdapter } = require("./utils/adapter");
+const { createElementAdapter } = require("../adapters/element/factory");
 
 /** @type {RuleModule<[Option]>} */
 module.exports = {
@@ -57,28 +52,20 @@ module.exports = {
 
   create(context) {
     const options = context.options[0] || { available: "widely" };
-    const ruleCore = /**
-     * @type {ReturnType<
-     *   typeof useBaseline<
-     *     AngularElement,
-     *     AngularTextAttribute | AngularBoundAttribute | null,
-     *     null
-     *   >
-     * >}
-     */ (useBaseline(options));
+    const { checkAttributes } = useBaseline(options);
 
     return {
       Element(node) {
         if (node.name.includes("-")) {
           return;
         }
-        const adapter = elementNodeAdapter(node);
-        const result = ruleCore.checkAttributes(adapter);
-        for (const r of result) {
+        const adapter = createElementAdapter(node);
+        const result = checkAttributes(adapter);
+        for (const { messageId, loc, data } of result) {
           context.report({
-            messageId: r.messageId,
-            data: r.data,
-            node: r.node || undefined,
+            messageId,
+            data,
+            loc,
           });
         }
       },

@@ -1,6 +1,6 @@
 /**
  * @import {
- *   ElementNodeAdapter,
+ *   ElementAdapter,
  *   NoObsoleteAttrsResult
  * } from "../types"
  */
@@ -16,35 +16,32 @@ export const NO_OBSOLETE_ATTRS_MESSAGE_IDS = {
   obsolete: "obsolete",
 };
 
-/**
- * @template ElementNode
- * @template AttributeKeyNode
- * @template AttributeValueNode
- */
 export function noObsoleteAttrs() {
   return {
     /**
-     * @param {ElementNodeAdapter<
-     *   ElementNode,
-     *   AttributeKeyNode,
-     *   AttributeValueNode
-     * >} adapter
-     * @returns {NoObsoleteAttrsResult<AttributeKeyNode>}
+     * @param {ElementAdapter} adapter
+     * @returns {NoObsoleteAttrsResult}
      */
     checkAttributes(adapter) {
-      const elementName = adapter.getTagName();
+      const elementName = adapter.getElementName();
 
-      /** @type {NoObsoleteAttrsResult<AttributeKeyNode>} */
+      /** @type {NoObsoleteAttrsResult} */
       const result = [];
 
       for (const attribute of adapter.getAttributes()) {
-        const attrKeyValue = attribute.key.value();
-        const attrValueValue = attribute.value.value();
+        const attributeKey = attribute.getKey();
+        if (!attributeKey) {
+          continue;
+        }
+
+        const attrKeyValue = attributeKey.getValue();
+        const attributeValue = attribute.getValue();
+        const attrValueValueValue = attributeValue?.getValue();
         // Skip if attribute key is an expression or doesn't have a value
         if (
-          attribute.key.isExpression() ||
+          attributeKey.hasExpression() ||
           attrKeyValue === null ||
-          attrValueValue === null
+          attrValueValueValue === null
         ) {
           continue;
         }
@@ -63,7 +60,7 @@ export function noObsoleteAttrs() {
               config.elements.includes(elementName)
             ) {
               result.push({
-                node: attribute.key.node(),
+                loc: attributeKey.getLocation(),
                 messageId: NO_OBSOLETE_ATTRS_MESSAGE_IDS.obsolete,
                 data: {
                   attr: attrName,

@@ -34,7 +34,7 @@ ruleTester.run("use-baseline", rule, {
         {
           message: "Element '<slot>' is not a 2001 available baseline feature.",
           column: 1,
-          endColumn: 7,
+          endColumn: 14,
           line: 1,
         },
       ],
@@ -75,8 +75,8 @@ ruleTester.run("use-baseline", rule, {
         {
           message:
             "Attribute 'contentEditable=\"plaintext-only\"' is not a widely available baseline feature.",
-          column: 22,
-          endColumn: 38,
+          column: 23,
+          endColumn: 37,
           line: 1,
         },
       ],
@@ -87,8 +87,8 @@ ruleTester.run("use-baseline", rule, {
         {
           message:
             "Attribute 'type=\"module\"' on '<script>' is not a 2017 available baseline feature.",
-          column: 14,
-          endColumn: 22,
+          column: 15,
+          endColumn: 21,
         },
       ],
       options: [{ available: 2017 }],
@@ -111,8 +111,8 @@ ruleTester.run("use-baseline", rule, {
         {
           message:
             "Attribute 'type=\"week\"' on '<input>' is not a widely available baseline feature.",
-          column: 13,
-          endColumn: 19,
+          column: 14,
+          endColumn: 18,
         },
       ],
     },
@@ -122,8 +122,8 @@ ruleTester.run("use-baseline", rule, {
         {
           message:
             "Attribute 'href=\"sms:00000\"' on '<a>' is not a widely available baseline feature.",
-          column: 9,
-          endColumn: 20,
+          column: 10,
+          endColumn: 19,
         },
       ],
     },

@@ -49,6 +49,7 @@
     "lint"
   ],
   "dependencies": {
+    "@html-eslint/types": "^0.57.0",
     "html-standard": "^0.0.13"
   },
   "devDependencies": {

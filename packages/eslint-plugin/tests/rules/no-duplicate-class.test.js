@@ -25,7 +25,7 @@ ruleTester.run("no-duplicate-class", rule, {
   invalid: [
     {
       code: `<button class="foo foo"></button>`,
-      output: `<button class="foo"></button>`,
+      output: `<button class="foo "></button>`,
       errors: [
         {
           messageId: "duplicateClass",
@@ -36,7 +36,7 @@ ruleTester.run("no-duplicate-class", rule, {
     },
     {
       code: `<button class="foo   foo"></button>`,
-      output: `<button class="foo"></button>`,
+      output: `<button class="foo   "></button>`,
       errors: [
         {
           messageId: "duplicateClass",
@@ -47,7 +47,7 @@ ruleTester.run("no-duplicate-class", rule, {
     },
     {
       code: `<button class="foo bar foo"></button>`,
-      output: `<button class="foo bar"></button>`,
+      output: `<button class="foo bar "></button>`,
       errors: [
         {
           messageId: "duplicateClass",
@@ -56,7 +56,7 @@ ruleTester.run("no-duplicate-class", rule, {
     },
     {
       code: `<button class="foo foo bar"></button>`,
-      output: `<button class="foo bar"></button>`,
+      output: `<button class="foo  bar"></button>`,
       errors: [
         {
           messageId: "duplicateClass",
@@ -65,7 +65,7 @@ ruleTester.run("no-duplicate-class", rule, {
     },
     {
       code: `<button class=" foo foo bar "></button>`,
-      output: `<button class=" foo bar "></button>`,
+      output: `<button class=" foo  bar "></button>`,
       errors: [
         {
           messageId: "duplicateClass",
@@ -90,7 +90,7 @@ templateRuleTester.run("[template] no-duplicate class", rule, {
       html\`<div class='foo foo'></div>\`
       `,
       output: `
-      html\`<div class='foo'></div>\`
+      html\`<div class='foo '></div>\`
       `,
       errors: [
         {

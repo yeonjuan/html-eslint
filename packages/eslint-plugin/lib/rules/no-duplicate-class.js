@@ -7,7 +7,7 @@ const {
   noDuplicateClass,
   NO_DUPLICATE_CLASS_MESSAGE_IDS,
 } = require("@html-eslint/core");
-const { attributeNodeAdapter } = require("./utils/adapter");
+const { createAttributeValueAdapter } = require("../adapters/factory");
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -23,65 +23,29 @@ module.exports = {
     schema: [],
     messages: {
       [NO_DUPLICATE_CLASS_MESSAGE_IDS.duplicateClass]:
-        "The class '{{class}}' is duplicated.",
+        "The class '{{className}}' is duplicated.",
     },
   },
 
   create(context) {
-    const ruleCore = noDuplicateClass();
+    const { checkClassValue } = noDuplicateClass();
 
     return createVisitors(context, {
       Attribute(node) {
-        const adapter = attributeNodeAdapter(node.key, node.value);
-        if (node.key.value.toLowerCase() !== "class") {
-          return;
-        }
-        const attrValueNode = adapter.value.node();
-        if (!attrValueNode) {
+        if (node.key.value.toLowerCase() !== "class" || !node.value) {
           return;
         }
 
-        const results = ruleCore.checkClassAttribute(adapter);
+        const adapter = createAttributeValueAdapter(node.value);
+        const result = checkClassValue(adapter);
 
-        for (const result of results) {
+        for (const { loc, messageId, range, data } of result) {
           context.report({
-            loc: {
-              start: {
-                line: attrValueNode.loc.start.line,
-                column: attrValueNode.loc.start.column + result.classIndex,
-              },
-              end: {
-                line: attrValueNode.loc.start.line,
-                column:
-                  attrValueNode.loc.start.column +
-                  result.classIndex +
-                  result.className.length,
-              },
-            },
-            data: result.data,
-            messageId: result.messageId,
+            loc,
+            messageId,
+            data,
             fix(fixer) {
-              if (!node.value) {
-                return null;
-              }
-
-              const startRange = result.hasSpacesBefore
-                ? attrValueNode.range[0] + result.spacesBeforePos
-                : attrValueNode.range[0] + result.classIndex;
-
-              const endRange = result.hasSpacesAfter
-                ? attrValueNode.range[0] +
-                  result.classIndex +
-                  result.classLength +
-                  result.spacesAfterLength
-                : attrValueNode.range[0] +
-                  result.classIndex +
-                  result.classLength;
-
-              return fixer.replaceTextRange(
-                [startRange, endRange],
-                result.hasClassBefore && result.hasClassAfter ? " " : ""
-              );
+              return fixer.removeRange(range);
             },
           });
         }
