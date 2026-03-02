@@ -18,11 +18,11 @@ export class SvelteAttributeAttributeAdapter {
   }
 
   getValue() {
-    if (this.node.value.length > 1) {
-      return null;
-    }
-    const first = this.node.value[0];
+    if (this.node.value.length === 1) {
+      const first = this.node.value[0];
 
-    return createAttributeValueAdapter(first);
+      return createAttributeValueAdapter(first);
+    }
+    return null;
   }
 }

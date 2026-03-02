@@ -36,6 +36,16 @@ class JSXElementElementAdapter {
     return this.node.openingElement.name.name;
   }
 
+  /** @returns {SourceLocation} */
+  getLocation() {
+    return this.node.loc;
+  }
+
+  /** @returns {Range} */
+  getRange() {
+    return this.node.range;
+  }
+
   /** @returns {AttributeAdapter[]} */
   getAttributes() {
     return this.node.openingElement.attributes.map((attribute) =>

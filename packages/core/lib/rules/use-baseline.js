@@ -199,7 +199,7 @@ export function useBaseline({ available }) {
         return [
           {
             messageId: USE_BASELINE_MESSAGE_IDS.noBaselineElement,
-            loc: adapter.getOpenStartLocation(),
+            loc: adapter.getLocation(),
             data: {
               element: `<${elementName}>`,
               availability,

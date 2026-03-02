@@ -18,6 +18,14 @@ class HTMLElementAdapter {
     this.node = node;
   }
 
+  getLocation() {
+    return this.node.loc;
+  }
+
+  getRange() {
+    return this.node.range;
+  }
+
   getElementName() {
     return getNameOf(this.node);
   }

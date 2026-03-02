@@ -69,7 +69,7 @@ ruleTester.run("use-baseline", rule, {
         {
           message: "Element '<slot>' is not a 2001 available baseline feature.",
           column: 1,
-          endColumn: 6,
+          endColumn: 14,
           line: 1,
         },
       ],
@@ -85,7 +85,7 @@ ruleTester.run("use-baseline", rule, {
         {
           message: "Element '<slot>' is not a 2001 available baseline feature.",
           column: 1,
-          endColumn: 6,
+          endColumn: 14,
           line: 1,
         },
       ],

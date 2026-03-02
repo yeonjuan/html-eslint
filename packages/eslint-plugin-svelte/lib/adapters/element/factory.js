@@ -2,7 +2,7 @@
 
 import { SvelteElementElementAdapter } from "./svelte-element";
 
-/** @param {import("../../types").SvelteElement} node */
+/** @param {SvelteElement} node */
 export function createElementAdapter(node) {
   return new SvelteElementElementAdapter(node);
 }

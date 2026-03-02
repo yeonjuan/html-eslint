@@ -1,6 +1,9 @@
 /**
  * @import {ElementAdapter} from "@html-eslint/core"
- * @import {Range} from "@html-eslint/types"
+ * @import {
+ *   Range,
+ *   SourceLocation
+ * } from "@html-eslint/types"
  * @import {AngularElement} from "../../types"
  */
 
@@ -15,6 +18,14 @@ class AngularElementElementAdapter {
 
   getElementName() {
     return this.node.name;
+  }
+
+  getLocation() {
+    return /** @type {SourceLocation} */ (this.node.loc);
+  }
+
+  getRange() {
+    return /** @type {Range} */ (this.node.range);
   }
 
   getOpenStartLocation() {

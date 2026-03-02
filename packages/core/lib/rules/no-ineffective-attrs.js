@@ -56,6 +56,19 @@ export function noIneffectiveAttrs() {
     }
     return false;
   }
+  /**
+   * @param {ElementAdapter} adapter
+   * @param {string} attrName
+   * @returns {boolean}
+   */
+  function isAttrValueExpression(adapter, attrName) {
+    return adapter.getAttributes().some((attr) => {
+      const key = attr.getKey();
+      return (
+        key?.getValue() === attrName && !!attr?.getValue()?.hasExpression()
+      );
+    });
+  }
 
   /** @type {Record<string, AttributeChecker[]>} */
   const checkersByTag = {
@@ -63,6 +76,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "multiple",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return [
             "text",
@@ -80,6 +96,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "accept",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return type !== "file";
         },
@@ -89,6 +108,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "readonly",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return ["checkbox", "radio", "file", "range", "color"].includes(type);
         },
@@ -97,6 +119,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "min",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "number",
@@ -114,6 +139,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "max",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "number",
@@ -131,6 +159,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "step",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "number",
@@ -148,6 +179,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "pattern",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "text",
@@ -164,6 +198,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "maxlength",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "text",
@@ -180,6 +217,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "minlength",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "text",
@@ -196,6 +236,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "placeholder",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "text",
@@ -213,6 +256,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "size",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "text",
@@ -228,6 +274,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "list",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "text";
           return [
             "checkbox",
@@ -292,6 +341,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "enctype",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "method")) {
+            return false;
+          }
           const method = getAttrValue(adapter, "method") || "get";
           return method ? method.toLowerCase() !== "post" : false;
         },
@@ -303,6 +355,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "formaction",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "submit";
           return type !== "submit";
         },
@@ -311,6 +366,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "formmethod",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "submit";
           return type !== "submit";
         },
@@ -319,6 +377,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "formenctype",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "submit";
           return type !== "submit";
         },
@@ -327,6 +388,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "formnovalidate",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "submit";
           return type !== "submit";
         },
@@ -336,6 +400,9 @@ export function noIneffectiveAttrs() {
       {
         attr: "formtarget",
         when: (adapter) => {
+          if (isAttrValueExpression(adapter, "type")) {
+            return false;
+          }
           const type = getAttrValue(adapter, "type") || "submit";
           return type !== "submit";
         },

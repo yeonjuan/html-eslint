@@ -3,27 +3,29 @@ import type { Range, SourceLocation } from "@html-eslint/types";
 export interface ElementAdapter {
   getElementName(): string;
   getAttributes(): AttributeAdapter[];
-  getOpenStartLocation: () => SourceLocation;
-  getOpenStartRange: () => Range;
+  getLocation(): SourceLocation;
+  getRange(): Range;
+  getOpenStartLocation(): SourceLocation;
+  getOpenStartRange(): Range;
 }
 
 export interface AttributeAdapter {
-  getKey: () => AttributeKeyAdapter | null;
-  getValue: () => AttributeValueAdapter | null;
+  getKey(): AttributeKeyAdapter | null;
+  getValue(): AttributeValueAdapter | null;
 }
 
 export interface AttributeValueAdapter {
-  getValue: () => string | null;
-  hasExpression: () => boolean;
-  getLocation: () => SourceLocation;
-  getRange: () => Range;
+  getValue(): string | null;
+  hasExpression(): boolean;
+  getLocation(): SourceLocation;
+  getRange(): Range;
 }
 
 export interface AttributeKeyAdapter {
-  getValue: () => string;
-  hasExpression: () => boolean;
-  getLocation: () => SourceLocation;
-  getRange: () => Range;
+  getValue(): string;
+  hasExpression(): boolean;
+  getLocation(): SourceLocation;
+  getRange(): Range;
 }
 
 export interface NoInvalidAttrValueOptions {

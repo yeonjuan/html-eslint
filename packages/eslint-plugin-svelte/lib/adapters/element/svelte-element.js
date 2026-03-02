@@ -19,6 +19,7 @@ export class SvelteElementElementAdapter {
   constructor(node) {
     this.node = node;
   }
+
   getElementName() {
     if (this.node.name.type === AST_NODE_TYPES.SvelteMemberExpressionName) {
       // TODO: member expression name 처리
@@ -28,6 +29,14 @@ export class SvelteElementElementAdapter {
       return this.node.name.name;
     }
     return this.node.name.name;
+  }
+
+  getLocation() {
+    return this.node.loc;
+  }
+
+  getRange() {
+    return this.node.range;
   }
 
   /** @returns {SourceLocation} */
