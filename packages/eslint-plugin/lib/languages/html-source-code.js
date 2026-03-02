@@ -202,263 +202,42 @@ class HTMLSourceCode extends TextSourceCodeBase {
 
   /**
    * @param {NodeOrTokenData} _node
-   * @returns {Scope.Variable[]}
-   */
-  getDeclaredVariables(_node) {
-    return [];
-  }
-
-  /**
-   * @param {NodeOrTokenData} _node
    * @returns {HTMLComment | null}
    */
   getJSDocComment(_node) {
     return null;
   }
 
-  /**
-   * @param {number} _index
-   * @returns {NodeOrTokenData | null}
-   */
-  getNodeByRangeIndex(_index) {
-    return null;
-  }
+  /** Stub implementations for ESLint's SourceCode API Compatibility */
 
   /**
-   * @param {AnyToken} _first
-   * @param {AnyToken} _second
-   * @returns {boolean}
-   */
-  isSpaceBetweenTokens(_first, _second) {
-    return false;
-  }
-
-  /**
-   * @param {number} _offset
-   * @param {{ includeComments?: boolean }} [options]
-   * @returns {TokenOrHTMLComment | null}
-   */
-  getTokenByRangeStart(_offset, options) {
-    return null;
-  }
-
-  /**
-   * @param {import("estree").Node} _node
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment | null}
-   */
-  getFirstToken(_node, _options) {
-    return null;
-  }
-
-  /**
-   * @param {import("estree").Node} _node
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment[]}
-   */
-  getFirstTokens(_node, _options) {
-    return [];
-  }
-
-  /**
-   * @param {import("estree").Node} _node
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment | null}
-   */
-  getLastToken(_node, _options) {
-    return null;
-  }
-
-  /**
-   * @param {import("estree").Node} _node
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment[]}
-   */
-  getLastTokens(_node, _options) {
-    return [];
-  }
-
-  /**
-   * @param {NodeOrTokenData} _node
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment | null}
-   */
-  getTokenBefore(_node, _options) {
-    return null;
-  }
-
-  /**
-   * @param {NodeOrTokenData} _node
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment[]}
-   */
-  getTokensBefore(_node, _options) {
-    return [];
-  }
-
-  /**
-   * @param {NodeOrTokenData} _node
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment | null}
-   */
-  getTokenAfter(_node, _options) {
-    return null;
-  }
-
-  /**
-   * @param {NodeOrTokenData} _node
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment[]}
-   */
-  getTokensAfter(_node, _options) {
-    return [];
-  }
-
-  /**
-   * @param {NodeOrTokenData} _node
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment | null}
-   */
-  getTokenOrCommentBefore(_node, _options) {
-    return null;
-  }
-
-  /**
-   * @param {import("estree").Node
-   *   | import("eslint").AST.Token
-   *   | import("estree").Comment} _node
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment | null}
-   */
-  getTokenOrCommentAfter(_node, _options) {
-    return null;
-  }
-
-  /**
-   * @param {NodeOrTokenData} _left
-   * @param {NodeOrTokenData} _right
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment | null}
-   */
-  getFirstTokenBetween(_left, _right, _options) {
-    return null;
-  }
-
-  /**
-   * @param {NodeOrTokenData} _left
-   * @param {NodeOrTokenData} _right
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment[]}
-   */
-  getFirstTokensBetween(_left, _right, _options) {
-    return [];
-  }
-
-  /**
-   * @param {NodeOrTokenData} _left
-   * @param {NodeOrTokenData} _right
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment | null}
-   */
-  getLastTokenBetween(_left, _right, _options) {
-    return null;
-  }
-
-  /**
-   * @param {NodeOrTokenData} _left
-   * @param {NodeOrTokenData} _right
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment[]}
-   */
-  getLastTokensBetween(_left, _right, _options) {
-    return [];
-  }
-
-  /**
-   * @param {NodeOrTokenData} _left
-   * @param {NodeOrTokenData} _right
-   * @param {any} [_options]
-   * @returns {TokenOrHTMLComment[]}
-   */
-  getTokensBetween(_left, _right, _options) {
-    return [];
-  }
-
-  /**
-   * @param {NodeOrTokenData} _node
-   * @param {number | undefined} [_beforeCount]
-   * @param {number | undefined} [_afterCount]
-   * @returns {TokenOrHTMLComment[]}
-   */
-  getTokens(_node, _beforeCount, _afterCount) {
-    return [];
-  }
-
-  /**
-   * @param {NodeOrTokenData} _left
-   * @param {NodeOrTokenData} _right
-   * @returns {boolean}
-   */
-  commentsExistBetween(_left, _right) {
-    return false;
-  }
-
-  /**
-   * @param {NodeOrTokenData} _nodeOrToken
-   * @returns {HTMLComment[]}
-   */
-  getCommentsBefore(_nodeOrToken) {
-    return [];
-  }
-
-  /**
-   * @param {NodeOrTokenData} _nodeOrToken
-   * @returns {HTMLComment[]}
-   */
-  getCommentsAfter(_nodeOrToken) {
-    return [];
-  }
-
-  /**
-   * @param {NodeOrTokenData} _node
-   * @returns {HTMLComment[]}
-   */
-  getCommentsInside(_node) {
-    return [];
-  }
-
-  /**
-   * @param {NodeOrTokenData} _node
+   * @deprecated HTM does not have scopes
+   * @param {NodeOrTokenData} node
    * @returns {Scope.Scope | null}
    */
-  getScope(_node) {
-    return null;
+  getScope(node) {
+    if (node?.type !== "Program") {
+      return null;
+    }
+    return createFakeGlobalScope(this.ast);
   }
 
   /**
-   * @param {NodeOrTokenData} _first
-   * @param {NodeOrTokenData} _second
-   * @returns {boolean}
+   * @deprecated YAML does not have scopes
+   * @returns {Scope.ScopeManager | null}
    */
-  isSpaceBetween(_first, _second) {
-    return false;
-  }
-
-  /**
-   * @param {NodeOrTokenData} _node
-   * @returns {boolean}
-   */
-  isGlobalReference(_node) {
-    return false;
-  }
-
-  /**
-   * @param {string} _name
-   * @param {NodeOrTokenData} [_refNode]
-   * @returns {boolean}
-   */
-  markVariableAsUsed(_name, _refNode) {
-    return false;
+  get scopeManager() {
+    return {
+      scopes: [],
+      globalScope: createFakeGlobalScope(this.ast),
+      acquire: (node) => {
+        if (node.type === "Program") {
+          return createFakeGlobalScope(this.ast);
+        }
+        return null;
+      },
+      getDeclaredVariables: () => [],
+    };
   }
 
   /* eslint-enable no-unused-vars */
@@ -469,6 +248,38 @@ class HTMLSourceCode extends TextSourceCodeBase {
  */
 function createHTMLSourceCode(config) {
   return new HTMLSourceCode(config);
+}
+
+/**
+ * Creates a fake global scope for YAML files.
+ *
+ * @deprecated YAML does not have scopes
+ * @param {HTMLProgram} node
+ * @returns {Scope.Scope}
+ */
+function createFakeGlobalScope(node) {
+  /** @type {Scope.Scope} */
+  const fakeGlobalScope = {
+    type: "global",
+    // @ts-ignore
+    block: node,
+    set: new Map(),
+    through: [],
+    childScopes: [],
+    // @ts-ignore
+    variableScope: null,
+    variables: [],
+    references: [],
+    functionExpressionScope: false,
+    isStrict: false,
+    upper: null,
+    implicit: {
+      variables: [],
+      set: new Map(),
+    },
+  };
+  fakeGlobalScope.variableScope = fakeGlobalScope;
+  return fakeGlobalScope;
 }
 
 module.exports = {
