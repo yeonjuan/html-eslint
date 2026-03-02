@@ -80,6 +80,8 @@ ruleTester.run("class-spacing", rule, {
       errors: [
         {
           messageId: "extraSpacing",
+          column: 20,
+          endColumn: 21,
         },
       ],
     },

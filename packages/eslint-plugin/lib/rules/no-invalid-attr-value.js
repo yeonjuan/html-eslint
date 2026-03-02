@@ -1,10 +1,5 @@
 /**
  * @import {
- *   AttributeKey,
- *   AttributeValue,
- *   OpenScriptTagStart,
- *   OpenStyleTagStart,
- *   OpenTagStart,
  *   ScriptTag,
  *   StyleTag,
  *   Tag
@@ -19,7 +14,7 @@ const {
   noInvalidAttrValue,
   NO_INVALID_ATTR_VALUE_MESSAGE_IDS,
 } = require("@html-eslint/core");
-const { elementNodeAdapter } = require("./utils/adapter");
+const { createElementAdapter } = require("../adapters/factory");
 
 /**
  * @type {RuleModule<
@@ -75,27 +70,15 @@ module.exports = {
   create(context) {
     const options = context.options[0] || {};
 
-    const ruleCore = /**
-     * @type {ReturnType<
-     *   typeof noInvalidAttrValue<
-     *     | Tag
-     *     | ScriptTag
-     *     | StyleTag
-     *     | OpenTagStart
-     *     | OpenScriptTagStart
-     *     | OpenStyleTagStart,
-     *     AttributeKey,
-     *     AttributeValue
-     *   >
-     * >}
-     */ (noInvalidAttrValue(options));
+    const { checkAttributes } = noInvalidAttrValue(options);
 
     /** @param {Tag | ScriptTag | StyleTag} node */
-    function checkAttributes(node) {
-      const result = ruleCore.checkAttributes(elementNodeAdapter(node));
-      for (const { node, messageId, data } of result) {
+    function check(node) {
+      const adapter = createElementAdapter(node);
+      const result = checkAttributes(adapter);
+      for (const { loc, messageId, data } of result) {
         context.report({
-          node,
+          loc,
           messageId,
           data,
         });
@@ -103,9 +86,9 @@ module.exports = {
     }
 
     return createVisitors(context, {
-      Tag: checkAttributes,
-      ScriptTag: checkAttributes,
-      StyleTag: checkAttributes,
+      Tag: check,
+      ScriptTag: check,
+      StyleTag: check,
     });
   },
 };

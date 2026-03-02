@@ -1,10 +1,5 @@
 /**
  * @import {
- *   AttributeKey,
- *   AttributeValue,
- *   OpenScriptTagStart,
- *   OpenStyleTagStart,
- *   OpenTagStart,
  *   ScriptTag,
  *   StyleTag,
  *   Tag
@@ -18,7 +13,7 @@ const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 const { useBaseline, USE_BASELINE_MESSAGE_IDS } = require("@html-eslint/core");
-const { elementNodeAdapter } = require("./utils/adapter");
+const { createElementAdapter } = require("../adapters/factory");
 
 /** @type {RuleModule<[Option]>} */
 module.exports = {
@@ -65,28 +60,15 @@ module.exports = {
 
   create(context) {
     const options = context.options[0] || { available: "widely" };
-    const ruleCore = /**
-     * @type {ReturnType<
-     *   typeof useBaseline<
-     *     | Tag
-     *     | ScriptTag
-     *     | StyleTag
-     *     | OpenTagStart
-     *     | OpenScriptTagStart
-     *     | OpenStyleTagStart,
-     *     AttributeKey,
-     *     AttributeValue
-     *   >
-     * >}
-     */ (useBaseline(options));
+    const { checkAttributes } = useBaseline(options);
     /** @param {Tag | ScriptTag | StyleTag} node */
     function check(node) {
-      const adapter = elementNodeAdapter(node);
-      const result = ruleCore.checkAttributes(adapter);
+      const adapter = createElementAdapter(node);
+      const result = checkAttributes(adapter);
 
-      for (const { messageId, data, node } of result) {
+      for (const { messageId, data, loc } of result) {
         context.report({
-          node,
+          loc,
           messageId,
           data,
         });

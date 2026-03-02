@@ -19,14 +19,14 @@ const {
 } = require("@html-eslint/core");
 const { AST_NODE_TYPES } = require("../constants/node-types");
 const {
-  createAttributeValueAdapter,
-} = require("../adapters/attribute-value/factory");
-const {
   isLiteral,
   isTemplateLiteral,
   isLogicalExpression,
   isConditionalExpression,
 } = require("./utils/node");
+const {
+  createAttributeValueAdapter,
+} = require("../adapters/attribute-value/factory");
 
 /** @type {RuleModule<[Option]>} */
 module.exports = {

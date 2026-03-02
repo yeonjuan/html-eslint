@@ -14,9 +14,21 @@ export type SvelteElement = AST.SvelteElement;
 export type SvelteScriptElement = AST.SvelteScriptElement;
 export type SvelteStyleElement = AST.SvelteStyleElement;
 export type SvelteMustacheTag = AST.SvelteMustacheTag;
+export type SvelteAttachTag = AST.SvelteAttachTag;
+export type SvelteDirectiveKey = AST.SvelteDirectiveKey;
+export type SvelteDirective = AST.SvelteDirective;
+export type SvelteGenericsDirective = AST.SvelteGenericsDirective;
+export type SvelteSpecialDirective = AST.SvelteSpecialDirective;
+export type SvelteSpreadAttribute = AST.SvelteSpreadAttribute;
+export type SvelteStyleDirective = AST.SvelteStyleDirective;
+export type SvelteShorthandAttribute = AST.SvelteShorthandAttribute;
+export type SvelteName = AST.SvelteName;
+export type SvelteMemberExpressionName = AST.SvelteMemberExpressionName;
+export type SvelteMustacheTagText = AST.SvelteMustacheTagText;
 export type ArrayExpression = NodeWithStringType<TSESTree.ArrayExpression>;
 export type Literal = NodeWithStringType<TSESTree.Literal>;
 export type TemplateLiteral = NodeWithStringType<TSESTree.TemplateLiteral>;
+export type Identifier = NodeWithStringType<TSESTree.Identifier>;
 export type Node = AST.SvelteNode | TSESTree.Node;
 
 export interface RuleModule {

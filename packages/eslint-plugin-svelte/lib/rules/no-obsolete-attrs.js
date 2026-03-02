@@ -10,7 +10,7 @@ import {
   noObsoleteAttrs,
   NO_OBSOLETE_ATTRS_MESSAGE_IDS,
 } from "@html-eslint/core";
-import { elementNodeAdapter } from "./utils/adapter.js";
+import { createElementAdapter } from "../adapters/element/factory.js";
 
 /** @type {RuleModule} */
 const rule = {
@@ -30,19 +30,15 @@ const rule = {
   },
 
   create(context) {
-    const ruleCore = noObsoleteAttrs();
+    const { checkAttributes } = noObsoleteAttrs();
 
-    /**
-     * Check if an element uses obsolete attributes
-     *
-     * @param {SvelteElement} node
-     */
+    /** @param {SvelteElement} node */
     function checkElement(node) {
-      const adapter = elementNodeAdapter(node);
-      const result = ruleCore.checkAttributes(adapter);
-      for (const { node, messageId, data } of result) {
+      const adapter = createElementAdapter(node);
+      const result = checkAttributes(adapter);
+      for (const { loc, messageId, data } of result) {
         context.report({
-          node,
+          loc,
           messageId,
           data,
         });

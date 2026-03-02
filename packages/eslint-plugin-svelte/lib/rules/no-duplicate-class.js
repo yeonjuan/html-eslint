@@ -14,8 +14,8 @@ import {
   NO_DUPLICATE_CLASS_MESSAGE_IDS,
 } from "@html-eslint/core";
 import { AST_NODE_TYPES } from "../constants/node-types.js";
-import { createAttributeValueAdapter } from "../adapters/attribute-value/factory.js";
 import { isLiteral, isTemplateLiteral } from "./utils/node.js";
+import { createAttributeValueAdapter } from "../adapters/attribute-value/factory.js";
 
 /** @type {RuleModule} */
 const rule = {

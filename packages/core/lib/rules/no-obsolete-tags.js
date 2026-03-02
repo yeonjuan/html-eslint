@@ -1,6 +1,6 @@
 /**
  * @import {
- *   ElementNodeAdapter,
+ *   ElementAdapter,
  *   NoObsoleteTagsResult
  * } from "../types"
  */
@@ -48,29 +48,20 @@ export const NO_OBSOLETE_TAGS_MESSAGE_IDS = {
   unexpected: "unexpected",
 };
 
-/**
- * @template ElementNode
- * @template AttributeKeyNode
- * @template AttributeValueNode
- */
 export function noObsoleteTags() {
   return {
     /**
-     * @param {ElementNodeAdapter<
-     *   ElementNode,
-     *   AttributeKeyNode,
-     *   AttributeValueNode
-     * >} adapter
-     * @returns {NoObsoleteTagsResult<ElementNode>}
+     * @param {ElementAdapter} adapter
+     * @returns {NoObsoleteTagsResult}
      */
     checkElement(adapter) {
-      const tagName = adapter.getTagName();
+      const tagName = adapter.getElementName();
 
       if (OBSOLETE_TAGS_SET.has(tagName)) {
         return [
           {
             messageId: NO_OBSOLETE_TAGS_MESSAGE_IDS.unexpected,
-            node: adapter.node(),
+            loc: adapter.getOpenStartLocation(),
             data: {
               tag: tagName,
             },
