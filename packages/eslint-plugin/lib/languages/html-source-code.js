@@ -33,6 +33,7 @@ const INLINE_CONFIG =
 
 const commentParser = new ConfigCommentParser();
 
+/** @extends TextSourceCodeBase<any> */
 class HTMLSourceCode extends TextSourceCodeBase {
   /** @param {{ ast: AST.Program; text: string; comments: CommentContent[] }} config */
   constructor({ ast, text, comments }) {
@@ -186,17 +187,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
 }
 /**
  * @param {{ ast: AST.Program; text: string; comments: CommentContent[] }} config
- * @returns {TextSourceCodeBase<any> & {
- *   getDisableDirectives(): {
- *     problems: {
- *       ruleId: null | string;
- *       message: string;
- *       loc: SourceLocation;
- *     }[];
- *     directives: Directive[];
- *   };
- *   getInlineConfigNodes(): CommentContent[];
- * }}
+ * @returns {HTMLSourceCode}
  */
 function createHTMLSourceCode(config) {
   return new HTMLSourceCode(config);
