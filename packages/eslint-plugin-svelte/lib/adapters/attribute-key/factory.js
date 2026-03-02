@@ -8,12 +8,9 @@
  */
 
 import { IdentifierAttributeKeyAdapter } from "./identifier";
-
-const { AST_NODE_TYPES } = require("../../constants/node-types");
-const {
-  SvelteDirectiveKeyAttributeKeyAdapter,
-} = require("./svelte-directive-key");
-const { SvelteNameAttributeKeyAdapter } = require("./svelte-name");
+import { AST_NODE_TYPES } from "../../constants/node-types";
+import { SvelteDirectiveKeyAttributeKeyAdapter } from "./svelte-directive-key";
+import { SvelteNameAttributeKeyAdapter } from "./svelte-name";
 
 /**
  * @param {SvelteName | SvelteDirectiveKey | Identifier} node

@@ -8,7 +8,7 @@
  */
 
 /** @implements {AttributeValueAdapter} */
-class SvelteLiteralAttributeValueAdapter {
+export class SvelteLiteralAttributeValueAdapter {
   /** @param {SvelteLiteral} node */
   constructor(node) {
     this.node = node;
@@ -37,7 +37,3 @@ class SvelteLiteralAttributeValueAdapter {
     return null;
   }
 }
-
-module.exports = {
-  SvelteLiteralAttributeValueAdapter,
-};

@@ -8,7 +8,7 @@
  */
 
 /** @implements {AttributeValueAdapter} */
-class TemplateLiteralAttributeValueAdapter {
+export class TemplateLiteralAttributeValueAdapter {
   /** @param {TemplateLiteral} node */
   constructor(node) {
     /** @private */
@@ -50,7 +50,3 @@ class TemplateLiteralAttributeValueAdapter {
     return !!this.node.expressions.length;
   }
 }
-
-module.exports = {
-  TemplateLiteralAttributeValueAdapter,
-};

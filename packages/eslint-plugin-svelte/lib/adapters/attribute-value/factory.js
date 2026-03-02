@@ -8,13 +8,11 @@
  * } from "../../types"
  */
 
-const { AST_NODE_TYPES } = require("../../constants/node-types");
-const { LiteralAttributeValueAdapter } = require("./literal");
-const { SvelteLiteralAttributeValueAdapter } = require("./svelte-literal");
-const {
-  SvelteMustacheTagTextValueAdapter,
-} = require("./svelte-mustache-tag-text");
-const { TemplateLiteralAttributeValueAdapter } = require("./template-literal");
+import { AST_NODE_TYPES } from "../../constants/node-types";
+import { LiteralAttributeValueAdapter } from "./literal";
+import { SvelteLiteralAttributeValueAdapter } from "./svelte-literal";
+import { SvelteMustacheTagTextValueAdapter } from "./svelte-mustache-tag-text";
+import { TemplateLiteralAttributeValueAdapter } from "./template-literal";
 
 /**
  * @param {Literal
@@ -23,7 +21,7 @@ const { TemplateLiteralAttributeValueAdapter } = require("./template-literal");
  *   | SvelteMustacheTagText} node
  * @returns {AttributeValueAdapter}
  */
-function createAttributeValueAdapter(node) {
+export function createAttributeValueAdapter(node) {
   switch (node.type) {
     case AST_NODE_TYPES.Literal: {
       return new LiteralAttributeValueAdapter(node);
@@ -39,7 +37,3 @@ function createAttributeValueAdapter(node) {
     }
   }
 }
-
-module.exports = {
-  createAttributeValueAdapter,
-};

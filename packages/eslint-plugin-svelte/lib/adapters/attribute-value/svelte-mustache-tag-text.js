@@ -11,12 +11,12 @@
  * } from "../../types"
  */
 
-const { AST_NODE_TYPES } = require("../../constants/node-types");
-const { LiteralAttributeValueAdapter } = require("./literal");
-const { TemplateLiteralAttributeValueAdapter } = require("./template-literal");
+import { AST_NODE_TYPES } from "../../constants/node-types";
+import { LiteralAttributeValueAdapter } from "./literal";
+import { TemplateLiteralAttributeValueAdapter } from "./template-literal";
 
 /** @implements {AttributeValueAdapter} */
-class SvelteMustacheTagTextValueAdapter {
+export class SvelteMustacheTagTextValueAdapter {
   /** @param {SvelteMustacheTagText} node */
   constructor(node) {
     this.node = node;
@@ -55,7 +55,3 @@ class SvelteMustacheTagTextValueAdapter {
     return this.adapter?.getValue() ?? null;
   }
 }
-
-module.exports = {
-  SvelteMustacheTagTextValueAdapter,
-};

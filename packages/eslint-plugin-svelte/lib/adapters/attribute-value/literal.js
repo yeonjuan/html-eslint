@@ -5,7 +5,7 @@
  */
 
 /** @implements {AttributeValueAdapter} */
-class LiteralAttributeValueAdapter {
+export class LiteralAttributeValueAdapter {
   /** @param {Literal} node */
   constructor(node) {
     this.node = node;
@@ -44,7 +44,3 @@ class LiteralAttributeValueAdapter {
     return null;
   }
 }
-
-module.exports = {
-  LiteralAttributeValueAdapter,
-};
