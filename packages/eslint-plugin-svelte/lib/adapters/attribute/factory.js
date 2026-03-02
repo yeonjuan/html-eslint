@@ -13,7 +13,7 @@
  */
 
 import { AST_NODE_TYPES } from "../../constants/node-types.js";
-import { SvelteAttributeAttributeAdapter } from "./svelte-attrribute.js";
+import { SvelteAttributeAttributeAdapter } from "./svelte-attribute.js";
 import { NullAttributeAdapter } from "./null.js";
 import { SvelteShorthandAttributeAttributeAdapter } from "./svelte-shorthand-attribute.js";
 

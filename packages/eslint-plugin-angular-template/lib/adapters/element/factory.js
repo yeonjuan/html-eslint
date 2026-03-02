@@ -1,6 +1,6 @@
 /** @import {AngularElement} from "../../types" */
 
-const { AngularElementElementAdapter } = require("./anuglar-element");
+const { AngularElementElementAdapter } = require("./angular-element");
 
 /** @param {AngularElement} node */
 function createElementAdapter(node) {
