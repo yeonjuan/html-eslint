@@ -1,6 +1,9 @@
 /**
- * @import {AST} from "eslint"
- * @import {ParserOptions} from "./types"
+ * @import {Linter} from "eslint"
+ * @import {
+ *   HTMLProgram,
+ *   ParserOptions
+ * } from "./types"
  */
 const { parse, TokenTypes } = require("es-html-parser");
 const { visitorKeys } = require("./visitor-keys");
@@ -12,13 +15,13 @@ const { parse: parseCSS, toPlainObject } = require("css-tree");
 /**
  * @param {string} code
  * @param {ParserOptions | undefined} parserOptions
- * @returns {import("eslint").Linter.ESLintParseResult}
+ * @returns {Linter.ESLintParseResult}
  */
 module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
   const { options, html } = getOptions(code, parserOptions);
   const { ast, tokens } = parse(html, options);
 
-  /** @type {AST.Program} */
+  /** @type {HTMLProgram} */
   const programNode = {
     type: "Program",
     // @ts-ignore
@@ -38,7 +41,6 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
   traverse(programNode, (node) => {
     if (node.type === NODE_TYPES.CommentContent) {
       programNode.comments.push({
-        // @ts-ignore
         type: node.type,
         range: node.range,
         loc: node.loc,
@@ -70,6 +72,7 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
   });
 
   return {
+    // @ts-ignore
     ast: programNode,
     visitorKeys,
     scopeManager: undefined,
