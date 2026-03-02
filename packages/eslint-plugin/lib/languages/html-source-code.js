@@ -83,7 +83,7 @@ class HTMLSourceCode extends TextSourceCodeBase {
 
   /** @returns {CommentContent[]} */
   getAllComments() {
-    return this.comments;
+    return [];
   }
 
   getInlineConfigNodes() {
