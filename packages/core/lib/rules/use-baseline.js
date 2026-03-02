@@ -1,6 +1,6 @@
 /**
  * @import {
- *   ElementNodeAdapter,
+ *   ElementAdapter,
  *   UseBaselineOptions,
  *   UseBaselineResult
  * } from "../types"
@@ -186,19 +186,11 @@ export function useBaseline({ available }) {
 
   return {
     /**
-     * @param {ElementNodeAdapter<
-     *   ElementNode,
-     *   AttributeKeyNode,
-     *   AttributeValueNode
-     * >} adapter
-     * @returns {UseBaselineResult<
-     *   ElementNode,
-     *   AttributeKeyNode,
-     *   AttributeValueNode
-     * >}
+     * @param {ElementAdapter} adapter
+     * @returns {UseBaselineResult}
      */
     checkAttributes(adapter) {
-      const elementName = adapter.getTagName();
+      const elementName = adapter.getElementName();
       if (isCustomElement(elementName)) {
         return [];
       }
@@ -207,7 +199,7 @@ export function useBaseline({ available }) {
         return [
           {
             messageId: USE_BASELINE_MESSAGE_IDS.noBaselineElement,
-            node: adapter.node(),
+            loc: adapter.open.getLocation(),
             data: {
               element: `<${elementName}>`,
               availability,
@@ -216,42 +208,38 @@ export function useBaseline({ available }) {
         ];
       }
 
-      /**
-       * @type {UseBaselineResult<
-       *   ElementNode,
-       *   AttributeKeyNode,
-       *   AttributeValueNode
-       * >}
-       */
+      /** @type {UseBaselineResult} */
       const result = [];
 
       for (const attribute of adapter.getAttributes()) {
-        const attributeKey = attribute.key.value();
-        const attributeKeyIsExpression = attribute.key.isExpression();
-        if (!attributeKey || attributeKeyIsExpression) {
+        const attributeKey = attribute.getKey();
+        const attributeKeyValue = attributeKey.getValue();
+        const attributeKeyHasExpression = attributeKey.hasExpression();
+        if (!attributeKeyValue || attributeKeyHasExpression) {
           continue;
         }
-        const attributeValue = attribute.value.value();
-        if (attributeValue === null) {
+        const attributeValue = attribute.getValue();
+        const attributeValueValue = attributeValue.getValue();
+        if (attributeValueValue === null) {
           continue;
         }
-        const attrKeyRaw = attribute.key.raw() || attributeKey;
-        if (!isSupportedElementAttributeKey(elementName, attributeKey)) {
+
+        if (!isSupportedElementAttributeKey(elementName, attributeKeyValue)) {
           result.push({
             messageId: USE_BASELINE_MESSAGE_IDS.notBaselineElementAttribute,
-            node: attribute.key.node(),
+            loc: attributeKey.getLocation(),
             data: {
               element: `<${elementName}>`,
-              attr: attrKeyRaw,
+              attr: attributeKey.getValue(),
               availability,
             },
           });
-        } else if (!isSupportedGlobalAttributeKey(attributeKey)) {
+        } else if (!isSupportedGlobalAttributeKey(attributeKeyValue)) {
           result.push({
             messageId: USE_BASELINE_MESSAGE_IDS.notBaselineGlobalAttribute,
-            node: attribute.key.node(),
+            loc: attributeKey.getLocation(),
             data: {
-              attr: attrKeyRaw,
+              attr: attributeKey.getValue(),
               availability,
             },
           });
@@ -259,38 +247,38 @@ export function useBaseline({ available }) {
           if (
             !isSupportedElementAttributeKeyValue(
               elementName,
-              attributeKey,
-              attributeValue
+              attributeKeyValue,
+              attributeValueValue
             ) ||
             !isSupportedElementSpecificAttributeKeyValue(
               elementName,
-              attributeKey,
-              attributeValue
+              attributeKeyValue,
+              attributeValueValue
             )
           ) {
             result.push({
               messageId: USE_BASELINE_MESSAGE_IDS.notBaselineElementAttribute,
-              node: attribute.value.node() || adapter.node(),
+              loc: attributeValue.getLocation(),
               data: {
                 element: `<${elementName}>`,
-                attr: `${attrKeyRaw}="${attributeValue}"`,
+                attr: `${attributeKeyValue}="${attributeValueValue}"`,
                 availability,
               },
             });
           } else if (
-            !isSupportedGlobalAttributeKeyValue(attributeKey, attributeValue)
+            !isSupportedGlobalAttributeKeyValue(
+              attributeKeyValue,
+              attributeValueValue
+            )
           ) {
-            const valueNode = attribute.value.node();
-            if (valueNode) {
-              result.push({
-                messageId: USE_BASELINE_MESSAGE_IDS.notBaselineGlobalAttribute,
-                node: valueNode,
-                data: {
-                  attr: `${attrKeyRaw}="${attributeValue}"`,
-                  availability,
-                },
-              });
-            }
+            result.push({
+              messageId: USE_BASELINE_MESSAGE_IDS.notBaselineGlobalAttribute,
+              loc: attributeValue.getLocation(),
+              data: {
+                attr: `${attributeKeyValue}="${attributeValueValue}"`,
+                availability,
+              },
+            });
           }
         }
       }

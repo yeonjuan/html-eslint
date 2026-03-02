@@ -1,6 +1,6 @@
 /**
  * @import {
- *   ElementNodeAdapter,
+ *   ElementAdapter,
  *   NoIneffectiveAttrsResult
  * } from "../types"
  */
@@ -8,7 +8,7 @@
 /**
  * @typedef {{
  *   attr: string;
- *   when: (adapter: ElementNodeAdapter<any, any, any>) => boolean;
+ *   when: (adapter: ElementAdapter) => boolean;
  *   message: string;
  * }} AttributeChecker
  */
@@ -22,26 +22,17 @@ export const NO_INEFFECTIVE_ATTRS_MESSAGE_IDS = {
   ineffective: "ineffective",
 };
 
-/**
- * @template ElementNode
- * @template AttributeKeyNode
- * @template AttributeValueNode
- */
 export function noIneffectiveAttrs() {
   /**
-   * @param {ElementNodeAdapter<
-   *   ElementNode,
-   *   AttributeKeyNode,
-   *   AttributeValueNode
-   * >} adapter
+   * @param {ElementAdapter} adapter
    * @param {string} attrName
    * @returns {string | null}
    */
   function getAttrValue(adapter, attrName) {
     for (const attribute of adapter.getAttributes()) {
-      const attrKeyValue = attribute.key.value();
+      const attrKeyValue = attribute.getKey().getValue();
       if (attrKeyValue && attrKeyValue === attrName) {
-        const value = attribute.value.value();
+        const value = attribute.getValue().getValue();
         return value || null;
       }
     }
@@ -49,41 +40,18 @@ export function noIneffectiveAttrs() {
   }
 
   /**
-   * @param {ElementNodeAdapter<
-   *   ElementNode,
-   *   AttributeKeyNode,
-   *   AttributeValueNode
-   * >} adapter
+   * @param {ElementAdapter} adapter
    * @param {string} attrName
    * @returns {boolean}
    */
   function hasAttr(adapter, attrName) {
     for (const attribute of adapter.getAttributes()) {
-      const keyValue = attribute.key.value();
+      const keyValue = attribute.getKey().getValue();
       if (
         keyValue &&
         keyValue.toLocaleLowerCase() === attrName.toLocaleLowerCase()
       ) {
         return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * @param {ElementNodeAdapter<
-   *   ElementNode,
-   *   AttributeKeyNode,
-   *   AttributeValueNode
-   * >} adapter
-   * @param {string} attrName
-   * @returns {boolean}
-   */
-  function isTemplateValueAttr(adapter, attrName) {
-    for (const { key, value } of adapter.getAttributes()) {
-      const keyValue = key.value();
-      if (keyValue && keyValue === attrName) {
-        return value.isExpression();
       }
     }
     return false;
@@ -95,9 +63,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "multiple",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return [
             "text",
@@ -115,9 +80,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "accept",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return type !== "file";
         },
@@ -127,9 +89,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "readonly",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return ["checkbox", "radio", "file", "range", "color"].includes(type);
         },
@@ -138,9 +97,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "min",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "number",
@@ -158,9 +114,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "max",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "number",
@@ -178,9 +131,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "step",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "number",
@@ -198,9 +148,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "pattern",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "text",
@@ -217,9 +164,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "maxlength",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "text",
@@ -236,9 +180,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "minlength",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "text",
@@ -255,9 +196,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "placeholder",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "text",
@@ -275,9 +213,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "size",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return ![
             "text",
@@ -293,9 +228,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "list",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "text";
           return [
             "checkbox",
@@ -360,9 +292,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "enctype",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "method")) {
-            return false;
-          }
           const method = getAttrValue(adapter, "method") || "get";
           return method ? method.toLowerCase() !== "post" : false;
         },
@@ -374,9 +303,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "formaction",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "submit";
           return type !== "submit";
         },
@@ -385,9 +311,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "formmethod",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "submit";
           return type !== "submit";
         },
@@ -396,9 +319,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "formenctype",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "submit";
           return type !== "submit";
         },
@@ -407,9 +327,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "formnovalidate",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "submit";
           return type !== "submit";
         },
@@ -419,9 +336,6 @@ export function noIneffectiveAttrs() {
       {
         attr: "formtarget",
         when: (adapter) => {
-          if (isTemplateValueAttr(adapter, "type")) {
-            return false;
-          }
           const type = getAttrValue(adapter, "type") || "submit";
           return type !== "submit";
         },
@@ -456,38 +370,41 @@ export function noIneffectiveAttrs() {
 
   return {
     /**
-     * @param {ElementNodeAdapter<
-     *   ElementNode,
-     *   AttributeKeyNode,
-     *   AttributeValueNode
-     * >} adapter
-     * @returns {NoIneffectiveAttrsResult<AttributeKeyNode>}
+     * @param {ElementAdapter} adapter
+     * @returns {NoIneffectiveAttrsResult}
      */
     checkAttributes(adapter) {
-      const elementName = adapter.getTagName();
+      const elementName = adapter.getElementName();
       const tagCheckers = checkersByTag[elementName];
 
       if (!tagCheckers) {
         return [];
       }
 
-      /** @type {NoIneffectiveAttrsResult<AttributeKeyNode>} */
+      /** @type {NoIneffectiveAttrsResult} */
       const result = [];
       for (const check of tagCheckers) {
         for (const attribute of adapter.getAttributes()) {
-          const attrKeyValue = attribute.key.value();
-          const attrValueValue = attribute.value.value();
+          const attributeKey = attribute.getKey();
+          if (attributeKey.hasExpression()) {
+            continue;
+          }
+          const attributeValue = attribute.getValue();
+          if (attributeValue.hasExpression()) {
+            continue;
+          }
+          const attributeKeyValue = attributeKey.getValue();
+          const attributeValueValue = attributeValue.getValue();
           if (
-            attribute.value.isExpression() ||
-            attrValueValue === null ||
-            attrKeyValue !== check.attr
+            attributeValueValue === null ||
+            attributeKeyValue.toLowerCase() !== check.attr
           ) {
             continue;
           }
 
           if (check.when(adapter)) {
             result.push({
-              node: attribute.key.node(),
+              loc: attributeKey.getLocation(),
               messageId: NO_INEFFECTIVE_ATTRS_MESSAGE_IDS.ineffective,
               data: {
                 message: check.message,
