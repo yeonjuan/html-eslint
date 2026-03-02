@@ -1,22 +1,22 @@
 /**
  * @import {CssNodePlain} from "css-tree"
  * @import {AnyNode} from "es-html-parser"
- * @import {AST} from "eslint"
+ * @import {HTMLProgram} from "./types"
  */
 const { visitorKeys } = require("./visitor-keys");
 const { cssVisitorKeys } = require("./css-visitor-keys");
 
 /**
- * @param {AnyNode | AST.Program} node
- * @param {(arg: AnyNode | AST.Program) => void} visitor
+ * @param {AnyNode | HTMLProgram} node
+ * @param {(arg: AnyNode | HTMLProgram) => void} visitor
  * @returns {void}
  */
 function traverse(node, visitor) {
-  if (!node) {
+  if (!node || !("type" in node)) {
     return;
   }
   visitor(node);
-  const type = node.type;
+  const { type } = node;
   // @ts-ignore
   const keys = visitorKeys[type];
 

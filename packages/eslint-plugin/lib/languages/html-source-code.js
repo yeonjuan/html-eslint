@@ -4,12 +4,13 @@
  *   DirectiveType,
  *   SourceLocation
  * } from "@eslint/plugin-kit"
+ * @import {HTMLProgram} from "@html-eslint/parser"
  * @import {
  *   AnyHTMLNode,
  *   CommentContent
  * } from "@html-eslint/types"
- * @import {AST} from "eslint"
  * @import {BaseNode} from "../types"
+ * @import {SourceCodeOptions} from "./types"
  */
 const {
   TextSourceCodeBase,
@@ -30,8 +31,9 @@ const INLINE_CONFIG =
 
 const commentParser = new ConfigCommentParser();
 
+/** @extends TextSourceCodeBase<SourceCodeOptions> */
 class HTMLSourceCode extends TextSourceCodeBase {
-  /** @param {{ ast: AST.Program; text: string; comments: CommentContent[] }} config */
+  /** @param {{ ast: HTMLProgram; text: string; comments: CommentContent[] }} config */
   constructor({ ast, text, comments }) {
     super({ ast, text });
 
@@ -136,8 +138,8 @@ class HTMLSourceCode extends TextSourceCodeBase {
     const steps = [];
 
     /**
-     * @param {AnyHTMLNode | AST.Program} node
-     * @param {AnyHTMLNode | AST.Program | null} parent
+     * @param {AnyHTMLNode | HTMLProgram} node
+     * @param {AnyHTMLNode | HTMLProgram | null} parent
      */
     const visit = (node, parent) => {
       this.parentsMap.set(node, parent);
@@ -487,18 +489,8 @@ class HTMLSourceCode extends TextSourceCodeBase {
   /* eslint-enable no-unused-vars */
 }
 /**
- * @param {{ ast: AST.Program; text: string; comments: CommentContent[] }} config
- * @returns {TextSourceCodeBase<any> & {
- *   getDisableDirectives(): {
- *     problems: {
- *       ruleId: null | string;
- *       message: string;
- *       loc: SourceLocation;
- *     }[];
- *     directives: Directive[];
- *   };
- *   getInlineConfigNodes(): CommentContent[];
- * }}
+ * @param {{ ast: HTMLProgram; text: string; comments: CommentContent[] }} config
+ * @returns {HTMLSourceCode}
  */
 function createHTMLSourceCode(config) {
   return new HTMLSourceCode(config);

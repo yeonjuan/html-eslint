@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /**
  * @import {
  *   File,
@@ -6,15 +7,14 @@
  *   OkParseResult,
  *   ParseResult
  * } from "@eslint/core"
- * @import {ParserOptions} from "@html-eslint/parser"
- * @import {AST} from "eslint"
+ * @import {ParserOptions, HTMLProgram} from "@html-eslint/parser"
  */
 
 const { visitorKeys, parseForESLint } = require("@html-eslint/parser");
 const { createHTMLSourceCode } = require("./html-source-code");
 
 /**
- * @typedef {Language<{ LangOptions: ParserOptions; Code: ReturnType<typeof createHTMLSourceCode>; RootNode: AST.Program; Node: {};}>} HTMLLanguageType
+ * @typedef {Language<{ LangOptions: ParserOptions; Code: ReturnType<typeof createHTMLSourceCode>; RootNode: HTMLProgram; Node: {};}>} HTMLLanguageType
  */
 
 /**
@@ -86,17 +86,21 @@ class HTMLLanguage {
    * @param {File} file
    * @param {Object} [context]
    * @param {ParserOptions} context.languageOptions
-   * @returns {ParseResult<AST.Program>}
+   * @returns {ParseResult<HTMLProgram>}
    */
   parse(file, context) {
     const code = /** @type {string} */ (file.body);
     const languageOptions = (context && context.languageOptions) || {};
     try {
       const result = parseForESLint(code, languageOptions);
+      /** @type {HTMLProgram} */
+      // @ts-ignore
+      const ast = result.ast;
+
       return {
         ok: true,
-        ast: result.ast,
-        comments: result.ast.comments,
+        ast,
+        comments: ast.comments,
       };
     } catch (e) {
       return {
@@ -108,7 +112,7 @@ class HTMLLanguage {
 
   /**
    * @param {File} file
-   * @param {OkParseResult<AST.Program>} parseResult
+   * @param {OkParseResult<HTMLProgram>} parseResult
    */
   createSourceCode(file, parseResult) {
     return createHTMLSourceCode({
