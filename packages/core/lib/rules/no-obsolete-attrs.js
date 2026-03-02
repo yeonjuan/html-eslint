@@ -30,6 +30,10 @@ export function noObsoleteAttrs() {
 
       for (const attribute of adapter.getAttributes()) {
         const attributeKey = attribute.getKey();
+        if (!attributeKey) {
+          continue;
+        }
+
         const attrKeyValue = attributeKey.getValue();
         const attributeValue = attribute.getValue();
         const attrValueValueValue = attributeValue?.getValue();

@@ -65,6 +65,9 @@ export function noInvalidAttrValue(options) {
 
       for (const attribute of adapter.getAttributes()) {
         const attributeKey = attribute.getKey();
+        if (!attributeKey) {
+          continue;
+        }
 
         if (attributeKey.hasExpression()) {
           continue;
@@ -77,6 +80,7 @@ export function noInvalidAttrValue(options) {
         }
 
         const attrKeyValue = attributeKey.getValue();
+
         const attrValueValue = attributeValue?.getValue() ?? null;
         if (attrValueValue === null) {
           continue;

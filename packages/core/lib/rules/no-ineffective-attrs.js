@@ -30,7 +30,7 @@ export function noIneffectiveAttrs() {
    */
   function getAttrValue(adapter, attrName) {
     for (const attribute of adapter.getAttributes()) {
-      const attrKeyValue = attribute.getKey().getValue();
+      const attrKeyValue = attribute.getKey()?.getValue();
       if (attrKeyValue && attrKeyValue === attrName) {
         const value = attribute.getValue()?.getValue();
         return value || null;
@@ -46,7 +46,7 @@ export function noIneffectiveAttrs() {
    */
   function hasAttr(adapter, attrName) {
     for (const attribute of adapter.getAttributes()) {
-      const keyValue = attribute.getKey().getValue();
+      const keyValue = attribute.getKey()?.getValue();
       if (
         keyValue &&
         keyValue.toLocaleLowerCase() === attrName.toLocaleLowerCase()
@@ -386,6 +386,9 @@ export function noIneffectiveAttrs() {
       for (const check of tagCheckers) {
         for (const attribute of adapter.getAttributes()) {
           const attributeKey = attribute.getKey();
+          if (!attributeKey) {
+            continue;
+          }
           if (attributeKey.hasExpression()) {
             continue;
           }
@@ -397,7 +400,7 @@ export function noIneffectiveAttrs() {
           const attributeValueValue = attributeValue?.getValue();
           if (
             attributeValueValue === null ||
-            attributeKeyValue.toLowerCase() !== check.attr
+            attributeKeyValue?.toLowerCase() !== check.attr
           ) {
             continue;
           }

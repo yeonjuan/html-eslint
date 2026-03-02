@@ -8,7 +8,8 @@
  */
 
 import { useBaseline, USE_BASELINE_MESSAGE_IDS } from "@html-eslint/core";
-import { elementNodeAdapter } from "./utils/adapter.js";
+import { AST_NODE_TYPES } from "../constants/node-types.js";
+import { createElementAdapter } from "../adapters/element/factory.js";
 
 /** @type {RuleModule} */
 const rule = {
@@ -62,7 +63,7 @@ const rule = {
      * @param {SvelteElement} node
      */
     function checkElement(node) {
-      if (node.name.type !== "SvelteName") {
+      if (node.name.type !== AST_NODE_TYPES.SvelteName) {
         return;
       }
       if (
@@ -72,25 +73,14 @@ const rule = {
         return;
       }
 
-      const adapter = elementNodeAdapter(node);
+      const adapter = createElementAdapter(node);
       const result = ruleCore.checkAttributes(adapter);
 
-      for (const { node, messageId, data } of result) {
-        // r.node might be an array or other structure from Svelte parser
-        // Extract the first node if it's an array, or use the element node as fallback
-        let reportNode = node;
-        if (node) {
-          if (Array.isArray(node) && node.length > 0) {
-            [reportNode] = node;
-          } else if (node.type) {
-            reportNode = node;
-          }
-        }
-
+      for (const { loc, messageId, data } of result) {
         context.report({
           messageId,
           data,
-          node: reportNode,
+          loc,
         });
       }
     }

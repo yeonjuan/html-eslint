@@ -213,6 +213,9 @@ export function useBaseline({ available }) {
 
       for (const attribute of adapter.getAttributes()) {
         const attributeKey = attribute.getKey();
+        if (!attributeKey) {
+          continue;
+        }
         const attributeKeyValue = attributeKey.getValue();
         const attributeKeyHasExpression = attributeKey.hasExpression();
         if (!attributeKeyValue || attributeKeyHasExpression) {

@@ -11,8 +11,7 @@ import {
   noInvalidAttrValue,
   NO_INVALID_ATTR_VALUE_MESSAGE_IDS,
 } from "@html-eslint/core";
-import { elementNodeAdapter } from "./utils/adapter.js";
-import { AST_NODE_TYPES } from "../constants/node-types.js";
+import { createElementAdapter } from "../adapters/element/factory.js";
 
 /** @type {RuleModule} */
 const rule = {
@@ -60,30 +59,16 @@ const rule = {
 
   create(context) {
     const options = context.options[0] || {};
-    const ruleCore = noInvalidAttrValue(options);
+    const { checkAttributes } = noInvalidAttrValue(options);
 
-    /**
-     * Check if an element has invalid attribute values
-     *
-     * @param {SvelteElement} node
-     */
+    /** @param {SvelteElement} node */
     function checkElement(node) {
-      const adapter = elementNodeAdapter(node);
-      const result = ruleCore.checkAttributes(adapter);
+      const adapter = createElementAdapter(node);
+      const result = checkAttributes(adapter);
 
-      for (const { node, messageId, data } of result) {
-        // For Svelte, r.node is an array of SvelteLiteral | SvelteMustacheTag
-        // We need to find the first SvelteLiteral node for reporting
-        let reportNode = node;
-        if (Array.isArray(node)) {
-          const firstLiteral = node.find(
-            (part) => part.type === AST_NODE_TYPES.SvelteLiteral
-          );
-          reportNode = firstLiteral || node[0];
-        }
-
+      for (const { loc, messageId, data } of result) {
         context.report({
-          node: reportNode,
+          loc,
           messageId,
           data,
         });
