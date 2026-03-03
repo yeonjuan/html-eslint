@@ -64,6 +64,7 @@
 | [no-positive-tabindex](rules/no-positive-tabindex)               | Disallow use of positive `tabindex`.                                      |     |
 | [no-redundant-role](rules/no-redundant-role)                     | Disallow redundant role attributes that match the element's implicit role | 🔧  |
 | [no-skip-heading-levels](rules/no-skip-heading-levels)           | Disallow skipping heading levels                                          |     |
+| [require-content](rules/require-content)                         | Require that certain elements have meaningful content.                    |     |
 | [require-form-method](rules/require-form-method)                 | Require `method` attribute in `<form>`                                    |     |
 | [require-frame-title](rules/require-frame-title)                 | Require `title` in `<frame>`, `<iframe>`                                  |     |
 | [require-img-alt](rules/require-img-alt)                         | Require `alt` attribute on `<img>` tag                                    | ⭐  |
