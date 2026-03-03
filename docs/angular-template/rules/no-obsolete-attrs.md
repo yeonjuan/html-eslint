@@ -103,35 +103,6 @@ Examples of **correct** code for this rule:
 <table [border]="borderWidth"></table>
 ```
 
-## Checked Attributes
-
-This rule checks for the following obsolete attributes:
-
-- **Presentational attributes**: `align`, `bgcolor`, `border`, `cellpadding`, `cellspacing`, `width`, `height`, `frameborder`, `scrolling`
-  - Suggestion: Use CSS instead.
-
-- **`name` attribute**: On `<a>`, `<img>`, `<embed>`, `<option>` elements
-  - Suggestion: Use the id attribute instead.
-
-- **`charset` attribute**: On `<a>`, `<link>` elements
-  - Suggestion: Use an HTTP `Content-Type` header on the linked resource instead.
-
-- **`scope` attribute**: On `<td>` elements
-  - Suggestion: Use th elements for heading cells.
-
-- **`manifest` attribute**: On `<html>` element
-  - Suggestion: Use service workers instead.
-
-- **`accept` attribute**: On `<form>` element
-  - Suggestion: Use the accept attribute directly on the input elements instead.
-
-- **`contextmenu` attribute**: On all elements
-  - Suggestion: To implement a custom context menu, use script to handle the contextmenu event.
-
-## When Not To Use It
-
-If you need to support legacy HTML for compatibility reasons, you may want to disable this rule.
-
 ## Further Reading
 
 - [HTML Spec: Non-conforming features](https://html.spec.whatwg.org/dev/obsolete.html#non-conforming-features)
