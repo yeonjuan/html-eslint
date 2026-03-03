@@ -85,11 +85,6 @@ Examples of **incorrect** code for this rule:
 
 <!-- 'slot' attribute is not widely available -->
 <span slot="header">Header</span>
-
-<!-- Inside Angular control flow — elements are still checked -->
-@if (show) {
-<slot></slot>
-}
 ```
 
 Examples of **correct** code for this rule:

@@ -60,13 +60,6 @@ Examples of **incorrect** code for this rule:
 <iframe frameborder="0" scrolling="no"></iframe>
 <body bgcolor="#ffffff" text="#000000"></body>
 <td scope="row">Cell</td>
-
-<!-- Obsolete attributes in Angular control flow -->
-@if (show) {
-<div align="center">Content</div>
-} @for (item of items; track item.id) {
-<table border="1"></table>
-}
 ```
 
 Examples of **correct** code for this rule:

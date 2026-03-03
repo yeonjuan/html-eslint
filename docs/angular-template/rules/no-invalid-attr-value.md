@@ -129,11 +129,6 @@ Examples of **incorrect** code for this rule:
 
 <!-- Invalid scope -->
 <th scope="invalid">Header</th>
-
-<!-- Errors in Angular control flow -->
-@if (show) { <input type="invalid" /> } @for (item of items; track item.id) {
-<button type="invalid">Click</button>
-}
 ```
 
 Examples of **correct** code for this rule:

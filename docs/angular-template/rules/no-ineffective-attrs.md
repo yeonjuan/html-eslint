@@ -110,10 +110,6 @@ Examples of **incorrect** code for this rule:
 
 <!-- usemap and ismap cannot be used together -->
 <img src="map.jpg" usemap="#map" ismap />
-
-<!-- Errors inside Angular control flow -->
-@if (show) { <input type="text" multiple /> } @for (item of items; track
-item.id) { <a download>Link</a> }
 ```
 
 Examples of **correct** code for this rule:
