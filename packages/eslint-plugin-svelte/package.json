@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/eslint-plugin-svelte",
-  "version": "0.57.1",
+  "version": "0.58.0-alpha.0",
   "type": "module",
   "description": "ESLint plugin for HTML with Svelte support",
   "author": "yeonjuan",
@@ -49,7 +49,7 @@
     "lint"
   ],
   "dependencies": {
-    "@html-eslint/core": "^0.57.0"
+    "@html-eslint/core": "^0.58.0-alpha.0"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 || ^10.0.0-0",
@@ -58,7 +58,7 @@
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@babel/preset-env": "^7.29.0",
-    "@html-eslint/types": "^0.57.0",
+    "@html-eslint/types": "^0.58.0-alpha.0",
     "@types/babel__core": "^7",
     "@types/babel__preset-env": "^7",
     "@types/eslint-scope": "^9.1.0",

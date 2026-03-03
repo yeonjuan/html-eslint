@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/eslint-plugin-angular-template",
-  "version": "0.57.1",
+  "version": "0.58.0-alpha.0",
   "type": "commonjs",
   "description": "ESLint plugin for HTML with Angular support",
   "author": "yeonjuan",
@@ -37,8 +37,8 @@
     "lint"
   ],
   "dependencies": {
-    "@html-eslint/core": "^0.57.0",
-    "@html-eslint/types": "^0.57.0"
+    "@html-eslint/core": "^0.58.0-alpha.0",
+    "@html-eslint/types": "^0.58.0-alpha.0"
   },
   "peerDependencies": {
     "@angular-eslint/template-parser": ">=18.0.0",
