@@ -54,13 +54,6 @@ Examples of **incorrect** code for this rule:
 
 <!-- Extra space between class names -->
 <div class="foo  bar"></div>
-
-<!-- Inside Angular control flow — elements are still checked -->
-@if (show) {
-<div class=" foo bar"></div>
-} @for (item of items; track item.id) {
-<li class="item  item2"></li>
-}
 ```
 
 Examples of **correct** code for this rule:

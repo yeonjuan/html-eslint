@@ -49,13 +49,6 @@ Examples of **incorrect** code for this rule:
 <!-- Duplicate class names -->
 <div class="foo foo"></div>
 <span class="foo bar foo"></span>
-
-<!-- Inside Angular control flow — elements are still checked -->
-@if (show) {
-<div class="foo foo"></div>
-} @for (item of items; track item.id) {
-<li class="item item"></li>
-}
 ```
 
 Examples of **correct** code for this rule:
