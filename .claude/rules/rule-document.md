@@ -1,6 +1,9 @@
-# Rule Documentation Guidelines
+---
+paths:
+  - "**/rules/*.md"
+---
 
-**Paths**: `**/rules/*.md`
+# Rule Documentation Guidelines
 
 ## Overview
 
