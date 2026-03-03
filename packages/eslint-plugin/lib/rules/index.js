@@ -49,6 +49,8 @@ const requireExplicitSize = require("./require-explicit-size");
 const useBaseLine = require("./use-baseline");
 const noDuplicateClass = require("./no-duplicate-class");
 const noEmptyHeadings = require("./no-empty-headings");
+const noEmptyPalpableContent = require("./no-empty-palpable-content");
+const requireDetailsSummary = require("./require-details-summary");
 const noInvalidEntity = require("./no-invalid-entity");
 const noDuplicateInHead = require("./no-duplicate-in-head");
 const noIneffectiveAttrs = require("./no-ineffective-attrs");
@@ -126,6 +128,8 @@ const rules = {
   "no-redundant-role": noRedundantRole,
   "no-invalid-attr-value": noInvalidAttrValue,
   "head-order": headOrder,
+  "no-empty-palpable-content": noEmptyPalpableContent,
+  "require-details-summary": requireDetailsSummary,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
