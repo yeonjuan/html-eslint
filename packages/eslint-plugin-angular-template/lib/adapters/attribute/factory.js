@@ -1,12 +1,26 @@
-/** @import {AngularTextAttribute} from "../../types" */
+/**
+ * @import {
+ *   AngularBoundAttribute,
+ *   AngularTextAttribute
+ * } from "../../types"
+ */
 
 const {
   AngularTextAttributeAttributeAdapter,
 } = require("./angular-text-attribute");
+const {
+  AngularBoundAttributeAttributeAdapter,
+} = require("./angular-bound-attribute");
+const { AST_NODE_TYPES } = require("../../constants/node-types");
 
-/** @param {AngularTextAttribute} node */
+/** @param {AngularTextAttribute | AngularBoundAttribute} node */
 function createAttributeAdapter(node) {
-  return new AngularTextAttributeAttributeAdapter(node);
+  switch (node.type) {
+    case AST_NODE_TYPES.BoundAttribute:
+      return new AngularBoundAttributeAttributeAdapter(node);
+    case AST_NODE_TYPES.TextAttribute:
+      return new AngularTextAttributeAttributeAdapter(node);
+  }
 }
 
 module.exports = {

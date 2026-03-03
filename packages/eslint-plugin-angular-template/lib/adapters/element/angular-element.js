@@ -55,9 +55,13 @@ class AngularElementElementAdapter {
   }
 
   getAttributes() {
-    return this.node.attributes.map((attribute) =>
+    const attributes = this.node.attributes.map((attribute) =>
       createAttributeAdapter(attribute)
     );
+    const inputs = this.node.inputs.map((input) =>
+      createAttributeAdapter(input)
+    );
+    return [...attributes, ...inputs];
   }
 }
 
