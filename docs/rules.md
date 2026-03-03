@@ -33,6 +33,7 @@
 | [require-attrs](rules/require-attrs)                             | Require specified attributes                                                                   | 🔧    |
 | [require-button-type](rules/require-button-type)                 | Require use of the button element with a valid type attribute.                                 | 🔧    |
 | [require-closing-tags](rules/require-closing-tags)               | Require closing tags.                                                                          | ⭐ 🔧 |
+| [require-details-summary](rules/require-details-summary)         | Require `<details>` elements to have a `<summary>` as their first child element.               |       |
 | [require-doctype](rules/require-doctype)                         | Require `<!DOCTYPE HTML>` in HTML                                                              | ⭐ 🔧 |
 | [require-explicit-size](rules/require-explicit-size)             | Enforces that some elements (img, iframe) have explicitly defined width and height attributes. |       |
 | [require-li-container](rules/require-li-container)               | Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.                                            | ⭐    |
