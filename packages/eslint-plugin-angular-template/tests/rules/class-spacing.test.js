@@ -9,6 +9,7 @@ ruleTester.run("class-spacing", rule, {
     { code: `<div class="foo bar"></div>` },
     { code: `<div class="foo bar baz"></div>` },
     { code: `<div class=""></div>` },
+    { code: `<div class="{{ foo }} bar"></div>` },
     { code: `<div [class]="expr"></div>` },
     { code: `<div [class.active]="isActive"></div>` },
     { code: `@if (show) { <div class="foo bar"></div> }` },

@@ -41,6 +41,13 @@ ruleTester.run("class-spacing", rule, {
     {
       code: "<div class={[`foo`, `bar`]}></div>",
     },
+    {
+      code: `<div class={"foo {bar}"}></div>`,
+    },
+    {
+      code: `<div class="foo
+      bar"></div>`,
+    },
   ],
   invalid: [
     {
