@@ -4,6 +4,7 @@ const classSpacing = require("./class-spacing");
 const noObsoleteTags = require("./no-obsolete-tags");
 const noIneffectiveAttrs = require("./no-ineffective-attrs");
 const noObsoleteAttrs = require("./no-obsolete-attrs");
+const noInvalidAttrValue = require("./no-invalid-attr-value");
 
 const rules = {
   "use-baseline": useBaseline,
@@ -12,6 +13,7 @@ const rules = {
   "no-obsolete-tags": noObsoleteTags,
   "no-ineffective-attrs": noIneffectiveAttrs,
   "no-obsolete-attrs": noObsoleteAttrs,
+  "no-invalid-attr-value": noInvalidAttrValue,
 };
 
 module.exports = rules;
