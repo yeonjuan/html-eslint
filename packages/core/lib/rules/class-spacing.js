@@ -135,12 +135,16 @@ function trailingLoc(line, lineIndex, isSingleLine, loc) {
       end: { line: loc.end.line, column: loc.end.column },
     };
   }
+  const columnOffset = lineIndex === 0 ? loc.start.column : 0;
   return {
     start: {
       line: loc.start.line + lineIndex,
-      column: line.length - trailingSpaces,
+      column: columnOffset + line.length - trailingSpaces,
     },
-    end: { line: loc.start.line + lineIndex, column: line.length },
+    end: {
+      line: loc.start.line + lineIndex,
+      column: columnOffset + line.length,
+    },
   };
 }
 

@@ -53,6 +53,13 @@ ruleTester.run("class-spacing", rule, {
       bar"></div>`,
     },
     {
+      code: `<div class="
+foo
+ bar
+baz
+"></div>`,
+    },
+    {
       code: '<div class="foo\r\n      bar"></div>',
     },
   ],
@@ -243,6 +250,21 @@ bar"></div>`,
         {
           messageId: "extraSpacing",
           column: 16,
+        },
+      ],
+    },
+    {
+      code: `<div class="
+foo  bar
+"></div>`,
+      output: `<div class="
+foo bar
+"></div>`,
+      errors: [
+        {
+          messageId: "extraSpacing",
+          column: 5,
+          line: 2,
         },
       ],
     },
