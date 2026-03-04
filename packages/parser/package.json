@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/parser",
-  "version": "0.58.0-alpha.0",
+  "version": "0.58.0",
   "description": "Parser for @html-eslint/eslint-plugin",
   "author": {
     "name": "yeonjuan",
@@ -38,8 +38,8 @@
     "lint"
   ],
   "dependencies": {
-    "@html-eslint/template-syntax-parser": "^0.58.0-alpha.0",
-    "@html-eslint/types": "^0.58.0-alpha.0",
+    "@html-eslint/template-syntax-parser": "^0.58.0",
+    "@html-eslint/types": "^0.58.0",
     "css-tree": "^3.1.0",
     "es-html-parser": "0.3.1"
   },
