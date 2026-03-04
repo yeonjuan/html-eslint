@@ -65,6 +65,15 @@ ruleTester.run("classname-spacing", rule, {
       code: 'const x = clsx(condition ? "foo bar" : "baz qux")',
       options: [{ callees: ["clsx"] }],
     },
+    {
+      code: '<div className="foo\n      bar"></div>',
+    },
+    {
+      code: '<div className="foo\r\n      bar"></div>',
+    },
+    {
+      code: "<div className={`foo\n      bar`}></div>",
+    },
   ],
   invalid: [
     {
@@ -450,6 +459,32 @@ ruleTester.run("classname-spacing", rule, {
           column: 42,
           endLine: 1,
           endColumn: 43,
+        },
+      ],
+    },
+    {
+      code: '<div className="foo \nbar"></div>',
+      output: '<div className="foo\nbar"></div>',
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 20,
+          endLine: 1,
+          endColumn: 21,
+        },
+      ],
+    },
+    {
+      code: "<div className={`foo \nbar`}></div>",
+      output: "<div className={`foo\nbar`}></div>",
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 21,
+          endLine: 1,
+          endColumn: 22,
         },
       ],
     },
