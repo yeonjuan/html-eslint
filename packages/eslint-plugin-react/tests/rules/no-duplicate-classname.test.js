@@ -144,6 +144,17 @@ ruleTester.run("no-duplicate-classname", rule, {
         },
       ],
     },
+    {
+      code: `<button className={\`foo 
+foo\`}></button>`,
+      output: `<button className={\`foo 
+\`}></button>`,
+      errors: [
+        {
+          messageId: "duplicateClass",
+        },
+      ],
+    },
     // CallExpression with callees option
     {
       code: 'const x = clsx("foo foo")',

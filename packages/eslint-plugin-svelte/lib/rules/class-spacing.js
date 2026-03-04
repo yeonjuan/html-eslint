@@ -82,13 +82,22 @@ const rule = {
           return;
         }
 
-        node.value.forEach((valuePart) => {
-          if (valuePart.type === AST_NODE_TYPES.SvelteLiteral) {
-            checkLiteral(valuePart);
-          } else if (valuePart.type === AST_NODE_TYPES.SvelteMustacheTag) {
-            checkSvelteMustacheTag(valuePart);
-          }
-        });
+        if (
+          node.value.every(
+            (valuePart) => valuePart.type === AST_NODE_TYPES.SvelteLiteral
+          ) ||
+          node.value.every(
+            (valuePart) => valuePart.type === AST_NODE_TYPES.SvelteMustacheTag
+          )
+        ) {
+          node.value.forEach((valuePart) => {
+            if (valuePart.type === AST_NODE_TYPES.SvelteLiteral) {
+              checkLiteral(valuePart);
+            } else if (valuePart.type === AST_NODE_TYPES.SvelteMustacheTag) {
+              checkSvelteMustacheTag(valuePart);
+            }
+          });
+        }
       },
     };
   },

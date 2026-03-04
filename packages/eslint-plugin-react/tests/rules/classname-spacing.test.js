@@ -36,6 +36,10 @@ ruleTester.run("classname-spacing", rule, {
       code: "<Button className={`foo ${bar} baz`}/>",
     },
     {
+      code: `<button className={\`foo
+      bar\`}></button>`,
+    },
+    {
       code: 'const x = clsx("foo")',
       options: [{ callees: ["clsx"] }],
     },
@@ -64,6 +68,15 @@ ruleTester.run("classname-spacing", rule, {
     {
       code: 'const x = clsx(condition ? "foo bar" : "baz qux")',
       options: [{ callees: ["clsx"] }],
+    },
+    {
+      code: '<div className="foo\n      bar"></div>',
+    },
+    {
+      code: '<div className="foo\r\n      bar"></div>',
+    },
+    {
+      code: "<div className={`foo\n      bar`}></div>",
     },
   ],
   invalid: [
@@ -454,6 +467,32 @@ ruleTester.run("classname-spacing", rule, {
       ],
     },
     {
+      code: '<div className="foo \nbar"></div>',
+      output: '<div className="foo\nbar"></div>',
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 20,
+          endLine: 1,
+          endColumn: 21,
+        },
+      ],
+    },
+    {
+      code: "<div className={`foo \nbar`}></div>",
+      output: "<div className={`foo\nbar`}></div>",
+      errors: [
+        {
+          messageId: "extraSpacing",
+          line: 1,
+          column: 21,
+          endLine: 1,
+          endColumn: 22,
+        },
+      ],
+    },
+    {
       code: 'const x = clsx(condition ? "  foo" : "bar")',
       output: 'const x = clsx(condition ? "foo" : "bar")',
       options: [{ callees: ["clsx"] }],
@@ -499,6 +538,22 @@ ruleTester.run("classname-spacing", rule, {
           column: 46,
           endLine: 1,
           endColumn: 47,
+        },
+      ],
+    },
+    {
+      code: `<button className={\` foo 
+      bar\`}></button>`,
+      output: `<button className={\`foo
+      bar\`}></button>`,
+      errors: [
+        {
+          messageId: "extraSpacing",
+          column: 21,
+        },
+        {
+          messageId: "extraSpacing",
+          column: 25,
         },
       ],
     },
