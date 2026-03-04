@@ -4,7 +4,6 @@
  *   SourceLocation
  * } from "@html-eslint/types"
  * @import {
- *   AttributeAdapter,
  *   AttributeValueAdapter,
  *   ClassSpacingResult
  * } from "../types"
@@ -12,7 +11,7 @@
 
 const CLASS_BETWEEN_EXTRA_SPACES_REGEX = /\s{2,}/;
 const CLASS_BETWEEN_EXTRA_SPACES_REGEX_GLOBAL = /\s{2,}/g;
-
+const LINE_BREAK_REGEX = /\r\n|[\r\n\u2028\u2029]/u;
 /**
  * @type {{
  *   extraSpacing: "extraSpacing";
@@ -53,14 +52,13 @@ function checkLeading(value, loc, range, result) {
     });
   }
 }
-const lineBreakPattern = /\r\n|[\r\n\u2028\u2029]/u;
 
 /**
  * @param {string} value
  * @returns {{ line: string; start: number }[]}
  */
 function splitLines(value) {
-  const lines = value.split(lineBreakPattern);
+  const lines = value.split(LINE_BREAK_REGEX);
   let pos = 0;
   return lines.map((line, i) => {
     const entry = { line, start: pos };

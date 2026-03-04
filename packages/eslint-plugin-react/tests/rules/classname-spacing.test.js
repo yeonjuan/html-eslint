@@ -36,6 +36,10 @@ ruleTester.run("classname-spacing", rule, {
       code: "<Button className={`foo ${bar} baz`}/>",
     },
     {
+      code: `<button className={\`foo
+      bar\`}></button>`,
+    },
+    {
       code: 'const x = clsx("foo")',
       options: [{ callees: ["clsx"] }],
     },
@@ -534,6 +538,22 @@ ruleTester.run("classname-spacing", rule, {
           column: 46,
           endLine: 1,
           endColumn: 47,
+        },
+      ],
+    },
+    {
+      code: `<button className={\` foo 
+      bar\`}></button>`,
+      output: `<button className={\`foo
+      bar\`}></button>`,
+      errors: [
+        {
+          messageId: "extraSpacing",
+          column: 21,
+        },
+        {
+          messageId: "extraSpacing",
+          column: 25,
         },
       ],
     },
