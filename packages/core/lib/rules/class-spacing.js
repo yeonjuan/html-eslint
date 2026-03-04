@@ -53,6 +53,31 @@ function checkLeading(value, loc, range, result) {
     });
   }
 }
+const lineBreakPattern = /\r\n|[\r\n\u2028\u2029]/u;
+
+/**
+ * @param {string} value
+ * @returns {{ line: string; start: number }[]}
+ */
+function splitLines(value) {
+  const lines = value.split(lineBreakPattern);
+  let pos = 0;
+  return lines.map((line, i) => {
+    const entry = { line, start: pos };
+    const lineBreakLength = i < lines.length - 1 ? 1 : 0;
+    pos += line.length + lineBreakLength;
+    return entry;
+  });
+}
+
+/**
+ * @param {number} lineIndex
+ * @param {number} columnInLine
+ * @param {SourceLocation} loc
+ */
+function toColumn(lineIndex, columnInLine, loc) {
+  return lineIndex === 0 ? loc.start.column + columnInLine : columnInLine;
+}
 
 /**
  * @param {string} value
@@ -61,64 +86,62 @@ function checkLeading(value, loc, range, result) {
  * @param {ClassSpacingResult} result
  */
 function checkBetween(value, loc, range, result) {
-  // Process each line separately to handle multi-line values correctly
-  const lines = value.split("\n");
-  let currentPos = 0;
-
-  for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-    const line = lines[lineIndex];
-    const isLastLine = lineIndex === lines.length - 1;
+  const lineEntries = splitLines(value);
+  for (let lineIndex = 0; lineIndex < lineEntries.length; lineIndex++) {
+    const { line, start: lineStart } = lineEntries[lineIndex];
     const trimmedLine = line.trim();
+    if (!CLASS_BETWEEN_EXTRA_SPACES_REGEX.test(trimmedLine)) continue;
 
-    if (CLASS_BETWEEN_EXTRA_SPACES_REGEX.test(trimmedLine)) {
-      const matches = trimmedLine.matchAll(
-        CLASS_BETWEEN_EXTRA_SPACES_REGEX_GLOBAL
-      );
+    const lineLeadingSpaces = line.length - line.trimStart().length;
 
-      for (const match of matches) {
-        if (match.index !== undefined) {
-          // Calculate position within the trimmed line
-          const matchIndexInTrimmed = match.index;
-          const matchEndIndexInTrimmed = matchIndexInTrimmed + match[0].length;
+    for (const match of trimmedLine.matchAll(
+      CLASS_BETWEEN_EXTRA_SPACES_REGEX_GLOBAL
+    )) {
+      const matchStartInLine = lineLeadingSpaces + match.index;
+      const matchEndInLine = matchStartInLine + match[0].length;
 
-          // Calculate position within the original line
-          const lineLeadingSpaces = line.length - line.trimStart().length;
-          const matchIndexInLine = lineLeadingSpaces + matchIndexInTrimmed;
-          const matchEndIndexInLine = lineLeadingSpaces + matchEndIndexInTrimmed;
-
-          // Calculate absolute position in the full value
-          const absoluteMatchIndex = currentPos + matchIndexInLine;
-          const absoluteMatchEndIndex = currentPos + matchEndIndexInLine;
-
-          result.push({
-            messageId: CLASS_SPACING_MESSAGE_IDS.extraSpacing,
-            loc: {
-              start: {
-                line: loc.start.line + lineIndex,
-                column:
-                  lineIndex === 0
-                    ? loc.start.column + matchIndexInLine + 1
-                    : matchIndexInLine + 1,
-              },
-              end: {
-                line: loc.start.line + lineIndex,
-                column:
-                  lineIndex === 0
-                    ? loc.start.column + matchEndIndexInLine
-                    : matchEndIndexInLine,
-              },
-            },
-            range: [
-              range[0] + absoluteMatchIndex + 1,
-              range[0] + absoluteMatchEndIndex,
-            ],
-          });
-        }
-      }
+      result.push({
+        messageId: CLASS_SPACING_MESSAGE_IDS.extraSpacing,
+        loc: {
+          start: {
+            line: loc.start.line + lineIndex,
+            column: toColumn(lineIndex, matchStartInLine, loc) + 1,
+          },
+          end: {
+            line: loc.start.line + lineIndex,
+            column: toColumn(lineIndex, matchEndInLine, loc),
+          },
+        },
+        range: [
+          range[0] + lineStart + matchStartInLine + 1,
+          range[0] + lineStart + matchEndInLine,
+        ],
+      });
     }
-
-    currentPos += line.length + (isLastLine ? 0 : 1); // +1 for newline character
   }
+}
+
+/**
+ * @param {string} line
+ * @param {number} lineIndex
+ * @param {boolean} isSingleLine
+ * @param {SourceLocation} loc
+ */
+function trailingLoc(line, lineIndex, isSingleLine, loc) {
+  const trailingSpaces = line.length - line.trimEnd().length;
+  if (isSingleLine) {
+    return {
+      start: { line: loc.end.line, column: loc.end.column - trailingSpaces },
+      end: { line: loc.end.line, column: loc.end.column },
+    };
+  }
+  return {
+    start: {
+      line: loc.start.line + lineIndex,
+      column: line.length - trailingSpaces,
+    },
+    end: { line: loc.start.line + lineIndex, column: line.length },
+  };
 }
 
 /**
@@ -128,52 +151,22 @@ function checkBetween(value, loc, range, result) {
  * @param {ClassSpacingResult} result
  */
 function checkTrailing(value, loc, range, result) {
-  // Check for spaces before newlines (e.g., "foo \nbar")
-  const lines = value.split("\n");
-  let currentPos = 0;
+  const lineEntries = splitLines(value);
+  const isSingleLine = lineEntries.length === 1;
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    const isLastLine = i === lines.length - 1;
+  for (let i = 0; i < lineEntries.length; i++) {
+    const { line, start: lineStart } = lineEntries[i];
+    if (!line.endsWith(" ")) continue;
 
-    if (line.endsWith(" ")) {
-      const trailingSpaces = line.length - line.trimEnd().length;
-      const lineStartPos = currentPos;
-      const spacingStartPos = lineStartPos + line.length - trailingSpaces;
-      const spacingEndPos = lineStartPos + line.length;
-
-      // For single-line values (i === 0 && isLastLine), use loc.end for accurate column calculation
-      // For multi-line values, calculate from the start of each line
-      const spacingStart = (i === 0 && isLastLine)
-        ? {
-            line: loc.end.line,
-            column: loc.end.column - trailingSpaces,
-          }
-        : {
-            line: loc.start.line + i,
-            column: line.length - trailingSpaces,
-          };
-      const spacingEnd = (i === 0 && isLastLine)
-        ? {
-            line: loc.end.line,
-            column: loc.end.column,
-          }
-        : {
-            line: loc.start.line + i,
-            column: line.length,
-          };
-
-      result.push({
-        messageId: CLASS_SPACING_MESSAGE_IDS.extraSpacing,
-        loc: {
-          start: spacingStart,
-          end: spacingEnd,
-        },
-        range: [range[0] + spacingStartPos, range[0] + spacingEndPos],
-      });
-    }
-
-    currentPos += line.length + (isLastLine ? 0 : 1); // +1 for newline character
+    const trailingSpaces = line.length - line.trimEnd().length;
+    result.push({
+      messageId: CLASS_SPACING_MESSAGE_IDS.extraSpacing,
+      loc: trailingLoc(line, i, isSingleLine, loc),
+      range: [
+        range[0] + lineStart + line.length - trailingSpaces,
+        range[0] + lineStart + line.length,
+      ],
+    });
   }
 }
 
