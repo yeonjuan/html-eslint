@@ -1,5 +1,5 @@
 export * from "./index";
-export {
+export type {
   TemplateSyntaxParserConfig,
   TemplateSyntax,
   OpenSyntax,
