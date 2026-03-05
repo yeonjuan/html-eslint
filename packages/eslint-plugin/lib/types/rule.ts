@@ -1,7 +1,7 @@
-import eslint from "eslint";
-import * as AST from "@html-eslint/types";
-import * as estree from "estree";
-import { Line } from "./ast";
+import type eslint from "eslint";
+import type * as AST from "@html-eslint/types";
+import type * as estree from "estree";
+import type { Line } from "./ast";
 
 type AnyNodeAndLine = AST.AnyNode | Line;
 

@@ -1,5 +1,5 @@
-import { SourceLocation } from "estree";
-import { Range } from "./range";
+import type { SourceLocation } from "estree";
+import type { Range } from "./range";
 
 export interface NodeOrTokenData {
   type: string;
