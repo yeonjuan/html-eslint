@@ -6,6 +6,7 @@ const noDuplicateId = require("./no-duplicate-id");
 const noInlineStyles = require("./no-inline-styles");
 const noMultipleH1 = require("./no-multiple-h1");
 const noExtraSpacingAttrs = require("./no-extra-spacing-attrs");
+const noExtraSpacingTags = require("./no-extra-spacing-tags");
 const noExtraSpacingText = require("./no-extra-spacing-text");
 const attrsNewline = require("./attrs-newline");
 const elementNewLine = require("./element-newline");
@@ -73,6 +74,7 @@ const rules = {
   "no-inline-styles": noInlineStyles,
   "no-multiple-h1": noMultipleH1,
   "no-extra-spacing-attrs": noExtraSpacingAttrs,
+  "no-extra-spacing-tags": noExtraSpacingTags,
   "no-extra-spacing-text": noExtraSpacingText,
   "attrs-newline": attrsNewline,
   "element-newline": elementNewLine,
