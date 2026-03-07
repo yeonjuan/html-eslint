@@ -20,7 +20,7 @@ module.exports = {
 
 ## Rule Details
 
-Empty elements that are expected to carry meaning are flagged. The following elements are checked by default: `h1–h6`, `p`, `a`, `button`, `li`, `dt`, `dd`, `option`, `label`.
+Empty elements that are expected to carry meaning are flagged. The following elements are checked: `h1–h6`, `p`, `a`, `button`, `li`, `dt`, `dd`, `option`, `label`.
 
 Examples of **incorrect** code for this rule:
 
@@ -54,28 +54,6 @@ Examples of **correct** code for this rule:
 <!-- Child elements count as content -->
 <button><img src="icon.svg" alt="Submit" /></button>
 ```
-
-### Options
-
-This rule has an object option:
-
-```ts
-"@html-eslint/require-content": ["error", {
-  "tagPatterns": string[], // Default: h1–h6, p, a, button, li, dt, dd, option, label
-}]
-```
-
-#### tagPatterns
-
-Override the default element list with a custom set of tag name patterns to check. Each item is either a plain tag name or a regex pattern string (wrapped in `/`), which is useful for matching custom elements.
-
-```json
-"@html-eslint/require-content": ["error", {
-  "tagPatterns": ["p", "button", "a", "/^custom-/"]
-}]
-```
-
-Plain strings are matched case-insensitively. Regex patterns are matched against the full tag name.
 
 ### Exemptions
 

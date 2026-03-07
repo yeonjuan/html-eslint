@@ -4,8 +4,6 @@
  *   Text
  * } from "@html-eslint/types"
  * @import {RuleModule} from "../types"
- * @typedef {Object} Option
- * @property {string[]} [Option.tagPatterns]
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -37,47 +35,6 @@ const DEFAULT_ELEMENTS = new Set([
   "option",
   "label",
 ]);
-
-/**
- * Converts an element pattern string to a RegExp, or returns null if it is a
- * plain tag name. Patterns wrapped in slashes (e.g. "/^custom-/") are treated
- * as regex; all others are treated as exact, case-insensitive tag names.
- *
- * @param {string} pattern
- * @returns {RegExp | null}
- */
-function toRegExp(pattern) {
-  const m = pattern.match(/^\/(.+)\/([gimsuy]*)$/);
-  return m ? new RegExp(m[1], m[2]) : null;
-}
-
-/**
- * Builds a matcher function from the tagPatterns option. Each item is either a
- * plain tag name or a regex pattern string ("/^custom-/").
- *
- * @param {string[]} tagPatterns
- * @returns {(tagName: string) => boolean}
- */
-function buildMatcher(tagPatterns) {
-  const exact = new Set();
-  /** @type {RegExp[]} */
-  const patterns = [];
-
-  for (const pattern of tagPatterns) {
-    const re = toRegExp(pattern);
-    if (re) {
-      patterns.push(re);
-    } else {
-      exact.add(pattern.toLowerCase());
-    }
-  }
-
-  if (patterns.length === 0) {
-    return (tagName) => exact.has(tagName);
-  }
-  return (tagName) =>
-    exact.has(tagName) || patterns.some((re) => re.test(tagName));
-}
 
 /**
  * Returns true if the element has an accessible name via ARIA attributes,
@@ -117,7 +74,7 @@ function hasContent(node) {
   return false;
 }
 
-/** @type {RuleModule<[Option]>} */
+/** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
     type: "code",
@@ -130,19 +87,7 @@ module.exports = {
     },
 
     fixable: null,
-    schema: [
-      {
-        type: "object",
-        properties: {
-          tagPatterns: {
-            type: "array",
-            items: { type: "string" },
-            uniqueItems: true,
-          },
-        },
-        additionalProperties: false,
-      },
-    ],
+    schema: [],
     messages: {
       [MESSAGE_IDS.REQUIRE_CONTENT]:
         "<{{name}}> must have meaningful content or an accessible name (aria-label / aria-labelledby).",
@@ -150,17 +95,10 @@ module.exports = {
   },
 
   create(context) {
-    const option = context.options[0] || {};
-    const matchesElement =
-      option.tagPatterns && option.tagPatterns.length > 0
-        ? buildMatcher(option.tagPatterns)
-        : /** @param {string} tagName */ (tagName) =>
-            DEFAULT_ELEMENTS.has(tagName);
-
     return createVisitors(context, {
       Tag(node) {
         const tagName = node.name.toLowerCase();
-        if (!matchesElement(tagName)) return;
+        if (!DEFAULT_ELEMENTS.has(tagName)) return;
 
         if (isHidden(node)) return;
 

@@ -33,35 +33,13 @@ ruleTester.run("require-content", rule, {
     { code: `<button aria-hidden="true"></button>` },
     { code: `<li aria-hidden="true"></li>` },
 
-    // Elements not in the default list are ignored
+    // Elements not in the checked set are ignored
     { code: `<div></div>` },
     { code: `<span></span>` },
     { code: `<section></section>` },
 
-    // Custom elements list — only check configured elements
-    {
-      code: `<p></p><span>content</span>`,
-      options: [{ tagPatterns: ["span"] }],
-    },
-    {
-      code: `<span>content</span>`,
-      options: [{ tagPatterns: ["span"] }],
-    },
-
     // Whitespace-only child text followed by a real child element
     { code: `<button>  <span>OK</span>  </button>` },
-
-    // Regex pattern — element not matching the pattern is ignored
-    {
-      code: `<div></div>`,
-      options: [{ tagPatterns: ["/^custom-/"] }],
-    },
-
-    // Regex pattern — element matching pattern with content is valid
-    {
-      code: `<custom-button>Click</custom-button>`,
-      options: [{ tagPatterns: ["/^custom-/"] }],
-    },
   ],
 
   invalid: [
@@ -131,20 +109,6 @@ ruleTester.run("require-content", rule, {
     // Self-closing syntax (browsers render <p /> as <p></p>)
     {
       code: `<p />`,
-      errors: [{ messageId: "requireContent" }],
-    },
-
-    // Custom elements list
-    {
-      code: `<span></span>`,
-      options: [{ tagPatterns: ["span"] }],
-      errors: [{ messageId: "requireContent" }],
-    },
-
-    // Regex pattern — element matching pattern with no content
-    {
-      code: `<custom-button></custom-button>`,
-      options: [{ tagPatterns: ["/^custom-/"] }],
       errors: [{ messageId: "requireContent" }],
     },
 
