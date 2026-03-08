@@ -52,6 +52,12 @@ export interface AngularBoundEvent extends AngularNode {
   name: string;
 }
 
+export interface AngularText extends AngularNode {
+  type: "Text";
+  value: string;
+  sourceSpan?: AngularSourceSpan;
+}
+
 export type RuleFunction<T extends AngularNode = never> = (node: T) => void;
 
 type RuleListenerExitSelectors = {
