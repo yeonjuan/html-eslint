@@ -1,18 +1,25 @@
 /**
- * @import {
- *   SourceCode,
- *   TraversalStep
- * } from "@eslint/core"
+ * @import {TraversalStep} from "@eslint/core"
  * @import {
  *   DirectiveType,
  *   SourceLocation
  * } from "@eslint/plugin-kit"
  * @import {
+ *   HTMLComment,
+ *   HTMLProgram
+ * } from "@html-eslint/parser"
+ * @import {
  *   AnyHTMLNode,
- *   CommentContent
+ *   AnyToken,
+ *   CommentContent,
+ *   NodeOrTokenData
  * } from "@html-eslint/types"
- * @import {AST} from "eslint"
+ * @import {Scope} from "eslint"
  * @import {BaseNode} from "../types"
+ * @import {
+ *   SourceCodeOptions,
+ *   TokenOrHTMLComment
+ * } from "./types"
  */
 const {
   TextSourceCodeBase,
@@ -33,8 +40,9 @@ const INLINE_CONFIG =
 
 const commentParser = new ConfigCommentParser();
 
+/** @extends TextSourceCodeBase<SourceCodeOptions> */
 class HTMLSourceCode extends TextSourceCodeBase {
-  /** @param {{ ast: AST.Program; text: string; comments: CommentContent[] }} config */
+  /** @param {{ ast: HTMLProgram; text: string; comments: CommentContent[] }} config */
   constructor({ ast, text, comments }) {
     super({ ast, text });
 
@@ -71,6 +79,14 @@ class HTMLSourceCode extends TextSourceCodeBase {
 
   getLines() {
     return this.lines;
+  }
+
+  /**
+   * @private
+   * @returns {CommentContent[]}
+   */
+  getAllComments() {
+    return [];
   }
 
   getInlineConfigNodes() {
@@ -134,8 +150,8 @@ class HTMLSourceCode extends TextSourceCodeBase {
     const steps = [];
 
     /**
-     * @param {AnyHTMLNode | AST.Program} node
-     * @param {AnyHTMLNode | AST.Program | null} parent
+     * @param {AnyHTMLNode | HTMLProgram} node
+     * @param {AnyHTMLNode | HTMLProgram | null} parent
      */
     const visit = (node, parent) => {
       this.parentsMap.set(node, parent);
@@ -183,23 +199,94 @@ class HTMLSourceCode extends TextSourceCodeBase {
   getParent(node) {
     return this.parentsMap.get(node);
   }
+
+  // TODO the following methods are stubs
+  /* eslint-disable no-unused-vars */
+
+  /**
+   * @private
+   * @param {NodeOrTokenData} _node
+   * @returns {HTMLComment | null}
+   */
+  getJSDocComment(_node) {
+    return null;
+  }
+
+  /** Stub implementations for ESLint's SourceCode API Compatibility */
+
+  /**
+   * @private
+   * @deprecated HTM does not have scopes
+   * @param {NodeOrTokenData} node
+   * @returns {Scope.Scope | null}
+   */
+  getScope(node) {
+    if (node?.type !== "Program") {
+      return null;
+    }
+    return createFakeGlobalScope(this.ast);
+  }
+
+  /**
+   * @private
+   * @deprecated HTML does not have scopes
+   * @returns {Scope.ScopeManager | null}
+   */
+  get scopeManager() {
+    return {
+      scopes: [],
+      globalScope: createFakeGlobalScope(this.ast),
+      acquire: (node) => {
+        if (node.type === "Program") {
+          return createFakeGlobalScope(this.ast);
+        }
+        return null;
+      },
+      getDeclaredVariables: () => [],
+      /** @param {any[]} _ */
+      // @ts-ignore
+      addGlobals(..._) {},
+    };
+  }
+
+  /* eslint-enable no-unused-vars */
 }
 /**
- * @param {{ ast: AST.Program; text: string; comments: CommentContent[] }} config
- * @returns {TextSourceCodeBase<any> & {
- *   getDisableDirectives(): {
- *     problems: {
- *       ruleId: null | string;
- *       message: string;
- *       loc: SourceLocation;
- *     }[];
- *     directives: Directive[];
- *   };
- *   getInlineConfigNodes(): CommentContent[];
- * }}
+ * @param {{ ast: HTMLProgram; text: string; comments: CommentContent[] }} config
+ * @returns {HTMLSourceCode}
  */
 function createHTMLSourceCode(config) {
   return new HTMLSourceCode(config);
+}
+
+/**
+ * @deprecated HTML does not have scopes
+ * @param {HTMLProgram} node
+ * @returns {Scope.Scope}
+ */
+function createFakeGlobalScope(node) {
+  /** @type {Scope.Scope} */
+  const fakeGlobalScope = {
+    type: "global",
+    // @ts-ignore
+    block: node,
+    set: new Map(),
+    through: [],
+    childScopes: [],
+    // @ts-ignore
+    variableScope: null,
+    variables: [],
+    references: [],
+    functionExpressionScope: false,
+    isStrict: false,
+    upper: null,
+    implicit: {
+      variables: [],
+      set: new Map(),
+    },
+  };
+  fakeGlobalScope.variableScope = fakeGlobalScope;
+  return fakeGlobalScope;
 }
 
 module.exports = {

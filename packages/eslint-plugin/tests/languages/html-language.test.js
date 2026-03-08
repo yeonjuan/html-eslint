@@ -135,13 +135,14 @@ name: value
       const file = createFile("<div></div>");
       const language = new HTMLLanguage();
       const parsed = language.parse(file, { languageOptions: {} });
-      const sourceCode = language.createSourceCode(
-        file,
-        /** @type {OkParseResult<AST.Program>} */ (parsed),
-        { languageOptions: {} }
-      );
-      expect(sourceCode.constructor.name).toBe("HTMLSourceCode");
-      expect(sourceCode.ast.type).toBe("Program");
+      expect(parsed.ok).toBe(true);
+      if (parsed.ok) {
+        const sourceCode = language.createSourceCode(file, parsed, {
+          languageOptions: {},
+        });
+        expect(sourceCode.constructor.name).toBe("HTMLSourceCode");
+        expect(sourceCode.ast.type).toBe("Program");
+      }
     });
   });
 });

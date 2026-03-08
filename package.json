@@ -11,7 +11,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write .",
     "dev": "turbo run dev",
-    "build": "turbo run build",
+    "build": "turbo run build --no-cache --force",
     "publish": "lerna publish",
     "publish:alpha": "lerna publish --dist-tag alpha",
     "check:ts": "turbo run ts",

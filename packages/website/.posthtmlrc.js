@@ -7,6 +7,7 @@ const {
 const rulesRecord = require("@html-eslint/eslint-plugin/lib/rules");
 const reactRulesRecord = require('@html-eslint/eslint-plugin-react/lib/rules');
 const svelteRulesRecord = require('@html-eslint/eslint-plugin-svelte').default.rules;
+const angularTemplateRulesRecord = require('@html-eslint/eslint-plugin-angular-template/lib/rules');
 
 const rules = {
   ["Best Practice"]: [],
@@ -46,11 +47,14 @@ const expressionsOption = {
       accessibility: rules["Accessibility"],
       style: rules["Style"],
     },
-    navsReact: Object.entries(reactRulesRecord).map(([rulename]) => {
+    navsReact: Object.keys(reactRulesRecord).map((rulename) => {
       return [rulename, '~/src/docs/react/rules/' + rulename + ".html"]
     }),
-    navsSvelte: Object.entries(svelteRulesRecord).map(([rulename]) => {
+    navsSvelte: Object.keys(svelteRulesRecord).map((rulename) => {
       return [rulename, '~/src/docs/svelte/rules/' + rulename + ".html"]
+    }),
+    navsAngularTemplate: Object.keys(angularTemplateRulesRecord).map((rulename) => {
+      return [rulename, '~/src/docs/angular-template/rules/' + rulename + ".html"]
     }),
   },
 };

@@ -1,4 +1,5 @@
 /**
+ * @import {HTMLProgram} from "@html-eslint/parser"
  * @import {AnyHTMLNode} from "@html-eslint/types"
  * @import {AST} from "eslint"
  */
@@ -15,7 +16,7 @@ const STEP_PHASE = {
 class HTMLTraversalStep extends VisitNodeStep {
   /**
    * @param {Object} options
-   * @param {AnyHTMLNode | AST.Program} options.target
+   * @param {AnyHTMLNode | HTMLProgram} options.target
    * @param {1 | 2} options.phase
    * @param {any[]} options.args
    */

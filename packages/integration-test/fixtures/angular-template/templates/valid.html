@@ -1,0 +1,49 @@
+<div class="container">
+  <h1>Angular App</h1>
+
+  <input type="text" placeholder="Enter text" />
+  <button type="button">Click me</button>
+  <a href="/home">Home</a>
+
+  <!-- Property binding -->
+  <input [disabled]="isDisabled" type="text" />
+  <button [disabled]="!canSubmit" type="submit">Submit</button>
+
+  <!-- Attribute binding -->
+  <div [attr.aria-label]="labelText">Content</div>
+  <span [attr.data-id]="itemId">Item</span>
+
+  <!-- Angular control flow -->
+  @if (isLoggedIn) {
+    <span>Welcome back!</span>
+  } @else {
+    <a href="/login">Login</a>
+  }
+
+  @for (item of items; track item.id) {
+    <li>{{ item.name }}</li>
+  } @empty {
+    <p>No items found</p>
+  }
+
+  @switch (status) {
+    @case ('active') { <span>Active</span> }
+    @case ('inactive') { <span>Inactive</span> }
+    @default { <span>Unknown</span> }
+  }
+
+  @defer (on idle) {
+    <section>
+      <h2>Deferred section</h2>
+      <p>Loaded lazily</p>
+    </section>
+  } @placeholder {
+    <p>Loading...</p>
+  } @error {
+    <p>Failed to load</p>
+  }
+
+  <!-- Custom elements are skipped -->
+  <my-component [title]="title"></my-component>
+  <app-header [user]="currentUser"></app-header>
+</div>

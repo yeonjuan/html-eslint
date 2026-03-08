@@ -1,0 +1,27 @@
+const AST_NODE_TYPES = /** @type {const} */ ({
+  Element: "Element$1",
+  Template: "Template",
+  TextAttribute: "TextAttribute",
+  BoundAttribute: "BoundAttribute",
+  BoundEvent: "BoundEvent",
+  BoundText: "BoundText",
+  Text: "Text",
+  Reference: "Reference",
+  Variable: "Variable",
+  Content: "Content",
+  Icu: "Icu",
+  IfBlock: "IfBlock",
+  IfBlockBranch: "IfBlockBranch",
+  ForLoopBlock: "ForLoopBlock",
+  ForLoopBlockEmpty: "ForLoopBlockEmpty",
+  SwitchBlock: "SwitchBlock",
+  SwitchBlockCase: "SwitchBlockCase",
+  DeferredBlock: "DeferredBlock",
+  DeferredBlockError: "DeferredBlockError",
+  DeferredBlockLoading: "DeferredBlockLoading",
+  DeferredBlockPlaceholder: "DeferredBlockPlaceholder",
+  UnknownBlock: "UnknownBlock",
+  LetDeclaration: "LetDeclaration",
+});
+
+module.exports = { AST_NODE_TYPES };

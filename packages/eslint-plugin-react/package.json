@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/eslint-plugin-react",
-  "version": "0.57.1",
+  "version": "0.58.1",
   "type": "commonjs",
   "description": "ESLint plugin for HTML with React support",
   "author": {
@@ -40,7 +40,7 @@
     "lint"
   ],
   "dependencies": {
-    "@html-eslint/core": "^0.57.0"
+    "@html-eslint/core": "^0.58.1"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 || ^10.0.0-0"

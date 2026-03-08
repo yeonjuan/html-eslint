@@ -57,8 +57,11 @@ async function installDependencies(dir, log, packageManager = "yarn") {
  * @param {string[]} params.localPackages
  * @param {[string, string][]} [params.externalPackages=[]] Array of
  *   [packageName, version] tuples. Default is `[]`
- * @param {Record<string, string>} [params.scripts]
- * @param {"yarn" | "pnpm"} [params.packageManager="yarn"] Default is `"yarn"`
+ * @param {Record<string, string>} [params.scripts] <<<<<<< HEAD
+ * @param {Record<string, string>} [params.extraDependencies] #
+ *   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?
+ * @param {"yarn" | "pnpm"} [params.packageManager="yarn"] >>>>>>> main. Default
+ *   is `"yarn"`
  */
 async function makePackageJson({
   fixtureName,

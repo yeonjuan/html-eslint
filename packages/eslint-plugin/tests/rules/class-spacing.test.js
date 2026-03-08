@@ -31,7 +31,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo"></button>`,
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -40,7 +40,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo"></button>`,
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -49,7 +49,10 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo"></button>`,
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -58,7 +61,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo"></button>`,
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -67,7 +70,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo"></button>`,
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -76,7 +79,9 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo bar"></button>`,
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
+          column: 20,
+          endColumn: 21,
         },
       ],
     },
@@ -85,7 +90,7 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo bar"></button>`,
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -94,7 +99,10 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo bar baz"></button>`,
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -103,7 +111,13 @@ ruleTester.run("class-spacing", rule, {
       output: `<button class="foo bar"></button>`,
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
+        },
+        {
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -131,7 +145,7 @@ templateRuleTester.run("[template] class-spacing", rule, {
       output: `html\`<div class='foo'></div>\``,
       errors: [
         {
-          messageId: "extraSpacingStart",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -140,7 +154,7 @@ templateRuleTester.run("[template] class-spacing", rule, {
       output: `html\`<div class='foo'></div>\``,
       errors: [
         {
-          messageId: "extraSpacingEnd",
+          messageId: "extraSpacing",
         },
       ],
     },
@@ -149,7 +163,7 @@ templateRuleTester.run("[template] class-spacing", rule, {
       output: `html\`<div class='foo bar'></div>\``,
       errors: [
         {
-          messageId: "extraSpacingBetween",
+          messageId: "extraSpacing",
         },
       ],
     },

@@ -1,6 +1,6 @@
 /**
  * @import {
- *   ElementNodeAdapter,
+ *   ElementAdapter,
  *   NoInvalidAttrValueOptions,
  *   NoInvalidAttrValueResult
  * } from "../types"
@@ -17,12 +17,7 @@ export const NO_INVALID_ATTR_VALUE_MESSAGE_IDS = {
   invalid: "invalid",
 };
 
-/**
- * @template ElementNode
- * @template AttributeKeyNode
- * @template AttributeValueNode
- * @param {NoInvalidAttrValueOptions} options
- */
+/** @param {NoInvalidAttrValueOptions} options */
 export function noInvalidAttrValue(options) {
   const allowList = options.allow || [];
   const compiledAllowList = allowList.map((rule) => ({
@@ -56,41 +51,37 @@ export function noInvalidAttrValue(options) {
 
   return {
     /**
-     * @param {ElementNodeAdapter<
-     *   ElementNode,
-     *   AttributeKeyNode,
-     *   AttributeValueNode
-     * >} adapter
-     * @returns {NoInvalidAttrValueResult<
-     *   AttributeKeyNode,
-     *   AttributeValueNode
-     * >}
+     * @param {ElementAdapter} adapter
+     * @returns {NoInvalidAttrValueResult}
      */
     checkAttributes(adapter) {
-      const name = adapter.getTagName();
+      const name = adapter.getElementName();
       if (name.includes("-")) {
         return [];
       }
       const spec = element(name);
-      /**
-       * @type {NoInvalidAttrValueResult<
-       *   AttributeKeyNode,
-       *   AttributeValueNode
-       * >}
-       */
+      /** @type {NoInvalidAttrValueResult} */
       const result = [];
 
       for (const attribute of adapter.getAttributes()) {
-        if (attribute.key.isExpression()) {
+        const attributeKey = attribute.getKey();
+        if (!attributeKey) {
           continue;
         }
 
-        if (attribute.value.isExpression()) {
+        if (attributeKey.hasExpression()) {
           continue;
         }
 
-        const attrKeyValue = attribute.key.value();
-        const attrValueValue = attribute.value.value();
+        const attributeValue = attribute.getValue();
+
+        if (attributeValue?.hasExpression()) {
+          continue;
+        }
+
+        const attrKeyValue = attributeKey.getValue();
+
+        const attrValueValue = attributeValue?.getValue() ?? null;
         if (attrValueValue === null) {
           continue;
         }
@@ -106,11 +97,11 @@ export function noInvalidAttrValue(options) {
           const validateResult = validator.validateValue(attrValueValue);
           if (!validateResult.valid) {
             result.push({
-              node: attribute.value.node() || attribute.key.node(),
+              loc: attributeValue?.getLocation() ?? attributeKey?.getLocation(),
               messageId: NO_INVALID_ATTR_VALUE_MESSAGE_IDS.invalid,
               data: {
                 value: attrValueValue || "",
-                attr: attribute.key.raw() || attrKeyValue,
+                attr: attrKeyValue,
                 element: name,
                 suggestion: validateResult.reason || "Use a valid value.",
               },

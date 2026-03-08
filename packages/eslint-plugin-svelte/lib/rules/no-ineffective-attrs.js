@@ -11,7 +11,7 @@ import {
   noIneffectiveAttrs,
   NO_INEFFECTIVE_ATTRS_MESSAGE_IDS,
 } from "@html-eslint/core";
-import { elementNodeAdapter } from "./utils/adapter.js";
+import { createElementAdapter } from "../adapters/element/factory.js";
 
 /** @type {RuleModule} */
 const rule = {
@@ -31,20 +31,16 @@ const rule = {
   },
 
   create(context) {
-    const ruleCore = noIneffectiveAttrs();
+    const { checkAttributes } = noIneffectiveAttrs();
 
-    /**
-     * Check if an element has ineffective attributes
-     *
-     * @param {SvelteElement} node
-     */
+    /** @param {SvelteElement} node */
     function checkElement(node) {
-      const adapter = elementNodeAdapter(node);
-      const result = ruleCore.checkAttributes(adapter);
+      const adapter = createElementAdapter(node);
+      const result = checkAttributes(adapter);
 
-      for (const { node, messageId, data } of result) {
+      for (const { loc, messageId, data } of result) {
         context.report({
-          node,
+          loc,
           messageId,
           data,
         });

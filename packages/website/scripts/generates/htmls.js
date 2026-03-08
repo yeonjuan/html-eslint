@@ -34,8 +34,12 @@ module.exports = function generateHTMLs(srcDir, distDir, outDir) {
         outDir,
         filename
       );
-      if (!existsSync(nextDistDir)) mkdirSync(nextDistDir);
-      if (!existsSync(nextOutDir)) mkdirSync(nextOutDir);
+      if (!existsSync(nextDistDir)) mkdirSync(nextDistDir, {
+        recursive: true
+      });
+      if (!existsSync(nextOutDir)) mkdirSync(nextOutDir, {
+        recursive: true
+      });
 
       generateHTMLs(
         filepath,
@@ -50,8 +54,9 @@ module.exports = function generateHTMLs(srcDir, distDir, outDir) {
           templateHtmlPath: resolve(
             cwd(),
             parsed.dir.includes("react") ? "./src/components/template-react.html":
-              parsed.dir.includes("svelte") ? "./src/components/template-svelte.html"
-                : "./src/components/template.html"
+              parsed.dir.includes("svelte") ? "./src/components/template-svelte.html":
+                parsed.dir.includes("angular-template") ? "./src/components/template-angular.html"
+                  : "./src/components/template.html"
           )
         },
         {
