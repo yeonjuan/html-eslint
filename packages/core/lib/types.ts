@@ -29,7 +29,7 @@ export interface AttributeKeyAdapter {
 }
 
 export interface TextAdapter {
-  getValue(): string;
+  getValue(): string | null;
   getLocation(): SourceLocation;
   getRange(): Range;
 }
