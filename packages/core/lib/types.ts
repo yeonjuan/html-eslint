@@ -28,6 +28,12 @@ export interface AttributeKeyAdapter {
   getRange(): Range;
 }
 
+export interface TextAdapter {
+  getValue(): string | null;
+  getLocation(): SourceLocation;
+  getRange(): Range;
+}
+
 export interface NoInvalidAttrValueOptions {
   allow?: Array<{
     tag: string;
