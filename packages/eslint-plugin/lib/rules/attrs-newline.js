@@ -134,18 +134,38 @@ module.exports = {
     const inlineTags = optionsOrPresets(options.inline || []);
 
     /**
-     * Returns true if attrs-newline should be skipped for this tag.
-     * @param {string} tagName
-     * @returns {boolean}
+     * Tracks nesting depth inside `skip` elements.
+     * When > 0, the current node is a descendant of a skipped element.
+     * @type {number}
      */
-    function shouldSkipTag(tagName) {
-      const name = tagName.toLowerCase();
-      return skipTags.includes(name) || inlineTags.includes(name);
-    }
+    let skipDepth = 0;
 
     return createVisitors(context, {
+      "Tag:exit"() {
+        if (skipDepth > 0) {
+          skipDepth--;
+        }
+      },
+
       Tag(node) {
-        if (shouldSkipTag(node.name)) return;
+        const tagName = node.name.toLowerCase();
+
+        // Inside a skip ancestor — skip this descendant too.
+        if (skipDepth > 0) {
+          skipDepth++;
+          return;
+        }
+
+        // This tag is in skip — suppress the rule AND its descendants.
+        if (skipTags.includes(tagName)) {
+          skipDepth++;
+          return;
+        }
+
+        // This tag is in inline — suppress only this tag; descendants are still checked.
+        if (inlineTags.includes(tagName)) {
+          return;
+        }
 
         const shouldBeMultiline = node.attributes.length > attrMin;
         if (!shouldBeMultiline) return;

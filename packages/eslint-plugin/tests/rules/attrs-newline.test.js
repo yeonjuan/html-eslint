@@ -291,6 +291,37 @@ ruleTester.run("attrs-newline", rule, {
         },
       ],
     },
+    // skip suppresses descendant elements too
+    {
+      code: `<pre class="foo" id="bar"><span class="baz" id="qux" data-x="1"></span></pre>`,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          skip: ["pre"],
+        },
+      ],
+    },
+    // skip suppresses deeply nested descendants
+    {
+      code: `<pre><div class="a" id="b"><span class="c" id="d" data-x="1"></span></div></pre>`,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          skip: ["pre"],
+        },
+      ],
+    },
+    // inline does NOT suppress descendants — tags outside the inline element are still enforced
+    // (this is a valid case because the outer div has only 1 attr, under the threshold of 3)
+    {
+      code: `<div class="wrapper"><span class="a" id="b" data-x="1">text</span></div>`,
+      options: [
+        {
+          ifAttrsMoreThan: 2,
+          inline: ["span"],
+        },
+      ],
+    },
   ],
 
   invalid: [
@@ -351,6 +382,22 @@ id="p"
 >
         <img />
       </p>`,
+      errors: [{ messageId: "newlineMissing" }],
+    },
+    // inline does NOT suppress descendants — child elements inside an inline tag are still enforced
+    {
+      code: `<span class="wrapper" id="w"><div class="a" id="b" data-x="1"></div></span>`,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          inline: ["span"],
+        },
+      ],
+      output: `<span class="wrapper" id="w"><div
+class="a"
+id="b"
+data-x="1"
+></div></span>`,
       errors: [{ messageId: "newlineMissing" }],
     },
   ],

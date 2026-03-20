@@ -100,7 +100,7 @@ How the open tag's closing bracket `>` should be spaced:
 
 #### skip
 
-A list of tag names for which the rule is entirely skipped, even if the number of attributes exceeds `ifAttrsMoreThan`. Useful for tags like `<pre>` or `<code>` where formatting must be preserved.
+A list of tag names for which the rule is entirely skipped — including all **descendant elements** — even if the number of attributes exceeds `ifAttrsMoreThan`. This is useful for tags like `<pre>` or `<code>` where formatting (including nested markup) must be preserved as-is.
 
 ```json
 "@html-eslint/attrs-newline": ["error", {
@@ -111,7 +111,7 @@ A list of tag names for which the rule is entirely skipped, even if the number o
 
 #### inline
 
-A list of tag names that are treated as inline elements. The rule is skipped for these tags, allowing their attributes to stay on a single line even when `ifAttrsMoreThan` is exceeded. This is useful for inline elements embedded inside prose where expanding to multiple lines would break readability.
+A list of tag names that are treated as inline elements. The rule is skipped for the **element itself only**; descendant elements inside it are still subject to the rule. This is useful for inline elements embedded inside prose where expanding attributes to multiple lines would break readability, while still enforcing newlines on any block-level children.
 
 Supports the `$inline` preset, which covers all [HTML inline text semantics elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#inline_text_semantics) (`a`, `abbr`, `b`, `span`, `strong`, etc.).
 
