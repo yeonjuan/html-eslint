@@ -64,6 +64,7 @@ wbr
 
 /**
  * Expand preset tokens (e.g. "$inline") into the corresponding tag list.
+ *
  * @param {string[]} options
  * @returns {string[]}
  */
@@ -134,8 +135,9 @@ module.exports = {
     const inlineTags = optionsOrPresets(options.inline || []);
 
     /**
-     * Tracks nesting depth inside `skip` elements.
-     * When > 0, the current node is a descendant of a skipped element.
+     * Tracks nesting depth inside `skip` elements. When > 0, the current node
+     * is a descendant of a skipped element.
+     *
      * @type {number}
      */
     let skipDepth = 0;
