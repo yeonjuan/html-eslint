@@ -263,7 +263,7 @@ ruleTester.run("attrs-newline", rule, {
     },
     // inline option: inline tags are not enforced
     {
-      code: `<p>Lorem ipsum <span class="foo" data-foo="true">consectetur</span> adipiscing elit.</p>`,
+      code: `<p>The quick <span class="foo" data-foo="true">brown fox</span> jumps over the lazy dog.</p>`,
       options: [
         {
           ifAttrsMoreThan: 0,

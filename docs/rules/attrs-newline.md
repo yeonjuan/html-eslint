@@ -120,7 +120,7 @@ Examples of **correct** code for `"inline": ["$inline"]`:
 <!-- prettier-ignore -->
 ```html
 <p>
-  Lorem ipsum <span class="highlight" data-id="1">dolor sit amet</span>,
-  consectetur <a class="link" href="/foo" target="_blank">adipiscing</a> elit.
+  The quick brown <span class="highlight" data-id="1">fox jumps over</span>
+  the <a class="link" href="/foo" target="_blank">lazy dog</a> today.
 </p>
 ```
