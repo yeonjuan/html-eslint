@@ -1,13 +1,10 @@
 /**
- * @import {
- *   AnyNode,
- *   Tag
- * } from "@html-eslint/types"
+ * @import {Tag} from "@html-eslint/types"
  * @import {RuleModule} from "../types"
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr, isTag } = require("./utils/node");
+const { findAttr } = require("./utils/node");
 const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
