@@ -32,6 +32,7 @@ const noMultipleEmptyLines = require("./no-multiple-empty-lines");
 const noAccesskeyAttrs = require("./no-accesskey-attrs");
 const noRestrictedAttrs = require("./no-restricted-attrs");
 const noTrailingSpaces = require("./no-trailing-spaces");
+const maxLen = require("./max-len");
 const requireAttrs = require("./require-attrs");
 const noRestrictedAttrValues = require("./no-restricted-attr-values");
 const noScriptStyleType = require("./no-script-style-type");
@@ -130,6 +131,7 @@ const rules = {
   "no-invalid-attr-value": noInvalidAttrValue,
   "head-order": headOrder,
   "require-details-summary": requireDetailsSummary,
+  "max-len": maxLen,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
