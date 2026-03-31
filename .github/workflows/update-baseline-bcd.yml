@@ -46,7 +46,7 @@ jobs:
       - name: Update package
         if: steps.check-update.outputs.update_available == 'true'
         run: |
-          yarn upgrade @mdn/browser-compat-data@latest
+          yarn up @mdn/browser-compat-data@latest
 
       - name: Run baseline generation
         if: steps.check-update.outputs.update_available == 'true'
