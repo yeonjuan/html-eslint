@@ -1,0 +1,16 @@
+version: 2
+updates:
+  # Enable version updates for npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore"
+    # Specific configuration for @mdn/browser-compat-data
+    allow:
+      - dependency-name: "@mdn/browser-compat-data"
