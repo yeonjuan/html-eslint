@@ -62,6 +62,7 @@ const cssNoEmptyBlocks = require("./css-no-empty-blocks");
 const noRedundantRole = require("./no-redundant-role");
 const noInvalidAttrValue = require("./no-invalid-attr-value");
 const headOrder = require("./head-order");
+const svgRequireViewbox = require("./svg-require-viewbox");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -130,6 +131,7 @@ const rules = {
   "no-invalid-attr-value": noInvalidAttrValue,
   "head-order": headOrder,
   "require-details-summary": requireDetailsSummary,
+  "svg-require-viewbox": svgRequireViewbox,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };

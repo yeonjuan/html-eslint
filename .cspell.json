@@ -84,6 +84,8 @@
     "Contentful",
     "prerender",
     "popovertarget",
-    "mypopover"
+    "mypopover",
+    "viewbox",
+    "Viewbox"
   ]
 }
