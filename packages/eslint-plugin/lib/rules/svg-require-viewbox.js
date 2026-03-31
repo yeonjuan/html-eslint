@@ -39,7 +39,7 @@ module.exports = {
 
         if (!findAttr(node, "viewBox")) {
           context.report({
-            node,
+            node: node.openStart,
             messageId: MESSAGE_IDS.MISSING,
           });
         }
