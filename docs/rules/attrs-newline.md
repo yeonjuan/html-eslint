@@ -51,6 +51,8 @@ This rule has an object option:
 "@html-eslint/attrs-newline": ["error", {
   "closeStyle": "sameline" | "newline", // Default `"newline"`
   "ifAttrsMoreThan": number, // Default `2`
+  "skip": string[], // Default `[]`
+  "inline": string[], // Default `[]`
 }]
 ```
 
@@ -95,3 +97,30 @@ How the open tag's closing bracket `>` should be spaced:
     data-custom
     id="img" />
   ```
+
+#### skip
+
+A list of tag names for which the rule is entirely skipped — including all **descendant elements** — even if the number of attributes exceeds `ifAttrsMoreThan`. This is useful for tags like `<pre>` or `<code>` where formatting (including nested markup) must be preserved as-is.
+
+```json
+"@html-eslint/attrs-newline": ["error", {
+  "ifAttrsMoreThan": 1,
+  "skip": ["pre", "code"]
+}]
+```
+
+#### inline
+
+A list of tag names that are treated as inline elements. The rule is skipped for the **element itself only**; descendant elements inside it are still subject to the rule. This is useful for inline elements embedded inside prose where expanding attributes to multiple lines would break readability, while still enforcing newlines on any block-level children.
+
+Supports the `$inline` preset, which covers all [HTML inline text semantics elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#inline_text_semantics) (`a`, `abbr`, `b`, `span`, `strong`, etc.).
+
+Examples of **correct** code for `"inline": ["$inline"]`:
+
+<!-- prettier-ignore -->
+```html
+<p>
+  The quick brown <span class="highlight" data-id="1">fox jumps over</span>
+  the <a class="link" href="/foo" target="_blank">lazy dog</a> today.
+</p>
+```

@@ -10,6 +10,8 @@
  * @typedef {Object} Option
  * @property {"sameline" | "newline"} [option.closeStyle]
  * @property {number} [options.ifAttrsMoreThan]
+ * @property {string[]} [options.skip]
+ * @property {string[]} [options.inline]
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -21,6 +23,62 @@ const MESSAGE_ID = {
   CLOSE_STYLE_WRONG: "closeStyleWrong",
   NEWLINE_MISSING: "newlineMissing",
 };
+
+/** @type {Object<string, string[]>} */
+const PRESETS = {
+  // From https://developer.mozilla.org/en-US/docs/Web/HTML/Element#inline_text_semantics
+  $inline: `
+a
+abbr
+b
+bdi
+bdo
+br
+cite
+code
+data
+dfn
+em
+i
+kbd
+mark
+q
+rp
+rt
+ruby
+s
+samp
+small
+span
+strong
+sub
+sup
+time
+u
+var
+wbr
+  `
+    .trim()
+    .split(`\n`),
+};
+
+/**
+ * Expand preset tokens (e.g. "$inline") into the corresponding tag list.
+ *
+ * @param {string[]} options
+ * @returns {string[]}
+ */
+function optionsOrPresets(options) {
+  const result = [];
+  for (const option of options) {
+    if (option in PRESETS) {
+      result.push(...PRESETS[option]);
+    } else {
+      result.push(option);
+    }
+  }
+  return result;
+}
 
 /** @type {RuleModule<[Option]>} */
 module.exports = {
@@ -45,6 +103,18 @@ module.exports = {
           ifAttrsMoreThan: {
             type: "integer",
           },
+          skip: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+          inline: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
         },
         additionalProperties: false,
       },
@@ -61,9 +131,44 @@ module.exports = {
     const attrMin =
       typeof options.ifAttrsMoreThan !== "number" ? 2 : options.ifAttrsMoreThan;
     const closeStyle = options.closeStyle || "newline";
+    const skipTags = optionsOrPresets(options.skip || []);
+    const inlineTags = optionsOrPresets(options.inline || []);
+
+    /**
+     * Tracks nesting depth inside `skip` elements. When > 0, the current node
+     * is a descendant of a skipped element.
+     *
+     * @type {number}
+     */
+    let skipDepth = 0;
 
     return createVisitors(context, {
+      "Tag:exit"() {
+        if (skipDepth > 0) {
+          skipDepth--;
+        }
+      },
+
       Tag(node) {
+        const tagName = node.name.toLowerCase();
+
+        // Inside a skip ancestor — skip this descendant too.
+        if (skipDepth > 0) {
+          skipDepth++;
+          return;
+        }
+
+        // This tag is in skip — suppress the rule AND its descendants.
+        if (skipTags.includes(tagName)) {
+          skipDepth++;
+          return;
+        }
+
+        // This tag is in inline — suppress only this tag; descendants are still checked.
+        if (inlineTags.includes(tagName)) {
+          return;
+        }
+
         const shouldBeMultiline = node.attributes.length > attrMin;
         if (!shouldBeMultiline) return;
 
