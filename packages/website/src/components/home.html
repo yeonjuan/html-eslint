@@ -12,21 +12,28 @@
     </p>
 
     <div class="w-full max-w-[900px] flex flex-col gap-8 mt-8 mb-12">
-      <div class="bg-white border-2 border-gray-300 rounded-xl p-6 shadow-sm">
+      <div
+        class="bg-white border-2 border-gray-300 rounded-xl p-6 shadow-sm"
+        itemscope
+        itemtype="https://schema.org/SoftwareApplication"
+      >
         <h2 class="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 justify-center">
-          <span class="text-accent">HTML</span>
+          <span class="text-accent" itemprop="name">HTML Plugin</span>
         </h2>
         <div class="text-center mb-4">
           <a
-            class="text-sm text-gray-500 hover:text-accent transition-colors font-mono"
+            class="text-sm text-gray-700 hover:text-accent transition-colors font-mono"
             href="https://www.npmjs.com/package/@html-eslint/eslint-plugin"
+            itemprop="downloadUrl"
             rel="noreferrer noopener"
             target="_blank"
           >@html-eslint/eslint-plugin</a>
         </div>
-        <p class="text-gray-600 mb-4 leading-relaxed">
+        <p class="text-gray-700 mb-4 leading-relaxed" itemprop="description">
           Lint and format HTML files with 70+ rules. Supports HTML in JavaScript template literals and integration with template engines like Handlebars, ERB, and TWIG.
         </p>
+        <meta content="DeveloperApplication" itemprop="applicationCategory">
+        <meta content="Cross-platform" itemprop="operatingSystem">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <a class="bg-accent border border-accent px-5 py-3 text-white rounded-lg hover:bg-accent/90 transition-colors text-center font-medium" href="~/src/docs/getting-started.html">
             Getting Started
@@ -43,21 +50,28 @@
         </div>
       </div>
 
-      <div class="bg-white border-2 border-gray-300 rounded-xl p-6 shadow-sm">
+      <div
+        class="bg-white border-2 border-gray-300 rounded-xl p-6 shadow-sm"
+        itemscope
+        itemtype="https://schema.org/SoftwareApplication"
+      >
         <h2 class="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 justify-center">
-          <span class="text-accent">React</span>
+          <span class="text-accent" itemprop="name">React Plugin</span>
         </h2>
         <div class="text-center mb-4">
           <a
-            class="text-sm text-gray-500 hover:text-accent transition-colors font-mono"
+            class="text-sm text-gray-700 hover:text-accent transition-colors font-mono"
             href="https://www.npmjs.com/package/@html-eslint/eslint-plugin-react"
+            itemprop="downloadUrl"
             rel="noreferrer noopener"
             target="_blank"
           >@html-eslint/eslint-plugin-react</a>
         </div>
-        <p class="text-gray-600 mb-4 leading-relaxed">
+        <p class="text-gray-700 mb-4 leading-relaxed" itemprop="description">
           Validate HTML attribute values and enforce baseline browser compatibility directly in your React/JSX code. Catch invalid attributes and ensure cross-browser support.
         </p>
+        <meta content="DeveloperApplication" itemprop="applicationCategory">
+        <meta content="Cross-platform" itemprop="operatingSystem">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <a class="bg-accent border border-accent px-5 py-3 text-white rounded-lg hover:bg-accent/90 transition-colors text-center font-medium" href="~/src/docs/react/getting-started.html">
             Getting Started
@@ -68,21 +82,28 @@
         </div>
       </div>
 
-      <div class="bg-white border-2 border-gray-300 rounded-xl p-6 shadow-sm">
+      <div
+        class="bg-white border-2 border-gray-300 rounded-xl p-6 shadow-sm"
+        itemscope
+        itemtype="https://schema.org/SoftwareApplication"
+      >
         <h2 class="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 justify-center">
-          <span class="text-accent">Svelte</span>
+          <span class="text-accent" itemprop="name">Svelte Plugin</span>
         </h2>
         <div class="text-center mb-4">
           <a
-            class="text-sm text-gray-500 hover:text-accent transition-colors font-mono"
+            class="text-sm text-gray-700 hover:text-accent transition-colors font-mono"
             href="https://www.npmjs.com/package/@html-eslint/eslint-plugin-svelte"
+            itemprop="downloadUrl"
             rel="noreferrer noopener"
             target="_blank"
           >@html-eslint/eslint-plugin-svelte</a>
         </div>
-        <p class="text-gray-600 mb-4 leading-relaxed">
+        <p class="text-gray-700 mb-4 leading-relaxed" itemprop="description">
           Lint HTML elements and attributes in Svelte components. Validate attribute values and enforce browser compatibility standards in your Svelte templates.
         </p>
+        <meta content="DeveloperApplication" itemprop="applicationCategory">
+        <meta content="Cross-platform" itemprop="operatingSystem">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <a class="bg-accent border border-accent px-5 py-3 text-white rounded-lg hover:bg-accent/90 transition-colors text-center font-medium" href="~/src/docs/svelte/getting-started.html">
             Getting Started
@@ -99,13 +120,13 @@
         </h2>
         <div class="text-center mb-4">
           <a
-            class="text-sm text-gray-500 hover:text-accent transition-colors font-mono"
+            class="text-sm text-gray-700 hover:text-accent transition-colors font-mono"
             href="https://www.npmjs.com/package/@html-eslint/eslint-plugin-angular-template"
             rel="noreferrer noopener"
             target="_blank"
           >@html-eslint/eslint-plugin-angular-template</a>
         </div>
-        <p class="text-gray-600 mb-4 leading-relaxed">
+        <p class="text-gray-700 mb-4 leading-relaxed">
           Validate HTML elements and attributes in Angular templates. Ensure baseline browser compatibility and catch invalid attributes in your Angular component templates.
         </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -126,11 +147,11 @@
       </div>
     </div>
 
-    <p class="flex justify-center flex-col items-center text-black-700 mt-12">
+    <p class="flex justify-center flex-col items-center text-gray-900 mt-12">
       <span>
         If you'd like to support html-eslint, please consider
         <a
-          class="text-accent"
+          class="text-accent underline hover:no-underline"
           href="https://github.com/yeonjuan/html-eslint"
           rel="noreferrer noopener"
           target="_blank"

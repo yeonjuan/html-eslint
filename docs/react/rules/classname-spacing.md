@@ -1,5 +1,5 @@
 ---
-title: classname-spacing
+title: react/classname-spacing
 description: Disallow extra spacing in className attribute values in React/JSX.
 ---
 

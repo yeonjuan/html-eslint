@@ -1,5 +1,5 @@
 ---
-title: Getting Started
+title: react/Getting Started
 description: Learn how to install and configure HTML ESLint React plugin to validate HTML attribute values and baseline browser compatibility in React/JSX code.
 ---
 

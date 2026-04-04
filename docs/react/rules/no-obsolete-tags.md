@@ -1,5 +1,5 @@
 ---
-title: no-obsolete-tags
+title: react/no-obsolete-tags
 description: Disallow obsolete HTML elements in React/JSX that are deprecated in HTML5.
 ---
 

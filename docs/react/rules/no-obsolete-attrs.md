@@ -1,5 +1,5 @@
 ---
-title: no-obsolete-attrs
+title: react/no-obsolete-attrs
 description: Disallow obsolete HTML attributes in React/JSX that are deprecated in HTML5.
 ---
 

@@ -2763,6 +2763,8 @@ __metadata:
     "@lerna-lite/cli": "npm:^4.11.2"
     "@lerna-lite/publish": "npm:^4.11.2"
     "@mdn/browser-compat-data": "npm:^7.3.9"
+    "@parcel/packager-raw-url": "npm:2.16.4"
+    "@parcel/transformer-jsonld": "npm:2.16.4"
     "@types/jest": "npm:^29.5.14"
     compute-baseline: "npm:^0.4.0"
     cspell: "npm:^8.0.0"
@@ -5020,6 +5022,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@parcel/packager-raw-url@npm:2.16.4":
+  version: 2.16.4
+  resolution: "@parcel/packager-raw-url@npm:2.16.4"
+  dependencies:
+    "@parcel/plugin": "npm:2.16.4"
+    "@parcel/utils": "npm:2.16.4"
+  checksum: 10c0/9589bf07e056f2f06d5b98f3b5328af67cbc720fb0f2a2267bafea2d9e761464a5f752daa37e69f7beebeaa45400560424a7d919049adec56746731f0cd2948b
+  languageName: node
+  linkType: hard
+
 "@parcel/packager-raw@npm:2.16.4":
   version: 2.16.4
   resolution: "@parcel/packager-raw@npm:2.16.4"
@@ -5350,6 +5362,17 @@ __metadata:
     "@parcel/plugin": "npm:2.16.4"
     json5: "npm:^2.2.3"
   checksum: 10c0/57091db9aec45f6634de44962b5f0b4767d93489e6e4f259ff9d50e02a6d29f2b8f2b4a293a5e954380358945464b4a0bbc2c2232b055c39af2b572cdd0c9d43
+  languageName: node
+  linkType: hard
+
+"@parcel/transformer-jsonld@npm:2.16.4":
+  version: 2.16.4
+  resolution: "@parcel/transformer-jsonld@npm:2.16.4"
+  dependencies:
+    "@parcel/plugin": "npm:2.16.4"
+    "@parcel/types": "npm:2.16.4"
+    json5: "npm:^2.2.3"
+  checksum: 10c0/435831cc8e1434ce20c344db893bd6cbd8f509bde1cebc0ba8636d3df17efa8f4cef95e5e7b61eb11bd0034bb990a86227c7124fdb325693257586ae6b5115ef
   languageName: node
   linkType: hard
 

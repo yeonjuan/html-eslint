@@ -1,5 +1,5 @@
 ---
-title: no-ineffective-attrs
+title: angular-template/no-ineffective-attrs
 description: Disallow HTML attributes that have no effect in their context in Angular templates.
 ---
 

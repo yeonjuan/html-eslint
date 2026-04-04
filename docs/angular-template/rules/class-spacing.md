@@ -1,5 +1,5 @@
 ---
-title: class-spacing
+title: angular-template/class-spacing
 description: Disallow extra spacing in class attribute values in Angular templates.
 ---
 

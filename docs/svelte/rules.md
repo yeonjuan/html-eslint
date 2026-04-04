@@ -1,3 +1,8 @@
+---
+title: svelte/rules
+description: List of all available rules for @html-eslint/eslint-plugin-svelte.
+---
+
 # Rules
 
 ## Available Rules

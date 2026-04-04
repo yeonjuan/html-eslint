@@ -1,3 +1,8 @@
+---
+title: svelte/use-baseline
+description: Enforce baseline browser-compatible features in Svelte components.
+---
+
 # use-baseline
 
 Enforce the use of baseline web platform features.

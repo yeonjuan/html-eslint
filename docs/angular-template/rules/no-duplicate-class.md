@@ -1,5 +1,5 @@
 ---
-title: no-duplicate-class
+title: angular-template/no-duplicate-class
 description: Disallow duplicate class names in class attributes in Angular templates.
 ---
 

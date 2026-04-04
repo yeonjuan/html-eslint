@@ -1,5 +1,5 @@
 ---
-title: no-obsolete-tags
+title: svelte/no-obsolete-tags
 description: Disallow obsolete HTML elements that are deprecated in HTML5.
 ---
 

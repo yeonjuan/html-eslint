@@ -1,5 +1,5 @@
 ---
-title: Rules
+title: angular-template/Rules
 description: Available rules for HTML ESLint Angular Template plugin including baseline browser compatibility and duplicate class detection in Angular templates.
 ---
 

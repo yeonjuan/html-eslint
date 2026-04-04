@@ -1,5 +1,5 @@
 ---
-title: no-obsolete-attrs
+title: svelte/no-obsolete-attrs
 description: Disallow obsolete HTML attributes in Svelte that are deprecated in HTML5.
 ---
 

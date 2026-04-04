@@ -1,5 +1,5 @@
 ---
-title: no-invalid-attr-value
+title: svelte/no-invalid-attr-value
 description: Disallow invalid attribute values according to HTML standards and validate against the HTML specification.
 ---
 

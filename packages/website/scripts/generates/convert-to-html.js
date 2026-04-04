@@ -71,14 +71,43 @@ function convertToHTML(src, dist, marked, options) {
       "/"
     );
 
+  // Build JSON-LD structured data
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: pageTitle,
+    description: pageDescription,
+    url: canonicalUrl,
+    inLanguage: "en",
+    author: {
+      "@type": "Person",
+      name: "yeonjuan",
+      url: "https://github.com/yeonjuan"
+    },
+    publisher: {
+      "@type": "Person",
+      name: "yeonjuan",
+      url: "https://github.com/yeonjuan"
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": "https://html-eslint.org/",
+      name: "html-eslint"
+    }
+  };
+
+  const jsonLdScript = `<script type="application/ld+json">\n    ${JSON.stringify(jsonLd, null, 2).split("\n").join("\n    ")}\n    </script>`;
+
   // Build meta tags including SEO tags
   const metaTags = [
     `<title>${fullTitle}</title>`,
-    `<link href="${canonicalUrl}" rel="canonical">`
+    `<link href="${canonicalUrl}" rel="canonical">`,
+    jsonLdScript
   ];
 
   if (pageDescription) {
     metaTags.push(`<meta name="description" content="${pageDescription}">`);
+    metaTags.push(`<meta property="og:site_name" content="html-eslint">`);
     metaTags.push(`<meta property="og:title" content="${fullTitle}">`);
     metaTags.push(`<meta property="og:description" content="${pageDescription}">`);
     metaTags.push(`<meta name="twitter:title" content="${fullTitle}">`);
