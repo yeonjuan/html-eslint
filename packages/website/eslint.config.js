@@ -50,6 +50,9 @@ module.exports = defineConfig([
     extends: ["html/all"],
     language: "html/html",
     rules: {
+      "html/require-meta-description": "off",
+      "html/require-open-graph-protocol": "off",
+      "html/require-title": "off",
       "html/indent": ["error", 2],
       "html/no-inline-styles": "off",
       "html/id-naming-convention": ["error", "kebab-case"],
