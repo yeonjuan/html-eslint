@@ -1,5 +1,5 @@
 ---
-title: no-obsolete-attrs
+title: angular-template/no-obsolete-attrs
 description: Disallow obsolete HTML attributes in Angular templates that are deprecated in HTML5.
 ---
 

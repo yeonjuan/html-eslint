@@ -1,3 +1,8 @@
+---
+title: svelte/getting-started
+description: Getting started guide for @html-eslint/eslint-plugin-svelte - installation and configuration.
+---
+
 # Getting Started
 
 `@html-eslint/eslint-plugin-svelte` is an ESLint plugin that validates HTML attribute values and baseline browser compatibility directly in your Svelte code. It extends the core `@html-eslint` functionality to work seamlessly with Svelte components.

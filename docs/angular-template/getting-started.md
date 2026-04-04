@@ -1,5 +1,5 @@
 ---
-title: Getting Started
+title: angular-template/Getting Started
 description: Learn how to install and configure HTML ESLint Angular Template plugin to validate HTML elements and attributes in Angular templates.
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: no-duplicate-class
+title: svelte/no-duplicate-class
 description: >-
   Disallow duplicate class names in class attributes to avoid confusion and
   errors.

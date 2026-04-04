@@ -1,5 +1,5 @@
 ---
-title: no-ineffective-attrs
+title: react/no-ineffective-attrs
 description: Disallow HTML attributes that have no effect in their React/JSX context.
 ---
 

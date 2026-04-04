@@ -1,5 +1,5 @@
 ---
-title: no-obsolete-tags
+title: angular-template/no-obsolete-tags
 description: Disallow use of obsolete HTML elements in Angular templates.
 ---
 

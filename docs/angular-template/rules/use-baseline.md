@@ -1,5 +1,5 @@
 ---
-title: use-baseline
+title: angular-template/use-baseline
 description: Enforce baseline browser-compatible features in Angular template files.
 ---
 

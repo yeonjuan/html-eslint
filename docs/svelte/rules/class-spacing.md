@@ -1,3 +1,8 @@
+---
+title: svelte/class-spacing
+description: Disallow extra spacing in class attribute values in Svelte code.
+---
+
 # class-spacing
 
 This rule disallows extra spacing in `class` attribute values in Svelte code.

@@ -1,5 +1,5 @@
 ---
-title: use-baseline
+title: react/use-baseline
 description: Enforce baseline browser-compatible features in React/JSX components.
 ---
 

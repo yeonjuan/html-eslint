@@ -1,5 +1,5 @@
 ---
-title: no-invalid-attr-value
+title: react/no-invalid-attr-value
 description: Disallow invalid attribute values in React/JSX according to HTML standards.
 ---
 
