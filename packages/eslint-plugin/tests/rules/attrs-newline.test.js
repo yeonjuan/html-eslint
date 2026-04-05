@@ -422,6 +422,64 @@ templateRuleTester.run("[template] attrs-newline", rule, {
         },
       ],
     },
+    // skip option: tag in skip list is not enforced
+    {
+      code: `html\`<pre class="foo" id="bar" data-x="1"></pre>\``,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          skip: ["pre"],
+        },
+      ],
+    },
+    // skip option: other tags still get enforced
+    {
+      code: `html\`
+        <pre class="foo" id="bar"></pre>
+        <div
+          class="foo"
+          id="bar"
+        >
+        </div>
+      \``,
+      options: [
+        {
+          closeStyle: "newline",
+          ifAttrsMoreThan: 0,
+          skip: ["pre"],
+        },
+      ],
+    },
+    // inline option: inline tags are not enforced
+    {
+      code: `html\`<p>The quick <span class="foo" data-foo="true">brown fox</span> jumps over the lazy dog.</p>\``,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          inline: ["span"],
+        },
+      ],
+    },
+    // inline option with $inline preset
+    {
+      code: `html\`<p>Click <a class="link" href="/foo" target="_blank">here</a> for info.</p>\``,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          inline: ["$inline"],
+        },
+      ],
+    },
+    // skip suppresses descendant elements
+    {
+      code: `html\`<pre class="foo" id="bar"><span class="baz" id="qux" data-x="1"></span></pre>\``,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          skip: ["pre"],
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -490,6 +548,22 @@ foo=\${"true"}
 >
     </div>
 \``,
+      errors: [{ messageId: "newlineMissing" }],
+    },
+    // inline does NOT suppress descendants — child elements are still enforced
+    {
+      code: `html\`<span class="wrapper" id="w"><div class="a" id="b" data-x="1"></div></span>\``,
+      output: `html\`<span class="wrapper" id="w"><div
+class="a"
+id="b"
+data-x="1"
+></div></span>\``,
+      options: [
+        {
+          ifAttrsMoreThan: 0,
+          inline: ["span"],
+        },
+      ],
       errors: [{ messageId: "newlineMissing" }],
     },
   ],
