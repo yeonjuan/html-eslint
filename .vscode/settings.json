@@ -2,7 +2,8 @@
   "eslint.enable": true,
   "eslint.validate": [
     "javascript", // ...
-    "html" // Add "html" to enable linting `.html` files.
+    "html", // Add "html" to enable linting `.html` files.
+    "xml"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "never"

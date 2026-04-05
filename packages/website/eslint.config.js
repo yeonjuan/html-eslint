@@ -65,4 +65,14 @@ module.exports = defineConfig([
       }],
     },
   },
+  {
+    files: ["**/*.svg"],
+      plugins: {
+      html,
+    },
+    language: "html/html",
+    rules: {
+      "html/svg-require-viewbox": "error"
+    }
+  }
 ]);
