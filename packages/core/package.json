@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/core",
-  "version": "0.58.1",
+  "version": "0.59.0",
   "description": "Core HTML validation logic for html-eslint",
   "author": {
     "name": "yeonjuan",
@@ -49,7 +49,7 @@
     "lint"
   ],
   "dependencies": {
-    "@html-eslint/types": "^0.58.1",
+    "@html-eslint/types": "^0.59.0",
     "html-standard": "^0.0.13"
   },
   "devDependencies": {
