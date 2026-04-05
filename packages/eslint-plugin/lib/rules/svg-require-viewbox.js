@@ -1,14 +1,13 @@
-/**
- * @import {Tag} from "@html-eslint/types"
- * @import {RuleModule} from "../types"
- */
+/** @import {RuleModule} from "../types" */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, hasTemplate } = require("./utils/node");
 const { getRuleUrl } = require("./utils/rule");
+const { createVisitors } = require("./utils/visitors");
 
 const MESSAGE_IDS = {
   MISSING: "missing",
+  EMPTY: "empty",
 };
 
 /** @type {RuleModule<[]>} */
@@ -27,23 +26,39 @@ module.exports = {
     schema: [],
     messages: {
       [MESSAGE_IDS.MISSING]: "Missing `viewBox` attribute on `<svg>`.",
+      [MESSAGE_IDS.EMPTY]: "Empty `viewBox` attribute on `<svg>`.",
     },
   },
 
   create(context) {
-    return {
+    return createVisitors(context, {
       Tag(node) {
         if (node.name !== "svg") {
           return;
         }
 
-        if (!findAttr(node, "viewBox")) {
+        const viewBoxAttr = findAttr(node, "viewBox");
+
+        if (!viewBoxAttr) {
           context.report({
             node: node.openStart,
             messageId: MESSAGE_IDS.MISSING,
           });
+          return;
+        }
+
+        const { value } = viewBoxAttr;
+        if (value && hasTemplate(value)) {
+          return;
+        }
+
+        if (!value || !value.value || value.value.trim() === "") {
+          context.report({
+            node: viewBoxAttr,
+            messageId: MESSAGE_IDS.EMPTY,
+          });
         }
       },
-    };
+    });
   },
 };
