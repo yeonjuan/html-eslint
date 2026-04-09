@@ -42,14 +42,11 @@ module.exports = {
   meta: {
     type: "code",
 
-    deprecated: true,
-    replacedBy: ["no-extra-spacing-tags"],
-
     docs: {
-      description: "Disallow extra spacing around attributes",
+      description: "Disallow extra spacing inside tags",
       category: RULE_CATEGORY.STYLE,
       recommended: true,
-      url: getRuleUrl("no-extra-spacing-attrs"),
+      url: getRuleUrl("no-extra-spacing-tags"),
     },
 
     fixable: true,
