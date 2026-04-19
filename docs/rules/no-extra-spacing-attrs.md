@@ -5,6 +5,8 @@ description: Disallow extra spacing around attributes for cleaner and more consi
 
 # no-extra-spacing-attrs
 
+> **⚠️ Deprecated**: This rule has been deprecated. Use [`no-extra-spacing-tags`](./no-extra-spacing-tags.md) instead.
+
 This rule disallows extra spaces around attributes and between the start or end of a tag.
 
 ## How to use

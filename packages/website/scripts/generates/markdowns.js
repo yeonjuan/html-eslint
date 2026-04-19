@@ -40,7 +40,14 @@ async function generateRulesMarkdown() {
     if (rule.meta.docs.recommended) emojis.push("⭐")
     if (rule.meta.fixable) emojis.push("🔧");
     const meta = emojis.join(" ")
-    lines.push(`| [${ruleId}](rules/${ruleId}) | ${rule.meta.docs.description} | ${meta} |`);
+    if (rule.meta.deprecated) {
+      const replacedBy = rule.meta.replacedBy && rule.meta.replacedBy.length
+        ? ` Use ${rule.meta.replacedBy.map((r) => `[${r}](rules/${r})`).join(", ")} instead.`
+        : "";
+      lines.push(`| ~~[${ruleId}](rules/${ruleId})~~ | ~~${rule.meta.docs.description}~~ (Deprecated)${replacedBy} | ${meta} |`);
+    } else {
+      lines.push(`| [${ruleId}](rules/${ruleId}) | ${rule.meta.docs.description} | ${meta} |`);
+    }
   };
 
   lines.push("## Best Practice\n");
