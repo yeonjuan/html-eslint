@@ -20,6 +20,7 @@ Object.entries(rulesRecord).forEach(([rulename, rule]) => {
   rules[rule.meta.docs.category].push([
     rulename,
     "~/src/docs/rules/" + rulename + ".html",
+    !!rule.meta.deprecated,
   ]);
 });
 

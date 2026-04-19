@@ -75,17 +75,18 @@
 
 ## Style
 
-| Rule                                                     | Description                                                       |       |
-| -------------------------------------------------------- | ----------------------------------------------------------------- | ----- |
-| [attrs-newline](rules/attrs-newline)                     | Enforce newline between attributes                                | ⭐ 🔧 |
-| [class-spacing](rules/class-spacing)                     | Disallow extra spacing in class attribute values                  | 🔧    |
-| [element-newline](rules/element-newline)                 | Enforce newline between elements.                                 | ⭐ 🔧 |
-| [id-naming-convention](rules/id-naming-convention)       | Enforce consistent naming of id attributes                        |       |
-| [indent](rules/indent)                                   | Enforce consistent indentation                                    | ⭐ 🔧 |
-| [lowercase](rules/lowercase)                             | Enforce use of lowercase for tag and attribute names.             | 🔧    |
-| [no-extra-spacing-attrs](rules/no-extra-spacing-attrs)   | Disallow extra spacing around attributes                          | ⭐ 🔧 |
-| [no-extra-spacing-text](rules/no-extra-spacing-text)     | Disallow unnecessary consecutive spaces                           | 🔧    |
-| [no-multiple-empty-lines](rules/no-multiple-empty-lines) | Disallow multiple empty lines                                     | 🔧    |
-| [no-trailing-spaces](rules/no-trailing-spaces)           | Disallow trailing whitespace at the end of lines                  | 🔧    |
-| [quotes](rules/quotes)                                   | Enforce consistent quoting attributes with double(") or single(') | ⭐ 🔧 |
-| [sort-attrs](rules/sort-attrs)                           | Enforce priority and alphabetical sorting of attributes           | 🔧    |
+| Rule                                                       | Description                                                                                                                 |       |
+| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----- |
+| [attrs-newline](rules/attrs-newline)                       | Enforce newline between attributes                                                                                          | ⭐ 🔧 |
+| [class-spacing](rules/class-spacing)                       | Disallow extra spacing in class attribute values                                                                            | 🔧    |
+| [element-newline](rules/element-newline)                   | Enforce newline between elements.                                                                                           | ⭐ 🔧 |
+| [id-naming-convention](rules/id-naming-convention)         | Enforce consistent naming of id attributes                                                                                  |       |
+| [indent](rules/indent)                                     | Enforce consistent indentation                                                                                              | ⭐ 🔧 |
+| [lowercase](rules/lowercase)                               | Enforce use of lowercase for tag and attribute names.                                                                       | 🔧    |
+| ~~[no-extra-spacing-attrs](rules/no-extra-spacing-attrs)~~ | ~~Disallow extra spacing around attributes~~ (Deprecated) Use [no-extra-spacing-tags](rules/no-extra-spacing-tags) instead. | ⭐ 🔧 |
+| [no-extra-spacing-tags](rules/no-extra-spacing-tags)       | Disallow extra spacing inside tags                                                                                          | ⭐ 🔧 |
+| [no-extra-spacing-text](rules/no-extra-spacing-text)       | Disallow unnecessary consecutive spaces                                                                                     | 🔧    |
+| [no-multiple-empty-lines](rules/no-multiple-empty-lines)   | Disallow multiple empty lines                                                                                               | 🔧    |
+| [no-trailing-spaces](rules/no-trailing-spaces)             | Disallow trailing whitespace at the end of lines                                                                            | 🔧    |
+| [quotes](rules/quotes)                                     | Enforce consistent quoting attributes with double(") or single(')                                                           | ⭐ 🔧 |
+| [sort-attrs](rules/sort-attrs)                             | Enforce priority and alphabetical sorting of attributes                                                                     | 🔧    |

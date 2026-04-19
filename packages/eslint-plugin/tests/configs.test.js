@@ -51,7 +51,12 @@ describe("configs", () => {
   test("all recommended rules should be included in the recommended config", () => {
     const recommendedRules = Object.entries(exportedRules)
       .filter(([, rule]) => {
-        return rule.meta && rule.meta.docs && rule.meta.docs.recommended;
+        return (
+          rule.meta &&
+          rule.meta.docs &&
+          rule.meta.docs.recommended &&
+          !rule.meta.deprecated
+        );
       })
       .map(([name]) => `@html-eslint/${name}`);
     expect(Object.keys(recommendedLegacyRules)).toEqual(
@@ -60,9 +65,12 @@ describe("configs", () => {
   });
 
   test("all legacy rules should be included in the all config", () => {
-    const allExportedRules = Object.keys(exportedRules).map(
-      (name) => `@html-eslint/${name}`
-    );
+    const allExportedRules = Object.entries(exportedRules)
+      .filter(([, rule]) => {
+        return !rule.meta?.deprecated;
+      })
+      .map(([key]) => key)
+      .map((name) => `@html-eslint/${name}`);
     expect(Object.keys(allRulesLegacy)).toEqual(
       expect.arrayContaining(allExportedRules)
     );

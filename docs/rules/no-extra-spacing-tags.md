@@ -1,20 +1,18 @@
 ---
-title: no-extra-spacing-attrs
-description: Disallow extra spacing around attributes for cleaner and more consistent HTML.
+title: no-extra-spacing-tags
+description: Disallow extra spacing inside tags.
 ---
 
-# no-extra-spacing-attrs
+# no-extra-spacing-tags
 
-> **⚠️ Deprecated**: This rule has been deprecated. Use [`no-extra-spacing-tags`](./no-extra-spacing-tags.md) instead.
-
-This rule disallows extra spaces around attributes and between the start or end of a tag.
+This rule disallows extra spaces inside tags, including between attributes and between the tag name and its attributes or closing bracket.
 
 ## How to use
 
 ```js,.eslintrc.js
 module.exports = {
   rules: {
-    "@html-eslint/no-extra-spacing-attrs": "error",
+    "@html-eslint/no-extra-spacing-tags": "error",
   },
 };
 ```

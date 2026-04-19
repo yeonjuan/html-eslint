@@ -11,7 +11,10 @@
         data-nav-active="!border-slate-800 !text-slate-900"
       >
         <a class="w-full no-underline inline-block" href="{{a[1]}}">
-          {{a[0]}}
+          <if condition="a[2]">
+            <s>{{a[0]}} (deprecated)</s>
+          </if>
+          <else>{{a[0]}}</else>
         </a>
       </li>
     </each>

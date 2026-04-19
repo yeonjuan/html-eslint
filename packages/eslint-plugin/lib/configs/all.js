@@ -1,5 +1,7 @@
 const rules = require("../rules");
-const ruleKeys = Object.keys(rules);
+const ruleKeys = Object.entries(rules)
+  .filter(([, rule]) => !rule.meta?.deprecated)
+  .map(([ruleName]) => ruleName);
 
 const allRulesLegacy = ruleKeys.reduce((acc, ruleName) => {
   acc[`@html-eslint/${ruleName}`] = "error";
