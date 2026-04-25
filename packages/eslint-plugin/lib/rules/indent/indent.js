@@ -50,6 +50,7 @@ const {
   isScript,
   isStyle,
   isText,
+  isRangesOverlap,
 } = require("../utils/node");
 const {
   shouldCheckTaggedTemplateExpression,
@@ -135,6 +136,7 @@ module.exports = {
   create(context) {
     const sourceCode = getSourceCode(context);
     const indentLevelOptions = (context.options && context.options[1]) || {};
+    const CLOSING_PUNCTUATORS = ["}", ")", "]"];
     const lines = sourceCode.getLines();
     const ignoreComment = indentLevelOptions.ignoreComment === true;
     const autoBaseIndent = indentLevelOptions.templateIndentBase === "first";
@@ -224,10 +226,71 @@ module.exports = {
     }
 
     /**
+     * Returns true when a line with hasCloseTemplate should skip indent check.
+     * Skip when the `}` (CloseTemplate) is NOT the first non-whitespace token
+     * on the line AND the expression contains tokens on earlier lines — meaning
+     * the line is a JavaScript expression continuation (e.g. `"bar"}`), not an
+     * HTML-structural closing sequence like `})}`.
+     *
+     * @param {import("../../types").Line} lineNode
+     * @param {(
+     *   | Text
+     *   | import("@html-eslint/types").CommentContent
+     * )["parts"]} parts
+     * @returns {boolean}
+     */
+    function shouldSkipCloseTemplateLine(lineNode, parts) {
+      for (const part of parts || []) {
+        if (
+          part.type !== NODE_TYPES.Template ||
+          !part.close ||
+          !isRangesOverlap(part.close.range, lineNode.range)
+        ) {
+          continue;
+        }
+        const closeToken = sourceCode.getTokenByRangeStart(part.close.range[0]);
+        if (!closeToken) continue;
+
+        // Walk backward to find the leftmost token on the current line
+        let prevToken = sourceCode.getTokenBefore(closeToken);
+        let firstTokenOnLine = null;
+        while (
+          prevToken &&
+          prevToken.loc.start.line === lineNode.loc.start.line
+        ) {
+          firstTokenOnLine = prevToken;
+          prevToken = sourceCode.getTokenBefore(prevToken);
+        }
+
+        // No token before } on this line → } is first → don't skip
+        if (!firstTokenOnLine) continue;
+
+        // Line starts with a closing bracket (e.g. `})}`) → don't skip
+        if (CLOSING_PUNCTUATORS.includes(firstTokenOnLine.value)) continue;
+
+        // Check if the expression has tokens on earlier lines.
+        // After the loop, prevToken is either null, a Template delimiter
+        // (TemplateHead/TemplateMiddle), or a non-Template token from an
+        // earlier line inside the expression.
+        // If it's a Template token, firstTokenOnLine is the only expression
+        // token, so we should not skip (e.g. `${` then `content}` on next line).
+        if (prevToken && prevToken.type !== "Template") {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    /**
      * @param {number} baseLevel
      * @param {number} baseSpaces
+     * @param {boolean} [inTemplateLiteral]
      */
-    function createIndentVisitor(baseLevel, baseSpaces) {
+    function createIndentVisitor(
+      baseLevel,
+      baseSpaces,
+      inTemplateLiteral = false
+    ) {
       const indentLevel = new IndentLevel({
         getIncreasingLevel,
       });
@@ -409,6 +472,14 @@ module.exports = {
             ) {
               return;
             }
+            if (
+              inTemplateLiteral &&
+              lineNode.hasCloseTemplate &&
+              !lineNode.hasOpenTemplate &&
+              shouldSkipCloseTemplateLine(lineNode, node.parts)
+            ) {
+              return;
+            }
             if (lineNode.value.trim().length) {
               visitedTextLines.push(lineNode.loc.start.line);
               checkIndent(lineNode);
@@ -432,7 +503,7 @@ module.exports = {
           parseTemplateLiteral(
             node.quasi,
             getSourceCode(context),
-            createIndentVisitor(base, baseSpaces)
+            createIndentVisitor(base, baseSpaces, true)
           );
         }
       },
@@ -443,7 +514,7 @@ module.exports = {
           parseTemplateLiteral(
             node,
             getSourceCode(context),
-            createIndentVisitor(base, baseSpaces)
+            createIndentVisitor(base, baseSpaces, true)
           );
         }
       },

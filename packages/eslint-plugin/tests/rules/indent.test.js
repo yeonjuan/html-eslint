@@ -1601,6 +1601,18 @@ const code = html\`
  }
       `,
     },
+    {
+      code: `
+html\`
+    <div>
+        \${
+		
+  			a ? "foo":
+          "bar"}
+    </div>
+\`
+      `,
+    },
   ],
   invalid: [
     {
