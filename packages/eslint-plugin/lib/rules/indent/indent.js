@@ -136,7 +136,6 @@ module.exports = {
   create(context) {
     const sourceCode = getSourceCode(context);
     const indentLevelOptions = (context.options && context.options[1]) || {};
-    const CLOSING_PUNCTUATORS = ["}", ")", "]"];
     const lines = sourceCode.getLines();
     const ignoreComment = indentLevelOptions.ignoreComment === true;
     const autoBaseIndent = indentLevelOptions.templateIndentBase === "first";
@@ -248,6 +247,7 @@ module.exports = {
         ) {
           continue;
         }
+
         const closeToken = sourceCode.getTokenByRangeStart(part.close.range[0]);
         if (!closeToken) continue;
 
@@ -265,8 +265,8 @@ module.exports = {
         // No token before } on this line → } is first → don't skip
         if (!firstTokenOnLine) continue;
 
-        // Line starts with a closing bracket (e.g. `})}`) → don't skip
-        if (CLOSING_PUNCTUATORS.includes(firstTokenOnLine.value)) continue;
+        // Line starts with the same token as the close delimiter (e.g. `})}`) → don't skip
+        if (firstTokenOnLine.value === part.close.value) continue;
 
         // Check if the expression has tokens on earlier lines.
         // After the loop, prevToken is either null, a Template delimiter
