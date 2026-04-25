@@ -1606,12 +1606,40 @@ const code = html\`
 html\`
     <div>
         \${
-		
+
   			a ? "foo":
           "bar"}
     </div>
 \`
       `,
+    },
+    {
+      code: `html\`
+    <div>
+        \${
+          condition
+            ? valueA
+            : valueB}
+    </div>
+      \``,
+    },
+    {
+      code: `html\`
+    <div>
+        \${
+          a ||
+              b}
+    </div>
+      \``,
+    },
+    {
+      code: `html\`
+    <div>
+        \${
+          "prefix" +
+            "suffix"}
+    </div>
+      \``,
     },
   ],
   invalid: [
