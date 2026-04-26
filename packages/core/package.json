@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/core",
-  "version": "0.59.0",
+  "version": "0.60.0-alpha.0",
   "description": "Core HTML validation logic for html-eslint",
   "author": {
     "name": "yeonjuan",
