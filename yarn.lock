@@ -2660,7 +2660,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@html-eslint/cli@workspace:packages/cli"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.60.0-alpha.0"
+    "@html-eslint/eslint-plugin": "npm:^0.60.0-alpha.1"
     "@html-eslint/parser": "npm:^0.59.0"
     axios: "npm:^1.13.5"
     chalk: "npm:^5.6.2"
@@ -2734,7 +2734,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@html-eslint/eslint-plugin@npm:^0.60.0-alpha.0, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
+"@html-eslint/eslint-plugin@npm:^0.60.0-alpha.1, @html-eslint/eslint-plugin@workspace:packages/eslint-plugin":
   version: 0.0.0-use.local
   resolution: "@html-eslint/eslint-plugin@workspace:packages/eslint-plugin"
   dependencies:
@@ -19909,7 +19909,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "website@workspace:packages/website"
   dependencies:
-    "@html-eslint/eslint-plugin": "npm:^0.60.0-alpha.0"
+    "@html-eslint/eslint-plugin": "npm:^0.60.0-alpha.1"
     "@html-eslint/eslint-plugin-angular-template": "npm:^0.60.0-alpha.0"
     "@html-eslint/eslint-plugin-react": "npm:^0.60.0-alpha.0"
     "@html-eslint/eslint-plugin-svelte": "npm:^0.60.0-alpha.0"
