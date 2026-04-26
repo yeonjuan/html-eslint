@@ -226,19 +226,20 @@ module.exports = {
 
     /**
      * Returns true when a line with hasCloseTemplate should skip indent check.
-     * Skip when the `}` (CloseTemplate) is NOT the first non-whitespace token
-     * on the line AND the expression contains tokens on earlier lines — meaning
-     * the line is a JavaScript expression continuation (e.g. `"bar"}`), not an
-     * HTML-structural closing sequence like `})}`.
+     * Skip when there is non-whitespace content before the close delimiter on
+     * the line, meaning the line is a template expression continuation rather
+     * than an HTML-structural closing line.
      *
-     * @param {import("../../types").Line} lineNode
-     * @param {(
-     *   | Text
-     *   | import("@html-eslint/types").CommentContent
-     * )["parts"]} parts
+     * For template literal context (ESLint tokens available), additional checks
+     * are applied using ESLint tokens to avoid false positives (e.g. `})}` or
+     * single-token expressions like `${\ncontent}`).
+     *
+     * @param {Line} lineNode
+     * @param {Text["parts"]} parts
      * @returns {boolean}
      */
     function shouldSkipCloseTemplateLine(lineNode, parts) {
+      const sourceLines = sourceCode.getLines();
       for (const part of parts || []) {
         if (
           part.type !== NODE_TYPES.Template ||
@@ -248,35 +249,45 @@ module.exports = {
           continue;
         }
 
-        const closeToken = sourceCode.getTokenByRangeStart(part.close.range[0]);
-        if (!closeToken) continue;
+        // Skip this part if only whitespace precedes the close delimiter on the line
+        const closeLineContent = sourceLines[part.close.loc.start.line - 1];
+        const contentBeforeClose = closeLineContent.slice(
+          0,
+          part.close.loc.start.column
+        );
+        if (!contentBeforeClose.trim()) continue;
 
-        // Walk backward to find the leftmost token on the current line
-        let prevToken = sourceCode.getTokenBefore(closeToken);
-        let firstTokenOnLine = null;
-        while (
-          prevToken &&
-          prevToken.loc.start.line === lineNode.loc.start.line
-        ) {
-          firstTokenOnLine = prevToken;
-          prevToken = sourceCode.getTokenBefore(prevToken);
+        // In template literal context, ESLint tokens are available for more
+        // precise detection to avoid false positives.
+        if (typeof sourceCode.getTokenByRangeStart === "function") {
+          const closeToken = sourceCode.getTokenByRangeStart(
+            part.close.range[0]
+          );
+          if (!closeToken) continue;
+
+          // Walk backward to find the leftmost token on the current line
+          let prevToken = sourceCode.getTokenBefore(closeToken);
+          let firstTokenOnLine = null;
+          while (
+            prevToken &&
+            prevToken.loc.start.line === lineNode.loc.start.line
+          ) {
+            firstTokenOnLine = prevToken;
+            prevToken = sourceCode.getTokenBefore(prevToken);
+          }
+
+          // No token before close delimiter → it is first → don't skip
+          if (!firstTokenOnLine) continue;
+
+          // Line starts with the same value as the close delimiter (e.g. `})}`) → don't skip
+          if (firstTokenOnLine.value === part.close.value) continue;
+
+          // If prevToken is a Template delimiter, firstTokenOnLine is the only
+          // expression token — don't skip (e.g. `${\ncontent}`)
+          if (!prevToken || prevToken.type === "Template") continue;
         }
 
-        // No token before } on this line → } is first → don't skip
-        if (!firstTokenOnLine) continue;
-
-        // Line starts with the same token as the close delimiter (e.g. `})}`) → don't skip
-        if (firstTokenOnLine.value === part.close.value) continue;
-
-        // Check if the expression has tokens on earlier lines.
-        // After the loop, prevToken is either null, a Template delimiter
-        // (TemplateHead/TemplateMiddle), or a non-Template token from an
-        // earlier line inside the expression.
-        // If it's a Template token, firstTokenOnLine is the only expression
-        // token, so we should not skip (e.g. `${` then `content}` on next line).
-        if (prevToken && prevToken.type !== "Template") {
-          return true;
-        }
+        return true;
       }
       return false;
     }
@@ -284,13 +295,8 @@ module.exports = {
     /**
      * @param {number} baseLevel
      * @param {number} baseSpaces
-     * @param {boolean} [inTemplateLiteral]
      */
-    function createIndentVisitor(
-      baseLevel,
-      baseSpaces,
-      inTemplateLiteral = false
-    ) {
+    function createIndentVisitor(baseLevel, baseSpaces) {
       const indentLevel = new IndentLevel({
         getIncreasingLevel,
       });
@@ -473,7 +479,6 @@ module.exports = {
               return;
             }
             if (
-              inTemplateLiteral &&
               lineNode.hasCloseTemplate &&
               !lineNode.hasOpenTemplate &&
               shouldSkipCloseTemplateLine(lineNode, node.parts)
@@ -503,7 +508,7 @@ module.exports = {
           parseTemplateLiteral(
             node.quasi,
             getSourceCode(context),
-            createIndentVisitor(base, baseSpaces, true)
+            createIndentVisitor(base, baseSpaces)
           );
         }
       },
@@ -514,7 +519,7 @@ module.exports = {
           parseTemplateLiteral(
             node,
             getSourceCode(context),
-            createIndentVisitor(base, baseSpaces, true)
+            createIndentVisitor(base, baseSpaces)
           );
         }
       },

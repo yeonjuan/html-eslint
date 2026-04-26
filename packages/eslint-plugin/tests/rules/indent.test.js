@@ -542,6 +542,52 @@ comment
           },
         ],
       },
+      {
+        code: `
+<div>
+    <% content %>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "<%": "%>",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div>
+    <%
+      content
+    %>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "<%": "%>",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div>
+    <%
+      content
+      content %>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "<%": "%>",
+            },
+          },
+        },
+      },
     ],
     invalid: [
       {
@@ -1395,6 +1441,50 @@ text
         },
       },
       {
+        code: `
+<div>
+<% content %>
+</div>
+        `,
+        errors: wrongIndentErrors(1),
+        output: `
+<div>
+    <% content %>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "<%": "%>",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div>
+<%
+  content
+%>
+</div>
+        `,
+        errors: wrongIndentErrors(2),
+        output: `
+<div>
+    <%
+  content
+    %>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "<%": "%>",
+            },
+          },
+        },
+      },
+      {
         code: `<div>
 <div></div>
 </div>
@@ -2047,6 +2137,22 @@ const code = html\`
 const code = html\`
  <div>
      id="\${bar}">
+ </div>\`;
+    `,
+      options: [4, { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+const code = html\`
+ <div>
+\${child}
+ </div>\`;
+    `,
+      output: `
+const code = html\`
+ <div>
+     \${child}
  </div>\`;
     `,
       options: [4, { templateIndentBase: "first" }],
