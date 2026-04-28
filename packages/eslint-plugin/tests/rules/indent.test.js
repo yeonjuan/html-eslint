@@ -1831,6 +1831,7 @@ true,
     \${when(
       true,
       () => html\`
+        <div></div>
 \`)}
   </div>
 \``,
