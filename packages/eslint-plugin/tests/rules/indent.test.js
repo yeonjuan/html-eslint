@@ -1825,6 +1825,17 @@ true,
 \`;`,
       options: [2],
     },
+    {
+      code: `html\`
+  <div>
+    \${when(
+      true,
+      () => html\`
+\`)}
+  </div>
+\``,
+      options: [2],
+    },
   ],
   invalid: [
     {
