@@ -1769,6 +1769,50 @@ true,
 \`;`,
       options: [2, { templateIndentBase: "first" }],
     },
+    {
+      code: `html\`
+\${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<ul
+  class="list"
+>
+  <li>item1</li>
+  <li>item2</li>
+</ul>
+\`)}
+<div
+  class="wrapper"
+>
+  <p>text</p>
+</div>
+\`)}
+<footer
+  class="main-footer"
+>
+  <span>footer</span>
+</footer>
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
+    },
+    {
+      code: `html\`
+\${when(
+true,
+() => html\`
+<div
+  class="\${cls}"
+  id="\${id}"
+>
+  <p>text</p>
+</div>
+\`)}
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
+    },
   ],
   invalid: [
     {
@@ -2320,6 +2364,34 @@ true,
 \`;`,
       options: [2, { templateIndentBase: "first" }],
       errors: wrongIndentErrors(4),
+    },
+    {
+      code: `html\`
+\${when(
+true,
+() => html\`
+<div
+class="wrapper"
+  id="main"
+>
+  <p>text</p>
+</div>
+\`)}
+\`;`,
+      output: `html\`
+\${when(
+true,
+() => html\`
+<div
+  class="wrapper"
+  id="main"
+>
+  <p>text</p>
+</div>
+\`)}
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(1),
     },
   ],
 });
