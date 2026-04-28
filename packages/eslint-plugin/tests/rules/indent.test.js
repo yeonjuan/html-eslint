@@ -1813,6 +1813,18 @@ true,
 \`;`,
       options: [2, { templateIndentBase: "first" }],
     },
+    {
+      code: `html\`
+  <div>
+    \${
+  foo(
+    condition
+      ? html\`<div class="bar"></div>\`
+: html\`<div class="baz"></div>\`)}
+  </div>
+\`;`,
+      options: [2],
+    },
   ],
   invalid: [
     {
