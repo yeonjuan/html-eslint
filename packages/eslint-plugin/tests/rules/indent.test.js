@@ -1731,6 +1731,44 @@ html\`
     </div>
       \``,
     },
+    {
+      code: `html\`
+  \${when(
+      true,
+      () => html\`
+        <b>ok</b>
+      \`)}
+\`;`,
+      options: [2],
+    },
+    {
+      code: `html\`
+  \${when(
+      true,
+      () => html\`
+        \${when(
+            true,
+            () => html\`
+              <b>ok</b>
+            \`)}
+      \`)}
+\`;`,
+      options: [2],
+    },
+    {
+      code: `html\`
+\${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<b>ok</b>
+\`)}
+\`)}
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
+    },
   ],
   invalid: [
     {
@@ -2015,7 +2053,7 @@ class Component extends LitElement {
           [],
           item => html\`
             <p>content</p>
-      \`)}
+          \`)}
       \${
         repeat(
             [],
@@ -2028,7 +2066,7 @@ class Component extends LitElement {
 }
       `,
       options: [2],
-      errors: wrongIndentErrors(2),
+      errors: wrongIndentErrors(1),
     },
     {
       code: `
@@ -2210,6 +2248,78 @@ const code = html\`
     -->
       \``,
       errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+\${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<b>
+<div></div>
+</b>
+\`)}
+\`)}
+\`;`,
+      output: `html\`
+\${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<b>
+  <div></div>
+</b>
+\`)}
+\`)}
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+<div>
+\${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<b>
+<div></div>
+</b>
+\`)}
+<div>
+ <span></span>
+</div>
+\`)}
+<span></span>
+</div>
+\`;`,
+      output: `html\`
+<div>
+  \${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<b>
+  <div></div>
+</b>
+\`)}
+<div>
+  <span></span>
+</div>
+\`)}
+  <span></span>
+</div>
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(4),
     },
   ],
 });

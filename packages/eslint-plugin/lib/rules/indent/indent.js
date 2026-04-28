@@ -283,9 +283,17 @@ module.exports = {
           // Line starts with the same value as the close delimiter (e.g. `})}`) → don't skip
           if (firstTokenOnLine.value === part.close.value) continue;
 
-          // If prevToken is a Template delimiter, firstTokenOnLine is the only
-          // expression token — don't skip (e.g. `${\ncontent}`)
-          if (!prevToken || prevToken.type === "Template") continue;
+          // If prevToken starts before the expression opened, it is the
+          // enclosing template literal — firstTokenOnLine is the only
+          // expression token, so don't skip (e.g. `${\ncontent}`).
+          // Nested templates inside the expression have range[0] after
+          // part.open.range[1] and are not caught by this check.
+          if (
+            !prevToken ||
+            !part.open ||
+            prevToken.range[0] < part.open.range[1]
+          )
+            continue;
         }
 
         return true;
