@@ -542,6 +542,52 @@ comment
           },
         ],
       },
+      {
+        code: `
+<div>
+    <% content %>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "<%": "%>",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div>
+    <%
+      content
+    %>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "<%": "%>",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div>
+    <%
+      content
+      content %>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "<%": "%>",
+            },
+          },
+        },
+      },
     ],
     invalid: [
       {
@@ -1395,6 +1441,50 @@ text
         },
       },
       {
+        code: `
+<div>
+<% content %>
+</div>
+        `,
+        errors: wrongIndentErrors(1),
+        output: `
+<div>
+    <% content %>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "<%": "%>",
+            },
+          },
+        },
+      },
+      {
+        code: `
+<div>
+<%
+  content
+%>
+</div>
+        `,
+        errors: wrongIndentErrors(2),
+        output: `
+<div>
+    <%
+  content
+    %>
+</div>
+        `,
+        languageOptions: {
+          parserOptions: {
+            templateEngineSyntax: {
+              "<%": "%>",
+            },
+          },
+        },
+      },
+      {
         code: `<div>
 <div></div>
 </div>
@@ -1600,6 +1690,152 @@ const code = html\`
     \`;
  }
       `,
+    },
+    {
+      code: `
+html\`
+    <div>
+        \${
+
+  			a ? "foo":
+          "bar"}
+    </div>
+\`
+      `,
+    },
+    {
+      code: `html\`
+    <div>
+        \${
+          condition
+            ? valueA
+            : valueB}
+    </div>
+      \``,
+    },
+    {
+      code: `html\`
+    <div>
+        \${
+          a ||
+              b}
+    </div>
+      \``,
+    },
+    {
+      code: `html\`
+    <div>
+        \${
+          "prefix" +
+            "suffix"}
+    </div>
+      \``,
+    },
+    {
+      code: `html\`
+  \${when(
+      true,
+      () => html\`
+        <b>ok</b>
+      \`)}
+\`;`,
+      options: [2],
+    },
+    {
+      code: `html\`
+  \${when(
+      true,
+      () => html\`
+        \${when(
+            true,
+            () => html\`
+              <b>ok</b>
+            \`)}
+      \`)}
+\`;`,
+      options: [2],
+    },
+    {
+      code: `html\`
+\${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<b>ok</b>
+\`)}
+\`)}
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
+    },
+    {
+      code: `html\`
+\${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<ul
+  class="list"
+>
+  <li>item1</li>
+  <li>item2</li>
+</ul>
+\`)}
+<div
+  class="wrapper"
+>
+  <p>text</p>
+</div>
+\`)}
+<footer
+  class="main-footer"
+>
+  <span>footer</span>
+</footer>
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
+    },
+    {
+      code: `html\`
+\${when(
+true,
+() => html\`
+<div
+  class="\${cls}"
+  id="\${id}"
+>
+  <p>text</p>
+</div>
+\`)}
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
+    },
+    {
+      code: `html\`
+  <div>
+    \${
+  foo(
+    condition
+      ? html\`<div class="bar"></div>\`
+: html\`<div class="baz"></div>\`)}
+  </div>
+\`;`,
+      options: [2],
+    },
+    {
+      code: `html\`
+  <div>
+    \${when(
+      true,
+      () => html\`
+        <div></div>
+\`)}
+  </div>
+\``,
+      options: [2],
     },
   ],
   invalid: [
@@ -1885,7 +2121,7 @@ class Component extends LitElement {
           [],
           item => html\`
             <p>content</p>
-      \`)}
+          \`)}
       \${
         repeat(
             [],
@@ -1898,7 +2134,7 @@ class Component extends LitElement {
 }
       `,
       options: [2],
-      errors: wrongIndentErrors(2),
+      errors: wrongIndentErrors(1),
     },
     {
       code: `
@@ -2015,6 +2251,22 @@ const code = html\`
     {
       code: `
 const code = html\`
+ <div>
+\${child}
+ </div>\`;
+    `,
+      output: `
+const code = html\`
+ <div>
+     \${child}
+ </div>\`;
+    `,
+      options: [4, { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `
+const code = html\`
                       <div
                       id="\${bar}">
                       </div>\`;
@@ -2063,6 +2315,106 @@ const code = html\`
         \`}
     -->
       \``,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+\${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<b>
+<div></div>
+</b>
+\`)}
+\`)}
+\`;`,
+      output: `html\`
+\${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<b>
+  <div></div>
+</b>
+\`)}
+\`)}
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      code: `html\`
+<div>
+\${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<b>
+<div></div>
+</b>
+\`)}
+<div>
+ <span></span>
+</div>
+\`)}
+<span></span>
+</div>
+\`;`,
+      output: `html\`
+<div>
+  \${when(
+true,
+() => html\`
+\${when(
+true,
+() => html\`
+<b>
+  <div></div>
+</b>
+\`)}
+<div>
+  <span></span>
+</div>
+\`)}
+  <span></span>
+</div>
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
+      errors: wrongIndentErrors(4),
+    },
+    {
+      code: `html\`
+\${when(
+true,
+() => html\`
+<div
+class="wrapper"
+  id="main"
+>
+  <p>text</p>
+</div>
+\`)}
+\`;`,
+      output: `html\`
+\${when(
+true,
+() => html\`
+<div
+  class="wrapper"
+  id="main"
+>
+  <p>text</p>
+</div>
+\`)}
+\`;`,
+      options: [2, { templateIndentBase: "first" }],
       errors: wrongIndentErrors(1),
     },
   ],
