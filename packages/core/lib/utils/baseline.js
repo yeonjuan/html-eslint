@@ -49,6 +49,7 @@ const elements = new Map([
   ["article", "10:2015"],
   ["aside", "10:2015"],
   ["audio", "10:2015"],
+  ["audio.autoplay", "10:2016"],
   ["audio.controls", "10:2015"],
   ["audio.controlslist", "0:"],
   ["audio.crossorigin", "10:2020"],
