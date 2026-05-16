@@ -93,6 +93,38 @@ ruleTester.run("sort-attrs", rule, {
         },
       },
     },
+    // order: "alphabetically"
+    {
+      code: '<div data-aaa="1" data-bbb="2" data-ccc="3"></div>',
+      options: [
+        { priority: [{ pattern: "data-.*", order: "alphabetically" }] },
+      ],
+    },
+    {
+      code: '<div id="foo" data-aaa="1" data-bbb="2" style="color:red"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "data-.*", order: "alphabetically" },
+            "style",
+          ],
+        },
+      ],
+    },
+    // order: "preserve" (explicit) - unsorted within group is valid
+    {
+      code: '<div data-ccc="3" data-aaa="1" data-bbb="2"></div>',
+      options: [{ priority: [{ pattern: "data-.*", order: "preserve" }] }],
+    },
+    {
+      code: '<div id="foo" data-ccc="3" data-aaa="1" style="color:red"></div>',
+      options: [
+        {
+          priority: ["id", { pattern: "data-.*", order: "preserve" }, "style"],
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -376,6 +408,45 @@ ruleTester.run("sort-attrs", rule, {
         },
       ],
       errors: [{ messageId: "unsorted" }],
+    },
+    // order: "alphabetically" invalid tests
+    {
+      code: '<div data-bbb="2" data-aaa="1"></div>',
+      output: '<div data-aaa="1" data-bbb="2"></div>',
+      options: [
+        { priority: [{ pattern: "data-.*", order: "alphabetically" }] },
+      ],
+      errors: [{ messageId: "unsorted", line: 1, column: 6 }],
+    },
+    {
+      code: '<div id="foo" data-ccc="3" data-aaa="1" data-bbb="2" style="color:red"></div>',
+      output:
+        '<div id="foo" data-aaa="1" data-bbb="2" data-ccc="3" style="color:red"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "data-.*", order: "alphabetically" },
+            "style",
+          ],
+        },
+      ],
+      errors: [{ messageId: "unsorted", line: 1, column: 6 }],
+    },
+    {
+      code: '<div id="foo" aria-label="test" aria-describedby="desc" data-bbb="2" data-aaa="1"></div>',
+      output:
+        '<div id="foo" aria-describedby="desc" aria-label="test" data-aaa="1" data-bbb="2"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "aria-.*", order: "alphabetically" },
+            { pattern: "data-.*", order: "alphabetically" },
+          ],
+        },
+      ],
+      errors: [{ messageId: "unsorted", line: 1, column: 6 }],
     },
     // Multiple patterns invalid tests
     {

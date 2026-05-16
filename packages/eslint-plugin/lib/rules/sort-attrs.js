@@ -5,7 +5,10 @@
  *   RuleModule
  * } from "../types"
  * @typedef {Object} Option
- * @property {(string | { pattern: string })[]} [Option.priority]
+ * @property {(
+ *   | string
+ *   | { pattern: string; order?: "preserve" | "alphabetically" }
+ * )[]} [Option.priority]
  */
 
 const { hasTemplate } = require("./utils/node");
@@ -47,6 +50,10 @@ module.exports = {
                     pattern: {
                       type: "string",
                     },
+                    order: {
+                      type: "string",
+                      enum: ["preserve", "alphabetically"],
+                    },
                   },
                   required: ["pattern"],
                   additionalProperties: false,
@@ -69,7 +76,16 @@ module.exports = {
     const option = context.options[0] || {
       priority: ["id", "type", "class", "style"],
     };
-    /** @type {(string | { pattern: string; regex: RegExp })[]} */
+    /**
+     * @type {(
+     *   | string
+     *   | {
+     *       pattern: string;
+     *       order?: "preserve" | "alphabetically";
+     *       regex: RegExp;
+     *     }
+     * )[]}
+     */
     const priority = (option.priority || []).map((item) => {
       if (item && typeof item === "object" && "pattern" in item) {
         return {
@@ -124,7 +140,17 @@ module.exports = {
       const keyAReservedValue = getPriorityIndex(keyA);
       const keyBReservedValue = getPriorityIndex(keyB);
       if (keyAReservedValue >= 0 && keyBReservedValue >= 0) {
-        return keyAReservedValue - keyBReservedValue;
+        if (keyAReservedValue !== keyBReservedValue) {
+          return keyAReservedValue - keyBReservedValue;
+        }
+        const priorityItem = priority[keyAReservedValue];
+        if (
+          typeof priorityItem === "object" &&
+          priorityItem.order === "alphabetically"
+        ) {
+          return keyA.localeCompare(keyB);
+        }
+        return 0;
       } else if (keyAReservedValue >= 0) {
         return -1;
       } else if (keyBReservedValue >= 0) {

@@ -36,7 +36,7 @@ Examples of **correct** code for this rule:
 ```ts
 //...
 "@html-eslint/sort-attrs": ["error", {
-  "priority": Array<string | {pattern: string}>
+  "priority": Array<string | {pattern: string, order?: "preserve" | "alphabetically"}>
 }]
 ```
 
@@ -48,7 +48,7 @@ When `priority` is defined, the specified attributes are sorted to the front wit
 Priority items can be:
 
 - Strings: exact attribute name matches
-- Objects with `pattern` property: regular expression patterns to match attribute names
+- Objects with `pattern` property: regular expression patterns to match attribute names. Accepts an optional `order` property to control sorting within the matched group.
 
 The default value of `priority` is `["id", "type", "class", "style"]`.
 
@@ -98,6 +98,25 @@ In this example:
 - Any attribute matching `data-.*` pattern has the second priority (position 1)
 - `style` has the third priority (position 2)
 - All other attributes are sorted alphabetically after the priority items
+
+##### order
+
+The `order` property controls how attributes matched by the pattern are sorted within their priority group:
+
+- `"preserve"` (default): maintains the original attribute order within the matched group
+- `"alphabetically"`: sorts matched attributes alphabetically within the group
+
+Examples of **correct** code for this rule with `{ "priority": [{ "pattern": "data-.*", "order": "alphabetically" }] }`:
+
+```html,correct
+<div data-aaa="1" data-bbb="2" data-ccc="3"></div>
+```
+
+Examples of **incorrect** code for this rule with `{ "priority": [{ "pattern": "data-.*", "order": "alphabetically" }] }`:
+
+```html,incorrect
+<div data-ccc="3" data-aaa="1" data-bbb="2"></div>
+```
 
 Examples of **incorrect** code for this rule with the `{ "priority": ["id", { "pattern": "data-.*" }, "style"] }` option:
 
