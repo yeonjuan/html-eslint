@@ -322,6 +322,24 @@ ruleTester.run("attrs-newline", rule, {
         },
       ],
     },
+    // maxLen: tag within max-len is not enforced
+    {
+      code: `<div class="foo" id="bar">`,
+      options: [{ maxLen: 80, ifAttrsMoreThan: 10 }],
+    },
+    // maxLen: tag with no attributes is never enforced
+    {
+      code: `<a-very-long-element-name-that-exceeds-any-length></a-very-long-element-name-that-exceeds-any-length>`,
+      options: [{ maxLen: 10 }],
+    },
+    // maxLen: already multiline tag is valid
+    {
+      code: `<div
+  class="foo"
+  id="bar"
+>`,
+      options: [{ maxLen: 20, ifAttrsMoreThan: 10 }],
+    },
   ],
 
   invalid: [
@@ -383,6 +401,25 @@ id="p"
         <img />
       </p>`,
       errors: [{ messageId: "newlineMissing" }],
+    },
+    // maxLen: tag exceeding maxLen triggers newline requirement
+    {
+      code: `<div class="a-very-long-class-name" id="a-very-long-id">`,
+      options: [{ maxLen: 40, ifAttrsMoreThan: 10 }],
+      output: `<div
+class="a-very-long-class-name"
+id="a-very-long-id"
+>`,
+      errors: [{ messageId: "newlineMissing", line: 1, column: 1 }],
+    },
+    // maxLen: only one attribute but tag exceeds maxLen
+    {
+      code: `<div class="a-very-long-class-name-that-makes-this-tag-exceed-the-max-length">`,
+      options: [{ maxLen: 40, ifAttrsMoreThan: 10 }],
+      output: `<div
+class="a-very-long-class-name-that-makes-this-tag-exceed-the-max-length"
+>`,
+      errors: [{ messageId: "newlineMissing", line: 1, column: 1 }],
     },
     // inline does NOT suppress descendants — child elements inside an inline tag are still enforced
     {

@@ -51,6 +51,7 @@ This rule has an object option:
 "@html-eslint/attrs-newline": ["error", {
   "closeStyle": "sameline" | "newline", // Default `"newline"`
   "ifAttrsMoreThan": number, // Default `2`
+  "maxLen": number, // Default `undefined`
   "skip": string[], // Default `[]`
   "inline": string[], // Default `[]`
 }]
@@ -73,6 +74,30 @@ Examples of **correct** code for `"ifAttrsMoreThan": 2`
     id="img"
   />
 </p>
+```
+
+#### maxLen
+
+If the opening tag, when written on a single line, would exceed this character length, all attributes should be separated by newlines. This is useful when you want to enforce attribute chop-down based on line length rather than attribute count.
+
+When `maxLen` is set alongside `ifAttrsMoreThan`, the rule triggers if either condition is met.
+
+Examples of **incorrect** code for `"maxLen": 40, "ifAttrsMoreThan": 10`:
+
+<!-- prettier-ignore -->
+```html
+<div class="a-very-long-class-name" id="bar">
+```
+
+Examples of **correct** code for `"maxLen": 40, "ifAttrsMoreThan": 10`:
+
+<!-- prettier-ignore -->
+```html
+<div
+  class="a-very-long-class-name"
+  id="bar"
+>
+<div class="foo" id="bar">
 ```
 
 #### closeStyle

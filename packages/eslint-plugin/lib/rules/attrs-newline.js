@@ -1,4 +1,5 @@
 /**
+ * @import {Tag} from "@html-eslint/types"
  * @import {
  *   RuleFixer,
  *   RuleModule
@@ -10,6 +11,7 @@
  * @typedef {Object} Option
  * @property {"sameline" | "newline"} [option.closeStyle]
  * @property {number} [options.ifAttrsMoreThan]
+ * @property {number} [options.maxLen]
  * @property {string[]} [options.skip]
  * @property {string[]} [options.inline]
  */
@@ -80,6 +82,25 @@ function optionsOrPresets(options) {
   return result;
 }
 
+/**
+ * @param {Tag} node
+ * @returns {number}
+ */
+function computeSingleLineTagLength(node) {
+  let length = node.openStart.value.length;
+  for (const attr of node.attributes) {
+    length += 1 + attr.key.value.length;
+    if (attr.value) {
+      const startWrapper = attr.startWrapper ? attr.startWrapper.value : "";
+      const endWrapper = attr.endWrapper ? attr.endWrapper.value : "";
+      length +=
+        1 + startWrapper.length + attr.value.value.length + endWrapper.length;
+    }
+  }
+  length += node.openEnd.value.length;
+  return length;
+}
+
 /** @type {RuleModule<[Option]>} */
 module.exports = {
   meta: {
@@ -101,6 +122,9 @@ module.exports = {
             enum: ["newline", "sameline"],
           },
           ifAttrsMoreThan: {
+            type: "integer",
+          },
+          maxLen: {
             type: "integer",
           },
           skip: {
@@ -130,6 +154,8 @@ module.exports = {
     const options = context.options[0] || {};
     const attrMin =
       typeof options.ifAttrsMoreThan !== "number" ? 2 : options.ifAttrsMoreThan;
+    const maxLen =
+      typeof options.maxLen === "number" ? options.maxLen : undefined;
     const closeStyle = options.closeStyle || "newline";
     const skipTags = optionsOrPresets(options.skip || []);
     const inlineTags = optionsOrPresets(options.inline || []);
@@ -169,7 +195,12 @@ module.exports = {
           return;
         }
 
-        const shouldBeMultiline = node.attributes.length > attrMin;
+        if (node.attributes.length === 0) return;
+
+        const exceedsAttrMin = node.attributes.length > attrMin;
+        const exceedsMaxLen =
+          maxLen !== undefined && computeSingleLineTagLength(node) > maxLen;
+        const shouldBeMultiline = exceedsAttrMin || exceedsMaxLen;
         if (!shouldBeMultiline) return;
 
         /**
