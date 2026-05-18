@@ -87,7 +87,7 @@ function optionsOrPresets(options) {
  * @returns {number}
  */
 function computeSingleLineTagLength(node) {
-  let length = node.openStart.value.length;
+  let { length } = node.openStart.value;
   for (const attr of node.attributes) {
     length += 1 + attr.key.value.length;
     if (attr.value) {
