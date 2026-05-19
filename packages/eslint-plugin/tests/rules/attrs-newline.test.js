@@ -340,6 +340,11 @@ ruleTester.run("attrs-newline", rule, {
 >`,
       options: [{ maxLen: 20, ifAttrsMoreThan: 10 }],
     },
+    // maxLen: single attribute exceeding maxLen is not enforced
+    {
+      code: `<div class="a-very-long-class-name-that-makes-this-tag-exceed-the-max-length">`,
+      options: [{ maxLen: 40, ifAttrsMoreThan: 10 }],
+    },
   ],
 
   invalid: [
@@ -409,15 +414,6 @@ id="p"
       output: `<div
 class="a-very-long-class-name"
 id="a-very-long-id"
->`,
-      errors: [{ messageId: "newlineMissing", line: 1, column: 1 }],
-    },
-    // maxLen: only one attribute but tag exceeds maxLen
-    {
-      code: `<div class="a-very-long-class-name-that-makes-this-tag-exceed-the-max-length">`,
-      options: [{ maxLen: 40, ifAttrsMoreThan: 10 }],
-      output: `<div
-class="a-very-long-class-name-that-makes-this-tag-exceed-the-max-length"
 >`,
       errors: [{ messageId: "newlineMissing", line: 1, column: 1 }],
     },
