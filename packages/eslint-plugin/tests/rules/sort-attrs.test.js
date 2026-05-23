@@ -112,6 +112,31 @@ ruleTester.run("sort-attrs", rule, {
         },
       ],
     },
+    {
+      code: '<div id="foo" aria-describedby="desc" aria-label="test" data-aaa="1" data-bbb="2"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "aria-.*", order: "alphabetically" },
+            { pattern: "data-.*", order: "alphabetically" },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<div id="foo" aria-describedby="desc" aria-label="test" data-aaa="1" data-bbb="2" ng-click="fn" ng-if="show"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "aria-.*", order: "alphabetically" },
+            { pattern: "data-.*", order: "alphabetically" },
+            { pattern: "ng-.*", order: "alphabetically" },
+          ],
+        },
+      ],
+    },
     // order: "preserve" (explicit) - unsorted within group is valid
     {
       code: '<div data-ccc="3" data-aaa="1" data-bbb="2"></div>',
@@ -443,6 +468,52 @@ ruleTester.run("sort-attrs", rule, {
             "id",
             { pattern: "aria-.*", order: "alphabetically" },
             { pattern: "data-.*", order: "alphabetically" },
+          ],
+        },
+      ],
+      errors: [{ messageId: "unsorted", line: 1, column: 6 }],
+    },
+    {
+      code: '<div id="foo" aria-label="test" aria-describedby="desc" data-bbb="2" data-aaa="1" ng-if="show" ng-click="fn"></div>',
+      output:
+        '<div id="foo" aria-describedby="desc" aria-label="test" data-aaa="1" data-bbb="2" ng-click="fn" ng-if="show"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "aria-.*", order: "alphabetically" },
+            { pattern: "data-.*", order: "alphabetically" },
+            { pattern: "ng-.*", order: "alphabetically" },
+          ],
+        },
+      ],
+      errors: [{ messageId: "unsorted", line: 1, column: 6 }],
+    },
+    {
+      code: '<div id="foo" aria-describedby="desc" aria-label="test" data-bbb="2" data-aaa="1"></div>',
+      output:
+        '<div id="foo" aria-describedby="desc" aria-label="test" data-aaa="1" data-bbb="2"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "aria-.*", order: "alphabetically" },
+            { pattern: "data-.*", order: "alphabetically" },
+          ],
+        },
+      ],
+      errors: [{ messageId: "unsorted", line: 1, column: 6 }],
+    },
+    {
+      code: '<div v-bind:class="c" v-bind:id="i" v-on:click="fn" v-on:change="fn2" id="foo"></div>',
+      output:
+        '<div id="foo" v-bind:class="c" v-bind:id="i" v-on:change="fn2" v-on:click="fn"></div>',
+      options: [
+        {
+          priority: [
+            "id",
+            { pattern: "v-bind:.*", order: "alphabetically" },
+            { pattern: "v-on:.*", order: "alphabetically" },
           ],
         },
       ],
