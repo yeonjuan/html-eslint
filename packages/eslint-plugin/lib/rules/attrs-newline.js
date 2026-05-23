@@ -10,6 +10,7 @@
  * @typedef {Object} Option
  * @property {"sameline" | "newline"} [option.closeStyle]
  * @property {number} [options.ifAttrsMoreThan]
+ * @property {number} [options.maxLen]
  * @property {string[]} [options.skip]
  * @property {string[]} [options.inline]
  */
@@ -17,6 +18,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
+const { getSourceCode } = require("./utils/source-code");
 
 /** @type {MessageId} */
 const MESSAGE_ID = {
@@ -103,6 +105,9 @@ module.exports = {
           ifAttrsMoreThan: {
             type: "integer",
           },
+          maxLen: {
+            type: "integer",
+          },
           skip: {
             type: "array",
             items: {
@@ -130,9 +135,12 @@ module.exports = {
     const options = context.options[0] || {};
     const attrMin =
       typeof options.ifAttrsMoreThan !== "number" ? 2 : options.ifAttrsMoreThan;
+    const maxLen =
+      typeof options.maxLen === "number" ? options.maxLen : undefined;
     const closeStyle = options.closeStyle || "newline";
     const skipTags = optionsOrPresets(options.skip || []);
     const inlineTags = optionsOrPresets(options.inline || []);
+    const sourceCode = getSourceCode(context);
 
     /**
      * Tracks nesting depth inside `skip` elements. When > 0, the current node
@@ -169,7 +177,14 @@ module.exports = {
           return;
         }
 
-        const shouldBeMultiline = node.attributes.length > attrMin;
+        if (node.attributes.length === 0) return;
+
+        const exceedsAttrMin = node.attributes.length > attrMin;
+        const exceedsMaxLen =
+          maxLen !== undefined &&
+          node.attributes.length > 1 &&
+          sourceCode.lines[node.openStart.loc.start.line - 1].length > maxLen;
+        const shouldBeMultiline = exceedsAttrMin || exceedsMaxLen;
         if (!shouldBeMultiline) return;
 
         /**
