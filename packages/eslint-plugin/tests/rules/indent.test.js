@@ -1837,25 +1837,35 @@ true,
 \``,
       options: [2],
     },
-  ],
-  invalid: [
     {
+      code: `
+html\`
+  <div>
+    \${when(
+        true,
+        () => {
+          // Some code
+          return html\`
+            <p>not ok</p>
+          \`;
+        })}
+  </div>\`
+      `,
+      options: [2],
+    },
+    {
+      // first `}` on the line IS the expression close token
       code: `html\`
     <div>
-        \${
-    content}
+        \${fn(
+            "arg"
+        )
+        }
     </div>
       \``,
-      output: `html\`
-    <div>
-        \${
-        content}
-    </div>
-      \``,
-      errors: wrongIndentErrors(1),
     },
-    // Ignore indentation in template expressions
     {
+      // first `}` on the line is NOT the expression close token (fn body close comes first)
       code: `html\`
     <div>
         \${items.map((item) => {
@@ -1863,11 +1873,34 @@ return "<div></div>"
 })}
     </div>
       \``,
+    },
+    {
+      // expression content before `}` close — JS code, not HTML structure
+      code: `html\`
+    <div>
+        \${
+    content}
+    </div>
+      \``,
+    },
+  ],
+  invalid: [
+    {
+      // first `}` on the line IS the expression close token but at wrong indent
+      code: `html\`
+    <div>
+        \${fn(
+            "arg"
+        )
+}
+    </div>
+      \``,
       output: `html\`
     <div>
-        \${items.map((item) => {
-return "<div></div>"
-        })}
+        \${fn(
+            "arg"
+        )
+        }
     </div>
       \``,
       errors: wrongIndentErrors(1),

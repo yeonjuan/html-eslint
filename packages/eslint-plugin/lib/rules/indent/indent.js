@@ -227,19 +227,14 @@ module.exports = {
     /**
      * Returns true when a line with hasCloseTemplate should skip indent check.
      * Skip when there is non-whitespace content before the close delimiter on
-     * the line, meaning the line is a template expression continuation rather
-     * than an HTML-structural closing line.
-     *
-     * In template literal context, additional ESLint token checks are applied
-     * to avoid false positives (e.g. `})}` or single-token expressions like
-     * `${\ncontent}`).
+     * the line, meaning the line is expression content (JS code) rather than
+     * an HTML-structural closing line.
      *
      * @param {Line} lineNode
      * @param {Text["parts"]} parts
-     * @param {boolean} inTemplateLiteral
      * @returns {boolean}
      */
-    function shouldSkipCloseTemplateLine(lineNode, parts, inTemplateLiteral) {
+    function shouldSkipCloseTemplateLine(lineNode, parts) {
       const sourceLines = sourceCode.getLines();
       for (const part of parts || []) {
         if (
@@ -250,51 +245,14 @@ module.exports = {
           continue;
         }
 
-        // Skip this part if only whitespace precedes the close delimiter on the line
+        // Skip when non-whitespace content precedes the close delimiter on the line
+        // — that content is JS expression code, not HTML structure
         const closeLineContent = sourceLines[part.close.loc.start.line - 1];
         const contentBeforeClose = closeLineContent.slice(
           0,
           part.close.loc.start.column
         );
         if (!contentBeforeClose.trim()) continue;
-
-        if (inTemplateLiteral) {
-          // In template literal context, use ESLint tokens for precise detection
-          // to avoid false positives (e.g. `})}` or `${\ncontent}`)
-          const closeToken = sourceCode.getTokenByRangeStart(
-            part.close.range[0]
-          );
-          if (!closeToken) continue;
-
-          // Walk backward to find the leftmost token on the current line
-          let prevToken = sourceCode.getTokenBefore(closeToken);
-          let firstTokenOnLine = null;
-          while (
-            prevToken &&
-            prevToken.loc.start.line === lineNode.loc.start.line
-          ) {
-            firstTokenOnLine = prevToken;
-            prevToken = sourceCode.getTokenBefore(prevToken);
-          }
-
-          // No token before close delimiter → it is first → don't skip
-          if (!firstTokenOnLine) continue;
-
-          // Line starts with the same value as the close delimiter (e.g. `})}`) → don't skip
-          if (firstTokenOnLine.value === part.close.value) continue;
-
-          // If prevToken starts before the expression opened, it is the
-          // enclosing template literal — firstTokenOnLine is the only
-          // expression token, so don't skip (e.g. `${\ncontent}`).
-          // Nested templates inside the expression have range[0] after
-          // part.open.range[1] and are not caught by this check.
-          if (
-            !prevToken ||
-            !part.open ||
-            prevToken.range[0] < part.open.range[1]
-          )
-            continue;
-        }
 
         return true;
       }
@@ -304,13 +262,8 @@ module.exports = {
     /**
      * @param {number} baseLevel
      * @param {number} baseSpaces
-     * @param {boolean} [inTemplateLiteral]
      */
-    function createIndentVisitor(
-      baseLevel,
-      baseSpaces,
-      inTemplateLiteral = false
-    ) {
+    function createIndentVisitor(baseLevel, baseSpaces) {
       const indentLevel = new IndentLevel({
         getIncreasingLevel,
       });
@@ -495,11 +448,7 @@ module.exports = {
             if (
               lineNode.hasCloseTemplate &&
               !lineNode.hasOpenTemplate &&
-              shouldSkipCloseTemplateLine(
-                lineNode,
-                node.parts,
-                inTemplateLiteral
-              )
+              shouldSkipCloseTemplateLine(lineNode, node.parts)
             ) {
               return;
             }
@@ -526,7 +475,7 @@ module.exports = {
           parseTemplateLiteral(
             node.quasi,
             getSourceCode(context),
-            createIndentVisitor(base, baseSpaces, true)
+            createIndentVisitor(base, baseSpaces)
           );
         }
       },
@@ -537,7 +486,7 @@ module.exports = {
           parseTemplateLiteral(
             node,
             getSourceCode(context),
-            createIndentVisitor(base, baseSpaces, true)
+            createIndentVisitor(base, baseSpaces)
           );
         }
       },
