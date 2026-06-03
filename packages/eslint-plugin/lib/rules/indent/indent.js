@@ -227,8 +227,8 @@ module.exports = {
     /**
      * Returns true when a line with hasCloseTemplate should skip indent check.
      * Skip when there is non-whitespace content before the close delimiter on
-     * the line, meaning the line is expression content (JS code) rather than
-     * an HTML-structural closing line.
+     * the line, meaning the line is expression content (JS code) rather than an
+     * HTML-structural closing line.
      *
      * @param {Line} lineNode
      * @param {Text["parts"]} parts
