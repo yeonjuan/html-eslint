@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.61.0",
+  "version": "0.62.0-alpha.0",
   "private": true,
   "scripts": {
     "clear:cache": "rimraf ../../parcel-cache",
@@ -14,7 +14,7 @@
     "llms-txt": "node ./scripts/llms.txt.js"
   },
   "dependencies": {
-    "@html-eslint/eslint-plugin": "^0.61.0",
+    "@html-eslint/eslint-plugin": "^0.62.0-alpha.0",
     "@html-eslint/eslint-plugin-angular-template": "^0.61.0",
     "@html-eslint/eslint-plugin-react": "^0.61.0",
     "@html-eslint/eslint-plugin-svelte": "^0.61.0",
