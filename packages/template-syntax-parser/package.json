@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/template-syntax-parser",
-  "version": "0.61.0",
+  "version": "0.62.0",
   "description": "Parse template syntax",
   "author": {
     "name": "yeonjuan",
@@ -40,7 +40,7 @@
     "twig"
   ],
   "dependencies": {
-    "@html-eslint/types": "^0.61.0"
+    "@html-eslint/types": "^0.62.0"
   },
   "devDependencies": {
     "eslint": "^9.39.1"
