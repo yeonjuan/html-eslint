@@ -1837,25 +1837,35 @@ true,
 \``,
       options: [2],
     },
-  ],
-  invalid: [
     {
+      code: `
+html\`
+  <div>
+    \${when(
+        true,
+        () => {
+          // Some code
+          return html\`
+            <p>not ok</p>
+          \`;
+        })}
+  </div>\`
+      `,
+      options: [2],
+    },
+    {
+      // first `}` on the line IS the expression close token
       code: `html\`
     <div>
-        \${
-    content}
+        \${fn(
+            "arg"
+        )
+        }
     </div>
       \``,
-      output: `html\`
-    <div>
-        \${
-        content}
-    </div>
-      \``,
-      errors: wrongIndentErrors(1),
     },
-    // Ignore indentation in template expressions
     {
+      // first `}` on the line is NOT the expression close token (fn body close comes first)
       code: `html\`
     <div>
         \${items.map((item) => {
@@ -1863,13 +1873,112 @@ return "<div></div>"
 })}
     </div>
       \``,
-      output: `html\`
+    },
+    {
+      // expression content before `}` close — JS code, not HTML structure
+      code: `html\`
     <div>
-        \${items.map((item) => {
-return "<div></div>"
-        })}
+        \${
+    content}
     </div>
       \``,
+    },
+    {
+      // nested: inner html`` with inner expression fn body `}` before expression close
+      code: `html\`
+  <div>
+    \${fn(() => html\`
+      <span>
+        \${fn2(() => {
+            return "text";
+          })}
+      </span>
+    \`)}
+  </div>\``,
+      options: [2],
+    },
+    {
+      // nested: inner html`` with multi-token expression content before close
+      code: `html\`
+  <div>
+    \${fn(() => html\`
+      <span>
+        \${fn2(
+            "arg"
+          )}
+      </span>
+    \`)}
+  </div>\``,
+      options: [2],
+    },
+  ],
+  invalid: [
+    {
+      // first `}` on the line IS the expression close token but at wrong indent
+      code: `html\`
+    <div>
+        \${fn(
+            "arg"
+        )
+}
+    </div>
+      \``,
+      output: `html\`
+    <div>
+        \${fn(
+            "arg"
+        )
+        }
+    </div>
+      \``,
+      errors: wrongIndentErrors(1),
+    },
+    {
+      // nested: inner html`` expression close `}` IS first token on line, wrong indent
+      code: `html\`
+  <div>
+    \${fn(() => html\`
+      <span>
+        \${fn2(
+          "arg"
+        )
+}
+      </span>
+    \`)}
+  </div>\``,
+      output: `html\`
+  <div>
+    \${fn(() => html\`
+      <span>
+        \${fn2(
+          "arg"
+        )
+        }
+      </span>
+    \`)}
+  </div>\``,
+      options: [2],
+      errors: wrongIndentErrors(1),
+    },
+    {
+      // nested: inner html`` expression `${expr}` at wrong indent
+      code: `html\`
+  <div>
+    \${fn(() => html\`
+      <span>
+\${fn2("arg")}
+      </span>
+    \`)}
+  </div>\``,
+      output: `html\`
+  <div>
+    \${fn(() => html\`
+      <span>
+        \${fn2("arg")}
+      </span>
+    \`)}
+  </div>\``,
+      options: [2],
       errors: wrongIndentErrors(1),
     },
     {
