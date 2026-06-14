@@ -7,7 +7,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr, isTag, isText } = require("./utils/node");
+const { findAttr, findParent, isTag, isText, getNameOf } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -103,6 +103,13 @@ module.exports = {
         if (isHidden(node)) return;
 
         if (hasAriaAccessibleName(node)) return;
+
+        if (tagName === "option") {
+          const datalist = findParent(node, (parent) => {
+            return isTag(parent) && getNameOf(parent) === "datalist";
+          });
+          if (datalist) return;
+        }
 
         if (!hasContent(node)) {
           context.report({
