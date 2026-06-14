@@ -106,6 +106,7 @@ module.exports = {
           switch (key) {
             case "id":
               idValue = attr.value?.value;
+              break;
             case "type":
               type = attr.value?.value?.toLowerCase();
               break;
