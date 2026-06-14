@@ -14,7 +14,49 @@ const MESSAGE_IDS = {
 
 const INPUT_TAGS = new Set(["input", "textarea", "select"]);
 
-const LABEL_ATTRIBUTES = new Set(["id", "aria-labelledby", "aria-label"]);
+const LABEL_ATTRIBUTES = new Set(["aria-labelledby", "aria-label"]);
+
+const SELF_LABELING_INPUT_TYPES = new Set(["button", "reset", "submit"]);
+
+/**
+ * True if the attribute exists and its value is non-empty and not only whitespace.
+ * @param {Tag["attributes"][number] | undefined} attr
+ */
+function hasNonWhitespaceValue(attr) {
+  return Boolean(attr?.value?.value && attr.value.value.trim().length > 0);
+}
+
+/**
+ * Walks the whole document collecting `for` attribute values
+ * from <label for="..."> elements, so inputs anywhere in the
+ * document can be matched against them.
+ */
+function collectLabelForTargets(root) {
+  const targets = new Set();
+
+  function walk(node) {
+    if (!node || typeof node !== "object") {
+      return;
+    }
+    if (isTag(node) && getNameOf(node) === "label") {
+      for (const attr of node.attributes) {
+        if (
+          attr.key.value.toLowerCase() === "for" &&
+          attr.value?.value?.trim()
+        ) {
+          targets.add(attr.value.value);
+        }
+      }
+    }
+    const children = node.children || node.body || [];
+    for (const child of children) {
+      walk(child);
+    }
+  }
+
+  walk(root);
+  return targets;
+}
 
 /** @type {RuleModule<[]>} */
 module.exports = {
@@ -35,23 +77,67 @@ module.exports = {
     },
   },
   create(context) {
+    const labelForTargets = collectLabelForTargets(context.sourceCode.ast);
     return createVisitors(context, {
       Tag(node) {
-        if (!INPUT_TAGS.has(getNameOf(node))) {
+        const tagName = getNameOf(node);
+        if (!INPUT_TAGS.has(tagName)) {
           return;
         }
 
+        /** @type {string | undefined} */
+        let idValue;
+        /** @type {string | undefined} */
+        let type;
+        /** @type {Tag["attributes"][number] | undefined} */
+        let valueAttr;
+        /** @type {Tag["attributes"][number] | undefined} */
+        let altAttr;
+        /** @type {Tag["attributes"][number] | undefined} */
+        let titleAttr;
+
         for (const attr of node.attributes) {
+          const key = attr.key.value.toLowerCase();
+
+          if (LABEL_ATTRIBUTES.has(key) && hasNonWhitespaceValue(attr)) {
+            return;
+          }
+
+          switch (key) {
+            case "id":
+              idValue = attr.value?.value;
+            case "type":
+              type = attr.value?.value?.toLowerCase();
+              break;
+            case "value":
+              valueAttr = attr;
+              break;
+            case "alt":
+              altAttr = attr;
+              break;
+            case "title":
+              titleAttr = attr;
+              break;
+          }
+        }
+
+        if (tagName === "input") {
+          if (type === "hidden") {
+            return;
+          }
+
           if (
-            LABEL_ATTRIBUTES.has(attr.key.value.toLowerCase()) &&
-            attr.value?.value
+            SELF_LABELING_INPUT_TYPES.has(type) &&
+            hasNonWhitespaceValue(valueAttr)
           ) {
             return;
           }
 
           if (
-            attr.key.value.toLowerCase() === "type" &&
-            attr.value?.value === "hidden"
+            type === "image" &&
+            (hasNonWhitespaceValue(altAttr) ||
+              hasNonWhitespaceValue(titleAttr) ||
+              hasNonWhitespaceValue(valueAttr))
           ) {
             return;
           }
@@ -62,6 +148,10 @@ module.exports = {
         });
 
         if (label) {
+          return;
+        }
+        
+        if (idValue && labelForTargets.has(idValue)) {
           return;
         }
 
