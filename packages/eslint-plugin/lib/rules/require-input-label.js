@@ -5,7 +5,7 @@
 
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
-const { findParent, isTag, getNameOf } = require("./utils/node");
+const { findParent, isTag, getNameOf, hasNonWhitespaceValue } = require("./utils/node");
 const { getRuleUrl } = require("./utils/rule");
 
 const MESSAGE_IDS = {
@@ -17,14 +17,6 @@ const INPUT_TAGS = new Set(["input", "textarea", "select"]);
 const LABEL_ATTRIBUTES = new Set(["aria-labelledby", "aria-label"]);
 
 const SELF_LABELING_INPUT_TYPES = new Set(["button", "reset", "submit"]);
-
-/**
- * True if the attribute exists and its value is non-empty and not only whitespace.
- * @param {Tag["attributes"][number] | undefined} attr
- */
-function hasNonWhitespaceValue(attr) {
-  return Boolean(attr?.value?.value && attr.value.value.trim().length > 0);
-}
 
 /**
  * Walks the whole document collecting `for` attribute values
@@ -88,7 +80,7 @@ module.exports = {
         /** @type {string | undefined} */
         let idValue;
         /** @type {string | undefined} */
-        let type;
+        let typeValue;
         /** @type {Tag["attributes"][number] | undefined} */
         let valueAttr;
         /** @type {Tag["attributes"][number] | undefined} */
@@ -108,7 +100,7 @@ module.exports = {
               idValue = attr.value?.value;
               break;
             case "type":
-              type = attr.value?.value?.toLowerCase();
+              typeValue = attr.value?.value?.toLowerCase();
               break;
             case "value":
               valueAttr = attr;
@@ -123,19 +115,19 @@ module.exports = {
         }
 
         if (tagName === "input") {
-          if (type === "hidden") {
+          if (typeValue === "hidden") {
             return;
           }
 
           if (
-            SELF_LABELING_INPUT_TYPES.has(type) &&
+            SELF_LABELING_INPUT_TYPES.has(typeValue) &&
             hasNonWhitespaceValue(valueAttr)
           ) {
             return;
           }
 
           if (
-            type === "image" &&
+            typeValue === "image" &&
             (hasNonWhitespaceValue(altAttr) ||
               hasNonWhitespaceValue(titleAttr) ||
               hasNonWhitespaceValue(valueAttr))
@@ -151,7 +143,7 @@ module.exports = {
         if (label) {
           return;
         }
-        
+
         if (idValue && labelForTargets.has(idValue)) {
           return;
         }
