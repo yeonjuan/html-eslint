@@ -43,3 +43,18 @@ Examples of **correct** code for this rule:
 ```html,correct
 <div class="some-color"></div>
 ```
+
+## Options
+
+### `allowExpressions`
+
+- Type: `boolean`
+- Default: `false`
+
+When `true`, inline styles containing template expressions are allowed. This is useful when styles are dynamically computed at runtime.
+
+Examples of **correct** code with `{ "allowExpressions": true }`:
+
+```js,correct
+html`<div style="height: ${height}px"></div>`;
+```

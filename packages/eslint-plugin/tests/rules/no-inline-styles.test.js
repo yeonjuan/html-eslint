@@ -52,6 +52,19 @@ nohtml\`<div style="color:#fff"></div>\`
 const html = \`<div style="color:#fff"></div>\`
       `,
     },
+    {
+      code: `
+let height = 150;
+html\`<div style="height: \${height}px"></div>\`
+      `,
+      options: [{ allowExpressions: true }],
+    },
+    {
+      code: `
+html\`<div style="\${styles}"></div>\`
+      `,
+      options: [{ allowExpressions: true }],
+    },
   ],
   invalid: [
     {
@@ -94,6 +107,21 @@ const html = /* html */\`<div style="color:#fff"></div>\`
           column: 30,
           endLine: 2,
           endColumn: 48,
+        },
+      ],
+    },
+    {
+      code: `
+html\`<div style="color:#fff"></div>\`
+      `,
+      options: [{ allowExpressions: true }],
+      errors: [
+        {
+          messageId: "unexpectedInlineStyle",
+          line: 2,
+          column: 11,
+          endLine: 2,
+          endColumn: 29,
         },
       ],
     },
