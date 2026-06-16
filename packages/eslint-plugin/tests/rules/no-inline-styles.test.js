@@ -15,6 +15,28 @@ ruleTester.run("no-inline-styles", rule, {
 </html>
 `,
     },
+    {
+      code: `<div style="{{ styles }}"></div>`,
+      options: [{ allowExpressions: true }],
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+    },
+    {
+      code: `<div style="color: red; {{ moreStyles }}"></div>`,
+      options: [{ allowExpressions: true }],
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -29,6 +51,25 @@ ruleTester.run("no-inline-styles", rule, {
       errors: [
         {
           messageId: "unexpectedInlineStyle",
+        },
+      ],
+    },
+    {
+      code: `<div style="{{ styles }}"></div>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: {
+            "{{": "}}",
+          },
+        },
+      },
+      errors: [
+        {
+          messageId: "unexpectedInlineStyle",
+          line: 1,
+          column: 6,
+          endLine: 1,
+          endColumn: 26,
         },
       ],
     },

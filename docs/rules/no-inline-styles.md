@@ -61,3 +61,7 @@ Examples of **correct** code with the `{ "allowExpressions": true }` option:
 ```js,correct
 html`<div style="height: ${height}px"></div>`;
 ```
+
+```html,correct
+<div style="{{ styles }}"></div>
+```
