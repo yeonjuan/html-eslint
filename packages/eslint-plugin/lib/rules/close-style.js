@@ -14,5 +14,7 @@ module.exports = {
   },
   fixable: null,
   schema: [],
-  create() {},
+  create() {
+    return {};
+  },
 };
