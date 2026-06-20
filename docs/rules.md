@@ -9,6 +9,7 @@
 
 | Rule                                                             | Description                                                                                    |       |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ----- |
+| [close-style](rules/close-style)                                 | FILL ME                                                                                        |       |
 | [css-no-empty-blocks](rules/css-no-empty-blocks)                 | Disallows empty CSS blocks in `<style>` tags.                                                  |       |
 | [head-order](rules/head-order)                                   | Enforce optimal ordering of elements in `<head>`                                               | 🔧    |
 | [max-element-depth](rules/max-element-depth)                     | Enforce maximum element depth                                                                  |       |

@@ -64,6 +64,7 @@ const noRedundantRole = require("./no-redundant-role");
 const noInvalidAttrValue = require("./no-invalid-attr-value");
 const headOrder = require("./head-order");
 const svgRequireViewbox = require("./svg-require-viewbox");
+const closeStyle = require("./close-style");
 // import new rule here ↑
 // DO NOT REMOVE THIS COMMENT
 
@@ -134,6 +135,7 @@ const rules = {
   "head-order": headOrder,
   "require-details-summary": requireDetailsSummary,
   "svg-require-viewbox": svgRequireViewbox,
+  "close-style": closeStyle,
   // export new rule here ↑
   // DO NOT REMOVE THIS COMMENT
 };
