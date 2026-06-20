@@ -5,11 +5,19 @@ const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
 
 ruleTester.run("close-style", rule, {
-  valid: [],
+  valid: [
+    {
+      code: ``,
+    },
+  ],
   invalid: [],
 });
 
 templateRuleTester.run("[template] close-style", rule, {
-  valid: [],
+  valid: [
+    {
+      code: ``,
+    },
+  ],
   invalid: [],
 });
