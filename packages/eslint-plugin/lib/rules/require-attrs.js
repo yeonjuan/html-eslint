@@ -9,11 +9,17 @@
  *   ReportFixFunction,
  *   RuleModule
  * } from "../types"
+ * @typedef {Object} Condition
+ * @property {string} attr
+ * @property {string} [value]
+ * @property {"present" | "absent" | "equal" | "not-equal"} kind
+ *
  * @typedef {Object} Option
  * @property {string} tag
  * @property {string} attr
  * @property {string} [value]
  * @property {string} [message]
+ * @property {Condition[]} [conditions]
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -47,6 +53,21 @@ module.exports = {
           attr: { type: "string" },
           value: { type: "string" },
           message: { type: "string" },
+          conditions: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                attr: { type: "string" },
+                value: { type: "string" },
+                kind: {
+                  enum: ["present", "absent", "equal", "not-equal"],
+                },
+              },
+              required: ["attr", "kind"],
+              additionalProperties: false,
+            },
+          },
         },
         required: ["tag", "attr"],
         additionalProperties: false,
@@ -62,12 +83,7 @@ module.exports = {
   create(context) {
     /** @type {Option[]} */
     const options = context.options || [];
-    /**
-     * @type {Map<
-     *   string,
-     *   { tag: string; attr: string; value?: string; message?: string }[]
-     * >}
-     */
+    /** @type {Map<string, Option[]>} */
     const tagOptionsMap = new Map();
 
     options.forEach((option) => {
@@ -83,6 +99,61 @@ module.exports = {
     });
 
     /**
+     * @param {Attribute | undefined} attr
+     * @returns {boolean}
+     */
+    function isPresent(attr) {
+      return !!attr;
+    }
+
+    /**
+     * @param {Attribute | undefined} attr
+     * @returns {boolean}
+     */
+    function isAbsent(attr) {
+      return !attr;
+    }
+
+    /**
+     * @param {Attribute | undefined} attr
+     * @param {string | undefined} value
+     * @returns {boolean}
+     */
+    function isEqual(attr, value) {
+      return !!attr && !!attr.value && attr.value.value === value;
+    }
+
+    /**
+     * @param {Attribute | undefined} attr
+     * @param {string | undefined} value
+     * @returns {boolean}
+     */
+    function isNotEqual(attr, value) {
+      return !attr || !attr.value || attr.value.value !== value;
+    }
+
+    /**
+     * @param {Condition} condition
+     * @param {Attribute[]} attributes
+     * @returns {boolean}
+     */
+    function evaluateCondition(condition, attributes) {
+      const attr = attributes.find((a) => a.key?.value === condition.attr);
+      switch (condition.kind) {
+        case "present":
+          return isPresent(attr);
+        case "absent":
+          return isAbsent(attr);
+        case "equal":
+          return isEqual(attr, condition.value);
+        case "not-equal":
+          return isNotEqual(attr, condition.value);
+        default:
+          return false;
+      }
+    }
+
+    /**
      * @param {StyleTag | ScriptTag | Tag} node
      * @param {string} tagName
      */
@@ -91,51 +162,82 @@ module.exports = {
       const attributes = node.attributes || [];
 
       tagOptions.forEach((option) => {
-        const attrName = option.attr;
-        const attr = attributes.find((attr) => attr.key?.value === attrName);
-        if (!attr) {
-          context.report({
-            ...(option.message
-              ? { message: option.message }
-              : { messageId: MESSAGE_IDS.MISSING }),
-            node,
-            data: {
-              attr: attrName,
-              tag: tagName,
-            },
-            fix(fixer) {
-              if (!option.value) {
-                return null;
-              }
-              return fixer.insertTextAfter(
-                node.openStart,
-                ` ${attrName}="${option.value}"`
-              );
-            },
-          });
-        } else if (
-          typeof option.value === "string" &&
-          (!attr.value || attr.value.value !== option.value)
-        ) {
-          context.report({
-            ...(option.message
-              ? { message: option.message }
-              : { messageId: MESSAGE_IDS.UNEXPECTED }),
-            node: attr,
-            data: {
-              attr: attrName,
-              expected: option.value,
-            },
-            fix(fixer) {
-              if (option.value) {
-                if (attr.value) {
-                  return fixer.replaceText(attr.value, option.value);
+        if (option.conditions) {
+          const conditionsMet = option.conditions.every((condition) =>
+            evaluateCondition(condition, attributes)
+          );
+          if (!conditionsMet) return;
+
+          const attrName = option.attr;
+          const requireAttr = attributes.find((a) => a.key?.value === attrName);
+          if (!requireAttr) {
+            context.report({
+              ...(option.message
+                ? { message: option.message }
+                : { messageId: MESSAGE_IDS.MISSING }),
+              node,
+              data: {
+                attr: attrName,
+                tag: tagName,
+              },
+              fix(fixer) {
+                if (typeof option.value !== "string") {
+                  return null;
                 }
-                return fixer.insertTextAfter(attr.key, `="${option.value}"`);
-              }
-              return null;
-            },
-          });
+                return fixer.insertTextAfter(
+                  node.openStart,
+                  ` ${attrName}="${option.value}"`
+                );
+              },
+            });
+          }
+        } else {
+          const attrName = option.attr;
+          const attr = attributes.find((attr) => attr.key?.value === attrName);
+          if (!attr) {
+            context.report({
+              ...(option.message
+                ? { message: option.message }
+                : { messageId: MESSAGE_IDS.MISSING }),
+              node,
+              data: {
+                attr: attrName,
+                tag: tagName,
+              },
+              fix(fixer) {
+                if (typeof option.value !== "string") {
+                  return null;
+                }
+                return fixer.insertTextAfter(
+                  node.openStart,
+                  ` ${attrName}="${option.value}"`
+                );
+              },
+            });
+          } else if (
+            typeof option.value === "string" &&
+            (!attr.value || attr.value.value !== option.value)
+          ) {
+            context.report({
+              ...(option.message
+                ? { message: option.message }
+                : { messageId: MESSAGE_IDS.UNEXPECTED }),
+              node: attr,
+              data: {
+                attr: attrName,
+                expected: option.value,
+              },
+              fix(fixer) {
+                if (option.value) {
+                  if (attr.value) {
+                    return fixer.replaceText(attr.value, option.value);
+                  }
+                  return fixer.insertTextAfter(attr.key, `="${option.value}"`);
+                }
+                return null;
+              },
+            });
+          }
         }
       });
     }
