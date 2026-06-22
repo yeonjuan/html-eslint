@@ -219,7 +219,7 @@ const elements = new Map([
   ["iframe.credentialless", "0:"],
   ["iframe.csp", "0:"],
   ["iframe.height", "10:2015"],
-  ["iframe.loading", "5:2023"],
+  ["iframe.loading", "10:2023"],
   ["iframe.name", "10:2015"],
   ["iframe.referrerpolicy", "10:2020"],
   ["iframe.referrerpolicy.no-referrer-when-downgrade", "0:"],
