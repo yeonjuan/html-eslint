@@ -1,29 +1,11 @@
-# @html-eslint/core
+# `@html-eslint/core`
 
-Core HTML validation logic for html-eslint.
-
-## Overview
-
-This package provides framework-agnostic HTML validation utilities that can be used across different ESLint plugins (Angular, Svelte, etc.).
+Core HTML validation logic shared across html-eslint plugins (Angular, Svelte, React).
 
 ## Installation
 
 ```bash
-npm install @html-eslint/core
-```
-
-## Usage
-
-```javascript
-import { noInvalidAttrValue } from "@html-eslint/core";
-
-// Create a rule instance with options
-const rule = noInvalidAttrValue({
-  allow: [{ tag: "img", attr: "src", valuePattern: "^https://.*" }],
-});
-
-// Validate attributes using an adapter
-const result = rule.checkAttributes(elementAdapter);
+npm install --save-dev @html-eslint/core
 ```
 
 ## License

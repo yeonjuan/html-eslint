@@ -1,42 +1,35 @@
-# @html-eslint/eslint-plugin-svelte
+# `@html-eslint/eslint-plugin-svelte`
 
-ESLint plugin for HTML with Svelte support.
+ESLint plugin providing HTML linting rules for Svelte components.
 
 ## Installation
 
 ```bash
-npm install --save-dev @html-eslint/eslint-plugin-svelte
+npm install --save-dev eslint @html-eslint/eslint-plugin-svelte svelte-eslint-parser
 ```
 
-## Usage
-
-### ESLint Flat Config
+## Configuration
 
 ```js
+// eslint.config.js
 import htmlSvelte from "@html-eslint/eslint-plugin-svelte";
+import svelteParser from "svelte-eslint-parser";
 
 export default [
   {
-    plugins: {
-      "@html-eslint/svelte": htmlSvelte,
+    files: ["**/*.svelte"],
+    languageOptions: {
+      parser: svelteParser,
     },
-    rules: {
-      // Add rules here
-    },
+    ...htmlSvelte.configs.recommended,
   },
 ];
 ```
 
-### Legacy Config
+## Documentation
 
-```js
-module.exports = {
-  plugins: ["@html-eslint/svelte"],
-  rules: {
-    // Add rules here
-  },
-};
-```
+- [Getting Started](https://html-eslint.org/docs/svelte/getting-started)
+- [Rules](https://html-eslint.org/docs/svelte/rules)
 
 ## License
 
