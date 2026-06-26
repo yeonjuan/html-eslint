@@ -1,56 +1,36 @@
-# @html-eslint/eslint-plugin-angular
+# `@html-eslint/eslint-plugin-angular-template`
 
-ESLint plugin for HTML with Angular template support.
+ESLint plugin providing HTML linting rules for Angular templates.
 
 ## Installation
 
 ```bash
-npm install --save-dev @html-eslint/eslint-plugin-angular @angular-eslint/template-parser
+npm install --save-dev eslint @html-eslint/eslint-plugin-angular-template @angular-eslint/template-parser
 ```
 
-## Usage
+## Configuration
 
 ```js
 // eslint.config.js
-const angularPlugin = require("@html-eslint/eslint-plugin-angular");
-const templateParser = require("@angular-eslint/template-parser");
+import angularTemplate from "@html-eslint/eslint-plugin-angular-template";
+import templateParser from "@angular-eslint/template-parser";
 
-module.exports = [
+export default [
   {
     files: ["**/*.html"],
     languageOptions: {
       parser: templateParser,
     },
-    plugins: {
-      "@html-eslint/angular": angularPlugin,
-    },
-    rules: {
-      "@html-eslint/angular/use-baseline": "warn",
-    },
+    ...angularTemplate.configs.recommended,
   },
 ];
 ```
 
-Or use the recommended config:
+## Documentation
 
-```js
-// eslint.config.js
-const angularPlugin = require("@html-eslint/eslint-plugin-angular");
-const templateParser = require("@angular-eslint/template-parser");
+- [Getting Started](https://html-eslint.org/docs/angular-template/getting-started)
+- [Rules](https://html-eslint.org/docs/angular-template/rules)
 
-module.exports = [
-  {
-    files: ["**/*.html"],
-    languageOptions: {
-      parser: templateParser,
-    },
-    ...angularPlugin.configs.recommended,
-  },
-];
-```
+## License
 
-## Rules
-
-| Rule                                                                    | Description                          | Recommended |
-| ----------------------------------------------------------------------- | ------------------------------------ | ----------- |
-| [use-baseline](https://html-eslint.org/docs/angular/rules/use-baseline) | Enforce the use of baseline features | ✅          |
+MIT

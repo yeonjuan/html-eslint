@@ -1,11 +1,34 @@
 # `@html-eslint/eslint-plugin-react`
 
-An ESLint plugin which provides lint rules for React.
+ESLint plugin providing HTML linting rules for React JSX.
 
-1. [Getting Started](https://html-eslint.org/docs/react/getting-started)
-1. [Rules](https://html-eslint.org/docs/react/rules)
-1. [License](#License)
+## Installation
+
+```bash
+npm install --save-dev eslint @html-eslint/eslint-plugin-react
+```
+
+## Configuration
+
+```js
+// eslint.config.js
+import htmlReact from "@html-eslint/eslint-plugin-react";
+
+export default [
+  ...htmlReact.configs.recommended,
+  {
+    rules: {
+      "@html-eslint/react/use-baseline": "warn",
+    },
+  },
+];
+```
+
+## Documentation
+
+- [Getting Started](https://html-eslint.org/docs/react/getting-started)
+- [Rules](https://html-eslint.org/docs/react/rules)
 
 ## License
 
-Distributed under the MIT License.
+MIT
