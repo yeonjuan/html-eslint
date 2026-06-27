@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.62.0",
+  "version": "0.63.0",
   "private": true,
   "scripts": {
     "clear:cache": "rimraf ../../parcel-cache",
@@ -14,12 +14,12 @@
     "llms-txt": "node ./scripts/llms.txt.js"
   },
   "dependencies": {
-    "@html-eslint/eslint-plugin": "^0.62.0",
-    "@html-eslint/eslint-plugin-angular-template": "^0.62.0",
-    "@html-eslint/eslint-plugin-react": "^0.62.0",
-    "@html-eslint/eslint-plugin-svelte": "^0.62.0",
-    "@html-eslint/parser": "^0.62.0",
-    "@html-eslint/web-linter": "^0.62.0",
+    "@html-eslint/eslint-plugin": "^0.63.0",
+    "@html-eslint/eslint-plugin-angular-template": "^0.63.0",
+    "@html-eslint/eslint-plugin-react": "^0.63.0",
+    "@html-eslint/eslint-plugin-svelte": "^0.63.0",
+    "@html-eslint/parser": "^0.63.0",
+    "@html-eslint/web-linter": "^0.63.0",
     "@html-kit/html": "^0.0.4",
     "codemirror": "^5.58.3"
   },
