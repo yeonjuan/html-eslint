@@ -91,6 +91,46 @@ module.exports = {
 };
 ```
 
+#### conditions
+
+- Type: `array`
+- _Optional_
+
+An array of conditions that must all be true (AND logic) before the `attr` attribute is enforced. Each condition object has:
+
+- `attr` (`string`, **required**): the attribute name to check.
+- `kind` (`"present" | "absent" | "equal" | "not-equal"`, **required**): the type of check.
+- `value` (`string`, _optional_): the value to compare against, used with `equal` and `not-equal`.
+
+| kind        | Passes when                                 |
+| ----------- | ------------------------------------------- |
+| `present`   | the attribute exists on the element         |
+| `absent`    | the attribute does not exist on the element |
+| `equal`     | the attribute value equals `value`          |
+| `not-equal` | the attribute value does not equal `value`  |
+
+```js
+module.exports = {
+  rules: {
+    "@html-eslint/require-attrs": [
+      "error",
+      // Require aria-label on checkboxes
+      {
+        tag: "input",
+        attr: "aria-label",
+        conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+      },
+      // Require alt when src is present
+      {
+        tag: "img",
+        attr: "alt",
+        conditions: [{ attr: "src", kind: "present" }],
+      },
+    ],
+  },
+};
+```
+
 Examples of **incorrect** code for this rule:
 
 ```html
@@ -102,6 +142,9 @@ Examples of **incorrect** code for this rule:
 
 <!-- Wrong viewBox value -->
 <svg viewBox="wrong"></svg>
+
+<!-- Missing aria-label on checkbox (condition: type="checkbox" is met) -->
+<input type="checkbox" />
 ```
 
 Examples of **correct** code for this rule:
@@ -115,4 +158,10 @@ Examples of **correct** code for this rule:
 
 <!-- Correct viewBox value -->
 <svg viewBox="0 0 100 100"></svg>
+
+<!-- Has aria-label (condition met) -->
+<input type="checkbox" aria-label="Accept terms" />
+
+<!-- Condition not met, require is skipped -->
+<input type="text" />
 ```

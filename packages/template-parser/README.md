@@ -1,46 +1,32 @@
-# @html-eslint/template-parser
+# `@html-eslint/template-parser`
 
-A parser that parses the html written inside a template literal.
+Parser for HTML written inside JavaScript/TypeScript template literals (e.g., Lit).
+
+## Installation
+
+```bash
+npm install --save-dev @html-eslint/template-parser
+```
 
 ## Usage
 
 ```js
 const { parse } = require("@html-eslint/template-parser");
-const espree = require("espree");
-const { SourceCode } = require("eslint");
 
-const code = `html\`<div
-  id="\${ id }">
-    \${text}
-  </div>\`;`;
-
-const ast = espree.parse(code, {
-  range: true,
-  loc: true,
-  ecmaVersion: "latest",
-});
-const sourceCode = new SourceCode({
-  text: code,
-  ast: {
-    ...ast,
-    tokens: [],
-    comments: ast.comments ?? [],
-    loc: ast.loc,
-    range: ast.range,
-  },
-});
-
-const exp = ast.body[0].expression.quasi;
-parse(exp, sourcecode, {
+parse(templateLiteralNode, sourceCode, {
   Tag(node) {
-    // ...
+    // visit HTML tag nodes
   },
   AttributeValue(node) {
-    // ...
+    // visit attribute value nodes
   },
 });
 ```
 
+## Documentation
+
+- [Getting Started](https://html-eslint.org/docs/getting-started)
+
 ## License
 
-Distributed under the MIT License.
+MIT

@@ -412,3 +412,306 @@ templateRuleTester.run("[template] require-attrs", rule, {
     },
   ],
 });
+
+// Conditional require tests
+ruleTester.run("[conditions] require-attrs", rule, {
+  valid: [
+    // Condition not met: require is skipped
+    {
+      code: `<input type="text" />`,
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+    },
+    // Condition met and require attr is present
+    {
+      code: `<input type="checkbox" aria-label="check me" />`,
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+    },
+    // kind: "present" — condition not met (attr absent)
+    {
+      code: `<img />`,
+      options: [
+        {
+          tag: "img",
+          attr: "alt",
+          conditions: [{ attr: "src", kind: "present" }],
+        },
+      ],
+    },
+    // kind: "absent" — condition not met (attr present)
+    {
+      code: `<img src="/foo.png" />`,
+      options: [
+        {
+          tag: "img",
+          attr: "loading",
+          conditions: [{ attr: "src", kind: "absent" }],
+        },
+      ],
+    },
+    // kind: "not-equal" — condition not met (value equals)
+    {
+      code: `<input type="text" />`,
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "not-equal", value: "text" }],
+        },
+      ],
+    },
+    // Multiple conditions — one not met (disabled is present, so "absent" fails), require skipped
+    {
+      code: `<input type="checkbox" disabled />`,
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [
+            { attr: "type", kind: "equal", value: "checkbox" },
+            { attr: "disabled", kind: "absent" },
+          ],
+        },
+      ],
+    },
+  ],
+  invalid: [
+    // Condition met, require attr missing — no value, no fix
+    {
+      code: `<input type="checkbox" />`,
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'aria-label' attribute on 'input' tag",
+        },
+      ],
+    },
+    // Condition met, require attr missing — value provided, auto-fix inserts attr
+    {
+      code: `<input type="checkbox" />`,
+      options: [
+        {
+          tag: "input",
+          attr: "role",
+          value: "checkbox",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+      output: `<input role="checkbox" type="checkbox" />`,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'role' attribute on 'input' tag",
+        },
+      ],
+    },
+    // kind: "present" — condition met, require missing — no fix
+    {
+      code: `<img src="/foo.png" />`,
+      options: [
+        {
+          tag: "img",
+          attr: "alt",
+          conditions: [{ attr: "src", kind: "present" }],
+        },
+      ],
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'alt' attribute on 'img' tag",
+        },
+      ],
+    },
+    // kind: "present" — condition met, value provided, auto-fix
+    {
+      code: `<img src="/foo.png" />`,
+      options: [
+        {
+          tag: "img",
+          attr: "alt",
+          value: "",
+          conditions: [{ attr: "src", kind: "present" }],
+        },
+      ],
+      output: `<img alt="" src="/foo.png" />`,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'alt' attribute on 'img' tag",
+        },
+      ],
+    },
+    // kind: "absent" — condition met, require missing — no fix
+    {
+      code: `<img />`,
+      options: [
+        {
+          tag: "img",
+          attr: "aria-hidden",
+          conditions: [{ attr: "src", kind: "absent" }],
+        },
+      ],
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'aria-hidden' attribute on 'img' tag",
+        },
+      ],
+    },
+    // kind: "not-equal" — condition met, require missing — no fix
+    {
+      code: `<input type="checkbox" />`,
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "not-equal", value: "text" }],
+        },
+      ],
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'aria-label' attribute on 'input' tag",
+        },
+      ],
+    },
+    // All conditions met (AND logic), require missing — no fix
+    {
+      code: `<input type="checkbox" />`,
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [
+            { attr: "type", kind: "equal", value: "checkbox" },
+            { attr: "disabled", kind: "absent" },
+          ],
+        },
+      ],
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'aria-label' attribute on 'input' tag",
+        },
+      ],
+    },
+    // Custom message — no fix
+    {
+      code: `<input type="checkbox" />`,
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          message: "Checkboxes must have an aria-label",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Checkboxes must have an aria-label",
+        },
+      ],
+    },
+  ],
+});
+
+templateRuleTester.run("[template][conditions] require-attrs", rule, {
+  valid: [
+    // Condition not met: require skipped
+    {
+      code: 'html`<input type="text" />`',
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+    },
+    // Condition met and require attr present
+    {
+      code: 'html`<input type="checkbox" aria-label="check me" />`',
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+    },
+  ],
+  invalid: [
+    // Condition met, attr missing — no fix
+    {
+      code: 'html`<input type="checkbox" />`',
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 6,
+          message: "Missing 'aria-label' attribute on 'input' tag",
+        },
+      ],
+    },
+    // Condition met, value provided — auto-fix
+    {
+      code: 'html`<input type="checkbox" />`',
+      options: [
+        {
+          tag: "input",
+          attr: "role",
+          value: "checkbox",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+      output: 'html`<input role="checkbox" type="checkbox" />`',
+      errors: [
+        {
+          line: 1,
+          column: 6,
+          message: "Missing 'role' attribute on 'input' tag",
+        },
+      ],
+    },
+  ],
+});

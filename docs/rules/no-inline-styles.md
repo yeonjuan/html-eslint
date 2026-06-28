@@ -43,3 +43,21 @@ Examples of **correct** code for this rule:
 ```html,correct
 <div class="some-color"></div>
 ```
+
+### Options
+
+- `"allowExpressions"` (default: `false`): When `true`, inline styles containing template expressions are allowed. This is useful when styles are dynamically computed at runtime.
+
+```js,.eslintrc.js
+module.exports = {
+  rules: {
+    "@html-eslint/no-inline-styles": ["error", { "allowExpressions": true }],
+  },
+};
+```
+
+Examples of **correct** code with the `{ "allowExpressions": true }` option:
+
+```js,correct
+html`<div style="height: ${height}px"></div>`;
+```
