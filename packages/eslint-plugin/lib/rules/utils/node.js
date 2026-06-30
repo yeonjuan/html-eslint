@@ -56,6 +56,14 @@ function isAttributesEmpty(node) {
 }
 
 /**
+ * True if the attribute exists and its value is non-empty and not only whitespace.
+ * @param {Tag["attributes"][number] | undefined} attrName
+ */
+function hasNonWhitespaceValue(attrName) {
+  return Boolean(attrName?.value?.value && attrName.value.value.trim().length > 0);
+}
+
+/**
  * Checks whether a node's all tokens are on the same line or not.
  *
  * @param {AnyNode} node A node to check
@@ -314,5 +322,6 @@ module.exports = {
   getTemplateTokens,
   hasTemplate,
   hasAttr,
+  hasNonWhitespaceValue,
   getNameOf,
 };

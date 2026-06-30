@@ -20,7 +20,7 @@ module.exports = {
 
 ## Rule Details
 
-Empty elements that are expected to carry meaning are flagged. The following elements are checked: `h1–h6`, `p`, `a`, `button`, `li`, `dt`, `dd`, `option`, `label`.
+Empty elements that are expected to carry meaning are flagged. The following elements are checked: `h1–h6`, `p`, `a`, `button`, `li`, `dt`, `dd`, `option`, `label`. For `option` elements inside a `datalist` content will be required only if `value` attribute is missing, empty or whitestring.
 
 Examples of **incorrect** code for this rule:
 
@@ -31,6 +31,8 @@ Examples of **incorrect** code for this rule:
 <a href="/home"></a>
 <h1>   </h1>
 <label></label>
+<select><option value="option"></option></select>
+<datalist><option></option></datalist>
 ```
 
 Examples of **correct** code for this rule:
@@ -42,6 +44,9 @@ Examples of **correct** code for this rule:
 <a href="/home">Home</a>
 <h1>Page title</h1>
 <label>Name</label>
+<select><option value="option">Option</option></select>
+<datalist><option value="option"></option></datalist>
+<datalist><option>Option</option></datalist>
 
 <!-- ARIA accessible name — visible content is optional -->
 <button aria-label="Close dialog"></button>
