@@ -7,7 +7,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr, findParent, isTag, isText, getNameOf } = require("./utils/node");
+const { findAttr, findParent, isTag, isText, getNameOf, hasNonWhitespaceValue } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -108,7 +108,12 @@ module.exports = {
           const datalist = findParent(node, (parent) => {
             return isTag(parent) && getNameOf(parent) === "datalist";
           });
-          if (datalist) return;
+          if (datalist) {
+            const attrValue = findAttr(node, "value");
+            if (hasNonWhitespaceValue(attrValue)) {
+              return;
+            }
+          }
         }
 
         if (!hasContent(node)) {
