@@ -390,6 +390,7 @@ const elements = new Map([
   ["meta.name.application-title", "0:"],
   ["meta.name.color-scheme", "10:2022"],
   ["meta.name.referrer", "10:2020"],
+  ["meta.name.responsive-embedded-sizing", "0:"],
   ["meta.name.text-scale", "0:"],
   ["meta.name.theme-color", "0:"],
   ["meter", "10:2017"],
