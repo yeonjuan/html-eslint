@@ -15,7 +15,14 @@ const packageJson = JSON.parse(
   readFileSync(join(__dirname, "../package.json"), "utf-8")
 );
 
-/** @type {import("eslint").ESLint.Plugin} */
+/**
+ * @type {import("eslint").ESLint.Plugin & {
+ *   configs: {
+ *     recommended: import("eslint").Linter.Config;
+ *     all: import("eslint").Linter.Config;
+ *   };
+ * }}
+ */
 const plugin = {
   meta: {
     name: packageJson.name,

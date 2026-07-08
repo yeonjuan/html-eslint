@@ -2,9 +2,18 @@ const rules = require("./rules");
 const { name, version } = require("../package.json");
 const { allRules } = require("./configs");
 
-/** @import {ESLint} from "eslint" */
+/**
+ * @import {
+ *   ESLint,
+ *   Linter
+ * } from "eslint"
+ */
 
-/** @type {ESLint.Plugin} */
+/**
+ * @type {ESLint.Plugin & {
+ *   configs: { recommended: Linter.Config; all: Linter.Config };
+ * }}
+ */
 const plugin = {
   meta: {
     name,
