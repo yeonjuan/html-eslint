@@ -20,7 +20,6 @@ const { parse: parseCSS, toPlainObject } = require("css-tree");
 module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
   const { options, html } = getOptions(code, parserOptions);
   const { ast, tokens } = parse(html, options);
-
   /** @type {HTMLProgram} */
   const programNode = {
     type: "Program",
