@@ -40,6 +40,10 @@ ruleTester.run("require-content", rule, {
 
     // Whitespace-only child text followed by a real child element
     { code: `<button>  <span>OK</span>  </button>` },
+
+    // option inside datalist with non-empty value — no text content required
+    { code: `<datalist><option value="foo"></option></datalist>` },
+    { code: `<datalist><option value="foo">Option Label</option></datalist>` },
   ],
 
   invalid: [
@@ -120,6 +124,20 @@ ruleTester.run("require-content", rule, {
         { messageId: "requireContent" },
       ],
     },
+
+    // option inside datalist with no value or empty value still requires content
+    {
+      code: `<datalist><option></option></datalist>`,
+      errors: [{ messageId: "requireContent", line: 1, column: 11 }],
+    },
+    {
+      code: `<datalist><option value=""></option></datalist>`,
+      errors: [{ messageId: "requireContent", line: 1, column: 11 }],
+    },
+    {
+      code: `<datalist><option value="   "></option></datalist>`,
+      errors: [{ messageId: "requireContent", line: 1, column: 11 }],
+    },
   ],
 });
 
@@ -140,6 +158,9 @@ templateRuleTester.run("[template] require-content", rule, {
     {
       code: "html`<button aria-label='Close'></button>`",
     },
+    {
+      code: "html`<datalist><option value=\"foo\"></option></datalist>`",
+    },
   ],
   invalid: [
     {
@@ -148,6 +169,10 @@ templateRuleTester.run("[template] require-content", rule, {
     },
     {
       code: "html`<button></button>`",
+      errors: [{ messageId: "requireContent" }],
+    },
+    {
+      code: "html`<datalist><option></option></datalist>`",
       errors: [{ messageId: "requireContent" }],
     },
   ],

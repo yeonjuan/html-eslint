@@ -24,6 +24,14 @@ ruleTester.run("require-input-label", rule, {
     {
       code: `<textarea aria-label="foo" />`,
     },
+    // self-labeling button/submit/reset via value attribute
+    { code: `<input type="button" value="Click me">` },
+    { code: `<input type="submit" value="Submit">` },
+    { code: `<input type="reset" value="Reset">` },
+    // self-labeling image via alt, title, or value
+    { code: `<input type="image" alt="Submit">` },
+    { code: `<input type="image" title="Submit">` },
+    { code: `<input type="image" value="Submit">` },
   ],
   invalid: [
     {
@@ -50,6 +58,32 @@ ruleTester.run("require-input-label", rule, {
         },
       ],
     },
+    // id alone (without <label for>) is not sufficient
+    {
+      code: `<input id="foo">`,
+      errors: [{ messageId: "missingLabel", line: 1, column: 1 }],
+    },
+    // self-labeling types without their labeling attribute
+    {
+      code: `<input type="button">`,
+      errors: [{ messageId: "missingLabel", line: 1, column: 1 }],
+    },
+    {
+      code: `<input type="submit">`,
+      errors: [{ messageId: "missingLabel", line: 1, column: 1 }],
+    },
+    {
+      code: `<input type="reset">`,
+      errors: [{ messageId: "missingLabel", line: 1, column: 1 }],
+    },
+    {
+      code: `<input type="button" value="">`,
+      errors: [{ messageId: "missingLabel", line: 1, column: 1 }],
+    },
+    {
+      code: `<input type="image">`,
+      errors: [{ messageId: "missingLabel", line: 1, column: 1 }],
+    },
   ],
 });
 
@@ -65,6 +99,8 @@ templateRuleTester.run("[template] require-input-label", rule, {
       // label and input in same nested doc → valid
       code: 'html`${html`<label for="foo">Foo</label><input id="foo">`}`',
     },
+    { code: "html`<input type=\"button\" value=\"Click me\">`" },
+    { code: "html`<input type=\"image\" alt=\"Submit\">`" },
   ],
   invalid: [
     {
@@ -92,6 +128,14 @@ templateRuleTester.run("[template] require-input-label", rule, {
           messageId: "missingLabel",
         },
       ],
+    },
+    {
+      code: "html`<input type=\"button\">`",
+      errors: [{ messageId: "missingLabel" }],
+    },
+    {
+      code: "html`<input type=\"image\">`",
+      errors: [{ messageId: "missingLabel" }],
     },
   ],
 });
