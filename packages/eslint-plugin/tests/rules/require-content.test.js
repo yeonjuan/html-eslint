@@ -159,7 +159,7 @@ templateRuleTester.run("[template] require-content", rule, {
       code: "html`<button aria-label='Close'></button>`",
     },
     {
-      code: "html`<datalist><option value=\"foo\"></option></datalist>`",
+      code: 'html`<datalist><option value="foo"></option></datalist>`',
     },
   ],
   invalid: [

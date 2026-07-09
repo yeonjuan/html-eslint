@@ -99,8 +99,8 @@ templateRuleTester.run("[template] require-input-label", rule, {
       // label and input in same nested doc → valid
       code: 'html`${html`<label for="foo">Foo</label><input id="foo">`}`',
     },
-    { code: "html`<input type=\"button\" value=\"Click me\">`" },
-    { code: "html`<input type=\"image\" alt=\"Submit\">`" },
+    { code: 'html`<input type="button" value="Click me">`' },
+    { code: 'html`<input type="image" alt="Submit">`' },
   ],
   invalid: [
     {
@@ -130,11 +130,11 @@ templateRuleTester.run("[template] require-input-label", rule, {
       ],
     },
     {
-      code: "html`<input type=\"button\">`",
+      code: 'html`<input type="button">`',
       errors: [{ messageId: "missingLabel" }],
     },
     {
-      code: "html`<input type=\"image\">`",
+      code: 'html`<input type="image">`',
       errors: [{ messageId: "missingLabel" }],
     },
   ],
