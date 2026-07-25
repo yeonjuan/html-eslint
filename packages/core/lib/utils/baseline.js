@@ -630,6 +630,8 @@ const globalAttributes = new Map([
   ["contenteditable.plaintext-only", "5:2025"],
   ["enterkeyhint", "10:2021"],
   ["exportparts", "10:2020"],
+  ["headingoffset", "0:"],
+  ["headingreset", "0:"],
   ["inert", "10:2023"],
   ["inert.ignores_find_in_page", "0:"],
   ["inputmode", "10:2021"],
