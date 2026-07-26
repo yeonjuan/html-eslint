@@ -12,6 +12,10 @@ const {
 } = require("./utils/settings");
 const { getSourceCode } = require("./utils/source-code");
 const { getRuleUrl } = require("./utils/rule");
+const {
+  getBranchSegments,
+  areInMutuallyExclusiveBranches,
+} = require("./utils/branch-segments");
 
 const MESSAGE_IDS = {
   DUPLICATE_TAG: "duplicateTag",
@@ -72,6 +76,8 @@ module.exports = {
   },
 
   create(context) {
+    const branchSegments = getBranchSegments(context);
+
     const htmlTagsMap = new Map();
     let headCount = 0;
 
@@ -124,10 +130,16 @@ module.exports = {
       };
     }
 
-    /** @param {Map<string, Tag[]>} map */
-    function report(map) {
+    /**
+     * @param {Map<string, Tag[]>} map
+     * @param {typeof branchSegments} segments
+     */
+    function report(map, segments) {
       map.forEach((tags, tagKey) => {
         if (Array.isArray(tags) && tags.length > 1) {
+          if (areInMutuallyExclusiveBranches(tags, segments)) {
+            return;
+          }
           tags.slice(1).forEach((tag) => {
             context.report({
               node: tag,
@@ -146,7 +158,7 @@ module.exports = {
       "Tag:exit": htmlVisitor["Tag:exit"],
 
       "Document:exit"() {
-        report(htmlTagsMap);
+        report(htmlTagsMap, branchSegments);
       },
 
       TaggedTemplateExpression(node) {
@@ -156,7 +168,7 @@ module.exports = {
         if (shouldCheckTaggedTemplateExpression(node, context)) {
           const visitor = createTagVisitor(tagsMap, headCountRef);
           parseTemplateLiteral(node.quasi, getSourceCode(context), visitor);
-          report(tagsMap);
+          report(tagsMap, branchSegments);
         }
       },
 
@@ -167,7 +179,7 @@ module.exports = {
         if (shouldCheckTemplateLiteral(node, context)) {
           const visitor = createTagVisitor(tagsMap, headCountRef);
           parseTemplateLiteral(node, getSourceCode(context), visitor);
-          report(tagsMap);
+          report(tagsMap, branchSegments);
         }
       },
     };
