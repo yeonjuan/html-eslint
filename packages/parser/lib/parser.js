@@ -4,6 +4,7 @@
  *   HTMLProgram,
  *   ParserOptions
  * } from "./types"
+ * @import {TemplateSyntax} from "@html-eslint/template-syntax-parser"
  */
 const { parse, TokenTypes } = require("es-html-parser");
 const { visitorKeys } = require("./visitor-keys");
@@ -50,8 +51,12 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
   // templateInfos ranges are relative to `html` (frontmatter-stripped source).
   // AST node ranges are relative to the original `code` (via tokenAdapter).
   // We therefore add frontmatterOffset to each segment after computing them.
-  const templateInfos =
-    (options && options.templateInfos) || [];
+  // options.templateInfos is typed as TemplateInfo[] by es-html-parser's
+  // declarations, but at runtime it is always TemplateSyntax[] produced by
+  // @html-eslint/template-syntax-parser.  The cast is safe.
+  const templateInfos = /** @type {TemplateSyntax[]} */ (
+    (options && options.templateInfos) || []
+  );
 
   if (templateInfos.length > 0 && syntaxItems.length > 0) {
     const rawSegments = computeBranchSegments(templateInfos, html, syntaxItems);
