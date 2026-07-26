@@ -71,7 +71,7 @@ module.exports = {
     function check(node) {
       if (!Array.isArray(node.attributes)) return;
 
-      // Maps a normalised attribute key to the list of attribute nodes for
+      // Maps a normalized attribute key to the list of attribute nodes for
       // that key that have NOT yet been reported as duplicates.
       //
       // Invariant: every pair of nodes in any list is mutually exclusive
