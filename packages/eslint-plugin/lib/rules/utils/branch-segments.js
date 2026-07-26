@@ -20,6 +20,8 @@
  * should suppress their report.
  */
 
+/** @import {Context} from "../../types" */
+
 const { getSourceCode } = require("./source-code");
 
 /**
@@ -27,11 +29,15 @@ const { getSourceCode } = require("./source-code");
  * Returns an empty array for non-HTML files or files parsed without a
  * template engine syntax configuration.
  *
- * @param {import("eslint").Rule.RuleContext} context
+ * `branchSegments` is attached dynamically to the Program node by
+ * packages/parser/lib/parser.js and is not part of the standard typed
+ * Program definition, so ast is cast to `any` to access it.
+ *
+ * @param {Context<any[]>} context
  * @returns {Array<{ groupId: number; branchIndex: number; start: number; end: number }>}
  */
 function getBranchSegments(context) {
-  const ast = getSourceCode(context).ast;
+  const ast = /** @type {any} */ (getSourceCode(context).ast);
   return (ast && ast.branchSegments) || [];
 }
 
