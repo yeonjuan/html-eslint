@@ -1,3 +1,5 @@
+/** @import {TemplateSyntax} from "@html-eslint/template-syntax-parser" */
+
 /**
  * Branch annotation for @html-eslint/parser.
  *
@@ -33,7 +35,7 @@ function matches(pattern, content) {
 /**
  * Compute branch segments from a list of template token ranges.
  *
- * @param {Array<{ open: [number,number]; close: [number,number] }>} templateInfos
+ * @param {TemplateSyntax[]} templateInfos
  *   The TemplateSyntax[] returned by @html-eslint/template-syntax-parser.
  *   Each entry covers one complete template token: open is the [start,end]
  *   of the opening delimiter, close is the [start,end] of the closing
@@ -88,6 +90,7 @@ function computeBranchSegments(templateInfos, source, syntaxItems) {
     const content = source.slice(info.open[1], info.close[0]);
     const b = item.branch;
 
+    /** @type {'START'|'CONTINUE'|'END'|'BLOCK_OPEN'|'BLOCK_CLOSE'|null} */
     let role = null;
     // Order matters: END before CONTINUE so that patterns like
     // /^\s*-?\s*(elseif|else)\b/ don't accidentally match "endif" (they won't
