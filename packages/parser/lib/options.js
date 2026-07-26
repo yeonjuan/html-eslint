@@ -6,10 +6,32 @@
 
 const templateSyntaxParser = require("@html-eslint/template-syntax-parser");
 const { parseFrontmatterContent } = require("./frontmatter");
+
+/**
+ * Normalize the templateEngineSyntax option to a plain SyntaxConfigItem[]
+ * so that the branch-annotation pass can inspect the `.branch` property on
+ * each item.  The template-syntax-parser performs the same normalization
+ * internally; we replicate it here rather than reaching into its internals.
+ *
+ * @param {ParserOptions["templateEngineSyntax"]} syntax
+ * @returns {Array<{ open: string; close: string; [key: string]: unknown }>}
+ */
+function normalizeSyntax(syntax) {
+  if (!syntax) return [];
+  if (Array.isArray(syntax)) return syntax;
+  // Record<string, string> short-hand form — no branch config possible.
+  return Object.entries(syntax).map(([open, close]) => ({ open, close }));
+}
+
 /**
  * @param {string} code
  * @param {ParserOptions | undefined} parserOptions
- * @returns {{ options: Parameters<ESHtmlParser["parse"]>[1]; html: string }}
+ * @returns {{
+ *   options: Parameters<ESHtmlParser["parse"]>[1];
+ *   html: string;
+ *   syntaxItems: Array<{ open: string; close: string; [key: string]: unknown }>;
+ *   frontmatterOffset: number;
+ * }}
  */
 function getOptions(code, parserOptions) {
   let html = code;
@@ -17,15 +39,20 @@ function getOptions(code, parserOptions) {
     return {
       options: undefined,
       html,
+      syntaxItems: [],
+      frontmatterOffset: 0,
     };
   }
 
   /** @type {any} */
   let tokenAdapter = undefined;
+  let frontmatterOffset = 0;
+
   if (parserOptions.frontmatter) {
     const result = parseFrontmatterContent(code);
     if (result) {
       html = result.html;
+      frontmatterOffset = result.index;
       const lineOffset = result.line - 1;
       tokenAdapter = {
         /** @param {any} token */
@@ -66,6 +93,8 @@ function getOptions(code, parserOptions) {
     rawContentTags = parserOptions.rawContentTags;
   }
 
+  const syntaxItems = normalizeSyntax(parserOptions.templateEngineSyntax);
+
   if (templateInfos || tokenAdapter || rawContentTags) {
     return {
       options: {
@@ -74,11 +103,15 @@ function getOptions(code, parserOptions) {
         rawContentTags,
       },
       html,
+      syntaxItems,
+      frontmatterOffset,
     };
   }
   return {
     options: undefined,
     html,
+    syntaxItems,
+    frontmatterOffset,
   };
 }
 
