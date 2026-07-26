@@ -46,7 +46,7 @@ module.exports = {
   create(context) {
     // Read branch segments once per file.  For non-HTML files (JS tagged
     // template literal paths) this will be [] and the check degrades
-    // gracefully to the original behaviour.
+    // gracefully to the original behavior.
     const branchSegments = getBranchSegments(context);
 
     const htmlIdAttrsMap = new Map();
