@@ -37,7 +37,7 @@ const { getSourceCode } = require("./source-code");
  * @returns {Array<{ groupId: number; branchIndex: number; start: number; end: number }>}
  */
 function getBranchSegments(context) {
-  const ast = /** @type {any} */ (getSourceCode(context).ast);
+  const { ast } = /** @type {{ ast: any }} */ (getSourceCode(context));
   return (ast && ast.branchSegments) || [];
 }
 
