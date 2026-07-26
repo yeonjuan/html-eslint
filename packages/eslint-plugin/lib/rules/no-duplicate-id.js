@@ -15,6 +15,10 @@ const {
 } = require("./utils/settings");
 const { getSourceCode } = require("./utils/source-code");
 const { getRuleUrl } = require("./utils/rule");
+const {
+  getBranchSegments,
+  areInMutuallyExclusiveBranches,
+} = require("./utils/branch-segments");
 
 const MESSAGE_IDS = {
   DUPLICATE_ID: "duplicateId",
@@ -40,7 +44,13 @@ module.exports = {
   },
 
   create(context) {
+    // Read branch segments once per file.  For non-HTML files (JS tagged
+    // template literal paths) this will be [] and the check degrades
+    // gracefully to the original behaviour.
+    const branchSegments = getBranchSegments(context);
+
     const htmlIdAttrsMap = new Map();
+
     /** @param {Map<string, AttributeValue[]>} map */
     function createTagVisitor(map) {
       /** @param {Tag} node */
@@ -61,10 +71,19 @@ module.exports = {
       };
     }
 
-    /** @param {Map<string, AttributeValue[]>} map */
-    function report(map) {
+    /**
+     * @param {Map<string, AttributeValue[]>} map
+     * @param {typeof branchSegments} segments
+     */
+    function report(map, segments) {
       map.forEach((attrs) => {
         if (Array.isArray(attrs) && attrs.length > 1) {
+          // If every occurrence lives in a different branch of the same
+          // template if-block they are mutually exclusive at runtime — the
+          // same id can never appear twice in the rendered output.
+          if (areInMutuallyExclusiveBranches(attrs, segments)) {
+            return;
+          }
           attrs.forEach((attr) => {
             context.report({
               node: attr,
@@ -79,7 +98,7 @@ module.exports = {
     return {
       Tag: createTagVisitor(htmlIdAttrsMap),
       "Document:exit"() {
-        report(htmlIdAttrsMap);
+        report(htmlIdAttrsMap, branchSegments);
       },
       TaggedTemplateExpression(node) {
         const idAttrsMap = new Map();
@@ -88,7 +107,7 @@ module.exports = {
             Tag: createTagVisitor(idAttrsMap),
           });
         }
-        report(idAttrsMap);
+        report(idAttrsMap, branchSegments);
       },
       TemplateLiteral(node) {
         const idAttrsMap = new Map();
@@ -97,7 +116,7 @@ module.exports = {
             Tag: createTagVisitor(idAttrsMap),
           });
         }
-        report(idAttrsMap);
+        report(idAttrsMap, branchSegments);
       },
     };
   },
