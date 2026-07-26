@@ -15,7 +15,7 @@
  *   continue:    RegExp;   // matches branch-separator tokens (elseif / else)
  *   end:         RegExp;   // matches if-closing tokens  (e.g. " endif ")
  *   blockOpen?:  RegExp;   // matches other block-openers (for, macro, …)
- *   blockClose?: RegExp;   // matches the matching closers (endfor, endmacro, …)
+ *   blockClose?: RegExp;   // matches the matching closers (endfor, …)
  * }} BranchConfig
  *
  * blockOpen / blockClose are needed to prevent an `else` or `elif` that
