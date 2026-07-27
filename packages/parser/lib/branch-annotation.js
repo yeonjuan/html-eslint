@@ -40,7 +40,7 @@ function matches(pattern, content) {
  * Compute branch segments from a list of template token ranges.
  *
  * @param {TemplateSyntax[]} templateInfos The TemplateSyntax[] returned by
- *   @html-eslint/template-syntax-parser. Each entry covers one complete
+ *   `@html-eslint/template-syntax-parser`. Each entry covers one complete
  *   template token: open is the [start,end] of the opening delimiter, close is
  *   the [start,end] of the closing delimiter. Content lives between open[1] and
  *   close[0].
