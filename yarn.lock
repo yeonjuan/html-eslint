@@ -2796,7 +2796,7 @@ __metadata:
   dependencies:
     "@lerna-lite/cli": "npm:^4.11.2"
     "@lerna-lite/publish": "npm:^4.11.2"
-    "@mdn/browser-compat-data": "npm:^8.0.7"
+    "@mdn/browser-compat-data": "npm:^8.0.8"
     "@parcel/packager-raw-url": "npm:2.16.4"
     "@parcel/transformer-jsonld": "npm:2.16.4"
     "@types/jest": "npm:^29.5.14"
@@ -4094,10 +4094,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdn/browser-compat-data@npm:^8.0.7":
-  version: 8.0.7
-  resolution: "@mdn/browser-compat-data@npm:8.0.7"
-  checksum: 10c0/06f594d6a474800284d9553024fc31c97ef45527cc57d190fa8948b62faa15f6a77e5600acf646dde720c140a855d2b3f7022b18e1025b27928e7c37752d3d71
+"@mdn/browser-compat-data@npm:^8.0.8":
+  version: 8.0.8
+  resolution: "@mdn/browser-compat-data@npm:8.0.8"
+  checksum: 10c0/1846b57f698e69299d6cf81f85e4b4b6071d411db114ab55650f09f1e22c777b4fa8c204a1fc832dd0e8e680eeda7c1a784166dacd1d230a33a6bd41a0f7f9f0
   languageName: node
   linkType: hard
 
