@@ -3,6 +3,12 @@
 /**
  * Branch annotation for @html-eslint/parser.
  *
+ * @typedef {{
+ *   groupId: number;
+ *   branchIndex: number;
+ *   start: number;
+ *   end: number;
+ * }} BranchSegment
  * @html-eslint/template-syntax-parser already records every template token as
  * an opaque {open, close} range pair.  This module classifies those tokens
  * (using per-engine patterns stored in the SyntaxConfigItem.branch property)
@@ -17,8 +23,6 @@
  * Rules can use these segments to decide whether two "duplicate" nodes are
  * actually unreachable simultaneously, because every path through the template
  * can only enter one branch of any given if-block.
- *
- * @typedef {{ groupId: number; branchIndex: number; start: number; end: number }} BranchSegment
  */
 
 /**
@@ -35,33 +39,34 @@ function matches(pattern, content) {
 /**
  * Compute branch segments from a list of template token ranges.
  *
- * @param {TemplateSyntax[]} templateInfos
- *   The TemplateSyntax[] returned by @html-eslint/template-syntax-parser.
- *   Each entry covers one complete template token: open is the [start,end]
- *   of the opening delimiter, close is the [start,end] of the closing
- *   delimiter.  Content lives between open[1] and close[0].
- *
- * @param {string} source
- *   The source text that templateInfos was parsed from.  Must be the same
- *   string (same character offsets) — i.e. the frontmatter-stripped `html`
- *   string from getOptions(), NOT the full `code` string.  The caller is
- *   responsible for adding any frontmatter offset to the returned segments.
- *
- * @param {Array<{ open: string; close: string; branch?: {
- *   start:      RegExp;
- *   continue:   RegExp;
- *   end:        RegExp;
- *   blockOpen?:  RegExp;
- *   blockClose?: RegExp;
- * } }>} syntaxItems
- *   Normalized SyntaxConfigItem array.  Only items that have a .branch
- *   property are consulted; the rest are ignored.
- *
+ * @param {TemplateSyntax[]} templateInfos The TemplateSyntax[] returned by
+ *   @html-eslint/template-syntax-parser. Each entry covers one complete
+ *   template token: open is the [start,end] of the opening delimiter, close is
+ *   the [start,end] of the closing delimiter. Content lives between open[1] and
+ *   close[0].
+ * @param {string} source The source text that templateInfos was parsed from.
+ *   Must be the same string (same character offsets) — i.e. the
+ *   frontmatter-stripped `html` string from getOptions(), NOT the full `code`
+ *   string. The caller is responsible for adding any frontmatter offset to the
+ *   returned segments.
+ * @param {{
+ *   open: string;
+ *   close: string;
+ *   branch?: {
+ *     start: RegExp;
+ *     continue: RegExp;
+ *     end: RegExp;
+ *     blockOpen?: RegExp;
+ *     blockClose?: RegExp;
+ *   };
+ * }[]} syntaxItems
+ *   Normalized SyntaxConfigItem array. Only items that have a .branch property
+ *   are consulted; the rest are ignored.
  * @returns {BranchSegment[]}
  */
 function computeBranchSegments(templateInfos, source, syntaxItems) {
   // Fast exit: nothing to do without branch-aware items.
-  /** @type {Map<string, typeof syntaxItems[number]>} */
+  /** @type {Map<string, (typeof syntaxItems)[number]>} */
   const itemByOpen = new Map();
   for (const item of syntaxItems) {
     if (item.branch) {
@@ -73,11 +78,11 @@ function computeBranchSegments(templateInfos, source, syntaxItems) {
   // --- 1. Classify every token that belongs to a branch-aware delimiter. ---
 
   /**
-   * @type {Array<{
-   *   role: 'START'|'CONTINUE'|'END'|'BLOCK_OPEN'|'BLOCK_CLOSE';
+   * @type {{
+   *   role: "START" | "CONTINUE" | "END" | "BLOCK_OPEN" | "BLOCK_CLOSE";
    *   tokenStart: number;
    *   tokenEnd: number;
-   * }>}
+   * }[]}
    */
   const classified = [];
 
@@ -90,7 +95,14 @@ function computeBranchSegments(templateInfos, source, syntaxItems) {
     const content = source.slice(info.open[1], info.close[0]);
     const b = item.branch;
 
-    /** @type {'START'|'CONTINUE'|'END'|'BLOCK_OPEN'|'BLOCK_CLOSE'|null} */
+    /**
+     * @type {"START"
+     *   | "CONTINUE"
+     *   | "END"
+     *   | "BLOCK_OPEN"
+     *   | "BLOCK_CLOSE"
+     *   | null}
+     */
     let role = null;
     // Order matters: END before CONTINUE so that patterns like
     // /^\s*-?\s*(elseif|else)\b/ don't accidentally match "endif" (they won't
@@ -135,7 +147,17 @@ function computeBranchSegments(templateInfos, source, syntaxItems) {
   /** @type {BranchSegment[]} */
   const segments = [];
   let groupId = 0;
-  /** @type {Array<{ type: 'if'; groupId: number; branchIndex: number; segmentStart: number } | { type: 'block' }>} */
+  /**
+   * @type {(
+   *   | {
+   *       type: "if";
+   *       groupId: number;
+   *       branchIndex: number;
+   *       segmentStart: number;
+   *     }
+   *   | { type: "block" }
+   * )[]}
+   */
   const stack = [];
 
   for (const token of classified) {

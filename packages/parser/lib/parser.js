@@ -1,10 +1,10 @@
 /**
+ * @import {TemplateSyntax} from "@html-eslint/template-syntax-parser"
  * @import {Linter} from "eslint"
  * @import {
  *   HTMLProgram,
  *   ParserOptions
  * } from "./types"
- * @import {TemplateSyntax} from "@html-eslint/template-syntax-parser"
  */
 const { parse, TokenTypes } = require("es-html-parser");
 const { visitorKeys } = require("./visitor-keys");

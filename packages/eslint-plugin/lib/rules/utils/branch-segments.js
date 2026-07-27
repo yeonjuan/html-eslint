@@ -1,23 +1,23 @@
 /**
  * Rule-side helpers for branch-based duplicate suppression.
  *
- * The parser attaches a `branchSegments` array to the root Program node
- * during its branch-annotation pass (see packages/parser/lib/branch-annotation.js
- * and packages/parser/lib/parser.js).
+ * The parser attaches a `branchSegments` array to the root Program node during
+ * its branch-annotation pass (see packages/parser/lib/branch-annotation.js and
+ * packages/parser/lib/parser.js).
  *
- * Each segment is:
- *   { groupId: number; branchIndex: number; start: number; end: number }
+ * Each segment is: { groupId: number; branchIndex: number; start: number; end:
+ * number }
  *
  * All segments that share the same `groupId` belong to one {% if %} block.
- * `branchIndex` is 0 for the if-body, 1 for the first elseif/else, etc.
- * `start` / `end` are character offsets into the original source (same
- * coordinate space as AST node `range` values).
+ * `branchIndex` is 0 for the if-body, 1 for the first elseif/else, etc. `start`
+ * / `end` are character offsets into the original source (same coordinate space
+ * as AST node `range` values).
  *
  * A set of nodes is "mutually exclusive" when, for every pair (A, B), there
  * exists at least one if-block group where both A and B fall inside it but in
- * *different* branches.  When every pair is exclusive the nodes can never all
- * be present in the rendered output simultaneously, so "duplicate" rules
- * should suppress their report.
+ * _different_ branches. When every pair is exclusive the nodes can never all be
+ * present in the rendered output simultaneously, so "duplicate" rules should
+ * suppress their report.
  */
 
 /** @import {Context} from "../../types" */
@@ -25,16 +25,21 @@
 const { getSourceCode } = require("./source-code");
 
 /**
- * Retrieve the pre-computed branch segments from the AST root.
- * Returns an empty array for non-HTML files or files parsed without a
- * template engine syntax configuration.
+ * Retrieve the pre-computed branch segments from the AST root. Returns an empty
+ * array for non-HTML files or files parsed without a template engine syntax
+ * configuration.
  *
  * `branchSegments` is attached dynamically to the Program node by
- * packages/parser/lib/parser.js and is not part of the standard typed
- * Program definition, so ast is cast to `any` to access it.
+ * packages/parser/lib/parser.js and is not part of the standard typed Program
+ * definition, so ast is cast to `any` to access it.
  *
  * @param {Context<any[]>} context
- * @returns {Array<{ groupId: number; branchIndex: number; start: number; end: number }>}
+ * @returns {{
+ *   groupId: number;
+ *   branchIndex: number;
+ *   start: number;
+ *   end: number;
+ * }[]}
  */
 function getBranchSegments(context) {
   const { ast } = /** @type {{ ast: any }} */ (getSourceCode(context));
@@ -43,13 +48,18 @@ function getBranchSegments(context) {
 
 /**
  * Return true when every pair of nodes in `nodes` is located in different
- * branches of the same template if-block, meaning they can never all be
- * present in the rendered output at the same time.
+ * branches of the same template if-block, meaning they can never all be present
+ * in the rendered output at the same time.
  *
  * Each element of `nodes` must have a `.range` property ([start, end]).
  *
- * @param {Array<{ range: [number, number] }>} nodes
- * @param {Array<{ groupId: number; branchIndex: number; start: number; end: number }>} branchSegments
+ * @param {{ range: [number, number] }[]} nodes
+ * @param {{
+ *   groupId: number;
+ *   branchIndex: number;
+ *   start: number;
+ *   end: number;
+ * }[]} branchSegments
  * @returns {boolean}
  */
 function areInMutuallyExclusiveBranches(nodes, branchSegments) {

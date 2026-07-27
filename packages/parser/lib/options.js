@@ -8,13 +8,13 @@ const templateSyntaxParser = require("@html-eslint/template-syntax-parser");
 const { parseFrontmatterContent } = require("./frontmatter");
 
 /**
- * Normalize the templateEngineSyntax option to a plain SyntaxConfigItem[]
- * so that the branch-annotation pass can inspect the `.branch` property on
- * each item.  The template-syntax-parser performs the same normalization
- * internally; we replicate it here rather than reaching into its internals.
+ * Normalize the templateEngineSyntax option to a plain SyntaxConfigItem[] so
+ * that the branch-annotation pass can inspect the `.branch` property on each
+ * item. The template-syntax-parser performs the same normalization internally;
+ * we replicate it here rather than reaching into its internals.
  *
  * @param {ParserOptions["templateEngineSyntax"]} syntax
- * @returns {Array<{ open: string; close: string; [key: string]: unknown }>}
+ * @returns {{ open: string; close: string; [key: string]: unknown }[]}
  */
 function normalizeSyntax(syntax) {
   if (!syntax) return [];
@@ -29,7 +29,7 @@ function normalizeSyntax(syntax) {
  * @returns {{
  *   options: Parameters<ESHtmlParser["parse"]>[1];
  *   html: string;
- *   syntaxItems: Array<{ open: string; close: string; [key: string]: unknown }>;
+ *   syntaxItems: { open: string; close: string; [key: string]: unknown }[];
  *   frontmatterOffset: number;
  * }}
  */

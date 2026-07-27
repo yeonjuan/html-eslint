@@ -129,13 +129,13 @@ In the example above all three `<span id="status">` elements are in different br
 
 The presets listed in the table below include branch pattern configuration that teaches the parser which template tokens open, continue, and close a conditional block. When branch information is available, the duplicate-checking rules automatically suppress errors for nodes that are confined to mutually exclusive branches.
 
-| Preset | Branch-aware |
-|---|---|
-| `TWIG` | ✓ |
-| `NUNJUCKS` | ✓ |
-| `HANDLEBAR_EXTENDED` | ✓ |
-| `HANDLEBAR` | ✗ |
-| `ERB` | ✗ |
+| Preset               | Branch-aware |
+| -------------------- | ------------ |
+| `TWIG`               | ✓            |
+| `NUNJUCKS`           | ✓            |
+| `HANDLEBAR_EXTENDED` | ✓            |
+| `HANDLEBAR`          | ✗            |
+| `ERB`                | ✗            |
 
 `HANDLEBAR` is kept for backwards compatibility. `HANDLEBAR_EXTENDED` is the recommended preset for Handlebars projects going forward.
 
@@ -172,11 +172,11 @@ parserOptions: {
     // Additional delimiter pairs without branch config are listed normally:
     { open: "{{", close: "}}" },
     { open: "{#", close: "#}", isComment: true },
-  ]
+  ];
 }
 ```
 
-All patterns are matched against the raw content between the opening and closing delimiters of each template token. For example, the content of `{% if condition %}` is ` if condition ` (including surrounding whitespace), so a pattern of `/^\s*if\b/` matches it correctly.
+All patterns are matched against the raw content between the opening and closing delimiters of each template token. For example, the content of `{% if condition %}` is `if condition` (including surrounding whitespace), so a pattern of `/^\s*if\b/` matches it correctly.
 
 `blockOpen` and `blockClose` are optional but strongly recommended for any engine where block constructs other than `if` can contain their own `else`. Omitting them may cause a false suppression of a real duplicate error if an `else` belonging to a `for` loop is misread as the `else` of an enclosing `if`.
 
