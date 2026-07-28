@@ -53,11 +53,11 @@ function matches(pattern, content) {
  *   open: string;
  *   close: string;
  *   branch?: {
- *     start: RegExp;
- *     continue: RegExp;
- *     end: RegExp;
- *     blockOpen?: RegExp;
- *     blockClose?: RegExp;
+ *     start: RegExp | string;
+ *     continue: RegExp | string;
+ *     end: RegExp | string;
+ *     blockOpen?: RegExp | string;
+ *     blockClose?: RegExp | string;
  *   };
  * }[]} syntaxItems
  *   Normalized SyntaxConfigItem array. Only items that have a .branch property

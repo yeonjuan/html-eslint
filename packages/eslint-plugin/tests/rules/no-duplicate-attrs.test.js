@@ -64,6 +64,28 @@ ruleTester.run("no-duplicate-attrs", rule, {
         },
       },
     },
+    // Three occurrences of 'class' across mutually exclusive branches —
+    // all pairs are branch-exclusive, so no error should be reported.
+    {
+      code: `<span {% if c1 %}class="a"{% else %}class="b"{% endif %}
+        {% if c1 %}class="c"{% endif %}>text</span>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+    },
+    // Two separate attributes, each with their own if/else branches.
+    // Each attribute's second branch triggers the push path.
+    {
+      code: `<div {% if x %}data-id="1"{% else %}data-id="2"{% endif %}
+           {% if y %}aria-label="x"{% else %}aria-label="y"{% endif %}>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+    },
   ],
   invalid: [
     {

@@ -5,6 +5,20 @@ const {
   HANDLEBAR_EXTENDED,
 } = require("../lib/template-engine-syntax-preset");
 
+// Custom config using STRING patterns instead of RegExp to hit
+// the indexOf() fallback path in matches().
+const STRING_PATTERN_CONFIG = [
+  {
+    open: "{%",
+    close: "%}",
+    branch: {
+      start: "if", // string, not RegExp
+      continue: "elseif", // string
+      end: "endif", // string
+    },
+  },
+];
+
 // ---------------------------------------------------------------------------
 // Test helpers — replicate what @html-eslint/template-syntax-parser produces:
 // open = [startOfDelim, endOfDelim], close = [startOfCloseDelim, endOfCloseDelim].
@@ -208,6 +222,19 @@ describe("computeBranchSegments", () => {
       extractHbsTagInfos(source),
       source,
       HANDLEBAR_EXTENDED
+    );
+    expect(segments).toHaveLength(2);
+    expect(new Set(segments.map((s) => s.groupId)).size).toBe(1);
+  });
+
+  // ── String pattern fallback ───────────────────────────────────────────────
+
+  it("uses string patterns (indexOf fallback) instead of RegExp", () => {
+    const source = "{% if cond %}A{% elseif x %}B{% endif %}";
+    const segments = computeBranchSegments(
+      extractTwigTagInfos(source),
+      source,
+      STRING_PATTERN_CONFIG
     );
     expect(segments).toHaveLength(2);
     expect(new Set(segments.map((s) => s.groupId)).size).toBe(1);
