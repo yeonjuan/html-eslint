@@ -18,8 +18,14 @@ const { parseFrontmatterContent } = require("./frontmatter");
  */
 function normalizeSyntax(syntax) {
   if (!syntax) return [];
-  if (Array.isArray(syntax)) return syntax;
-  // Record<string, string> short-hand form — no branch config possible.
+  if (Array.isArray(syntax)) {
+    // Return a shallow copy to avoid mutating frozen exports from @html-eslint/parser
+    return syntax.map((item) => ({
+      ...item,
+      branch: item.branch ? { ...item.branch } : undefined,
+    }));
+  }
+  // Record<string, string> shorthand form — no branch config possible.
   return Object.entries(syntax).map(([open, close]) => ({ open, close }));
 }
 
