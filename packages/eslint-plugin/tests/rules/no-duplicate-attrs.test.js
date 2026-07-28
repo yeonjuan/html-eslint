@@ -1,5 +1,6 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-duplicate-attrs");
+const { TEMPLATE_ENGINE_SYNTAX } = require("@html-eslint/parser");
 
 const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
@@ -41,6 +42,25 @@ ruleTester.run("no-duplicate-attrs", rule, {
           templateEngineSyntax: {
             "{{": "}}",
           },
+        },
+      },
+    },
+    // The same attribute name in different Twig if/else branches on the same
+    // tag is not a real duplicate — only one branch renders at runtime.
+    {
+      code: `<span {% if cond %}class="active"{% else %}class="inactive"{% endif %}>text</span>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+    },
+    // Three branches: still mutually exclusive.
+    {
+      code: `<a {% if lang == "en" %}lang="en"{% elseif lang == "fi" %}lang="fi"{% else %}lang="sv"{% endif %} href="/">home</a>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
         },
       },
     },
@@ -174,6 +194,21 @@ ruleTester.run("no-duplicate-attrs", rule, {
               output: `<div foo  {{aa}} {{aa}}> </div>`,
             },
           ],
+        },
+      ],
+    },
+    // Attributes in two separate Twig if-blocks (not one if/else) can both
+    // render at the same time and must still be reported.
+    {
+      code: `<span {% if c1 %}class="a"{% endif %} {% if c2 %}class="b"{% endif %}>text</span>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+      errors: [
+        {
+          message: "The attribute 'class' is duplicated.",
         },
       ],
     },

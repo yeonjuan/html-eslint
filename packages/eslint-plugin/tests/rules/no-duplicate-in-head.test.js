@@ -1,5 +1,6 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-duplicate-in-head");
+const { TEMPLATE_ENGINE_SYNTAX } = require("@html-eslint/parser");
 
 const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
@@ -37,6 +38,47 @@ ruleTester.run("no-duplicate-in-head", rule, {
           </head>
         </html>
       `,
+    },
+    // Duplicate head tags in mutually exclusive Twig if/else branches are
+    // not errors — only one branch's tag appears in the rendered output.
+    {
+      code: `
+        <html>
+          <head>
+            {% if lang == "en" %}
+              <title>English Page</title>
+            {% else %}
+              <title>Other Language Page</title>
+            {% endif %}
+          </head>
+        </html>
+      `,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+    },
+    // Multiple head tag types, each duplicated across branches.
+    {
+      code: `
+        <html>
+          <head>
+            {% if canonical %}
+              <link rel="canonical" href="https://example.com/a">
+              <meta name="viewport" content="width=device-width">
+            {% else %}
+              <link rel="canonical" href="https://example.com/b">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+            {% endif %}
+          </head>
+        </html>
+      `,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
     },
   ],
   invalid: [
@@ -117,6 +159,33 @@ ruleTester.run("no-duplicate-in-head", rule, {
         {
           messageId: "duplicateTag",
           data: { tag: "base" },
+        },
+      ],
+    },
+    // Duplicate head tags in two SEPARATE if-blocks (not one if/else) can
+    // both render simultaneously and must still be reported.
+    {
+      code: `
+        <html>
+          <head>
+            {% if cond %}
+              <title>First</title>
+            {% endif %}
+            {% if other %}
+              <title>Second</title>
+            {% endif %}
+          </head>
+        </html>
+      `,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+      errors: [
+        {
+          messageId: "duplicateTag",
+          data: { tag: "title" },
         },
       ],
     },

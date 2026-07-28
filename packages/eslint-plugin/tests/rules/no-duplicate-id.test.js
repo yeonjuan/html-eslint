@@ -1,5 +1,6 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/no-duplicate-id");
+const { TEMPLATE_ENGINE_SYNTAX } = require("@html-eslint/parser");
 
 const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
@@ -15,6 +16,44 @@ ruleTester.run("no-duplicate-id", rule, {
 </body>
 </html>
 `,
+    },
+    // Duplicates in mutually exclusive Twig if/else branches are not errors.
+    {
+      code: `
+<p>
+  {% if result %}
+    <span id="status">yes</span>
+  {% else %}
+    <span id="status">no</span>
+  {% endif %}
+</p>
+`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+    },
+    // Dmitrii's original use case: four spans in four branches.
+    {
+      code: `
+<p>
+  {% if check_result is same as(null) %}
+    <span id="acc_check_result"></span>
+  {% elseif check_result is same as(false) %}
+    <span id="acc_check_result" class="failure">Invalid</span>
+  {% elseif check_result is same as(true) %}
+    <span id="acc_check_result" class="success">Valid</span>
+  {% else %}
+    <span id="acc_check_result" class="failure">Wrong key</span>
+  {% endif %}
+</p>
+`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
     },
   ],
   invalid: [
@@ -56,6 +95,20 @@ ruleTester.run("no-duplicate-id", rule, {
           line: 5,
         },
       ],
+    },
+    // Duplicates in two SEPARATE if-blocks can both render simultaneously
+    // and must still be reported.
+    {
+      code: `
+{% if c1 %}<div id="foo"></div>{% endif %}
+{% if c2 %}<div id="foo"></div>{% endif %}
+`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+      errors: [{ messageId: "duplicateId" }, { messageId: "duplicateId" }],
     },
   ],
 });
