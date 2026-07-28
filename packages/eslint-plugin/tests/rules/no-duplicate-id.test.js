@@ -34,7 +34,7 @@ ruleTester.run("no-duplicate-id", rule, {
         },
       },
     },
-    // Dmitrii's original use case: four spans in four branches.
+    // Original use case: four spans in four branches.
     {
       code: `
 <p>
