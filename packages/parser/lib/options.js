@@ -54,6 +54,10 @@ function getOptions(code, parserOptions) {
     };
   }
 
+  // Clone early so both templateSyntaxParser.parse and computeBranchSegments
+  // receive a mutable copy, even when the source is a frozen export.
+  const syntaxItems = normalizeSyntax(parserOptions.templateEngineSyntax);
+
   /** @type {any} */
   let tokenAdapter = undefined;
   let frontmatterOffset = 0;
@@ -92,7 +96,7 @@ function getOptions(code, parserOptions) {
   let templateInfos = undefined;
   if (parserOptions.templateEngineSyntax) {
     templateInfos = templateSyntaxParser.parse(html, {
-      syntax: parserOptions.templateEngineSyntax,
+      syntax: syntaxItems, // ← use the clone, not the frozen original
     }).syntax;
   }
 
@@ -102,8 +106,6 @@ function getOptions(code, parserOptions) {
   if (parserOptions.rawContentTags) {
     rawContentTags = parserOptions.rawContentTags;
   }
-
-  const syntaxItems = normalizeSyntax(parserOptions.templateEngineSyntax);
 
   if (templateInfos || tokenAdapter || rawContentTags) {
     return {
