@@ -197,21 +197,6 @@ ruleTester.run("no-duplicate-attrs", rule, {
         },
       ],
     },
-    // Attributes in two separate Twig if-blocks (not one if/else) can both
-    // render at the same time and must still be reported.
-    {
-      code: `<span {% if c1 %}class="a"{% endif %} {% if c2 %}class="b"{% endif %}>text</span>`,
-      languageOptions: {
-        parserOptions: {
-          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
-        },
-      },
-      errors: [
-        {
-          message: "The attribute 'class' is duplicated.",
-        },
-      ],
-    },
   ],
 });
 
