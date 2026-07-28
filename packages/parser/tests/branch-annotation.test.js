@@ -12,9 +12,9 @@ const STRING_PATTERN_CONFIG = [
     open: "{%",
     close: "%}",
     branch: {
-      start: "if", // string, not RegExp
-      continue: "elseif", // string
-      end: "endif", // string
+      start: " if", // string, not RegExp
+      continue: " elseif", // string
+      end: " endif", // string
     },
   },
 ];
