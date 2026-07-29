@@ -37,18 +37,10 @@ function matches(pattern, content) {
 }
 
 /**
- * Compute branch segments from a list of template token ranges.
+ * Classify every template token that belongs to a branch-aware delimiter.
  *
- * @param {TemplateSyntax[]} templateInfos The TemplateSyntax[] returned by
- *   `@html-eslint/template-syntax-parser`. Each entry covers one complete
- *   template token: open is the [start,end] of the opening delimiter, close is
- *   the [start,end] of the closing delimiter. Content lives between open[1] and
- *   close[0].
- * @param {string} source The source text that templateInfos was parsed from.
- *   Must be the same string (same character offsets) — i.e. the
- *   frontmatter-stripped `html` string from getOptions(), NOT the full `code`
- *   string. The caller is responsible for adding any frontmatter offset to the
- *   returned segments.
+ * @param {TemplateSyntax[]} templateInfos
+ * @param {string} source
  * @param {{
  *   open: string;
  *   close: string;
@@ -60,12 +52,13 @@ function matches(pattern, content) {
  *     blockClose?: RegExp | string;
  *   };
  * }[]} syntaxItems
- *   Normalized SyntaxConfigItem array. Only items that have a .branch property
- *   are consulted; the rest are ignored.
- * @returns {BranchSegment[]}
+ * @returns {{
+ *   role: "START" | "CONTINUE" | "END" | "BLOCK_OPEN" | "BLOCK_CLOSE";
+ *   tokenStart: number;
+ *   tokenEnd: number;
+ * }[]}
  */
-function computeBranchSegments(templateInfos, source, syntaxItems) {
-  // Fast exit: nothing to do without branch-aware items.
+function classifyTemplateTokens(templateInfos, source, syntaxItems) {
   /** @type {Map<string, (typeof syntaxItems)[number]>} */
   const itemByOpen = new Map();
   for (const item of syntaxItems) {
@@ -74,8 +67,6 @@ function computeBranchSegments(templateInfos, source, syntaxItems) {
     }
   }
   if (itemByOpen.size === 0) return [];
-
-  // --- 1. Classify every token that belongs to a branch-aware delimiter. ---
 
   /**
    * @type {{
@@ -128,12 +119,44 @@ function computeBranchSegments(templateInfos, source, syntaxItems) {
     }
   }
 
-  if (classified.length === 0) return [];
-
   // template-syntax-parser emits tokens in source order, but sort defensively.
   classified.sort((a, b) => a.tokenStart - b.tokenStart);
+  return classified;
+}
 
-  // --- 2. Stack-based pass to build BranchSegments. ---
+/**
+ * Compute branch segments from a list of template token ranges.
+ *
+ * @param {TemplateSyntax[]} templateInfos The TemplateSyntax[] returned by
+ * @param {string} source The source text that templateInfos was parsed from.
+ *   Must be the same string (same character offsets) — i.e. the
+ *   frontmatter-stripped `html` string from getOptions(), NOT the full `code`
+ *   string. The caller is responsible for adding any frontmatter offset to the
+ *   returned segments.
+ * @param {{
+ *   open: string;
+ *   close: string;
+ *   branch?: {
+ *     start: RegExp;
+ *     continue: RegExp;
+ *     end: RegExp;
+ *     blockOpen?: RegExp;
+ *     blockClose?: RegExp;
+ *   };
+ * }[]} syntaxItems
+ *   Normalized SyntaxConfigItem array. Only items that have a .branch property
+ *   are consulted; the rest are ignored.
+ * @returns {BranchSegment[]}
+ * @html-eslint/template-syntax-parser. Each entry covers one complete
+ *   template token: open is the [start,end] of the opening delimiter, close is
+ *   the [start,end] of the closing delimiter. Content lives between open[1] and
+ *   close[0].
+ */
+function computeBranchSegments(templateInfos, source, syntaxItems) {
+  const classified = classifyTemplateTokens(templateInfos, source, syntaxItems);
+  if (classified.length === 0) return [];
+
+  // --- Stack-based pass to build BranchSegments. ---
   //
   // Stack entries are one of two shapes:
   //   { type: 'if',    groupId, branchIndex, segmentStart }
@@ -216,6 +239,44 @@ function computeBranchSegments(templateInfos, source, syntaxItems) {
   return segments;
 }
 
+/**
+ * Return the [start, end] ranges of every template token that was classified as
+ * a branch-control token (START / CONTINUE / END / BLOCK_OPEN / BLOCK_CLOSE) —
+ * i.e. an `{% if %}`, `{% else %}`, `{% endif %}`, or similar structural token,
+ * as opposed to a plain value-interpolation token like `{{ name }}`.
+ *
+ * Rules use this to distinguish two situations where a template token ends up
+ * glued onto the text of a following attribute key (because there is no
+ * whitespace separating them, e.g. `{%if x%}data-id="1"`):
+ *
+ * 1. The glued token is a branch-control token — the attribute's real name
+ *    ("data-id") is statically known and can be safely compared across branches
+ *    once the glued prefix is stripped.
+ * 2. The glued token is a plain interpolation — the attribute's name is genuinely
+ *    dynamic (e.g. `data-{{name}}`) and can't be safely compared at all, so it
+ *    must continue to be skipped.
+ *
+ * @param {TemplateSyntax[]} templateInfos
+ * @param {string} source
+ * @param {{
+ *   open: string;
+ *   close: string;
+ *   branch?: {
+ *     start: RegExp | string;
+ *     continue: RegExp | string;
+ *     end: RegExp | string;
+ *     blockOpen?: RegExp | string;
+ *     blockClose?: RegExp | string;
+ *   };
+ * }[]} syntaxItems
+ * @returns {[number, number][]}
+ */
+function getControlTokenRanges(templateInfos, source, syntaxItems) {
+  const classified = classifyTemplateTokens(templateInfos, source, syntaxItems);
+  return classified.map((t) => [t.tokenStart, t.tokenEnd]);
+}
+
 module.exports = {
   computeBranchSegments,
+  getControlTokenRanges,
 };

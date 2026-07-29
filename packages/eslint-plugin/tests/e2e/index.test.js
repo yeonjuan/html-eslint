@@ -38,7 +38,10 @@ for (const testDir of testDirs) {
       // @ts-ignore
       const result = linter.verifyAndFix(source, config);
       messages = result.messages;
-      expect(result.output).toEqual(expected);
+      // Replace `\r\n` with `\n` to prevent failure of the test when testing on Windows
+      expect(result.output.replace(/\r\n/g, "\n")).toEqual(
+        expected.replace(/\r\n/g, "\n")
+      );
     } else {
       // If no `fixed.html`, assume the `source.html` should have no errors/warnings
       // @ts-ignore

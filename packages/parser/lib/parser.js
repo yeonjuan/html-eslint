@@ -12,7 +12,10 @@ const { traverse, traverseCss } = require("./traverse");
 const { NODE_TYPES } = require("./node-types");
 const { getOptions } = require("./options");
 const { parse: parseCSS, toPlainObject } = require("css-tree");
-const { computeBranchSegments } = require("./branch-annotation");
+const {
+  computeBranchSegments,
+  getControlTokenRanges,
+} = require("./branch-annotation");
 
 /**
  * @param {string} code
@@ -60,6 +63,11 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
 
   if (templateInfos.length > 0 && syntaxItems.length > 0) {
     const rawSegments = computeBranchSegments(templateInfos, html, syntaxItems);
+    const rawControlRanges = getControlTokenRanges(
+      templateInfos,
+      html,
+      syntaxItems
+    );
     // @ts-ignore — branchSegments is not part of the typed HTMLProgram
     // definition, but rules access it dynamically via sourceCode.ast.
     programNode.branchSegments =
@@ -71,9 +79,23 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
             start: seg.start + frontmatterOffset,
             end: seg.end + frontmatterOffset,
           }));
+    // @ts-ignore — branchControlRanges is not part of the typed HTMLProgram
+    // definition. Rules use it to tell a branch-control template token
+    // (e.g. {% if %} / {% else %} / {% endif %}) apart from a plain
+    // value-interpolation token (e.g. {{ name }}) when a template token
+    // ends up glued onto adjacent text with no separating whitespace.
+    programNode.branchControlRanges =
+      frontmatterOffset === 0
+        ? rawControlRanges
+        : rawControlRanges.map(([start, end]) => [
+            start + frontmatterOffset,
+            end + frontmatterOffset,
+          ]);
   } else {
     // @ts-ignore
     programNode.branchSegments = [];
+    // @ts-ignore
+    programNode.branchControlRanges = [];
   }
 
   traverse(programNode, (node) => {

@@ -47,6 +47,37 @@ function getBranchSegments(context) {
 }
 
 /**
+ * Retrieve the pre-computed branch-control token ranges from the AST root. Each
+ * range is the [start, end] span of a template token that was classified as a
+ * branch-control token (an `{% if %}`, `{% else %}`, `{% endif %}`, or similar
+ * structural marker) as opposed to a plain value-interpolation token (e.g. `{{
+ * name }}`).
+ *
+ * Rules use this to safely strip a branch-control token that ends up glued onto
+ * the text of a following node (e.g. an attribute key) with no separating
+ * whitespace, while continuing to treat a glued _interpolation_ token
+ * conservatively (the name is genuinely dynamic and can't be compared).
+ *
+ * @param {Context<any[]>} context
+ * @returns {[number, number][]}
+ */
+function getControlTokenRanges(context) {
+  const { ast } = /** @type {{ ast: any }} */ (getSourceCode(context));
+  return (ast && ast.branchControlRanges) || [];
+}
+
+/**
+ * @param {[number, number]} range
+ * @param {[number, number][]} controlTokenRanges
+ * @returns {boolean}
+ */
+function isControlToken(range, controlTokenRanges) {
+  return controlTokenRanges.some(
+    ([start, end]) => start === range[0] && end === range[1]
+  );
+}
+
+/**
  * Return true when every pair of nodes in `nodes` is located in different
  * branches of the same template if-block, meaning they can never all be present
  * in the rendered output at the same time.
@@ -110,5 +141,7 @@ function areInMutuallyExclusiveBranches(nodes, branchSegments) {
 
 module.exports = {
   getBranchSegments,
+  getControlTokenRanges,
+  isControlToken,
   areInMutuallyExclusiveBranches,
 };
