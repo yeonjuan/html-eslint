@@ -1,4 +1,7 @@
-const { computeBranchSegments } = require("../lib/branch-annotation");
+const {
+  computeBranchSegments,
+  getControlTokenRanges,
+} = require("../lib/branch-annotation");
 const {
   TWIG,
   NUNJUCKS,
@@ -238,5 +241,77 @@ describe("computeBranchSegments", () => {
     );
     expect(segments).toHaveLength(2);
     expect(new Set(segments.map((s) => s.groupId)).size).toBe(1);
+  });
+});
+
+describe("getControlTokenRanges", () => {
+  it("returns the [start, end] range of each branch-control token", () => {
+    const source = "{% if cond %}yes{% else %}no{% endif %}";
+    const ranges = getControlTokenRanges(
+      extractTwigTagInfos(source),
+      source,
+      TWIG
+    );
+    expect(ranges).toEqual([
+      [0, 13],
+      [16, 26],
+      [28, 39],
+    ]);
+    // Each range slices back to the exact token text.
+    expect(ranges.map(([s, e]) => source.slice(s, e))).toEqual([
+      "{% if cond %}",
+      "{% else %}",
+      "{% endif %}",
+    ]);
+  });
+
+  it("returns an empty array when templateInfos is empty", () => {
+    const source = "{% if cond %}yes{% endif %}";
+    expect(getControlTokenRanges([], source, TWIG)).toEqual([]);
+  });
+
+  it("returns an empty array when no syntax item has a branch config", () => {
+    const source = "{% if cond %}yes{% endif %}";
+    const infos = extractTwigTagInfos(source);
+    const items = [{ open: "{%", close: "%}" }];
+    expect(getControlTokenRanges(infos, source, items)).toEqual([]);
+  });
+
+  it("excludes non-control tokens such as a plain output tag", () => {
+    // TWIG's `{{ }}` delimiter has no .branch config, so a value
+    // interpolation token must never show up as a control token even when
+    // it sits right next to a real if/else/endif block.
+    const source = "{% if cond %}{{ name }}{% endif %}";
+    const infos = [
+      { open: [0, 2], close: [11, 13] }, // {% if cond %}
+      { open: [13, 15], close: [21, 23] }, // {{ name }}
+      { open: [23, 25], close: [32, 34] }, // {% endif %}
+    ];
+    const ranges = getControlTokenRanges(infos, source, TWIG);
+    expect(ranges).toEqual([
+      [0, 13],
+      [23, 34],
+    ]);
+  });
+
+  it("only includes tokens classified via blockOpen/blockClose, not plain nested blocks left unclassified", () => {
+    const source = [
+      "{% if cond %}",
+      "  {% for x in xs %}item{% else %}empty{% endfor %}",
+      "{% else %}",
+      "  B",
+      "{% endif %}",
+    ].join("\n");
+    const ranges = getControlTokenRanges(
+      extractTwigTagInfos(source),
+      source,
+      TWIG
+    );
+    // if, for, for-else, endfor, else, endif — all six are classified
+    // (for/endfor as BLOCK_OPEN/BLOCK_CLOSE, for-else as CONTINUE consumed
+    // by the for-block, if/else/endif as the outer if-block tokens), so all
+    // six token ranges are present in the control-token list even though
+    // the for-else does not produce a BranchSegment.
+    expect(ranges).toHaveLength(6);
   });
 });
