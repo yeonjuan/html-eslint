@@ -86,6 +86,18 @@ ruleTester.run("no-duplicate-attrs", rule, {
         },
       },
     },
+    // HANDLEBAR_EXTENDED: the parser sees both class attributes inside
+    // {{...}} template tokens (confirmed by the existing aria-label test),
+    // and branch checking suppresses the duplicate.  This specifically
+    // exercises the prevList.push(attr) path in the check() function.
+    {
+      code: `<span {{#if cond}}class="a"{{else}}class="b"{{/if}}>text</span>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.HANDLEBAR_EXTENDED,
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -214,6 +226,50 @@ ruleTester.run("no-duplicate-attrs", rule, {
                 attrName: "foo",
               },
               output: `<div foo  {{aa}} {{aa}}> </div>`,
+            },
+          ],
+        },
+      ],
+    },
+    // Genuine duplicate with TWIG configured — no template blocks in the
+    // source so branchSegments is empty; the error fires normally.
+    {
+      code: `<div class="a" class="b">text</div>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+      errors: [
+        {
+          message: "The attribute 'class' is duplicated.",
+          suggestions: [
+            {
+              messageId: "removeAttr",
+              data: { attrName: "class" },
+              output: `<div class="a" >text</div>`,
+            },
+          ],
+        },
+      ],
+    },
+    // Genuine duplicate with HANDLEBAR_EXTENDED configured — both attributes
+    // are plain HTML (no template blocks), so not exclusive; error fires.
+    {
+      code: `<div class="a" class="b">text</div>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.HANDLEBAR_EXTENDED,
+        },
+      },
+      errors: [
+        {
+          message: "The attribute 'class' is duplicated.",
+          suggestions: [
+            {
+              messageId: "removeAttr",
+              data: { attrName: "class" },
+              output: `<div class="a" >text</div>`,
             },
           ],
         },
