@@ -6,10 +6,42 @@
 
 const templateSyntaxParser = require("@html-eslint/template-syntax-parser");
 const { parseFrontmatterContent } = require("./frontmatter");
+
+/**
+ * Normalize the templateEngineSyntax option to a plain SyntaxConfigItem[] so
+ * that the branch-annotation pass can inspect the `.branch` property on each
+ * item. The template-syntax-parser performs the same normalization internally;
+ * we replicate it here rather than reaching into its internals.
+ *
+ * @param {ParserOptions["templateEngineSyntax"]} syntax
+ * @returns {{ open: string; close: string; [key: string]: unknown }[]}
+ */
+function normalizeSyntax(syntax) {
+  if (!syntax) return [];
+  if (Array.isArray(syntax)) {
+    // Return a shallow copy to avoid mutating frozen exports from @html-eslint/parser
+    return syntax.map(
+      /** @param {{ open: string; close: string; branch?: unknown }} item */
+      (item) => ({
+        open: item.open,
+        close: item.close,
+        ...(item.branch ? { branch: { ...item.branch } } : {}),
+      })
+    );
+  }
+  // Record<string, string> shorthand form — no branch config possible.
+  return Object.entries(syntax).map(([open, close]) => ({ open, close }));
+}
+
 /**
  * @param {string} code
  * @param {ParserOptions | undefined} parserOptions
- * @returns {{ options: Parameters<ESHtmlParser["parse"]>[1]; html: string }}
+ * @returns {{
+ *   options: Parameters<ESHtmlParser["parse"]>[1];
+ *   html: string;
+ *   syntaxItems: { open: string; close: string; [key: string]: unknown }[];
+ *   frontmatterOffset: number;
+ * }}
  */
 function getOptions(code, parserOptions) {
   let html = code;
@@ -17,15 +49,24 @@ function getOptions(code, parserOptions) {
     return {
       options: undefined,
       html,
+      syntaxItems: [],
+      frontmatterOffset: 0,
     };
   }
 
+  // Clone early so both templateSyntaxParser.parse and computeBranchSegments
+  // receive a mutable copy, even when the source is a frozen export.
+  const syntaxItems = normalizeSyntax(parserOptions.templateEngineSyntax);
+
   /** @type {any} */
   let tokenAdapter = undefined;
+  let frontmatterOffset = 0;
+
   if (parserOptions.frontmatter) {
     const result = parseFrontmatterContent(code);
     if (result) {
       html = result.html;
+      frontmatterOffset = result.index;
       const lineOffset = result.line - 1;
       tokenAdapter = {
         /** @param {any} token */
@@ -55,7 +96,7 @@ function getOptions(code, parserOptions) {
   let templateInfos = undefined;
   if (parserOptions.templateEngineSyntax) {
     templateInfos = templateSyntaxParser.parse(html, {
-      syntax: parserOptions.templateEngineSyntax,
+      syntax: syntaxItems, // ← use the clone, not the frozen original
     }).syntax;
   }
 
@@ -74,11 +115,15 @@ function getOptions(code, parserOptions) {
         rawContentTags,
       },
       html,
+      syntaxItems,
+      frontmatterOffset,
     };
   }
   return {
     options: undefined,
     html,
+    syntaxItems,
+    frontmatterOffset,
   };
 }
 
