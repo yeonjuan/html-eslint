@@ -86,6 +86,8 @@
     "popovertarget",
     "mypopover",
     "viewbox",
-    "Viewbox"
+    "Viewbox",
+    "endmacro",
+    "javascripts"
   ]
 }

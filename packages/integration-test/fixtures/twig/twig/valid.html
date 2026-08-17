@@ -1,0 +1,96 @@
+{# Page template demonstrating various Twig syntax #}
+<!DOCTYPE html>
+<html lang="{{ app.locale }}">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ page.title | escape }}</title>
+    {% block stylesheets %}
+    <link rel="stylesheet" href="/assets/css/main.css">
+    {% endblock %}
+  </head>
+  <body>
+    {# Navigation #}
+    <nav class="navbar" role="navigation">
+      <ul class="nav-list">
+        {% for item in navigation %}
+        <li class="nav-item{% if item.active %} nav-item--active{% endif %}">
+          <a href="{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <main class="main-content">
+      {% block content %}
+      {% if user is defined and user.isLoggedIn %}
+      <section class="user-section">
+        <h1>Welcome, {{ user.name | title }}!</h1>
+        <p>You have {{ user.notifications | length }} new notifications.</p>
+      </section>
+      {% elseif guest is defined %}
+      <section class="guest-section">
+        <h1>Welcome, Guest!</h1>
+        <p>Please <a href="/login">log in</a> to continue.</p>
+      </section>
+      {% else %}
+      <section class="default-section">
+        <h1>Welcome!</h1>
+      </section>
+      {% endif %}
+
+      {# Product listing with loop controls #}
+      <div class="products">
+        {% for product in products %}
+        {%- if loop.first %}
+        <div class="products__header">
+          <h2>Featured Products</h2>
+        </div>
+        {% endif -%}
+        <article class="product-card" id="product-{{ product.id }}">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.description | truncate(100) }}</p>
+          <span class="price">{{ product.price | number_format(2) }}</span>
+        </article>
+        {%- if loop.last %}
+        <div class="products__footer">
+          <p>Total: {{ products | length }} products</p>
+        </div>
+        {% endif -%}
+        {% else %}
+        <p class="no-products">No products available.</p>
+        {% endfor %}
+      </div>
+
+      {# Macro usage #}
+      {% macro renderBadge(label, type) %}
+      <span class="badge badge--{{ type }}">{{ label }}</span>
+      {% endmacro %}
+
+      <div class="badges">
+        {{ renderBadge('New', 'success') }}
+        {{ renderBadge('Sale', 'warning') }}
+      </div>
+
+      {# Block with inheritance placeholder #}
+      {% block sidebar %}
+      <aside class="sidebar">
+        <h2>{{ sidebar.title }}</h2>
+        {% for widget in sidebar.widgets %}
+        <div class="widget">
+          {{ widget.content | raw }}
+        </div>
+        {% endfor %}
+      </aside>
+      {% endblock %}
+      {% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; {{ "now" | date("Y") }} {{ site.name }}. All rights reserved.</p>
+    </footer>
+
+    {% block javascripts %}
+    <script src="/assets/js/app.js"></script>
+    {% endblock %}
+  </body>
+</html>

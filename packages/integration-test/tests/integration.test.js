@@ -247,4 +247,14 @@ describe("integration tests", () => {
       validFiles: ["templates/valid.html"],
     });
   });
+
+  describe("twig", () => {
+    createESLintConfigTests({
+      eslintVersion: "9",
+      fixtureName: "twig",
+      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      invalidFiles: ["twig/invalid.html"],
+      validFiles: ["twig/valid.html"],
+    });
+  });
 });
