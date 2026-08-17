@@ -16,7 +16,7 @@ tmp.setGracefulCleanup();
 
 const PACKAGE_VERSION = "0.0.2";
 const PACKAGE_MANAGER = "yarn@4.9.1";
-const PNPM_PACKAGE_MANAGER = "pnpm@9.15.4";
+const PNPM_PACKAGE_MANAGER = "pnpm@11.5.0";
 const HTML_ESLINT_PACKAGES = [
   "template-parser",
   "template-syntax-parser",
@@ -102,12 +102,7 @@ async function makePackageJson({
     },
   };
 
-  // Use pnpm.overrides for pnpm, resolutions for yarn
-  if (packageManager === "pnpm") {
-    packageJson.pnpm = {
-      overrides: resolutions,
-    };
-  } else {
+  if (packageManager !== "pnpm") {
     packageJson.resolutions = resolutions;
   }
 
@@ -116,6 +111,18 @@ async function makePackageJson({
     JSON.stringify(packageJson),
     "utf-8"
   );
+}
+
+/**
+ * @param {string} dir
+ * @param {Record<string, string>} overrides
+ */
+async function makePnpmWorkspaceYaml(dir, overrides) {
+  const entries = Object.entries(overrides)
+    .map(([pkg, ver]) => `  "${pkg}": "${ver}"`)
+    .join("\n");
+  const content = `overrides:\n${entries}\n`;
+  await writeFile(path.join(dir, "pnpm-workspace.yaml"), content, "utf-8");
 }
 
 /**
@@ -153,6 +160,17 @@ async function setup({
     log,
     packageManager,
   });
+
+  if (packageManager === "pnpm") {
+    const resolutions = Object.fromEntries(
+      HTML_ESLINT_PACKAGES.map((pkg) => [
+        `@html-eslint/${pkg}`,
+        packageFileVersion(pkg),
+      ])
+    );
+    await makePnpmWorkspaceYaml(dir, resolutions);
+  }
+
   return { dir };
 }
 

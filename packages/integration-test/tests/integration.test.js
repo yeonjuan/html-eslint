@@ -247,4 +247,34 @@ describe("integration tests", () => {
       validFiles: ["templates/valid.html"],
     });
   });
+
+  describe("twig", () => {
+    createESLintConfigTests({
+      eslintVersion: "9",
+      fixtureName: "twig",
+      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      invalidFiles: ["twig/invalid.html"],
+      validFiles: ["twig/valid.html"],
+    });
+  });
+
+  describe("handlebar", () => {
+    createESLintConfigTests({
+      eslintVersion: "9",
+      fixtureName: "handlebar",
+      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      invalidFiles: ["handlebar/invalid.html"],
+      validFiles: ["handlebar/valid.html"],
+    });
+  });
+
+  describe("handlebar-extended", () => {
+    createESLintConfigTests({
+      eslintVersion: "9",
+      fixtureName: "handlebar-extended",
+      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      invalidFiles: ["handlebar-extended/invalid.html"],
+      validFiles: ["handlebar-extended/valid.html"],
+    });
+  });
 });

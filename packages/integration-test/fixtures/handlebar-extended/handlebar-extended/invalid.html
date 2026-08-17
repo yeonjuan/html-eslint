@@ -1,0 +1,15 @@
+{{! Invalid: violates html/indent, html/quotes, html/no-inline-styles }}
+<!DOCTYPE html>
+<html lang="{{locale}}">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{page.title}}</title>
+  </head>
+  <body>
+    {{#if user.isLoggedIn}}
+    <div style="color: red;">
+    <p id='greeting'>Hello, {{user.name}}!</p>
+    </div>
+    {{/if}}
+  </body>
+</html>
