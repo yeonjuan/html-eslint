@@ -1,0 +1,68 @@
+{{! Page template demonstrating various Handlebars syntax }}
+<!DOCTYPE html>
+<html lang="{{locale}}">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{page.title}}</title>
+  </head>
+  <body>
+    {{!-- Navigation --}}
+    <nav class="navbar" role="navigation">
+      <ul class="nav-list">
+        {{#each navigation}}
+        <li class="nav-item">
+          <a href="{{url}}">{{label}}</a>
+        </li>
+        {{/each}}
+      </ul>
+    </nav>
+
+    <main class="main-content">
+      {{#if user.isLoggedIn}}
+      <section class="user-section">
+        <h1>Welcome, {{user.name}}!</h1>
+        <p>You have {{user.notificationCount}} new notifications.</p>
+      </section>
+      {{else}}
+      <section class="guest-section">
+        <h1>Welcome, Guest!</h1>
+        <p>Please <a href="/login">log in</a> to continue.</p>
+      </section>
+      {{/if}}
+
+      {{#with product}}
+      <article class="product-card">
+        <h2>{{name}}</h2>
+        <p>{{description}}</p>
+        <span class="price">{{price}}</span>
+      </article>
+      {{/with}}
+
+      <div class="items">
+        {{#each items}}
+        {{#if @first}}
+        <div class="items__header">
+          <h2>Items</h2>
+        </div>
+        {{/if}}
+        <div class="item" id="item-{{id}}">
+          <h3>{{name}}</h3>
+        </div>
+        {{#if @last}}
+        <div class="items__footer">
+          <p>Total: {{../itemCount}} items</p>
+        </div>
+        {{/if}}
+        {{else}}
+        <p class="no-items">No items available.</p>
+        {{/each}}
+      </div>
+
+      {{> partials/sidebar}}
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; {{year}} {{site.name}}. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

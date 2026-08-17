@@ -1,0 +1,61 @@
+{{! Branch-aware: duplicate id/attrs in if/else branches are allowed }}
+<!DOCTYPE html>
+<html lang="{{locale}}">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{page.title}}</title>
+  </head>
+  <body>
+    <main class="main-content">
+      {{! Same id in both branches is valid with HANDLEBAR_EXTENDED }}
+      {{#if user.isPremium}}
+      <section id="dashboard" class="dashboard--premium">
+        <h1>Premium Dashboard</h1>
+        <p>Welcome back, {{user.name}}!</p>
+      </section>
+      {{else}}
+      <section id="dashboard" class="dashboard--free">
+        <h1>Free Dashboard</h1>
+        <p>Upgrade to premium for more features.</p>
+      </section>
+      {{/if}}
+
+      {{! Nested conditionals }}
+      {{#if items}}
+      <div class="items-container">
+        {{#each items}}
+        {{#if active}}
+        <div id="item-{{id}}" class="item item--active">
+          <h2>{{name}}</h2>
+        </div>
+        {{else}}
+        <div id="item-{{id}}" class="item item--inactive">
+          <h2>{{name}}</h2>
+        </div>
+        {{/if}}
+        {{/each}}
+      </div>
+      {{/if}}
+
+      {{! Non-if blocks can also carry their own else }}
+      {{#each groups}}
+      <section class="group">
+        <h2>{{name}}</h2>
+        <ul>
+          {{#each members}}
+          <li>{{this}}</li>
+          {{else}}
+          <li class="empty">No members.</li>
+          {{/each}}
+        </ul>
+      </section>
+      {{else}}
+      <p class="no-groups">No groups available.</p>
+      {{/each}}
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; {{year}} {{site.name}}.</p>
+    </footer>
+  </body>
+</html>

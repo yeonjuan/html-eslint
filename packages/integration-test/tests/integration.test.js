@@ -257,4 +257,24 @@ describe("integration tests", () => {
       validFiles: ["twig/valid.html"],
     });
   });
+
+  describe("handlebar", () => {
+    createESLintConfigTests({
+      eslintVersion: "9",
+      fixtureName: "handlebar",
+      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      invalidFiles: ["handlebar/invalid.html"],
+      validFiles: ["handlebar/valid.html"],
+    });
+  });
+
+  describe("handlebar-extended", () => {
+    createESLintConfigTests({
+      eslintVersion: "9",
+      fixtureName: "handlebar-extended",
+      localPackages: ["@html-eslint/eslint-plugin", "@html-eslint/parser"],
+      invalidFiles: ["handlebar-extended/invalid.html"],
+      validFiles: ["handlebar-extended/valid.html"],
+    });
+  });
 });
