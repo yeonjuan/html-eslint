@@ -5,7 +5,8 @@
  *   AttributeValue,
  *   ScriptTag,
  *   StyleTag,
- *   Tag
+ *   Tag,
+ *   Text
  * } from "@html-eslint/types"
  */
 
@@ -13,6 +14,7 @@ const { HTMLAttributeAdapter } = require("./attribute");
 const { HTMLAttributeKeyAdapter } = require("./attribute-key");
 const { HTMLAttributeValueAdapter } = require("./attribute-value");
 const { HTMLElementAdapter } = require("./element");
+const { HTMLTextAdapter } = require("./text");
 
 /** @param {ScriptTag | StyleTag | Tag} node */
 function createElementAdapter(node) {
@@ -34,9 +36,15 @@ function createAttributeValueAdapter(node) {
   return new HTMLAttributeValueAdapter(node);
 }
 
+/** @param {Text} node */
+function createTextAdapter(node) {
+  return new HTMLTextAdapter(node);
+}
+
 module.exports = {
   createElementAdapter,
   createAttributeAdapter,
   createAttributeKeyAdapter,
   createAttributeValueAdapter,
+  createTextAdapter,
 };

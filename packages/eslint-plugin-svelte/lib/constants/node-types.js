@@ -10,4 +10,5 @@ export const AST_NODE_TYPES = /** @type {const} */ ({
   Identifier: "Identifier",
   SvelteDirectiveKey: "SvelteDirectiveKey",
   SvelteShorthandAttribute: "SvelteShorthandAttribute",
+  SvelteText: "SvelteText",
 });
