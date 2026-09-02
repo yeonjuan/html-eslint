@@ -29,8 +29,8 @@ describe("rules", () => {
       .filter((file) => file.endsWith(".test.js"))
       .map((file) => file.replace(".test.js", ""));
 
-    expect(exportedRuleNames).toEqual(
-      expect.arrayContaining(ruleTestFilesWithoutExt)
+    expect(ruleTestFilesWithoutExt).toEqual(
+      expect.arrayContaining(exportedRuleNames)
     );
   });
 
