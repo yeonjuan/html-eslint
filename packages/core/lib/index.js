@@ -20,4 +20,8 @@ export {
   noDuplicateClass,
   NO_DUPLICATE_CLASS_MESSAGE_IDS,
 } from "./rules/no-duplicate-class";
+export {
+  noRestrictedAttrs,
+  NO_RESTRICTED_ATTRS_MESSAGE_IDS,
+} from "./rules/no-restricted-attrs";
 export * from "./types";

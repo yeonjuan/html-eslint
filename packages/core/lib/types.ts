@@ -119,3 +119,22 @@ export type NoDuplicateClassResult = Array<{
     className: string;
   };
 }>;
+
+export interface NoRestrictedAttrsOptions extends Array<{
+  tagPatterns: string[];
+  attrPatterns: string[];
+  message?: string;
+}> {}
+
+export type NoRestrictedAttrsResult = Array<
+  | {
+      messageId: "restricted";
+      loc: SourceLocation;
+      data: { attr: string };
+    }
+  | {
+      message: string;
+      loc: SourceLocation;
+      data: { attr: string };
+    }
+>;

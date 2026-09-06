@@ -5,6 +5,7 @@ const noObsoleteTags = require("./no-obsolete-tags");
 const noIneffectiveAttrs = require("./no-ineffective-attrs");
 const noObsoleteAttrs = require("./no-obsolete-attrs");
 const noInvalidAttrValue = require("./no-invalid-attr-value");
+const noRestrictedAttrs = require("./no-restricted-attrs");
 
 const rules = {
   "use-baseline": useBaseline,
@@ -14,6 +15,7 @@ const rules = {
   "no-ineffective-attrs": noIneffectiveAttrs,
   "no-obsolete-attrs": noObsoleteAttrs,
   "no-invalid-attr-value": noInvalidAttrValue,
+  "no-restricted-attrs": noRestrictedAttrs,
 };
 
 module.exports = rules;
