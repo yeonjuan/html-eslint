@@ -138,3 +138,22 @@ export type NoRestrictedAttrsResult = Array<
       data: { attr: string };
     }
 >;
+
+export interface NoRestrictedAttrValuesOptions extends Array<{
+  attrPatterns: string[];
+  attrValuePatterns: string[];
+  message?: string;
+}> {}
+
+export type NoRestrictedAttrValuesResult = Array<
+  | {
+      messageId: "restricted";
+      loc: SourceLocation;
+      data: { attrValuePatterns: string };
+    }
+  | {
+      message: string;
+      loc: SourceLocation;
+      data: { attrValuePatterns: string };
+    }
+>;

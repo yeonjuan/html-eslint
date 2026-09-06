@@ -23,7 +23,14 @@ ruleTester.run("no-restricted-attrs", rule, {
     {
       code: '<div data-x="1"></div>',
       options: [{ tagPatterns: [".*"], attrPatterns: ["data-.*"] }],
-      errors: [{ messageId: "restricted", data: { attr: "data-x" } }],
+      errors: [
+        {
+          messageId: "restricted",
+          line: 1,
+          column: 6,
+          data: { attr: "data-x" },
+        },
+      ],
     },
     {
       code: '<img alt="foo" />',
@@ -34,7 +41,7 @@ ruleTester.run("no-restricted-attrs", rule, {
           message: "no alt in img",
         },
       ],
-      errors: [{ message: "no alt in img" }],
+      errors: [{ message: "no alt in img", line: 1, column: 6 }],
     },
   ],
 });
