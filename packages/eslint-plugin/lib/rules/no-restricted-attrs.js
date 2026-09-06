@@ -20,7 +20,7 @@ const { createElementAdapter } = require("../adapters/factory");
 /** @type {RuleModule<NoRestrictedAttrsOptions>} */
 module.exports = {
   meta: {
-    type: "code",
+    type: "problem",
 
     docs: {
       description: "Disallow specified attributes",

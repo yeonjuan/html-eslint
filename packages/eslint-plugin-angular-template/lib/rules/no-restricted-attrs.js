@@ -8,7 +8,7 @@ const { createElementAdapter } = require("../adapters/element/factory");
 /** @type {RuleModule<[]>} */
 module.exports = {
   meta: {
-    type: "code",
+    type: "problem",
     docs: {
       description: "Disallow specified attributes",
       category: "Best Practice",
