@@ -37,6 +37,8 @@ ruleTester.run("no-restricted-attr-values", rule, {
       errors: [
         {
           messageId: "restricted",
+          line: 1,
+          column: 11,
           data: {
             attrValuePatterns: "data-x",
           },
@@ -54,6 +56,8 @@ ruleTester.run("no-restricted-attr-values", rule, {
       errors: [
         {
           messageId: "restricted",
+          line: 1,
+          column: 11,
           data: {
             attrValuePatterns: "",
           },
@@ -71,6 +75,8 @@ ruleTester.run("no-restricted-attr-values", rule, {
       errors: [
         {
           messageId: "restricted",
+          line: 1,
+          column: 34,
           data: {
             attrValuePatterns: "foo",
           },
@@ -89,9 +95,13 @@ ruleTester.run("no-restricted-attr-values", rule, {
       errors: [
         {
           message: "no foo for alt or class",
+          line: 1,
+          column: 11,
         },
         {
           message: "no foo for alt or class",
+          line: 1,
+          column: 47,
         },
       ],
     },
@@ -108,6 +118,8 @@ ruleTester.run("no-restricted-attr-values", rule, {
       errors: [
         {
           message: "please do not use 'data-x'",
+          line: 1,
+          column: 11,
         },
       ],
     },
@@ -139,9 +151,13 @@ templateRuleTester.run("[template] no-restricted-attr-values", rule, {
       errors: [
         {
           message: "no foo for alt or class",
+          line: 1,
+          column: 16,
         },
         {
           message: "no foo for alt or class",
+          line: 1,
+          column: 52,
         },
       ],
     },

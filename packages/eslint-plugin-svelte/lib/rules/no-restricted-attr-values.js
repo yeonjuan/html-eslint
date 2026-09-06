@@ -1,53 +1,39 @@
 /**
- * @import {NoRestrictedAttrValuesOptions} from "@html-eslint/core"
  * @import {
- *   ScriptTag,
- *   StyleTag,
- *   Tag
- * } from "@html-eslint/types"
- * @import {RuleModule} from "../types"
+ *   RuleModule,
+ *   SvelteElement
+ * } from "../types.js"
  */
 
-const { RULE_CATEGORY } = require("../constants");
-const { createVisitors } = require("./utils/visitors");
-const { getRuleUrl } = require("./utils/rule");
-const {
+import {
   noRestrictedAttrValues,
   NO_RESTRICTED_ATTR_VALUES_MESSAGE_IDS,
-} = require("@html-eslint/core");
-const { createElementAdapter } = require("../adapters/factory");
+} from "@html-eslint/core";
+import { createElementAdapter } from "../adapters/element/factory.js";
 
-/** @type {RuleModule<NoRestrictedAttrValuesOptions>} */
-module.exports = {
+/** @type {RuleModule} */
+const rule = {
   meta: {
-    type: "code",
-
+    type: "problem",
     docs: {
       description: "Disallow specified attribute values",
-      category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
-      url: getRuleUrl("no-restricted-attr-values"),
+      category: "Best Practice",
+      url: "https://html-eslint.org/docs/svelte/rules/no-restricted-attr-values",
     },
-
-    fixable: null,
     schema: {
       type: "array",
-
       items: {
         type: "object",
         required: ["attrPatterns", "attrValuePatterns"],
         properties: {
           attrPatterns: {
             type: "array",
-            items: {
-              type: "string",
-            },
+            items: { type: "string" },
           },
           attrValuePatterns: {
             type: "array",
-            items: {
-              type: "string",
-            },
+            items: { type: "string" },
           },
           message: {
             type: "string",
@@ -65,8 +51,8 @@ module.exports = {
   create(context) {
     const { checkAttributes } = noRestrictedAttrValues(context.options);
 
-    /** @param {Tag | StyleTag | ScriptTag} node */
-    function check(node) {
+    /** @param {SvelteElement} node */
+    function checkElement(node) {
       const adapter = createElementAdapter(node);
       const result = checkAttributes(adapter);
       for (const item of result) {
@@ -80,10 +66,10 @@ module.exports = {
       }
     }
 
-    return createVisitors(context, {
-      Tag: check,
-      StyleTag: check,
-      ScriptTag: check,
-    });
+    return {
+      SvelteElement: checkElement,
+    };
   },
 };
+
+export default rule;

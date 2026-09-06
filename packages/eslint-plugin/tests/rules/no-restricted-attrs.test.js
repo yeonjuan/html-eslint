@@ -28,6 +28,8 @@ ruleTester.run("no-restricted-attrs", rule, {
       errors: [
         {
           messageId: "restricted",
+          line: 1,
+          column: 6,
           data: {
             attr: "data-x",
           },
@@ -45,6 +47,8 @@ ruleTester.run("no-restricted-attrs", rule, {
       errors: [
         {
           messageId: "restricted",
+          line: 1,
+          column: 6,
           data: {
             attr: "alt",
           },
@@ -62,6 +66,8 @@ ruleTester.run("no-restricted-attrs", rule, {
       errors: [
         {
           messageId: "restricted",
+          line: 1,
+          column: 9,
           data: {
             attr: "id",
           },
@@ -79,6 +85,8 @@ ruleTester.run("no-restricted-attrs", rule, {
       errors: [
         {
           messageId: "restricted",
+          line: 1,
+          column: 8,
           data: {
             attr: "id",
           },
@@ -97,9 +105,13 @@ ruleTester.run("no-restricted-attrs", rule, {
       errors: [
         {
           message: "no alt in img and custom element",
+          line: 1,
+          column: 29,
         },
         {
           message: "no alt in img and custom element",
+          line: 1,
+          column: 55,
         },
       ],
     },
@@ -116,6 +128,8 @@ ruleTester.run("no-restricted-attrs", rule, {
       errors: [
         {
           message: "please do not use 'data-x'",
+          line: 1,
+          column: 6,
         },
       ],
     },
@@ -147,6 +161,8 @@ templateRuleTester.run("[template] no-restricted-attrs", rule, {
       errors: [
         {
           message: "please do not use 'data-x'",
+          line: 1,
+          column: 11,
         },
       ],
     },
