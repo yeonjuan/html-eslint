@@ -49,5 +49,8 @@
   "packageManager": "yarn@4.9.1",
   "workspaces": [
     "packages/**"
-  ]
+  ],
+  "resolutions": {
+    "brace-expansion": "1.1.18"
+  }
 }
