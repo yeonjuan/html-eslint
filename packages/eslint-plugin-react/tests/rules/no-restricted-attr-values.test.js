@@ -23,6 +23,11 @@ ruleTester.run("no-restricted-attr-values", rule, {
       code: "<div class={expr} />",
       options: [{ attrPatterns: ["class"], attrValuePatterns: [".*"] }],
     },
+    // Template literal with expression should be skipped
+    {
+      code: "<div class={`${expr}`} />",
+      options: [{ attrPatterns: ["class"], attrValuePatterns: [".*"] }],
+    },
   ],
   invalid: [
     {
@@ -47,6 +52,32 @@ ruleTester.run("no-restricted-attr-values", rule, {
         },
       ],
       errors: [{ message: "no foo for alt", line: 1, column: 11 }],
+    },
+    // String literal in JSX expression should be checked
+    {
+      code: '<div class={"data-x"} />',
+      options: [{ attrPatterns: ["class"], attrValuePatterns: ["data-.*"] }],
+      errors: [
+        {
+          messageId: "restricted",
+          line: 1,
+          column: 14,
+          data: { attrValuePatterns: "data-x" },
+        },
+      ],
+    },
+    // Static template literal in JSX expression should be checked
+    {
+      code: "<div class={`data-x`} />",
+      options: [{ attrPatterns: ["class"], attrValuePatterns: ["data-.*"] }],
+      errors: [
+        {
+          messageId: "restricted",
+          line: 1,
+          column: 14,
+          data: { attrValuePatterns: "data-x" },
+        },
+      ],
     },
   ],
 });

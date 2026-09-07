@@ -17,6 +17,11 @@ ruleTester.run("no-restricted-attrs", rule, {
       code: '<div class="foo"></div>',
       options: [{ tagPatterns: ["div"], attrPatterns: ["data-.*"] }],
     },
+    // Svelte directives should be skipped (NullAttributeAdapter - key is null)
+    {
+      code: "<div on:click={handler}></div>",
+      options: [{ tagPatterns: [".*"], attrPatterns: ["on:click"] }],
+    },
   ],
   invalid: [
     {

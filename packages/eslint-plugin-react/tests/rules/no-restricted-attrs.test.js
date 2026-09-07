@@ -18,6 +18,11 @@ ruleTester.run("no-restricted-attrs", rule, {
       code: '<MyComponent data-x="1" />',
       options: [{ tagPatterns: ["MyComponent"], attrPatterns: ["data-.*"] }],
     },
+    // Spread attributes should be skipped (key is null)
+    {
+      code: "<div {...props} />",
+      options: [{ tagPatterns: [".*"], attrPatterns: [".*"] }],
+    },
   ],
   invalid: [
     {

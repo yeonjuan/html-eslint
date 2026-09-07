@@ -18,6 +18,11 @@ ruleTester.run("no-restricted-attrs", rule, {
       code: '<custom-el data-x="1"></custom-el>',
       options: [{ tagPatterns: ["custom-el"], attrPatterns: ["data-.*"] }],
     },
+    // Bound attributes (expressions) should be skipped (key.hasExpression() = true)
+    {
+      code: '<div [class]="expr"></div>',
+      options: [{ tagPatterns: [".*"], attrPatterns: ["class"] }],
+    },
   ],
   invalid: [
     {
