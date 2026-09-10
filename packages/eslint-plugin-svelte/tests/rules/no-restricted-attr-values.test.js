@@ -13,6 +13,16 @@ ruleTester.run("no-restricted-attr-values", rule, {
       code: '<div class="foo"></div>',
       options: [{ attrPatterns: ["class"], attrValuePatterns: ["data-.*"] }],
     },
+    // Expression values should be skipped
+    {
+      code: "<div class={expr}></div>",
+      options: [{ attrPatterns: ["class"], attrValuePatterns: [".*"] }],
+    },
+    // Template literal with expression should be skipped
+    {
+      code: "<div class={`${expr}`}></div>",
+      options: [{ attrPatterns: ["class"], attrValuePatterns: [".*"] }],
+    },
   ],
   invalid: [
     {
@@ -37,6 +47,32 @@ ruleTester.run("no-restricted-attr-values", rule, {
         },
       ],
       errors: [{ message: "no foo for alt", line: 1, column: 11 }],
+    },
+    // String literal in mustache expression should be checked
+    {
+      code: '<div class={"data-x"}></div>',
+      options: [{ attrPatterns: ["class"], attrValuePatterns: ["data-.*"] }],
+      errors: [
+        {
+          messageId: "restricted",
+          line: 1,
+          column: 14,
+          data: { attrValuePatterns: "data-x" },
+        },
+      ],
+    },
+    // Static template literal in mustache expression should be checked
+    {
+      code: "<div class={`data-x`}></div>",
+      options: [{ attrPatterns: ["class"], attrValuePatterns: ["data-.*"] }],
+      errors: [
+        {
+          messageId: "restricted",
+          line: 1,
+          column: 14,
+          data: { attrValuePatterns: "data-x" },
+        },
+      ],
     },
   ],
 });
