@@ -24,6 +24,8 @@
     "baseline": "node ./tools/baseline/generate-baseline.mjs"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "7",
+    "@babel/plugin-proposal-decorators": "7",
     "@lerna-lite/cli": "^4.11.2",
     "@lerna-lite/publish": "^4.11.2",
     "@mdn/browser-compat-data": "^8.0.11",
