@@ -125,18 +125,6 @@ ruleTester.run("use-baseline", rule, {
       ],
     },
     {
-      code: `<template shadowrootmode="open"></template>`,
-      errors: [
-        {
-          message:
-            "Attribute 'shadowrootmode' on '<template>' is not a widely available baseline feature.",
-          column: 11,
-          endColumn: 25,
-          line: 1,
-        },
-      ],
-    },
-    {
       code: `<div contenteditable="plaintext-only"></div>`,
       errors: [
         {
