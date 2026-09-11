@@ -20,7 +20,7 @@ const { createElementAdapter } = require("../adapters/factory");
 /** @type {RuleModule<RequireAttrsOptions>} */
 module.exports = {
   meta: {
-    type: "code",
+    type: "problem",
 
     docs: {
       description: "Require specified attributes",

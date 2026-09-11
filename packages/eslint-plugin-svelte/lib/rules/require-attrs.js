@@ -11,7 +11,7 @@ import { createElementAdapter } from "../adapters/element/factory.js";
 /** @type {RuleModule} */
 const rule = {
   meta: {
-    type: "code",
+    type: "problem",
     docs: {
       description: "Require specified attributes",
       recommended: false,
