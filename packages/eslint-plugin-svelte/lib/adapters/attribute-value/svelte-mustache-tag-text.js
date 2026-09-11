@@ -48,7 +48,7 @@ export class SvelteMustacheTagTextValueAdapter {
   }
 
   hasExpression() {
-    return !this.adapter;
+    return this.adapter ? this.adapter.hasExpression() : true;
   }
 
   getValue() {

@@ -12,6 +12,7 @@ export interface ElementAdapter {
 export interface AttributeAdapter {
   getKey(): AttributeKeyAdapter | null;
   getValue(): AttributeValueAdapter | null;
+  getLocation(): SourceLocation;
 }
 
 export interface AttributeValueAdapter {
@@ -156,4 +157,30 @@ export type NoRestrictedAttrValuesResult = Array<
       loc: SourceLocation;
       data: { attrValuePatterns: string };
     }
+>;
+
+export interface RequireAttrsCondition {
+  attr: string;
+  value?: string;
+  kind: "present" | "absent" | "equal" | "not-equal";
+}
+
+export interface RequireAttrsOption {
+  tag: string;
+  attr: string;
+  value?: string;
+  message?: string;
+  conditions?: RequireAttrsCondition[];
+}
+
+export type RequireAttrsOptions = RequireAttrsOption[];
+
+export type RequireAttrsFix = { range: [number, number]; text: string };
+
+export type RequireAttrsResult = Array<
+  (
+    | { messageId: "missing"; data: { attr: string; tag: string } }
+    | { messageId: "unexpected"; data: { attr: string; expected: string } }
+    | { message: string; data: { attr: string; tag?: string } }
+  ) & { loc: SourceLocation; fix?: RequireAttrsFix }
 >;

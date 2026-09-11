@@ -22,4 +22,8 @@ export class SvelteShorthandAttributeAttributeAdapter {
   getValue() {
     return null;
   }
+
+  getLocation() {
+    return this.node.loc;
+  }
 }

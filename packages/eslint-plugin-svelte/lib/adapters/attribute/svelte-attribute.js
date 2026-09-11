@@ -25,4 +25,8 @@ export class SvelteAttributeAttributeAdapter {
     }
     return null;
   }
+
+  getLocation() {
+    return this.node.loc;
+  }
 }

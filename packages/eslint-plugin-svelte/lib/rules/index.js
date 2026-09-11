@@ -9,6 +9,7 @@ import noDuplicateClass from "./no-duplicate-class.js";
 import noInvalidAttrValue from "./no-invalid-attr-value.js";
 import noRestrictedAttrs from "./no-restricted-attrs.js";
 import noRestrictedAttrValues from "./no-restricted-attr-values.js";
+import requireAttrs from "./require-attrs.js";
 // import new rule here ↑
 
 const rules = {
@@ -21,6 +22,7 @@ const rules = {
   "no-invalid-attr-value": noInvalidAttrValue,
   "no-restricted-attrs": noRestrictedAttrs,
   "no-restricted-attr-values": noRestrictedAttrValues,
+  "require-attrs": requireAttrs,
   // export new rule here ↑
 };
 

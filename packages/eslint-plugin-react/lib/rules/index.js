@@ -7,6 +7,7 @@ const classnameSpacing = require("./classname-spacing");
 const noDuplicateClassname = require("./no-duplicate-classname");
 const noRestrictedAttrs = require("./no-restricted-attrs");
 const noRestrictedAttrValues = require("./no-restricted-attr-values");
+const requireAttrs = require("./require-attrs");
 // import new rule here ↑
 
 const rules = {
@@ -19,6 +20,7 @@ const rules = {
   "no-duplicate-classname": noDuplicateClassname,
   "no-restricted-attrs": noRestrictedAttrs,
   "no-restricted-attr-values": noRestrictedAttrValues,
+  "require-attrs": requireAttrs,
   // export new rule here ↑
 };
 

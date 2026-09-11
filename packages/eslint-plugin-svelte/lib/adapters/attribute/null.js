@@ -35,4 +35,8 @@ export class NullAttributeAdapter {
   getValue() {
     return null;
   }
+
+  getLocation() {
+    return this.node.loc;
+  }
 }

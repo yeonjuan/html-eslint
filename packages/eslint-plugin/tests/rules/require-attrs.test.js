@@ -362,6 +362,21 @@ templateRuleTester.run("[template] require-attrs", rule, {
         },
       ],
     },
+    // expression value — attr is present, no error
+    {
+      code: 'html`<img alt="${someVar}"/>`',
+      options: [{ tag: "img", attr: "alt" }],
+    },
+    // expression value — skip value comparison
+    {
+      code: 'html`<img alt="${someVar}"/>`',
+      options: [{ tag: "img", attr: "alt", value: "text" }],
+    },
+    // template expression mixed with static text — skip value comparison
+    {
+      code: 'html`<img alt="text${someVar}"/>`',
+      options: [{ tag: "img", attr: "alt", value: "text" }],
+    },
   ],
   invalid: [
     {
