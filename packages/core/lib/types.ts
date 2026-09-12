@@ -23,6 +23,11 @@ export interface AttributeAdapter {
 export interface AttributeValueAdapter {
   getValue(): string | null;
   hasExpression(): boolean;
+  /**
+   * Value of a statically written boolean (e.g. JSX/Svelte `attr={true}`),
+   * `null` when the value is not a boolean.
+   */
+  getBooleanValue(): boolean | null;
   getLocation(): SourceLocation;
   getRange(): Range;
 }
@@ -173,7 +178,7 @@ export interface RequireAttrsCondition {
 export interface RequireAttrsOption {
   tag: string;
   attr: string;
-  value?: string;
+  value?: string | boolean;
   message?: string;
   conditions?: RequireAttrsCondition[];
 }

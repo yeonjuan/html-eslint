@@ -36,4 +36,8 @@ export class SvelteLiteralAttributeValueAdapter {
     }
     return null;
   }
+
+  getBooleanValue() {
+    return null;
+  }
 }

@@ -36,4 +36,8 @@ export class IdentifierAttributeValueAdapter {
   getValue() {
     return null;
   }
+
+  getBooleanValue() {
+    return null;
+  }
 }

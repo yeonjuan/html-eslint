@@ -25,6 +25,10 @@ class HTMLAttributeValueAdapter {
   getValue() {
     return this.node.value;
   }
+
+  getBooleanValue() {
+    return null;
+  }
 }
 
 module.exports = {

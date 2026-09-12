@@ -42,6 +42,25 @@ ruleTester.run("require-attrs", rule, {
       code: "<img alt={`text${someVar}`} />",
       options: [{ tag: "img", attr: "alt", value: "text" }],
     },
+    // value: true — bare attribute and {true}
+    {
+      code: "<input disabled />",
+      options: [{ tag: "input", attr: "disabled", value: true }],
+    },
+    {
+      code: "<input disabled={true} />",
+      options: [{ tag: "input", attr: "disabled", value: true }],
+    },
+    // value: false — {false}
+    {
+      code: "<input disabled={false} />",
+      options: [{ tag: "input", attr: "disabled", value: false }],
+    },
+    // shorthand value is dynamic — skip boolean comparison
+    {
+      code: "<input {disabled} />",
+      options: [{ tag: "input", attr: "disabled", value: true }],
+    },
     // shorthand attribute — attr is present, no error
     {
       code: "<img {alt} />",
@@ -182,6 +201,44 @@ ruleTester.run("require-attrs", rule, {
           line: 1,
           column: 1,
           message: "Images require alt text",
+        },
+      ],
+    },
+    // value: true — missing attribute is fixed to the bare form
+    {
+      code: "<input />",
+      options: [{ tag: "input", attr: "disabled", value: true }],
+      output: "<input disabled />",
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'disabled' attribute on 'input' tag",
+        },
+      ],
+    },
+    {
+      code: "<input disabled={true} />",
+      options: [{ tag: "input", attr: "disabled", value: false }],
+      output: "<input disabled={false} />",
+      errors: [
+        {
+          line: 1,
+          column: 8,
+          message: "Unexpected 'disabled' attribute value. 'false' is expected",
+        },
+      ],
+    },
+    // bare attribute is true, so {false} is added
+    {
+      code: "<input disabled />",
+      options: [{ tag: "input", attr: "disabled", value: false }],
+      output: "<input disabled={false} />",
+      errors: [
+        {
+          line: 1,
+          column: 8,
+          message: "Unexpected 'disabled' attribute value. 'false' is expected",
         },
       ],
     },

@@ -51,7 +51,11 @@ This rule takes an array of option objects:
 
 - `tag` (`string`, **required**): the HTML tag name to check.
 - `attr` (`string`, **required**): the attribute name that must be present.
-- `value` (`string`, _optional_): if specified, the attribute must have this exact value.
+- `value` (`string | boolean`, _optional_): if specified, the attribute must have this exact value.
+  - A string requires that exact attribute value.
+  - `true` requires the boolean form: a bare attribute (`disabled`) or `disabled={true}`.
+  - `false` requires `disabled={false}`.
+  - Dynamic values (`disabled={someVar}`, shorthand `{disabled}`) are not compared.
 - `message` (`string`, _optional_): custom error message.
 - `conditions` (`array`, _optional_): conditions that must all be true before the attribute is enforced.
 
@@ -67,4 +71,16 @@ Examples of **correct** code for this rule:
 ```html,correct
 <img alt="" />
 <svg viewBox="0 0 100 100"></svg>
+```
+
+With `{ tag: "input", attr: "disabled", value: true }`:
+
+```html,incorrect
+<input />
+<input disabled={false} />
+```
+
+```html,correct
+<input disabled />
+<input disabled={true} />
 ```

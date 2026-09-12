@@ -26,7 +26,7 @@ module.exports = {
         properties: {
           tag: { type: "string" },
           attr: { type: "string" },
-          value: { type: "string" },
+          value: { type: ["string", "boolean"] },
           message: { type: "string" },
           conditions: {
             type: "array",

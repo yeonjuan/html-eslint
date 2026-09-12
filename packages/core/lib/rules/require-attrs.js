@@ -2,7 +2,10 @@
  * @import {
  *   AttributeAdapter,
  *   AttributeKeyAdapter,
+ *   AttributeValueAdapter,
+ *   ElementAdapter,
  *   RequireAttrsCondition,
+ *   RequireAttrsFix,
  *   RequireAttrsOptions,
  *   RequireAttrsResult
  * } from "../types"
@@ -87,6 +90,62 @@ function findLastSpreadIndex(attributes) {
  */
 function isResolvable(attrIndex, lastSpreadIndex) {
   return lastSpreadIndex < 0 || attrIndex > lastSpreadIndex;
+}
+
+/**
+ * A boolean option value matches the form the attribute is written in: `true`
+ * as a bare attribute or `attr={true}`, `false` as `attr={false}`.
+ *
+ * @param {boolean} expected
+ * @param {AttributeValueAdapter | null} valueAdapter
+ * @returns {boolean}
+ */
+function matchesBooleanValue(expected, valueAdapter) {
+  if (!valueAdapter) {
+    return expected;
+  }
+  return valueAdapter.getBooleanValue() === expected;
+}
+
+/**
+ * @param {ElementAdapter} adapter
+ * @param {string} attrName
+ * @param {string | boolean | undefined} value
+ * @returns {RequireAttrsFix | undefined}
+ */
+function createMissingAttrFix(adapter, attrName, value) {
+  if (value === undefined) {
+    return undefined;
+  }
+  const openStartEnd = adapter.getOpenStartRange()[1];
+  const text =
+    typeof value === "boolean"
+      ? value
+        ? ` ${attrName}`
+        : ` ${attrName}={false}`
+      : ` ${attrName}="${value}"`;
+  return { range: [openStartEnd, openStartEnd], text };
+}
+
+/**
+ * @param {boolean} expected
+ * @param {AttributeKeyAdapter | null} key
+ * @param {AttributeValueAdapter | null} valueAdapter
+ * @returns {RequireAttrsFix | undefined}
+ */
+function createBooleanValueFix(expected, key, valueAdapter) {
+  if (valueAdapter) {
+    if (valueAdapter.getBooleanValue() === null) {
+      return undefined;
+    }
+    const range = valueAdapter.getRange();
+    return { range: [range[0], range[1]], text: String(expected) };
+  }
+  if (!key || expected) {
+    return undefined;
+  }
+  const keyEnd = key.getRange()[1];
+  return { range: [keyEnd, keyEnd], text: "={false}" };
 }
 
 /**
@@ -186,19 +245,7 @@ export function requireAttrs(options) {
                 : { messageId: REQUIRE_ATTRS_MESSAGE_IDS.missing }),
               loc: adapter.getLocation(),
               data: { attr: attrName, tag: tagName },
-              fix:
-                typeof option.value === "string"
-                  ? (() => {
-                      const openStartEnd = adapter.getOpenStartRange()[1];
-                      return {
-                        range: /** @type {[number, number]} */ ([
-                          openStartEnd,
-                          openStartEnd,
-                        ]),
-                        text: ` ${attrName}="${option.value}"`,
-                      };
-                    })()
-                  : undefined,
+              fix: createMissingAttrFix(adapter, attrName, option.value),
             });
           }
         } else {
@@ -209,33 +256,39 @@ export function requireAttrs(options) {
                 : { messageId: REQUIRE_ATTRS_MESSAGE_IDS.missing }),
               loc: adapter.getLocation(),
               data: { attr: attrName, tag: tagName },
-              fix:
-                typeof option.value === "string"
-                  ? (() => {
-                      const openStartEnd = adapter.getOpenStartRange()[1];
-                      return {
-                        range: /** @type {[number, number]} */ ([
-                          openStartEnd,
-                          openStartEnd,
-                        ]),
-                        text: ` ${attrName}="${option.value}"`,
-                      };
-                    })()
-                  : undefined,
+              fix: createMissingAttrFix(adapter, attrName, option.value),
             });
-          } else if (typeof option.value === "string") {
+          } else if (option.value !== undefined) {
             const key = attr.getKey();
             if (key && key.hasExpression()) continue;
             const valueAdapter = attr.getValue();
             if (valueAdapter && valueAdapter.hasExpression()) continue;
+
+            if (typeof option.value === "boolean") {
+              if (matchesBooleanValue(option.value, valueAdapter)) continue;
+              result.push({
+                ...(option.message
+                  ? { message: option.message }
+                  : { messageId: REQUIRE_ATTRS_MESSAGE_IDS.unexpected }),
+                loc: attr.getLocation(),
+                data: { attr: attrName, expected: String(option.value) },
+                fix: createBooleanValueFix(option.value, key, valueAdapter),
+              });
+              continue;
+            }
+
             const currentValue = valueAdapter ? valueAdapter.getValue() : null;
             if (currentValue !== option.value) {
               /** @type {import("../types").RequireAttrsFix | undefined} */
               let fix;
               if (option.value) {
                 if (valueAdapter) {
-                  const range = valueAdapter.getRange();
-                  fix = { range: [range[0], range[1]], text: option.value };
+                  // Replacing a boolean literal (`attr={true}`) with a string
+                  // would produce an identifier reference, so leave it alone.
+                  if (valueAdapter.getBooleanValue() === null) {
+                    const range = valueAdapter.getRange();
+                    fix = { range: [range[0], range[1]], text: option.value };
+                  }
                 } else if (key) {
                   const keyEnd = key.getRange()[1];
                   fix = {

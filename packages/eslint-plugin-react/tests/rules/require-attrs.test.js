@@ -47,6 +47,25 @@ ruleTester.run("require-attrs", rule, {
       code: "<img alt={`text${someVar}`} />",
       options: [{ tag: "img", attr: "alt", value: "text" }],
     },
+    // value: true — bare attribute and {true}
+    {
+      code: "<input disabled />",
+      options: [{ tag: "input", attr: "disabled", value: true }],
+    },
+    {
+      code: "<input disabled={true} />",
+      options: [{ tag: "input", attr: "disabled", value: true }],
+    },
+    // value: false — {false}
+    {
+      code: "<input disabled={false} />",
+      options: [{ tag: "input", attr: "disabled", value: false }],
+    },
+    // dynamic value — skip boolean comparison
+    {
+      code: "<input disabled={someVar} />",
+      options: [{ tag: "input", attr: "disabled", value: true }],
+    },
     // dynamic condition value cannot be resolved — skipped
     {
       code: "<input type={someVar} />",
@@ -186,6 +205,95 @@ ruleTester.run("require-attrs", rule, {
           line: 1,
           column: 1,
           message: "Images require alt text",
+        },
+      ],
+    },
+    // value: true — missing attribute is fixed to the bare form
+    {
+      code: "<input />",
+      options: [{ tag: "input", attr: "disabled", value: true }],
+      output: "<input disabled />",
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'disabled' attribute on 'input' tag",
+        },
+      ],
+    },
+    // value: false — missing attribute is fixed to {false}
+    {
+      code: "<input />",
+      options: [{ tag: "input", attr: "disabled", value: false }],
+      output: "<input disabled={false} />",
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'disabled' attribute on 'input' tag",
+        },
+      ],
+    },
+    {
+      code: "<input disabled={false} />",
+      options: [{ tag: "input", attr: "disabled", value: true }],
+      output: "<input disabled={true} />",
+      errors: [
+        {
+          line: 1,
+          column: 8,
+          message: "Unexpected 'disabled' attribute value. 'true' is expected",
+        },
+      ],
+    },
+    {
+      code: "<input disabled={true} />",
+      options: [{ tag: "input", attr: "disabled", value: false }],
+      output: "<input disabled={false} />",
+      errors: [
+        {
+          line: 1,
+          column: 8,
+          message: "Unexpected 'disabled' attribute value. 'false' is expected",
+        },
+      ],
+    },
+    // bare attribute is true, so {false} is added
+    {
+      code: "<input disabled />",
+      options: [{ tag: "input", attr: "disabled", value: false }],
+      output: "<input disabled={false} />",
+      errors: [
+        {
+          line: 1,
+          column: 8,
+          message: "Unexpected 'disabled' attribute value. 'false' is expected",
+        },
+      ],
+    },
+    // a string value is not a boolean — reported without a fix
+    {
+      code: '<input disabled="true" />',
+      options: [{ tag: "input", attr: "disabled", value: true }],
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 8,
+          message: "Unexpected 'disabled' attribute value. 'true' is expected",
+        },
+      ],
+    },
+    // a boolean value cannot be rewritten into a string — no fix
+    {
+      code: "<input disabled={true} />",
+      options: [{ tag: "input", attr: "disabled", value: "x" }],
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 8,
+          message: "Unexpected 'disabled' attribute value. 'x' is expected",
         },
       ],
     },
