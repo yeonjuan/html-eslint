@@ -19,6 +19,10 @@ class JSXSpreadAttributeAdapter {
     return null;
   }
 
+  isSpread() {
+    return true;
+  }
+
   /** @returns {SourceLocation} */
   getLocation() {
     return this.node.loc;

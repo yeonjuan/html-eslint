@@ -30,6 +30,10 @@ class JSXAttributeAttributeAdapter {
     return createAttributeValueAdapter(this.node.value);
   }
 
+  isSpread() {
+    return false;
+  }
+
   /** @returns {SourceLocation} */
   getLocation() {
     return this.node.loc;

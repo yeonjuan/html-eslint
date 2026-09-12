@@ -1,6 +1,7 @@
 /**
  * @import {
  *   AttributeAdapter,
+ *   AttributeKeyAdapter,
  *   RequireAttrsCondition,
  *   RequireAttrsOptions,
  *   RequireAttrsResult
@@ -48,16 +49,52 @@ function isNotEqual(attrValue, value) {
 }
 
 /**
- * @param {RequireAttrsCondition} condition
+ * Finds the index of the attribute matched by `matcher`.
+ *
  * @param {AttributeAdapter[]} attributes
+ * @param {(key: AttributeKeyAdapter) => boolean} matcher
+ * @returns {number}
+ */
+function findAttributeIndex(attributes, matcher) {
+  return attributes.findIndex((attribute) => {
+    const key = attribute.getKey();
+    return !!key && matcher(key);
+  });
+}
+
+/**
+ * Index of the last attribute spreading an unknown set of attributes, or -1.
+ * Attributes written before it can be overridden at runtime, so they cannot be
+ * resolved statically.
+ *
+ * @param {AttributeAdapter[]} attributes
+ * @returns {number}
+ */
+function findLastSpreadIndex(attributes) {
+  let last = -1;
+  attributes.forEach((attribute, index) => {
+    if (attribute.isSpread()) {
+      last = index;
+    }
+  });
+  return last;
+}
+
+/**
+ * @param {number} attrIndex
+ * @param {number} lastSpreadIndex
  * @returns {boolean}
  */
-function evaluateCondition(condition, attributes) {
-  const matchingAttr = attributes.find((a) => {
-    const key = a.getKey();
-    return key && !key.hasExpression() && key.getValue() === condition.attr;
-  });
+function isResolvable(attrIndex, lastSpreadIndex) {
+  return lastSpreadIndex < 0 || attrIndex > lastSpreadIndex;
+}
 
+/**
+ * @param {RequireAttrsCondition} condition
+ * @param {AttributeAdapter | undefined} matchingAttr
+ * @returns {boolean}
+ */
+function evaluateCondition(condition, matchingAttr) {
   switch (condition.kind) {
     case "present":
       return isPresent(matchingAttr ? "" : null);
@@ -102,19 +139,39 @@ export function requireAttrs(options) {
       if (!tagOptions || !tagOptions.length) return [];
 
       const attributes = adapter.getAttributes();
+      const lastSpreadIndex = findLastSpreadIndex(attributes);
       /** @type {RequireAttrsResult} */
       const result = [];
 
       for (const option of tagOptions) {
         const attrName = option.attr;
-        const attr = attributes.find((a) => {
-          const key = a.getKey();
-          return key && key.getValue() === attrName;
-        });
+        const attrIndex = findAttributeIndex(
+          attributes,
+          (key) => key.getValue() === attrName
+        );
+        if (!isResolvable(attrIndex, lastSpreadIndex)) continue;
+        const attr = attrIndex < 0 ? undefined : attributes[attrIndex];
 
         if (option.conditions) {
-          const conditionsMet = option.conditions.every((condition) =>
-            evaluateCondition(condition, attributes)
+          const conditions = option.conditions.map((condition) => {
+            const index = findAttributeIndex(
+              attributes,
+              (key) => !key.hasExpression() && key.getValue() === condition.attr
+            );
+            return { condition, index };
+          });
+          if (
+            conditions.some(
+              ({ index }) => !isResolvable(index, lastSpreadIndex)
+            )
+          ) {
+            continue;
+          }
+          const conditionsMet = conditions.every(({ condition, index }) =>
+            evaluateCondition(
+              condition,
+              index < 0 ? undefined : attributes[index]
+            )
           );
           if (!conditionsMet) continue;
 

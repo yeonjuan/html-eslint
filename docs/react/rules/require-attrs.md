@@ -33,6 +33,14 @@ export default [
 
 This rule requires specified attributes to be present on matching elements. Only lowercase (native HTML) elements are checked; custom components are ignored.
 
+Attributes that cannot be resolved statically are not reported. When an element has a spread attribute (`{...props}`), the check is skipped unless the attribute is written after the last spread, since a spread can add or override attributes at runtime:
+
+```jsx
+<img {...props} />              {/* skipped: props may provide alt */}
+<img alt="" {...props} />       {/* skipped: props may override alt */}
+<img {...props} alt="" />       {/* checked: alt wins over props */}
+```
+
 ### Options
 
 This rule takes an array of option objects:

@@ -26,6 +26,10 @@ export class SvelteAttributeAttributeAdapter {
     return null;
   }
 
+  isSpread() {
+    return false;
+  }
+
   getLocation() {
     return this.node.loc;
   }

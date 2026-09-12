@@ -25,6 +25,10 @@ class AngularBoundAttributeAttributeAdapter {
     return new AngularBoundAttributeAttributeValueAdapter(this.node);
   }
 
+  isSpread() {
+    return false;
+  }
+
   /** @returns {SourceLocation} */
   getLocation() {
     return /** @type {SourceLocation} */ ({

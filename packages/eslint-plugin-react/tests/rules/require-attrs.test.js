@@ -47,6 +47,61 @@ ruleTester.run("require-attrs", rule, {
       code: "<img alt={`text${someVar}`} />",
       options: [{ tag: "img", attr: "alt", value: "text" }],
     },
+    // spread may provide the attr — unknown, so skipped
+    {
+      code: "<img {...props} />",
+      options: [{ tag: "img", attr: "alt" }],
+    },
+    {
+      code: "<img {...props} />",
+      options: [{ tag: "img", attr: "alt", value: "text" }],
+    },
+    // spread after the attr may override its value — skipped
+    {
+      code: '<img alt="wrong" {...props} />',
+      options: [{ tag: "img", attr: "alt", value: "text" }],
+    },
+    // only the last spread matters
+    {
+      code: '<img {...a} alt="wrong" {...b} />',
+      options: [{ tag: "img", attr: "alt", value: "text" }],
+    },
+    // attr written after the last spread wins — value matches
+    {
+      code: '<img {...props} alt="text" />',
+      options: [{ tag: "img", attr: "alt", value: "text" }],
+    },
+    // condition attr cannot be resolved through the spread — skipped
+    {
+      code: "<input {...props} />",
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+    },
+    {
+      code: "<input {...props} />",
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "absent" }],
+        },
+      ],
+    },
+    {
+      code: '<input type="checkbox" {...props} />',
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+    },
     // Condition not met: require skipped
     {
       code: '<input type="text" />',
@@ -120,6 +175,19 @@ ruleTester.run("require-attrs", rule, {
           line: 1,
           column: 1,
           message: "Images require alt text",
+        },
+      ],
+    },
+    // attr written after the last spread wins — value mismatch reported
+    {
+      code: '<img {...props} alt="wrong" />',
+      options: [{ tag: "img", attr: "alt", value: "text" }],
+      output: '<img {...props} alt="text" />',
+      errors: [
+        {
+          line: 1,
+          column: 17,
+          message: "Unexpected 'alt' attribute value. 'text' is expected",
         },
       ],
     },

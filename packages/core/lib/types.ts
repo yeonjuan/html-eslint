@@ -13,6 +13,11 @@ export interface AttributeAdapter {
   getKey(): AttributeKeyAdapter | null;
   getValue(): AttributeValueAdapter | null;
   getLocation(): SourceLocation;
+  /**
+   * Whether the attribute spreads an unknown set of attributes (e.g. JSX
+   * `{...props}`, Svelte `{...props}`).
+   */
+  isSpread(): boolean;
 }
 
 export interface AttributeValueAdapter {

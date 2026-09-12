@@ -25,6 +25,10 @@ class AngularTextAttributeAttributeAdapter {
     return new AngularTextAttributeAttributeValueAdapter(this.node);
   }
 
+  isSpread() {
+    return false;
+  }
+
   /** @returns {SourceLocation} */
   getLocation() {
     return /** @type {SourceLocation} */ ({
