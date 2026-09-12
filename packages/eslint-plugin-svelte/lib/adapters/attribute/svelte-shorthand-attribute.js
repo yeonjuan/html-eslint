@@ -7,6 +7,7 @@
  */
 
 import { createAttributeKeyAdapter } from "../attribute-key/factory";
+import { IdentifierAttributeValueAdapter } from "../attribute-value/identifier";
 
 /** @implements {AttributeAdapter} */
 export class SvelteShorthandAttributeAttributeAdapter {
@@ -20,7 +21,9 @@ export class SvelteShorthandAttributeAttributeAdapter {
   }
 
   getValue() {
-    return null;
+    return new IdentifierAttributeValueAdapter(
+      /** @type {Identifier} */ (this.node.value)
+    );
   }
 
   isSpread() {

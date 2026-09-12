@@ -92,7 +92,8 @@ function isResolvable(attrIndex, lastSpreadIndex) {
 /**
  * @param {RequireAttrsCondition} condition
  * @param {AttributeAdapter | undefined} matchingAttr
- * @returns {boolean}
+ * @returns {boolean | null} `null` when the attribute value is dynamic, so the
+ *   condition cannot be resolved statically
  */
 function evaluateCondition(condition, matchingAttr) {
   switch (condition.kind) {
@@ -104,12 +105,14 @@ function evaluateCondition(condition, matchingAttr) {
       if (!matchingAttr) return false;
       const valueAdapter = matchingAttr.getValue();
       if (!valueAdapter) return false;
+      if (valueAdapter.hasExpression()) return null;
       return isEqual(valueAdapter.getValue(), condition.value);
     }
     case "not-equal": {
       if (!matchingAttr) return true;
       const valueAdapter = matchingAttr.getValue();
       if (!valueAdapter) return true;
+      if (valueAdapter.hasExpression()) return null;
       return isNotEqual(valueAdapter.getValue(), condition.value);
     }
     default:
@@ -167,11 +170,12 @@ export function requireAttrs(options) {
           ) {
             continue;
           }
-          const conditionsMet = conditions.every(({ condition, index }) =>
-            evaluateCondition(
-              condition,
-              index < 0 ? undefined : attributes[index]
-            )
+          const conditionsMet = conditions.every(
+            ({ condition, index }) =>
+              evaluateCondition(
+                condition,
+                index < 0 ? undefined : attributes[index]
+              ) === true
           );
           if (!conditionsMet) continue;
 

@@ -42,6 +42,47 @@ ruleTester.run("require-attrs", rule, {
       code: "<img alt={`text${someVar}`} />",
       options: [{ tag: "img", attr: "alt", value: "text" }],
     },
+    // shorthand attribute — attr is present, no error
+    {
+      code: "<img {alt} />",
+      options: [{ tag: "img", attr: "alt" }],
+    },
+    // shorthand attribute value is dynamic — skip value comparison
+    {
+      code: "<img {alt} />",
+      options: [{ tag: "img", attr: "alt", value: "text" }],
+    },
+    // dynamic condition value cannot be resolved — skipped
+    {
+      code: "<input {type} />",
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+    },
+    {
+      code: "<input {type} />",
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "not-equal", value: "checkbox" }],
+        },
+      ],
+    },
+    {
+      code: "<input type={someVar} />",
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "not-equal", value: "checkbox" }],
+        },
+      ],
+    },
     // spread may provide the attr — unknown, so skipped
     {
       code: "<img {...props} />",
@@ -141,6 +182,25 @@ ruleTester.run("require-attrs", rule, {
           line: 1,
           column: 1,
           message: "Images require alt text",
+        },
+      ],
+    },
+    // shorthand attribute satisfies a `present` condition
+    {
+      code: "<input {type} />",
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "present" }],
+        },
+      ],
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'aria-label' attribute on 'input' tag",
         },
       ],
     },

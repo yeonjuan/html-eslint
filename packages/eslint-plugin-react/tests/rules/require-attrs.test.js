@@ -47,6 +47,17 @@ ruleTester.run("require-attrs", rule, {
       code: "<img alt={`text${someVar}`} />",
       options: [{ tag: "img", attr: "alt", value: "text" }],
     },
+    // dynamic condition value cannot be resolved — skipped
+    {
+      code: "<input type={someVar} />",
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "not-equal", value: "checkbox" }],
+        },
+      ],
+    },
     // spread may provide the attr — unknown, so skipped
     {
       code: "<img {...props} />",
@@ -175,6 +186,25 @@ ruleTester.run("require-attrs", rule, {
           line: 1,
           column: 1,
           message: "Images require alt text",
+        },
+      ],
+    },
+    // static condition value in an expression is resolved
+    {
+      code: '<input type={"checkbox"} />',
+      options: [
+        {
+          tag: "input",
+          attr: "aria-label",
+          conditions: [{ attr: "type", kind: "equal", value: "checkbox" }],
+        },
+      ],
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'aria-label' attribute on 'input' tag",
         },
       ],
     },
