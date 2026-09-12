@@ -1,32 +1,22 @@
 /**
- * @import {RequireAttrsOptions} from "@html-eslint/core"
  * @import {
- *   ScriptTag,
- *   StyleTag,
- *   Tag
- * } from "@html-eslint/types"
- * @import {RuleModule} from "../types"
+ *   RuleModule,
+ *   SvelteElement
+ * } from "../types.js"
  */
 
-const { RULE_CATEGORY } = require("../constants");
-const { createVisitors } = require("./utils/visitors");
-const { getRuleUrl } = require("./utils/rule");
-const {
-  requireAttrs,
-  REQUIRE_ATTRS_MESSAGE_IDS,
-} = require("@html-eslint/core");
-const { createElementAdapter } = require("../adapters/factory");
+import { requireAttrs, REQUIRE_ATTRS_MESSAGE_IDS } from "@html-eslint/core";
+import { createElementAdapter } from "../adapters/element/factory.js";
 
-/** @type {RuleModule<RequireAttrsOptions>} */
-module.exports = {
+/** @type {RuleModule} */
+const rule = {
   meta: {
     type: "problem",
-
     docs: {
       description: "Require specified attributes",
-      category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: false,
-      url: getRuleUrl("require-attrs"),
+      category: "Best Practice",
+      url: "https://html-eslint.org/docs/svelte/rules/require-attrs",
     },
     fixable: "code",
     schema: {
@@ -36,7 +26,7 @@ module.exports = {
         properties: {
           tag: { type: "string" },
           attr: { type: "string" },
-          value: { type: "string" },
+          value: { type: ["string", "boolean"] },
           message: { type: "string" },
           conditions: {
             type: "array",
@@ -67,10 +57,10 @@ module.exports = {
   },
 
   create(context) {
-    const { checkElement } = requireAttrs(context.options || []);
+    const { checkElement } = requireAttrs(context.options);
 
-    /** @param {Tag | StyleTag | ScriptTag} node */
-    function check(node) {
+    /** @param {SvelteElement} node */
+    function checkSvelteElement(node) {
       const adapter = createElementAdapter(node);
       const result = checkElement(adapter);
       for (const item of result) {
@@ -90,10 +80,10 @@ module.exports = {
       }
     }
 
-    return createVisitors(context, {
-      Tag: check,
-      StyleTag: check,
-      ScriptTag: check,
-    });
+    return {
+      SvelteElement: checkSvelteElement,
+    };
   },
 };
+
+export default rule;

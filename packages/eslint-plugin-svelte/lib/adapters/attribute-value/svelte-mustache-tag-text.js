@@ -48,10 +48,14 @@ export class SvelteMustacheTagTextValueAdapter {
   }
 
   hasExpression() {
-    return !this.adapter;
+    return this.adapter ? this.adapter.hasExpression() : true;
   }
 
   getValue() {
     return this.adapter?.getValue() ?? null;
+  }
+
+  getBooleanValue() {
+    return this.adapter?.getBooleanValue() ?? null;
   }
 }

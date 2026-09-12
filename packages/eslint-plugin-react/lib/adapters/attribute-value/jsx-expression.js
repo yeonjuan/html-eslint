@@ -50,6 +50,10 @@ class JSXExpressionAttributeValueAdapter {
   hasExpression() {
     return this.adapter?.hasExpression() ?? true;
   }
+
+  getBooleanValue() {
+    return this.adapter?.getBooleanValue() ?? null;
+  }
 }
 
 module.exports = {

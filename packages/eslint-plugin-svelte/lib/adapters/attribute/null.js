@@ -12,6 +12,8 @@
  * } from "../../types.js"
  */
 
+import { AST_NODE_TYPES } from "../../constants/node-types.js";
+
 /** @implements {AttributeAdapter} */
 export class NullAttributeAdapter {
   /**
@@ -34,5 +36,13 @@ export class NullAttributeAdapter {
 
   getValue() {
     return null;
+  }
+
+  isSpread() {
+    return this.node.type === AST_NODE_TYPES.SvelteSpreadAttribute;
+  }
+
+  getLocation() {
+    return this.node.loc;
   }
 }

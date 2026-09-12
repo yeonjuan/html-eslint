@@ -1,5 +1,6 @@
 /**
  * @import {AttributeAdapter} from "@html-eslint/core"
+ * @import {SourceLocation} from "@html-eslint/types"
  * @import {JSXSpreadAttribute} from "../../types"
  */
 
@@ -16,6 +17,15 @@ class JSXSpreadAttributeAdapter {
 
   getValue() {
     return null;
+  }
+
+  isSpread() {
+    return true;
+  }
+
+  /** @returns {SourceLocation} */
+  getLocation() {
+    return this.node.loc;
   }
 }
 

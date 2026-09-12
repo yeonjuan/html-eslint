@@ -49,6 +49,10 @@ class TemplateLiteralAttributeValueAdapter {
   hasExpression() {
     return !!this.node.expressions.length;
   }
+
+  getBooleanValue() {
+    return null;
+  }
 }
 
 module.exports = {

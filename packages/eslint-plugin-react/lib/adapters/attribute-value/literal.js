@@ -1,6 +1,9 @@
 /**
  * @import {AttributeValueAdapter} from "@html-eslint/core"
- * @import {Range} from "@html-eslint/types"
+ * @import {
+ *   Range,
+ *   SourceLocation
+ * } from "@html-eslint/types"
  * @import {Literal} from "../../types"
  */
 
@@ -11,7 +14,27 @@ class LiteralAttributeValueAdapter {
     this.node = node;
   }
 
+  /**
+   * A literal written inside an expression container (`attr={true}`) has no
+   * surrounding quotes to strip.
+   *
+   * @private
+   * @returns {boolean}
+   */
+  isQuoted() {
+    const { raw } = this.node;
+    if (!raw || raw.length < 2) {
+      return false;
+    }
+    const [quote] = raw;
+    return (quote === '"' || quote === "'") && raw[raw.length - 1] === quote;
+  }
+
+  /** @returns {SourceLocation} */
   getLocation() {
+    if (!this.isQuoted()) {
+      return this.node.loc;
+    }
     return {
       start: {
         column: this.node.loc.start.column + 1,
@@ -25,6 +48,9 @@ class LiteralAttributeValueAdapter {
   }
 
   getRange() {
+    if (!this.isQuoted()) {
+      return /** @type {Range} */ (this.node.range);
+    }
     return /** @type {Range} */ ([
       this.node.range[0] + 1,
       this.node.range[1] - 1,
@@ -33,6 +59,11 @@ class LiteralAttributeValueAdapter {
 
   hasExpression() {
     return false;
+  }
+
+  /** @returns {boolean | null} */
+  getBooleanValue() {
+    return typeof this.node.value === "boolean" ? this.node.value : null;
   }
 
   getValue() {

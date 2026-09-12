@@ -43,6 +43,10 @@ class AngularBoundAttributeAttributeValueAdapter {
   getValue() {
     return null;
   }
+
+  getBooleanValue() {
+    return null;
+  }
 }
 
 module.exports = {

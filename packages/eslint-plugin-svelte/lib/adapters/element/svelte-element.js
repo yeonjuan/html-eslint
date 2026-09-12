@@ -63,7 +63,10 @@ export class SvelteElementElementAdapter {
 
   /** @returns {Range} */
   getOpenStartRange() {
-    return this.node.startTag.range;
+    return /** @type {Range} */ ([
+      this.node.startTag.range[0],
+      this.node.name.range?.[1] ?? this.node.startTag.range[0],
+    ]);
   }
 
   /** @returns {AttributeAdapter[]} */

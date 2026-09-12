@@ -7,6 +7,7 @@ const noObsoleteAttrs = require("./no-obsolete-attrs");
 const noInvalidAttrValue = require("./no-invalid-attr-value");
 const noRestrictedAttrs = require("./no-restricted-attrs");
 const noRestrictedAttrValues = require("./no-restricted-attr-values");
+const requireAttrs = require("./require-attrs");
 
 const rules = {
   "use-baseline": useBaseline,
@@ -18,6 +19,7 @@ const rules = {
   "no-invalid-attr-value": noInvalidAttrValue,
   "no-restricted-attrs": noRestrictedAttrs,
   "no-restricted-attr-values": noRestrictedAttrValues,
+  "require-attrs": requireAttrs,
 };
 
 module.exports = rules;

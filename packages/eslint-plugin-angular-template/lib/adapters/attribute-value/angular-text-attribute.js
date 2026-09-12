@@ -43,6 +43,10 @@ class AngularTextAttributeAttributeValueAdapter {
   getValue() {
     return this.node.value;
   }
+
+  getBooleanValue() {
+    return null;
+  }
 }
 
 module.exports = {

@@ -28,4 +28,5 @@ export {
   noRestrictedAttrValues,
   NO_RESTRICTED_ATTR_VALUES_MESSAGE_IDS,
 } from "./rules/no-restricted-attr-values";
+export { requireAttrs, REQUIRE_ATTRS_MESSAGE_IDS } from "./rules/require-attrs";
 export * from "./types";

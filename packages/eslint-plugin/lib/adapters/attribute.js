@@ -23,6 +23,14 @@ class HTMLAttributeAdapter {
     }
     return new HTMLAttributeValueAdapter(this.node.value);
   }
+
+  isSpread() {
+    return false;
+  }
+
+  getLocation() {
+    return this.node.loc;
+  }
 }
 
 module.exports = {

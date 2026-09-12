@@ -4,12 +4,17 @@
  *   Range,
  *   SourceLocation
  * } from "@html-eslint/types"
- * @import {SvelteLiteral} from "../../types"
+ * @import {Identifier} from "../../types"
  */
 
-/** @implements {AttributeValueAdapter} */
-export class SvelteLiteralAttributeValueAdapter {
-  /** @param {SvelteLiteral} node */
+/**
+ * Adapter for the value of a shorthand attribute (`{alt}`), which is always a
+ * dynamic expression.
+ *
+ * @implements {AttributeValueAdapter}
+ */
+export class IdentifierAttributeValueAdapter {
+  /** @param {Identifier} node */
   constructor(node) {
     this.node = node;
   }
@@ -21,19 +26,14 @@ export class SvelteLiteralAttributeValueAdapter {
 
   /** @returns {Range} */
   getRange() {
-    return this.node.range;
+    return /** @type {Range} */ (this.node.range);
   }
 
   hasExpression() {
-    return false;
+    return true;
   }
 
   getValue() {
-    if (typeof this.node.value === "string") {
-      return this.node.value;
-    } else if (typeof this.node.value === "number") {
-      return String(this.node.value);
-    }
     return null;
   }
 

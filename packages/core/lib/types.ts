@@ -12,11 +12,22 @@ export interface ElementAdapter {
 export interface AttributeAdapter {
   getKey(): AttributeKeyAdapter | null;
   getValue(): AttributeValueAdapter | null;
+  getLocation(): SourceLocation;
+  /**
+   * Whether the attribute spreads an unknown set of attributes (e.g. JSX
+   * `{...props}`, Svelte `{...props}`).
+   */
+  isSpread(): boolean;
 }
 
 export interface AttributeValueAdapter {
   getValue(): string | null;
   hasExpression(): boolean;
+  /**
+   * Value of a statically written boolean (e.g. JSX/Svelte `attr={true}`),
+   * `null` when the value is not a boolean.
+   */
+  getBooleanValue(): boolean | null;
   getLocation(): SourceLocation;
   getRange(): Range;
 }
@@ -156,4 +167,30 @@ export type NoRestrictedAttrValuesResult = Array<
       loc: SourceLocation;
       data: { attrValuePatterns: string };
     }
+>;
+
+export interface RequireAttrsCondition {
+  attr: string;
+  value?: string;
+  kind: "present" | "absent" | "equal" | "not-equal";
+}
+
+export interface RequireAttrsOption {
+  tag: string;
+  attr: string;
+  value?: string | boolean;
+  message?: string;
+  conditions?: RequireAttrsCondition[];
+}
+
+export type RequireAttrsOptions = RequireAttrsOption[];
+
+export type RequireAttrsFix = { range: [number, number]; text: string };
+
+export type RequireAttrsResult = Array<
+  (
+    | { messageId: "missing"; data: { attr: string; tag: string } }
+    | { messageId: "unexpected"; data: { attr: string; expected: string } }
+    | { message: string; data: { attr: string; tag?: string } }
+  ) & { loc: SourceLocation; fix?: RequireAttrsFix }
 >;
