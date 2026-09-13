@@ -5,7 +5,7 @@
     <img src="packages/website/src/assets/logo_180x180.png" alt="Logo" width="90" height="90">
   </a>
    <p align="center">
-  Monorepo for ESLint plugin which supports linting HTML(HyperText Markup Language) with ESLint, including React-specific HTML linting.
+  Monorepo for ESLint plugin which supports linting HTML(HyperText Markup Language) with ESLint, including React, Angular Template, and Svelte-specific HTML linting.
   <br/>
   <br/>
   <a href="https://html-eslint.org/playground">View Demo</a>
@@ -50,6 +50,18 @@ If you’d like to support html-eslint, please consider starring it on GitHub or
 
 1. [Getting Started](https://html-eslint.org/docs/react/getting-started)
 1. [Rules](https://html-eslint.org/docs/react/rules)
+1. [License](#License)
+
+### Angular Template
+
+1. [Getting Started](https://html-eslint.org/docs/angular-template/getting-started)
+1. [Rules](https://html-eslint.org/docs/angular-template/rules)
+1. [License](#License)
+
+### Svelte
+
+1. [Getting Started](https://html-eslint.org/docs/svelte/getting-started)
+1. [Rules](https://html-eslint.org/docs/svelte/rules)
 1. [License](#License)
 
 ## Lint JavaScript inside HTML
