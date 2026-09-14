@@ -628,6 +628,8 @@ const globalAttributes = new Map([
   ["autocapitalize", "0:"],
   ["autocorrect", "0:"],
   ["autofocus", "10:2023"],
+  ["containertiming", "0:"],
+  ["containertimingignore", "0:"],
   ["contenteditable", "10:2015"],
   ["contenteditable.plaintext-only", "5:2025"],
   ["elementtiming", "0:"],
