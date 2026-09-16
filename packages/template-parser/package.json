@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "@html-eslint/types": "^0.66.0",
-    "es-html-parser": "0.3.1"
+    "es-html-parser": "0.3.2"
   },
   "devDependencies": {
     "@types/espree": "^10.1.0",

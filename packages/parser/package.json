@@ -41,7 +41,7 @@
     "@html-eslint/template-syntax-parser": "^0.66.0",
     "@html-eslint/types": "^0.66.0",
     "css-tree": "^3.1.0",
-    "es-html-parser": "0.3.1"
+    "es-html-parser": "0.3.2"
   },
   "devDependencies": {
     "@types/css-tree": "^2.3.11"

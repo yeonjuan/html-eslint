@@ -2781,7 +2781,7 @@ __metadata:
     "@html-eslint/types": "npm:^0.66.0"
     "@rviscomi/capo.js": "npm:^2.1.0"
     "@types/estree": "npm:^1.0.6"
-    es-html-parser: "npm:0.3.1"
+    es-html-parser: "npm:0.3.2"
     eslint: "npm:^9.39.1"
     espree: "npm:^10.3.0"
     html-standard: "npm:^0.0.13"
@@ -2823,7 +2823,7 @@ __metadata:
     "@html-eslint/types": "npm:^0.66.0"
     "@types/css-tree": "npm:^2.3.11"
     css-tree: "npm:^3.1.0"
-    es-html-parser: "npm:0.3.1"
+    es-html-parser: "npm:0.3.2"
   languageName: unknown
   linkType: soft
 
@@ -2834,7 +2834,7 @@ __metadata:
     "@html-eslint/types": "npm:^0.66.0"
     "@types/espree": "npm:^10.1.0"
     "@types/estree": "npm:^0.0.47"
-    es-html-parser: "npm:0.3.1"
+    es-html-parser: "npm:0.3.2"
     eslint: "npm:^9.39.1"
     espree: "npm:^10.3.0"
     globals: "npm:^15.12.0"
@@ -2856,7 +2856,7 @@ __metadata:
   dependencies:
     "@types/css-tree": "npm:^2.3.11"
     "@types/estree": "npm:^1.0.6"
-    es-html-parser: "npm:0.3.1"
+    es-html-parser: "npm:0.3.2"
   languageName: unknown
   linkType: soft
 
@@ -10075,10 +10075,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-html-parser@npm:0.3.1":
-  version: 0.3.1
-  resolution: "es-html-parser@npm:0.3.1"
-  checksum: 10c0/9998add80be88ae8cf690ca700f1d23c04393e88d1fa3c6c6caed7576e3cf92ea391ecf5e72a73c362fdf7f2a090fcaa6dabe8cfd8496d6296d51cc7dd709aaf
+"es-html-parser@npm:0.3.2":
+  version: 0.3.2
+  resolution: "es-html-parser@npm:0.3.2"
+  checksum: 10c0/23159c9ab8c8566ce09615c6262f01325d1a84809739feda07526ad578de4ce108a61099e418f482b717a412b83b300f025a622b1f6dfd67891d1575dd28e220
   languageName: node
   linkType: hard
 
