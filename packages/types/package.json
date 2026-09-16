@@ -1,6 +1,6 @@
 {
   "name": "@html-eslint/types",
-  "version": "0.66.0",
+  "version": "0.66.1",
   "description": "Types for @html-eslint/eslint-plugin",
   "author": {
     "name": "yeonjuan",
