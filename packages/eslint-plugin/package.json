@@ -57,7 +57,7 @@
   "devDependencies": {
     "@eslint/core": "^1.0.0",
     "@types/estree": "^1.0.6",
-    "es-html-parser": "0.3.1",
+    "es-html-parser": "0.3.2",
     "eslint": "^9.39.1",
     "espree": "^10.3.0"
   },
