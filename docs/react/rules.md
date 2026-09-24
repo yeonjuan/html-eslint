@@ -18,4 +18,5 @@ description: Available rules for HTML ESLint React plugin including validation f
 | [no-restricted-attr-values](./rules/no-restricted-attr-values.md) | Disallow specified attribute values based on custom configuration |
 | [no-restricted-attrs](./rules/no-restricted-attrs.md)             | Disallow specified attributes based on custom configuration       |
 | [require-attrs](./rules/require-attrs.md)                         | Require specified attributes on elements                          |
+| [require-li-container](./rules/require-li-container.md)           | Require li elements to be inside ul, ol, or menu elements         |
 | [use-baseline](./rules/use-baseline.md)                           | Enforce the use of baseline features                              |

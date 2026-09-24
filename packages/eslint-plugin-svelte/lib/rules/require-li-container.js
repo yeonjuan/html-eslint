@@ -1,29 +1,27 @@
 /**
- * @import {Tag} from "@html-eslint/types"
- * @import {RuleModule} from "../types"
+ * @import {
+ *   RuleModule,
+ *   SvelteElement
+ * } from "../types.js"
+ * @file Require `<li>` to be in `<ul>`, `<ol>` or `<menu>` for Svelte
  */
 
-const { RULE_CATEGORY } = require("../constants");
-const { getRuleUrl } = require("./utils/rule");
-const {
+import {
   requireLiContainer,
   REQUIRE_LI_CONTAINER_MESSAGE_IDS,
-} = require("@html-eslint/core");
-const { createElementAdapter } = require("../adapters/factory");
+} from "@html-eslint/core";
+import { createElementAdapter } from "../adapters/element/factory.js";
 
-/** @type {RuleModule<[]>} */
-module.exports = {
+/** @type {RuleModule} */
+const rule = {
   meta: {
-    type: "code",
-
+    type: "suggestion",
     docs: {
       description: "Enforce `<li>` to be in `<ul>`, `<ol>` or `<menu>`.",
-      category: RULE_CATEGORY.BEST_PRACTICE,
       recommended: true,
-      url: getRuleUrl("require-li-container"),
+      category: "Best Practice",
+      url: "https://html-eslint.org/docs/svelte/rules/require-li-container",
     },
-
-    fixable: null,
     schema: [],
     messages: {
       [REQUIRE_LI_CONTAINER_MESSAGE_IDS.invalid]:
@@ -34,12 +32,12 @@ module.exports = {
   create(context) {
     const { checkElement } = requireLiContainer();
 
-    /** @param {Tag} node */
+    /** @param {SvelteElement} node */
     function check(node) {
-      if (node.name !== "li") {
+      const adapter = createElementAdapter(node);
+      if (node.kind !== "html" || adapter.getElementName() !== "li") {
         return;
       }
-      const adapter = createElementAdapter(node);
       const result = checkElement(adapter);
       for (const { loc, messageId } of result) {
         context.report({
@@ -50,7 +48,9 @@ module.exports = {
     }
 
     return {
-      Tag: check,
+      SvelteElement: check,
     };
   },
 };
+
+export default rule;

@@ -7,6 +7,15 @@ export interface ElementAdapter {
   getRange(): Range;
   getOpenStartLocation(): SourceLocation;
   getOpenStartRange(): Range;
+  /**
+   * Describes the nearest enclosing element, or `null` when there is none (e.g.
+   * the element is at the document root). `isCustomElement` is `true` when that
+   * ancestor is a custom component/element (or could not be statically
+   * resolved, e.g. a JSX/Svelte/Angular component boundary) whose eventual
+   * rendered output can't be verified, so structural rules should treat it
+   * leniently.
+   */
+  getParentContainer(): { name: string; isCustomElement: boolean } | null;
 }
 
 export interface AttributeAdapter {
@@ -194,3 +203,8 @@ export type RequireAttrsResult = Array<
     | { message: string; data: { attr: string; tag?: string } }
   ) & { loc: SourceLocation; fix?: RequireAttrsFix }
 >;
+
+export type RequireLiContainerResult = Array<{
+  messageId: "invalid";
+  loc: SourceLocation;
+}>;

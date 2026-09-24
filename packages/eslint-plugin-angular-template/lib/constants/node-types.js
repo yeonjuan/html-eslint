@@ -1,5 +1,5 @@
 const AST_NODE_TYPES = /** @type {const} */ ({
-  Element: "Element$1",
+  Element: "Element",
   Template: "Template",
   TextAttribute: "TextAttribute",
   BoundAttribute: "BoundAttribute",
