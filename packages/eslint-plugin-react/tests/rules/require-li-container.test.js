@@ -127,6 +127,20 @@ function ListItem({ children }) {
     {
       code: `
 <div>
+  {show && <li>item</li>}
+</div>
+`,
+      errors: [
+        {
+          messageId: "invalid",
+          line: 3,
+          column: 12,
+        },
+      ],
+    },
+    {
+      code: `
+<div>
   <>{show && <li>item</li>}</>
 </div>
 `,
