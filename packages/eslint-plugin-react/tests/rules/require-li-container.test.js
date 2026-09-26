@@ -60,6 +60,20 @@ function ListItem({ children }) {
 }
 `,
     },
+    {
+      // Fragment is not a JSX element, so the walk finds no enclosing
+      // element and the container can't be verified statically.
+      code: `
+<>
+  <li>item</li>
+</>
+`,
+    },
+    {
+      // <li> passed as a prop value, not as a child - the enclosing
+      // JSXElement is the custom component itself, so it's lenient.
+      code: `<List item={<li></li>} />`,
+    },
   ],
   invalid: [
     {
@@ -103,6 +117,26 @@ function ListItem({ children }) {
           messageId: "invalid",
           line: 3,
           column: 14,
+        },
+      ],
+    },
+    {
+      // Nested fragments are skipped by the walk, which lands on the
+      // enclosing <div>.
+      code: `
+<div>
+  <>
+    <>
+      <li>item</li>
+    </>
+  </>
+</div>
+`,
+      errors: [
+        {
+          messageId: "invalid",
+          line: 5,
+          column: 7,
         },
       ],
     },
