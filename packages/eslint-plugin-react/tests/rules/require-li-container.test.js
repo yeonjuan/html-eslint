@@ -74,6 +74,24 @@ function ListItem({ children }) {
       // JSXElement is the custom component itself, so it's lenient.
       code: `<List item={<li></li>} />`,
     },
+    {
+      // Explicit <Fragment> - same code path as a capitalized custom
+      // component (name isn't statically resolvable to a real tag).
+      code: `
+<Fragment>
+  <li>item</li>
+</Fragment>
+`,
+    },
+    {
+      // Explicit <React.Fragment> - a JSXMemberExpression name, also
+      // treated as an unresolvable custom element.
+      code: `
+<React.Fragment>
+  <li>item</li>
+</React.Fragment>
+`,
+    },
   ],
   invalid: [
     {

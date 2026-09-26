@@ -55,6 +55,27 @@ ruleTester.run("require-li-container", rule, {
 </ng-container>
 `,
     },
+    {
+      // <ng-template> content is deferred, not rendered in place, so the
+      // real container can't be verified statically - same code path as
+      // any other hyphenated (custom) element name.
+      code: `
+<ng-template>
+  <li>item</li>
+</ng-template>
+`,
+    },
+    {
+      // No enclosing element at all - the template root is <li> itself.
+      code: `<li>item</li>`,
+    },
+    {
+      code: `
+@if (show) {
+  <li>item</li>
+}
+`,
+    },
   ],
   invalid: [
     {
@@ -84,6 +105,42 @@ ruleTester.run("require-li-container", rule, {
           messageId: "invalid",
           line: 4,
           column: 5,
+        },
+      ],
+    },
+    {
+      code: `
+<div>
+  @if (show) {
+    <li>item</li>
+  }
+</div>
+`,
+      errors: [
+        {
+          messageId: "invalid",
+          line: 4,
+          column: 5,
+        },
+      ],
+    },
+    {
+      // Nested control-flow blocks are skipped by the walk, which lands
+      // on the enclosing <div>.
+      code: `
+<div>
+  @for (item of items; track item.id) {
+    @for (sub of item.subs; track sub.id) {
+      <li>{{ sub.name }}</li>
+    }
+  }
+</div>
+`,
+      errors: [
+        {
+          messageId: "invalid",
+          line: 5,
+          column: 7,
         },
       ],
     },

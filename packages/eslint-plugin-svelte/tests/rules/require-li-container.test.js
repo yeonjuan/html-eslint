@@ -51,6 +51,17 @@ ruleTester.run("require-li-container", rule, {
 </svelte:component>
 `,
     },
+    {
+      // No enclosing element at all - the component root is <li> itself.
+      code: `<li>item</li>`,
+    },
+    {
+      code: `
+{#if show}
+  <li>item</li>
+{/if}
+`,
+    },
   ],
   invalid: [
     {
@@ -80,6 +91,42 @@ ruleTester.run("require-li-container", rule, {
           messageId: "invalid",
           line: 4,
           column: 5,
+        },
+      ],
+    },
+    {
+      code: `
+<div>
+  {#if show}
+    <li>item</li>
+  {/if}
+</div>
+`,
+      errors: [
+        {
+          messageId: "invalid",
+          line: 4,
+          column: 5,
+        },
+      ],
+    },
+    {
+      // Nested {#each} blocks are skipped by the walk, which lands on
+      // the enclosing <div>.
+      code: `
+<div>
+  {#each items as item}
+    {#each item.subs as sub}
+      <li>{sub.label}</li>
+    {/each}
+  {/each}
+</div>
+`,
+      errors: [
+        {
+          messageId: "invalid",
+          line: 5,
+          column: 7,
         },
       ],
     },
