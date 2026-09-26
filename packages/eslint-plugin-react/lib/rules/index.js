@@ -8,6 +8,7 @@ const noDuplicateClassname = require("./no-duplicate-classname");
 const noRestrictedAttrs = require("./no-restricted-attrs");
 const noRestrictedAttrValues = require("./no-restricted-attr-values");
 const requireAttrs = require("./require-attrs");
+const noRestrictedTags = require("./no-restricted-tags");
 // import new rule here ↑
 
 const rules = {
@@ -21,6 +22,7 @@ const rules = {
   "no-restricted-attrs": noRestrictedAttrs,
   "no-restricted-attr-values": noRestrictedAttrValues,
   "require-attrs": requireAttrs,
+  "no-restricted-tags": noRestrictedTags,
   // export new rule here ↑
 };
 

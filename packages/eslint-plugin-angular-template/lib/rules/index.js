@@ -8,6 +8,7 @@ const noInvalidAttrValue = require("./no-invalid-attr-value");
 const noRestrictedAttrs = require("./no-restricted-attrs");
 const noRestrictedAttrValues = require("./no-restricted-attr-values");
 const requireAttrs = require("./require-attrs");
+const noRestrictedTags = require("./no-restricted-tags");
 
 const rules = {
   "use-baseline": useBaseline,
@@ -20,6 +21,7 @@ const rules = {
   "no-restricted-attrs": noRestrictedAttrs,
   "no-restricted-attr-values": noRestrictedAttrValues,
   "require-attrs": requireAttrs,
+  "no-restricted-tags": noRestrictedTags,
 };
 
 module.exports = rules;

@@ -10,6 +10,7 @@ import noInvalidAttrValue from "./no-invalid-attr-value.js";
 import noRestrictedAttrs from "./no-restricted-attrs.js";
 import noRestrictedAttrValues from "./no-restricted-attr-values.js";
 import requireAttrs from "./require-attrs.js";
+import noRestrictedTags from "./no-restricted-tags.js";
 // import new rule here ↑
 
 const rules = {
@@ -23,6 +24,7 @@ const rules = {
   "no-restricted-attrs": noRestrictedAttrs,
   "no-restricted-attr-values": noRestrictedAttrValues,
   "require-attrs": requireAttrs,
+  "no-restricted-tags": noRestrictedTags,
   // export new rule here ↑
 };
 
