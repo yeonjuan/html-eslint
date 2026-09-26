@@ -9,6 +9,7 @@ const noRestrictedAttrs = require("./no-restricted-attrs");
 const noRestrictedAttrValues = require("./no-restricted-attr-values");
 const requireAttrs = require("./require-attrs");
 const requireLiContainer = require("./require-li-container");
+const noRestrictedTags = require("./no-restricted-tags");
 // import new rule here ↑
 
 const rules = {
@@ -23,6 +24,7 @@ const rules = {
   "no-restricted-attr-values": noRestrictedAttrValues,
   "require-attrs": requireAttrs,
   "require-li-container": requireLiContainer,
+  "no-restricted-tags": noRestrictedTags,
   // export new rule here ↑
 };
 

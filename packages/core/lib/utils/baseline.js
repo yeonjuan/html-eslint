@@ -626,7 +626,7 @@ const elements = new Map([
 const globalAttributes = new Map([
   ["accesskey", "10:2015"],
   ["autocapitalize", "0:"],
-  ["autocorrect", "0:"],
+  ["autocorrect", "5:2026"],
   ["autofocus", "10:2023"],
   ["containertiming", "0:"],
   ["containertimingignore", "0:"],

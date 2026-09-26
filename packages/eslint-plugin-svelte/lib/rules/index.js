@@ -11,6 +11,7 @@ import noRestrictedAttrs from "./no-restricted-attrs.js";
 import noRestrictedAttrValues from "./no-restricted-attr-values.js";
 import requireAttrs from "./require-attrs.js";
 import requireLiContainer from "./require-li-container.js";
+import noRestrictedTags from "./no-restricted-tags.js";
 // import new rule here ↑
 
 const rules = {
@@ -25,6 +26,7 @@ const rules = {
   "no-restricted-attr-values": noRestrictedAttrValues,
   "require-attrs": requireAttrs,
   "require-li-container": requireLiContainer,
+  "no-restricted-tags": noRestrictedTags,
   // export new rule here ↑
 };
 
