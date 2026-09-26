@@ -25,6 +25,10 @@ export {
   NO_RESTRICTED_ATTRS_MESSAGE_IDS,
 } from "./rules/no-restricted-attrs";
 export {
+  noRestrictedTags,
+  NO_RESTRICTED_TAGS_MESSAGE_IDS,
+} from "./rules/no-restricted-tags";
+export {
   noRestrictedAttrValues,
   NO_RESTRICTED_ATTR_VALUES_MESSAGE_IDS,
 } from "./rules/no-restricted-attr-values";

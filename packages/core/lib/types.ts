@@ -150,6 +150,24 @@ export type NoRestrictedAttrsResult = Array<
     }
 >;
 
+export interface NoRestrictedTagsOptions extends Array<{
+  tagPatterns: string[];
+  message?: string;
+}> {}
+
+export type NoRestrictedTagsResult = Array<
+  | {
+      messageId: "restricted";
+      loc: SourceLocation;
+      data: { tag: string };
+    }
+  | {
+      message: string;
+      loc: SourceLocation;
+      data: { tag: string };
+    }
+>;
+
 export interface NoRestrictedAttrValuesOptions extends Array<{
   attrPatterns: string[];
   attrValuePatterns: string[];
