@@ -1,4 +1,5 @@
 export const AST_NODE_TYPES = /** @type {const} */ ({
+  SvelteElement: "SvelteElement",
   SvelteLiteral: "SvelteLiteral",
   SvelteMustacheTag: "SvelteMustacheTag",
   ArrayExpression: "ArrayExpression",

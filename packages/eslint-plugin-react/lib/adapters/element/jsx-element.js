@@ -81,6 +81,32 @@ class JSXElementElementAdapter {
   getOpenStartRange() {
     return this.node.openingElement.name.range;
   }
+
+  /** @returns {{ name: string; isCustomElement: boolean } | null} */
+  getParentContainer() {
+    /** @type {any} */
+    let current = this.node.parent;
+    while (current && current.type !== AST_NODE_TYPES.JSXElement) {
+      current = current.parent;
+    }
+    if (!current) {
+      // No enclosing JSX element - e.g. this element is the root returned
+      // by a component, composed into a list elsewhere via children/props.
+      return { name: "", isCustomElement: true };
+    }
+    if (current.type !== AST_NODE_TYPES.JSXElement) {
+      return { name: "", isCustomElement: true };
+    }
+    const { name } = current.openingElement;
+    if (
+      name.type === AST_NODE_TYPES.JSXIdentifier &&
+      name.name === name.name.toLowerCase() &&
+      !name.name.includes("-")
+    ) {
+      return { name: name.name, isCustomElement: false };
+    }
+    return { name: "", isCustomElement: true };
+  }
 }
 
 module.exports = { JSXElementElementAdapter };

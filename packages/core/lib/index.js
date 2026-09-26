@@ -33,4 +33,8 @@ export {
   NO_RESTRICTED_ATTR_VALUES_MESSAGE_IDS,
 } from "./rules/no-restricted-attr-values";
 export { requireAttrs, REQUIRE_ATTRS_MESSAGE_IDS } from "./rules/require-attrs";
+export {
+  requireLiContainer,
+  REQUIRE_LI_CONTAINER_MESSAGE_IDS,
+} from "./rules/require-li-container";
 export * from "./types";

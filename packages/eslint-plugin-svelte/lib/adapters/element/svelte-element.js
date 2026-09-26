@@ -75,4 +75,28 @@ export class SvelteElementElementAdapter {
       createAttributeAdapter(attribute)
     );
   }
+
+  /** @returns {{ name: string; isCustomElement: boolean } | null} */
+  getParentContainer() {
+    /** @type {any} */
+    let current = this.node.parent;
+    while (current && current.type !== AST_NODE_TYPES.SvelteElement) {
+      current = current.parent;
+    }
+    if (!current || current.type !== AST_NODE_TYPES.SvelteElement) {
+      // No enclosing element - e.g. this element is at the root of the
+      // component, composed into a list elsewhere via slots/props.
+      return { name: "", isCustomElement: true };
+    }
+    if (current.kind !== "html") {
+      // A Svelte component (e.g. <ListItem>) or special element (e.g.
+      // <svelte:component>, <svelte:element>) whose rendered output can't
+      // be statically verified.
+      return { name: "", isCustomElement: true };
+    }
+    return {
+      name: new SvelteElementElementAdapter(current).getElementName(),
+      isCustomElement: false,
+    };
+  }
 }
