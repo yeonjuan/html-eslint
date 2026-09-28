@@ -37,4 +37,9 @@ export {
   requireLiContainer,
   REQUIRE_LI_CONTAINER_MESSAGE_IDS,
 } from "./rules/require-li-container";
+export {
+  idNamingConvention,
+  ID_NAMING_CONVENTIONS,
+  ID_NAMING_CONVENTION_MESSAGE_IDS,
+} from "./rules/id-naming-convention";
 export * from "./types";

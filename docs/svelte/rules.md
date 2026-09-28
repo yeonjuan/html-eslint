@@ -10,6 +10,7 @@ description: List of all available rules for @html-eslint/eslint-plugin-svelte.
 | Rule                                                              | Description                                                       |
 | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
 | [class-spacing](./rules/class-spacing.md)                         | Disallow extra spacing in class attribute values                  |
+| [id-naming-convention](./rules/id-naming-convention.md)           | Enforce consistent naming convention for id attributes            |
 | [no-duplicate-class](./rules/no-duplicate-class.md)               | Disallow duplicate class names                                    |
 | [no-ineffective-attrs](./rules/no-ineffective-attrs.md)           | Disallow HTML attributes that have no effect in their context     |
 | [no-invalid-attr-value](./rules/no-invalid-attr-value.md)         | Disallow invalid attribute values according to HTML standards     |
