@@ -59,7 +59,7 @@ class RuleTester extends ESLintRuleTester {
   }
 }
 
-/** @param {"espree"} [parser] */
+/** @param {"espree" | "typescript" | "babel"} [parser] */
 module.exports = function createRuleTester(parser) {
   if (process.env.TEST_ESLINT_LEGACY_CONFIG) {
     return new RuleTester({
@@ -67,11 +67,30 @@ module.exports = function createRuleTester(parser) {
         ? {
             parser: require("@html-eslint/parser"),
           }
-        : {
-            parserOptions: {
-              ecmaVersion: 2015,
-            },
-          },
+        : parser === "typescript"
+          ? {
+              parser: require("@typescript-eslint/parser"),
+            }
+          : parser === "babel"
+            ? {
+                parser: require("@babel/eslint-parser"),
+                parserOptions: {
+                  requireConfigFile: false,
+                  babelOptions: {
+                    plugins: [
+                      [
+                        "@babel/plugin-proposal-decorators",
+                        { version: "2023-11" },
+                      ],
+                    ],
+                  },
+                },
+              }
+            : {
+                parserOptions: {
+                  ecmaVersion: 2015,
+                },
+              },
     });
   }
   if (!parser) {
@@ -81,6 +100,28 @@ module.exports = function createRuleTester(parser) {
         html: html,
       },
       language: "html/html",
+    });
+  }
+  if (parser === "typescript") {
+    return new RuleTester({
+      languageOptions: {
+        parser: require("@typescript-eslint/parser"),
+      },
+    });
+  }
+  if (parser === "babel") {
+    return new RuleTester({
+      languageOptions: {
+        parser: require("@babel/eslint-parser"),
+        parserOptions: {
+          requireConfigFile: false,
+          babelOptions: {
+            plugins: [
+              ["@babel/plugin-proposal-decorators", { version: "2023-11" }],
+            ],
+          },
+        },
+      },
     });
   }
   return new RuleTester({

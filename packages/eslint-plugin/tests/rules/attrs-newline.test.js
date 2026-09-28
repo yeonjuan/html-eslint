@@ -3,6 +3,8 @@ const rule = require("../../lib/rules/attrs-newline");
 
 const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
+const tsRuleTester = createRuleTester("typescript");
+const babelRuleTester = createRuleTester("babel");
 
 const closeStyles = ["sameline", "newline"];
 
@@ -656,6 +658,76 @@ class="a-very-long-class-name"
 id="a-very-long-id"
 >\``,
       errors: [{ messageId: "newlineMissing", line: 1, column: 6 }],
+    },
+  ],
+});
+
+tsRuleTester.run("[ts class fields] attrs-newline", rule, {
+  valid: [],
+  invalid: [
+    {
+      code: `class Test {
+  foo = html\`
+    <foo-baz icon="\${'  '}" action="\${'  '}"></foo-baz>
+  \`;
+  accessor bar = html\`
+    <bar-baz icon="\${'  '}" action="\${'  '}"></bar-baz>
+  \`
+}`,
+      options: [{ closeStyle: "newline", ifAttrsMoreThan: 1 }],
+      output: `class Test {
+  foo = html\`
+    <foo-baz
+icon="\${'  '}"
+action="\${'  '}"
+></foo-baz>
+  \`;
+  accessor bar = html\`
+    <bar-baz
+icon="\${'  '}"
+action="\${'  '}"
+></bar-baz>
+  \`
+}`,
+      errors: [
+        { messageId: "newlineMissing", line: 3, column: 5 },
+        { messageId: "newlineMissing", line: 6, column: 5 },
+      ],
+    },
+  ],
+});
+
+babelRuleTester.run("[babel class fields] attrs-newline", rule, {
+  valid: [],
+  invalid: [
+    {
+      code: `class Test {
+  foo = html\`
+    <foo-baz icon="\${'  '}" action="\${'  '}"></foo-baz>
+  \`;
+  accessor bar = html\`
+    <bar-baz icon="\${'  '}" action="\${'  '}"></bar-baz>
+  \`
+}`,
+      options: [{ closeStyle: "newline", ifAttrsMoreThan: 1 }],
+      output: `class Test {
+  foo = html\`
+    <foo-baz
+icon="\${'  '}"
+action="\${'  '}"
+></foo-baz>
+  \`;
+  accessor bar = html\`
+    <bar-baz
+icon="\${'  '}"
+action="\${'  '}"
+></bar-baz>
+  \`
+}`,
+      errors: [
+        { messageId: "newlineMissing", line: 3, column: 5 },
+        { messageId: "newlineMissing", line: 6, column: 5 },
+      ],
     },
   ],
 });
