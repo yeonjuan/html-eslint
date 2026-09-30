@@ -10,6 +10,7 @@ const noRestrictedAttrValues = require("./no-restricted-attr-values");
 const requireAttrs = require("./require-attrs");
 const requireLiContainer = require("./require-li-container");
 const noRestrictedTags = require("./no-restricted-tags");
+const idNamingConvention = require("./id-naming-convention");
 // import new rule here ↑
 
 const rules = {
@@ -25,6 +26,7 @@ const rules = {
   "require-attrs": requireAttrs,
   "require-li-container": requireLiContainer,
   "no-restricted-tags": noRestrictedTags,
+  "id-naming-convention": idNamingConvention,
   // export new rule here ↑
 };
 

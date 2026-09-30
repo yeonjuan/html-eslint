@@ -1,36 +1,28 @@
 /**
  * @import {IdNamingConventionOptions} from "@html-eslint/core"
  * @import {
- *   ScriptTag,
- *   StyleTag,
- *   Tag
- * } from "@html-eslint/types"
- * @import {RuleModule} from "../types"
+ *   RuleModule,
+ *   SvelteElement
+ * } from "../types.js"
  */
 
-const { RULE_CATEGORY } = require("../constants");
-const {
+import {
   idNamingConvention,
   ID_NAMING_CONVENTIONS,
   ID_NAMING_CONVENTION_MESSAGE_IDS,
-} = require("@html-eslint/core");
-const { createVisitors } = require("./utils/visitors");
-const { getRuleUrl } = require("./utils/rule");
-const { createElementAdapter } = require("../adapters/factory");
+} from "@html-eslint/core";
+import { createElementAdapter } from "../adapters/element/factory.js";
 
-/** @type {RuleModule<IdNamingConventionOptions>} */
-module.exports = {
+/** @type {RuleModule} */
+const rule = {
   meta: {
-    type: "code",
-
+    type: "suggestion",
     docs: {
       description: "Enforce consistent naming of id attributes",
-      category: RULE_CATEGORY.STYLE,
       recommended: false,
-      url: getRuleUrl("id-naming-convention"),
+      category: "Style",
+      url: "https://html-eslint.org/docs/svelte/rules/id-naming-convention",
     },
-
-    fixable: null,
     schema: [
       {
         enum: Object.values(ID_NAMING_CONVENTIONS),
@@ -51,10 +43,12 @@ module.exports = {
   },
 
   create(context) {
-    const { checkAttributes } = idNamingConvention(context.options);
+    const { checkAttributes } = idNamingConvention(
+      /** @type {IdNamingConventionOptions} */ (context.options)
+    );
 
-    /** @param {Tag | ScriptTag | StyleTag} node */
-    function check(node) {
+    /** @param {SvelteElement} node */
+    function checkElement(node) {
       const adapter = createElementAdapter(node);
       const result = checkAttributes(adapter);
       for (const item of result) {
@@ -66,10 +60,10 @@ module.exports = {
       }
     }
 
-    return createVisitors(context, {
-      Tag: check,
-      ScriptTag: check,
-      StyleTag: check,
-    });
+    return {
+      SvelteElement: checkElement,
+    };
   },
 };
+
+export default rule;

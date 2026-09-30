@@ -12,6 +12,7 @@ import noRestrictedAttrValues from "./no-restricted-attr-values.js";
 import requireAttrs from "./require-attrs.js";
 import requireLiContainer from "./require-li-container.js";
 import noRestrictedTags from "./no-restricted-tags.js";
+import idNamingConvention from "./id-naming-convention.js";
 // import new rule here ↑
 
 const rules = {
@@ -27,6 +28,7 @@ const rules = {
   "require-attrs": requireAttrs,
   "require-li-container": requireLiContainer,
   "no-restricted-tags": noRestrictedTags,
+  "id-naming-convention": idNamingConvention,
   // export new rule here ↑
 };
 

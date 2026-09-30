@@ -1,22 +1,14 @@
 /**
  * @import {IdNamingConventionOptions} from "@html-eslint/core"
- * @import {
- *   ScriptTag,
- *   StyleTag,
- *   Tag
- * } from "@html-eslint/types"
  * @import {RuleModule} from "../types"
  */
-
-const { RULE_CATEGORY } = require("../constants");
 const {
   idNamingConvention,
   ID_NAMING_CONVENTIONS,
   ID_NAMING_CONVENTION_MESSAGE_IDS,
 } = require("@html-eslint/core");
-const { createVisitors } = require("./utils/visitors");
-const { getRuleUrl } = require("./utils/rule");
-const { createElementAdapter } = require("../adapters/factory");
+const { AST_NODE_TYPES } = require("../constants/node-types");
+const { createElementAdapter } = require("../adapters/element/factory");
 
 /** @type {RuleModule<IdNamingConventionOptions>} */
 module.exports = {
@@ -25,9 +17,9 @@ module.exports = {
 
     docs: {
       description: "Enforce consistent naming of id attributes",
-      category: RULE_CATEGORY.STYLE,
+      category: "Style",
       recommended: false,
-      url: getRuleUrl("id-naming-convention"),
+      url: "https://html-eslint.org/docs/react/rules/id-naming-convention",
     },
 
     fixable: null,
@@ -53,23 +45,25 @@ module.exports = {
   create(context) {
     const { checkAttributes } = idNamingConvention(context.options);
 
-    /** @param {Tag | ScriptTag | StyleTag} node */
-    function check(node) {
-      const adapter = createElementAdapter(node);
-      const result = checkAttributes(adapter);
-      for (const item of result) {
-        context.report({
-          loc: item.loc,
-          messageId: item.messageId,
-          data: item.data,
-        });
-      }
-    }
-
-    return createVisitors(context, {
-      Tag: check,
-      ScriptTag: check,
-      StyleTag: check,
-    });
+    return {
+      JSXElement(node) {
+        if (
+          node.openingElement.name.type !== AST_NODE_TYPES.JSXIdentifier ||
+          node.openingElement.name.name.toLocaleLowerCase() !==
+            node.openingElement.name.name
+        ) {
+          return;
+        }
+        const adapter = createElementAdapter(node);
+        const result = checkAttributes(adapter);
+        for (const item of result) {
+          context.report({
+            loc: item.loc,
+            messageId: item.messageId,
+            data: item.data,
+          });
+        }
+      },
+    };
   },
 };
