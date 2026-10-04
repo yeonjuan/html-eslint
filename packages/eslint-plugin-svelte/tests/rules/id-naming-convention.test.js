@@ -18,6 +18,22 @@ ruleTester.run("id-naming-convention", rule, {
       options: ["camelCase"],
     },
     {
+      // Dynamic expression - can't be statically verified
+      code: "<div id={`${dynamicId}`}></div>",
+      options: ["camelCase"],
+    },
+    {
+      // Static string literal inside an expression container
+      code: '<div id={"camelCase"}></div>',
+      options: ["camelCase"],
+    },
+    {
+      // Static template literal (no interpolation) inside an expression
+      // container
+      code: "<div id={`camelCase`}></div>",
+      options: ["camelCase"],
+    },
+    {
       code: '<div id="PascalCase"></div>',
       options: ["PascalCase"],
     },
@@ -41,6 +57,33 @@ ruleTester.run("id-naming-convention", rule, {
   invalid: [
     {
       code: '<div id="kebab-case"></div>',
+      options: ["PascalCase"],
+      errors: [
+        {
+          messageId: "wrong",
+          data: { actual: "kebab-case", convention: "PascalCase" },
+          line: 1,
+          column: 6,
+        },
+      ],
+    },
+    {
+      // Static string literal inside an expression container
+      code: '<div id={"kebab-case"}></div>',
+      options: ["PascalCase"],
+      errors: [
+        {
+          messageId: "wrong",
+          data: { actual: "kebab-case", convention: "PascalCase" },
+          line: 1,
+          column: 6,
+        },
+      ],
+    },
+    {
+      // Static template literal (no interpolation) inside an expression
+      // container
+      code: "<div id={`kebab-case`}></div>",
       options: ["PascalCase"],
       errors: [
         {

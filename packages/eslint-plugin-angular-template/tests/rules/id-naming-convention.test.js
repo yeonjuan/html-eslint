@@ -18,6 +18,17 @@ ruleTester.run("id-naming-convention", rule, {
       options: ["camelCase"],
     },
     {
+      // Dynamic expression - can't be statically verified
+      code: `<div [id]="'prefix' + dynamicId"></div>`,
+      options: ["camelCase"],
+    },
+    {
+      // Bound attributes are always skipped, even with a statically
+      // written string literal - the binding target can't be verified.
+      code: `<div [id]="'kebab-case'"></div>`,
+      options: ["PascalCase"],
+    },
+    {
       code: '<div id="PascalCase"></div>',
       options: ["PascalCase"],
     },
