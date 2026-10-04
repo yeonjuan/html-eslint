@@ -10,6 +10,7 @@ const noRestrictedAttrValues = require("./no-restricted-attr-values");
 const requireAttrs = require("./require-attrs");
 const requireLiContainer = require("./require-li-container");
 const noRestrictedTags = require("./no-restricted-tags");
+const idNamingConvention = require("./id-naming-convention");
 
 const rules = {
   "use-baseline": useBaseline,
@@ -24,6 +25,7 @@ const rules = {
   "require-attrs": requireAttrs,
   "require-li-container": requireLiContainer,
   "no-restricted-tags": noRestrictedTags,
+  "id-naming-convention": idNamingConvention,
 };
 
 module.exports = rules;

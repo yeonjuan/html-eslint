@@ -226,3 +226,29 @@ export type RequireLiContainerResult = Array<{
   messageId: "invalid";
   loc: SourceLocation;
 }>;
+
+export type IdNamingConventionConvention =
+  | "camelCase"
+  | "snake_case"
+  | "PascalCase"
+  | "kebab-case"
+  | "regex";
+
+export interface IdNamingConventionPatternOption {
+  pattern: string;
+  flags?: string;
+}
+
+export type IdNamingConventionOptions = [
+  IdNamingConventionConvention?,
+  IdNamingConventionPatternOption?,
+];
+
+export type IdNamingConventionResult = Array<{
+  messageId: "wrong";
+  loc: SourceLocation;
+  data: {
+    actual: string;
+    convention: string;
+  };
+}>;

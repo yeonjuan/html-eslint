@@ -10,6 +10,7 @@ description: Available rules for HTML ESLint React plugin including validation f
 | Rule                                                              | Description                                                       |
 | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
 | [classname-spacing](./rules/classname-spacing.md)                 | Enforce spacing in className attributes                           |
+| [id-naming-convention](./rules/id-naming-convention.md)           | Enforce consistent naming convention for id attributes            |
 | [no-duplicate-classname](./rules/no-duplicate-classname.md)       | Disallow duplicate class names in className attributes            |
 | [no-ineffective-attrs](./rules/no-ineffective-attrs.md)           | Disallow HTML attributes that have no effect in their context     |
 | [no-invalid-attr-value](./rules/no-invalid-attr-value.md)         | Disallow invalid attribute values according to HTML standards     |
