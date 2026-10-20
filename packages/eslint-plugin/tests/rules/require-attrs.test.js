@@ -500,6 +500,30 @@ ruleTester.run("[conditions] require-attrs", rule, {
         },
       ],
     },
+    // Condition met and require attr has the expected value
+    {
+      code: `<input name="firstName" autocomplete="given-name" />`,
+      options: [
+        {
+          tag: "input",
+          attr: "autocomplete",
+          value: "given-name",
+          conditions: [{ attr: "name", kind: "equal", value: "firstName" }],
+        },
+      ],
+    },
+    // Condition not met: another value is left alone
+    {
+      code: `<input name="lastName" autocomplete="family-name" />`,
+      options: [
+        {
+          tag: "input",
+          attr: "autocomplete",
+          value: "given-name",
+          conditions: [{ attr: "name", kind: "equal", value: "firstName" }],
+        },
+      ],
+    },
   ],
   invalid: [
     // Condition met, require attr missing — no value, no fix
@@ -657,6 +681,27 @@ ruleTester.run("[conditions] require-attrs", rule, {
           line: 1,
           column: 1,
           message: "Checkboxes must have an aria-label",
+        },
+      ],
+    },
+    // Condition met, require attr has an unexpected value — auto-fix replaces it
+    {
+      code: `<input name="firstName" autocomplete="on" />`,
+      options: [
+        {
+          tag: "input",
+          attr: "autocomplete",
+          value: "given-name",
+          conditions: [{ attr: "name", kind: "equal", value: "firstName" }],
+        },
+      ],
+      output: `<input name="firstName" autocomplete="given-name" />`,
+      errors: [
+        {
+          line: 1,
+          column: 25,
+          message:
+            "Unexpected 'autocomplete' attribute value. 'given-name' is expected",
         },
       ],
     },

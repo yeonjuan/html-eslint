@@ -237,75 +237,64 @@ export function requireAttrs(options) {
               ) === true
           );
           if (!conditionsMet) continue;
+        }
 
-          if (!attr) {
+        if (!attr) {
+          result.push({
+            ...(option.message
+              ? { message: option.message }
+              : { messageId: REQUIRE_ATTRS_MESSAGE_IDS.missing }),
+            loc: adapter.getLocation(),
+            data: { attr: attrName, tag: tagName },
+            fix: createMissingAttrFix(adapter, attrName, option.value),
+          });
+        } else if (option.value !== undefined) {
+          const key = attr.getKey();
+          if (key && key.hasExpression()) continue;
+          const valueAdapter = attr.getValue();
+          if (valueAdapter && valueAdapter.hasExpression()) continue;
+
+          if (typeof option.value === "boolean") {
+            if (matchesBooleanValue(option.value, valueAdapter)) continue;
             result.push({
               ...(option.message
                 ? { message: option.message }
-                : { messageId: REQUIRE_ATTRS_MESSAGE_IDS.missing }),
-              loc: adapter.getLocation(),
-              data: { attr: attrName, tag: tagName },
-              fix: createMissingAttrFix(adapter, attrName, option.value),
+                : { messageId: REQUIRE_ATTRS_MESSAGE_IDS.unexpected }),
+              loc: attr.getLocation(),
+              data: { attr: attrName, expected: String(option.value) },
+              fix: createBooleanValueFix(option.value, key, valueAdapter),
             });
+            continue;
           }
-        } else {
-          if (!attr) {
+
+          const currentValue = valueAdapter ? valueAdapter.getValue() : null;
+          if (currentValue !== option.value) {
+            /** @type {import("../types").RequireAttrsFix | undefined} */
+            let fix;
+            if (option.value) {
+              if (valueAdapter) {
+                // Replacing a boolean literal (`attr={true}`) with a string
+                // would produce an identifier reference, so leave it alone.
+                if (valueAdapter.getBooleanValue() === null) {
+                  const range = valueAdapter.getRange();
+                  fix = { range: [range[0], range[1]], text: option.value };
+                }
+              } else if (key) {
+                const keyEnd = key.getRange()[1];
+                fix = {
+                  range: [keyEnd, keyEnd],
+                  text: `="${option.value}"`,
+                };
+              }
+            }
             result.push({
               ...(option.message
                 ? { message: option.message }
-                : { messageId: REQUIRE_ATTRS_MESSAGE_IDS.missing }),
-              loc: adapter.getLocation(),
-              data: { attr: attrName, tag: tagName },
-              fix: createMissingAttrFix(adapter, attrName, option.value),
+                : { messageId: REQUIRE_ATTRS_MESSAGE_IDS.unexpected }),
+              loc: attr.getLocation(),
+              data: { attr: attrName, expected: option.value },
+              fix,
             });
-          } else if (option.value !== undefined) {
-            const key = attr.getKey();
-            if (key && key.hasExpression()) continue;
-            const valueAdapter = attr.getValue();
-            if (valueAdapter && valueAdapter.hasExpression()) continue;
-
-            if (typeof option.value === "boolean") {
-              if (matchesBooleanValue(option.value, valueAdapter)) continue;
-              result.push({
-                ...(option.message
-                  ? { message: option.message }
-                  : { messageId: REQUIRE_ATTRS_MESSAGE_IDS.unexpected }),
-                loc: attr.getLocation(),
-                data: { attr: attrName, expected: String(option.value) },
-                fix: createBooleanValueFix(option.value, key, valueAdapter),
-              });
-              continue;
-            }
-
-            const currentValue = valueAdapter ? valueAdapter.getValue() : null;
-            if (currentValue !== option.value) {
-              /** @type {import("../types").RequireAttrsFix | undefined} */
-              let fix;
-              if (option.value) {
-                if (valueAdapter) {
-                  // Replacing a boolean literal (`attr={true}`) with a string
-                  // would produce an identifier reference, so leave it alone.
-                  if (valueAdapter.getBooleanValue() === null) {
-                    const range = valueAdapter.getRange();
-                    fix = { range: [range[0], range[1]], text: option.value };
-                  }
-                } else if (key) {
-                  const keyEnd = key.getRange()[1];
-                  fix = {
-                    range: [keyEnd, keyEnd],
-                    text: `="${option.value}"`,
-                  };
-                }
-              }
-              result.push({
-                ...(option.message
-                  ? { message: option.message }
-                  : { messageId: REQUIRE_ATTRS_MESSAGE_IDS.unexpected }),
-                loc: attr.getLocation(),
-                data: { attr: attrName, expected: option.value },
-                fix,
-              });
-            }
           }
         }
       }
