@@ -49,5 +49,8 @@
   "packageManager": "yarn@4.9.1",
   "workspaces": [
     "packages/**"
-  ]
+  ],
+  "resolutions": {
+    "tar": "7.5.21"
+  }
 }
