@@ -8,6 +8,7 @@
  * @import {RuleModule} from "../types"
  * @typedef {Object} Option
  * @property {string[]} [Option.skip]
+ * @property {boolean} [Option.skipComments]
  */
 
 const { RULE_CATEGORY } = require("../constants");
@@ -43,6 +44,9 @@ module.exports = {
               type: "string",
             },
           },
+          skipComments: {
+            type: "boolean",
+          },
         },
         additionalProperties: false,
       },
@@ -57,6 +61,7 @@ module.exports = {
     const options = context.options[0] || {};
     /** @type {string[]} */
     const skipTags = options.skip || [];
+    const skipComments = options.skipComments || false;
     const sourceCode = getSourceCode(context);
     /** @type {Tag[]} */
     const tagStack = [];
@@ -122,7 +127,7 @@ module.exports = {
 
     return createVisitors(context, {
       Comment(node) {
-        if (hasSkipTagOnParent(node)) {
+        if (skipComments || hasSkipTagOnParent(node)) {
           return;
         }
         stripConsecutiveSpaces(node.value);
