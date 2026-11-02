@@ -50,7 +50,7 @@ ruleTester.run("use-baseline", rule, {
       options: [{ available: 2019 }],
     },
     {
-      code: `<button popovertarget="mypopover" popovertargetaction="show"></button>`,
+      code: `<button command="show-modal" commandfor="mydialog"></button>`,
       errors: [
         { messageId: "notBaselineElementAttribute" },
         { messageId: "notBaselineElementAttribute" },
