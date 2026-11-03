@@ -75,6 +75,15 @@ ruleTester.run("no-extra-spacing-text", rule, {
         },
       ],
     },
+
+    {
+      code: `<!--=================\n=\t\tTitle\t\t=\n==================-->`,
+      options: [
+        {
+          skipComments: true,
+        },
+      ],
+    },
   ],
 
   invalid: [
@@ -150,6 +159,17 @@ ruleTester.run("no-extra-spacing-text", rule, {
         [3, 41, 3],
         [3, 48, 3]
       ),
+    },
+
+    {
+      code: `<!--   foo   bar   -->`,
+      output: `<!-- foo bar -->`,
+      options: [
+        {
+          skipComments: false,
+        },
+      ],
+      errors: errorsAt([1, 5, 3], [1, 11, 3], [1, 17, 3]),
     },
   ],
 });

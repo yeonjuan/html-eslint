@@ -54,11 +54,13 @@ Examples of **correct** code for this rule:
 This rule has an object option:
 
 - `"skip"`: skips whitespace-checking within the specified elements.
+- `"skipComments"`: skips whitespace-checking within comments.
 
 ```ts
 //...
 "@html-eslint/no-extra-spacing-text": ["error", {
-  "skip": Array<string>
+  "skip": Array<string>,
+  "skipComments": boolean
 }]
 ```
 
@@ -76,4 +78,17 @@ Examples of **correct** code for the `{ "skip": ["pre"] }` option:
 
   <pre>    Any    kind    of   whitespace    here!    </pre>
 </div>
+```
+
+#### skipComments
+
+When `true`, whitespace-checking is not performed within comments.
+This is useful for comments used to visually separate sections of markup.
+
+Examples of **correct** code for the `{ "skipComments": true }` option:
+
+```html,correct
+<!--=================
+=        Title       =
+==================-->
 ```
