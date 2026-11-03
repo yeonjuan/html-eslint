@@ -56,6 +56,9 @@ ruleTester.run("lowercase", rule, {
       code: `<!doctype html>`,
     },
     {
+      code: `<!DOCTYPE html>`,
+    },
+    {
       code: "<div {{ID}}></div>",
       languageOptions: {
         parserOptions: {
@@ -131,11 +134,13 @@ ruleTester.run("lowercase", rule, {
       ],
     },
     {
-      code: `<!DOCTYPE html>`,
+      code: `<!DocType html>`,
       output: `<!doctype html>`,
       errors: [
         {
-          message: "'!DOCTYPE' is not in lowercase.",
+          message: "'!DocType' is not in lowercase.",
+          line: 1,
+          column: 1,
         },
       ],
     },

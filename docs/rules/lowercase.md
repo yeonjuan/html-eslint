@@ -41,6 +41,11 @@ Examples of **incorrect** code for this rule:
 <sTyle></sTyle>
 ```
 
+<!-- prettier-ignore -->
+```html,incorrect
+<!DocType html>
+```
+
 Examples of **correct** code for this rule:
 
 ```html,correct
@@ -58,3 +63,13 @@ Examples of **correct** code for this rule:
 ```html,correct
 <style></style>
 ```
+
+```html,correct
+<!doctype html>
+```
+
+```html,correct
+<!DOCTYPE html>
+```
+
+**Note**: `<!doctype html>` and `<!DOCTYPE html>` are both allowed, since the HTML spec itself uses the uppercase form in examples.

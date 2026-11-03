@@ -117,12 +117,16 @@ module.exports = {
 
     /** @param {Doctype} doctype */
     function checkDoctype(doctype) {
-      if (doctype.open.value !== doctype.open.value.toLowerCase()) {
+      const openValue = doctype.open.value;
+      if (
+        openValue !== openValue.toLowerCase() &&
+        openValue !== openValue.toUpperCase()
+      ) {
         context.report({
           node: doctype.open,
           messageId: MESSAGE_IDS.UNEXPECTED,
           data: {
-            name: doctype.open.value.slice(1),
+            name: openValue.slice(1),
           },
           fix(fixer) {
             return fixer.replaceTextRange(doctype.open.range, "<!doctype");
