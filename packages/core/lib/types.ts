@@ -228,11 +228,7 @@ export type RequireLiContainerResult = Array<{
 }>;
 
 export type IdNamingConventionConvention =
-  | "camelCase"
-  | "snake_case"
-  | "PascalCase"
-  | "kebab-case"
-  | "regex";
+  "camelCase" | "snake_case" | "PascalCase" | "kebab-case" | "regex";
 
 export interface IdNamingConventionPatternOption {
   pattern: string;

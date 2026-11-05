@@ -55,7 +55,9 @@ export interface AngularBoundEvent extends AngularNode {
 export type RuleFunction<T extends AngularNode = never> = (node: T) => void;
 
 type RuleListenerExitSelectors = {
-  [K in keyof RuleListenerBaseSelectors as `${K}:exit`]: RuleListenerBaseSelectors[K];
+  [
+    K in keyof RuleListenerBaseSelectors as `${K}:exit`
+  ]: RuleListenerBaseSelectors[K];
 };
 
 interface RuleListenerBaseSelectors {

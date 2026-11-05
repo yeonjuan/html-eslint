@@ -236,7 +236,9 @@ export type Node =
 export type RuleFunction<T extends NodeOrToken = never> = (node: T) => void;
 
 type RuleListenerExitSelectors = {
-  [K in keyof RuleListenerBaseSelectors as `${K}:exit`]: RuleListenerBaseSelectors[K];
+  [
+    K in keyof RuleListenerBaseSelectors as `${K}:exit`
+  ]: RuleListenerBaseSelectors[K];
 };
 
 interface RuleListenerBaseSelectors {
