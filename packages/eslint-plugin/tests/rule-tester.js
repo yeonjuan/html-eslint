@@ -8,10 +8,7 @@ const { RuleTester: ESLintRuleTester } = require("eslint");
 const FILE_NAME = "test.html";
 const html = require("../lib/index");
 
-/**
- * @param {ESLintRuleTester.InvalidTestCase
- *   | ESLintRuleTester.ValidTestCase} test
- */
+/** @param {ESLintRuleTester.InvalidTestCase | ESLintRuleTester.ValidTestCase} test */
 function getLanguageOptions(test) {
   if (!test.languageOptions) {
     return {};

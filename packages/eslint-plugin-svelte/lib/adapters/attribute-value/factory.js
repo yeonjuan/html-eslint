@@ -15,10 +15,7 @@ import { SvelteMustacheTagTextValueAdapter } from "./svelte-mustache-tag-text";
 import { TemplateLiteralAttributeValueAdapter } from "./template-literal";
 
 /**
- * @param {Literal
- *   | TemplateLiteral
- *   | SvelteLiteral
- *   | SvelteMustacheTagText} node
+ * @param {Literal | TemplateLiteral | SvelteLiteral | SvelteMustacheTagText} node
  * @returns {AttributeValueAdapter}
  */
 export function createAttributeValueAdapter(node) {

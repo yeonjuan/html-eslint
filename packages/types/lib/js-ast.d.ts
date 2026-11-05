@@ -30,6 +30,4 @@ export interface TemplateElement extends estree.TemplateElement {
 }
 
 export type AnyJsNode =
-  | TaggedTemplateExpression
-  | TemplateLiteral
-  | TemplateElement;
+  TaggedTemplateExpression | TemplateLiteral | TemplateElement;

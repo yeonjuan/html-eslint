@@ -86,14 +86,7 @@ function classifyTemplateTokens(templateInfos, source, syntaxItems) {
     const content = source.slice(info.open[1], info.close[0]);
     const b = item.branch;
 
-    /**
-     * @type {"START"
-     *   | "CONTINUE"
-     *   | "END"
-     *   | "BLOCK_OPEN"
-     *   | "BLOCK_CLOSE"
-     *   | null}
-     */
+    /** @type {"START" | "CONTINUE" | "END" | "BLOCK_OPEN" | "BLOCK_CLOSE" | null} */
     let role = null;
     // Order matters: END before CONTINUE so that patterns like
     // /^\s*-?\s*(elseif|else)\b/ don't accidentally match "endif" (they won't

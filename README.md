@@ -14,7 +14,7 @@
   ·
   <a href="https://html-eslint.org/docs/rules">All Rules</a>
   </p>
-  
+
 </p>
 
 <p align="center">

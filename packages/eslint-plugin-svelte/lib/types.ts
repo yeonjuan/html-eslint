@@ -43,7 +43,9 @@ export type RuleFunction<T extends AST.SvelteNode | NodeOrToken = never> = (
 ) => void;
 
 type RuleListenerExitSelectors = {
-  [K in keyof RuleListenerBaseSelectors as `${K}:exit`]: RuleListenerBaseSelectors[K];
+  [
+    K in keyof RuleListenerBaseSelectors as `${K}:exit`
+  ]: RuleListenerBaseSelectors[K];
 };
 
 interface RuleListenerBaseSelectors {

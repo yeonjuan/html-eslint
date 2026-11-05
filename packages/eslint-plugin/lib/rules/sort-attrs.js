@@ -6,8 +6,7 @@
  * } from "../types"
  * @typedef {Object} Option
  * @property {(
- *   | string
- *   | { pattern: string; order?: "preserve" | "alphabetically" }
+ *   string | { pattern: string; order?: "preserve" | "alphabetically" }
  * )[]} [Option.priority]
  */
 
