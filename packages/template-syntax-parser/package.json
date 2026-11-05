@@ -43,6 +43,6 @@
     "@html-eslint/types": "^0.67.0"
   },
   "devDependencies": {
-    "eslint": "^9.39.1"
+    "eslint": "^9.39.5"
   }
 }

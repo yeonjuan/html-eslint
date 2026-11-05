@@ -91,9 +91,9 @@ describe("basic", () => {
 
 describe("error", () => {
   test("nested", () => {
-    expect(() => parse("{{{ {{ }} }}}", HANDLEBAR)).toThrowError();
+    expect(() => parse("{{{ {{ }} }}}", HANDLEBAR)).toThrow();
   });
   test("unclosed", () => {
-    expect(() => parse("{{{ {{", HANDLEBAR)).toThrowError();
+    expect(() => parse("{{{ {{", HANDLEBAR)).toThrow();
   });
 });

@@ -30,7 +30,7 @@
     "@html-eslint/parser": "^0.67.0",
     "axios": "^1.13.5",
     "chalk": "^5.6.2",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.5",
     "optionator": "^0.9.4"
   }
 }
