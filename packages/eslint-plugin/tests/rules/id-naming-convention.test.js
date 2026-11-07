@@ -12,6 +12,10 @@ ruleTester.run("id-naming-convention", rule, {
       options: ["camelCase"],
     },
     {
+      code: `<div =a> </div>`,
+      options: ["camelCase"],
+    },
+    {
       code: `<div id="camelCase"> </div>`,
       options: ["camelCase"],
     },

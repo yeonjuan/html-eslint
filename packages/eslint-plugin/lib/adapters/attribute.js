@@ -14,6 +14,9 @@ class HTMLAttributeAdapter {
   }
 
   getKey() {
+    if (!this.node.key) {
+      return null;
+    }
     return new HTMLAttributeKeyAdapter(this.node.key);
   }
 
