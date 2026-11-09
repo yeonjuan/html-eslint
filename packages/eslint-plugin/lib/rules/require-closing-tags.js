@@ -93,6 +93,9 @@ module.exports = {
      * @param {boolean} fixable
      */
     function checkVoidElement(node, shouldSelfClose, fixable) {
+      if (!node.openEnd) {
+        return;
+      }
       const hasSelfClose = node.openEnd.value === "/>";
       if (shouldSelfClose && !hasSelfClose) {
         context.report({
@@ -147,7 +150,7 @@ module.exports = {
           isVoidElement || isSelfClosingCustomElement || isForeign;
         if (node.selfClosing || canSelfClose) {
           checkVoidElement(node, shouldSelfClose, canSelfClose);
-        } else if (node.openEnd.value !== "/>") {
+        } else if (node.openEnd?.value !== "/>") {
           checkClosing(node);
         }
         if (["svg", "math"].includes(node.name)) foreignContext.push(node.name);

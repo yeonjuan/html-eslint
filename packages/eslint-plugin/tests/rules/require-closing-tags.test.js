@@ -140,6 +140,16 @@ ruleTester.run("require-closing-tags", rule, {
       ],
     },
     {
+      code: `<div title="unterminated>x</div>`,
+      errors: [
+        {
+          messageId: "missing",
+          line: 1,
+          column: 1,
+        },
+      ],
+    },
+    {
       code: `<img>`,
       output: `<img />`,
       options: [
