@@ -21,6 +21,8 @@ module.exports = {
 
 ## Rule Details
 
+**Note**: When a `button` has a template expression in attribute position, the rule still reports a missing `type` but does not auto-fix it, since the expression may already render one.
+
 Examples of **incorrect** code for this rule:
 
 <!-- prettier-ignore -->
