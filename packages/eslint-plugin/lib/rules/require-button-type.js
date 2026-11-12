@@ -7,7 +7,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, hasTemplate } = require("./utils/node");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
 
@@ -80,6 +80,9 @@ module.exports = {
             node: node.openStart,
             messageId: MESSAGE_IDS.MISSING,
             fix(fixer) {
+              if (node.attributes.some((attr) => hasTemplate(attr.key))) {
+                return null;
+              }
               return fixer.insertTextAfter(node.openStart, ' type="submit"');
             },
           });
