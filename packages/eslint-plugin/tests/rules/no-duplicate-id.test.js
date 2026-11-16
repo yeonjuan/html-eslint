@@ -55,6 +55,31 @@ ruleTester.run("no-duplicate-id", rule, {
         },
       },
     },
+    // Template content and declarative shadow roots are separate trees.
+    {
+      code: `
+<div id="a"></div>
+<template><div id="a"></div></template>
+<div id="b"></div>
+<div><template shadowrootmode="open"><div id="b"></div></template></div>
+`,
+    },
+    // Each template has its own content tree.
+    {
+      code: `
+<template><span id="item"></span></template>
+<template><span id="item"></span></template>
+`,
+    },
+    // A nested template is a separate tree from its parent template.
+    {
+      code: `
+<template>
+  <div id="x"></div>
+  <template><div id="x"></div></template>
+</template>
+`,
+    },
   ],
   invalid: [
     {
@@ -110,6 +135,42 @@ ruleTester.run("no-duplicate-id", rule, {
       },
       errors: [{ messageId: "duplicateId" }, { messageId: "duplicateId" }],
     },
+    // Duplicates inside the same template are still reported.
+    {
+      code: `
+<template>
+  <div id="a"></div>
+  <div id="a"></div>
+</template>
+`,
+      errors: [
+        { messageId: "duplicateId", line: 3 },
+        { messageId: "duplicateId", line: 4 },
+      ],
+    },
+    {
+      code: `
+<div><template shadowrootmode="open">
+  <slot id="s"></slot>
+  <div><span id="s"></span></div>
+</template></div>
+`,
+      errors: [
+        { messageId: "duplicateId", line: 3 },
+        { messageId: "duplicateId", line: 4 },
+      ],
+    },
+    // The id of the <template> element itself belongs to the outer tree.
+    {
+      code: `
+<div id="t"></div>
+<template id="t"><div id="t"></div></template>
+`,
+      errors: [
+        { messageId: "duplicateId", line: 2 },
+        { messageId: "duplicateId", line: 3, column: 15 },
+      ],
+    },
   ],
 });
 
@@ -123,6 +184,12 @@ html\`<html>
   <div id = "bar"></div>
 </body>
 </html>\`
+`,
+    },
+    {
+      code: `
+html\`<div id="a"></div>
+<template><div id="a"></div></template>\`
 `,
     },
     {

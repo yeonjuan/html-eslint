@@ -4,11 +4,12 @@
  *   Tag
  * } from "@html-eslint/types"
  * @import {RuleModule} from "../types"
+ * @typedef {Map<Tag | null, Map<string, AttributeValue[]>>} IdAttrsMap
  */
 
 const { parseTemplateLiteral } = require("./utils/template-literal");
 const { RULE_CATEGORY } = require("../constants");
-const { findAttr } = require("./utils/node");
+const { findAttr, findParent, isTag, getNameOf } = require("./utils/node");
 const {
   shouldCheckTaggedTemplateExpression,
   shouldCheckTemplateLiteral,
@@ -49,9 +50,27 @@ module.exports = {
     // gracefully to the original behavior.
     const branchSegments = getBranchSegments(context);
 
+    /** @type {IdAttrsMap} */
     const htmlIdAttrsMap = new Map();
 
-    /** @param {Map<string, AttributeValue[]>} map */
+    /**
+     * Ids only need to be unique within one node tree. The content of a
+     * `<template>` (including a declarative shadow root) is its own tree, so
+     * ids are grouped by their nearest `<template>` ancestor.
+     *
+     * @param {Tag} node
+     * @returns {Tag | null}
+     */
+    function getTreeRoot(node) {
+      return /** @type {Tag | null} */ (
+        findParent(
+          node,
+          (parent) => isTag(parent) && getNameOf(parent) === "template"
+        )
+      );
+    }
+
+    /** @param {IdAttrsMap} map */
     function createTagVisitor(map) {
       /** @param {Tag} node */
       return function (node) {
@@ -60,13 +79,18 @@ module.exports = {
         }
         const idAttr = findAttr(node, "id");
         if (idAttr?.value) {
-          if (!map.has(idAttr.value.value)) {
-            map.set(idAttr.value.value, []);
+          const root = getTreeRoot(node);
+          let idMap = map.get(root);
+          if (!idMap) {
+            idMap = new Map();
+            map.set(root, idMap);
           }
-          const nodes = map.get(idAttr.value.value);
-          if (nodes) {
-            nodes.push(idAttr.value);
+          let nodes = idMap.get(idAttr.value.value);
+          if (!nodes) {
+            nodes = [];
+            idMap.set(idAttr.value.value, nodes);
           }
+          nodes.push(idAttr.value);
         }
       };
     }
@@ -95,28 +119,38 @@ module.exports = {
       });
     }
 
+    /**
+     * @param {IdAttrsMap} map
+     * @param {typeof branchSegments} segments
+     */
+    function reportAll(map, segments) {
+      map.forEach((idMap) => report(idMap, segments));
+    }
+
     return {
       Tag: createTagVisitor(htmlIdAttrsMap),
       "Document:exit"() {
-        report(htmlIdAttrsMap, branchSegments);
+        reportAll(htmlIdAttrsMap, branchSegments);
       },
       TaggedTemplateExpression(node) {
+        /** @type {IdAttrsMap} */
         const idAttrsMap = new Map();
         if (shouldCheckTaggedTemplateExpression(node, context)) {
           parseTemplateLiteral(node.quasi, getSourceCode(context), {
             Tag: createTagVisitor(idAttrsMap),
           });
         }
-        report(idAttrsMap, branchSegments);
+        reportAll(idAttrsMap, branchSegments);
       },
       TemplateLiteral(node) {
+        /** @type {IdAttrsMap} */
         const idAttrsMap = new Map();
         if (shouldCheckTemplateLiteral(node, context)) {
           parseTemplateLiteral(node, getSourceCode(context), {
             Tag: createTagVisitor(idAttrsMap),
           });
         }
-        report(idAttrsMap, branchSegments);
+        reportAll(idAttrsMap, branchSegments);
       },
     };
   },

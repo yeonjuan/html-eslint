@@ -12,6 +12,8 @@ This rule disallows duplicate `id` attributes.
 In HTML, the id attribute must be unique within a document.
 Duplicate IDs can break CSS and JavaScript selectors and interfere with accessibility tools.
 
+The content of a `<template>` element (including a declarative shadow root, `<template shadowrootmode>`) is a separate tree, so its ids are checked on their own and not against the main document.
+
 ## How to use
 
 ```js,.eslintrc.js
@@ -36,6 +38,13 @@ Examples of **correct** code for this rule:
 ```html,correct
 <div id="foo"></div>
 <div id="bar"></div>
+```
+
+```html,correct
+<div id="foo"></div>
+<template>
+  <div id="foo"></div>
+</template>
 ```
 
 ## Further Reading
