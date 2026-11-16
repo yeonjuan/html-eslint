@@ -1,5 +1,6 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/require-button-type");
+const { TEMPLATE_ENGINE_SYNTAX } = require("@html-eslint/parser");
 
 const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
@@ -14,6 +15,14 @@ ruleTester.run("require-button-type", rule, {
     },
     {
       code: `<button type="reset">Reset Button</button>`,
+    },
+    {
+      code: `<button type="{{ type }}">Button</button>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
     },
   ],
   invalid: [
@@ -74,6 +83,86 @@ ruleTester.run("require-button-type", rule, {
         },
       ],
     },
+    {
+      code: `<button {{ attrs({type: 'button'}) }}>Button</button>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+      errors: [
+        {
+          messageId: "missing",
+          line: 1,
+          column: 1,
+        },
+      ],
+      output: null,
+    },
+    {
+      code: `<button {% if submit %}type="submit"{% endif %}>Button</button>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+      errors: [
+        {
+          messageId: "missing",
+          line: 1,
+          column: 1,
+        },
+      ],
+      output: null,
+    },
+    {
+      code: `<button {{attrs}}>Button</button>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.HANDLEBAR,
+        },
+      },
+      errors: [
+        {
+          messageId: "missing",
+          line: 1,
+          column: 1,
+        },
+      ],
+      output: null,
+    },
+    {
+      code: `<button <%= tag.attributes(type: "button") %>>Button</button>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.ERB,
+        },
+      },
+      errors: [
+        {
+          messageId: "missing",
+          line: 1,
+          column: 1,
+        },
+      ],
+      output: null,
+    },
+    {
+      code: `<button id="{{ id }}">Missing type</button>`,
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+      errors: [
+        {
+          messageId: "missing",
+          line: 1,
+          column: 1,
+        },
+      ],
+      output: `<button type="submit" id="{{ id }}">Missing type</button>`,
+    },
   ],
 });
 
@@ -97,6 +186,17 @@ templateRuleTester.run("[template] require-button-type", rule, {
         },
       ],
       output: 'html`<button type="submit">Missing type</button>`',
+    },
+    {
+      code: "html`<button ${attrs}>Button</button>`",
+      errors: [
+        {
+          messageId: "missing",
+          line: 1,
+          column: 6,
+        },
+      ],
+      output: null,
     },
   ],
 });
