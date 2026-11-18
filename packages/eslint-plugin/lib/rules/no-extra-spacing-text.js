@@ -12,7 +12,7 @@
  */
 
 const { RULE_CATEGORY } = require("../constants");
-const { isTag, isOverlapWithTemplates } = require("./utils/node");
+const { isOverlapWithTemplates } = require("./utils/node");
 const { getSourceCode } = require("./utils/source-code");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
@@ -67,21 +67,13 @@ module.exports = {
     const tagStack = [];
 
     /**
-     * @param {Comment | Text} node
+     * Whether the node being visited is inside one of the `skip` tags, at any
+     * depth (e.g. `<pre><code>...</code></pre>` with `skip: ["pre"]`).
+     *
      * @returns {boolean}
      */
-    function hasSkipTagOnParent(node) {
-      // @ts-ignore
-      const { parent } = node;
-      if (
-        parent &&
-        // @ts-ignore
-        isTag(parent) &&
-        skipTags.some((skipTag) => skipTag === parent.name)
-      ) {
-        return true;
-      }
-      return false;
+    function isInSkipTag() {
+      return tagStack.some((tag) => skipTags.includes(tag.name));
     }
 
     /** @param {CommentContent | Text} node */
@@ -127,26 +119,19 @@ module.exports = {
 
     return createVisitors(context, {
       Comment(node) {
-        if (skipComments || hasSkipTagOnParent(node)) {
+        if (skipComments || isInSkipTag()) {
           return;
         }
         stripConsecutiveSpaces(node.value);
       },
       Text(node) {
-        if (hasSkipTagOnParent(node)) {
+        if (isInSkipTag()) {
           return;
         }
         stripConsecutiveSpaces(node);
       },
       Tag(node) {
         tagStack.push(node);
-        if (
-          skipTags.some((skipTag) =>
-            tagStack.some((tag) => tag.name === skipTag)
-          )
-        ) {
-          return;
-        }
       },
       "Tag:exit"() {
         tagStack.pop();

@@ -67,7 +67,7 @@ This rule has an object option:
 #### skip
 
 You can specify a list of tag names in the `skip` option.
-Whitespace-checking is not performed on children of the specified tags.
+Whitespace-checking is not performed inside the specified tags, including nested elements (e.g. `<pre><code>...</code></pre>`).
 
 Examples of **correct** code for the `{ "skip": ["pre"] }` option:
 
