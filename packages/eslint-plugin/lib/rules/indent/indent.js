@@ -70,7 +70,7 @@ const INDENT_TYPES = {
   SPACE: "space",
 };
 
-const IGNORING_NODES = ["pre", "xmp"];
+const IGNORING_NODES = ["pre", "xmp", "textarea"];
 
 /** @type {RuleModule<[Option1, Option2]>} */
 module.exports = {

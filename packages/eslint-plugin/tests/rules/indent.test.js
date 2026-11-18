@@ -135,6 +135,25 @@ function createTests() {
         code: `
 <html>
     <body>
+        <textarea name="note">
+line one
+  line two
+</textarea>
+        <form>
+            <textarea>
+        <div>
+    should not fixed
+        </div>
+            </textarea>
+        </form>
+    </body>
+</html>
+`,
+      },
+      {
+        code: `
+<html>
+    <body>
         <xmp>
     <div>
     should not fixed
@@ -1578,6 +1597,16 @@ templateRuleTester.run("[template] indent", rule, {
   valid: [
     {
       code: `/*html*/\`<div></div>\``,
+    },
+    {
+      code: `html\`
+    <div>
+        <textarea>
+line one
+  line two
+</textarea>
+    </div>
+      \``,
     },
     {
       code: `html\`
