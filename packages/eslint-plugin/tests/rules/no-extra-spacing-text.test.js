@@ -77,6 +77,24 @@ ruleTester.run("no-extra-spacing-text", rule, {
     },
 
     {
+      code: `<pre><code>if (x) {\n    return  1;  \n}</code></pre>`,
+      options: [
+        {
+          skip: [`pre`],
+        },
+      ],
+    },
+
+    {
+      code: `<pre><span>  a  <b>\tb\t</b></span><!--  c  --><i><!--  d  --></i></pre>`,
+      options: [
+        {
+          skip: [`pre`],
+        },
+      ],
+    },
+
+    {
       code: `<!--=================\n=\t\tTitle\t\t=\n==================-->`,
       options: [
         {
@@ -162,6 +180,17 @@ ruleTester.run("no-extra-spacing-text", rule, {
     },
 
     {
+      code: `<pre><code>a   b</code></pre><p>c   d</p>`,
+      output: `<pre><code>a   b</code></pre><p>c d</p>`,
+      options: [
+        {
+          skip: [`pre`],
+        },
+      ],
+      errors: errorsAt([1, 34, 3]),
+    },
+
+    {
       code: `<!--   foo   bar   -->`,
       output: `<!-- foo bar -->`,
       options: [
@@ -208,6 +237,16 @@ html\`<div>
     },
   ],
   invalid: [
+    {
+      code: "html`<pre><code>a   b</code></pre><p>c   d</p>`",
+      output: "html`<pre><code>a   b</code></pre><p>c d</p>`",
+      options: [
+        {
+          skip: [`pre`],
+        },
+      ],
+      errors: errorsAt([1, 39, 3]),
+    },
     {
       code: "html`<div>foo\t\n</div>`",
       output: "html`<div>foo\n</div>`",
