@@ -50,7 +50,7 @@
   ],
   "dependencies": {
     "@html-eslint/types": "^0.68.0",
-    "html-standard": "^0.0.13"
+    "html-standard": "^0.0.14"
   },
   "devDependencies": {
     "tsup": "^8.5.1"

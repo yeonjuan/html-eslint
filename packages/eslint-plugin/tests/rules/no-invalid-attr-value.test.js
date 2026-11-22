@@ -91,6 +91,18 @@ ruleTester.run("no-invalid-attr-value", rule, {
     {
       code: '<a href="page.html" target="_blank" rel="noopener noreferrer">Link</a>',
     },
+    // https://github.com/yeonjuan/html-eslint/issues/730
+    { code: '<time datetime="2026-11">November</time>' },
+    { code: '<time datetime="2026-W45">week 45</time>' },
+    { code: '<time datetime="11-06">6 Nov</time>' },
+    { code: '<time datetime="2026">2026</time>' },
+    { code: '<time datetime="14:30">2:30pm</time>' },
+    { code: '<time datetime="PT1H30M">90 min</time>' },
+    { code: '<time datetime="1h 30m">90 min</time>' },
+    { code: '<time datetime="+01:00">CET</time>' },
+    { code: '<time datetime="2026-11-06T14:30+0100">now</time>' },
+    { code: '<div contenteditable="">x</div>' },
+    { code: '<div autocorrect="">x</div>' },
     // allow option tests - allow any value for specified tag/attr
     {
       code: '<input type="custom-type" />',

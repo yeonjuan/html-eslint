@@ -2657,7 +2657,7 @@ __metadata:
   resolution: "@html-eslint/core@workspace:packages/core"
   dependencies:
     "@html-eslint/types": "npm:^0.68.0"
-    html-standard: "npm:^0.0.13"
+    html-standard: "npm:^0.0.14"
     tsup: "npm:^8.5.1"
   languageName: unknown
   linkType: soft
@@ -2731,7 +2731,7 @@ __metadata:
     es-html-parser: "npm:0.3.2"
     eslint: "npm:^9.39.5"
     espree: "npm:^10.3.0"
-    html-standard: "npm:^0.0.13"
+    html-standard: "npm:^0.0.14"
   peerDependencies:
     eslint: ">=8.0.0 || ^10.0.0-0"
   languageName: unknown
@@ -12284,13 +12284,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-standard@npm:^0.0.13":
-  version: 0.0.13
-  resolution: "html-standard@npm:0.0.13"
+"html-standard@npm:^0.0.14":
+  version: 0.0.14
+  resolution: "html-standard@npm:0.0.14"
   dependencies:
     vscode-css-languageservice: "npm:^6.3.9"
     vscode-languageserver-textdocument: "npm:^1.0.12"
-  checksum: 10c0/98a4b1c8705a3063be7ac62863794b347d72329e53cdf51f69758f4fd1ebd1b41c2954700b5b4c77cfa6fdb41fee37287395f20037b18775d5acdb882760f984
+  checksum: 10c0/6f00a993a90811c7ec74fefd7d81d995693ddda65ac451e7fdbab6a4f33af757d6a78015273d174565d41685bc7663f5e16196bf6c263ed653c1ba16df7630f3
   languageName: node
   linkType: hard
 
