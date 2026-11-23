@@ -209,7 +209,7 @@ const elements = new Map([
   ["iframe.allow.picture-in-picture", "0:"],
   ["iframe.allow.publickey-credentials-create", "0:"],
   ["iframe.allow.publickey-credentials-get", "0:"],
-  ["iframe.allow.screen-wake-lock", "5:2024"],
+  ["iframe.allow.screen-wake-lock", "10:2024"],
   ["iframe.allow.serial", "0:"],
   ["iframe.allow.storage-access", "0:"],
   ["iframe.allow.usb", "0:"],
