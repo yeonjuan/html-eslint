@@ -112,4 +112,41 @@ describe("inline disable", () => {
     const languageResult = languageLinter.lint(code, rule);
     expect(languageResult).toHaveLength(0);
   });
+
+  describe("template comments", () => {
+    const { TEMPLATE_ENGINE_SYNTAX } = require("@html-eslint/parser");
+
+    const templateLegacyLinter = getLinter({
+      ...LEGACY_OPTIONS,
+      languageOptions: {
+        ...LEGACY_OPTIONS.languageOptions,
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+    });
+    const templateLanguageLinter = getLinter({
+      plugins: LANGUAGE_OPTIONS.plugins,
+      language: "@html-eslint/html",
+      languageOptions: {
+        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+      },
+    });
+
+    it("parses template comments that hold other delimiters", () => {
+      const code = `
+{# <img src="{{ old }}"> #}
+<img src="/some/path">
+  `;
+      const rule = {
+        "@html-eslint/require-img-alt": "error",
+      };
+      const legacyResult = templateLegacyLinter.lint(code, rule);
+      expect(legacyResult).toHaveLength(1);
+      expect(legacyResult[0].line).toBe(3);
+      const languageResult = templateLanguageLinter.lint(code, rule);
+      expect(languageResult).toHaveLength(1);
+      expect(languageResult[0].line).toBe(3);
+    });
+  });
 });
