@@ -1,5 +1,6 @@
 const createRuleTester = require("../rule-tester");
 const rule = require("../../lib/rules/require-attrs");
+const { TEMPLATE_ENGINE_SYNTAX } = require("@html-eslint/parser");
 
 const ruleTester = createRuleTester();
 const templateRuleTester = createRuleTester("espree");
@@ -345,6 +346,75 @@ ruleTester.run("require-attrs", rule, {
           column: 6,
           endColumn: 21,
           message: "SVG viewBox must be '0 0 100 100'",
+        },
+      ],
+    },
+    {
+      code: `<img {{ attrs({decoding: 'sync'}) }}>`,
+      options: [
+        {
+          tag: "img",
+          attr: "decoding",
+          value: "async",
+        },
+      ],
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'decoding' attribute on 'img' tag",
+        },
+      ],
+    },
+    {
+      code: `<img {% if lazy %}loading="lazy"{% endif %}>`,
+      options: [
+        {
+          tag: "img",
+          attr: "loading",
+          value: "eager",
+        },
+      ],
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+      output: null,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'loading' attribute on 'img' tag",
+        },
+      ],
+    },
+    {
+      code: `<img src="{{ src }}">`,
+      options: [
+        {
+          tag: "img",
+          attr: "decoding",
+          value: "async",
+        },
+      ],
+      languageOptions: {
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+      output: `<img decoding="async" src="{{ src }}">`,
+      errors: [
+        {
+          line: 1,
+          column: 1,
+          message: "Missing 'decoding' attribute on 'img' tag",
         },
       ],
     },
