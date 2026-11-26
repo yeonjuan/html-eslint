@@ -19,6 +19,19 @@ const {
 
 /**
  * @param {string} code
+ * @param {number} index
+ * @returns {{ line: number; column: number }}
+ */
+function getPosition(code, index) {
+  const lines = code.slice(0, index).split("\n");
+  return {
+    line: lines.length,
+    column: lines[lines.length - 1].length,
+  };
+}
+
+/**
+ * @param {string} code
  * @param {ParserOptions | undefined} parserOptions
  * @returns {Linter.ESLintParseResult}
  */
@@ -130,6 +143,26 @@ module.exports.parseForESLint = function parseForESLint(code, parserOptions) {
       node.stylesheet = cssNode;
     }
   });
+
+  for (const { open, close } of templateInfos) {
+    if (
+      syntaxItems.some(
+        (item) =>
+          item.isComment &&
+          item.open === html.slice(...open) &&
+          item.close === html.slice(...close)
+      )
+    ) {
+      const start = open[1] + frontmatterOffset;
+      const end = close[0] + frontmatterOffset;
+      programNode.comments.push({
+        type: NODE_TYPES.CommentContent,
+        range: [start, end],
+        loc: { start: getPosition(code, start), end: getPosition(code, end) },
+        value: html.slice(open[1], close[0]),
+      });
+    }
+  }
 
   return {
     // @ts-ignore

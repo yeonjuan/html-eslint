@@ -112,4 +112,88 @@ describe("inline disable", () => {
     const languageResult = languageLinter.lint(code, rule);
     expect(languageResult).toHaveLength(0);
   });
+
+  describe("template comments", () => {
+    const { TEMPLATE_ENGINE_SYNTAX } = require("@html-eslint/parser");
+
+    const templateLegacyLinter = getLinter({
+      ...LEGACY_OPTIONS,
+      languageOptions: {
+        ...LEGACY_OPTIONS.languageOptions,
+        parserOptions: {
+          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+        },
+      },
+    });
+    const templateLanguageLinter = getLinter({
+      plugins: LANGUAGE_OPTIONS.plugins,
+      language: "@html-eslint/html",
+      languageOptions: {
+        templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
+      },
+    });
+
+    it("eslint-disable-next-line rule", () => {
+      const code = `
+{# eslint-disable-next-line @html-eslint/require-img-alt -- Decorative #}
+<img src="/some/path">
+<img src="/some/path">
+  `;
+      const rule = {
+        "@html-eslint/require-img-alt": "error",
+      };
+      const legacyResult = templateLegacyLinter.lint(code, rule);
+      expect(legacyResult).toHaveLength(1);
+      expect(legacyResult[0].line).toBe(4);
+      const languageResult = templateLanguageLinter.lint(code, rule);
+      expect(languageResult).toHaveLength(1);
+      expect(languageResult[0].line).toBe(4);
+    });
+
+    it("eslint-disable and enable rule", () => {
+      const code = `
+{# eslint-disable @html-eslint/no-inline-styles #}
+<div style="foo"></div>
+{# eslint-enable @html-eslint/no-inline-styles #}
+<div style="foo"></div>
+  `;
+      const rule = {
+        "@html-eslint/no-inline-styles": "error",
+      };
+      const legacyResult = templateLegacyLinter.lint(code, rule);
+      expect(legacyResult).toHaveLength(1);
+      expect(legacyResult[0].line).toBe(5);
+      const languageResult = templateLanguageLinter.lint(code, rule);
+      expect(languageResult).toHaveLength(1);
+      expect(languageResult[0].line).toBe(5);
+    });
+
+    it("parses template comments that hold other delimiters", () => {
+      const code = `
+{# <img src="{{ old }}"> #}
+<img src="/some/path">
+  `;
+      const rule = {
+        "@html-eslint/require-img-alt": "error",
+      };
+      const legacyResult = templateLegacyLinter.lint(code, rule);
+      expect(legacyResult).toHaveLength(1);
+      expect(legacyResult[0].line).toBe(3);
+      const languageResult = templateLanguageLinter.lint(code, rule);
+      expect(languageResult).toHaveLength(1);
+      expect(languageResult[0].line).toBe(3);
+    });
+
+    it("ignores template comments that are not directives", () => {
+      const code = `
+{# A note #}
+<img src="/some/path">
+  `;
+      const rule = {
+        "@html-eslint/require-img-alt": "error",
+      };
+      expect(templateLegacyLinter.lint(code, rule)).toHaveLength(1);
+      expect(templateLanguageLinter.lint(code, rule)).toHaveLength(1);
+    });
+  });
 });

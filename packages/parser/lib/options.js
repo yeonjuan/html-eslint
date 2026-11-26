@@ -21,10 +21,18 @@ function normalizeSyntax(syntax) {
   if (Array.isArray(syntax)) {
     // Return a shallow copy to avoid mutating frozen exports from @html-eslint/parser
     return syntax.map(
-      /** @param {{ open: string; close: string; branch?: unknown }} item */
+      /**
+       * @param {{
+       *   open: string;
+       *   close: string;
+       *   isComment?: boolean;
+       *   branch?: unknown;
+       * }} item
+       */
       (item) => ({
         open: item.open,
         close: item.close,
+        ...(item.isComment ? { isComment: true } : {}),
         ...(item.branch ? { branch: { ...item.branch } } : {}),
       })
     );
