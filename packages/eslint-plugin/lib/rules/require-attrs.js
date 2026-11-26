@@ -11,6 +11,7 @@
 const { RULE_CATEGORY } = require("../constants");
 const { createVisitors } = require("./utils/visitors");
 const { getRuleUrl } = require("./utils/rule");
+const { hasTemplate } = require("./utils/node");
 const {
   requireAttrs,
   REQUIRE_ATTRS_MESSAGE_IDS,
@@ -73,6 +74,7 @@ module.exports = {
     function check(node) {
       const adapter = createElementAdapter(node);
       const result = checkElement(adapter);
+      const isFixable = !node.attributes.some((attr) => hasTemplate(attr.key));
       for (const item of result) {
         context.report({
           loc: item.loc,
@@ -80,12 +82,13 @@ module.exports = {
             ? { messageId: item.messageId }
             : { message: item.message }),
           data: item.data,
-          fix: item.fix
-            ? (
-                (fix) => (fixer) =>
-                  fixer.replaceTextRange(fix.range, fix.text)
-              )(item.fix)
-            : null,
+          fix:
+            item.fix && isFixable
+              ? (
+                  (fix) => (fixer) =>
+                    fixer.replaceTextRange(fix.range, fix.text)
+                )(item.fix)
+              : null,
         });
       }
     }
