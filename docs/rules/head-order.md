@@ -25,12 +25,13 @@ module.exports = {
 
 ## Options
 
-This rule has an optional object option with the following property:
+This rule has an optional object option with the following properties:
 
 - `ignores`: An array of ignore pattern objects. Each object can have the following optional properties:
   - `tagPattern`: Regex pattern for tag names (e.g., `"^script$"`, `"^link$"`)
   - `attrKeyPattern`: Regex pattern for attribute keys (e.g., `"^rel$"`, `"^data-"`)
   - `attrValuePattern`: Regex pattern for attribute values (e.g., `"analytics"`, `"^https://cdn"`)
+- `enforceMetaOrder` (default `false`): Also enforce the order of the elements in the **META** category: `<meta http-equiv="Content-Security-Policy">`, then `<meta charset>`, then `<meta name="viewport">`, then `<base>`, then the other critical `http-equiv` meta tags.
 
 All specified patterns within an ignore object must match (AND condition) for an element to be ignored.
 
@@ -203,6 +204,44 @@ With configuration:
     { tagPattern: "^script$", attrValuePattern: "analytics" },
     { tagPattern: "^link$", attrValuePattern: "cdn" },
   ];
+}
+```
+
+### With `enforceMetaOrder` option
+
+By default, the elements of the **META** category can be in any order. With `enforceMetaOrder: true`, the rule also enforces this order inside the category:
+
+1. `<meta http-equiv="Content-Security-Policy">` - a late CSP meta tag disables the preload scanner
+2. `<meta charset>` (or `<meta http-equiv="content-type">`) - the character encoding must be declared in the first 1024 bytes
+3. `<meta name="viewport">` - prevents layout shifts on mobile
+4. `<base>` - affects every relative URL after it
+5. Other critical `http-equiv` meta tags
+
+```html
+<!-- ✗ BAD: charset should come before viewport -->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <title>Page Title</title>
+</head>
+```
+
+```html
+<!-- ✓ GOOD -->
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base href="/" />
+  <title>Page Title</title>
+</head>
+```
+
+With configuration:
+
+```js,.eslintrc.js
+{
+  enforceMetaOrder: true;
 }
 ```
 

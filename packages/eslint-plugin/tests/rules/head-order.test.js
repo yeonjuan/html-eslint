@@ -183,6 +183,77 @@ ruleTester.run("head-order", rule, {
 </html>
       `,
     },
+    // enforceMetaOrder: CSP -> charset -> viewport -> base
+    {
+      code: `
+<html>
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <base href="/">
+  <meta http-equiv="accept-ch" content="DPR">
+  <title>Test</title>
+</head>
+</html>
+      `,
+      options: [{ enforceMetaOrder: true }],
+    },
+    // enforceMetaOrder: http-equiv content-type counts as charset
+    {
+      code: `
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Test</title>
+</head>
+</html>
+      `,
+      options: [{ enforceMetaOrder: true }],
+    },
+    // enforceMetaOrder: the viewport name is case-insensitive
+    {
+      code: `
+<html>
+<head>
+  <meta name="Viewport" content="width=device-width">
+  <base href="/">
+  <title>Test</title>
+</head>
+</html>
+      `,
+      options: [{ enforceMetaOrder: true }],
+    },
+    // Without enforceMetaOrder, META elements can be in any order
+    {
+      code: `
+<html>
+<head>
+  <base target="_blank">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="UTF-8">
+  <meta content="default-src 'self'" http-equiv="Content-Security-Policy">
+</head>
+</html>
+      `,
+      options: [{ enforceMetaOrder: false }],
+    },
+    // enforceMetaOrder with ignores: ignored META elements are not checked
+    {
+      code: `
+<html>
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <title>Test</title>
+</head>
+</html>
+      `,
+      options: [
+        { enforceMetaOrder: true, ignores: [{ tagPattern: "^base$" }] },
+      ],
+    },
   ],
   invalid: [
     // TITLE (9) should come before PRECONNECT (8)
@@ -604,6 +675,264 @@ ruleTester.run("head-order", rule, {
         },
       ],
     },
+    // enforceMetaOrder: every META element in the wrong position
+    {
+      code: `
+<html>
+<head>
+  <base target="_blank">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="UTF-8">
+  <meta content="default-src 'self'" http-equiv="Content-Security-Policy">
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta content="default-src 'self'" http-equiv="Content-Security-Policy">
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <base target="_blank">
+</head>
+</html>
+      `,
+      options: [{ enforceMetaOrder: true }],
+      errors: [
+        {
+          messageId: "wrongMetaOrder",
+          data: {
+            next: '<meta name="viewport">',
+            current: "<base>",
+          },
+          line: 5,
+          column: 3,
+        },
+        {
+          messageId: "wrongMetaOrder",
+          data: {
+            next: "<meta charset>",
+            current: '<meta name="viewport">',
+          },
+          line: 6,
+          column: 3,
+        },
+        {
+          messageId: "wrongMetaOrder",
+          data: {
+            next: '<meta http-equiv="Content-Security-Policy">',
+            current: "<meta charset>",
+          },
+          line: 7,
+          column: 3,
+        },
+      ],
+    },
+    // enforceMetaOrder: viewport before charset
+    {
+      code: `
+<html>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta charset="UTF-8">
+  <title>Test</title>
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Test</title>
+</head>
+</html>
+      `,
+      options: [{ enforceMetaOrder: true }],
+      errors: [
+        {
+          messageId: "wrongMetaOrder",
+          data: {
+            next: "<meta charset>",
+            current: '<meta name="viewport">',
+          },
+          line: 5,
+          column: 3,
+        },
+      ],
+    },
+    // enforceMetaOrder: http-equiv content-type counts as charset
+    {
+      code: `
+<html>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+</head>
+</html>
+      `,
+      options: [{ enforceMetaOrder: true }],
+      errors: [
+        {
+          messageId: "wrongMetaOrder",
+          data: {
+            next: '<meta http-equiv="content-type">',
+            current: '<meta name="viewport">',
+          },
+          line: 5,
+          column: 3,
+        },
+      ],
+    },
+    // enforceMetaOrder: other META elements come after base
+    {
+      code: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="accept-ch" content="DPR">
+  <base href="/">
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <base href="/">
+  <meta http-equiv="accept-ch" content="DPR">
+</head>
+</html>
+      `,
+      options: [{ enforceMetaOrder: true }],
+      errors: [
+        {
+          messageId: "wrongMetaOrder",
+          data: {
+            next: "<base>",
+            current: '<meta http-equiv="accept-ch">',
+          },
+          line: 6,
+          column: 3,
+        },
+      ],
+    },
+    // enforceMetaOrder: META elements split by another category
+    {
+      code: `
+<html>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <title>Test</title>
+  <meta charset="UTF-8">
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Test</title>
+</head>
+</html>
+      `,
+      options: [{ enforceMetaOrder: true }],
+      errors: [
+        {
+          messageId: "wrongOrder",
+          data: {
+            nextCategory: "META",
+            currentCategory: "TITLE",
+          },
+          line: 6,
+          column: 3,
+        },
+        {
+          messageId: "wrongMetaOrder",
+          data: {
+            next: "<meta charset>",
+            current: '<meta name="viewport">',
+          },
+          line: 6,
+          column: 3,
+        },
+      ],
+    },
+    // enforceMetaOrder: attribute names and values are case-insensitive
+    {
+      code: `
+<html>
+<head>
+  <meta NAME="Viewport" content="width=device-width">
+  <meta HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8">
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8">
+  <meta NAME="Viewport" content="width=device-width">
+</head>
+</html>
+      `,
+      options: [{ enforceMetaOrder: true }],
+      errors: [
+        {
+          messageId: "wrongMetaOrder",
+          data: {
+            next: '<meta http-equiv="Content-Type">',
+            current: '<meta name="Viewport">',
+          },
+          line: 5,
+          column: 3,
+        },
+      ],
+    },
+    // enforceMetaOrder with ignores: the ignored element keeps its place
+    {
+      code: `
+<html>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <base href="/">
+  <meta charset="UTF-8">
+</head>
+</html>
+      `,
+      output: `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <base href="/">
+  <meta name="viewport" content="width=device-width">
+</head>
+</html>
+      `,
+      options: [
+        { enforceMetaOrder: true, ignores: [{ tagPattern: "^base$" }] },
+      ],
+      errors: [
+        {
+          messageId: "wrongMetaOrder",
+          data: {
+            next: "<meta charset>",
+            current: '<meta name="viewport">',
+          },
+          line: 6,
+          column: 3,
+        },
+      ],
+    },
   ],
 });
 
@@ -950,6 +1279,43 @@ const template = html\`
             nextCategory: "TITLE",
             currentCategory: "PRECONNECT",
           },
+        },
+      ],
+    },
+    // enforceMetaOrder: viewport before charset
+    {
+      code: `
+const template = html\`
+<html>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta charset="UTF-8">
+  <title>Test</title>
+</head>
+</html>
+\`;
+      `,
+      output: `
+const template = html\`
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Test</title>
+</head>
+</html>
+\`;
+      `,
+      options: [{ enforceMetaOrder: true }],
+      errors: [
+        {
+          messageId: "wrongMetaOrder",
+          data: {
+            next: "<meta charset>",
+            current: '<meta name="viewport">',
+          },
+          line: 6,
+          column: 3,
         },
       ],
     },
