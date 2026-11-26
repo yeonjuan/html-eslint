@@ -18,6 +18,16 @@ ruleTester.run("require-img-alt", rule, {
     },
     {
       code: `
+<img src="./image.png" ALT="image description"/>
+`,
+    },
+    {
+      code: `
+<IMG SRC="./image.png" Alt=""/>
+`,
+    },
+    {
+      code: `
 <img src="./image.png" [alt]="image description"/>
 `,
       options: [{ substitute: ["[alt]"] }],
