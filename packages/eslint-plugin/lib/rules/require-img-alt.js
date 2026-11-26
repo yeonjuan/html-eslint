@@ -94,7 +94,7 @@ function hasValidAltOrSubstitute(node, substitute) {
 
   for (const attr of node.attributes) {
     if (attr.key?.value) {
-      const isAltAttr = attr.key.value === "alt";
+      const isAltAttr = attr.key.value.toLowerCase() === "alt";
       const isSubstituteAttr = substitute.includes(attr.key.value);
 
       if (isAltAttr || isSubstituteAttr) {
